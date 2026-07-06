@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, TRelationType } from "xray16/alias";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
@@ -15,7 +16,7 @@ import {
   MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, mockCharactersGoodwill, MockGameObject } from "@/fixtures/xray";
+import { mockCharactersGoodwill, MockGameObject } from "@/fixtures/xray";
 
 describe("relation conditions declaration", () => {
   beforeAll(() => {

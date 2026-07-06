@@ -1,13 +1,17 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup, MockAlifeSimulator, MockIniFile } from "xray16/mocks";
 
 import { registry } from "@/engine/core/database/registry";
 import {
-  initializeSimulationObjectProperties, registerSimulationObject, registerSimulator, unregisterSimulationObject, updateSimulationObjectAvailability, } from "@/engine/core/database/simulation";
+  initializeSimulationObjectProperties,
+  registerSimulationObject,
+  registerSimulator,
+  unregisterSimulationObject,
+  updateSimulationObjectAvailability,
+} from "@/engine/core/database/simulation";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup, MockAlifeSimulator } from "@/fixtures/xray";
 
 describe("simulation module of the database", () => {
   beforeEach(() => {

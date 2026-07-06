@@ -1,14 +1,25 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import {
-  getIdBySid, getObjectByStoryId, getObjectIdByStoryId, getServerObjectByStoryId, getStoryIdByObjectId, isStoryObject, isStoryObjectExisting, registerObjectStoryLinks, registerStoryLink, unregisterStoryLinkByObjectId, unregisterStoryLinkByStoryId, } from "@/engine/core/database/story_objects";
+  getIdBySid,
+  getObjectByStoryId,
+  getObjectIdByStoryId,
+  getServerObjectByStoryId,
+  getStoryIdByObjectId,
+  isStoryObject,
+  isStoryObjectExisting,
+  registerObjectStoryLinks,
+  registerStoryLink,
+  unregisterStoryLinkByObjectId,
+  unregisterStoryLinkByStoryId,
+} from "@/engine/core/database/story_objects";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { FILES_MOCKS, MockGameObject } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {

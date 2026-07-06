@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { ServerActorObject, ServerHumanObject, ServerObject } from "xray16/alias";
+import { MockAlifeObject } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -29,7 +30,7 @@ import {
 } from "@/engine/core/utils/class_ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSquad } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isArtefact util", () => {
   beforeEach(() => registerSimulator());

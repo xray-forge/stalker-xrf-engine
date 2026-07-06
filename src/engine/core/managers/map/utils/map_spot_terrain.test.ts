@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createTime, FALSE, TName, TRate } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -22,7 +23,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("updateTerrainsMapSpotDisplay util", () => {
   beforeEach(() => {

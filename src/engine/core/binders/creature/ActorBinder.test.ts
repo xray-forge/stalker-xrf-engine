@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, CGameTask, level, time_global } from "xray16";
 import { GameObject, ServerActorObject } from "xray16/alias";
-import { MockObjectBinder } from "xray16/mocks";
+import { MockAlifeCreatureActor, MockObjectBinder } from "xray16/mocks";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -22,13 +22,7 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import {
-  EPacketDataType,
-  MockAlifeCreatureActor,
-  MockCGameTask,
-  MockGameObject,
-  MockNetProcessor,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockCGameTask, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ActorBinder", () => {
   beforeEach(() => {

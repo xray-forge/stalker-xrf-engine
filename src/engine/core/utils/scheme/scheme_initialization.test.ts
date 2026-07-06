@@ -2,11 +2,18 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
 
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
-  CUSTOM_DATA, IBaseSchemeState, IRegistryObjectState, registerActor, registerObject, registerSimulator, registry, } from "@/engine/core/database";
+  CUSTOM_DATA,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registry,
+} from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
@@ -24,12 +31,15 @@ import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import {
-  configureObjectSchemes, initializeObjectSchemeLogic, initializeObjectSectionItems, } from "@/engine/core/utils/scheme/scheme_initialization";
+  configureObjectSchemes,
+  initializeObjectSchemeLogic,
+  initializeObjectSectionItems,
+} from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { FILES_MOCKS, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 

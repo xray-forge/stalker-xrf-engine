@@ -4,7 +4,13 @@ import { MockIniFile } from "xray16/mocks";
 
 import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import {
-  getObjectDynamicState, registerObject, registerObjectDynamicState, resetObject, unregisterObject, unregisterObjectDynamicState, } from "@/engine/core/database/objects";
+  getObjectDynamicState,
+  registerObject,
+  registerObjectDynamicState,
+  resetObject,
+  unregisterObject,
+  unregisterObjectDynamicState,
+} from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { MockGameObject } from "@/fixtures/xray";
 

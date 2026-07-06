@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ActionPlanner, DangerObject, GameObject, ServerHumanObject } from "xray16/alias";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockPropertyStorage } from "xray16/mocks";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { registerSimulator } from "@/engine/core/database";
@@ -13,7 +13,7 @@ import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockDangerObject, MockGameObject } from "@/fixtures/xray";
+import { MockDangerObject, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/stalker/danger/utils");
 jest.mock("@/engine/core/utils/smart_terrain");

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { TCount, TSection } from "xray16/lib";
+import { MockAlifeObject, MockAlifeSimulator } from "xray16/mocks";
 
 import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -22,7 +23,7 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 function getItemsCount(object: GameObject, section: TSection): TCount {
   return [...((object as unknown as MockGameObject).objectInventory as Map<number, GameObject>).entries()].filter(

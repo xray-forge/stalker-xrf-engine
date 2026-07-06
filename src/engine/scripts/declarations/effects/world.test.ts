@@ -7,13 +7,25 @@ import { MockIniFile } from "xray16/mocks";
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
-  getManager, IRegistryObjectState, registerAnomalyZone, registerObject, registerSignalLight, registerStoryLink, } from "@/engine/core/database";
+  getManager,
+  IRegistryObjectState,
+  registerAnomalyZone,
+  registerObject,
+  registerSignalLight,
+  registerStoryLink,
+} from "@/engine/core/database";
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { EScheme } from "@/engine/lib/types";
 import {
-  callXrEffect, checkXrEffect, mockRegisteredActor, mockSchemeState, MockSmartTerrain, resetRegistry, } from "@/fixtures/engine";
+  callXrEffect,
+  checkXrEffect,
+  mockRegisteredActor,
+  mockSchemeState,
+  MockSmartTerrain,
+  resetRegistry,
+} from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {

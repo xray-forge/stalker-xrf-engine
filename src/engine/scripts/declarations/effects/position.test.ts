@@ -2,7 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { patrol } from "xray16";
 import { GameObject, Patrol, ServerObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
-import { MockParticleObject } from "xray16/mocks";
+import { MockAlifeObject, MockParticleObject } from "xray16/mocks";
 
 import {
   registerObject,
@@ -14,7 +14,7 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject, MockPatrol } from "@/fixtures/xray";
+import { MockGameObject, MockPatrol } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/database/stalker");
 jest.mock("@/engine/core/objects/squad/utils");

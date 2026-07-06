@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
-import { MockObjectBinder } from "xray16/mocks";
+import { MockAlifeObject, MockObjectBinder } from "xray16/mocks";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import { registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("AnomalyFieldBinder", () => {
   beforeEach(() => {

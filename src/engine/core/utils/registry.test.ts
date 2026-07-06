@@ -3,6 +3,7 @@ import { clsid } from "xray16";
 import { GameObject, ServerObject, TClassId } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromLuaArray } from "xray16/macros";
+import { MockAlifeCreatureActor, MockAlifeObject, MockAlifeSimulator } from "xray16/mocks";
 
 import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
@@ -11,7 +12,7 @@ import {
   getNearestServerObject,
   getServerObjects,
 } from "@/engine/core/utils/registry";
-import { MockAlifeCreatureActor, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("getNearestServerObject util", () => {
   beforeEach(() => {

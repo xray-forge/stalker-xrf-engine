@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
+import { MockAlifeHumanStalker, MockAlifeObject } from "xray16/mocks";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
@@ -15,7 +16,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import { callXrCondition, checkXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("quests conditions declaration", () => {
   beforeAll(() => {

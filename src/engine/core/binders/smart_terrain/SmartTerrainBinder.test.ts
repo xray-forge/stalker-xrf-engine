@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ServerObject } from "xray16/alias";
-import { MockObjectBinder } from "xray16/mocks";
+import { MockAlifeObject, MockObjectBinder } from "xray16/mocks";
 
 import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain/index";
 import { getManager, registerSimulator, registry } from "@/engine/core/database";
@@ -8,7 +8,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartTerrainBinder", () => {
   beforeEach(() => {

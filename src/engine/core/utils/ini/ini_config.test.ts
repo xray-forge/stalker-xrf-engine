@@ -1,15 +1,27 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { LuaArray, NIL, TIndex } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeObject, MockIniFile } from "xray16/mocks";
 
 import {
-  IBaseSchemeLogic, IRegistryObjectState, registerActor, registerObject, registerSimulator, registerStoryLink, } from "@/engine/core/database";
+  IBaseSchemeLogic,
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+} from "@/engine/core/database";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
-  addConditionToList, getConfigObjectAndZone, getConfigSwitchConditions, getObjectConfigOverrides, getSectionsFromConditionLists, parseConditionsList, } from "@/engine/core/utils/ini";
+  addConditionToList,
+  getConfigObjectAndZone,
+  getConfigSwitchConditions,
+  getObjectConfigOverrides,
+  getSectionsFromConditionLists,
+  parseConditionsList,
+} from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("getInfosFromData util", () => {
   beforeEach(() => registerSimulator());

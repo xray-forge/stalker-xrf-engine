@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { IniFile, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import {
@@ -12,7 +13,6 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_execution logic", () => {
   beforeEach(() => {

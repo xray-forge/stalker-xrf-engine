@@ -3,7 +3,11 @@ import { EGameObjectRelation, GameObject, TRelationType } from "xray16/alias";
 import { MockIniFile } from "xray16/mocks";
 
 import {
-  ESmartTerrainStatus, SmartTerrain, SmartTerrainControl, syncObjectHitSmartTerrainAlert, } from "@/engine/core/objects/smart_terrain";
+  ESmartTerrainStatus,
+  SmartTerrain,
+  SmartTerrainControl,
+  syncObjectHitSmartTerrainAlert,
+} from "@/engine/core/objects/smart_terrain";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 import { FALSE, Nillable, TRUE } from "xray16/lib";
-import { MockCTime, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockCTime, MockIniFile } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import {
@@ -17,7 +17,6 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker } from "@/fixtures/xray";
 
 describe("smart_terrain_spawn module", () => {
   beforeEach(() => {

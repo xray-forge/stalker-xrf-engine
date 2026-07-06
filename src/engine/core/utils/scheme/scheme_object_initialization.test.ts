@@ -4,7 +4,13 @@ import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import {
-  initializeObjectCanSelectWeaponState, initializeObjectGroup, initializeObjectIgnoreThreshold, initializeObjectInfo, initializeObjectInvulnerability, initializeObjectTakeItemsEnabledState, } from "@/engine/core/utils/scheme/scheme_object_initialization";
+  initializeObjectCanSelectWeaponState,
+  initializeObjectGroup,
+  initializeObjectIgnoreThreshold,
+  initializeObjectInfo,
+  initializeObjectInvulnerability,
+  initializeObjectTakeItemsEnabledState,
+} from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { EScheme } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 

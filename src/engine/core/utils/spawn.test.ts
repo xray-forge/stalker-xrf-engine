@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AlifeSimulator, GameObject, ServerActorObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
 import { createEmptyVector, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockAlifeCreatureActor, MockAlifeObject } from "xray16/mocks";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils";
@@ -20,7 +21,7 @@ import {
 } from "@/engine/core/utils/spawn";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("spawnItemsForObject util", () => {
   beforeEach(() => {

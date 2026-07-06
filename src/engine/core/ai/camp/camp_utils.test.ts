@@ -4,7 +4,13 @@ import { $fromArray } from "xray16/macros";
 import { MockIniFile } from "xray16/mocks";
 
 import {
-  canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory, getObjectCampActivityRole, startPlayingGuitar, startPlayingHarmonica, } from "@/engine/core/ai/camp/camp_utils";
+  canPlayCampGuitar,
+  canPlayCampHarmonica,
+  canTellCampStory,
+  getObjectCampActivityRole,
+  startPlayingGuitar,
+  startPlayingHarmonica,
+} from "@/engine/core/ai/camp/camp_utils";
 import { CampManager, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";

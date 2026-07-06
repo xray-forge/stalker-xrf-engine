@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "xray16/alias";
 import { AnyObject, TRUE } from "xray16/lib";
-import { MockPhraseDialog } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeOnlineOfflineGroup, MockAlifeSmartZone, MockPhraseDialog } from "xray16/mocks";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -9,12 +9,7 @@ import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  MockAlifeHumanStalker,
-  MockAlifeOnlineOfflineGroup,
-  MockAlifeSmartZone,
-  MockGameObject,
-} from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("TravelManager", () => {
   beforeEach(() => {

@@ -2,12 +2,13 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockAlifeObject } from "xray16/mocks";
 
 import { selectBestStalkerWeapon } from "@/engine/core/ai/combat/combat_weapon_select";
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("selectBestStalkerWeapon util", () => {
   beforeEach(() => {

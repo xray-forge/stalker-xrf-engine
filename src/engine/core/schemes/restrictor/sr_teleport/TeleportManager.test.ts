@@ -5,7 +5,11 @@ import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import {
-  ETeleportState, ISchemeTeleportState, SchemeTeleport, TeleportManager, } from "@/engine/core/schemes/restrictor/sr_teleport";
+  ETeleportState,
+  ISchemeTeleportState,
+  SchemeTeleport,
+  TeleportManager,
+} from "@/engine/core/schemes/restrictor/sr_teleport";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";

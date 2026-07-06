@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { AnyObject, createTime, TNumberId, TSection } from "xray16/lib";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -32,7 +33,7 @@ import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_typ
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { MockSmartCover, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("job_precondition utilities", () => {
   beforeEach(() => {

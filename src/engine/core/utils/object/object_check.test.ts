@@ -2,14 +2,26 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockIniFile } from "xray16/mocks";
 
 import {
-  IRegistryObjectState, registerActor, registerObject, registerSimulator, registerStoryLink, registry, } from "@/engine/core/database";
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registry,
+} from "@/engine/core/database";
 import {
-  canActorSleep, isActorSeenByObject, isObjectInjured, isObjectSeenByActor, isObjectWithKnownInfo, isStalkerAlive, } from "@/engine/core/utils/object/object_check";
+  canActorSleep,
+  isActorSeenByObject,
+  isObjectInjured,
+  isObjectSeenByActor,
+  isObjectWithKnownInfo,
+  isStalkerAlive,
+} from "@/engine/core/utils/object/object_check";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isStalkerAlive util", () => {
   beforeEach(() => {

@@ -1,18 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
-import { MockObjectBinder } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeObject, MockObjectBinder } from "xray16/mocks";
 
 import { ArenaZoneBinder } from "@/engine/core/binders/zones/ArenaZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockAlifeHumanStalker,
-  MockAlifeObject,
-  MockGameObject,
-  MockNetProcessor,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("CampZoneBinder", () => {
   beforeEach(() => {

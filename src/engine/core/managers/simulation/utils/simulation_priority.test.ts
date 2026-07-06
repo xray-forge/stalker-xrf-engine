@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { TName, TRate } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockVector } from "xray16/mocks";
+import { MockAlifeObject, MockVector } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import {
@@ -10,7 +10,6 @@ import {
 } from "@/engine/core/managers/simulation/utils/simulation_priority";
 import { Squad } from "@/engine/core/objects/squad";
 import { MockSquad } from "@/fixtures/engine";
-import { MockAlifeObject } from "@/fixtures/xray";
 
 describe("evaluateSimulationPriorityByDistance util", () => {
   beforeEach(() => {

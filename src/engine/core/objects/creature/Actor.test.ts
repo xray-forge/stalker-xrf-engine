@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ServerObject } from "xray16/alias";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { Actor } from "@/engine/core/objects/creature/Actor";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeHumanStalker, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Actor server object", () => {
   beforeEach(() => {

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
 import { GameObject, ServerCreatureObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { registerObject, updateSimulationObjectAvailability } from "@/engine/core/database";
 import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
@@ -13,7 +14,7 @@ import {
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectArrivedToSmartTerrain utility", () => {
   beforeEach(() => {

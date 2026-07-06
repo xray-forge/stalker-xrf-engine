@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 import { LuaArray } from "xray16/lib";
+import { MockAlifeMonsterBase } from "xray16/mocks";
 
 import { IRankDescriptor, SYSTEM_INI } from "@/engine/core/database";
 import {
@@ -16,7 +17,7 @@ import {
 } from "@/engine/core/utils/ranks";
 import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("readRanksList util", () => {
   beforeEach(() => {

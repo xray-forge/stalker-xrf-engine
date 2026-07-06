@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import {
   disposeManager,
@@ -16,7 +17,7 @@ import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ReleaseBodyManager", () => {
   beforeEach(() => {

@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { MockObjectBinder } from "xray16/mocks";
+import { MockAlifeObject, MockObjectBinder } from "xray16/mocks";
 
 import { WeaponBinder } from "@/engine/core/binders/item/WeaponBinder";
 import { getManager, IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/item/ItemWeapon";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("WeaponBinder", () => {
   beforeEach(() => {

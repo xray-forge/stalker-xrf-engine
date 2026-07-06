@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, ServerCreatureObject, Vector } from "xray16/alias";
-import { MockVector } from "xray16/mocks";
+import { MockAlifeMonsterBase, MockVector } from "xray16/mocks";
 
 import { registerOfflineObject, registerSimulator, registry } from "@/engine/core/database";
 import { setupSpawnedObjectPosition } from "@/engine/core/utils/object/object_spawn";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("setupSpawnedObjectPosition util", () => {
   beforeEach(() => {

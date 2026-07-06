@@ -8,7 +8,9 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
 import {
-  EActorZoneState, ISchemeNoWeaponState, } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
+  EActorZoneState,
+  ISchemeNoWeaponState,
+} from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";

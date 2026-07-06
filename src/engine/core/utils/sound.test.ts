@@ -6,7 +6,15 @@ import { MockIniFile } from "xray16/mocks";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import {
-  getEffectsVolume, getMusicVolume, isPlayingSound, isSoundType, mapSoundMaskToSoundType, setEffectsVolume, setMusicVolume, stopPlayingObjectSound, } from "@/engine/core/utils/sound";
+  getEffectsVolume,
+  getMusicVolume,
+  isPlayingSound,
+  isSoundType,
+  mapSoundMaskToSoundType,
+  setEffectsVolume,
+  setMusicVolume,
+  stopPlayingObjectSound,
+} from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

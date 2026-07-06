@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
+import { MockAlifeObject } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("onItemGoOnlineFirstTime util", () => {
   beforeEach(() => {

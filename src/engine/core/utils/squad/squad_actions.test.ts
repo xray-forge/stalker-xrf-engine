@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
+import { MockAlifeHumanStalker } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
@@ -14,7 +15,7 @@ import {
 } from "@/engine/core/utils/squad/squad_actions";
 import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectSquadCommander util", () => {
   beforeEach(() => {

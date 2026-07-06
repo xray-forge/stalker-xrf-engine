@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, GameTask } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockAlifeSimulator , MockVector } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeSimulator, MockVector } from "xray16/mocks";
 
 import {
   disposeManager,
@@ -34,9 +34,8 @@ import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
-
 
 describe("NotificationManager", () => {
   beforeEach(() => {

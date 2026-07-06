@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MockAlifeCreatureActor } from "xray16/mocks";
 
 import { registerActorServer, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -18,7 +19,6 @@ import {
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
 import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, mockRelationsSquads, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeCreatureActor } from "@/fixtures/xray";
 
 describe("isActorEnemyWithFaction util", () => {
   beforeEach(() => {
