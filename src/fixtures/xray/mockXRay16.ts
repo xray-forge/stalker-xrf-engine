@@ -64,6 +64,7 @@ import {
   MockIniFile,
   MockLook,
   mockMainMenuInterface,
+  MockMove,
   MockNoise,
   MockObject,
   MockObjectBinder,
@@ -76,6 +77,8 @@ import {
   MockPropertiesHelper,
   MockPropertyEvaluator,
   MockPropertyStorage,
+  mockRelationRegistryInterface,
+  MockSightParameters,
   mockSndType,
   MockSound,
   MockSoundObject,
@@ -91,14 +94,8 @@ import {
   MockZoneVisual,
 } from "xray16/mocks";
 
-import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
-import {
-  mockGameInterface,
-  mockGetGameHud,
-  mockLevelInterface,
-  mockRelationRegistryInterface,
-} from "@/fixtures/xray/mocks/interface";
+import { mockGameInterface, mockGetGameHud, mockLevelInterface } from "@/fixtures/xray/mocks/interface";
 import {
   MockCGameTask,
   MockConnectErrorCb,

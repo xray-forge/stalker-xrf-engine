@@ -5,6 +5,7 @@ import {
   type IMockAlifeObjectConfig,
   MockAlifeHumanStalker,
   MockAlifeOnlineOfflineGroup,
+  mockCharactersGoodwill,
   mockClsid,
   MockServerAlifeCreatureAbstract,
   MockVector,
@@ -16,7 +17,6 @@ import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
-import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations";
 
 interface IMockSquadConfig extends IMockAlifeObjectConfig {
   behaviour?: LuaTable<string, string>;
