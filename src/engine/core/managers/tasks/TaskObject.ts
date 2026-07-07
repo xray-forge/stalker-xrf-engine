@@ -2,6 +2,7 @@ import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 import { GameTask, IniFile, NetPacket, NetProcessor, ServerObject, Time } from "xray16/alias";
 import {
   AnyCallablesModule,
+  getExtern,
   LuaArray,
   Nillable,
   readTimeFromPacket,
@@ -30,7 +31,6 @@ import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { ETaskState, ETaskStatus, POSSIBLE_STATES } from "@/engine/core/managers/tasks/types";
 import { addGuiderSpot, giveTaskReward, removeGuiderSpot } from "@/engine/core/managers/tasks/utils";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { getExtern } from "@/engine/core/utils/binding";
 import {
   parseConditionsList,
   parseNumberOptional,

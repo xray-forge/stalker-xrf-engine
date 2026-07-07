@@ -1,8 +1,8 @@
 import { GameObject } from "xray16/alias";
+import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
-import { extern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";

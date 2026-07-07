@@ -1,6 +1,6 @@
 import { game, get_hud, sound_object } from "xray16";
 import { ESoundObjectType, SoundObject } from "xray16/alias";
-import { AnyCallablesModule, AnyObject, Nillable } from "xray16/lib";
+import { AnyCallablesModule, AnyObject, getExtern, Nillable } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -9,7 +9,6 @@ import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
-import { getExtern } from "@/engine/core/utils/binding";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";

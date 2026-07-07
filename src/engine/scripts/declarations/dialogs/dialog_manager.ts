@@ -1,6 +1,6 @@
 import { game } from "xray16";
 import { GameObject, PhraseDialog } from "xray16/alias";
-import { Nillable, TName, TNumberId, TStringId } from "xray16/lib";
+import { extern, Nillable, TName, TNumberId, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -10,7 +10,6 @@ import { processPhraseAction, shouldHidePhraseCategory, shouldShowPhrase } from 
 import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
 import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";

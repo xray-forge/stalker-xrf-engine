@@ -1,10 +1,9 @@
-import { AnyArgs, AnyCallablesModule, TName } from "xray16/lib";
+import { AnyArgs, AnyCallablesModule, getExtern, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
-import { getExtern } from "@/engine/core/utils/binding";
 
 /**
  * List of animstates to use during animation.

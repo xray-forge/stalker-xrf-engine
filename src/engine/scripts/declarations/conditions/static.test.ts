@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { AnyCallablesModule } from "xray16/lib";
+import { AnyCallablesModule, getExtern } from "xray16/lib";
 
-import { getExtern } from "@/engine/core/utils/binding";
 import { checkXrCondition } from "@/fixtures/engine";
 
 describe("static conditions declaration", () => {

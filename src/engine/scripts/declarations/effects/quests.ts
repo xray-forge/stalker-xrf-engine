@@ -5,6 +5,8 @@ import {
   copyVector,
   createEmptyVector,
   createVector,
+  extern,
+  getExtern,
   LuaArray,
   Nillable,
   TCount,
@@ -33,7 +35,6 @@ import {
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { extern, getExtern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -4,6 +4,8 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
+  extern,
+  getExtern,
   LuaArray,
   Nillable,
   TCount,
@@ -18,7 +20,6 @@ import { getManager, isStoryObjectExisting, registry } from "@/engine/core/datab
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasAtLeastOneItem, actorHasItem, objectHasItem } from "@/engine/core/utils/item";

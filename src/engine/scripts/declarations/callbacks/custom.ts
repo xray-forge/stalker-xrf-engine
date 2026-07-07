@@ -1,4 +1,4 @@
-import { TStringId } from "xray16/lib";
+import { extern, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -7,7 +7,6 @@ import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { achievementsPreconditionsMap } from "@/engine/core/utils/achievements";
-import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

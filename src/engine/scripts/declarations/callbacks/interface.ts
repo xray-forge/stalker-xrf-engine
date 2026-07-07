@@ -2,6 +2,7 @@ import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
 import {
   AnyArgs,
   AnyObject,
+  extern,
   TCount,
   TIndex,
   TLabel,
@@ -25,7 +26,6 @@ import {
   issueUpgradeProperty,
 } from "@/engine/core/managers/upgrades/utils/upgrades_label_utils";
 import { canRepairItem } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
-import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   readWeaponAccuracy,

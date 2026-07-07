@@ -1,11 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { flags32 } from "xray16";
 import { Flags32, GameObject } from "xray16/alias";
-import { LuaArray, NIL } from "xray16/lib";
+import { extern, LuaArray, NIL } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
-import { extern } from "@/engine/core/utils/binding";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import {

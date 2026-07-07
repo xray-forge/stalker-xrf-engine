@@ -1,11 +1,10 @@
 import { EGameObjectRelation, GameObject } from "xray16/alias";
-import { Nillable } from "xray16/lib";
+import { extern, Nillable } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { extern } from "@/engine/core/utils/binding";
 import { breakObjectDialog, getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { actorHasMedKit, getActorAvailableMedKit, getAnyObjectPistol } from "@/engine/core/utils/item";
 import { LuaLogger } from "@/engine/core/utils/logging";

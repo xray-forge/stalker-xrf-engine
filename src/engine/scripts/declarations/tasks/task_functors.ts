@@ -1,10 +1,9 @@
 import { game } from "xray16";
 import { GameObject } from "xray16/alias";
-import { Nillable, TLabel, TNumberId, TSection, TStringId } from "xray16/lib";
+import { extern, Nillable, TLabel, TNumberId, TSection, TStringId } from "xray16/lib";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
-import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 
 /**

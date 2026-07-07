@@ -1,7 +1,7 @@
 import { EGameObjectRelation, GameObject } from "xray16/alias";
+import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker, updateObjectDialog } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";

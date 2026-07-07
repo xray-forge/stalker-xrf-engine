@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
-import { AnyArgs, AnyCallablesModule, AnyObject, TName } from "xray16/lib";
+import { AnyArgs, AnyCallablesModule, AnyObject, getExtern, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
@@ -16,7 +16,6 @@ import {
   TItemUpgradeBranch,
   UpgradesManager,
 } from "@/engine/core/managers/upgrades";
-import { getExtern } from "@/engine/core/utils/binding";
 import {
   readWeaponAccuracy,
   readWeaponDamage,

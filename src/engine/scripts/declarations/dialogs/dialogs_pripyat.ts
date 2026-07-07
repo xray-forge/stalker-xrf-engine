@@ -1,9 +1,8 @@
 import { GameObject } from "xray16/alias";
-import { AnyCallable, LuaArray, TCount } from "xray16/lib";
+import { AnyCallable, extern, getExtern, LuaArray, TCount } from "xray16/lib";
 import { $filename, $fromArray } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
-import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

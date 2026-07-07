@@ -3,6 +3,8 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
+  extern,
+  getExtern,
   LuaArray,
   Nillable,
   PartialRecord,
@@ -17,7 +19,6 @@ import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder
 import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

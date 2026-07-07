@@ -1,4 +1,4 @@
-import { extern, getExtern } from "@/engine/core/utils/binding";
+import { extern, getExtern } from "xray16/lib";
 
 /**
  * Register global scope variables used in x-ray engine, globally or withing game config scripts.

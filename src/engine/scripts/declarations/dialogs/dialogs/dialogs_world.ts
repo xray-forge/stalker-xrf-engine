@@ -1,8 +1,8 @@
 import { level } from "xray16";
+import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { levels } from "@/engine/lib/constants/levels";
 

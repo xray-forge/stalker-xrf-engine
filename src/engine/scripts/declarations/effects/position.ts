@@ -1,12 +1,11 @@
 import { level, particles_object, patrol } from "xray16";
 import { GameObject, ParticlesObject, Patrol, Vector } from "xray16/alias";
-import { Nillable, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
+import { extern, Nillable, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { extern } from "@/engine/core/utils/binding";
 import { isObjectInZone } from "@/engine/core/utils/position";
 
 /**

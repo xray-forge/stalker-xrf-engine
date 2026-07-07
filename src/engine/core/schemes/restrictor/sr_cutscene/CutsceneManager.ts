@@ -1,6 +1,6 @@
 import { level, patrol } from "xray16";
 import { GameObject } from "xray16/alias";
-import { AnyCallablesModule, Nillable, TName, TNumberId } from "xray16/lib";
+import { AnyCallablesModule, getExtern, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename, $fromArray } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -15,7 +15,6 @@ import {
   ICameraEffectorSetDescriptorItem,
   ISchemeCutsceneState,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
-import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";

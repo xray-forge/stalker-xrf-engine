@@ -1,9 +1,9 @@
+import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { extern } from "@/engine/core/utils/binding";
 import { updateClassIds } from "@/engine/core/utils/class_ids_list";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

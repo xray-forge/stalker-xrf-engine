@@ -1,4 +1,4 @@
-import { extern } from "@/engine/core/utils/binding";
+import { extern } from "xray16/lib";
 
 extern("xr_conditions", {});
 

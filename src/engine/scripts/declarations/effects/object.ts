@@ -11,6 +11,7 @@ import {
 } from "xray16/alias";
 import {
   createVector,
+  extern,
   FALSE,
   LuaArray,
   Nillable,
@@ -55,7 +56,6 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_i
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { extern } from "@/engine/core/utils/binding";
 import {
   IConfigSwitchCondition,
   parseConditionsList,
