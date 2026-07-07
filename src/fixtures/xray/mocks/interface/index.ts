@@ -1,3 +1,0 @@
-export * from "@/fixtures/xray/mocks/interface/gameInterface.mock";
-export * from "@/fixtures/xray/mocks/interface/globalInteraface.mock";
-export * from "@/fixtures/xray/mocks/interface/levelInterface.mock";

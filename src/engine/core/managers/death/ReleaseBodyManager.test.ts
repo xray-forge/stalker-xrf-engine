@@ -2,12 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import {
-  EMockPacketDataType,
-  MockAlifeHumanStalker,
-  MockGameObject,
-  MockNetProcessor,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import {
   disposeManager,

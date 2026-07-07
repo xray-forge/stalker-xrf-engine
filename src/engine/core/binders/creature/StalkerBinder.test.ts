@@ -2,12 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerHumanObject } from "xray16/alias";
 import { AnyObject, createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
-import {
-  EMockPacketDataType,
-  MockAlifeHumanStalker,
-  MockGameObject,
-  MockNetProcessor,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";

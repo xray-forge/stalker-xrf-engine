@@ -3,13 +3,7 @@ import { level } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import {
-  EMockPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockIniFile,
-  MockNetProcessor,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

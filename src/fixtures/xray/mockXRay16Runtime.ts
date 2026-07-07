@@ -27,11 +27,8 @@ export {
   mockCommandLine as command_line,
   mockGetARGB as GetARGB,
 } from "xray16/mocks";
-// `game`/`level` are NOT migrated to the package yet — source them from the SAME engine mocks the
-// `mockXRay16()` factory uses, so a test spying on `level.get_time_hours` affects the instance the built
-// `xray16/lib` reads via `require("xray16")`. Sourcing them from `xray16/mocks` (a different instance)
-// silently breaks time-of-day logic in the lib.
-export { mockGameInterface as game, mockLevelInterface as level } from "@/fixtures/xray/mocks/interface";
+
+export { mockGameInterface as game, mockLevelInterface as level } from "xray16/mocks";
 
 export const GetFontLetterica16Russian = jest.fn(() => new MockCGameFont());
 export const device = jest.fn(() => MockDevice.getInstance());

@@ -4,6 +4,7 @@ import { GameObject, ServerActorObject } from "xray16/alias";
 import {
   EMockPacketDataType,
   MockAlifeCreatureActor,
+  MockCGameTask,
   MockGameObject,
   MockNetProcessor,
   MockObjectBinder,
@@ -28,7 +29,6 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import { MockCGameTask } from "@/fixtures/xray";
 
 describe("ActorBinder", () => {
   beforeEach(() => {

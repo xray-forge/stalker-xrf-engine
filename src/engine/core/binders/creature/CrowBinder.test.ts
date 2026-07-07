@@ -1,13 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
-import {
-  EMockPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
 
 import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";

@@ -2,13 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { AnyObject, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import {
-  EMockPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";

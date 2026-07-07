@@ -1,12 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import {
-  EMockPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockIniFile,
-  MockNetProcessor,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import {
   getManager,
@@ -172,7 +166,11 @@ describe("Monster server object", () => {
 
     monster.STATE_Write(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.STRING, EMockPacketDataType.STRING, EMockPacketDataType.STRING]);
+    expect(processor.writeDataOrder).toEqual([
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+    ]);
     expect(processor.dataList).toEqual(["state_write_from_Monster", "450", "scheme@test"]);
 
     monster.on_unregister();
@@ -199,7 +197,11 @@ describe("Monster server object", () => {
 
     monster.STATE_Write(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.STRING, EMockPacketDataType.STRING, EMockPacketDataType.STRING]);
+    expect(processor.writeDataOrder).toEqual([
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+    ]);
     expect(processor.dataList).toEqual(["state_write_from_Monster", String(object.level_vertex_id()), "nil"]);
 
     monster.on_unregister();

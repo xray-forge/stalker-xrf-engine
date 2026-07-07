@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject, Vector } from "xray16/alias";
 import { createVector } from "xray16/lib";
-import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, mockLevelInterface } from "xray16/mocks";
 
 import {
   IRegistryOfflineState,
@@ -12,7 +12,6 @@ import {
 import { setSquadPosition } from "@/engine/core/objects/squad/utils/squad_position_utils";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { mockLevelInterface } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/database/stalker", () => ({
   resetStalkerState: jest.fn(),

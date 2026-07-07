@@ -2,12 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CArtefact, clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createVector } from "xray16/lib";
-import {
-  EMockPacketDataType,
-  MockCArtefact,
-  MockGameObject,
-  MockNetProcessor,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { disposeManager, getManager, registry } from "@/engine/core/database";

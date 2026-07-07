@@ -2,13 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import {
-  EMockPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";

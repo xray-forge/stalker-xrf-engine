@@ -1,11 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import {
-  EMockPacketDataType,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
 
 import { LevelChangerBinder } from "@/engine/core/binders/zones/LevelChangerBinder";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";

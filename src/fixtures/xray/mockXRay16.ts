@@ -39,6 +39,7 @@ import {
   mockCastPlanner,
   MockCGameFont,
   MockCGameGraph,
+  MockCGameTask,
   MockCHelicopter,
   mockClsid,
   MockColor,
@@ -84,12 +85,15 @@ import {
   MockFileSystem,
   MockFlags32,
   MockFrect,
+  mockGameInterface,
   MockGameObject,
   MockGameType,
   mockGetARGB,
+  mockGetGameHud,
   MockHangingLamp,
   MockHit,
   MockIniFile,
+  mockLevelInterface,
   MockLoginOperationCb,
   MockLook,
   mockMainMenuInterface,
@@ -124,9 +128,6 @@ import {
   MockWorldState,
   MockZoneVisual,
 } from "xray16/mocks";
-
-import { mockGameInterface, mockGetGameHud, mockLevelInterface } from "@/fixtures/xray/mocks/interface";
-import { MockCGameTask } from "@/fixtures/xray/mocks/objects";
 
 /**
  * Mock whole xray16 game libraries for testing environment and replace with testable mocks.
