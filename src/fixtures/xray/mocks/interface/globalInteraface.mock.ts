@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { Nillable } from "xray16/lib";
-
-import { MockCUIGameCustom } from "@/fixtures/xray/mocks/objects/ui/CUIGameCustom.mock";
+import { MockCUIGameCustom } from "xray16/mocks";
 
 let mockHudSingleton: Nillable<MockCUIGameCustom> = null;
 
