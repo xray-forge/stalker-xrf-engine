@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ServerObject } from "xray16/alias";
-import { MockAlifeHumanStalker } from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeHumanStalker, MockNetProcessor } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { Actor } from "@/engine/core/objects/creature/Actor";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Actor server object", () => {
   beforeEach(() => {
@@ -60,7 +59,7 @@ describe("Actor server object", () => {
     actor.STATE_Write(processor.asNetPacket());
 
     expect(manager.serverSave).toHaveBeenCalledWith(processor);
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.STRING, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual(["state_write_from_Actor", 0]);
 
     actor.STATE_Read(processor.asNetPacket(), 0);

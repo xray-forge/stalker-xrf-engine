@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { CTime, time_global } from "xray16";
 import { GameTask } from "xray16/alias";
 import { NIL } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
@@ -10,7 +10,6 @@ import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState, ETaskStatus } from "@/engine/core/managers/tasks/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("TaskObject", () => {
   beforeAll(() => {
@@ -65,18 +64,18 @@ describe("TaskObject", () => {
     taskObject.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       2,

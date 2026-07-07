@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, NIL, TSection } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { EMockPacketDataType, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -9,7 +9,6 @@ import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TaskManager", () => {
   beforeAll(() => {
@@ -43,7 +42,7 @@ describe("TaskManager", () => {
 
     manager.save(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.U16, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([0, 1]);
 
     disposeManager(TaskManager);
@@ -68,21 +67,21 @@ describe("TaskManager", () => {
     manager.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.U16,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       1,

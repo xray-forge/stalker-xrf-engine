@@ -2,7 +2,12 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CArtefact, clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createVector } from "xray16/lib";
-import { MockCArtefact, MockGameObject } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockCArtefact,
+  MockGameObject,
+  MockNetProcessor,
+} from "xray16/mocks";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { disposeManager, getManager, registry } from "@/engine/core/database";
@@ -12,7 +17,6 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils");
 
@@ -50,18 +54,18 @@ describe("SurgeManager", () => {
     expect(manager.isAfterGameLoad).toBe(false);
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([true, false, 12, 6, 12, 9, 30, 0, 0, 4500, 0, 11]);
 
@@ -103,34 +107,34 @@ describe("SurgeManager", () => {
     expect(manager.isAfterGameLoad).toBe(false);
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       true,

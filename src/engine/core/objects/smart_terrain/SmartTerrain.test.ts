@@ -3,12 +3,14 @@ import { game, time_global } from "xray16";
 import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
 import { createTime, TRUE } from "xray16/lib";
 import {
+  EMockPacketDataType,
   MockAlifeCreatureActor,
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
   MockGameObject,
   MockIniFile,
+  MockNetProcessor,
   MockServerAlifeCreatureAbstract,
 } from "xray16/mocks";
 
@@ -26,7 +28,6 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartTerrain generic logic", () => {
   beforeEach(() => {
@@ -236,45 +237,45 @@ describe("SmartTerrain generic logic", () => {
     terrain.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "state_write_from_SmartTerrain",
@@ -361,14 +362,14 @@ describe("SmartTerrain generic logic", () => {
     terrain.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 

@@ -2,7 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { AnyObject, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -15,7 +21,6 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_event");
 jest.mock("@/engine/core/utils/scheme/scheme_initialization");
@@ -172,18 +177,18 @@ describe("RestrictorBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_RestrictorBinder",

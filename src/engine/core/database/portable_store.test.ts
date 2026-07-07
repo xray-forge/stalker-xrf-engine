@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database/objects";
 import {
@@ -16,7 +16,6 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {
   it("should correctly validate value type", () => {
@@ -117,16 +116,16 @@ describe("portable_store functionality", () => {
     savePortableStore(object.id(), processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.U32,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.F32,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.F32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
     ]);
     expect(processor.dataList).toEqual([
       3,

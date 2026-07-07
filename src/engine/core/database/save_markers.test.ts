@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { MAX_I32 } from "xray16/lib";
+import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("save_markers database module", () => {
   it("should correctly create save markers", () => {
@@ -22,12 +22,12 @@ describe("save_markers database module", () => {
 
     jest.spyOn(processor, "w_tell").mockImplementation(() => 10);
     expect(closeSaveMarker(processor.asNetPacket(), "test-1")).toBe(10);
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([10]);
 
     jest.spyOn(processor, "w_tell").mockImplementation(() => 150);
     expect(closeSaveMarker(processor.asNetPacket(), "test-2")).toBe(50);
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.U16, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([10, 50]);
 
     expect(() => closeSaveMarker(processor.asNetPacket(), "test-3")).toThrow();
@@ -50,12 +50,12 @@ describe("save_markers database module", () => {
 
     jest.spyOn(processor, "r_tell").mockImplementation(() => 10);
     expect(closeLoadMarker(processor.asNetPacket(), "test-4")).toBe(10);
-    expect(processor.readDataOrder).toEqual([EPacketDataType.U16]);
+    expect(processor.readDataOrder).toEqual([EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([50]);
 
     jest.spyOn(processor, "r_tell").mockImplementation(() => 150);
     expect(closeLoadMarker(processor.asNetPacket(), "test-5")).toBe(50);
-    expect(processor.readDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
+    expect(processor.readDataOrder).toEqual([EMockPacketDataType.U16, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([]);
   });
 

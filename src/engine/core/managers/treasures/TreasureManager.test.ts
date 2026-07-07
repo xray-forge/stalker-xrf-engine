@@ -3,7 +3,13 @@ import { level } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockAlifeObject, MockGameObject, MockIniFile } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockIniFile,
+  MockNetProcessor,
+} from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -16,7 +22,6 @@ import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/tre
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/map/utils");
 
@@ -305,26 +310,26 @@ describe("TreasureManager", () => {
     manager.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       true,

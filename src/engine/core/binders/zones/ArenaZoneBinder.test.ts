@@ -1,12 +1,18 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
-import { MockAlifeHumanStalker, MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeHumanStalker,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { ArenaZoneBinder } from "@/engine/core/binders/zones/ArenaZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("CampZoneBinder", () => {
   beforeEach(() => {
@@ -72,11 +78,11 @@ describe("CampZoneBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["save_from_ArenaZoneBinder", 2, 10, 11, 4]);
 

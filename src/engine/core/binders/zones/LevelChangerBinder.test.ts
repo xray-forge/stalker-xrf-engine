@@ -1,12 +1,16 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { LevelChangerBinder } from "@/engine/core/binders/zones/LevelChangerBinder";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { LevelChanger } from "@/engine/core/objects/level";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChangerBinder", () => {
   beforeEach(() => {
@@ -77,17 +81,17 @@ describe("LevelChangerBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_LevelChangerBinder",

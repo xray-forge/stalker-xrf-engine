@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, NetPacket } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
@@ -13,7 +13,6 @@ import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro"
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
-import { MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ai/combat");
 
@@ -80,7 +79,7 @@ describe("game external callbacks", () => {
 
   it("CALifeUpdateManager__on_before_change_level to be defined and emit events", () => {
     const manager: EventsManager = getManager(EventsManager);
-    const packet: NetPacket = MockNetProcessor.mockNetPacket();
+    const packet: NetPacket = new MockNetProcessor().asNetPacket();
 
     const onBeforeLevelChange = jest.fn();
 

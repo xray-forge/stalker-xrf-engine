@@ -3,9 +3,11 @@ import { callback, sound_object } from "xray16";
 import { ESoundObjectType, GameObject, IniFile, PhysicObject, ServerObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
 import {
+  EMockPacketDataType,
   MockAlifeObject,
   MockGameObject,
   MockIniFile,
+  MockNetProcessor,
   MockObjectBinder,
   MockPhysicObject,
   MockSoundObject,
@@ -16,7 +18,6 @@ import { IRegistryObjectState, registerObject, registry } from "@/engine/core/da
 import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("DoorBinder", () => {
   beforeEach(() => {
@@ -372,20 +373,20 @@ describe("DoorBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.F32,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.F32,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_DoorBinder",

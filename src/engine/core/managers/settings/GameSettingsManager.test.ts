@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 import { Console } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockConsole } from "xray16/mocks";
+import { EMockPacketDataType, MockConsole, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +10,6 @@ import { GameSettingsManager } from "@/engine/core/managers/settings/GameSetting
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("GameSettingsManager", () => {
   beforeEach(() => {
@@ -40,7 +39,7 @@ describe("GameSettingsManager", () => {
 
     gameSettingsManager.save(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.U8, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.U8, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([EGameDifficulty.STALKER, 1]);
 
     disposeManager(GameSettingsManager);

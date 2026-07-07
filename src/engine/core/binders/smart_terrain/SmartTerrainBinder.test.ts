@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ServerObject } from "xray16/alias";
-import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain/index";
 import { getManager, registerSimulator, registry } from "@/engine/core/database";
@@ -8,7 +14,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartTerrainBinder", () => {
   beforeEach(() => {
@@ -108,7 +113,7 @@ describe("SmartTerrainBinder", () => {
 
     binder.save(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.STRING, EMockPacketDataType.BOOLEAN, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual(["save_from_SmartTerrainBinder", true, 2]);
 
     const newBinder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());

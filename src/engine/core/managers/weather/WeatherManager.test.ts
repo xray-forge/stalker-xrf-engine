@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { AnyObject, NIL, TName, TProbability } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +11,6 @@ import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager", () => {
   beforeEach(() => {
@@ -99,14 +99,14 @@ describe("WeatherManager", () => {
     manager.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.U32,
-      EPacketDataType.U32,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["test_weather", "good", 9, 13, 11, "dynamic_default=clear,cloudy", NIL, 7]);
 

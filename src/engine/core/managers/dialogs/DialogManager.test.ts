@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
@@ -10,7 +10,6 @@ import { DialogManager } from "@/engine/core/managers/dialogs/DialogManager";
 import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("DialogManager", () => {
   beforeEach(() => {
@@ -41,12 +40,12 @@ describe("DialogManager", () => {
     manager.saveObjectDialogs(object, processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([false, false, false, false, false, 5]);
 
@@ -80,12 +79,12 @@ describe("DialogManager", () => {
     manager.saveObjectDialogs(object, processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([true, false, false, false, true, 5]);
 

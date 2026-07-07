@@ -1,13 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
-import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("CrowBinder", () => {
   beforeEach(() => {
@@ -114,18 +119,18 @@ describe("CrowBinder", () => {
     firstBinder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_CrowBinder",

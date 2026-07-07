@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { LuaArray, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockIniFile } from "xray16/mocks";
+import { EMockPacketDataType, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartCover server object", () => {
   beforeEach(() => {
@@ -147,17 +146,17 @@ describe("SmartCover server object", () => {
     cover.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
     ]);
     expect(processor.dataList).toEqual([
       "state_write_from_SmartCover",

@@ -2,7 +2,14 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import { MockAlifeObject, MockGameObject, MockIniFile, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockIniFile,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -14,7 +21,6 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
@@ -154,17 +160,17 @@ describe("PhysicObjectBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_PhysicObjectBinder",

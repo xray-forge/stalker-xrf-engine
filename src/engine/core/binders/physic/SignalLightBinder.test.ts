@@ -1,12 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { HangingLamp, ServerObject } from "xray16/alias";
 import { MAX_U32, Y_VECTOR } from "xray16/lib";
-import { MockAlifeObject, MockGameObject, MockHangingLamp, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockHangingLamp,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { registry } from "@/engine/core/database";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SignalLightBinder", () => {
   beforeEach(() => {
@@ -292,10 +298,10 @@ describe("SignalLightBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["save_from_SignalLightBinder", MAX_U32, false, 3]);
 
@@ -327,10 +333,10 @@ describe("SignalLightBinder", () => {
     binder.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["save_from_SignalLightBinder", 30_000, true, 3]);
 

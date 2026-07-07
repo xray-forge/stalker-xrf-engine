@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, TName } from "xray16/lib";
-import { MockGameObject, MockIoFile } from "xray16/mocks";
+import { MockGameObject, MockIoFile, MockNetProcessor } from "xray16/mocks";
 
 import {
   disposeManager,
@@ -27,7 +27,6 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockNetProcessor } from "@/fixtures/xray";
 
 function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<TAbstractCoreManagerConstructor>] {
   const saveOrder: Array<TAbstractCoreManagerConstructor> = [];
@@ -101,12 +100,12 @@ describe("SaveManager", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).clientSave(MockNetProcessor.mockNetPacket());
+    getManager(SaveManager).clientSave(new MockNetProcessor().asNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).clientLoad(MockNetProcessor.mockNetPacket());
+    getManager(SaveManager).clientLoad(new MockNetProcessor().asNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);
@@ -124,12 +123,12 @@ describe("SaveManager", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).serverSave(MockNetProcessor.mockNetPacket());
+    getManager(SaveManager).serverSave(new MockNetProcessor().asNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).serverLoad(MockNetProcessor.mockNetPacket());
+    getManager(SaveManager).serverLoad(new MockNetProcessor().asNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);

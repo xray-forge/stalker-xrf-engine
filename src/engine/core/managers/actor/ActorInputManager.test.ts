@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, get_console, level } from "xray16";
 import { Console, GameObject } from "xray16/alias";
 import { AnyObject, createTime } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -11,7 +11,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { EActiveItemSlot } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ActorInputManager", () => {
   beforeEach(() => {
@@ -50,16 +49,16 @@ describe("ActorInputManager", () => {
     manager.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([true, 12, 6, 12, 9, 30, 0, 0, 10, 9]);
 

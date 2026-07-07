@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockNetProcessor } from "@/fixtures/xray";
 
 describe("AbstractCoreManager", () => {
   class ExampleManager extends AbstractManager {
@@ -27,8 +27,8 @@ describe("AbstractCoreManager", () => {
     expect(manager.initialize).toHaveBeenCalledTimes(1);
     expect(manager.destroy).toHaveBeenCalledTimes(0);
 
-    expect(() => manager.load(MockNetProcessor.mock())).toThrow("Load method is not implemented.");
-    expect(() => manager.save(MockNetProcessor.mockNetPacket())).toThrow("Save method is not implemented.");
+    expect(() => manager.load(new MockNetProcessor().asNetProcessor())).toThrow("Load method is not implemented.");
+    expect(() => manager.save(new MockNetProcessor().asNetPacket())).toThrow("Save method is not implemented.");
     expect(() => manager.update(0)).toThrow();
 
     disposeManager(ExampleManager);

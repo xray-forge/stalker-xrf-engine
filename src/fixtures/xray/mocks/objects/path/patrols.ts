@@ -1,12 +1,4 @@
-import { TName, TNumberId } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
-
-/**
- * Generic patrol mock.
- */
-export interface IPatrolMock {
-  points: Array<{ name: TName; gvid: TNumberId; lvid: TNumberId; position: MockVector; flag?: number }>;
-}
+import { type IPatrolMock, MockVector } from "xray16/mocks";
 
 /**
  * Mocks of patrols for testing.

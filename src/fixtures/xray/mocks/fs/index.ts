@@ -1,1 +1,1 @@
-export * from "@/fixtures/xray/mocks/fs/FileSystem.mock";
+export { MockFileSystem } from "xray16/mocks";

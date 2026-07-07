@@ -2,7 +2,12 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerHumanObject } from "xray16/alias";
 import { AnyObject, createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
-import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeHumanStalker,
+  MockGameObject,
+  MockNetProcessor,
+} from "xray16/mocks";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
@@ -27,7 +32,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/sounds/utils");
 jest.mock("@/engine/core/objects/smart_terrain/utils");
@@ -132,23 +136,23 @@ describe("StalkerBinder", () => {
     expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, packet);
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_StalkerBinder",

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { MockIniFile } from "xray16/mocks";
+import { EMockPacketDataType, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import {
   getManager,
@@ -11,7 +11,6 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger", () => {
   beforeEach(() => registerSimulator());
@@ -71,10 +70,10 @@ describe("LevelChanger", () => {
     levelChanger.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_LevelChanger", false, "another", 2]);
 

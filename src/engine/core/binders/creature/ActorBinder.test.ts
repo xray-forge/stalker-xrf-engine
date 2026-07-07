@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, CGameTask, level, time_global } from "xray16";
 import { GameObject, ServerActorObject } from "xray16/alias";
-import { MockAlifeCreatureActor, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeCreatureActor,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -22,7 +28,7 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockCGameTask, MockNetProcessor } from "@/fixtures/xray";
+import { MockCGameTask } from "@/fixtures/xray";
 
 describe("ActorBinder", () => {
   beforeEach(() => {
@@ -172,10 +178,10 @@ describe("ActorBinder", () => {
 
     expect(saveManager.clientSave).toHaveBeenCalledWith(processor);
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual(["save_from_ActorBinder", 0, false, 3]);
 
@@ -222,17 +228,17 @@ describe("ActorBinder", () => {
 
     expect(saveManager.clientSave).toHaveBeenCalledWith(processor);
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.U32,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.F32,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.F32,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_ActorBinder",

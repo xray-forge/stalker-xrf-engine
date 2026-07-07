@@ -2,7 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -13,7 +19,6 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
@@ -96,17 +101,17 @@ describe("HelicopterBinder", () => {
     expect(binder.combatManager.save).toHaveBeenCalledWith(processor);
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U32,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       "save_from_HelicopterBinder",

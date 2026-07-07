@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { getManager, loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
@@ -11,7 +11,6 @@ import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TradeManager class implementation", () => {
   beforeEach(() => {
@@ -131,7 +130,7 @@ describe("TradeManager class implementation", () => {
     replaceFunctionMock(time_global, () => 30_000);
     tradeManager.saveObjectState(object, processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.U16]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.BOOLEAN, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([false, 1]);
 
     registry.objects.delete(object.id());
@@ -161,14 +160,14 @@ describe("TradeManager class implementation", () => {
     tradeManager.saveObjectState(object, processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.I32,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([true, "managers\\trade\\trade_generic.ltx", "", "", "", -30_001, -30_001, 7]);
 
@@ -208,14 +207,14 @@ describe("TradeManager class implementation", () => {
     tradeManager.saveObjectState(object, processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.I32,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([
       true,

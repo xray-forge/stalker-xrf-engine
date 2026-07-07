@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, NIL } from "xray16/lib";
-import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeHumanStalker,
+  MockGameObject,
+  MockIniFile,
+  MockNetProcessor,
+} from "xray16/mocks";
 
 import { getManager, IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +16,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
   beforeEach(() => {
@@ -185,10 +190,10 @@ describe("Stalker server object", () => {
     stalker.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_Stalker", NIL, NIL, false]);
 
@@ -224,10 +229,10 @@ describe("Stalker server object", () => {
     stalker.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_Stalker", "435", "test_section", true]);
 
@@ -264,10 +269,10 @@ describe("Stalker server object", () => {
     stalker.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_Stalker", "311", "test_section", true]);
 
@@ -302,10 +307,10 @@ describe("Stalker server object", () => {
     stalker.STATE_Write(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.BOOLEAN,
     ]);
     expect(processor.dataList).toEqual(["state_write_from_Stalker", NIL, "test_section", true]);
 

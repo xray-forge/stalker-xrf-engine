@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { actor_stats } from "xray16";
 import { AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, initializeManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -13,7 +14,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SimulationManager", () => {
   beforeEach(() => {
@@ -102,7 +102,7 @@ describe("SimulationManager", () => {
 
     manager.save(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN]);
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.BOOLEAN]);
     expect(processor.dataList).toEqual([true]);
 
     disposeManager(SimulationManager);

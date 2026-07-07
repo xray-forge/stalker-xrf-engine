@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { AnyObject, NIL } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -11,7 +11,6 @@ import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/So
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SoundManager", () => {
   beforeEach(() => {
@@ -82,13 +81,13 @@ describe("SoundManager", () => {
     manager.save(processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([NIL, NIL, NIL, NIL, 0, 0, 6]);
 
@@ -110,10 +109,10 @@ describe("SoundManager", () => {
     manager.saveObject(object, processor.asNetPacket());
 
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
     ]);
     expect(processor.dataList).toEqual([false, false, false, 3]);
 

@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { createTime } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
@@ -10,7 +10,6 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { EScheme } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("logic database module", () => {
   beforeAll(() => {
@@ -72,27 +71,27 @@ describe("logic database module", () => {
       20,
     ]);
     expect(processor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U32,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.F32,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.F32,
+      EMockPacketDataType.U16,
     ]);
 
     const nextState: IRegistryObjectState = resetObject(object);
@@ -101,27 +100,27 @@ describe("logic database module", () => {
 
     expect(processor.dataList).toEqual([]);
     expect(processor.readDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.I32,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U8,
-      EPacketDataType.U16,
-      EPacketDataType.U32,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U8,
-      EPacketDataType.F32,
-      EPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.I32,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.F32,
+      EMockPacketDataType.U16,
     ]);
 
     expect(nextState.jobIni).toBe("test.ltx");
