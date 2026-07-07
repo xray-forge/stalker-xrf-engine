@@ -7,6 +7,7 @@ import {
   MockAlifeOnlineOfflineGroup,
   mockCharactersGoodwill,
   mockClsid,
+  MockGameObject,
   MockServerAlifeCreatureAbstract,
   MockVector,
 } from "xray16/mocks";
@@ -16,7 +17,6 @@ import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 
 interface IMockSquadConfig extends IMockAlifeObjectConfig {
   behaviour?: LuaTable<string, string>;

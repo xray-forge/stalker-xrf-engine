@@ -1,4 +1,4 @@
-export * from "@/fixtures/xray/mocks/MonsterHitInfo.mock";
+export { MockMonsterHitInfo } from "xray16/mocks";
 export * from "@/fixtures/xray/mocks/fs";
 export * from "@/fixtures/xray/mocks/ini";
 export * from "@/fixtures/xray/mocks/interface";
