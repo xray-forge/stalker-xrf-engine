@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { CUIEditBox, CUIListBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, vector2 } from "xray16";
+import { MockCUIScriptWnd } from "xray16/mocks";
 
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
-import { MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("SaveDialog component", () => {
   it("should correctly create", () => {

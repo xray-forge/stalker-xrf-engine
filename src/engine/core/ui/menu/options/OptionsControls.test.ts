@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { CScriptXmlInit, CUIScriptWnd } from "xray16";
+import { MockCScriptXmlInit, MockCUIScriptWnd } from "xray16/mocks";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import { OptionsControls } from "@/engine/core/ui/menu/options/OptionsControls";
-import { MockCScriptXmlInit, MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("OptionsControls", () => {
   it("should correctly create", () => {

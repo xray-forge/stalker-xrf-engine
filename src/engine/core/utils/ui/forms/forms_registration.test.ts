@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIScriptWnd, CUIStatic, CUIWindow, ui_events } from "xray16";
 import { XmlInit } from "xray16/alias";
+import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "xray16/mocks";
 
 import { EElementType, initializeElement, initializeStatic, initializeStatics } from "@/engine/core/utils/ui/forms";
-import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
 describe("initializeStatic util", () => {
   it("should correctly create static as shortcut", () => {

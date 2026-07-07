@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MockCUIScriptWnd, MockCUIWindow } from "xray16/mocks";
 
 import { DebugRegistrySection } from "@/engine/core/ui/debug/sections/DebugRegistrySection";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
 describe("DebugRegistrySection", () => {
   beforeEach(() => {

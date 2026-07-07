@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { CUIScriptWnd } from "xray16";
+import { MockCUIScriptWnd } from "xray16/mocks";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
-import { MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("Options", () => {
   it("should correctly create window", () => {

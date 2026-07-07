@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { CScriptXmlInit, CUIScriptWnd } from "xray16";
+import { MockCScriptXmlInit, MockCUIScriptWnd } from "xray16/mocks";
 
 import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
-import { MockCScriptXmlInit, MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("OptionsSound", () => {
   it("should correctly create", () => {

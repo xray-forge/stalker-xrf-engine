@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { CUIListBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUITextWnd } from "xray16";
+import { MockCUIScriptWnd } from "xray16/mocks";
 
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
-import { MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("LoadDialog component", () => {
   it("should correctly create", () => {

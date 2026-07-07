@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { Console } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
-import { MockConsole } from "xray16/mocks";
+import { MockConsole, MockCUITrackBar } from "xray16/mocks";
 
 import { disposeManager, getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -16,7 +16,6 @@ import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockCUITrackBar } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ui/game/sleep", () => ({
   SleepDialog: class {

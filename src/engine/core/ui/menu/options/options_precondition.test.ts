@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIWindow } from "xray16";
+import { MockCUIWindow } from "xray16/mocks";
 
 import {
   preconditionOnly1mode,
@@ -13,7 +14,6 @@ import {
   preconditionOnly4andMoreMode,
 } from "@/engine/core/ui/menu/options/options_preconditions";
 import { EGameRenderer } from "@/engine/core/ui/menu/options/options_types";
-import { MockCUIWindow } from "@/fixtures/xray";
 
 function checkPrecondition(
   renderer: EGameRenderer,
