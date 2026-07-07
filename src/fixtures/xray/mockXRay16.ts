@@ -56,6 +56,7 @@ import {
   MockEffector,
   MockEntityAction,
   MockFbox,
+  MockFileSystem,
   MockFlags32,
   MockFrect,
   MockGameObject,
@@ -71,6 +72,7 @@ import {
   MockObject,
   MockObjectBinder,
   MockParticleObject,
+  MockPatrol,
   MockPhraseDialog,
   MockPhysicObject,
   MockPhysicsJoint,
@@ -96,7 +98,6 @@ import {
   MockZoneVisual,
 } from "xray16/mocks";
 
-import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockGameInterface, mockGetGameHud, mockLevelInterface } from "@/fixtures/xray/mocks/interface";
 import {
   MockCGameTask,
@@ -126,7 +127,6 @@ import {
   MockCUITrackBar,
   MockCUIWindow,
   MockLoginOperationCb,
-  MockPatrol,
   MockProfile,
 } from "@/fixtures/xray/mocks/objects";
 

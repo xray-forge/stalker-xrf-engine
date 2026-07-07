@@ -10,7 +10,7 @@ import {
   isObjectAtWaypoint,
   isPatrolInRestrictor,
 } from "@/engine/core/utils/patrol";
-import { MockPatrol, patrols } from "@/fixtures/xray";
+import { patrols } from "@/fixtures/xray";
 
 describe("isObjectAtWaypoint util", () => {
   it("should correctly check whether object is at waypoint", () => {
@@ -81,10 +81,10 @@ describe("choosePatrolWaypointByFlags util", () => {
 
 describe("getPatrolFlag util", () => {
   it("should correctly choose patrol point flag bit", () => {
-    const patrol: Patrol = MockPatrol.mock("test-wp");
+    const path: Patrol = new patrol("test-wp");
 
-    expect(getPatrolFlag(patrol, 0)).toBe(3);
-    expect(getPatrolFlag(patrol, 1)).toBe(15);
-    expect(getPatrolFlag(patrol, 2)).toBeNull();
+    expect(getPatrolFlag(path, 0)).toBe(3);
+    expect(getPatrolFlag(path, 1)).toBe(15);
+    expect(getPatrolFlag(path, 2)).toBeNull();
   });
 });

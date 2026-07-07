@@ -14,7 +14,6 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockPatrol } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/database/stalker");
 jest.mock("@/engine/core/objects/squad/utils");
@@ -175,7 +174,7 @@ describe("position effects implementation", () => {
     expect(MockParticleObject.REGISTRY.get("test-particle")).not.toBeNull();
 
     const first: Nillable<MockParticleObject> = MockParticleObject.REGISTRY.get("test-particle");
-    const path: Patrol = MockPatrol.mock("test-wp");
+    const path: Patrol = new patrol("test-wp");
 
     expect(first?.play_at_pos).toHaveBeenCalledTimes(0);
 

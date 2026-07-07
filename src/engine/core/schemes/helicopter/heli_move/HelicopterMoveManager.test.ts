@@ -14,7 +14,6 @@ import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockPatrol } from "@/fixtures/xray";
 
 describe("HelicopterMoveManager", () => {
   beforeEach(() => {
@@ -413,7 +412,7 @@ describe("HelicopterMoveManager", () => {
     manager.byStopFireFly = false;
     jest.spyOn(manager.helicopterFlyManager, "flyOnPointWithVector").mockImplementation(jest.fn(() => true));
 
-    manager.patrolMove = MockPatrol.mock("test-wp-double");
+    manager.patrolMove = new patrol("test-wp-double");
     manager.lastIndex = 1;
     manager.nextIndex = 2;
     manager.maxVelocity = 2000;
@@ -468,7 +467,7 @@ describe("HelicopterMoveManager", () => {
     expect(manager.isWaypointCallbackHandled).toBe(true);
     expect(manager.lastIndex).toBeNull();
 
-    manager.patrolMove = MockPatrol.mock("test-wp");
+    manager.patrolMove = new patrol("test-wp");
 
     manager.flagToWpCallback = true;
     manager.onWaypoint(object, "action-type", 10);
@@ -495,7 +494,7 @@ describe("HelicopterMoveManager", () => {
     manager.state.signals = new LuaTable();
     manager.lastIndex = 1;
     manager.nextIndex = 2;
-    manager.patrolMove = MockPatrol.mock("test-wp-sig");
+    manager.patrolMove = new patrol("test-wp-sig");
     manager.patrolMoveInfo = parseWaypointsData("test-wp-sig");
 
     // While a fly command is in progress (flagToWpCallback), the waypoint callback is ignored entirely and

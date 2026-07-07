@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { patrol } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeObject, MockGameObject } from "xray16/mocks";
@@ -12,7 +13,6 @@ import {
   spawnArtefactInAnomaly,
 } from "@/engine/core/utils/anomaly";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockPatrol } from "@/fixtures/xray";
 
 describe("getAnomalyArtefacts util", () => {
   beforeEach(() => {
@@ -91,7 +91,7 @@ describe("spawnArtefactInAnomaly util", () => {
     expect(registry.simulator.create).toHaveBeenCalledTimes(1);
     expect(registry.simulator.create).toHaveBeenCalledWith(
       "test-artefact",
-      MockPatrol.mock("test-wp-single").point(0),
+      new patrol("test-wp-single").point(0),
       anomaly.object.level_vertex_id(),
       anomaly.object.game_vertex_id()
     );
