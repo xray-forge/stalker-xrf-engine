@@ -39,7 +39,7 @@ import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_set
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS } from "@/fixtures/xray";
+import { INI_FILES_MOCKS } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 
@@ -118,7 +118,7 @@ describe("configureObjectSchemes util", () => {
       logics: { cfg: "logics-descriptor.ltx" },
     });
 
-    (FILES_MOCKS as Record<string, AnyObject>)["logics-descriptor.ltx"] = {
+    (INI_FILES_MOCKS as Record<string, AnyObject>)["logics-descriptor.ltx"] = {
       logics: {
         spawn: "list",
       },
@@ -252,7 +252,7 @@ describe("initializeObjectSchemeLogic util", () => {
     state.loadedSectionLogic = "mob_combat@test";
     state.loadedIniFilename = "initializeObjectSchemeLogic-test.ltx";
 
-    (FILES_MOCKS as Record<string, AnyObject>)[state.loadedIniFilename] = {
+    (INI_FILES_MOCKS as Record<string, AnyObject>)[state.loadedIniFilename] = {
       "mob_combat@test": {},
     };
 

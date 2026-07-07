@@ -19,7 +19,7 @@ import {
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS } from "@/fixtures/xray";
+import { INI_FILES_MOCKS } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {
@@ -76,9 +76,9 @@ describe("story_objects module of the database", () => {
       section: "test_sid_section",
     });
 
-    delete FILES_MOCKS["spawn.ini"].story_object;
+    delete INI_FILES_MOCKS["spawn.ini"].story_object;
 
-    FILES_MOCKS["system.ini"].test_sid_section = {
+    INI_FILES_MOCKS["system.ini"].test_sid_section = {
       story_id: "test_sid_system_ini",
     };
 

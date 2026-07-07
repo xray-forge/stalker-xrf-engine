@@ -1,6 +1,6 @@
 import { MockPatrol } from "xray16/mocks";
 
-import { patrols } from "@/fixtures/xray/mocks/objects/path/patrols";
+import { patrols } from "@/fixtures/xray/mocks/patrols.mock";
 
 /**
  * Inject the engine's patrol test fixtures into the package `MockPatrol` (by reference).
