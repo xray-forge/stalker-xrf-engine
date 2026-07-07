@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CArtefact, clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createVector } from "xray16/lib";
-import { MockCArtefact } from "xray16/mocks";
+import { MockCArtefact, MockGameObject } from "xray16/mocks";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { disposeManager, getManager, registry } from "@/engine/core/database";
@@ -12,7 +12,7 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils");
 

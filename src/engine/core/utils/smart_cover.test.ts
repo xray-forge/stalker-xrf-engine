@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IStateDescriptor } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/smart_cover";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getObjectSmartCoverStateQueueParams", () => {
   beforeEach(() => {

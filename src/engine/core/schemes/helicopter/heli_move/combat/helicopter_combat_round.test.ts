@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockVector } from "xray16/mocks";
+import { MockGameObject, MockVector } from "xray16/mocks";
 
 import {
   initializeHelicopterCombatRound,
@@ -10,7 +10,6 @@ import {
   updateHelicopterCombatRoundShooting,
 } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("initializeHelicopterCombatRound", () => {
   it("should correctly initialize", () => {

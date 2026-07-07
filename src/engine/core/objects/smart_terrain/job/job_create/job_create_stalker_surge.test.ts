@@ -3,6 +3,7 @@ import * as path from "node:path";
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { range } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
@@ -11,7 +12,6 @@ import { createStalkerSurgeJobs } from "@/engine/core/objects/smart_terrain/job/
 import { jobPreconditionSurge } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("jobs_general should correctly generate stalkers surge jobs", () => {
   it("should correctly generate surge jobs for stalkers when no patrols exist", async () => {

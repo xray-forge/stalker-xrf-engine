@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { calculateObjectVisibility } from "@/engine/core/ai/combat/combat_visibility_calculation";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("calculateObjectVisibility", () => {
   beforeEach(() => {

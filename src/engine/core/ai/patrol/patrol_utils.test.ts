@@ -2,10 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("isPatrolTeamSynchronized util", () => {
   it("should correctly check team sync state", () => {

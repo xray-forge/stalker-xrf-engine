@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import {
   canPlayCampGuitar,
@@ -18,7 +18,6 @@ import { IRegistryObjectState, registerCampZone, registerObject, registry } from
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("startPlayingGuitar util", () => {
   it("should correctly start playing without camp", () => {

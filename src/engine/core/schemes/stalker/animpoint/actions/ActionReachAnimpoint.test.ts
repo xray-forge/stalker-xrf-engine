@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectPath, GameObject } from "xray16/alias";
 import { MY_VECTOR, MZ_VECTOR, X_VECTOR } from "xray16/lib";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -11,7 +11,6 @@ import { ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/ac
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionReachAnimpoint", () => {
   beforeEach(() => {

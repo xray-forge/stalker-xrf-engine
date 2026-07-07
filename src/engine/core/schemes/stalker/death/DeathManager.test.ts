@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
@@ -7,7 +8,6 @@ import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/ini/ini_config");
 

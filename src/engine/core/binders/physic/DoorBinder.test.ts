@@ -2,14 +2,21 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, sound_object } from "xray16";
 import { ESoundObjectType, GameObject, IniFile, PhysicObject, ServerObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
-import { MockAlifeObject, MockIniFile, MockObjectBinder, MockPhysicObject, MockSoundObject } from "xray16/mocks";
+import {
+  MockAlifeObject,
+  MockGameObject,
+  MockIniFile,
+  MockObjectBinder,
+  MockPhysicObject,
+  MockSoundObject,
+} from "xray16/mocks";
 
 import { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("DoorBinder", () => {
   beforeEach(() => {

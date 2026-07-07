@@ -1,12 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { anim, move, property_storage } from "xray16";
+import { MockGameObject } from "xray16/mocks";
 
 import { ActionBodyStateCrouchDanger } from "@/engine/core/ai/state/body_state/ActionBodyStateCrouchDanger";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionBodyStateCrouchDanger", () => {
   it("should correctly perform body state to crouch danger", () => {

@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { sound_object, time_global } from "xray16";
+import { MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
 import { StereoSound } from "@/engine/core/managers/sounds/objects/StereoSound";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("StereoSound", () => {
   it("should correctly initialize", () => {

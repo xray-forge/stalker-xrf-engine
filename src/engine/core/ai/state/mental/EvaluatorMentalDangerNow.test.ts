@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { anim, property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMentalDangerNow } from "@/engine/core/ai/state/mental/EvaluatorMentalDangerNow";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMentalDangerTarget", () => {
   it("should correctly check if danger state when set", () => {

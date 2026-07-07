@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { get_hud, level } from "xray16";
 import { GameHud, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { registerActor, registry } from "@/engine/core/database";
 import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("setUiVisibility util", () => {
   it("should correctly toggle visibility", () => {

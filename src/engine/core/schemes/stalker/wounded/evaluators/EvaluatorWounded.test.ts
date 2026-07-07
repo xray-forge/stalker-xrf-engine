@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockActionPlanner, MockPropertyEvaluatorConst, MockPropertyStorage } from "xray16/mocks";
+import { MockActionPlanner, MockGameObject, MockPropertyEvaluatorConst, MockPropertyStorage } from "xray16/mocks";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
@@ -9,7 +9,6 @@ import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluato
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 function mockEvaluator(hasEnemy: boolean = false): {
   evaluator: EvaluatorWounded;

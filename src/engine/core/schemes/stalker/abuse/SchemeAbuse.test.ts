@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
@@ -12,7 +12,6 @@ import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeAbuse", () => {
   it("should be correctly defined", () => {

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorAnimstateLocked } from "@/engine/core/ai/state/animstate/EvaluatorAnimstateLocked";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -6,7 +7,6 @@ import { EAnimationMarker } from "@/engine/core/animation/types/animation_types"
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimstateLocked", () => {
   it("should correctly perform animation locked state", () => {

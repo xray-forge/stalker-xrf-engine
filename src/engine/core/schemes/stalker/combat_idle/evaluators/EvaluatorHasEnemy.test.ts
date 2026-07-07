@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
@@ -14,7 +14,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 function mockEvaluator(
   state: ISchemePostCombatIdleState = mockSchemeState(EScheme.POST_COMBAT_IDLE, {

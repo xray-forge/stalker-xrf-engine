@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessManager";
@@ -9,7 +9,6 @@ import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_pos
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemePostProcess", () => {
   it("should correctly initialize with defaults", () => {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
-import { MockAlifeObject, MockIniFile } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -19,7 +19,7 @@ import {
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS, MockGameObject } from "@/fixtures/xray";
+import { FILES_MOCKS } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {

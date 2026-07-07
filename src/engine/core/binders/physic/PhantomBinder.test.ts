@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { PhantomBinder } from "@/engine/core/binders/physic/PhantomBinder";
 import { getManager } from "@/engine/core/database";
 import { PhantomManager } from "@/engine/core/managers/psy";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("PhantomBinder", () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeObject } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
@@ -12,7 +12,7 @@ import {
   spawnArtefactInAnomaly,
 } from "@/engine/core/utils/anomaly";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockPatrol } from "@/fixtures/xray";
+import { MockPatrol } from "@/fixtures/xray";
 
 describe("getAnomalyArtefacts util", () => {
   beforeEach(() => {

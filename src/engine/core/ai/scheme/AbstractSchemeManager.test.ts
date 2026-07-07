@@ -1,12 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockVector } from "xray16/mocks";
+import { MockGameObject, MockVector } from "xray16/mocks";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme/AbstractSchemeManager";
 import { IBaseSchemeState } from "@/engine/core/database";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("AbstractSchemeManager", () => {
   class ExampleManager extends AbstractSchemeManager<IBaseSchemeState> {}

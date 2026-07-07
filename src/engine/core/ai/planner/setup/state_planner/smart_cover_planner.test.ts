@@ -1,12 +1,12 @@
 import { describe, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/smart_cover_planner";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/ai/state/smart_cover";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("smart_cover_planner util", () => {
   it("should correctly setup state planner smart cover actions", () => {

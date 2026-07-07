@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, TName } from "xray16/lib";
-import { MockIoFile } from "xray16/mocks";
+import { MockGameObject, MockIoFile } from "xray16/mocks";
 
 import {
   disposeManager,
@@ -27,7 +27,7 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { MockNetProcessor } from "@/fixtures/xray";
 
 function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<TAbstractCoreManagerConstructor>] {
   const saveOrder: Array<TAbstractCoreManagerConstructor> = [];

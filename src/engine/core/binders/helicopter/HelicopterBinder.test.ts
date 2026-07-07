@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import { MockAlifeObject, MockObjectBinder } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -13,7 +13,7 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 

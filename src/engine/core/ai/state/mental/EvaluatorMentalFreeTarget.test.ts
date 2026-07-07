@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMentalFreeTarget } from "@/engine/core/ai/state/mental/EvaluatorMentalFreeTarget";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMentalDangerTarget", () => {
   it("should correctly check if free state when needed", () => {

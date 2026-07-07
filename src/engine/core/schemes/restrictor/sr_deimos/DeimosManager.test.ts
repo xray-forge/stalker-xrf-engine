@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -10,7 +11,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("DeimosManager", () => {
   beforeEach(() => {

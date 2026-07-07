@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -38,7 +39,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 function mockNotificationListener(caption: string, senderId: string): (notification: ITipNotification) => void {
   const eventsManager: EventsManager = getManager(EventsManager);

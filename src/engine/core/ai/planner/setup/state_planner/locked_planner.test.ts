@@ -1,11 +1,11 @@
 import { describe, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerLockedStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/locked_planner";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("locked_planner util", () => {
   it("should correctly setup state planner lock/end actions", () => {

@@ -1,9 +1,9 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyArgs, AnyObject, TName } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 function checkTaskBinding(name: TName): void {
   return checkNestedBinding("task_functors", name);

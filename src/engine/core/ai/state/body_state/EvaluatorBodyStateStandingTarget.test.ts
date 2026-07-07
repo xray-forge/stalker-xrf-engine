@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { property_storage } from "xray16";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorBodyStateStandingTarget } from "@/engine/core/ai/state/body_state/EvaluatorBodyStateStandingTarget";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -7,7 +8,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorBodyStateStandingTarget", () => {
   it("should correctly evaluate standing now", () => {

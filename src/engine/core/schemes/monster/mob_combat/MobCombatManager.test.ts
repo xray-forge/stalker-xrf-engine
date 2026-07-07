@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
@@ -7,7 +8,6 @@ import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCo
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 

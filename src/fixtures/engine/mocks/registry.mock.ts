@@ -1,11 +1,16 @@
 import { AlifeSimulator, GameObject, ServerActorObject } from "xray16/alias";
-import { IMockAlifeObjectConfig, MockAlifeCreatureActor, MockAlifeSimulator } from "xray16/mocks";
+import {
+  IMockAlifeObjectConfig,
+  IMockGameObjectConfig,
+  MockAlifeCreatureActor,
+  MockAlifeSimulator,
+  MockGameObject,
+} from "xray16/mocks";
 
 import { registerActor, registerActorServer } from "@/engine/core/database/actor";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-import { IMockGameObjectConfig, MockGameObject } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
   actorGameObject: GameObject;

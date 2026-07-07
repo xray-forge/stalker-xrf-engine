@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { move, property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMovementSet } from "@/engine/core/ai/state/movement/EvaluatorMovementSet";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMovementSet", () => {
   it("should correctly check if movement state is set when idle/null + walk", () => {

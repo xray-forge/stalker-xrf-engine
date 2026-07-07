@@ -1,12 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { anim, move, property_storage } from "xray16";
+import { MockGameObject } from "xray16/mocks";
 
 import { ActionBodyStateStandingFree } from "@/engine/core/ai/state/body_state/ActionBodyStateStandingFree";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionBodyStateStandingFree", () => {
   it("should correctly perform body state change to standing free", () => {

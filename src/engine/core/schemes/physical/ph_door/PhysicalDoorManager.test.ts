@@ -3,7 +3,7 @@ import { physics_joint } from "xray16";
 import { GameObject } from "xray16/alias";
 import { TIndex, ZERO_VECTOR } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockPhysicsJoint, MockPhysicsShell } from "xray16/mocks";
+import { MockGameObject, MockPhysicsJoint, MockPhysicsShell } from "xray16/mocks";
 
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
@@ -12,7 +12,6 @@ import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),

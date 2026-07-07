@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { TNumberId, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeObject } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
 import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
@@ -25,7 +25,6 @@ import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getItemPrice util", () => {
   beforeEach(() => {

@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("emitSchemeEvent util", () => {
   beforeEach(() => {

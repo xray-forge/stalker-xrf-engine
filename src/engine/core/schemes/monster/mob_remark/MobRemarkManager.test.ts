@@ -3,6 +3,7 @@ import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
@@ -12,7 +13,6 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("MobRemarkManager", () => {
   beforeEach(() => {

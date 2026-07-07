@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerMonsterBaseObject } from "xray16/alias";
 import { createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
-import { MockAlifeMonsterBase, MockObjectBinder } from "xray16/mocks";
+import { MockAlifeMonsterBase, MockGameObject, MockObjectBinder } from "xray16/mocks";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
@@ -33,7 +33,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 jest.mock("@/engine/core/objects/squad/update");

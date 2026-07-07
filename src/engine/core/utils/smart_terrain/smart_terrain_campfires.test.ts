@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ZoneCampfire } from "xray16/alias";
-import { MockCZoneCampfire } from "xray16/mocks";
+import { MockCZoneCampfire, MockGameObject } from "xray16/mocks";
 
 import { registerSmartTerrainCampfire } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -9,7 +9,6 @@ import {
   turnOnTerrainCampfires,
 } from "@/engine/core/utils/smart_terrain/smart_terrain_campfires";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("turnOnSmartTerrainCampfires/turnOffSmartTerrainCampfires utils", () => {
   beforeEach(() => {

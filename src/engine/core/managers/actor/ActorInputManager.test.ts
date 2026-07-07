@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, get_console, level } from "xray16";
 import { Console, GameObject } from "xray16/alias";
 import { AnyObject, createTime } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -10,7 +11,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { EActiveItemSlot } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ActorInputManager", () => {
   beforeEach(() => {

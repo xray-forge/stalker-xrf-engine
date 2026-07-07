@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
@@ -9,7 +10,7 @@ import { DialogManager } from "@/engine/core/managers/dialogs/DialogManager";
 import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("DialogManager", () => {
   beforeEach(() => {

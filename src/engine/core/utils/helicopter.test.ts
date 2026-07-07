@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 import { GameObject } from "xray16/alias";
-import { MockCHelicopter } from "xray16/mocks";
+import { MockCHelicopter, MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getHelicopterHealth, isHelicopterAlive } from "@/engine/core/utils/helicopter";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getHelicopterHealth util", () => {
   beforeEach(() => {

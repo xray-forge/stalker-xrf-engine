@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, NIL } from "xray16/lib";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { getManager, IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +10,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
   beforeEach(() => {

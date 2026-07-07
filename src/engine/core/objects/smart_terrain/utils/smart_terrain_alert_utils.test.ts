@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject, TRelationType } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import {
   ESmartTerrainStatus,
@@ -9,7 +9,6 @@ import {
   syncObjectHitSmartTerrainAlert,
 } from "@/engine/core/objects/smart_terrain";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("syncObjectHitSmartTerrainAlert", () => {
   beforeEach(() => {

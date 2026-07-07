@@ -1,14 +1,13 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, ServerCreatureObject } from "xray16/alias";
 import { FALSE, TRUE } from "xray16/lib";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { updateSquadInvulnerabilityState } from "@/engine/core/utils/squad/squad_state";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("updateSquadInvulnerabilityState util", () => {
   it("should correctly update state for squad", () => {

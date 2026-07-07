@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerDynamicObject, ZoneCampfire } from "xray16/alias";
-import { MockAlifeDynamicObject, MockCZoneCampfire, MockObjectBinder } from "xray16/mocks";
+import { MockAlifeDynamicObject, MockCZoneCampfire, MockGameObject, MockObjectBinder } from "xray16/mocks";
 
 import { CampfireBinder } from "@/engine/core/binders/physic/CampfireBinder";
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("CampfireBinder", () => {
   beforeEach(() => {

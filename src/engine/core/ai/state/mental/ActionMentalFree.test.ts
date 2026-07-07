@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { anim, property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { ActionMentalFree } from "@/engine/core/ai/state/mental/ActionMentalFree";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionMentalFree", () => {
   it("should correctly perform mental state set", () => {

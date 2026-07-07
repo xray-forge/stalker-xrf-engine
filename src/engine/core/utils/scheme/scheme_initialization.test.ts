@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
@@ -39,7 +39,7 @@ import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_set
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS, MockGameObject } from "@/fixtures/xray";
+import { FILES_MOCKS } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 

@@ -1,13 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorCanFight", () => {
   it("should correctly evaluate whether object can fight", () => {

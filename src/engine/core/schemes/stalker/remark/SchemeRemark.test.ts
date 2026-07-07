@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -12,7 +12,6 @@ import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ut
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeRemark", () => {
   it("should correctly activate with defaults", () => {

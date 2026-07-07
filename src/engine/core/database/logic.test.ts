@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { createTime } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
@@ -9,7 +10,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { EScheme } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("logic database module", () => {
   beforeAll(() => {

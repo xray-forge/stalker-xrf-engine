@@ -1,12 +1,12 @@
 import { describe, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerAnimstateStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/animstate_planner";
 import { ActionAnimstateStart, ActionAnimstateStop } from "@/engine/core/ai/state/animstate";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("animation_planner util", () => {
   it("should correctly setup state planner animstate actions", () => {

@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerSignalLight, unregisterSignalLight } from "@/engine/core/database/signal_light";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("registerSignalLight util", () => {
   beforeEach(() => {

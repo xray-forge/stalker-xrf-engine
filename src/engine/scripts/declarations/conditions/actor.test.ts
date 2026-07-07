@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, level } from "xray16";
 import { EActorMenuMode, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -21,7 +22,6 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils/surge_cover");
 jest.mock("@/engine/core/utils/position");

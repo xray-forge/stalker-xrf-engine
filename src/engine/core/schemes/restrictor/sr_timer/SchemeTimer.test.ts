@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
@@ -8,7 +8,6 @@ import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeTimer functionality", () => {
   it("should be correctly defined", () => {

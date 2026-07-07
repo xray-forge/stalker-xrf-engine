@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
@@ -6,7 +7,6 @@ import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cuts
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
   emitSchemeEvent: jest.fn(),

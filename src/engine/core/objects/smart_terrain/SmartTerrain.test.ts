@@ -7,6 +7,7 @@ import {
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
+  MockGameObject,
   MockIniFile,
   MockServerAlifeCreatureAbstract,
 } from "xray16/mocks";
@@ -25,7 +26,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartTerrain generic logic", () => {
   beforeEach(() => {

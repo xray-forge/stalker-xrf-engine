@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import {
@@ -10,7 +11,6 @@ import {
 } from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("addObjectAbuse util", () => {
   it("should correctly add abuse values to the manager", () => {

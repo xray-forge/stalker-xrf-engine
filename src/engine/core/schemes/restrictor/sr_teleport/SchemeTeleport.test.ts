@@ -1,13 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
 import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeTeleport functionality", () => {
   it("should be correctly defined", () => {

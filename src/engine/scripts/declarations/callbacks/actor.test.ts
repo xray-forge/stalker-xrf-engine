@@ -1,11 +1,11 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { AnyArgs, AnyObject, TName } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { callBinding, checkBinding } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 function callTravelBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);

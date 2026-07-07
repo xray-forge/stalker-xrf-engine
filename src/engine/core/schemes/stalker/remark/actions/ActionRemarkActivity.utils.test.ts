@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("initTarget", () => {
   it("should resolve a numeric path point, keeping point 0", () => {

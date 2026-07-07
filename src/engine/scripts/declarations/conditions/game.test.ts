@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { isBlackScreen } from "@/engine/core/utils/game";
@@ -14,7 +15,6 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/game");
 

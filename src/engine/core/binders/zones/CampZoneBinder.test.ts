@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, ServerObject } from "xray16/alias";
-import { MockAlifeObject, MockIniFile, MockObjectBinder } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject, MockIniFile, MockObjectBinder } from "xray16/mocks";
 
 import { CampManager } from "@/engine/core/ai/camp";
 import { CampZoneBinder } from "@/engine/core/binders/zones/CampZoneBinder";
 import { registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("CampZoneBinder", () => {
   beforeEach(() => {

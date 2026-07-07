@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AnyObject } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { disposeManager, getManager, registerObject, registerSimulationObject } from "@/engine/core/database";
 import { DatabaseManager } from "@/engine/core/managers/database/DatabaseManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("DatabaseManager", () => {
   beforeEach(() => {

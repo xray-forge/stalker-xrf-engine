@@ -2,7 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { hanging_lamp, level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
 import { TRUE, Y_VECTOR } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -26,7 +26,6 @@ import {
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {

@@ -1,13 +1,13 @@
 import { describe, expect, it } from "@jest/globals";
 import { property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionEnded";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorSectionActive", () => {
   it("should correctly check if section state is active", () => {

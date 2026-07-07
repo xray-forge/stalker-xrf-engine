@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import {
   registerActor,
@@ -9,7 +10,6 @@ import {
 } from "@/engine/core/database/actor";
 import { registry } from "@/engine/core/database/registry";
 import { Actor } from "@/engine/core/objects/creature";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("actor module of the database", () => {
   it("should correctly register actor", () => {

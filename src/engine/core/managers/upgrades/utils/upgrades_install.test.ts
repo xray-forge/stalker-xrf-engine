@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("addRandomUpgrade util", () => {
   it(" should correctly add random upgrade", () => {

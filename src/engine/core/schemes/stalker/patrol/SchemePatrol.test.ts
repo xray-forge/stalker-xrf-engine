@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
@@ -23,7 +23,6 @@ import {
   MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemePatrol", () => {
   beforeEach(() => {

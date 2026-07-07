@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("doors module of the database", () => {
   it("should correctly register doors", () => {

@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager, registerZone } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
@@ -13,7 +14,6 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/map/utils");
 jest.mock("@/engine/core/ui/game/freeplay");

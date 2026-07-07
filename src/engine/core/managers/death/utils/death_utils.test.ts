@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MAX_U32 } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import {
   IRegistryObjectState,
@@ -15,7 +15,6 @@ import { IReleaseDescriptor } from "@/engine/core/managers/death";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("canReleaseObjectCorpse util", () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject, copyVector } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import {
@@ -17,7 +17,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/spawn");
 

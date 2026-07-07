@@ -1,14 +1,13 @@
 import { describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { MockAlifeHumanStalker } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { getObjectCommunity, getSquadCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { MockSquad } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getSquadCommunity util", () => {
   it("should correctly get community for squads", () => {

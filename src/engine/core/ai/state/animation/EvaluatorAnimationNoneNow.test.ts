@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorAnimationNoneNow } from "@/engine/core/ai/state/animation/EvaluatorAnimationNoneNow";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -6,7 +7,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorAnimation", () => {
   it("should correctly perform animation check", () => {

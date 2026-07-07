@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockAlifeMonsterBase, MockAlifeObject, MockVector } from "xray16/mocks";
+import { MockAlifeMonsterBase, MockAlifeObject, MockGameObject, MockVector } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -11,7 +11,7 @@ import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("StatisticsManager", () => {
   beforeEach(() => {

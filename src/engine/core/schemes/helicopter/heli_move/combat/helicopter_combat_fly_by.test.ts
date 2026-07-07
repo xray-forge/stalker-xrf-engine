@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { MockGameObject, MockVector } from "xray16/mocks";
 
 import { EHelicopterFlyByState } from "@/engine/core/schemes/helicopter/heli_move";
 import {
@@ -10,7 +10,6 @@ import {
   updateHelicopterCombatFlyByFlight,
 } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_fly_by";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("initializeHelicopterCombatFlyBy", () => {
   it("should correctly initialize", () => {

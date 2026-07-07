@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { MockAlifeHumanStalker } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { MockSquad } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getObjectSquad util", () => {
   beforeEach(() => {

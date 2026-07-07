@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { move, property_storage } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { ActionMovementWalkTurn } from "@/engine/core/ai/state/movement/ActionMovementWalkTurn";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionMovementWalkTurn", () => {
   it("should correctly perform movement state set", () => {

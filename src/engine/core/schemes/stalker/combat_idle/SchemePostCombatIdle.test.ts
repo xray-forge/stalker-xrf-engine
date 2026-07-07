@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { cast_planner } from "xray16";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/eva
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemePostCombatIdle", () => {
   beforeEach(() => {

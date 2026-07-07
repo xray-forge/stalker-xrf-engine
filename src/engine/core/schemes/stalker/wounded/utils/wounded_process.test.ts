@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { NIL, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
@@ -11,7 +12,6 @@ import {
   processPsyWound,
   processVictim,
 } from "@/engine/core/schemes/stalker/wounded/utils/wounded_process";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("processHPWound util", () => {
   it("should correctly process null values with and without breakpoints", () => {

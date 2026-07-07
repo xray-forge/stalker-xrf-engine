@@ -1,13 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators/EvaluatorReachAnimpoint";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorReachAnimpoint", () => {
   it("should correctly check if reached animpoint position", () => {

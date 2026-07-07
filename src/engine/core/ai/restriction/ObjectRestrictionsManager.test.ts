@@ -1,10 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction/index";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ObjectRestrictionsManager", () => {
   it("should correctly initialize and get object restrictions", () => {

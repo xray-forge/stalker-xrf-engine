@@ -1,11 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, ServerHumanObject } from "xray16/alias";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { DUMMY_LTX } from "@/engine/core/database";
 import { getObjectId, getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getObjectSpawnIni util", () => {
   beforeEach(() => {

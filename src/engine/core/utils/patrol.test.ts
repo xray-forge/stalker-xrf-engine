@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 import { GameObject, Patrol, Vector } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { registerZone } from "@/engine/core/database";
 import {
@@ -9,7 +10,7 @@ import {
   isObjectAtWaypoint,
   isPatrolInRestrictor,
 } from "@/engine/core/utils/patrol";
-import { MockGameObject, MockPatrol, patrols } from "@/fixtures/xray";
+import { MockPatrol, patrols } from "@/fixtures/xray";
 
 describe("isObjectAtWaypoint util", () => {
   it("should correctly check whether object is at waypoint", () => {

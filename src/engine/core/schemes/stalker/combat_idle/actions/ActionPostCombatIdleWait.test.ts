@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { anim, look, move } from "xray16";
 import { GameObject } from "xray16/alias";
-import { MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -13,7 +13,6 @@ import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/w
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/weapon");
 

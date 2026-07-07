@@ -1,11 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { MockGameObject, MockVector } from "xray16/mocks";
 
 import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_retreat";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("updateHelicopterCombatRetreat", () => {
   it("should correctly initialize", () => {

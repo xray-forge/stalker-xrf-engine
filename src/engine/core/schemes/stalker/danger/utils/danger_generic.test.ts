@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { danger_object } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
 import { FALSE, TRUE } from "xray16/lib";
-import { MockAlifeHumanStalker, MockAlifeSmartZone } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "xray16/mocks";
 
 import {
   ILogicsOverrides,
@@ -25,7 +25,6 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockDangerObject, MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectFacingDanger", () => {
   beforeEach(() => {

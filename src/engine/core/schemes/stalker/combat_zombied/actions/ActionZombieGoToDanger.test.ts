@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { move, property_storage } from "xray16";
 import { EGameObjectPath, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieGoToDanger } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieGoToDanger";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionZombieGoToDanger", () => {
   beforeEach(() => {

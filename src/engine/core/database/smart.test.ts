@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ZoneCampfire } from "xray16/alias";
-import { MockCZoneCampfire } from "xray16/mocks";
+import { MockCZoneCampfire, MockGameObject } from "xray16/mocks";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -14,7 +14,6 @@ import {
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("smart module of the database", () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
-import { MockActionPlanner, MockWorldState } from "xray16/mocks";
+import { MockActionPlanner, MockGameObject, MockWorldState } from "xray16/mocks";
 
 import { setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup/index";
 import {
@@ -19,7 +19,6 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ai/planner/setup/state_planner");
 

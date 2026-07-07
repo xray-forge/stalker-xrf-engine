@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
@@ -10,7 +11,6 @@ import {
   unregisterAnomalyZone,
 } from "@/engine/core/database/anomalies";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("anomaly zones module of the database", () => {
   it("should correctly register anomaly zones", () => {

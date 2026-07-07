@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { NIL } from "xray16/lib";
-import { MockPropertyStorage, MockVector } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage, MockVector } from "xray16/mocks";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registerSmartCover, registerStoryLink } from "@/engine/core/database";
@@ -14,7 +14,6 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/database/stalker");
 

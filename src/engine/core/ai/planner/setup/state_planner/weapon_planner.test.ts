@@ -1,5 +1,6 @@
 import { describe, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerWeaponStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/weapon_planner";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -11,7 +12,6 @@ import {
   ActionWeaponUnstrap,
 } from "@/engine/core/ai/state/weapon";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("weapon_planner util", () => {
   it("should correctly setup state planner planner actions", () => {

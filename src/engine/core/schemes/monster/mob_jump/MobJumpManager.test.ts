@@ -3,12 +3,12 @@ import { patrol } from "xray16";
 import { GameObject } from "xray16/alias";
 import { createVector, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("MobJumpManager", () => {
   it("should correctly fail on not existing patrol", () => {

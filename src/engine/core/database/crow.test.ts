@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockGameObject } from "xray16/mocks";
 
 import { registerCrow, unregisterCrow } from "@/engine/core/database/crow";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("database crow objects utilities", () => {
   it("should correctly register and unregister crow objects", () => {

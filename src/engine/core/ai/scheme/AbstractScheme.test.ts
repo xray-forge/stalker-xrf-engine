@@ -1,14 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject, TSection } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { IBaseSchemeState, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("AbstractScheme", () => {
   class ExampleAbstractScheme extends AbstractScheme {

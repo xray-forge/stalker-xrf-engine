@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { property_storage } from "xray16";
-import { MockCSightParams, MockSightParameters } from "xray16/mocks";
+import { MockCSightParams, MockGameObject, MockSightParameters } from "xray16/mocks";
 
 import { EvaluatorDirectionSet } from "@/engine/core/ai/state/direction/EvaluatorDirectionSet";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -9,7 +9,6 @@ import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorDirectionSet", () => {
   it("should correctly perform direction check when look at object and activate callback", () => {

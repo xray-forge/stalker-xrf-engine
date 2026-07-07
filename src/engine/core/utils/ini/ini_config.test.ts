@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { LuaArray, NIL, TIndex } from "xray16/lib";
-import { MockAlifeObject, MockIniFile } from "xray16/mocks";
+import { MockAlifeObject, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import {
   IBaseSchemeLogic,
@@ -21,7 +21,6 @@ import {
   parseConditionsList,
 } from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("getInfosFromData util", () => {
   beforeEach(() => registerSimulator());

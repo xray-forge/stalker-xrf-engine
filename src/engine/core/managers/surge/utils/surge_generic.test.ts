@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -12,7 +13,6 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("launchSurgeSignalRockets util", () => {
   beforeEach(() => {

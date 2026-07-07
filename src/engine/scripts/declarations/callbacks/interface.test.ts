@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
 import { AnyArgs, AnyCallablesModule, AnyObject, TName } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
@@ -25,7 +26,6 @@ import {
 } from "@/engine/core/utils/weapon_parameters";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 function callUpgradeBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["inventory_upgrades"]);

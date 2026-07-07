@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import {
@@ -12,7 +12,6 @@ import {
   unregisterObjectDynamicState,
 } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("database objects utilities", () => {
   it("should correctly register, reset and unregister objects", () => {

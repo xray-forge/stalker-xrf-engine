@@ -4,6 +4,7 @@ import { GameObject, PhysicsElement, PhysicsShell, ServerObject } from "xray16/a
 import { createVector } from "xray16/lib";
 import {
   MockCArtefact,
+  MockGameObject,
   MockIniFile,
   MockObjectBinder,
   MockPhysicsElement,
@@ -15,7 +16,6 @@ import { ArtefactBinder } from "@/engine/core/binders/physic/ArtefactBinder";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("ArtefactBinder", () => {
   beforeEach(() => {

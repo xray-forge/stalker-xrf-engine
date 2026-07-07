@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { MockAlifeHumanStalker, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerSimulator, registerZone } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
@@ -8,7 +8,6 @@ import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulatio
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("isInNoCombatZone util", () => {
   beforeEach(() => {

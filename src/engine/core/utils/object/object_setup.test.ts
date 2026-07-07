@@ -1,11 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockIniFile } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
 import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
 import { expectCallsToEqual } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("setupObjectVisual util", () => {
   it("should setup visuals", () => {

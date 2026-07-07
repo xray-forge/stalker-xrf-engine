@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { move, property_storage } from "xray16";
+import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorBodyStateCrouchNow } from "@/engine/core/ai/state/body_state/EvaluatorBodyStateCrouchNow";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -7,7 +8,6 @@ import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorBodyStateCrouchNow", () => {
   it("should correctly evaluate body state crouch now", () => {

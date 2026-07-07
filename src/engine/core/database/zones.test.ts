@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, Vector } from "xray16/alias";
-import { MockVector } from "xray16/mocks";
+import { MockGameObject, MockVector } from "xray16/mocks";
 
 import { CampManager } from "@/engine/core/ai/camp";
 import { registry } from "@/engine/core/database/registry";
@@ -12,7 +12,6 @@ import {
   unregisterCampZone,
   unregisterZone,
 } from "@/engine/core/database/zones";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("zones module of the database", () => {
   it("should correctly register zones", () => {

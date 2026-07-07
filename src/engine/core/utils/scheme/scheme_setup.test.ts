@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ActionBase } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
-import { MockActionBase } from "xray16/mocks";
+import { MockActionBase, MockGameObject } from "xray16/mocks";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
@@ -19,7 +19,6 @@ import {
 } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("disableObjectGenericSchemes util", () => {
   beforeEach(() => {

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import { getManager, loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
@@ -10,7 +11,7 @@ import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TradeManager class implementation", () => {
   beforeEach(() => {

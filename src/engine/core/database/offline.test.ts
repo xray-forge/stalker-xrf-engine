@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MAX_I32 } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import {
   hardResetOfflineObject,
@@ -9,7 +10,6 @@ import {
   unregisterOfflineObject,
 } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject } from "@/fixtures/xray";
 
 describe("offline database module", () => {
   it("should correctly register and unregister offline objects state", () => {

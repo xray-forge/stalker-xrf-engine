@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
 
 import {
   getPortableStoreValue,
@@ -19,7 +20,6 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/object");
 
