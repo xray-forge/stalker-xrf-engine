@@ -1,7 +1,7 @@
 # 🎮 [Stalker XRF](README.md)
 
 [![book](https://img.shields.io/badge/docs-book-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-book)
-[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/xray-16-types/index.html)
+[![types](https://img.shields.io/badge/docs-types-blue.svg?style=flat)](https://xray-forge.github.io/stalker-xrf-xray16-sdk/index.html)
 [![language-ts](https://img.shields.io/badge/language-typescript-blue.svg?style=flat)](https://github.com/xray-forge/stalker-xrf-engine/search?l=typescript)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/Neloreck/dreamstate/blob/master/LICENSE)
 <br/>
@@ -40,7 +40,7 @@ Fully rewritten stalker script engine with typescript. <br/>
 - [Starting work](https://xray-forge.github.io/stalker-xrf-book/INSTALLATION.html)
 - [CLI commands](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands.html)
 - [Docs](https://xray-forge.github.io/stalker-xrf-book/GENERAL.html)
-- [Types](https://xray-forge.github.io/xray-16-types/modules.html), [source](https://github.com/xray-forge/xray-16-types)
+- [X-Ray 16 SDK](https://xray-forge.github.io/stalker-xrf-xray16-sdk/modules.html), [source](https://github.com/xray-forge/stalker-xrf-xray16-sdk)
 
 ## 📌 What is used
 
