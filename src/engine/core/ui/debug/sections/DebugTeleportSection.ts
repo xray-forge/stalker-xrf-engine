@@ -98,9 +98,12 @@ export class DebugTeleportSection extends AbstractDebugSection {
       case ETeleportCategory.SMART_TERRAIN: {
         const smartTerrains: LuaArray<SmartTerrain> = getServerObjects((it) => it.section_name() === "smart_terrain");
 
-        (smartTerrains as unknown as Array<SmartTerrain>)
-          .sort((a, b) => ((a.name() as unknown as number) > (b.name() as unknown as number) ? 1 : -1))
-          .forEach((it) => this.addSmartTerrainToList(it));
+        table.sort(smartTerrains, (a, b) => a.name() < b.name());
+
+        for (const [, it] of smartTerrains) {
+          this.addSmartTerrainToList(it);
+        }
+
         break;
       }
     }

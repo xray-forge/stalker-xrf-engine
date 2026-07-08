@@ -1,7 +1,7 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
 import { ServerObject, Vector2D } from "xray16/alias";
 import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TPath, TSection } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $fromArray } from "xray16/macros";
 
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
@@ -98,10 +98,12 @@ export class DebugSpawnSection extends AbstractDebugSection {
   /**
    * Add item to spawn list UI element.
    */
-  public addItemsToList(sections: Array<TSection> | LuaArray<TSection>): void {
-    (sections as Array<TSection>)
-      .sort((a, b) => ((a as unknown as number) > (b as unknown as number) ? 1 : -1))
-      .forEach((it) => this.addItemToList(it));
+  public addItemsToList(sections: LuaArray<TSection>): void {
+    table.sort(sections, (a, b) => a < b);
+
+    for (const [, it] of sections) {
+      this.addItemToList(it);
+    }
   }
 
   /**
