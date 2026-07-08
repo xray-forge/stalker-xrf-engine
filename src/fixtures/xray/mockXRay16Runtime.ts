@@ -146,7 +146,16 @@ export {
 } from "xray16/mocks";
 
 // Globals with behaviour beyond a plain mock re-export (computed values, singletons, primitive helpers).
+export const GetFontDI = jest.fn(() => new MockCGameFont());
+export const GetFontGraffiti19Russian = jest.fn(() => new MockCGameFont());
+export const GetFontGraffiti22Russian = jest.fn(() => new MockCGameFont());
+export const GetFontGraffiti32Russian = jest.fn(() => new MockCGameFont());
+export const GetFontGraffiti50Russian = jest.fn(() => new MockCGameFont());
 export const GetFontLetterica16Russian = jest.fn(() => new MockCGameFont());
+export const GetFontLetterica18Russian = jest.fn(() => new MockCGameFont());
+export const GetFontLetterica25 = jest.fn(() => new MockCGameFont());
+export const GetFontMedium = jest.fn(() => new MockCGameFont());
+export const GetFontSmall = jest.fn(() => new MockCGameFont());
 export const IsDynamicMusic = jest.fn(() => true);
 export const IsGameTypeSingle = jest.fn(() => true);
 export const IsImportantSave = jest.fn(() => true);
