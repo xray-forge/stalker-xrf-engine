@@ -12,6 +12,8 @@ import { EScheme } from "@/engine/lib/types";
 /**
  * From two possible speakers pick NPC one, omit actor.
  *
+ * @inline
+ *
  * @param first - Possible non-actor speaker.
  * @param second - Possible non-actor speaker.
  * @returns Non-actor game object picked from parameters.
