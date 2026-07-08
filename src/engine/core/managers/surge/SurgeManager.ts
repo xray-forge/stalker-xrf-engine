@@ -1,4 +1,4 @@
-import { game, hit, level } from "xray16";
+import { CArtefact, game, hit, level } from "xray16";
 import { GameObject, Hit, NetPacket, NetProcessor, Time } from "xray16/alias";
 import {
   ACTOR_ID,
@@ -565,7 +565,7 @@ export class SurgeManager extends AbstractManager {
         registry.artefacts.ways.delete(id);
       }
 
-      object.get_artefact().FollowByPath("NULL", 0, createVector(500, 500, 500));
+      (object.get_artefact() as CArtefact).FollowByPath("NULL", 0, createVector(500, 500, 500));
     }
   }
 

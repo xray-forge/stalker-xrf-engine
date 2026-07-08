@@ -27,7 +27,7 @@ export class ArtefactBinder extends object_binder {
     registerObject(this.object);
 
     const objectId: TNumberId = this.object.id();
-    const artefact: CArtefact = this.object.get_artefact();
+    const artefact: CArtefact = this.object.get_artefact() as CArtefact;
 
     if (registry.artefacts.ways.has(objectId)) {
       const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(objectId);

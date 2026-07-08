@@ -59,7 +59,7 @@ export function unregisterSmartCover(smartCover: SmartCover): void {
  */
 export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
   const terrainName: TName = terrain.name();
-  const campfire: ZoneCampfire = object.get_campfire();
+  const campfire: ZoneCampfire = object.get_campfire() as ZoneCampfire;
 
   campfire.turn_off();
 

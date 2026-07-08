@@ -135,7 +135,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
 
     if (this.isOpen()) {
-      this.object.get_physics_object().unset_door_ignore_dynamics();
+      (this.object.get_physics_object() as PhysicObject).unset_door_ignore_dynamics();
       this.object.on_door_is_open();
 
       return true;
@@ -164,7 +164,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
       }
     }
 
-    this.object.get_physics_object().unset_door_ignore_dynamics();
+    (this.object.get_physics_object() as PhysicObject).unset_door_ignore_dynamics();
     this.block = false;
 
     if (!this.soundlessBlock && this.state.sndCloseStop) {
@@ -196,7 +196,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
       if (physicsElement.is_fixed()) {
         physicsElement.release_fixed();
 
-        const physicsObject: PhysicObject = this.object.get_physics_object();
+        const physicsObject: PhysicObject = this.object.get_physics_object() as PhysicObject;
 
         physicsObject.set_door_ignore_dynamics();
       }
@@ -240,7 +240,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.block = true;
     this.soundlessBlock = disableSound;
 
-    const physicObject: PhysicObject = this.object.get_physics_object();
+    const physicObject: PhysicObject = this.object.get_physics_object() as PhysicObject;
 
     physicObject.set_door_ignore_dynamics();
 

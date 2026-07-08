@@ -1,4 +1,4 @@
-import { callback, CPhysicObject, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
+import { callback, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
 import {
   ESoundObjectType,
   GameObject,
@@ -119,7 +119,7 @@ export class DoorBinder extends object_binder {
     this.object.set_callback(callback.script_animation, this.onAnimation, this);
     this.object.set_callback(callback.use_object, this.onUse, this);
 
-    const physicObject: CPhysicObject = this.object.get_physics_object();
+    const physicObject: PhysicObject = this.object.get_physics_object() as PhysicObject;
 
     physicObject.stop_anim();
     physicObject.anim_time_set(0);
@@ -151,7 +151,7 @@ export class DoorBinder extends object_binder {
     super.update(delta);
 
     const object: GameObject = this.object;
-    const physicObject: PhysicObject = object.get_physics_object();
+    const physicObject: PhysicObject = object.get_physics_object() as PhysicObject;
 
     if (this.isLoaded && this.animationDuration) {
       physicObject.anim_time_set(this.animationDuration);
@@ -197,7 +197,7 @@ export class DoorBinder extends object_binder {
 
     packet.w_bool(this.isIdle);
     packet.w_bool(this.isPlayingForward);
-    packet.w_float(this.object.get_physics_object().anim_time_get());
+    packet.w_float((this.object.get_physics_object() as PhysicObject).anim_time_get());
 
     closeSaveMarker(packet, DoorBinder.__name);
   }
@@ -233,7 +233,7 @@ export class DoorBinder extends object_binder {
       this.idleSound.stop();
     }
 
-    object.get_physics_object().stop_anim();
+    (object.get_physics_object() as PhysicObject).stop_anim();
 
     if (this.startSound) {
       this.startSound.play_at_pos(object, object.position(), this.startDelay / 1_000, ESoundObjectType.S3D);
@@ -256,15 +256,16 @@ export class DoorBinder extends object_binder {
    */
   public stopAnimation(): void {
     const object: GameObject = this.object;
+    const physicObject: PhysicObject = object.get_physics_object() as PhysicObject;
 
     this.isIdle = true;
-    object.get_physics_object().stop_anim();
+    physicObject.stop_anim();
 
     if (this.stopSound) {
       this.stopSound.play_at_pos(object, object.position(), 0, ESoundObjectType.S3D);
     }
 
-    this.animationDuration = object.get_physics_object().anim_time_get();
+    this.animationDuration = physicObject.anim_time_get();
 
     pickSectionFromCondList(registry.actor, object, this.onStopConditionList);
   }
@@ -283,7 +284,7 @@ export class DoorBinder extends object_binder {
       }
 
       this.isIdle = true;
-      this.animationDuration = object.get_physics_object().anim_time_get();
+      this.animationDuration = (object.get_physics_object() as PhysicObject).anim_time_get();
 
       pickSectionFromCondList(registry.actor, object, this.onStopConditionList);
     }
