@@ -2,6 +2,7 @@ import { clsid, game } from "xray16";
 import { AlifeSimulator, GameObject, GameTask } from "xray16/alias";
 import {
   abort,
+  ACTOR_ID,
   AnyObject,
   assert,
   Nillable,
@@ -47,7 +48,6 @@ import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/
 import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

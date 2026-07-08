@@ -1,6 +1,6 @@
 import { callback, level, LuabindClass, object_binder, time_global } from "xray16";
 import { GameObject, GameTask, NetPacket, NetReader, ServerActorObject, TTaskState } from "xray16/alias";
-import { Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
+import { ACTOR_ID, Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -28,7 +28,6 @@ import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

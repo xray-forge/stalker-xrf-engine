@@ -8,7 +8,18 @@ import {
   TSoundType,
   Vector,
 } from "xray16/alias";
-import { Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRate, TTimestamp, ZERO_VECTOR } from "xray16/lib";
+import {
+  ACTOR_ID,
+  Nillable,
+  TCount,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TTimestamp,
+  ZERO_VECTOR,
+} from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
@@ -60,7 +71,6 @@ import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/co
 import { emitSchemeEvent, initializeObjectInvulnerability, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";

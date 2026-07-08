@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MAX_ALIFE_ID } from "xray16/lib";
 import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import {
@@ -13,7 +14,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Monster } from "@/engine/core/objects/creature/Monster";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("Monster server object", () => {

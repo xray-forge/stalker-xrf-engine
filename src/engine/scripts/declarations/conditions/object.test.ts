@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, clsid } from "xray16";
 import { GameObject, ServerCreatureObject, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
+import { ACTOR_ID } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import {
   MockAlifeHumanStalker,
@@ -33,7 +34,6 @@ import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import {
   callXrCondition,

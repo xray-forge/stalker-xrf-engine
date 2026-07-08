@@ -2,6 +2,8 @@ import { CCar, level, move, patrol, time_global } from "xray16";
 import { Car, GameObject, Vector } from "xray16/alias";
 import {
   abort,
+  ACTOR,
+  ACTOR_ID,
   createEmptyVector,
   createVector,
   NIL,
@@ -31,8 +33,6 @@ import {
   switchObjectSchemeToSection,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ACTOR } from "@/engine/lib/constants/words";
 
 /**
  * Manager handling minigun scheme behaviour for an object.

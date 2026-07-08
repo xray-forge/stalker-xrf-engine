@@ -1,5 +1,5 @@
 import { AnyGameObject, EGameObjectRelation, GameObject } from "xray16/alias";
-import { abort, extern, Nillable, TStringId } from "xray16/lib";
+import { abort, ACTOR_ID, extern, Nillable, TStringId } from "xray16/lib";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -15,7 +15,6 @@ import {
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme } from "@/engine/lib/types";
 
 /**

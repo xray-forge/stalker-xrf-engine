@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { EGameObjectClass } from "xray16/lib";
 import { mockObjectFactory } from "xray16/mocks";
 
-import { EGameObjectClass } from "@/engine/lib/constants/class_ids";
 import { registerGameClasses } from "@/engine/scripts/register/class_registrator";
 import { getFunctionMock } from "@/fixtures/jest";
 

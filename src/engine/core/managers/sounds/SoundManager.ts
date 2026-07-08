@@ -1,5 +1,5 @@
 import { GameObject, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
-import { AnyObject, assert, Nillable, TCount, TName, TNumberId, TRate, TStringId } from "xray16/lib";
+import { ACTOR_ID, AnyObject, assert, Nillable, TCount, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
@@ -9,7 +9,6 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/Abs
 import { LoopedSound } from "@/engine/core/managers/sounds/objects/LoopedSound";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

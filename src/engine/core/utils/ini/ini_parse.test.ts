@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { flags32 } from "xray16";
 import { Flags32, GameObject } from "xray16/alias";
-import { extern, LuaArray, NIL } from "xray16/lib";
+import { EMPTY_LUA_ARRAY, extern, LuaArray, NIL } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
@@ -25,7 +25,6 @@ import {
   parseWaypointsDataFromList,
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
-import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 
 describe("parseStringsList util", () => {
   it("should correctly parse names array", () => {

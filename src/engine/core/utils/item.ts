@@ -1,11 +1,10 @@
 import { GameObject, ServerObject } from "xray16/alias";
-import { LuaArray, Nillable, TCount, TNumberId, TRate, TSection } from "xray16/lib";
+import { LuaArray, MAX_ALIFE_ID, Nillable, TCount, TNumberId, TRate, TSection } from "xray16/lib";
 import { $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols } from "@/engine/lib/constants/items/weapons";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 /**
  * @param section - Item section to get cost for.

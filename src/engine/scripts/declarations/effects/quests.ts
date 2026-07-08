@@ -2,6 +2,7 @@ import { particles_object, patrol, sound_object } from "xray16";
 import { GameObject, ParticlesObject, ServerObject, ServerPhysicObject, SoundObject, Vector } from "xray16/alias";
 import {
   abort,
+  ACTOR_ID,
   AnyCallable,
   assert,
   copyVector,
@@ -10,6 +11,7 @@ import {
   extern,
   getExtern,
   LuaArray,
+  MAX_ALIFE_ID,
   Nillable,
   TCount,
   TDistance,
@@ -42,7 +44,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -52,7 +53,6 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { AnyObject, NIL } from "xray16/lib";
+import { AnyObject, MAX_ALIFE_ID, NIL } from "xray16/lib";
 import {
   EMockPacketDataType,
   MockAlifeHumanStalker,
@@ -14,7 +14,6 @@ import { registerSimulationTerrain } from "@/engine/core/managers/simulation/uti
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("Stalker server object", () => {

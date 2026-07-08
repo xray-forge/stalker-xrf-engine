@@ -1,8 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { AnyObject } from "xray16/lib";
+import { AnyObject, updateClassIds } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { updateClassIds } from "@/engine/core/utils/class_ids_list";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
@@ -14,7 +13,11 @@ function checkBinding(name: string, container: AnyObject = globalThis): void {
   expect(typeof container["start"][name]).toBe("function");
 }
 
-jest.mock("@/engine/core/utils/class_ids_list");
+jest.mock("xray16/lib", () => ({
+  ...jest.requireActual<AnyObject>("xray16/lib"),
+  updateClassIds: jest.fn(),
+}));
+
 jest.mock("@/engine/core/utils/ini/ini_system");
 jest.mock("@/engine/scripts/register/extensions_registrator");
 jest.mock("@/engine/scripts/register/managers_registrator");

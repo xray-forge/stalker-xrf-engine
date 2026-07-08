@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { ACTOR_ID } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -9,7 +10,6 @@ import {
   playSurgeWillHappenSoonSound,
 } from "@/engine/core/managers/surge/utils/surge_sound";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 

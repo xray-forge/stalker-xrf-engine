@@ -10,6 +10,7 @@ import {
 } from "xray16";
 import { GameObject, Vector, XmlInit } from "xray16/alias";
 import {
+  ACTOR,
   distanceBetween2d,
   MAX_U16,
   NIL,
@@ -28,7 +29,6 @@ import {
 import { getIdBySid, registry } from "@/engine/core/database";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { ACTOR } from "@/engine/lib/constants/words";
 
 /**
  * Manager handling helicopter enemy targeting, firing and combat HUD for an object.

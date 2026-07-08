@@ -1,6 +1,6 @@
 import { danger_object } from "xray16";
 import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TDangerType } from "xray16/alias";
-import { Nillable, TDistance, TRUE } from "xray16/lib";
+import { ACTOR_ID, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
@@ -13,8 +13,6 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme } from "@/engine/lib/types";
 
 /**

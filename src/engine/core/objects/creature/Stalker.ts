@@ -1,6 +1,6 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 import { IniFile, NetPacket, ServerCreatureObject } from "xray16/alias";
-import { assert, Nillable, TName, TNumberId } from "xray16/lib";
+import { assert, MAX_ALIFE_ID, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -17,7 +17,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

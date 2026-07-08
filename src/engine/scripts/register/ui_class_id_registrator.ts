@@ -1,7 +1,4 @@
-import { abort, Nillable } from "xray16/lib";
-
-import { gameClassId, TGameClassId } from "@/engine/lib/constants/class_ids";
-import { EGameType } from "@/engine/lib/constants/game_types";
+import { abort, EGameType, gameClassId, Nillable, TGameClassId } from "xray16/lib";
 
 /**
  * @param gameType - Type of the game.

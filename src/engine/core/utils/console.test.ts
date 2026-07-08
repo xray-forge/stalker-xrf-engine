@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Console } from "xray16/alias";
+import { gameDifficulties } from "xray16/lib";
 import { MockConsole, MockIniFile } from "xray16/mocks";
 
 import {
@@ -8,7 +9,6 @@ import {
   getConsoleFloatCommand,
 } from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("executeConsoleCommand util", () => {

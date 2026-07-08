@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { TNumberId, TSection } from "xray16/lib";
+import { MAX_ALIFE_ID, TNumberId, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
@@ -23,7 +23,6 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 
 describe("getItemPrice util", () => {

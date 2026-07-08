@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerGroupObject } from "xray16/alias";
+import { ACTOR_ID } from "xray16/lib";
 import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
 import {
@@ -20,7 +21,6 @@ import {
 } from "@/engine/core/utils/relation/relation_get";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 
 describe("getObjectsRelationSafe util", () => {

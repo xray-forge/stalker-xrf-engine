@@ -13,6 +13,7 @@ import {
   assert,
   createEmptyVector,
   LuaArray,
+  MAX_ALIFE_ID,
   Nillable,
   TCount,
   TDistance,
@@ -37,7 +38,6 @@ import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

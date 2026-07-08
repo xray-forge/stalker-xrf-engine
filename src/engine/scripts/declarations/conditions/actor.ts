@@ -1,6 +1,6 @@
 import { level } from "xray16";
 import { EActorMenuMode, GameObject } from "xray16/alias";
-import { abort, extern, LuaArray, Nillable, TCount, TDistance, TName, TRate, TSection } from "xray16/lib";
+import { abort, ACTOR_ID, extern, LuaArray, Nillable, TCount, TDistance, TName, TRate, TSection } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -16,7 +16,6 @@ import {
 import { isWeapon } from "@/engine/core/utils/class_ids";
 import { actorHasItemCount } from "@/engine/core/utils/item";
 import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
 import { EScheme } from "@/engine/lib/types";
 

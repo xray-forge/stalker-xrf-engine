@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { actor_stats } from "xray16";
-import { AnyObject, TName, TNumberId } from "xray16/lib";
+import { ACTOR_ID, AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 
@@ -12,7 +12,6 @@ import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("SimulationManager", () => {

@@ -1,10 +1,9 @@
 import { level } from "xray16";
 import { ALifeSmartTerrainTask, GameObject } from "xray16/alias";
-import { assert, Nillable, TNumberId } from "xray16/lib";
+import { assert, MAX_ALIFE_ID, Nillable, TNumberId } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 /**
  * Handle object position sync when net spawn event is happening.

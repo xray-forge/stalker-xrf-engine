@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { AnyObject, NIL } from "xray16/lib";
+import { ACTOR_ID, AnyObject, NIL } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
@@ -9,7 +9,6 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("SoundManager", () => {

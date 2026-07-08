@@ -4,6 +4,7 @@ import {
   abort,
   FALSE,
   LuaArray,
+  MAX_ALIFE_ID,
   NIL,
   Nillable,
   StringNillable,
@@ -70,7 +71,6 @@ import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getSquadHelpActorTargetId, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

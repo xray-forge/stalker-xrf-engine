@@ -1,5 +1,5 @@
 import { ServerCreatureObject, TClassId } from "xray16/alias";
-import { TName, TNumberId, TRate, TSection } from "xray16/lib";
+import { ACTOR_ID, MAX_ALIFE_ID, TName, TNumberId, TRate, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import {
   type IMockAlifeObjectConfig,
@@ -15,8 +15,6 @@ import {
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 interface IMockSquadConfig extends IMockAlifeObjectConfig {
   behaviour?: LuaTable<string, string>;

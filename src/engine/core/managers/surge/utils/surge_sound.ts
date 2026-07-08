@@ -1,10 +1,9 @@
 import { level } from "xray16";
-import { TName } from "xray16/lib";
+import { ACTOR_ID, TName } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { levels } from "@/engine/lib/constants/levels";
 

@@ -1,12 +1,12 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, TRelationType } from "xray16/alias";
+import { ACTOR_ID } from "xray16/lib";
 import { MockAlifeHumanStalker, mockCharactersGoodwill, MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,

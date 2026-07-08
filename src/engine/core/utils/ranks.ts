@@ -1,11 +1,10 @@
 import { clsid } from "xray16";
 import { GameObject, IniFile, ServerMonsterAbstractObject, TClassId } from "xray16/alias";
-import { abort, LuaArray, Nillable, TIndex, TName, TRate, TSection } from "xray16/lib";
+import { abort, LuaArray, MAX_ALIFE_RANK, Nillable, TIndex, TName, TRate, TSection } from "xray16/lib";
 
 import { IRankDescriptor, registry } from "@/engine/core/database";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { classIds } from "@/engine/lib/constants/class_ids";
-import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 
 /**
  * Parses game ranks and caches list with them.

@@ -1,6 +1,7 @@
 import { game, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import {
+  ACTOR_ID,
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
@@ -31,7 +32,6 @@ import {
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/reward";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";

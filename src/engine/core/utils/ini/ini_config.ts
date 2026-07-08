@@ -3,7 +3,9 @@ import {
   abort,
   AnyCallable,
   AnyObject,
+  EMPTY_LUA_ARRAY,
   LuaArray,
+  NEVER,
   NIL,
   Nillable,
   TCount,
@@ -31,9 +33,7 @@ import {
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
 import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { NEVER } from "@/engine/lib/constants/words";
 import { ESchemeCondition } from "@/engine/lib/types";
 
 /**

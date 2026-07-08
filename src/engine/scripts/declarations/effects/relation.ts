@@ -1,5 +1,5 @@
 import { EGameObjectRelation, GameObject } from "xray16/alias";
-import { abort, extern, Nillable, TCount, TStringId } from "xray16/lib";
+import { abort, ACTOR_ID, extern, Nillable, TCount, TStringId } from "xray16/lib";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -13,7 +13,6 @@ import {
   updateSquadIdRelationToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 /**
  * Set object goodwill as friendly to actor.

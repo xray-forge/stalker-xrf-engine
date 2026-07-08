@@ -2,6 +2,7 @@ import { game, level, patrol, time_global } from "xray16";
 import { GameObject, Patrol, Phrase, PhraseDialog, PhraseScript, ServerObject, TClassId, Vector } from "xray16/alias";
 import {
   abort,
+  ACTOR_ID,
   AnyObject,
   Nillable,
   TCount,
@@ -48,7 +49,6 @@ import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaLoggerMode.DUAL });
 

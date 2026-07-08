@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
+import { EGameType, gameClassId } from "xray16/lib";
 
-import { gameClassId } from "@/engine/lib/constants/class_ids";
-import { EGameType } from "@/engine/lib/constants/game_types";
 import { getGameClassId } from "@/engine/scripts/register/game_class_id_registrator";
 
 describe("game_class_id_registrator entry point", () => {

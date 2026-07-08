@@ -2,6 +2,7 @@ import { level, MonsterHitInfo } from "xray16";
 import { AlifeSimulator, AnyGameObject, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
 import {
   abort,
+  ACTOR_ID,
   AnyArgs,
   extern,
   LuaArray,
@@ -61,7 +62,6 @@ import {
 } from "@/engine/core/utils/position";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { EScheme } from "@/engine/lib/types";
 

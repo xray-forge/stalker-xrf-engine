@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MAX_ALIFE_RANK } from "xray16/lib";
 
 import { IRankDescriptor } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
-
 describe("ranks", () => {
   beforeEach(() => {
     registry.ranks.isInitialized = false;

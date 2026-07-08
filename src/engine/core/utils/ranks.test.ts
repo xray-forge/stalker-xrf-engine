@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
-import { LuaArray } from "xray16/lib";
+import { LuaArray, MAX_ALIFE_RANK } from "xray16/lib";
 import { MockAlifeMonsterBase, MockGameObject } from "xray16/mocks";
 
 import { IRankDescriptor, SYSTEM_INI } from "@/engine/core/database";
@@ -15,7 +15,6 @@ import {
   getStalkerRankByValue,
   readRanksList,
 } from "@/engine/core/utils/ranks";
-import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("readRanksList util", () => {

@@ -1,6 +1,6 @@
 import { actor_stats } from "xray16";
 import { NetPacket, NetProcessor } from "xray16/alias";
-import { AnyObject } from "xray16/lib";
+import { ACTOR_ID, AnyObject } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -9,7 +9,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { destroySimulationData, initializeDefaultSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 

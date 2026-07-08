@@ -8,12 +8,21 @@ import {
   ServerObject,
   Vector,
 } from "xray16/alias";
-import { graphDistance, Nillable, TDistance, TName, TNumberId, yawDegree3d, ZERO_VECTOR } from "xray16/lib";
+import {
+  graphDistance,
+  MAX_ALIFE_ID,
+  MAX_LEVEL_VERTEX_ID,
+  Nillable,
+  TDistance,
+  TName,
+  TNumberId,
+  yawDegree3d,
+  ZERO_VECTOR,
+} from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { MAX_ALIFE_ID, MAX_LEVEL_VERTEX_ID } from "@/engine/lib/constants/memory";
 
 /**
  * Get smart terrain linked to object.

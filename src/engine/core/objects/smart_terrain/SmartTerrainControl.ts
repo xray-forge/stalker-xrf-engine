@@ -1,6 +1,6 @@
 import { game } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor, Time } from "xray16/alias";
-import { Nillable, readTimeFromPacket, TName, TSection, TStringId, writeTimeToPacket } from "xray16/lib";
+import { ACTOR_ID, Nillable, readTimeFromPacket, TName, TSection, TStringId, writeTimeToPacket } from "xray16/lib";
 
 import {
   closeLoadMarker,
@@ -18,7 +18,6 @@ import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTer
 import { isWeapon } from "@/engine/core/utils/class_ids";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 
 /**
  * Handler of smart terrain status.

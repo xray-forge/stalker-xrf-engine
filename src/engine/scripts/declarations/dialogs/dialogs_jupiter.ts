@@ -1,5 +1,6 @@
 import { EGameObjectRelation, GameObject, ServerCreatureObject } from "xray16/alias";
 import {
+  ACTOR_ID,
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
@@ -32,7 +33,6 @@ import {
   transferMoneyFromActor,
 } from "@/engine/core/utils/reward";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";

@@ -1,4 +1,4 @@
-import { LuaArray, TSection } from "xray16/lib";
+import { EConfigClassId, LuaArray, TSection } from "xray16/lib";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
@@ -6,7 +6,6 @@ import {
   AMMO_CONFIG_CLASSES,
   ARTEFACT_CONFIG_CLASSES,
   DETECTOR_CONFIG_CLASSES,
-  EConfigClassId,
   WEAPON_ADDONS_CONFIG_CLASSES,
   WEAPON_CONFIG_CLASSES,
 } from "@/engine/lib/constants/class_ids";

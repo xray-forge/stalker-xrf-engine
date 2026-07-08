@@ -9,6 +9,7 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  ACTOR_ID,
   AnyObject,
   assert,
   NIL,
@@ -30,7 +31,6 @@ import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
