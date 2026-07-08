@@ -1,10 +1,9 @@
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
-import { distanceBetween2d, TTimestamp } from "xray16/lib";
+import { distanceBetween2d, pickRandom, TTimestamp } from "xray16/lib";
 
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { pickRandom } from "@/engine/core/utils/random";
 
 /**
  * @param manager - Instance to initialize.

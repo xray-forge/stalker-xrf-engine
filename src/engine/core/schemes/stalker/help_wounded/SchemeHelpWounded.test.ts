@@ -12,10 +12,12 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-function prepareActionPlanner(planner: ActionPlanner): ActionPlanner {
-  planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, MockActionBase.mock(null, "ActionStateToIdleItems"));
+function prepareActionPlanner(object: GameObject): ActionPlanner {
+  object
+    .motivation_action_manager()
+    .add_action(EActionId.STATE_TO_IDLE_ITEMS, MockActionBase.mock(object, "ActionStateToIdleItems"));
 
-  return planner;
+  return object.motivation_action_manager();
 }
 
 describe("SchemeHelpWounded", () => {
@@ -33,7 +35,7 @@ describe("SchemeHelpWounded", () => {
     loadSchemeImplementation(SchemeHelpWounded);
 
     const object: GameObject = MockGameObject.mockStalker();
-    const planner: ActionPlanner = prepareActionPlanner(object.motivation_action_manager());
+    const planner: ActionPlanner = prepareActionPlanner(object);
 
     registerObject(object);
 
@@ -48,7 +50,7 @@ describe("SchemeHelpWounded", () => {
     loadSchemeImplementation(SchemeHelpWounded);
 
     const object: GameObject = MockGameObject.mockStalker();
-    const planner: ActionPlanner = prepareActionPlanner(object.motivation_action_manager());
+    const planner: ActionPlanner = prepareActionPlanner(object);
 
     registerObject(object);
 
