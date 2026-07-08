@@ -1,6 +1,16 @@
 import { time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor } from "xray16/alias";
-import { AnyObject, Nillable, TNumberId, TPath, TRate, TSection, TTimestamp } from "xray16/lib";
+import {
+  abort,
+  AnyObject,
+  assertNonEmptyString,
+  Nillable,
+  TNumberId,
+  TPath,
+  TRate,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { TAnimationSequenceElement } from "@/engine/core/animation/types";
@@ -17,7 +27,6 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
-import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

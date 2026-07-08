@@ -1,6 +1,16 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 import { Car, GameObject, Vector } from "xray16/alias";
-import { createEmptyVector, createVector, NIL, Nillable, TSection, TStringId, TTimestamp, yaw } from "xray16/lib";
+import {
+  abort,
+  createEmptyVector,
+  createVector,
+  NIL,
+  Nillable,
+  TSection,
+  TStringId,
+  TTimestamp,
+  yaw,
+} from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -12,7 +22,6 @@ import {
   EMinigunState,
   ISchemeMinigunState,
 } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import {

@@ -1,6 +1,7 @@
 import { level } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import {
+  abort,
   copyVector,
   LuaArray,
   Nillable,
@@ -23,7 +24,6 @@ import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IFormationObjectDescriptor, IPatrolObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
-import { abort } from "@/engine/core/utils/assertion";
 
 /**
  * Manager for generic patrol scheme objects.

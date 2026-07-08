@@ -1,11 +1,10 @@
 import { patrol } from "xray16";
 import { GameObject, IniFile, Patrol } from "xray16/alias";
-import { TIndex, TName, TSection } from "xray16/lib";
+import { abort, TIndex, TName, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
 import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
-import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 

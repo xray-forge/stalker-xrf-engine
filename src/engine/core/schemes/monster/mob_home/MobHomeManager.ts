@@ -1,6 +1,6 @@
 import { patrol } from "xray16";
 import { Patrol, ServerCreatureObject } from "xray16/alias";
-import { Nillable, TDistance, TName, TNumberId } from "xray16/lib";
+import { assert, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -8,7 +8,6 @@ import { registry, setMonsterState } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeConfig";
-import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

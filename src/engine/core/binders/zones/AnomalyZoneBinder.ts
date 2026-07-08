@@ -1,6 +1,19 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
 import { GameObject, IniFile, NetPacket, NetReader, ServerObject } from "xray16/alias";
-import { LuaArray, MAX_U8, Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRate, TSection } from "xray16/lib";
+import {
+  abort,
+  assert,
+  LuaArray,
+  MAX_U8,
+  Nillable,
+  TCount,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
@@ -16,7 +29,6 @@ import {
 } from "@/engine/core/database";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { getAnomalyFreePaths, spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import {
   parseConditionsList,
   parseNumbersList,

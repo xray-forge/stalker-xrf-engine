@@ -11,6 +11,7 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  abort,
   clamp,
   createEmptyVector,
   createVector,
@@ -39,7 +40,6 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
 import { IPsyPostProcessDescriptor } from "@/engine/core/managers/psy/psy_antenna_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

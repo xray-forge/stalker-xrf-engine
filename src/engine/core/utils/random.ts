@@ -1,6 +1,5 @@
+import { assert } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-
-import { assert } from "@/engine/core/utils/assertion";
 
 /**
  * Get math random based chance to happen by base of provided parameter.

@@ -1,9 +1,8 @@
 import { clsid } from "xray16";
 import { GameObject, IniFile, ServerMonsterAbstractObject, TClassId } from "xray16/alias";
-import { LuaArray, Nillable, TIndex, TName, TRate, TSection } from "xray16/lib";
+import { abort, LuaArray, Nillable, TIndex, TName, TRate, TSection } from "xray16/lib";
 
 import { IRankDescriptor, registry } from "@/engine/core/database";
-import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";

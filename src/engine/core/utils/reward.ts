@@ -1,5 +1,5 @@
 import { GameObject } from "xray16/alias";
-import { Nillable, TCount, TSection } from "xray16/lib";
+import { abort, assert, Nillable, TCount, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
@@ -10,7 +10,6 @@ import {
   IItemRelocatedNotification,
   IMoneyRelocatedNotification,
 } from "@/engine/core/managers/notifications/notifications_types";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";

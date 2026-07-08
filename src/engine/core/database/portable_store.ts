@@ -1,10 +1,9 @@
 import { NetPacket, NetProcessor } from "xray16/alias";
-import { Nillable, TCount, TName, TNumberId } from "xray16/lib";
+import { abort, Nillable, TCount, TName, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { abort } from "@/engine/core/utils/assertion";
 
 /**
  * Valid type representation stored in portable store.

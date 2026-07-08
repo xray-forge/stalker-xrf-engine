@@ -1,5 +1,6 @@
 import { GameObject, IniFile, ServerObject } from "xray16/alias";
 import {
+  abort,
   AnyCallable,
   AnyObject,
   LuaArray,
@@ -18,7 +19,6 @@ import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engi
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
-import { abort } from "@/engine/core/utils/assertion";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {

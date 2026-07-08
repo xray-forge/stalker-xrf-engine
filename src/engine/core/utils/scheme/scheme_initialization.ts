@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 import { EGameObjectRelation, GameObject, IniFile } from "xray16/alias";
-import { Nillable, TCount, TName, TPath, TSection } from "xray16/lib";
+import { assert, Nillable, TCount, TName, TPath, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -15,7 +15,6 @@ import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain } from "@/engine/core/utils/position";

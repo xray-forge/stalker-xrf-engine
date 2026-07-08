@@ -1,6 +1,6 @@
 import { CHelicopter, level, patrol } from "xray16";
 import { GameObject, Patrol, Vector } from "xray16/alias";
-import { LuaArray, Nillable, TCount, TIndex, TName, TNumberId, TRate } from "xray16/lib";
+import { assert, LuaArray, Nillable, TCount, TIndex, TName, TNumberId, TRate } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -9,7 +9,6 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
 import { getHelicopterFireManager, getHelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
-import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ACTOR } from "@/engine/lib/constants/words";

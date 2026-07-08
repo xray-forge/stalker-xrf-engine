@@ -2,6 +2,7 @@ import { game, level } from "xray16";
 import { NetPacket, NetProcessor, Time } from "xray16/alias";
 import {
   AnyObject,
+  assert,
   LuaArray,
   NIL,
   Nillable,
@@ -44,7 +45,6 @@ import {
   TWeatherGraph,
 } from "@/engine/core/managers/weather/weather_types";
 import { DYNAMIC_WEATHER_GRAPHS_LTX, weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommandsFromSection } from "@/engine/core/utils/console";
 import {
   parseConditionsList,

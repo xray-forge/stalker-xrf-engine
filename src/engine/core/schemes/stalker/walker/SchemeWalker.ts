@@ -1,6 +1,6 @@
 import { level, world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
-import { TName, TSection } from "xray16/lib";
+import { assert, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
@@ -9,7 +9,6 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
-import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";

@@ -1,6 +1,7 @@
 import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
 import {
+  abort,
   LuaArray,
   NIL,
   Nillable,
@@ -22,7 +23,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds/sounds_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import {
   readIniBoolean,

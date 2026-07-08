@@ -1,5 +1,5 @@
 import { IniFile } from "xray16/alias";
-import { LuaArray, TCount, TSection, TStringId } from "xray16/lib";
+import { abort, assert, LuaArray, TCount, TSection, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
@@ -8,7 +8,6 @@ import {
   ETreasureType,
   ITreasureDescriptor,
 } from "@/engine/core/managers/treasures/treasures_types";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { ISpawnDescriptor, parseConditionsList, parseSpawnDetails, readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

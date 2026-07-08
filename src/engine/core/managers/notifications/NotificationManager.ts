@@ -1,7 +1,9 @@
 import { clsid, game } from "xray16";
 import { AlifeSimulator, GameObject, GameTask } from "xray16/alias";
 import {
+  abort,
   AnyObject,
+  assert,
   Nillable,
   TCount,
   TDuration,
@@ -42,7 +44,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";

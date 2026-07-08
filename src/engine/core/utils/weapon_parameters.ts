@@ -1,9 +1,8 @@
 import { IniFile } from "xray16/alias";
-import { clamp, Nillable, TName, TRate, TSection } from "xray16/lib";
+import { assert, clamp, Nillable, TName, TRate, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniNumber } from "@/engine/core/utils/ini";
 
 /**

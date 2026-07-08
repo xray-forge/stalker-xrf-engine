@@ -1,9 +1,8 @@
 import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
 import { TUIEvent, XmlInit } from "xray16/alias";
-import { AnyCallable, PartialRecord, TStringId } from "xray16/lib";
+import { abort, AnyCallable, PartialRecord, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
-import { abort } from "@/engine/core/utils/assertion";
 import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";
 
 /**

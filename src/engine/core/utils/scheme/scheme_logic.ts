@@ -1,6 +1,6 @@
 import { callback, clsid, game, time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import { NIL, Nillable, TName, TSection } from "xray16/lib";
+import { assert, assertDefined, NIL, Nillable, TName, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
@@ -15,7 +15,6 @@ import {
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
   getObjectConfigOverrides,
   getSchemeFromSection,

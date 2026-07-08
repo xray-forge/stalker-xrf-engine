@@ -1,12 +1,11 @@
 import { GameObject, PhysicObject, PhysicsElement, PhysicsJoint, PhysicsShell, Vector } from "xray16/alias";
-import { Nillable, TCount, TIndex, TRate, TSection } from "xray16/lib";
+import { abort, Nillable, TCount, TIndex, TRate, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";

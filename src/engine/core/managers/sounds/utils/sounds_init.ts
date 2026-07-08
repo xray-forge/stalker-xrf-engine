@@ -1,5 +1,5 @@
 import { IniFile } from "xray16/alias";
-import { TCount, TName } from "xray16/lib";
+import { abort, assert, TCount, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -10,7 +10,6 @@ import {
   ObjectSound,
 } from "@/engine/core/managers/sounds/objects";
 import type { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

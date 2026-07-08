@@ -1,6 +1,6 @@
 import { game } from "xray16";
 import { Time } from "xray16/alias";
-import { LuaArray, Nillable, TCount, TRUE, TSection } from "xray16/lib";
+import { abort, LuaArray, Nillable, TCount, TRUE, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -11,7 +11,6 @@ import {
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { Squad } from "@/engine/core/objects/squad";
-import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 
 /**

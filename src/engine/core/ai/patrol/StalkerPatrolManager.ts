@@ -1,6 +1,17 @@
 import { callback, move, patrol, time_global } from "xray16";
 import { EGameObjectPath, Flags32, GameObject, Patrol } from "xray16/alias";
-import { LuaArray, Nillable, TDistance, TDuration, TIndex, TName, TNumberId, TTimestamp } from "xray16/lib";
+import {
+  abort,
+  assert,
+  LuaArray,
+  Nillable,
+  TDistance,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
@@ -12,7 +23,6 @@ import {
   IPatrolSuggestedState,
 } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {

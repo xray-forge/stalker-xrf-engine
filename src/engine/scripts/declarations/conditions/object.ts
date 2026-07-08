@@ -1,6 +1,7 @@
 import { level, MonsterHitInfo } from "xray16";
 import { AlifeSimulator, AnyGameObject, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
 import {
+  abort,
   AnyArgs,
   extern,
   LuaArray,
@@ -36,7 +37,6 @@ import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos"
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { abort } from "@/engine/core/utils/assertion";
 import {
   isBoar,
   isBurer,

@@ -1,5 +1,5 @@
 import { IniFile } from "xray16/alias";
-import { Nillable, TName, TNumberId, TRUE, TStringifiedBoolean } from "xray16/lib";
+import { assert, Nillable, TName, TNumberId, TRUE, TStringifiedBoolean } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import {
@@ -7,7 +7,6 @@ import {
   IPhrasesDescriptor,
   TPhrasesAvailableMap,
 } from "@/engine/core/managers/dialogs/dialog_types";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 
 /**

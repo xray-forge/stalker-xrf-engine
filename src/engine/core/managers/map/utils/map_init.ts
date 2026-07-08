@@ -1,5 +1,5 @@
 import { IniFile } from "xray16/alias";
-import { LuaArray, TCount, TName } from "xray16/lib";
+import { assert, LuaArray, TCount, TName } from "xray16/lib";
 
 import {
   IMapAnomalyScanDescriptor,
@@ -7,7 +7,6 @@ import {
   IMapMarkDescriptor,
   IMapSleepSpotDescriptor,
 } from "@/engine/core/managers/map";
-import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 

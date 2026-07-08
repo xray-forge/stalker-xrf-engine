@@ -1,6 +1,6 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
-import { extern, Nillable, TName, TSection, TTimestamp } from "xray16/lib";
+import { abort, extern, Nillable, TName, TSection, TTimestamp } from "xray16/lib";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager, registry } from "@/engine/core/database";
@@ -10,7 +10,6 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ALARM_STATUSES, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
-import { abort } from "@/engine/core/utils/assertion";
 
 /**
  * Check whether it is rainy in the game at the moment.

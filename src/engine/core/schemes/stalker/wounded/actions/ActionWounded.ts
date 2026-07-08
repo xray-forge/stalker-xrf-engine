@@ -1,6 +1,6 @@
 import { action_base, hit, LuabindClass, time_global } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
-import { NIL, TName, TNumberId, TRUE, TTimestamp } from "xray16/lib";
+import { abort, NIL, TName, TNumberId, TRUE, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -21,7 +21,6 @@ import {
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 

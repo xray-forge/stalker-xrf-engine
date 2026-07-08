@@ -1,10 +1,9 @@
 import { AnyGameObject, EGameObjectRelation, GameObject } from "xray16/alias";
-import { extern, Nillable, TStringId } from "xray16/lib";
+import { abort, extern, Nillable, TStringId } from "xray16/lib";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
-import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import {
   areCommunitiesEnemies,

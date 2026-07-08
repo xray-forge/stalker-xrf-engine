@@ -1,6 +1,6 @@
 import { CALifeSmartTerrainTask, game_graph, level } from "xray16";
 import { IniFile } from "xray16/alias";
-import { Nillable, TName, TNumberId, TSection } from "xray16/lib";
+import { abort, Nillable, TName, TNumberId, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { loadDynamicIniFile } from "@/engine/core/database/ini";
@@ -16,7 +16,6 @@ import {
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { StringBuilder } from "@/engine/core/utils/string";
 

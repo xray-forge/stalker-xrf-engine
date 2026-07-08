@@ -1,6 +1,6 @@
+import { abort, assert } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameClassId, TGameClassId } from "@/engine/lib/constants/class_ids";
 import { EGameType } from "@/engine/lib/constants/game_types";

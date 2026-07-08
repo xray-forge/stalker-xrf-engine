@@ -10,6 +10,8 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  abort,
+  assert,
   createVector,
   extern,
   FALSE,
@@ -55,7 +57,6 @@ import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import {
   IConfigSwitchCondition,
   parseConditionsList,

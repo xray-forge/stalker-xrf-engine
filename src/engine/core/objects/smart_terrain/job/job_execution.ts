@@ -1,4 +1,4 @@
-import { NIL, Nillable, TNumberId, TSection } from "xray16/lib";
+import { abort, NIL, Nillable, TNumberId, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -7,7 +7,6 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { selectTerrainJob } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isObjectArrivedToTerrain } from "@/engine/core/objects/smart_terrain/object";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";

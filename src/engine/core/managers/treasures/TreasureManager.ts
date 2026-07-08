@@ -2,6 +2,7 @@ import { time_global } from "xray16";
 import { AlifeSimulator, GameObject, IniFile, NetPacket, NetProcessor, ServerObject } from "xray16/alias";
 import {
   AnyObject,
+  assert,
   LuaArray,
   Nillable,
   TCount,
@@ -28,7 +29,6 @@ import { removeTreasureMapSpot, showTreasureMapSpot } from "@/engine/core/manage
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
-import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { SECRET_SECTION } from "@/engine/lib/constants/sections";

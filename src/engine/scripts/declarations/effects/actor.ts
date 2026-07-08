@@ -1,6 +1,18 @@
 import { game, level, patrol } from "xray16";
 import { GameObject, GameTask, Vector } from "xray16/alias";
-import { extern, LuaArray, Nillable, TLabel, TName, TRUE, TSection, TStringId, TStringifiedBoolean } from "xray16/lib";
+import {
+  abort,
+  assert,
+  extern,
+  LuaArray,
+  Nillable,
+  TLabel,
+  TName,
+  TRUE,
+  TSection,
+  TStringId,
+  TStringifiedBoolean,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
@@ -12,7 +24,6 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import type { Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor } from "@/engine/core/utils/reward";

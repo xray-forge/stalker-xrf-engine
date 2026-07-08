@@ -8,6 +8,8 @@ import {
   ServerWeaponObject,
 } from "xray16/alias";
 import {
+  abort,
+  assert,
   extern,
   Nillable,
   TDuration,
@@ -41,7 +43,6 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";

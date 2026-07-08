@@ -1,6 +1,8 @@
 import { level } from "xray16";
 import { GameObject, ServerCreatureObject, Vector } from "xray16/alias";
 import {
+  abort,
+  assertDefined,
   createEmptyVector,
   createVector,
   Nillable,
@@ -20,7 +22,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database/registry";
 import type { Squad } from "@/engine/core/objects/squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 

@@ -1,9 +1,9 @@
+import { abort } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

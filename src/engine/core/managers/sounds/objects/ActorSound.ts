@@ -1,6 +1,7 @@
 import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor } from "xray16/alias";
 import {
+  assert,
   createEmptyVector,
   LuaArray,
   NIL,
@@ -23,7 +24,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds/sounds_types";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";

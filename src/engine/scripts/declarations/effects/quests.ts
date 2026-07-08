@@ -1,7 +1,9 @@
 import { particles_object, patrol, sound_object } from "xray16";
 import { GameObject, ParticlesObject, ServerObject, ServerPhysicObject, SoundObject, Vector } from "xray16/alias";
 import {
+  abort,
   AnyCallable,
+  assert,
   copyVector,
   createEmptyVector,
   createVector,
@@ -34,7 +36,6 @@ import {
 } from "@/engine/core/database";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";

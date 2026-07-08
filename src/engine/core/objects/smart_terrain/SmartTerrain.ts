@@ -18,6 +18,8 @@ import {
   Time,
 } from "xray16/alias";
 import {
+  abort,
+  assert,
   MAX_U8,
   Nillable,
   Nullable,
@@ -91,7 +93,6 @@ import {
   respawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import type { Squad } from "@/engine/core/objects/squad";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,

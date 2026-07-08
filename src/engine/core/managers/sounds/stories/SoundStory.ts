@@ -1,9 +1,8 @@
-import { LuaArray, TCount, TDuration, TIndex, TPath, TStringId } from "xray16/lib";
+import { abort, LuaArray, TCount, TDuration, TIndex, TPath, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
 import { SOUND_STORIES_LTX } from "@/engine/core/managers/sounds/SoundsConfig";
-import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

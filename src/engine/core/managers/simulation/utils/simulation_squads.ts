@@ -1,6 +1,6 @@
 import { clsid, level, patrol } from "xray16";
 import { Patrol, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
-import { LuaArray, NIL, Nillable, TName, TNumberId, TSection } from "xray16/lib";
+import { abort, LuaArray, NIL, Nillable, TName, TNumberId, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
@@ -12,7 +12,6 @@ import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
-import { abort } from "@/engine/core/utils/assertion";
 import { setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import {
   parseConditionsList,

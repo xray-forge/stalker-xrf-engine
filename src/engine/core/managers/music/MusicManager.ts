@@ -1,6 +1,7 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import {
+  abort,
   AnyObject,
   clamp,
   LuaArray,
@@ -24,7 +25,6 @@ import { StereoSound } from "@/engine/core/managers/sounds/objects";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { abort } from "@/engine/core/utils/assertion";
 import { getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";

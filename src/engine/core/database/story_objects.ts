@@ -1,11 +1,10 @@
 import { level } from "xray16";
 import { AnyGameObject, GameObject, IniFile, ServerObject } from "xray16/alias";
-import { Nillable, TName, TNumberId, TSection, TStringId } from "xray16/lib";
+import { abort, assert, Nillable, TName, TNumberId, TSection, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 
 /**

@@ -1,6 +1,7 @@
 import { game, level, patrol, time_global } from "xray16";
 import { GameObject, Patrol, Phrase, PhraseDialog, PhraseScript, ServerObject, TClassId, Vector } from "xray16/alias";
 import {
+  abort,
   AnyObject,
   Nillable,
   TCount,
@@ -36,7 +37,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
-import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";

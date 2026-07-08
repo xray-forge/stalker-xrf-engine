@@ -1,6 +1,6 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
 import { GameObject, SoundObject, Vector } from "xray16/alias";
-import { NIL, Nillable, TIndex, TNumberId, TStringId } from "xray16/lib";
+import { abort, NIL, Nillable, TIndex, TNumberId, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
@@ -10,7 +10,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { getTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
-import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { ISchemeEventHandler } from "@/engine/lib/types";

@@ -1,6 +1,6 @@
 import { cse_smart_cover, LuabindClass, properties_helper } from "xray16";
 import { NetPacket } from "xray16/alias";
-import { LuaArray, NIL, Nillable, TCount, TLabel, TSection, TStringId } from "xray16/lib";
+import { assert, LuaArray, NIL, Nillable, TCount, TLabel, TSection, TStringId } from "xray16/lib";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers/list";
 import {
@@ -10,7 +10,6 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { assert } from "@/engine/core/utils/assertion";
 import { resetTable } from "@/engine/core/utils/table";
 
 /**

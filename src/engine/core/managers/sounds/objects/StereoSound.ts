@@ -1,10 +1,9 @@
 import { sound_object, time_global } from "xray16";
 import { SoundObject } from "xray16/alias";
-import { Nillable, TPath, TRate, TStringId, TTimestamp } from "xray16/lib";
+import { assert, Nillable, TPath, TRate, TStringId, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
-import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

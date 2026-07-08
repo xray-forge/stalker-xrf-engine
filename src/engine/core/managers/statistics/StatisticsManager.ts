@@ -8,7 +8,18 @@ import {
   TClassId,
   Vector,
 } from "xray16/alias";
-import { AnyObject, NIL, Nillable, PartialRecord, StringNillable, TCount, TName, TNumberId, TRate } from "xray16/lib";
+import {
+  AnyObject,
+  assert,
+  NIL,
+  Nillable,
+  PartialRecord,
+  StringNillable,
+  TCount,
+  TName,
+  TNumberId,
+  TRate,
+} from "xray16/lib";
 import { $filename, $fromObject, $isNotNil } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
@@ -17,7 +28,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IActorStatistics, PS_ANABIOTICS_USED } from "@/engine/core/managers/statistics/statistics_types";
 import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
-import { assert } from "@/engine/core/utils/assertion";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

@@ -1,9 +1,8 @@
 import { EGameObjectRelation, GameObject } from "xray16/alias";
-import { extern, Nillable, TCount, TStringId } from "xray16/lib";
+import { abort, extern, Nillable, TCount, TStringId } from "xray16/lib";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
-import { abort } from "@/engine/core/utils/assertion";
 import {
   EGoodwill,
   ERelation,

@@ -1,9 +1,8 @@
 import { NetPacket, NetProcessor } from "xray16/alias";
-import { TCount, TName } from "xray16/lib";
+import { assert, TCount, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
-import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

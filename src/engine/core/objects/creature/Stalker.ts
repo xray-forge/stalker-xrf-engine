@@ -1,6 +1,6 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 import { IniFile, NetPacket, ServerCreatureObject } from "xray16/alias";
-import { Nillable, TName, TNumberId } from "xray16/lib";
+import { assert, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -15,7 +15,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";

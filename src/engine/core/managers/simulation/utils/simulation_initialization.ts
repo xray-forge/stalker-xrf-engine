@@ -1,5 +1,5 @@
 import { game_graph } from "xray16";
-import { LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
+import { assert, LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -10,7 +10,6 @@ import {
   createSimulationSquad,
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

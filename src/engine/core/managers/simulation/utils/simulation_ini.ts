@@ -1,8 +1,7 @@
 import { IniFile } from "xray16/alias";
-import { LuaArray, MAX_U8, Nillable, TName, TNumberId } from "xray16/lib";
+import { assert, LuaArray, MAX_U8, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename, $fromObject } from "xray16/macros";
 
-import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableKeys } from "@/engine/core/utils/table";

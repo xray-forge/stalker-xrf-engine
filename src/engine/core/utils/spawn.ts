@@ -9,6 +9,8 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  abort,
+  assert,
   createEmptyVector,
   LuaArray,
   Nillable,
@@ -31,7 +33,6 @@ import {
 } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";

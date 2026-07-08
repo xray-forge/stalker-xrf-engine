@@ -1,11 +1,10 @@
 import { GameObject } from "xray16/alias";
-import { LuaArray, Nillable, TIndex, TName } from "xray16/lib";
+import { abort, LuaArray, Nillable, TIndex, TName } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
 
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { createSequence } from "@/engine/core/utils/animation";
-import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";

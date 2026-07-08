@@ -1,6 +1,6 @@
 import { world_property } from "xray16";
 import { ActionBase, ActionPlanner, GameObject, IniFile } from "xray16/alias";
-import { FALSE, Nillable, TName, TSection } from "xray16/lib";
+import { abort, FALSE, Nillable, TName, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -9,7 +9,6 @@ import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/action
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";
 import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/stalker/camper/evaluators";
-import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 

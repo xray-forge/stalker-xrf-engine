@@ -1,9 +1,8 @@
 import { IniFile } from "xray16/alias";
-import { LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
+import { abort, assert, LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import {
   parseConditionsList,
   parseNumbersList,

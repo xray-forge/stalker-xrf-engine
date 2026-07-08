@@ -1,6 +1,7 @@
 import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } from "xray16";
 import { ALifeSmartTerrainTask, GameObject, NetPacket, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import {
+  abort,
   FALSE,
   LuaArray,
   NIL,
@@ -53,7 +54,6 @@ import { SMART_TERRAIN_MASKS_LTX } from "@/engine/core/objects/smart_terrain/Sma
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { SQUAD_BEHAVIOURS_LTX } from "@/engine/core/objects/squad/SquadConfig";
-import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,

@@ -1,12 +1,11 @@
 import { GameObject } from "xray16/alias";
-import { Nillable, TCount, TProbability, TSection } from "xray16/lib";
+import { abort, Nillable, TCount, TProbability, TSection } from "xray16/lib";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { filterObjectDeathLoot } from "@/engine/core/managers/drop/utils/drop_filter";
 import { Stalker } from "@/engine/core/objects/creature";
-import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";

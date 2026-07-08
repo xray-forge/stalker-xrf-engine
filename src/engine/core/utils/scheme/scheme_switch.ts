@@ -1,10 +1,21 @@
 import { game, level, time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import { LuaArray, NIL, Nillable, TDistance, TDuration, TName, TNumberId, TSection, TTimestamp } from "xray16/lib";
+import {
+  abort,
+  assert,
+  LuaArray,
+  NIL,
+  Nillable,
+  TDistance,
+  TDuration,
+  TName,
+  TNumberId,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
-import { abort, assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";

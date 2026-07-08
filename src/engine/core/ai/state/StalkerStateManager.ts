@@ -3,6 +3,7 @@ import { ActionPlanner, GameObject, TLookType, Vector } from "xray16/alias";
 import {
   AnyCallable,
   areSameVectors,
+  assert,
   createVector,
   Nillable,
   subVectors,
@@ -25,7 +26,6 @@ import {
   LOOK_DIRECTION_STATES,
 } from "@/engine/core/animation/types/state_types";
 import { registry } from "@/engine/core/database";
-import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 

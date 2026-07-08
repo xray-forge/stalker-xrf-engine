@@ -1,6 +1,6 @@
 import { getFS, ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
-import { Nillable, TCount, TIndex, TPath, TRate, TSection } from "xray16/lib";
+import { assert, Nillable, TCount, TIndex, TPath, TRate, TSection } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -11,7 +11,6 @@ import {
   JobPathTypeByScheme,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { assert } from "@/engine/core/utils/assertion";
 import {
   getSchemeFromSection,
   parseConditionsList,

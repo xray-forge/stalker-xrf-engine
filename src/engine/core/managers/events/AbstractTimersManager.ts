@@ -1,11 +1,10 @@
 import { time_global } from "xray16";
-import { AnyCallable, TCount, TDuration, TTimestamp } from "xray16/lib";
+import { AnyCallable, assert, TCount, TDuration, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IIntervalDescriptor, ITimeoutDescriptor } from "@/engine/core/managers/events/events_types";
-import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
