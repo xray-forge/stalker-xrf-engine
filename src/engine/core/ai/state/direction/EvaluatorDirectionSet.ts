@@ -1,6 +1,7 @@
 import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 import { TSightType, Vector } from "xray16/alias";
 import { AnyCallable, areSameVectorsByPrecision, subVectors } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -33,7 +34,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
 
     if (manager.lookObjectId) {
       if (
-        objectSightType.m_object === null ||
+        $isNil(objectSightType.m_object) ||
         objectSightType.m_object.id() !== manager.lookObjectId ||
         manager.isObjectPointDirectionLook !== manager.isLookObjectType()
       ) {
@@ -69,7 +70,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
       return true;
     }
 
-    if (objectSightType.m_object !== null) {
+    if ($isNotNil(objectSightType.m_object)) {
       return false;
     } else if (objectSightType.m_sight_type !== manager.getObjectLookPositionType()) {
       return false;
@@ -87,7 +88,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
     if (this.stateManager.callback?.turnEndCallback) {
       (this.stateManager.callback.turnEndCallback as AnyCallable)(this.stateManager.callback.context);
 
-      if (this.stateManager.callback !== null) {
+      if ($isNotNil(this.stateManager.callback)) {
         this.stateManager.callback.turnEndCallback = null;
       }
     }

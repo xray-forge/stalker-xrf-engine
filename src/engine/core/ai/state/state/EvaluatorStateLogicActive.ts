@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
@@ -19,6 +20,6 @@ export class EvaluatorStateLogicActive extends property_evaluator {
    * Evaluates whether object has any active section.
    */
   public override evaluate(): boolean {
-    return registry.objects.get(this.object.id()).activeSection !== null;
+    return $isNotNil(registry.objects.get(this.object.id()).activeSection);
   }
 }

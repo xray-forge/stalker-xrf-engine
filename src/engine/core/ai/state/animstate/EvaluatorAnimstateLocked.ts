@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EAnimationMarker } from "@/engine/core/animation/types/animation_types";
@@ -19,9 +20,8 @@ export class EvaluatorAnimstateLocked extends property_evaluator {
    * Check whether anim state is locked now.
    */
   public override evaluate(): boolean {
-    return (
-      this.stateManager.animstate.state.animationMarker !== null &&
-      this.stateManager.animstate.state.animationMarker !== EAnimationMarker.IDLE
-    );
+    const animationMarker = this.stateManager.animstate.state.animationMarker;
+
+    return $isNotNil(animationMarker) && animationMarker !== EAnimationMarker.IDLE;
   }
 }

@@ -11,7 +11,7 @@ import {
   TTimestamp,
   vectorRotateY,
 } from "xray16/lib";
-import { $filename, $fromArray, $isNil } from "xray16/macros";
+import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { animations } from "@/engine/core/animation/animations";
@@ -74,7 +74,7 @@ export class StalkerAnimationManager {
       this.stateManager.animstate.state.animationMarker = null;
     }
 
-    if (this.state.animationMarker === null) {
+    if ($isNil(this.state.animationMarker)) {
       this.updateAnimation();
     }
   }
@@ -135,8 +135,8 @@ export class StalkerAnimationManager {
   public updateAnimation(): void {
     const [animation, state] = this.selectAnimation();
 
-    if (animation !== null) {
-      this.addAnimation(animation, state);
+    if ($isNotNil(animation)) {
+      this.addAnimation(animation, state as IAnimationDescriptor);
     }
   }
 

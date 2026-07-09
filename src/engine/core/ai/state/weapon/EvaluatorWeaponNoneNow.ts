@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 
@@ -18,6 +19,6 @@ export class EvaluatorWeaponNoneNow extends property_evaluator {
    * Check if object has no active weapon.
    */
   public override evaluate(): boolean {
-    return this.object.active_item() === null;
+    return $isNil(this.object.active_item());
   }
 }

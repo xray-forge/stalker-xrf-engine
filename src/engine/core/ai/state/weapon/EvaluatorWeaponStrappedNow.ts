@@ -1,6 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/class_ids";
@@ -30,7 +31,7 @@ export class EvaluatorWeaponStrappedNow extends property_evaluator {
     const activeItem: Nillable<GameObject> = this.object.active_item();
 
     return (
-      (activeItem === null && !isStrappableWeapon(bestWeapon)) ||
+      ($isNil(activeItem) && !isStrappableWeapon(bestWeapon)) ||
       (this.object.is_weapon_going_to_be_strapped(bestWeapon) && this.object.weapon_strapped())
     );
   }

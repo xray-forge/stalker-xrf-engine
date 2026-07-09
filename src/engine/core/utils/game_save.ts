@@ -12,7 +12,7 @@ import {
   TName,
   TPath,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -192,7 +192,7 @@ export function loadLastGameSave(): void {
 export function loadGameSave(name: Nillable<TName>): void {
   assert(name, "You are trying to load without name.");
 
-  if (registry.simulator === null) {
+  if ($isNil(registry.simulator)) {
     executeConsoleCommand(consoleCommands.disconnect);
     executeConsoleCommand(consoleCommands.start, string.format("server(%s/single/alife/load) client(localhost)", name));
   } else {
@@ -210,7 +210,7 @@ export function startNewGame(difficulty: Nillable<TGameDifficulty> = null): void
     executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
   }
 
-  if (registry.simulator !== null) {
+  if ($isNotNil(registry.simulator)) {
     executeConsoleCommand(consoleCommands.disconnect);
   }
 

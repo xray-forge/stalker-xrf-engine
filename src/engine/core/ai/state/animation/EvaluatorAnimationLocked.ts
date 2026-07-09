@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 
@@ -19,6 +20,6 @@ export class EvaluatorAnimationLocked extends property_evaluator {
    * Check whether any animation marker is active.
    */
   public override evaluate(): boolean {
-    return this.stateManager.animation.state.animationMarker !== null;
+    return $isNotNil(this.stateManager.animation.state.animationMarker);
   }
 }

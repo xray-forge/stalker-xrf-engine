@@ -28,7 +28,7 @@ export function getObjectTerrain(object: GameObject | ServerCreatureObject): Nil
   if (type(object.id) === "function") {
     const serverObject: Nillable<ServerCreatureObject> = simulator.object((object as GameObject).id());
 
-    return serverObject === null || serverObject.m_smart_terrain_id === MAX_ALIFE_ID
+    return $isNil(serverObject) || serverObject.m_smart_terrain_id === MAX_ALIFE_ID
       ? null
       : simulator.object(serverObject.m_smart_terrain_id);
   } else {
