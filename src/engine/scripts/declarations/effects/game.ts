@@ -1,11 +1,10 @@
 import { game, get_hud, StaticDrawableWrapper } from "xray16";
 import { GameHud, GameObject } from "xray16/alias";
-import { ACTOR_ID, extern, LuaArray, Nillable, TCount, TLabel, TName, TRate } from "xray16/lib";
+import { ACTOR_ID, executeConsoleCommand, extern, LuaArray, Nillable, TCount, TLabel, TName, TRate } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";

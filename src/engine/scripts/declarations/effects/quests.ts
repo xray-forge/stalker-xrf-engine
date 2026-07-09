@@ -10,6 +10,7 @@ import {
   createVector,
   extern,
   getExtern,
+  isObjectInZone,
   LuaArray,
   MAX_ALIFE_ID,
   Nillable,
@@ -41,7 +42,6 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";

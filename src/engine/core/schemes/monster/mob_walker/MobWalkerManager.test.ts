@@ -12,8 +12,9 @@ import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 
-jest.mock("@/engine/core/utils/patrol", () => ({
-  isObjectAtWaypoint: jest.fn(() => false),
+jest.mock("xray16/lib", () => ({
+  ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),
+  isObjectAtWaypoint: jest.fn(),
 }));
 
 describe("MobWalkerManager", () => {

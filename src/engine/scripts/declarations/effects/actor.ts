@@ -4,6 +4,7 @@ import {
   abort,
   assert,
   extern,
+  isObjectInZone,
   LuaArray,
   Nillable,
   TLabel,
@@ -22,10 +23,9 @@ import { sleepConfig } from "@/engine/core/managers/sleep";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import type { Squad } from "@/engine/core/objects/squad";
+import { type Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { EActiveItemSlot } from "@/engine/lib/types";

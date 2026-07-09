@@ -24,6 +24,11 @@ import {
 } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
+jest.mock("xray16/lib", () => ({
+  ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),
+  isObjectInZone: jest.fn(),
+}));
+
 jest.mock("@/engine/core/managers/surge/utils/surge_cover");
 jest.mock("@/engine/core/utils/position");
 

@@ -5,6 +5,9 @@ import {
   ACTOR_ID,
   AnyArgs,
   extern,
+  isDistanceBetweenObjectsGreaterOrEqual,
+  isDistanceBetweenObjectsLessOrEqual,
+  isObjectInZone,
   LuaArray,
   Nillable,
   TCount,
@@ -54,12 +57,7 @@ import {
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getObjectId } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import {
-  getObjectTerrain,
-  isDistanceBetweenObjectsGreaterOrEqual,
-  isDistanceBetweenObjectsLessOrEqual,
-  isObjectInZone,
-} from "@/engine/core/utils/position";
+import { getObjectTerrain } from "@/engine/core/utils/position";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
