@@ -1,6 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { AnyCallable, extern, getExtern, LuaArray, TCount } from "xray16/lib";
-import { $filename, $fromArray } from "xray16/macros";
+import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
@@ -68,7 +68,7 @@ extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: GameObject, secondSpeake
 extern(
   "dialogs_pripyat.actor_has_pri_a17_gauss_rifle",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object("pri_a17_gauss_rifle") !== null;
+    return $isNotNil(registry.actor.object("pri_a17_gauss_rifle"));
   }
 );
 
@@ -306,9 +306,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_01) !== null ||
-    actor.object(questItems.jup_b10_notes_02) !== null ||
-    actor.object(questItems.jup_b10_notes_03) !== null
+    $isNotNil(actor.object(questItems.jup_b10_notes_01)) ||
+    $isNotNil(actor.object(questItems.jup_b10_notes_02)) ||
+    $isNotNil(actor.object(questItems.jup_b10_notes_03))
   );
 });
 
@@ -321,9 +321,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_01) !== null &&
-    actor.object(questItems.jup_b10_notes_02) === null &&
-    actor.object(questItems.jup_b10_notes_03) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_02)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_03))
   );
 });
 
@@ -336,9 +336,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_02) !== null &&
-    actor.object(questItems.jup_b10_notes_01) === null &&
-    actor.object(questItems.jup_b10_notes_03) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_02)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_03))
   );
 });
 
@@ -351,9 +351,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_03) !== null &&
-    actor.object(questItems.jup_b10_notes_01) === null &&
-    actor.object(questItems.jup_b10_notes_02) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_03)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_02))
   );
 });
 
@@ -366,9 +366,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_01) !== null &&
-    actor.object(questItems.jup_b10_notes_02) !== null &&
-    actor.object(questItems.jup_b10_notes_03) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNotNil(actor.object(questItems.jup_b10_notes_02)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_03))
   );
 });
 
@@ -381,9 +381,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_01) !== null &&
-    actor.object(questItems.jup_b10_notes_03) !== null &&
-    actor.object(questItems.jup_b10_notes_02) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNotNil(actor.object(questItems.jup_b10_notes_03)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_02))
   );
 });
 
@@ -396,9 +396,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_02) !== null &&
-    actor.object(questItems.jup_b10_notes_03) !== null &&
-    actor.object(questItems.jup_b10_notes_01) === null
+    $isNotNil(actor.object(questItems.jup_b10_notes_02)) &&
+    $isNotNil(actor.object(questItems.jup_b10_notes_03)) &&
+    $isNil(actor.object(questItems.jup_b10_notes_01))
   );
 });
 
@@ -411,9 +411,9 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_b10_notes_01) !== null &&
-    actor.object(questItems.jup_b10_notes_02) !== null &&
-    actor.object(questItems.jup_b10_notes_03) !== null
+    $isNotNil(actor.object(questItems.jup_b10_notes_01)) &&
+    $isNotNil(actor.object(questItems.jup_b10_notes_02)) &&
+    $isNotNil(actor.object(questItems.jup_b10_notes_03))
   );
 });
 
@@ -434,13 +434,13 @@ extern("dialogs_pripyat.pri_b305_sell_strelok_notes", (firstSpeaker: GameObject,
   let amount: number = 0;
 
   for (const [k, v] of itemsTable) {
-    if (actor.object(v) !== null) {
+    if ($isNotNil(actor.object(v))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
       amount = amount + 1;
     }
   }
 
-  if (actor.object(weapons.wpn_gauss) !== null) {
+  if ($isNotNil(actor.object(weapons.wpn_gauss))) {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss, 2);
   } else {
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);

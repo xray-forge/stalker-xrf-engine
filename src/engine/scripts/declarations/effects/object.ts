@@ -30,7 +30,7 @@ import {
   TStringId,
   TStringifiedBoolean,
 } from "xray16/lib";
-import { $filename, $isNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   getObjectByStoryId,
@@ -299,11 +299,11 @@ extern(
   (_: GameObject, object: GameObject, [spawnSection, pathName, index]: [TSection, TName, Nillable<TIndex>]): void => {
     // logger.format("Spawn corpse: %s", params[0]);
 
-    if (spawnSection === null) {
+    if ($isNil(spawnSection)) {
       abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), object.name());
     }
 
-    if (pathName === null) {
+    if ($isNil(pathName)) {
       abort("Wrong path_name for 'spawn_corpse' function %s. For object %s", tostring(pathName), object.name());
     }
 
@@ -342,11 +342,12 @@ extern(
       abort("Wrong parameters in destroy_object function.");
     }
 
-    const targetString =
-      parameters[2] !== null ? [0] + "|" + parameters[1] + "," + parameters[2] : parameters[0] + "|" + parameters[1];
+    const targetString = $isNotNil(parameters[2])
+      ? [0] + "|" + parameters[1] + "," + parameters[2]
+      : parameters[0] + "|" + parameters[1];
     const [, targetId] = initTarget(object, targetString);
 
-    if (targetId === null) {
+    if ($isNil(targetId)) {
       logger.info(
         "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
         targetString,
@@ -401,13 +402,13 @@ extern(
       squad.assignedTerrainId as TNumberId
     )!.terrain;
 
-    if (params[2] !== null) {
+    if ($isNotNil(params[2])) {
       let spawnPoint: TStringId;
 
       if (params[2] === "simulation_point") {
         const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false);
         const condlist: LuaArray<IConfigSwitchCondition> =
-          data === "" || data === null
+          data === "" || $isNil(data)
             ? parseConditionsList(squadTerrain.spawnPointName as string)
             : parseConditionsList(data);
 
@@ -495,7 +496,7 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Nill
   for (const [k] of squadObjects) {
     const gameObject: Nillable<GameObject> = registry.objects.get(k)?.object;
 
-    if (gameObject === null) {
+    if ($isNil(gameObject)) {
       registry.simulator.object<ServerHumanObject>(tonumber(k)!)!.kill();
     } else {
       gameObject.kill(gameObject);
@@ -919,7 +920,7 @@ extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
  * @param p - Tuple of the target visibility state and Nillable story ID of the bloodsucker.
  */
 extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Nillable<GameObject>, p: [string, string]): void => {
-  if ((p && p[0]) === null) {
+  if ($isNil(p && p[0])) {
     abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
   }
 

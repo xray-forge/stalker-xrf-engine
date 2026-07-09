@@ -24,7 +24,7 @@ import {
   TStringifiedBoolean,
   Y_VECTOR,
 } from "xray16/lib";
-import { $filename, $isNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -242,7 +242,7 @@ extern(
       }
     }
 
-    if (anomalyZone === null) {
+    if ($isNil(anomalyZone)) {
       abort("No such anomal zone in function 'pick_artefact_from_anomaly!'");
     }
 
@@ -261,7 +261,7 @@ extern(
         break;
       }
 
-      if (artefactSection === null) {
+      if ($isNil(artefactSection)) {
         artefactObject = registry.simulator.object(artefactId);
         artefactSection = artefactObject!.section_name();
         break;
@@ -588,12 +588,12 @@ extern(
 
       activeItem = actor.active_item();
     } else {
-      if (actor.item_in_slot(slotOverride) !== null) {
+      if ($isNotNil(actor.item_in_slot(slotOverride))) {
         activeItem = actor.item_in_slot(slotOverride);
       } else {
-        if (actor.item_in_slot(3) !== null) {
+        if ($isNotNil(actor.item_in_slot(3))) {
           activeItem = actor.item_in_slot(3);
-        } else if (actor.item_in_slot(2) !== null) {
+        } else if ($isNotNil(actor.item_in_slot(2))) {
           activeItem = actor.item_in_slot(2);
         } else {
           return;

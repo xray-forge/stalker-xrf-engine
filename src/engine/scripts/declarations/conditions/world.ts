@@ -1,6 +1,7 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TName, TSection, TTimestamp } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager, registry } from "@/engine/core/database";
@@ -15,14 +16,14 @@ import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
  * Check whether it is rainy in the game at the moment.
  */
 extern("xr_conditions.is_rain", (): boolean => {
-  return registry.actor !== null && level.rain_factor() > 0;
+  return $isNotNil(registry.actor) && level.rain_factor() > 0;
 });
 
 /**
  * Check whether it is heavy rain weather in the game at the moment.
  */
 extern("xr_conditions.is_heavy_rain", (): boolean => {
-  return registry.actor !== null && level.rain_factor() >= 0.5;
+  return $isNotNil(registry.actor) && level.rain_factor() >= 0.5;
 });
 
 /**
@@ -31,7 +32,7 @@ extern("xr_conditions.is_heavy_rain", (): boolean => {
 extern("xr_conditions.is_day", (): boolean => {
   const timeHours: TTimestamp = level.get_time_hours();
 
-  return registry.actor !== null && timeHours >= 6 && timeHours < 21;
+  return $isNotNil(registry.actor) && timeHours >= 6 && timeHours < 21;
 });
 
 /**
@@ -40,7 +41,7 @@ extern("xr_conditions.is_day", (): boolean => {
 extern("xr_conditions.is_dark_night", (): boolean => {
   const timeHours: TTimestamp = level.get_time_hours();
 
-  return registry.actor !== null && (timeHours < 3 || timeHours > 22);
+  return $isNotNil(registry.actor) && (timeHours < 3 || timeHours > 22);
 });
 
 /**
@@ -53,7 +54,7 @@ extern("xr_conditions.is_dark_night", (): boolean => {
 extern(
   "xr_conditions.time_period",
   (_: GameObject, __: GameObject, [shift, period]: [Nillable<number>, Nillable<number>]): boolean => {
-    if (shift && period && registry.actor !== null) {
+    if (shift && period && $isNotNil(registry.actor)) {
       return shift > period && level.get_time_minutes() % shift <= period;
     }
 

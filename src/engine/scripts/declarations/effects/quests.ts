@@ -26,7 +26,7 @@ import {
   TStringId,
   TStringifiedBoolean,
 } from "xray16/lib";
-import { $filename, $fromArray, $isNotNil } from "xray16/macros";
+import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -318,7 +318,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object:
 extern(
   "xr_effects.zat_b29_create_random_infop",
   (actor: GameObject, object: GameObject, parameters: LuaArray<TInfoPortion>): void => {
-    if (parameters.get(2) === null) {
+    if ($isNil(parameters.get(2))) {
       abort("Not enough parameters for zat_b29_create_random_infop!");
     }
 
@@ -326,7 +326,7 @@ extern(
     let currentInfop: TIndex = 0;
     let totalInfop: TCount = 0;
 
-    if (!amountNeeded || amountNeeded === null) {
+    if ($isNil(amountNeeded)) {
       amountNeeded = 1;
     }
 
@@ -521,7 +521,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
       if ($isNotNil(targetObjectId)) {
         const box: Nillable<ServerObject> = registry.simulator.object(targetObjectId);
 
-        if (box === null) {
+        if ($isNil(box)) {
           abort("There is no such object %s", params[0]);
         }
 
@@ -641,7 +641,7 @@ extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, 
   let infoNeedReply: TInfoPortion;
   const reachableTheme: LuaTable = new LuaTable();
 
-  if ((p && p[0]) === null) {
+  if ($isNil(p && p[0])) {
     abort("No such parameters in function 'jup_b221_play_main'");
   }
 

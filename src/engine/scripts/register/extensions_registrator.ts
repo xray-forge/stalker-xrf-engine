@@ -1,5 +1,5 @@
 import { AnyCallablesModule, LuaArray } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { registerExtension } from "@/engine/core/database";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
@@ -18,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Save extension load order and try to persist it every time.
  */
 export function registerExtensions(isNewGame: boolean): void {
-  if (lfs === null) {
+  if ($isNil(lfs)) {
     return logger.info("Skip externals registration, no `lfs` lib available");
   }
 

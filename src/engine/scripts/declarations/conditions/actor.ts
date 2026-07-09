@@ -142,7 +142,7 @@ extern("xr_conditions.actor_in_zone", (_: GameObject, __: GameObject, [zoneName]
  * Check if helicopter sees actor.
  */
 extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): boolean => {
-  return actor !== null && object.get_helicopter().isVisible(actor);
+  return $isNotNil(actor) && object.get_helicopter().isVisible(actor);
 });
 
 /**
@@ -154,7 +154,7 @@ extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): 
 extern(
   "xr_conditions.actor_has_item",
   (actor: GameObject, __: GameObject, [section]: [Nillable<TSection>]): boolean => {
-    return $isNotNil(section) && $isNotNil(actor) && actor.object(section) !== null;
+    return $isNotNil(section) && $isNotNil(actor) && $isNotNil(actor.object(section));
   }
 );
 
@@ -212,7 +212,7 @@ extern(
 
     const detector: Nillable<GameObject> = actor.active_detector();
 
-    return detector !== null && detector.section() === section;
+    return $isNotNil(detector) && detector.section() === section;
   }
 );
 

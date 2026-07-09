@@ -15,7 +15,7 @@ import {
   TSection,
   TStringId,
 } from "xray16/lib";
-import { $fromArray } from "xray16/macros";
+import { $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { type AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
@@ -110,7 +110,7 @@ extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, 
     }
   }
 
-  if ((p && p[0]) === null) {
+  if ($isNil(p && p[0])) {
     abort("No such parameters in function 'jup_b221_who_will_start'");
   }
 
@@ -330,7 +330,7 @@ extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [stor
   const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {
-    return registry.simulator.object(storyObject.id()) !== null;
+    return $isNotNil(registry.simulator.object(storyObject.id()));
   } else {
     return false;
   }
@@ -340,14 +340,14 @@ extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [stor
  * Check if currently late night quest time.
  */
 extern("xr_conditions.zat_b7_is_night", (): boolean => {
-  return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
+  return $isNotNil(registry.actor) && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
 });
 
 /**
  * Check if currently late attack quest time.
  */
 extern("xr_conditions.zat_b7_is_late_attack_time", (): boolean => {
-  return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
+  return $isNotNil(registry.actor) && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
 });
 
 /**
@@ -370,5 +370,5 @@ extern("xr_conditions.jup_b16_is_zone_active", (_: GameObject, object: GameObjec
  * Check if currently nighttime suitable for the quest.
  */
 extern("xr_conditions.is_jup_a12_mercs_time", (): boolean => {
-  return registry.actor !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
+  return $isNotNil(registry.actor) && level.get_time_hours() >= 1 && level.get_time_hours() < 5;
 });
