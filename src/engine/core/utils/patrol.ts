@@ -22,7 +22,7 @@ export function isPatrolInRestrictor(restrictorName: Nillable<TName>, patrolName
 
   const restrictor: Nillable<GameObject> = registry.zones.get(restrictorName);
 
-  if (restrictor === null) {
+  if ($isNil(restrictor)) {
     return null;
   }
 

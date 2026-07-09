@@ -1,6 +1,7 @@
 import { relation_registry } from "xray16";
 import { GameObject, TRelationType } from "xray16/alias";
 import { assert, Nillable, TCount, TNumberId, TStringId } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
@@ -28,7 +29,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   const actor: Nillable<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
-  if (actor === null) {
+  if ($isNil(actor)) {
     return ERelation.NEUTRAL;
   }
 
@@ -70,7 +71,7 @@ export function getSquadMembersRelationToActor(squad: Squad): Nillable<ERelation
   const actor: Nillable<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
-  if (actor === null) {
+  if ($isNil(actor)) {
     return ERelation.NEUTRAL;
   }
 

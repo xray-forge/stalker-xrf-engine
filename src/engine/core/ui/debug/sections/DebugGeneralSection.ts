@@ -1,7 +1,7 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 import { XmlInit } from "xray16/alias";
 import { TPath } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug";
@@ -95,7 +95,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
     this.uiLuaVersionLabel.TextControl().SetText("Lua version: " + (_VERSION || "unknown"));
-    this.uiLuaJitLabel.TextControl().SetText("JIT " + (jit === null ? "disabled" : "enabled"));
+    this.uiLuaJitLabel.TextControl().SetText("JIT " + ($isNil(jit) ? "disabled" : "enabled"));
     this.uiProfilingToggleButton
       .TextControl()
       .SetText(profilingManager.isProfilingStarted ? "Stop profiling" : "Start profiling");
@@ -122,7 +122,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   public onToggleProfilingButtonClick(): void {
     const profilingManager: ProfilingManager = getManager(ProfilingManager);
 
-    if (debug === null) {
+    if ($isNil(debug)) {
       return logger.info("Cannot use profiling - debug module is not present");
     }
 

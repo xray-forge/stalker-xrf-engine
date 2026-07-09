@@ -173,7 +173,7 @@ export function actorHasAtLeastOneItem(
  * @returns Whether object has item in inventory.
  */
 export function objectHasItem(object: GameObject, itemSectionOrId: TSection | TNumberId): boolean {
-  return object.object(itemSectionOrId) !== null;
+  return $isNotNil(object.object(itemSectionOrId));
 }
 
 /**

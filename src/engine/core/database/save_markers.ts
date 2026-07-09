@@ -28,7 +28,7 @@ export function openSaveMarker(packet: NetPacket, markerName: TName): void {
  * @returns Marker transaction saving size.
  */
 export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
-  assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'.", markerName);
+  assert(registry.saveMarkers.get(markerName), "Trying to check without marker: '%s'.", markerName);
 
   const markerDif: TCount = packet.w_tell() - registry.saveMarkers.get(markerName);
 
@@ -61,7 +61,7 @@ export function openLoadMarker(reader: NetProcessor, markerName: TName): void {
  * @returns Marker transaction loading size.
  */
 export function closeLoadMarker(reader: NetProcessor, markerName: TName): TCount {
-  assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'", markerName);
+  assert(registry.saveMarkers.get(markerName), "Trying to check without marker: '%s'", markerName);
 
   const actualDiff: TCount = reader.r_tell() - registry.saveMarkers.get(markerName);
   const expectedDiff: TCount = reader.r_u16();

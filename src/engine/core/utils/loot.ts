@@ -1,7 +1,7 @@
 import { level } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import { LuaArray, Nillable, TDistance, TNumberId } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
@@ -68,7 +68,7 @@ export function getNearestCorpseToLoot(
   for (const [, descriptor] of deathConfig.RELEASE_OBJECTS_REGISTRY) {
     const id: TNumberId = descriptor.id;
     const registryState: Nillable<IRegistryObjectState> = registry.objects.get(id);
-    const corpseObject: Nillable<GameObject> = registryState !== null ? registryState.object : null;
+    const corpseObject: Nillable<GameObject> = $isNil(registryState) ? null : registryState.object;
 
     // Is registered in client side.
     if (corpseObject) {
@@ -78,7 +78,7 @@ export function getNearestCorpseToLoot(
         // Is not looted by anyone or looted by current object.
         ($isNil(isLootedBy) || isLootedBy === object.id()) &&
         // Seen dead object recently.
-        object.memory_position(corpseObject) !== null &&
+        $isNotNil(object.memory_position(corpseObject)) &&
         isObjectWithValuableLoot(corpseObject)
       ) {
         const distanceBetween: TDistance = object.position().distance_to_sqr(corpseObject.position());

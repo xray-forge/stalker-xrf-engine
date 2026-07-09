@@ -1,6 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { Nillable, TRUE } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -29,7 +29,7 @@ export function updateSquadInvulnerabilityState(squad: Squad): void {
       if (
         object.invulnerable() !== invulnerability &&
         // Not separate invulnerability state of object, whether squad logics can override it.
-        readIniString(objectState.ini, objectState.activeSection, "invulnerable", false) === null
+        $isNil(readIniString(objectState.ini, objectState.activeSection, "invulnerable", false))
       ) {
         object.invulnerable(invulnerability);
       }

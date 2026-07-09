@@ -1,5 +1,6 @@
 import { ActionPlanner, GameObject } from "xray16/alias";
 import { NIL, Nillable, TNumberId } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
@@ -37,7 +38,7 @@ export function isObjectWounded(objectId: TNumberId): boolean {
 export function isObjectMeeting(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
 
-  return planner !== null && planner.initialized() && planner.current_action_id() === EActionId.MEET_WAITING_ACTIVITY;
+  return $isNotNil(planner) && planner.initialized() && planner.current_action_id() === EActionId.MEET_WAITING_ACTIVITY;
 }
 
 /**

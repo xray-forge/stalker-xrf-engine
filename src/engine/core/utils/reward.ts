@@ -1,6 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { abort, assert, Nillable, TCount, TSection } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -132,7 +132,7 @@ export function transferItemsToActor(from: GameObject, itemSection: TSection, co
         remaining -= 1;
       }
     }, actor);
-  } else if (from.object(itemSection) !== null) {
+  } else if ($isNotNil(from.object(itemSection))) {
     from.transfer_item(from.object(itemSection) as GameObject, actor);
   } else {
     registry.simulator.create(
@@ -157,7 +157,7 @@ export function transferItemsToActor(from: GameObject, itemSection: TSection, co
   }
 
   // Correct count if ammo section is provided.
-  if (ammo[itemSection as TAmmoItem] !== null) {
+  if ($isNotNil(ammo[itemSection as TAmmoItem])) {
     count = count * SYSTEM_INI.r_s32(itemSection, "box_size");
   }
 

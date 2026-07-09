@@ -1,5 +1,5 @@
 import { TCount, TName } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
@@ -38,11 +38,7 @@ export function disableInfoPortion(name: TName): void {
  * @returns Whether actor has info portion set already.
  */
 export function hasInfoPortion(name: TName): name is TInfoPortion {
-  if (registry.actor === null) {
-    return false;
-  }
-
-  return registry.actor.has_info(name);
+  return $isNil(registry.actor) ? false : registry.actor.has_info(name);
 }
 
 /**

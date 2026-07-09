@@ -15,7 +15,7 @@ import {
 } from "xray16";
 import { TKeyCode, TUIEvent } from "xray16/alias";
 import { executeConsoleCommand, gameDifficulties, gameTypes, Nillable, TPath } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
@@ -149,7 +149,7 @@ export class MainMenu extends CUIScriptWnd {
     logger.info("Load last save click");
 
     // If currently playing game and actor is alive, ask confirmation.
-    if (registry.simulator !== null && registry.actor?.alive()) {
+    if ($isNotNil(registry.simulator) && registry.actor?.alive()) {
       this.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
       this.uiModalBox.InitMessageBox("message_box_confirm_load_save");
       this.uiModalBox.ShowDialog(true);

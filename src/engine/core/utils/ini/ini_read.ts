@@ -1,6 +1,6 @@
 import { IniFile } from "xray16/alias";
 import { abort, assert, LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
 import {
@@ -225,7 +225,7 @@ export function readIniBoolean(
     return abort("Attempt to read a non-existent boolean field '%s' in section '%s'", field, section);
   }
 
-  if (defaultValue !== null) {
+  if ($isNotNil(defaultValue)) {
     return defaultValue;
   }
 

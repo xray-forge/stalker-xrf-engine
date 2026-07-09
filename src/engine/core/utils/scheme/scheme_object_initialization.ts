@@ -142,7 +142,7 @@ export function initializeObjectIgnoreThreshold(
   section: TSection
 ): void {
   const thresholdSection: Nillable<TSection> =
-    scheme === null || scheme === NIL
+    $isNil(scheme) || scheme === NIL
       ? readIniString(state.ini, state.sectionLogic, "threshold", false)
       : readIniString(state.ini, section, "threshold", false);
 
@@ -155,7 +155,7 @@ export function initializeObjectIgnoreThreshold(
       null
     );
 
-    if (maxIgnoreDistance === null) {
+    if ($isNil(maxIgnoreDistance)) {
       object.restore_max_ignore_monster_distance();
     } else {
       object.max_ignore_monster_distance(maxIgnoreDistance);
@@ -169,7 +169,7 @@ export function initializeObjectIgnoreThreshold(
       null
     );
 
-    if (ignoreMonster === null) {
+    if ($isNil(ignoreMonster)) {
       object.restore_ignore_monster_threshold();
     } else {
       object.ignore_monster_threshold(ignoreMonster);

@@ -1,6 +1,7 @@
 import { CScriptXmlInit, getFS } from "xray16";
 import { XmlInit } from "xray16/alias";
 import { abort, isWideScreen, TPath } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
@@ -26,7 +27,7 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
   if (forgeConfig.DEBUG.IS_ENABLED) {
     const [hasNonWindowsChars] = string.find(path, "/");
 
-    if (hasNonWindowsChars !== null) {
+    if ($isNotNil(hasNonWindowsChars)) {
       abort("Non-windows path for XML supplied:", path);
     }
   }

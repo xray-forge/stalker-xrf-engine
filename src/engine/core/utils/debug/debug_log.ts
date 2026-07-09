@@ -70,7 +70,7 @@ export function logObjectPlannerState(object: GameObject): void {
     );
   }
 
-  if (actionPlanner.show !== null) {
+  if ($isNotNil(actionPlanner.show)) {
     actionPlanner.show(plannerShowPrefix);
   } else {
     logger.info("For more details run game in mixed/debug mode");

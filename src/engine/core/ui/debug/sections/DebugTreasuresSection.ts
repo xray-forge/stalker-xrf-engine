@@ -1,7 +1,7 @@
 import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
 import { ServerObject, XmlInit } from "xray16/alias";
 import { isGameVertexFromLevel, Nillable, TCount, TLabel, TNumberId, TPath, TSection } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -125,7 +125,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
 
     for (const [section] of treasureConfig.TREASURES) {
       // Apply treasure filtering.
-      if (this.currentFilter === null || this.currentFilter === "" || section.includes(this.currentFilter)) {
+      if ($isNil(this.currentFilter) || this.currentFilter === "" || section.includes(this.currentFilter)) {
         this.uiTreasuresList.AddTextItem(section);
       }
     }
@@ -191,7 +191,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
 
     const treasureManager: TreasureManager = getManager(TreasureManager);
     const restrictorId: Nillable<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
-    const object: Nillable<ServerObject> = restrictorId === null ? null : registry.simulator.object(restrictorId);
+    const object: Nillable<ServerObject> = $isNil(restrictorId) ? null : registry.simulator.object(restrictorId);
 
     if (!object) {
       return;

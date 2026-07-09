@@ -1,5 +1,6 @@
 import { log, print_stack, time_global } from "xray16";
 import { AnyArgs, AnyObject, Nillable, TLabel } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
@@ -59,7 +60,7 @@ export class LuaLogger {
     }
 
     // Write into shared game console if no file defined/dual mode enabled.
-    if (this.loggerFile === null || this.mode === ELuaLoggerMode.DUAL) {
+    if ($isNil(this.loggerFile) || this.mode === ELuaLoggerMode.DUAL) {
       if (luaLog) {
         luaLog(result);
       }

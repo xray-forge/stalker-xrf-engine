@@ -1,6 +1,7 @@
 import { hit, level } from "xray16";
 import { EGameObjectRelation, GameObject, Hit, Vector } from "xray16/alias";
 import { MZ_VECTOR, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
@@ -106,9 +107,9 @@ export function getNearestWoundedToHelp(
       // Is alive.
       woundedObject.alive() &&
       // Is not selected by others to help or selected by current object.
-      (objectHealedBy === null || objectHealedBy === currentObjectId) &&
+      ($isNil(objectHealedBy) || objectHealedBy === currentObjectId) &&
       // Have no enemy active so will not help him in combat.
-      woundedObject.best_enemy() === null &&
+      $isNil(woundedObject.best_enemy()) &&
       // Not enemies.
       woundedObject.relation(object) !== EGameObjectRelation.ENEMY &&
       // Is not marked as excluded.

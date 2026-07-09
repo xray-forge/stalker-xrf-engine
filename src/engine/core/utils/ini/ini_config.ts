@@ -53,7 +53,7 @@ export function getSectionsFromConditionLists(object: GameObject, data: Nillable
     for (const name of string.gfind(data, "%s*([^|]+)%s*")) {
       const conditionsList: Nillable<TConditionList> = parseConditionsList(name);
 
-      if (conditionsList !== null) {
+      if ($isNotNil(conditionsList)) {
         table.insert(infos, pickSectionFromCondList(actor, object, conditionsList) as TInfoPortion);
       }
     }
@@ -183,7 +183,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
   const target: Nillable<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target) {
-    if (registry.simulator !== null) {
+    if ($isNotNil(registry.simulator)) {
       const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(target.p1 as TStringId);
 
       if (serverObject) {
@@ -275,7 +275,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Nill
       const [, key] = ini.r_line(section, lineNumber, "", "");
       const [searchIndex] = string.find(key, mask);
 
-      if (searchIndex !== null) {
+      if ($isNotNil(searchIndex)) {
         index = addConditionToList(conditionsList, index, func(ini, section, key));
       }
     }

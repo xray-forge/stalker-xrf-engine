@@ -1,5 +1,6 @@
 import { FS, getFS } from "xray16";
 import { AnyObject, LuaArray, Nillable, TName, TPath } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { roots } from "@/engine/lib/constants/roots";
@@ -13,7 +14,7 @@ import { roots } from "@/engine/lib/constants/roots";
 export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
   const fs: FS = getFS();
 
-  if (lfs !== null && fs.exist(roots.gameData, "extensions", FS.FS_ListFolders)) {
+  if ($isNotNil(lfs) && fs.exist(roots.gameData, "extensions", FS.FS_ListFolders)) {
     const list: LuaArray<IExtensionsDescriptor> = new LuaTable();
     const extensionsFolder: TPath = fs.update_path(roots.gameData, "extensions");
 

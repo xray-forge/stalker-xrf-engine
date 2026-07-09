@@ -16,7 +16,7 @@ import {
 } from "xray16";
 import { FSFile, FSFileList, FSItem, TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
 import { create2dVector, LuaArray, Nillable, TLabel, TName, TPath } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
@@ -151,7 +151,7 @@ export class SaveDialog extends CUIScriptWnd {
 
     const item = this.uiListBox.GetSelectedItem();
 
-    if (item === null) {
+    if ($isNil(item)) {
       return;
     }
 

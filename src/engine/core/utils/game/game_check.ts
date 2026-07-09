@@ -1,4 +1,5 @@
 import { device, game_graph } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 
@@ -8,7 +9,7 @@ import { registry } from "@/engine/core/database/registry";
  * @returns Whether game is started and simulator is initialized.
  */
 export function isGameStarted(): boolean {
-  return registry.simulator !== null;
+  return $isNotNil(registry.simulator);
 }
 
 /**
@@ -27,7 +28,7 @@ export function isBlackScreen(): boolean {
  * @returns Whether current game level is changing.
  */
 export function isGameLevelChanging(): boolean {
-  return registry.simulator === null
+  return $isNil(registry.simulator)
     ? false
     : game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id() !== registry.simulator.level_id();
 }

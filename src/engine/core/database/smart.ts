@@ -1,5 +1,6 @@
 import { GameObject, ZoneCampfire } from "xray16/alias";
 import { Nillable, TName, TNumberId } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
@@ -63,7 +64,7 @@ export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: Game
 
   campfire.turn_off();
 
-  if (registry.smartTerrainsCampfires.get(terrainName) === null) {
+  if ($isNil(registry.smartTerrainsCampfires.get(terrainName))) {
     registry.smartTerrainsCampfires.set(terrainName, new LuaTable());
   }
 
@@ -82,7 +83,7 @@ export function unRegisterSmartTerrainCampfire(terrain: SmartTerrain, object: Ga
   const terrainName: TName = terrain.name();
   const terrainList: Nillable<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(terrainName);
 
-  if (terrainList !== null) {
+  if ($isNotNil(terrainList)) {
     terrainList.delete(object.id());
 
     if (isEmpty(terrainList)) {

@@ -1,7 +1,7 @@
 import { CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 import { AlifeSimulator } from "xray16/alias";
 import { NIL, Nillable, TCount, TPath } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -94,7 +94,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
     logger.pushSeparator();
     logger.info("General report of registry:");
     logger.info("Collections in registry: %s", Object.keys(registry).length);
-    logger.info("Actor exists: %s", registry.actor !== null);
+    logger.info("Actor exists: %s", $isNotNil(registry.actor));
     logger.info("Managers exists: %s", Object.keys(registry.managers).length);
     logger.info("Schemes exists: %s", Object.keys(registry.schemes).length);
     logger.info("Actor combat: %s", Object.keys(registry.actorCombat).length);
@@ -124,7 +124,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
     logger.info("Event handlers exist: %s", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
-      logger.info("*: %s %s", EGameEvent[key as unknown as number], values !== null ? Object.keys(values).length : NIL);
+      logger.info("*: %s %s", EGameEvent[key as unknown as number], $isNil(values) ? NIL : Object.keys(values).length);
     });
 
     logger.pushSeparator();
