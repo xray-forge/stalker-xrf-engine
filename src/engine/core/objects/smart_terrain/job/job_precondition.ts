@@ -1,5 +1,6 @@
 import { ServerCreatureObject } from "xray16/alias";
 import { AnyObject, FALSE, isInTimeInterval, Nillable } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -45,13 +46,13 @@ export function jobPreconditionCollector(
 
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id);
 
-  if (state === null || state.object === null) {
+  if ($isNil(state) || $isNil(state.object)) {
     return false;
   }
 
   // todo: add object has detector util?
   for (const [, value] of pairs(detectors)) {
-    if (state.object.object(value) !== null) {
+    if ($isNotNil(state.object.object(value))) {
       return true;
     }
   }
@@ -67,13 +68,13 @@ export function jobPreconditionGuard(
   terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (terrain.alarmStartedAt === null) {
+  if ($isNil(terrain.alarmStartedAt)) {
     return true;
-  } else if (terrain.safeRestrictor === null) {
+  } else if ($isNil(terrain.safeRestrictor)) {
     return true;
   }
 
-  if (parameters.isSafeJob === null) {
+  if ($isNil(parameters.isSafeJob)) {
     parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
@@ -102,13 +103,13 @@ export function jobPreconditionPatrol(
 ): boolean {
   if (object.community() === communities.zombied) {
     return false;
-  } else if (terrain.alarmStartedAt === null) {
+  } else if ($isNil(terrain.alarmStartedAt)) {
     return true;
-  } else if (terrain.safeRestrictor === null) {
+  } else if ($isNil(terrain.safeRestrictor)) {
     return true;
   }
 
-  if (parameters.isSafeJob === null) {
+  if ($isNil(parameters.isSafeJob)) {
     parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
@@ -127,13 +128,13 @@ export function jobPreconditionSleep(
     return false;
   } else if (!isInTimeInterval(21, 7)) {
     return false;
-  } else if (terrain.alarmStartedAt === null) {
+  } else if ($isNil(terrain.alarmStartedAt)) {
     return true;
-  } else if (terrain.safeRestrictor === null) {
+  } else if ($isNil(terrain.safeRestrictor)) {
     return true;
   }
 
-  if (parameters.isSafeJob === null) {
+  if ($isNil(parameters.isSafeJob)) {
     parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
@@ -170,13 +171,13 @@ export function jobPreconditionWalker(
   terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (terrain.alarmStartedAt === null) {
+  if ($isNil(terrain.alarmStartedAt)) {
     return true;
-  } else if (terrain.safeRestrictor === null) {
+  } else if ($isNil(terrain.safeRestrictor)) {
     return true;
   }
 
-  if (parameters.isSafeJob === null) {
+  if ($isNil(parameters.isSafeJob)) {
     parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
@@ -193,5 +194,5 @@ export function jobPreconditionExclusive(
 ): boolean {
   const result: Nillable<string> = pickSectionFromCondList(registry.actor, object, parameters.condlist);
 
-  return result !== FALSE && result !== null;
+  return result !== FALSE && $isNotNil(result);
 }

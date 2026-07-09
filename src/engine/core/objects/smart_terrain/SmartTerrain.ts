@@ -35,7 +35,7 @@ import {
   TTimestamp,
   writeTimeToPacket,
 } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -369,7 +369,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         packet.w_u8(v.num);
       }
 
-      if (this.lastRespawnUpdatedAt !== null) {
+      if ($isNotNil(this.lastRespawnUpdatedAt)) {
         packet.w_bool(true);
         writeTimeToPacket(packet, this.lastRespawnUpdatedAt);
       } else {
@@ -551,7 +551,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     ) as ESimulationTerrainRole;
 
     // Check if role is defined in enum.
-    if (simulationConfig.VALID_SMART_TERRAINS_SIMULATION_ROLES.get(this.simulationRole) === null) {
+    if ($isNil(simulationConfig.VALID_SMART_TERRAINS_SIMULATION_ROLES.get(this.simulationRole))) {
       abort(
         "Wrong simulation role value (sim_type) '%s' in smart terrain '%s' configuration.",
         this.simulationRole,

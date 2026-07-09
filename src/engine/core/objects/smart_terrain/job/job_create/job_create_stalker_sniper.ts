@@ -1,6 +1,7 @@
 import { level, patrol } from "xray16";
 import { Patrol } from "xray16/alias";
 import { TIndex, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -73,7 +74,7 @@ def_state_campering_fire = %s_fire
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 

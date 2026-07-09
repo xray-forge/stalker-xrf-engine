@@ -82,7 +82,7 @@ export function createExclusiveJob(
   const workScriptPath: Nillable<TPath> = readIniString(ini, section, field, false);
 
   // Field with work path does not exist, nothing to load.
-  if (workScriptPath === null) {
+  if ($isNil(workScriptPath)) {
     return jobs;
   }
 

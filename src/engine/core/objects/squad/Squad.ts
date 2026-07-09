@@ -494,7 +494,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.assignedTargetId!
     );
 
-    if (this.currentTargetId === null) {
+    if ($isNil(this.currentTargetId)) {
       if (!squadTarget || squadTarget.isReachedBySimulationObject(this)) {
         if (squadTarget) {
           // todo: Probably should be revisited.
@@ -534,13 +534,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   ): void {
     const object: Nillable<ServerCreatureObject> = registry.simulator.object(memberId);
 
-    if (object !== null) {
+    if (object) {
       if (object.m_smart_terrain_id === this.assignedTerrainId) {
         return;
       }
 
       if (
-        oldTerrainId !== null &&
+        $isNotNil(oldTerrainId) &&
         oldTerrainId !== MAX_ALIFE_ID &&
         object.m_smart_terrain_id === oldTerrainId &&
         getSimulationTerrainDescriptorById(oldTerrainId)

@@ -1,6 +1,7 @@
 import { cse_smart_cover, LuabindClass, properties_helper } from "xray16";
 import { NetPacket } from "xray16/alias";
 import { assert, LuaArray, NIL, Nillable, TCount, TLabel, TSection, TStringId } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers/list";
 import {
@@ -25,7 +26,7 @@ export class SmartCover extends cse_smart_cover {
   public constructor(section: TSection) {
     super(section);
 
-    if (this.set_available_loopholes !== null) {
+    if ($isNotNil(this.set_available_loopholes)) {
       this.set_available_loopholes(this.loopholes);
     }
   }
@@ -65,7 +66,7 @@ export class SmartCover extends cse_smart_cover {
     // todo: should this be part of memoized check?
     if (nextDescription !== NIL) {
       for (const [, descriptor] of smartCoversList.get(nextDescription).loopholes) {
-        if (this.loopholes.get(descriptor.id) === null) {
+        if ($isNil(this.loopholes.get(descriptor.id))) {
           this.loopholes.set(descriptor.id, true);
         }
 

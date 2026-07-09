@@ -1,6 +1,7 @@
 import { game } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor, Time } from "xray16/alias";
 import { ACTOR_ID, Nillable, readTimeFromPacket, TName, TSection, TStringId, writeTimeToPacket } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -59,7 +60,7 @@ export class SmartTerrainControl {
         this.alarmStopSoundConditionList
       );
 
-      if (sound !== null) {
+      if ($isNotNil(sound)) {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
@@ -88,7 +89,7 @@ export class SmartTerrainControl {
   public getActorStatus(): boolean {
     const zoneObject: GameObject = registry.zones.get(this.noWeaponZone);
 
-    if (zoneObject === null) {
+    if ($isNil(zoneObject)) {
       return false;
     }
 
