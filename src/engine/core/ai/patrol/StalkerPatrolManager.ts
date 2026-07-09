@@ -3,6 +3,8 @@ import { EGameObjectPath, Flags32, GameObject, Patrol } from "xray16/alias";
 import {
   abort,
   assert,
+  isObjectAtTerminalWaypoint,
+  isObjectAtWaypoint,
   LuaArray,
   Nillable,
   TDistance,
@@ -25,11 +27,7 @@ import {
 import { registry, setStalkerState } from "@/engine/core/database";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  choosePatrolWaypointByFlags,
-  isObjectAtTerminalWaypoint,
-  isObjectAtWaypoint,
-} from "@/engine/core/utils/patrol";
+import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });

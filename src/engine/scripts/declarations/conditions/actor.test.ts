@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, level } from "xray16";
 import { EActorMenuMode, GameObject } from "xray16/alias";
+import { isObjectInZone } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
@@ -9,7 +10,7 @@ import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_co
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
+import { isObjectInActorFrustum } from "@/engine/core/utils/position";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";

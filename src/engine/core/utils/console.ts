@@ -1,18 +1,8 @@
 import { CConsole, get_console } from "xray16";
 import { IniFile } from "xray16/alias";
-import { AnyArgs, TCount, TName, TSection } from "xray16/lib";
+import { TCount, TSection } from "xray16/lib";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-
-/**
- * Execute console command and concatenate provided parameters for propagation.
- *
- * @param command - Console command.
- * @param args - List of arguments to provide for command.
- */
-export function executeConsoleCommand(command: TName, ...args: AnyArgs): void {
-  get_console().execute(args.length > 0 ? `${command} ${table.concat(args, " ")}` : command);
-}
 
 /**
  * Execute console commands from ini file lines.
@@ -32,15 +22,4 @@ export function executeConsoleCommandsFromSection(section: TSection, ini: IniFil
       console.execute(string.format("%s %s", field, value));
     }
   }
-}
-
-/**
- * Execute command to get floating point number value.
- *
- * @param command - Console command.
- * @param args - List of arguments to provide for command.
- * @returns Float value from console.
- */
-export function getConsoleFloatCommand<T extends number = number>(command: TName, ...args: AnyArgs): T {
-  return get_console().get_float(args.length > 0 ? `${command} ${table.concat(args, " ")}` : command) as T;
 }

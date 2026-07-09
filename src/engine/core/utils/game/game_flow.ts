@@ -1,6 +1,6 @@
+import { executeConsoleCommand } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 

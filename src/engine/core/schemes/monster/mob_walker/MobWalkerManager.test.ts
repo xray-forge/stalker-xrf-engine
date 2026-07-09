@@ -1,13 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { clsid, patrol } from "xray16";
 import { GameObject } from "xray16/alias";
-import { TName } from "xray16/lib";
+import { isObjectAtWaypoint, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
-import { isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";

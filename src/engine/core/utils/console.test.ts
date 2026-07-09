@@ -1,42 +1,16 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { Console } from "xray16/alias";
-import { gameDifficulties } from "xray16/lib";
 import { MockConsole, MockIniFile } from "xray16/mocks";
 
-import {
-  executeConsoleCommand,
-  executeConsoleCommandsFromSection,
-  getConsoleFloatCommand,
-} from "@/engine/core/utils/console";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
+import { executeConsoleCommandsFromSection } from "@/engine/core/utils/console";
 import { resetFunctionMock } from "@/fixtures/jest";
 
-describe("executeConsoleCommand util", () => {
+describe("executeConsoleCommandsFromSection", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();
 
   beforeEach(() => {
-    resetFunctionMock(gameConsole.execute);
-    resetFunctionMock(gameConsole.get_float);
-  });
+    const gameConsole: Console = MockConsole.getInstanceMock();
 
-  it("should correctly generate commands", () => {
-    executeConsoleCommand(consoleCommands.g_game_difficulty, gameDifficulties.gd_master);
-    expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty gd_master");
-
-    resetFunctionMock(gameConsole.execute);
-    executeConsoleCommand(consoleCommands.disconnect);
-    expect(gameConsole.execute).toHaveBeenCalledWith("disconnect");
-
-    resetFunctionMock(gameConsole.execute);
-    executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
-    expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
-  });
-});
-
-describe("executeConsoleCommandsFromSection util", () => {
-  const gameConsole: Console = MockConsole.getInstanceMock();
-
-  beforeEach(() => {
     resetFunctionMock(gameConsole.execute);
     resetFunctionMock(gameConsole.get_float);
   });
@@ -75,24 +49,5 @@ describe("executeConsoleCommandsFromSection util", () => {
 
     expect(gameConsole.execute).toHaveBeenCalledTimes(1);
     expect(gameConsole.execute).toHaveBeenCalledWith("c b a");
-  });
-});
-
-describe("getConsoleFloatCommand util", () => {
-  const gameConsole: Console = MockConsole.getInstanceMock();
-
-  beforeEach(() => {
-    resetFunctionMock(gameConsole.execute);
-    resetFunctionMock(gameConsole.get_float);
-  });
-
-  it("should correctly generate commands", () => {
-    gameConsole.get_float = jest.fn((cmd: string) => (cmd.startsWith("snd_volume_eff") ? 50.4 : -1));
-
-    expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff)).toBe(50.4);
-    expect(gameConsole.get_float).toHaveBeenCalledWith("snd_volume_eff");
-
-    expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff, 1, 2)).toBe(50.4);
-    expect(gameConsole.get_float).toHaveBeenNthCalledWith(2, "snd_volume_eff 1 2");
   });
 });

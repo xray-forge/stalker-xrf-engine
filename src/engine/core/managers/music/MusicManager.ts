@@ -4,6 +4,7 @@ import {
   abort,
   AnyObject,
   clamp,
+  getConsoleFloatCommand,
   LuaArray,
   Nillable,
   TDistance,
@@ -24,8 +25,7 @@ import { musicConfig } from "@/engine/core/managers/music/MusicConfig";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";
 import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { getConsoleFloatCommand } from "@/engine/core/utils/console";
+import { type SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { setMusicVolume } from "@/engine/core/utils/sound";

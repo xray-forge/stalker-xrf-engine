@@ -12,6 +12,7 @@ import {
   abort,
   assert,
   createEmptyVector,
+  getObjectPositioning,
   LuaArray,
   MAX_ALIFE_ID,
   Nillable,
@@ -36,7 +37,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
 
 const logger: LuaLogger = new LuaLogger($filename);

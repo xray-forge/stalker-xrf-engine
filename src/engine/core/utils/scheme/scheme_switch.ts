@@ -3,6 +3,8 @@ import { GameObject, IniFile } from "xray16/alias";
 import {
   abort,
   assert,
+  getDistanceBetween,
+  isObjectInZone,
   LuaArray,
   NIL,
   Nillable,
@@ -19,7 +21,6 @@ import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } fr
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
-import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
 import { EScheme, ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";

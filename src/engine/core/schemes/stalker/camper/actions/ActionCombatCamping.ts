@@ -1,6 +1,6 @@
 import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global } from "xray16";
 import { DangerObject, GameObject, Patrol, Vector } from "xray16/alias";
-import { abort, createVector, Nillable, TTimestamp } from "xray16/lib";
+import { abort, createVector, isObjectAtTerminalWaypoint, Nillable, TTimestamp } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
@@ -14,7 +14,6 @@ import {
 } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { isObjectAtTerminalWaypoint } from "@/engine/core/utils/patrol";
 import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**

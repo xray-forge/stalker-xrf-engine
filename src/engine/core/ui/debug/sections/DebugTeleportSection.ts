@@ -3,6 +3,7 @@ import { Vector2D } from "xray16/alias";
 import {
   create2dVector,
   createEmpty2dVector,
+  executeConsoleCommand,
   isGameVertexFromLevel,
   LuaArray,
   Nillable,
@@ -17,7 +18,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugTeleportListEntry } from "@/engine/core/ui/debug/sections/DebugTeleportListEntry";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects } from "@/engine/core/utils/registry";

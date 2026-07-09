@@ -1,13 +1,5 @@
 import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
-import {
-  AlifeSimulator,
-  AnyGameObject,
-  ESoundObjectType,
-  GameObject,
-  ServerCreatureObject,
-  ServerObject,
-  Vector,
-} from "xray16/alias";
+import { AlifeSimulator, ESoundObjectType, GameObject, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import {
   graphDistance,
   MAX_ALIFE_ID,
@@ -22,7 +14,7 @@ import {
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
 
 /**
  * Get smart terrain linked to object.
@@ -60,17 +52,6 @@ export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): 
 }
 
 /**
- * Check whether object is inside another zone object.
- *
- * @param object - Game object to check.
- * @param zone - Target zone to check.
- * @returns Whether object is inside zone object.
- */
-export function isObjectInZone(object: Nillable<GameObject>, zone: Nillable<GameObject>): boolean {
-  return $isNotNil(object) && $isNotNil(zone) && zone.inside(object.position());
-}
-
-/**
  * Check whether object is inside silence zone.
  *
  * @param object - Game object to check.
@@ -103,38 +84,6 @@ export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName
 }
 
 /**
- * Check distance between objects.
- *
- * @param first - Object distance from.
- * @param second - Object distance to.
- * @param distance - Distance in meters.
- * @returns Whether distance between objects greater or equal.
- */
-export function isDistanceBetweenObjectsGreaterOrEqual(
-  first: GameObject,
-  second: GameObject,
-  distance: TDistance
-): boolean {
-  return first.position().distance_to_sqr(second.position()) >= distance * distance;
-}
-
-/**
- * Check distance between objects.
- *
- * @param first - Object distance from.
- * @param second - Object distance to.
- * @param distance - Distance in meters.
- * @returns Whether distance between objects less or equal.
- */
-export function isDistanceBetweenObjectsLessOrEqual(
-  first: GameObject,
-  second: GameObject,
-  distance: TDistance
-): boolean {
-  return first.position().distance_to_sqr(second.position()) <= distance * distance;
-}
-
-/**
  * Check whether objects are on same level.
  *
  * @param first - Object to compare.
@@ -161,28 +110,6 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
  */
 export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
-}
-
-/**
- * Get distance for objects based on game vectors.
- *
- * @param first - Object to check.
- * @param second - Object to check.
- * @returns Vector distance between two objects.
- */
-export function getDistanceBetween(first: GameObject, second: GameObject): TDistance {
-  return first.position().distance_to(second.position());
-}
-
-/**
- * Get squared distance for objects based on game vectors.
- *
- * @param first - Object to check.
- * @param second - Object to check.
- * @returns Squared vector distance between two objects.
- */
-export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TDistance {
-  return first.position().distance_to_sqr(second.position());
 }
 
 /**
@@ -228,28 +155,6 @@ export function teleportActorWithEffects(actor: GameObject, position: Vector, di
   actor.set_actor_direction(-direction.getH());
 
   new sound_object("affects\\tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, ZERO_VECTOR, 1.0);
-}
-
-/**
- * @param object - Any game object used by the game engine.
- * @returns Tuple of object position details: id, gvi, lvi, position.
- */
-export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, Vector]> {
-  if (type(object.id) === "number") {
-    return $multi(
-      (object as ServerObject).id,
-      (object as ServerObject).m_game_vertex_id,
-      (object as ServerObject).m_level_vertex_id,
-      (object as ServerObject).position
-    );
-  } else {
-    return $multi(
-      (object as GameObject).id(),
-      (object as GameObject).game_vertex_id(),
-      (object as GameObject).level_vertex_id(),
-      (object as GameObject).position()
-    );
-  }
 }
 
 /**

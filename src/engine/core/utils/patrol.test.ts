@@ -1,15 +1,11 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 import { GameObject, Patrol, Vector } from "xray16/alias";
+import { getPatrolFlag, isObjectAtTerminalWaypoint, isObjectAtWaypoint } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { registerZone } from "@/engine/core/database";
-import {
-  getPatrolFlag,
-  isObjectAtTerminalWaypoint,
-  isObjectAtWaypoint,
-  isPatrolInRestrictor,
-} from "@/engine/core/utils/patrol";
+import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { patrols } from "@/fixtures/xray";
 
 describe("isObjectAtWaypoint util", () => {

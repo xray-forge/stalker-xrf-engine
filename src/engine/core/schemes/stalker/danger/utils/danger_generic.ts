@@ -1,6 +1,6 @@
 import { danger_object } from "xray16";
 import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TDangerType } from "xray16/alias";
-import { ACTOR_ID, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
+import { ACTOR_ID, isObjectInZone, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
@@ -11,7 +11,6 @@ import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig"
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { isObjectInZone } from "@/engine/core/utils/position";
 import { communities } from "@/engine/lib/constants/communities";
 import { EScheme } from "@/engine/lib/types";
 

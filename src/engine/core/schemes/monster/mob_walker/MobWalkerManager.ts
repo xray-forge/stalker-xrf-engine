@@ -1,6 +1,18 @@
 import { anim, cond, look, move, patrol, sound } from "xray16";
 import { Flags32, GameObject, Patrol, TAnimationKey, TAnimationType, TMoveType, TSoundKey, Vector } from "xray16/alias";
-import { abort, copyVector, LuaArray, Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRUE } from "xray16/lib";
+import {
+  abort,
+  copyVector,
+  isObjectAtWaypoint,
+  LuaArray,
+  Nillable,
+  TCount,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRUE,
+} from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -8,7 +20,7 @@ import { registry, setMonsterState } from "@/engine/core/database";
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { mobWalkerConfig } from "@/engine/core/schemes/monster/mob_walker/MobWalkerConfig";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { choosePatrolWaypointByFlags, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
+import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { EScheme } from "@/engine/lib/types";

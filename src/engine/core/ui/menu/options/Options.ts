@@ -13,7 +13,7 @@ import {
   ui_events,
 } from "xray16";
 import { TKeyCode, TUIEvent } from "xray16/alias";
-import { TPath } from "xray16/lib";
+import { executeConsoleCommand, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/options_types";
@@ -22,7 +22,6 @@ import { OptionsGameplay } from "@/engine/core/ui/menu/options/OptionsGameplay";
 import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
 import { OptionsVideo } from "@/engine/core/ui/menu/options/OptionsVideo";
 import { OptionsVideoAdvanced } from "@/engine/core/ui/menu/options/OptionsVideoAdvanced";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";

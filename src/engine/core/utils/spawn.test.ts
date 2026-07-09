@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AlifeSimulator, GameObject, ServerActorObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
-import { createEmptyVector, MAX_ALIFE_ID, TSection } from "xray16/lib";
+import { createEmptyVector, getObjectPositioning, MAX_ALIFE_ID, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject } from "xray16/mocks";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils";
-import { getObjectPositioning } from "@/engine/core/utils/position";
 import {
   releaseObject,
   spawnAmmoAtPosition,

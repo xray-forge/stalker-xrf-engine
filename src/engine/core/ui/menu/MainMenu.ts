@@ -14,7 +14,7 @@ import {
   ui_events,
 } from "xray16";
 import { TKeyCode, TUIEvent } from "xray16/alias";
-import { gameDifficulties, gameTypes, Nillable, TPath } from "xray16/lib";
+import { executeConsoleCommand, gameDifficulties, gameTypes, Nillable, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -27,7 +27,6 @@ import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import { SaveDialog } from "@/engine/core/ui/menu/save/SaveDialog";
-import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";

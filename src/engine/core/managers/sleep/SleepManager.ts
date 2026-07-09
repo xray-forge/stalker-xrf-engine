@@ -1,5 +1,5 @@
 import { level } from "xray16";
-import { AnyObject, TDuration } from "xray16/lib";
+import { AnyObject, executeConsoleCommand, getConsoleFloatCommand, TDuration } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -11,7 +11,6 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/game/sleep";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
