@@ -13,7 +13,7 @@ import {
   TStringId,
   TTimestamp,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -349,7 +349,7 @@ export class TreasureManager extends AbstractManager {
     assert(section === "name", "There is no 'name' field in [secret] section for object [%s].", object.name());
     assert(value !== "", "Field 'name' in [secret] section got no value for object [%s].", object.name());
     assert(
-      treasureConfig.TREASURES.get(value) !== null,
+      treasureConfig.TREASURES.get(value),
       "Attempt to register item '%s' in not existing treasure '%s'.",
       object.name(),
       value
@@ -359,7 +359,7 @@ export class TreasureManager extends AbstractManager {
       object.section_name()
     );
 
-    assert(item !== null, "Attempt to register unknown item [%s] in secret [%s].", object.section_name(), value);
+    assert(item, "Attempt to register unknown item [%s] in secret [%s].", object.section_name(), value);
 
     for (const it of $range(1, item.length())) {
       if (!item.get(it).itemsIds) {

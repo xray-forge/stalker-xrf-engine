@@ -81,7 +81,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     const fs: FS = getFS();
 
-    if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
+    if ($isNotNil(fs.exist(roots.gameSounds, this.path + ".ogg"))) {
       this.soundPaths.set(1, this.path);
     } else {
       let index: TCount = 1;
@@ -160,7 +160,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     const objectState: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (!objectState.activeScheme || objectState[objectState.activeScheme!]!.signals === null) {
+    if (!objectState.activeScheme || $isNil(objectState[objectState.activeScheme!]!.signals)) {
       return;
     }
 

@@ -15,7 +15,7 @@ import {
   TSection,
   TStringId,
 } from "xray16/lib";
-import { $filename, $fromArray, $fromObject } from "xray16/macros";
+import { $filename, $fromArray, $fromObject, $isNotNil } from "xray16/macros";
 
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -104,11 +104,11 @@ extern(
     const actor: GameObject = registry.actor;
 
     for (const [k, v] of itemsTable) {
-      if (actor.object(v) !== null) {
+      if ($isNotNil(actor.object(v))) {
         if (v === detectors.detector_scientific && !hasInfoPortion(infoPortions.zat_b30_second_detector)) {
           // --
         } else {
-          if (infoPortionsTable.get(v) !== null) {
+          if ($isNotNil(infoPortionsTable.get(v))) {
             if (!hasInfoPortion(infoPortionsTable.get(v))) {
               return true;
             }

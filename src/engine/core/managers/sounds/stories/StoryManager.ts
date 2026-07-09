@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
 import { LuaArray, NIL, Nillable, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
@@ -85,7 +85,7 @@ export class StoryManager {
       }
     }
 
-    if (idToRemove !== null) {
+    if ($isNotNil(idToRemove)) {
       table.remove(this.objects, idToRemove);
     }
   }
@@ -98,8 +98,8 @@ export class StoryManager {
       return;
     }
 
-    if (soundsConfig.playing.get(this.lastPlayingObjectId!) !== null) {
-      if (registry.objects.get(this.lastPlayingObjectId!)?.object?.best_enemy() !== null) {
+    if ($isNotNil(soundsConfig.playing.get(this.lastPlayingObjectId!))) {
+      if ($isNotNil(registry.objects.get(this.lastPlayingObjectId!)?.object?.best_enemy())) {
         this.story = null;
         soundsConfig.playing.get(this.lastPlayingObjectId!).stop(this.lastPlayingObjectId);
       }
@@ -119,7 +119,7 @@ export class StoryManager {
 
     const nextPhraseDescriptor: Nillable<IReplicDescriptor> = this.story.getNextPhraseDescriptor();
 
-    if (nextPhraseDescriptor === null) {
+    if ($isNil(nextPhraseDescriptor)) {
       return;
     }
 
@@ -176,13 +176,13 @@ export class StoryManager {
       nextSpeakerObjectId = table.random(this.objects)[1].objectId;
     }
 
-    if (nextSpeakerObjectId === null || registry.objects.get(nextSpeakerObjectId) === null) {
+    if ($isNil(nextSpeakerObjectId) || $isNil(registry.objects.get(nextSpeakerObjectId))) {
       return;
     }
 
     if (
-      registry.objects.get(nextSpeakerObjectId).object!.best_enemy() !== null &&
-      soundsConfig.playing.get(nextSpeakerObjectId) !== null
+      $isNotNil(registry.objects.get(nextSpeakerObjectId).object!.best_enemy()) &&
+      $isNotNil(soundsConfig.playing.get(nextSpeakerObjectId))
     ) {
       this.story = null;
       soundsConfig.playing.get(nextSpeakerObjectId).stop(nextSpeakerObjectId);

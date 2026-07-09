@@ -1,6 +1,7 @@
 import { alife, level } from "xray16";
 import type { IniFile } from "xray16/alias";
 import { abort, LuaArray, TCount, TName, TProbability, TSection, TStringId } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import type { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
@@ -66,7 +67,7 @@ export function readIniDropDependentItems(ini: IniFile): LuaTable<TStringId, Lua
  * @returns List of item count based on level and difficulty.
  */
 export function readIniDropCountByLevel(ini: IniFile): LuaTable<TStringId, IItemDropAmountDescriptor> {
-  if (alife() === null) {
+  if ($isNil(alife())) {
     return new LuaTable();
   }
 

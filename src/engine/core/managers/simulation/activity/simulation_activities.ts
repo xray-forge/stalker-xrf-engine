@@ -1,6 +1,6 @@
 import { ServerObject } from "xray16/alias";
 import { isInTimeInterval, TName } from "xray16/lib";
-import { $fromObject } from "xray16/macros";
+import { $fromObject, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -41,7 +41,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
           isInTimeInterval(18, 8) &&
           !surgeConfig.IS_STARTED &&
           !isAnySquadMemberEnemyToActor(squad) &&
-          registry.baseSmartTerrains.get(target.name()) !== null
+          $isNotNil(registry.baseSmartTerrains.get(target.name()))
         );
       },
       surge: simulationPreconditionSurge,

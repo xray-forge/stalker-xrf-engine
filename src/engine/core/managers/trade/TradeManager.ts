@@ -98,7 +98,7 @@ export class TradeManager extends AbstractManager {
     const now: TTimestamp = time_global();
 
     // Nothing to update / not time yet:
-    if (tradeDescriptor === null || tradeDescriptor.updateAt > now) {
+    if ($isNil(tradeDescriptor) || tradeDescriptor.updateAt > now) {
       return;
     }
 
@@ -144,7 +144,7 @@ export class TradeManager extends AbstractManager {
     }
 
     // Not defined or not time to update yet:
-    if (tradeDescriptor.buySupplies === null || tradeDescriptor.resupplyAt > now) {
+    if ($isNil(tradeDescriptor.buySupplies) || tradeDescriptor.resupplyAt > now) {
       return;
     }
 
@@ -226,15 +226,15 @@ export class TradeManager extends AbstractManager {
 
     openSaveMarker(packet, TradeManager.name);
 
-    if (tradeDescriptor === null) {
+    if ($isNil(tradeDescriptor)) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
 
       packet.w_stringZ(tradeDescriptor.configPath);
-      packet.w_stringZ(tradeDescriptor.currentBuyCondition === null ? "" : tradeDescriptor.currentBuyCondition);
-      packet.w_stringZ(tradeDescriptor.currentSellCondition === null ? "" : tradeDescriptor.currentSellCondition);
-      packet.w_stringZ(tradeDescriptor.currentBuySupplies === null ? "" : tradeDescriptor.currentBuySupplies);
+      packet.w_stringZ($isNil(tradeDescriptor.currentBuyCondition) ? "" : tradeDescriptor.currentBuyCondition);
+      packet.w_stringZ($isNil(tradeDescriptor.currentSellCondition) ? "" : tradeDescriptor.currentSellCondition);
+      packet.w_stringZ($isNil(tradeDescriptor.currentBuySupplies) ? "" : tradeDescriptor.currentBuySupplies);
 
       const now: TTimestamp = time_global();
 

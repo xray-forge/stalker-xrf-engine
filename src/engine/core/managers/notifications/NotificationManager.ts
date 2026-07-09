@@ -16,7 +16,7 @@ import {
   TStringId,
   TTimestamp,
 } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -321,7 +321,7 @@ export class NotificationManager extends AbstractManager {
 
     let soundCaptionText: Nillable<TLabel> = soundCaption;
 
-    if (soundCaptionText === null) {
+    if ($isNil(soundCaptionText)) {
       [soundCaptionText] = string.gsub(soundPath, "(characters_voice\\human_..\\)([^\\]*)", "%2");
       [soundCaptionText] = string.gsub(soundCaptionText, "[\\]([^\\]*)", "_%1");
     }
@@ -397,7 +397,7 @@ export class NotificationManager extends AbstractManager {
        * Call correct method based on LUA binding signature.
        * Different methods are called based on different params count.
        */
-      if (type === null) {
+      if ($isNil(type)) {
         registry.actor.give_game_news(notificationTitle, notificationText, notificationIcon, delay, showTime);
       } else {
         registry.actor.give_game_news(notificationTitle, notificationText, notificationIcon, delay, showTime, type);

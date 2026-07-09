@@ -15,7 +15,7 @@ import {
   TRate,
   TTimestamp,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, getManagerByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -151,7 +151,7 @@ export class MusicManager extends AbstractManager {
   public selectNextTrack(): void {
     logger.info("Select next track for dynamic music");
 
-    if (this.themes.get(this.currentThemeIndex) === null) {
+    if ($isNil(this.themes.get(this.currentThemeIndex))) {
       abort("Wrong theme index, no file with '%s' index listed.", this.currentThemeIndex);
     }
 
@@ -205,7 +205,7 @@ export class MusicManager extends AbstractManager {
           }
         }
 
-        if (nearestEnemy !== null) {
+        if ($isNotNil(nearestEnemy)) {
           if (nearestEnemyDistanceSqr < musicConfig.MIN_DIST * musicConfig.MIN_DIST) {
             this.forceFade = true;
             this.fadeToThemeVolume = this.gameAmbientVolume;

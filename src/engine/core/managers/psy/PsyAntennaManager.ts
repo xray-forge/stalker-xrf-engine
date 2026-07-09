@@ -24,7 +24,7 @@ import {
   TTimestamp,
   vectorRotateY,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -281,12 +281,12 @@ export class PsyAntennaManager extends AbstractManager {
     const customStatic: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
     if (this.hitIntensity > 0.0001) {
-      if (customStatic === null && !this.noStatic) {
+      if ($isNil(customStatic) && !this.noStatic) {
         hud.AddCustomStatic("cs_psy_danger", true);
         hud.GetCustomStatic("cs_psy_danger")!.wnd().TextControl().SetTextST("st_psy_danger");
       }
     } else {
-      if (customStatic !== null) {
+      if ($isNotNil(customStatic)) {
         hud.RemoveCustomStatic("cs_psy_danger");
       }
     }

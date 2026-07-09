@@ -1,7 +1,7 @@
 import { hit, level } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
 import { LuaArray, Nillable, TRUE, Z_VECTOR } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
@@ -53,7 +53,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
           const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
           // todo: What is the difference here?
-          if (object === null) {
+          if ($isNil(object)) {
             member.object.kill();
           } else {
             object.kill(object);
@@ -103,7 +103,7 @@ export function killAllSurgeUnhidden(): void {
 
             const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
-            if (object === null) {
+            if ($isNil(object)) {
               member.object.kill();
             } else {
               object.kill(object);
@@ -124,10 +124,10 @@ export function killAllSurgeUnhidden(): void {
 
               const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
-              if (object !== null) {
-                object.kill(object);
-              } else {
+              if ($isNil(object)) {
                 member.object.kill();
+              } else {
+                object.kill(object);
               }
             }
           }

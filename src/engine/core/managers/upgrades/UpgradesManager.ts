@@ -13,6 +13,7 @@ import {
   TRUE,
   TSection,
 } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -138,7 +139,7 @@ export class UpgradesManager extends AbstractManager {
     if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
       const param: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section);
 
-      if (param !== null) {
+      if ($isNotNil(param)) {
         if (param === FALSE) {
           return 1;
         } else if (param !== TRUE) {
@@ -156,7 +157,7 @@ export class UpgradesManager extends AbstractManager {
       }
     }
 
-    if (registry.actor !== null) {
+    if ($isNotNil(registry.actor)) {
       const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE);
       const cash: TCount = registry.actor.money();
 
@@ -182,7 +183,7 @@ export class UpgradesManager extends AbstractManager {
     if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
       const param: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section);
 
-      if (param !== null) {
+      if ($isNotNil(param)) {
         if (param === FALSE) {
           return label;
         } else {
@@ -203,7 +204,7 @@ export class UpgradesManager extends AbstractManager {
       }
     }
 
-    if (actor !== null) {
+    if ($isNotNil(actor)) {
       const price: TCount = math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE);
 
       if (actor.money() < price) {

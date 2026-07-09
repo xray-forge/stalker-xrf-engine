@@ -48,7 +48,7 @@ export function initializeDropBoxesLootTables(): void {
 
     const nums: LuaArray<TCount> = parseNumbersList(value);
 
-    if (nums.get(1) === null) {
+    if ($isNil(nums.get(1))) {
       abort(
         "Error on [PH_BOX_GENERIC_LTX] loot declaration. Section [%s], line [%s].",
         itemCountSection,

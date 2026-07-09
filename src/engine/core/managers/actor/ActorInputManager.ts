@@ -10,7 +10,7 @@ import {
   TRate,
   writeTimeToPacket,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -67,7 +67,7 @@ export class ActorInputManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ActorInputManager.name);
 
-    if (actorConfig.DISABLED_INPUT_AT === null) {
+    if ($isNil(actorConfig.DISABLED_INPUT_AT)) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);

@@ -1,5 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { TNumberId, TRate, TStringId } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import {
@@ -77,7 +78,7 @@ export function isHighestPriorityPhrase(
 ): boolean {
   const objectId: TNumberId = object.id();
 
-  if (PRTsubtable.get(objectId) !== null) {
+  if ($isNotNil(PRTsubtable.get(objectId))) {
     const pr: TRate = PRTsubtable.get(objectId).get(phraseId);
 
     if (pr < 0) {

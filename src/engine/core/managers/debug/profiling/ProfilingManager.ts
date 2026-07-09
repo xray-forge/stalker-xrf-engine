@@ -1,7 +1,7 @@
 import { profile_timer } from "xray16";
 import { ProfileTimer } from "xray16/alias";
 import { abort, AnyCallable, executeConsoleCommand, LuaArray, Nillable, TCount, TDuration, TName } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
@@ -72,7 +72,7 @@ export class ProfilingManager extends AbstractManager {
    * @returns Function name descriptor based on debug information.
    */
   public getFunctionName(info: debug.FunctionInfo): string {
-    if (info === null) {
+    if ($isNil(info)) {
       return "[unknown]";
     }
 
@@ -92,13 +92,13 @@ export class ProfilingManager extends AbstractManager {
   public start(): void {
     logger.info("Start profiling manager in mode: %s", this.mode);
 
-    if (jit !== null) {
+    if ($isNotNil(jit)) {
       logger.info("Take care, jit is enabled so profiling stats may be incorrect");
       logger.info("For correct profiling run game with '-nojit' flag");
     }
 
     // Ensure all conditions for profiling start are met
-    if (debug !== null) {
+    if ($isNotNil(debug)) {
       logger.info("Profiling enabled, going to setup hook");
       this.setupHook();
     } else {
@@ -178,20 +178,20 @@ export class ProfilingManager extends AbstractManager {
     const caller = debug.getinfo(3, "f")!;
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
     const functionRef: AnyCallable = functionInfo.func as AnyCallable;
-    const callerRef: Nillable<AnyCallable> = caller === null ? null : (caller.func as AnyCallable);
+    const callerRef: Nillable<AnyCallable> = $isNil(caller) ? null : (caller.func as AnyCallable);
 
     switch (context) {
       case "return": {
         const countersRecord: IProfileSnapshotDescriptor = this.countersMap.get(functionRef);
 
-        if (countersRecord !== null) {
+        if ($isNotNil(countersRecord)) {
           countersRecord.currentTimer.stop();
           countersRecord.childTimer.stop();
 
-          if (callerRef !== null) {
+          if ($isNotNil(callerRef)) {
             const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
-            if (object !== null) {
+            if ($isNotNil(object)) {
               object.currentTimer.start();
             }
           }
@@ -207,10 +207,10 @@ export class ProfilingManager extends AbstractManager {
       }
 
       case "tail return": {
-        if (callerRef !== null) {
+        if ($isNotNil(callerRef)) {
           const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
-          if (object !== null) {
+          if ($isNotNil(object)) {
             object.currentTimer.start();
           }
         }
@@ -225,15 +225,15 @@ export class ProfilingManager extends AbstractManager {
       }
 
       case "call": {
-        if (callerRef !== null) {
+        if ($isNotNil(callerRef)) {
           const object: IProfileSnapshotDescriptor = this.countersMap.get(callerRef);
 
-          if (object !== null) {
+          if ($isNotNil(object)) {
             object.currentTimer.stop();
           }
         }
 
-        if (this.countersMap.get(functionRef) === null) {
+        if ($isNil(this.countersMap.get(functionRef))) {
           this.countersMap.set(functionRef, {
             count: 1,
             currentTimer: new profile_timer(),
@@ -276,7 +276,7 @@ export class ProfilingManager extends AbstractManager {
       const name: TName = this.getFunctionName(funcDetails.info);
       const count: Nillable<TCount> = sortedStats.get(name);
 
-      sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
+      sortedStats.set(name, $isNil(count) ? funcDetails.count : count + funcDetails.count);
     }
 
     let totalCallsCount: number = 0;
@@ -295,7 +295,7 @@ export class ProfilingManager extends AbstractManager {
 
     logger.pushEmptyLine();
     logger.info("==================================================================================================");
-    logger.info("Total calls stat, limit: %s JIT: %s", limit, jit !== null);
+    logger.info("Total calls stat, limit: %s JIT: %s", limit, $isNotNil(jit));
     logger.info("==================================================================================================");
 
     let printedCount: TCount = 0;
@@ -392,7 +392,7 @@ export class ProfilingManager extends AbstractManager {
 
     logger.pushEmptyLine();
     logger.info("==================================================================================================");
-    logger.info("Total portions calls stat, limit: %s JIT: %s", limit, jit !== null);
+    logger.info("Total portions calls stat, limit: %s JIT: %s", limit, $isNotNil(jit));
     logger.info("==================================================================================================");
 
     let printedCount: TCount = 0;

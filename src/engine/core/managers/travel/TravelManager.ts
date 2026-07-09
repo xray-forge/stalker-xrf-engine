@@ -17,7 +17,7 @@ import {
   TTimestamp,
   vectorToString,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -219,7 +219,7 @@ export class TravelManager extends AbstractManager {
 
     const targetSquadObject: Nillable<TSimulationObject> = registry.simulator.object(squadTargetId!);
 
-    if (targetSquadObject === null) {
+    if ($isNil(targetSquadObject)) {
       abort("Simulation target not existing '%s', action_name '%s'.", squadTargetId, squad.currentAction.type);
     }
 
@@ -228,7 +228,7 @@ export class TravelManager extends AbstractManager {
     if (isSmartTerrain(targetSquadObject)) {
       const terrainDescription: TLabel = travelConfig.TRAVEL_LOCATIONS.get(targetSquadObject.name());
 
-      if (terrainDescription === null) {
+      if ($isNil(terrainDescription)) {
         abort("Wrong smart name '%s' in travel_manager.ltx", targetSquadObject.name());
       }
 
@@ -351,7 +351,7 @@ export class TravelManager extends AbstractManager {
   ): boolean {
     const terrainName: Nillable<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
 
-    if (terrainName === null) {
+    if ($isNil(terrainName)) {
       abort("Error in travel manager, not available smart name: '%s'.", tostring(phraseId));
     }
 
@@ -449,14 +449,14 @@ export class TravelManager extends AbstractManager {
 
       // todo: Why releasing enemies? Probably not needed.
       for (const [, squad] of getSimulationTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
-        if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
+        if ($isNil(getStoryIdByObjectId(squad.id)) && isAnySquadMemberEnemyToActor(squad)) {
           releaseSimulationSquad(squad);
         }
       }
 
       const currentSmartId: Nillable<TNumberId> = this.travelSquad!.assignedTerrainId;
 
-      if (currentSmartId !== null) {
+      if ($isNotNil(currentSmartId)) {
         logger.info("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
 
         assignSimulationSquadToTerrain(this.travelSquad!, null);

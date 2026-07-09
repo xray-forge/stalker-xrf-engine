@@ -1,6 +1,6 @@
 import { GameObject, NetPacket, NetProcessor } from "xray16/alias";
 import { AnyObject, TNumberId, TStringId } from "xray16/lib";
-import { $fromObject } from "xray16/macros";
+import { $fromObject, $isNil } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -98,7 +98,7 @@ export class DialogManager extends AbstractManager {
    * @param phraseId - Target phrase ID.
    */
   public disableObjectPhrase(objectId: TNumberId, phraseId: TStringId): void {
-    if (this.disabledPhrases.get(objectId) === null) {
+    if ($isNil(this.disabledPhrases.get(objectId))) {
       this.disabledPhrases.set(objectId, new LuaTable());
     }
 

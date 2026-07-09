@@ -1,4 +1,5 @@
 import { AnyObject, LuaArray, TName, TNumberId } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -35,7 +36,7 @@ export class DatabaseManager extends AbstractManager {
 
     // Display objects by name ID for more context.
     for (const [key, value] of registry.objects) {
-      objects.set(value.object === null ? key : `${key}#${value.object.name()}`, value);
+      objects.set($isNil(value.object) ? key : `${key}#${value.object.name()}`, value);
       maxObjectId = math.max(maxObjectId, key);
     }
 

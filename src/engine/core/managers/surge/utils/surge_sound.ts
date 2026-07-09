@@ -1,5 +1,6 @@
 import { level } from "xray16";
 import { ACTOR_ID, TName } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -12,7 +13,7 @@ import { levels } from "@/engine/lib/constants/levels";
  * In original game some stalker from main location base does announcement.
  */
 export function playSurgeStartingSound(): void {
-  if (level === null) {
+  if ($isNil(level)) {
     return;
   }
 
@@ -43,7 +44,7 @@ export function playSurgeStartingSound(): void {
  * In original game some stalker from main location base does announcement.
  */
 export function playSurgeWillHappenSoonSound(): void {
-  if (level === null) {
+  if ($isNil(level)) {
     return;
   }
 
@@ -74,7 +75,7 @@ export function playSurgeWillHappenSoonSound(): void {
  * In original game some stalker from main location base does announcement.
  */
 export function playSurgeEndedSound(): void {
-  if (level === null) {
+  if ($isNil(level)) {
     return;
   }
 

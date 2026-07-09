@@ -1,6 +1,7 @@
 import { getFS, sound_object } from "xray16";
 import { GameObject, IniFile, TSoundObjectType } from "xray16/alias";
 import { assert, Nillable, TNumberId, TSection } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
@@ -18,11 +19,7 @@ export class LoopedSound extends AbstractPlayableSound {
   public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
-    assert(
-      getFS().exist(roots.gameSounds, this.path + ".ogg") !== null,
-      "There are no looped sound with path: '%s'",
-      this.path
-    );
+    assert(getFS().exist(roots.gameSounds, this.path + ".ogg"), "There are no looped sound with path: '%s'", this.path);
   }
 
   /**
@@ -34,7 +31,7 @@ export class LoopedSound extends AbstractPlayableSound {
   public play(objectId: TNumberId): boolean {
     const object: Nillable<GameObject> = registry.objects.get(objectId).object!;
 
-    if (object === null) {
+    if ($isNil(object)) {
       return false;
     } else {
       this.soundObject = new sound_object(this.path);

@@ -1,5 +1,6 @@
 import { game } from "xray16";
 import { LuaArray, Nillable, TCount, TLabel, TName, TRate, TSection } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES } from "@/engine/core/managers/upgrades/UpgradesConfig";
@@ -12,7 +13,7 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
  * @returns Upgrade cost label for provided item section.
  */
 export function getUpgradeCostLabel(section: TSection): TLabel {
-  return registry.actor === null ? " " : `${game.translate_string("st_upgr_cost")}: ${getUpgradeCost(section)}`;
+  return $isNil(registry.actor) ? " " : `${game.translate_string("st_upgr_cost")}: ${getUpgradeCost(section)}`;
 }
 
 /**

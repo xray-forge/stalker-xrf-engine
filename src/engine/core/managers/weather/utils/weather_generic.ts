@@ -1,5 +1,6 @@
 import { FS, getFS, level } from "xray16";
 import { containsSubstring, LuaArray, Nillable, TDuration, TName, TPath, TRate, TTimestamp } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import {
   EWeatherPeriodType,
@@ -19,7 +20,7 @@ export function getPossibleWeathersList(): LuaArray<TName> {
   const list: LuaArray<TName> = new LuaTable();
   const fs: FS = getFS();
 
-  if (lfs !== null) {
+  if ($isNotNil(lfs)) {
     const weathersFolder: TPath = fs.update_path(roots.gameConfig, "environment\\weathers");
 
     const [, directory] = lfs.dir(weathersFolder);

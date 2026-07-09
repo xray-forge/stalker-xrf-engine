@@ -1,7 +1,7 @@
 import { actor_stats } from "xray16";
 import { NetPacket, NetProcessor } from "xray16/alias";
 import { ACTOR_ID, AnyObject } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -49,7 +49,7 @@ export class SimulationManager extends AbstractManager {
   public onActorDestroy(): void {
     simulationLogger.info("Actor network destroy");
 
-    if (actor_stats.remove_from_ranking !== null) {
+    if ($isNotNil(actor_stats.remove_from_ranking)) {
       actor_stats.remove_from_ranking(ACTOR_ID);
     }
   }

@@ -160,9 +160,9 @@ export class NpcSound extends AbstractPlayableSound {
    * @returns Whether the object has an active sound or a playing PDA sound.
    */
   public override isPlaying(objectId: TNumberId): boolean {
-    const object: Nillable<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
+    const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
 
-    if (object === null) {
+    if ($isNil(object)) {
       return false;
     }
 
@@ -181,7 +181,7 @@ export class NpcSound extends AbstractPlayableSound {
   public play(objectId: TNumberId, faction: string, point: Nillable<string>, message: TLabel): boolean {
     const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
 
-    if (!object) {
+    if ($isNil(object)) {
       return false;
     }
 
@@ -431,7 +431,7 @@ export class NpcSound extends AbstractPlayableSound {
     const fs: FS = getFS();
     const objectSoundPrefix: TLabel = object.sound_prefix();
 
-    if (fs.exist(roots.gameSounds, `${objectSoundPrefix}${this.path}.ogg`) !== null) {
+    if ($isNotNil(fs.exist(roots.gameSounds, `${objectSoundPrefix}${this.path}.ogg`))) {
       objectPathsDescriptor.set(1, objectSoundPrefix + this.path);
     } else {
       let index: TIndex = 1;

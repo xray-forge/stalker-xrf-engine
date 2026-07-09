@@ -1,7 +1,7 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MAX_U8, Nillable, TName, TNumberId, TRate, TRUE, TStringId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import {
@@ -81,7 +81,7 @@ export function getHighestPriorityPhrase(
   const objectId: TNumberId = object.id();
 
   // No priorities set for an object, just reset.
-  if (priorities.get(objectId) === null) {
+  if ($isNil(priorities.get(objectId))) {
     resetPhrasePriority(phrases, priorities, object, null);
 
     return $multi(-1, 0);
@@ -115,7 +115,7 @@ export function fillPhrasesPriorities(
 ): void {
   const objectId: TNumberId = object.id();
 
-  if (priorities.get(objectId) === null) {
+  if ($isNil(priorities.get(objectId))) {
     priorities.set(objectId, new LuaTable());
   }
 
@@ -211,12 +211,12 @@ export function calculatePhrasePriority(
     priority = -1;
   }
 
-  if (phrasesPriorities.get(objectId).get("ignoreOnce") !== null && phraseDescriptor.once === TRUE) {
+  if ($isNotNil(phrasesPriorities.get(objectId).get("ignoreOnce")) && phraseDescriptor.once === TRUE) {
     priority = -1;
   }
 
   if (
-    phrasesPriorities.get(objectId).get(phraseId) !== null &&
+    $isNotNil(phrasesPriorities.get(objectId).get(phraseId)) &&
     phrasesPriorities.get(objectId).get(phraseId) === MAX_U8
   ) {
     priority = MAX_U8;

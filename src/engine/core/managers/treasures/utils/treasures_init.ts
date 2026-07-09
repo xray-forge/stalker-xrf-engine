@@ -1,6 +1,6 @@
 import { IniFile } from "xray16/alias";
 import { abort, assert, LuaArray, TCount, TSection, TStringId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
 import {
@@ -62,7 +62,7 @@ export function readIniTreasuresList(ini: IniFile): LuaTable<TSection, ITreasure
           break;
 
         case "type": {
-          if (itemValue === null || ALLOWED_TREASURE_TYPES.has(itemValue as ETreasureType)) {
+          if ($isNil(itemValue) || ALLOWED_TREASURE_TYPES.has(itemValue as ETreasureType)) {
             descriptor.type = itemValue as ETreasureType;
           } else {
             abort("Unexpected type provided for treasure: '%s'.", itemValue);
@@ -99,7 +99,7 @@ export function readIniTreasuresList(ini: IniFile): LuaTable<TSection, ITreasure
       }
     }
 
-    if (descriptor.type === null) {
+    if ($isNil(descriptor.type)) {
       if (cost >= epicCost) {
         descriptor.type = ETreasureType.EPIC;
       } else if (cost >= rareCost) {

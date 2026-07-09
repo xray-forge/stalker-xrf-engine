@@ -69,7 +69,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
     const fs: FS = getFS();
 
-    if (fs.exist(roots.gameSounds, this.path + ".ogg") !== null) {
+    if ($isNotNil(fs.exist(roots.gameSounds, this.path + ".ogg"))) {
       this.soundPaths.set(1, this.path);
     } else {
       let index: TIndex = 1;
@@ -119,7 +119,7 @@ export class ObjectSound extends AbstractPlayableSound {
     // If actor is far from NPC, play pda sounds.
     if (
       soundPath &&
-      fs.exist(roots.gameSounds, soundPath + "_pda.ogg") !== null &&
+      $isNotNil(fs.exist(roots.gameSounds, soundPath + "_pda.ogg")) &&
       object.position().distance_to_sqr(registry.actor.position()) >= 5
     ) {
       this.pdaSoundObject = new sound_object(soundPath + "_pda");
