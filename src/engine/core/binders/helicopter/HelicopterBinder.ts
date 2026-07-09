@@ -1,6 +1,7 @@
 import { callback, CHelicopter, clsid, level, LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject, TClassId, Vector } from "xray16/alias";
 import { Nillable, TDistance, TDuration, TIndex, TNumberId, TRate } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -63,7 +64,7 @@ export class HelicopterBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.inInitialized && registry.actor !== null) {
+    if (!this.inInitialized && $isNotNil(registry.actor)) {
       this.inInitialized = true;
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.HELICOPTER);
     }

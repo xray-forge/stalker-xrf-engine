@@ -1,6 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { abort, LuaArray, Nillable, TIndex, TName } from "xray16/lib";
-import { $fromArray, $fromObject } from "xray16/macros";
+import { $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
@@ -34,13 +34,13 @@ function unstrapWeapon(object: GameObject): void {
 
   for (const [k, v] of WEAPONS_TABLE_STRAPPED) {
     item = object.object(v);
-    if (item !== null) {
+    if ($isNotNil(item)) {
       index = k;
       break;
     }
   }
 
-  if (item === null) {
+  if ($isNil(item)) {
     abort("Can not find item in %s", object.name());
   }
 
@@ -58,13 +58,13 @@ function strapWeapon(object: GameObject): void {
 
   for (const [k, v] of pairs(WEAPONS_TABLE_STRAPPED)) {
     item = object.object(v);
-    if (item !== null) {
+    if ($isNotNil(item)) {
       index = k;
       break;
     }
   }
 
-  if (item === null) {
+  if ($isNil(item)) {
     abort("cant find item in %s", object.name());
   }
 
@@ -665,47 +665,47 @@ function createSequenceForNpc(objectName: TName, existingObject: string): LuaArr
       const func = cutscene[it].animation[objectName].f;
       const func1 = cutscene[it].animation[objectName].f1;
 
-      if (func1 !== null) {
+      if ($isNotNil(func1)) {
         const func_tbl = { f: func1! };
 
         table.insert(result, func_tbl);
       }
 
-      if (snd1 !== null && snd1 !== "") {
+      if ($isNotNil(snd1) && snd1 !== "") {
         const snd_tbl = { s: snd1! };
 
         table.insert(result, snd_tbl);
       }
 
-      if (anm !== null && anm !== "") {
+      if ($isNotNil(anm) && anm !== "") {
         table.insert(result, anm!);
       }
 
-      if (func !== null) {
+      if ($isNotNil(func)) {
         const func_tbl = { f: func! };
 
         table.insert(result, func_tbl);
       }
 
-      if (snd !== null && snd !== "") {
+      if ($isNotNil(snd) && snd !== "") {
         const snd_tbl = { s: snd! };
 
         table.insert(result, snd_tbl);
       }
 
-      if (det !== null && det !== "") {
+      if ($isNotNil(det) && det !== "") {
         const det_tbl = { d: det! };
 
         table.insert(result, det_tbl);
       }
 
-      if (att !== null && att !== "") {
+      if ($isNotNil(att) && att !== "") {
         const att_tbl = { a: att! };
 
         table.insert(result, att_tbl);
       }
 
-      if (anm2 !== null && anm2 !== "") {
+      if ($isNotNil(anm2) && anm2 !== "") {
         table.insert(result, anm2!);
       }
     }

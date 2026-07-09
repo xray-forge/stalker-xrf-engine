@@ -101,7 +101,7 @@ export class StalkerBinder extends object_binder {
     setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
 
     // Expose state planner for in-game debugging tools.
-    if (this.object.debug_planner !== null) {
+    if ($isNotNil(this.object.debug_planner)) {
       this.object.debug_planner(this.state.stateManager.planner);
     }
   }
@@ -329,7 +329,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (!forced && light) {
-      if (object.best_enemy() !== null && !isCurrentlyIndoor) {
+      if ($isNotNil(object.best_enemy()) && !isCurrentlyIndoor) {
         light = false;
       }
     }

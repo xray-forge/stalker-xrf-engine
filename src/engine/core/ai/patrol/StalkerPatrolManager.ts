@@ -283,7 +283,7 @@ export class StalkerPatrolManager {
     }
 
     // todo: explain.
-    if (this.canUseGetCurrentPointIndex && this.lastWalkPointIndex === null && now >= this.keepStateUntil) {
+    if (this.canUseGetCurrentPointIndex && $isNil(this.lastWalkPointIndex) && now >= this.keepStateUntil) {
       this.keepStateUntil = now + patrolConfig.KEEP_STATE_DURATION;
 
       const distance: TDistance = this.object
@@ -310,7 +310,7 @@ export class StalkerPatrolManager {
     logger.info("Animation end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
 
     // No active scheme for logics update, just skip update.
-    if (registry.objects.get(this.object.id()).activeScheme === null) {
+    if ($isNil(registry.objects.get(this.object.id()).activeScheme)) {
       return;
     }
 

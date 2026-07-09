@@ -1,7 +1,7 @@
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { abort, LuaArray, Nillable, TCount, TDuration, TName, TNumberId, TProbability, TTimestamp } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
@@ -105,7 +105,7 @@ export class CampManager {
 
     // Check idle talker and reset if it is not speaking anymore.
     if (this.idleTalkerId) {
-      if (soundsConfig.playing.get(this.idleTalkerId) !== null) {
+      if ($isNotNil(soundsConfig.playing.get(this.idleTalkerId))) {
         return;
       } else {
         this.idleTalkerId = null;
@@ -223,7 +223,7 @@ export class CampManager {
         const object: Nillable<GameObject> = state.object;
 
         if (
-          schemeState !== null &&
+          $isNotNil(schemeState) &&
           schemeState.actionNameBase === schemeState.description &&
           descriptor[this.activity] === EObjectCampRole.DIRECTOR &&
           !isObjectMeeting(object)

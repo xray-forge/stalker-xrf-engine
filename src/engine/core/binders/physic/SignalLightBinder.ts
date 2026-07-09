@@ -154,7 +154,7 @@ export class SignalLightBinder extends object_binder {
    * @returns Whether signal light is flying right now.
    */
   public isFlying(): boolean {
-    return this.startTime !== null;
+    return $isNotNil(this.startTime);
   }
 
   /**

@@ -198,7 +198,7 @@ export class AnomalyZoneBinder extends object_binder {
       const coeffsSectionName: TSection = pickSectionFromCondList(registry.actor, null, conditionsList)!;
       const coeffs: Nillable<string> = readIniString(ini, layerSection, coeffsSectionName, false, null, defaultCoeffs);
 
-      this.artefactsSpawnCoefficients.set(layerSection, coeffs === null ? new LuaTable() : parseNumbersList(coeffs));
+      this.artefactsSpawnCoefficients.set(layerSection, $isNil(coeffs) ? new LuaTable() : parseNumbersList(coeffs));
 
       const path: Nillable<TName> = readIniString(ini, layerSection, "artefact_ways", false, null, defaultWays);
 
@@ -211,7 +211,7 @@ export class AnomalyZoneBinder extends object_binder {
       if (this.isCustomPlacement) {
         const field: Nillable<string> = readIniString(ini, layerSection, "field_name", false, null, defaultFieldName);
 
-        this.layerFieldsTable.set(layerSection, field === null ? new LuaTable() : parseStringsList(field));
+        this.layerFieldsTable.set(layerSection, $isNil(field) ? new LuaTable() : parseStringsList(field));
 
         const minesSection: Nillable<TSection> = readIniString(ini, layerSection, "mines_section", true);
 

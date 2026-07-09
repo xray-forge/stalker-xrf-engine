@@ -1,7 +1,7 @@
 import { callback, level, LuabindClass, object_binder } from "xray16";
 import { GameObject, IniFile, NetPacket, NetReader, ServerObject, Vector } from "xray16/alias";
 import { Nillable, TCount, TDuration, TIndex, TNumberId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -91,7 +91,7 @@ export class PhysicObjectBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.isInitialized && registry.actor !== null) {
+    if (!this.isInitialized && $isNotNil(registry.actor)) {
       this.isInitialized = true;
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.OBJECT);
     }
