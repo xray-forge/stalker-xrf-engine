@@ -3,6 +3,7 @@ import { EGameObjectRelation, GameObject, IniFile, ServerHumanObject } from "xra
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
@@ -38,7 +39,6 @@ import {
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { INI_FILES_MOCKS } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");

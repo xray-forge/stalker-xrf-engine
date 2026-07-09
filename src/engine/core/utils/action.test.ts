@@ -2,13 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerActor } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { animations } from "@/engine/lib/constants/animation";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("objectPunchActor util", () => {
   beforeEach(() => {

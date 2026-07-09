@@ -2,10 +2,10 @@ import { describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("monster database module", () => {
   it("should correctly read monster state from ini", () => {

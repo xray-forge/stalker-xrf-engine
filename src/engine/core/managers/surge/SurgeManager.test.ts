@@ -3,6 +3,7 @@ import { CArtefact, clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createVector } from "xray16/lib";
 import { EMockPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { disposeManager, getManager, registry } from "@/engine/core/database";
@@ -11,7 +12,6 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/managers/surge/utils");
 

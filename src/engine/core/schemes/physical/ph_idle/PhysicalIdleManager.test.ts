@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject, Vector } from "xray16/alias";
 import { MockGameObject, MockVector } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
@@ -8,7 +9,6 @@ import { parseBoneStateDescriptors, parseConditionsList } from "@/engine/core/ut
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),

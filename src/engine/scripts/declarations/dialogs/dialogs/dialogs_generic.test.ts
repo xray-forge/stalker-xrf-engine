@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { ACTOR_ID, AnyArgs, AnyObject, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -10,7 +11,6 @@ import { actorHasMedKit, getActorAvailableMedKit, getAnyObjectPistol } from "@/e
 import { enableObjectWoundedHealing } from "@/engine/core/utils/object";
 import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/item", () => ({
   getActorAvailableMedKit: jest.fn(() => null),

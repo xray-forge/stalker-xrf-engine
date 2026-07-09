@@ -8,7 +8,7 @@ import { mockTableUtils } from "@/fixtures/engine/mocks/table.mock";
 /**
  * Mock global functions for XRF engine that should be ignored / replaced when executing tests.
  */
-export function mockEngineGlobals(): void {
+export function mockXRFGlobals(): void {
   // Simplify logger logics.
   jest.mock("@/engine/core/utils/logging/LuaLogger", () => ({
     LuaLogger: MockLuaLogger,

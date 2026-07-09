@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { DIK_keys, game, get_console, IsGameTypeSingle, level, ui_events } from "xray16";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +11,6 @@ import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
 import { getGameSaves, loadLastGameSave } from "@/engine/core/utils/game_save";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/game_save");
 

@@ -3,6 +3,7 @@ import { clsid, level } from "xray16";
 import { EActorMenuMode, GameObject } from "xray16/alias";
 import { isObjectInZone } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -22,7 +23,6 @@ import {
   mockSchemeState,
   resetRegistry,
 } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("xray16/lib", () => ({
   ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),

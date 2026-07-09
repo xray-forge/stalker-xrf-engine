@@ -1,10 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { ILinkCommandParameters, linkFolders } from "#/link/link";
 import { relinkFolders } from "#/link/relink";
 import { unlinkFolders } from "#/link/unlink";
-
-import { replaceFunctionMockOnce } from "@/fixtures/jest";
 
 jest.mock("#/link/link");
 jest.mock("#/link/unlink");

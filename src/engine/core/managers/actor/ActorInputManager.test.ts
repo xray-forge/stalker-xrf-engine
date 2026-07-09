@@ -3,6 +3,7 @@ import { game, get_console, level } from "xray16";
 import { Console, GameObject } from "xray16/alias";
 import { AnyObject, createTime } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -10,7 +11,6 @@ import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManage
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { EActiveItemSlot } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("ActorInputManager", () => {
   beforeEach(() => {

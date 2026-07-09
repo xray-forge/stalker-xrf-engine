@@ -1,11 +1,10 @@
 import * as fsp from "node:fs/promises";
 
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { unlinkFolders } from "#/link/unlink";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
-
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 jest.mock("node:fs/promises");
 jest.mock("#/utils/fs/get_game_paths");

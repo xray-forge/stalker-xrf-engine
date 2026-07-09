@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { ProfileTimer } from "xray16/alias";
 import { MockProfileTimer } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("ProfilingManager", () => {
   beforeEach(() => {

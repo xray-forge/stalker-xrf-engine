@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulator, updateSimulationObjectAvailability } from "@/engine/core/database";
 import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SquadReachTargetAction } from "@/engine/core/objects/squad/action/SquadReachTargetAction";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/managers/simulation/utils/simulation_squads");
 

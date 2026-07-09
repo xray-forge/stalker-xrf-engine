@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import {
   getTreasureMapSpot,
@@ -9,7 +10,6 @@ import {
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("getTreasureMapSpot util", () => {
   it("should correctly get icon from treasure descriptor", () => {

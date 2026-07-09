@@ -4,6 +4,7 @@ import { GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeHumanStalker, MockAlifeSimulator, MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
@@ -51,7 +52,6 @@ import {
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
   const schemes: Array<TAbstractSchemeConstructor> = [

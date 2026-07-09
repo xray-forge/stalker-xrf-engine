@@ -4,6 +4,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { createTime, LuaArray, NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import {
   IBaseSchemeLogic,
@@ -22,7 +23,6 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setu
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 // todo: Complex logic switch
 describe("trySwitchToAnotherSection", () => {

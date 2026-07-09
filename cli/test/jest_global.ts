@@ -1,13 +1,7 @@
 import { mockNodeLib } from "@/fixtures/cli/mockNodeLib";
-import { mockEngineGlobals } from "@/fixtures/engine/mockEngineGlobals";
-import { mockLuaGlobals } from "@/fixtures/lua/mockLuaLib";
-import { mockIniFiles } from "@/fixtures/xray/mockIniFiles";
-import { mockPatrols } from "@/fixtures/xray/mockPatrols";
-import { mockXRay16 } from "@/fixtures/xray/mockXRay16";
+import { mockXRFGlobals } from "@/fixtures/engine/mockXRFGlobals";
+import { mockXRayRuntime } from "@/fixtures/xray/mockXRayRuntime";
 
 mockNodeLib();
-mockEngineGlobals();
-mockLuaGlobals();
-mockXRay16();
-mockIniFiles();
-mockPatrols();
+mockXRFGlobals();
+mockXRayRuntime();

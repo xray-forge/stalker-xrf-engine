@@ -3,6 +3,7 @@ import { get_console, IsDynamicMusic, level } from "xray16";
 import { Console } from "xray16/alias";
 import { AnyObject, LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -11,7 +12,6 @@ import { MusicManager } from "@/engine/core/managers/music/MusicManager";
 import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("MusicManager", () => {
   const console: Console = get_console();

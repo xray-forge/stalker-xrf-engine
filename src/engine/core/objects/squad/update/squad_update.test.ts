@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { cond, move } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulationObject, registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -9,7 +10,6 @@ import { SquadReachTargetAction } from "@/engine/core/objects/squad/action";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update/squad_update";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme");
 

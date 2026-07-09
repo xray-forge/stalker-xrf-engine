@@ -9,6 +9,7 @@ import {
   MockNetProcessor,
   MockObjectBinder,
 } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
@@ -37,7 +38,6 @@ import {
 } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme");
 jest.mock("@/engine/core/objects/squad/update");

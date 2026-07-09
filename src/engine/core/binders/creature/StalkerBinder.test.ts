@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerHumanObject } from "xray16/alias";
 import { ACTOR_ID, AnyObject, createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
 import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
@@ -25,7 +26,6 @@ import {
 import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/managers/sounds/utils");
 jest.mock("@/engine/core/objects/smart_terrain/utils");

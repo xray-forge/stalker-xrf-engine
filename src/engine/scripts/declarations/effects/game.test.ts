@@ -3,13 +3,13 @@ import { CConsole, CUILines, game, get_console, get_hud, StaticDrawableWrapper }
 import { GameHud } from "xray16/alias";
 import { ACTOR_ID, Nillable } from "xray16/lib";
 import { MockGameObject, MockStaticDrawableWrapper } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, getPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/game");
 jest.mock("@/engine/core/utils/game_save");

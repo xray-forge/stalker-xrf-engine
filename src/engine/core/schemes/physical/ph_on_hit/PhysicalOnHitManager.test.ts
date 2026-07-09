@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockVector } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
@@ -8,7 +9,6 @@ import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/P
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),

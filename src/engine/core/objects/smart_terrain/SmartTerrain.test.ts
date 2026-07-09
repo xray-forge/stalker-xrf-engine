@@ -13,6 +13,7 @@ import {
   MockNetProcessor,
   MockServerAlifeCreatureAbstract,
 } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -27,7 +28,6 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("SmartTerrain generic logic", () => {
   beforeEach(() => {

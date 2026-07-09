@@ -3,6 +3,7 @@ import { game, patrol } from "xray16";
 import { GameObject, GameTask, ServerObject, Vector } from "xray16/alias";
 import { TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeObject, MockCGameTask, MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import {
   getManager,
@@ -24,7 +25,6 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { EActiveItemSlot } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/action");
 

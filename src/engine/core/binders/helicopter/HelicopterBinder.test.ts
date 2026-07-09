@@ -3,6 +3,7 @@ import { CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
 import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -12,7 +13,6 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme");
 

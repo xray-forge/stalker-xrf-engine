@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import {
   getManager,
@@ -21,7 +22,6 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { EScheme } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("loot utils for corpse_detection scheme", () => {
   it("finishCorpseLooting should correctly finish looting", () => {

@@ -4,6 +4,7 @@ import { GameObject } from "xray16/alias";
 import { TIndex, ZERO_VECTOR } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject, MockPhysicsJoint, MockPhysicsShell } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
@@ -11,7 +12,6 @@ import { IBoneStateDescriptor, parseConditionsList } from "@/engine/core/utils/i
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),

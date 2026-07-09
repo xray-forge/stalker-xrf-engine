@@ -3,6 +3,7 @@ import { CTime, game } from "xray16";
 import { ServerObject } from "xray16/alias";
 import { createTime } from "xray16/lib";
 import { MockAlifeObject } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -12,7 +13,6 @@ import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewar
 import { update } from "@/engine/extensions/achievements_rewards/update";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("achievement rewards extension", () => {
   beforeEach(() => {

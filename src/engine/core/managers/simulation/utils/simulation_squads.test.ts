@@ -3,6 +3,7 @@ import { patrol } from "xray16";
 import { Patrol, ServerCreatureObject } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulator, SYSTEM_INI } from "@/engine/core/database";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
@@ -16,7 +17,6 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/managers/map/utils/map_spot_squad");
 

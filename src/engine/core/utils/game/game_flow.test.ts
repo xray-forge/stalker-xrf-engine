@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { CConsole, get_console } from "xray16";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { disconnectFromGame } from "@/engine/core/utils/game/game_flow";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("disconnectFromGame util", () => {
   beforeEach(() => {

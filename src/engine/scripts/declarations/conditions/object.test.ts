@@ -10,6 +10,7 @@ import {
   MockGameObject,
   MockMonsterHitInfo,
 } from "xray16/mocks";
+import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "xray16/testing/utils";
 
 import {
   IRegistryObjectState,
@@ -44,7 +45,6 @@ import {
   MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
-import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 jest.mock("@/engine/core/utils/planner");

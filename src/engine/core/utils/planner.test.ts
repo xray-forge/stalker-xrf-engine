@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockActionPlanner, MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
@@ -19,7 +20,6 @@ import {
 } from "@/engine/core/utils/planner";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("isObjectAsleep util", () => {
   it("should check state correctly", () => {

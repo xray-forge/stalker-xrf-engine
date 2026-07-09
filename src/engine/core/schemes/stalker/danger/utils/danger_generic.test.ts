@@ -3,6 +3,7 @@ import { danger_object } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
 import { FALSE, TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import {
   ILogicsOverrides,
@@ -24,7 +25,6 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("isObjectFacingDanger", () => {
   beforeEach(() => {

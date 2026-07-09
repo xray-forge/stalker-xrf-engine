@@ -3,6 +3,7 @@ import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
+import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
@@ -26,7 +27,6 @@ import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/Act
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMockOnce } from "@/fixtures/jest";
 
 describe("ActionWounded", () => {
   beforeEach(() => {

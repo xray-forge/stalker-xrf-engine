@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import {
@@ -14,7 +15,6 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 import { patrols } from "@/fixtures/xray";
 
 describe("TeleportManager", () => {

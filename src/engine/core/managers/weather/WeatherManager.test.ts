@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { AnyObject, NIL, TName, TProbability } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
+import { getFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -10,7 +11,6 @@ import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weathe
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { resetRegistry } from "@/fixtures/engine";
-import { getFunctionMock } from "@/fixtures/jest";
 
 describe("WeatherManager", () => {
   beforeEach(() => {

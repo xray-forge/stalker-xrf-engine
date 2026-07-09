@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { set_start_game_vertex_id, set_start_position } from "xray16";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { register } from "@/engine/extensions/original_start_position/main";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("original start position", () => {
   beforeEach(() => {

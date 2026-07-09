@@ -4,13 +4,13 @@ import { GameObject } from "xray16/alias";
 import { isObjectAtWaypoint, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 jest.mock("xray16/lib", () => ({
   ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),

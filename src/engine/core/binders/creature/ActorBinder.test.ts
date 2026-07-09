@@ -10,6 +10,7 @@ import {
   MockNetProcessor,
   MockObjectBinder,
 } from "xray16/mocks";
+import { replaceFunctionMockOnce, resetFunctionMock } from "xray16/testing/utils";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -28,7 +29,6 @@ import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrict
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 
 describe("ActorBinder", () => {
   beforeEach(() => {

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { MAX_ALIFE_ID } from "xray16/lib";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("setUnlimitedAlifeObjectsUpdate util", () => {
   beforeEach(() => registerSimulator());

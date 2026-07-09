@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { get_console } from "xray16";
 import { Console } from "xray16/alias";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager } from "@/engine/core/database";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { resetDof, updateDof } from "@/engine/core/managers/weather/utils/weather_dof";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("resetDof util", () => {
   beforeEach(() => {

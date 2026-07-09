@@ -3,12 +3,12 @@ import { level } from "xray16";
 import { Console } from "xray16/alias";
 import { AnyObject, EGameDifficulty, gameDifficulties } from "xray16/lib";
 import { EMockPacketDataType, MockConsole, MockNetProcessor } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("GameSettingsManager", () => {
   beforeEach(() => {

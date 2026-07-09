@@ -3,6 +3,7 @@ import { game } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { isBlackScreen } from "@/engine/core/utils/game";
@@ -14,7 +15,6 @@ import {
   mockSchemeState,
   resetRegistry,
 } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/game");
 

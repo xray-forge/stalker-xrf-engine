@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import {
@@ -9,7 +10,6 @@ import {
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
-import { replaceFunctionMockOnce } from "@/fixtures/jest";
 
 jest.mock("@/engine/core/utils/extensions");
 jest.mock("@/engine/core/utils/extensions/extensions_state");

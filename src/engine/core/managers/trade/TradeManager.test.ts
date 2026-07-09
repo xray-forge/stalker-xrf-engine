@@ -3,6 +3,7 @@ import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { getManager, loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
@@ -10,7 +11,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("TradeManager class implementation", () => {
   beforeEach(() => {

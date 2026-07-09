@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -10,7 +11,6 @@ import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosC
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("DeimosManager", () => {
   beforeEach(() => {

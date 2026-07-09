@@ -3,6 +3,7 @@ import { device, IsImportantSave } from "xray16";
 import { AlifeSimulator, Console } from "xray16/alias";
 import { gameDifficulties } from "xray16/lib";
 import { MockConsole, MockFileSystem, MockFileSystemList, MockIoFile } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import {
@@ -18,7 +19,6 @@ import {
   startNewGame,
 } from "@/engine/core/utils/game_save";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("getFileDataForGameSave util", () => {
   beforeEach(() => {

@@ -11,13 +11,13 @@ import {
   MockNetProcessor,
   MockVector,
 } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("StatisticsManager", () => {
   beforeEach(() => {

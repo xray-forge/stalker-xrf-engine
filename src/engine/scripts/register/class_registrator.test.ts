@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectClass } from "xray16/lib";
 import { mockObjectFactory } from "xray16/mocks";
+import { getFunctionMock } from "xray16/testing/utils";
 
 import { registerGameClasses } from "@/engine/scripts/register/class_registrator";
-import { getFunctionMock } from "@/fixtures/jest";
 
 describe("class_registrator entry point", () => {
   it("registerGameClasses should correctly link script and engine classes for all object classes", () => {

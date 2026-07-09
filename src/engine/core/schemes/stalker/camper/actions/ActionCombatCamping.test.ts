@@ -3,6 +3,7 @@ import { danger_object, stalker_ids, time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
 import { MockDangerObject, MockGameObject, MockPropertyStorage } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -13,7 +14,6 @@ import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/action
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock } from "@/fixtures/jest";
 
 function createAction(): [ActionCombatCamping, GameObject, IRegistryObjectState, ISchemeCamperState] {
   const object: GameObject = MockGameObject.mock();
