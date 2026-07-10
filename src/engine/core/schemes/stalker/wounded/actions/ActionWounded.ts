@@ -1,7 +1,7 @@
 import { action_base, hit, LuabindClass, time_global } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
 import { abort, NIL, TName, TNumberId, TRUE, TTimestamp } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
@@ -94,7 +94,7 @@ export class ActionWounded extends action_base {
     if (this.state.isAutoHealing && !woundManager.canUseMedkit) {
       const woundedAt: TTimestamp = getPortableStoreValue(objectId, PS_BEGIN_WOUNDED)!;
 
-      if (woundedAt === null) {
+      if ($isNil(woundedAt)) {
         setPortableStoreValue(objectId, PS_BEGIN_WOUNDED, now);
       } else if (now - woundedAt > schemeWoundedConfig.WOUNDED_TIMEOUT) {
         giveWoundedObjectMedkit(object);

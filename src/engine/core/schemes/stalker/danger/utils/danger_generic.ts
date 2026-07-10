@@ -1,6 +1,7 @@
 import { danger_object } from "xray16";
 import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TDangerType } from "xray16/alias";
 import { ACTOR_ID, isObjectInZone, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
@@ -24,13 +25,13 @@ export function isObjectFacingDanger(object: GameObject): boolean {
   const bestDanger: Nillable<DangerObject> = object.best_danger();
 
   // No danger at all.
-  if (bestDanger === null) {
+  if ($isNil(bestDanger)) {
     return false;
   }
 
   const bestDangerType: TDangerType = bestDanger.type();
   const bestDangerObject: Nillable<GameObject> =
-    bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null
+    bestDangerType !== danger_object.grenade && $isNotNil(bestDanger.dependent_object())
       ? bestDanger.dependent_object()
       : bestDanger.object();
 
@@ -69,10 +70,9 @@ export function isObjectFacingDanger(object: GameObject): boolean {
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
   const ignoreDistanceByType: Nillable<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE[bestDangerType];
-  const ignoreDistance: TDistance =
-    ignoreDistanceByType === null
-      ? dangerConfig.IGNORE_DISTANCE_GENERAL_SQR
-      : ignoreDistanceByType * ignoreDistanceByType;
+  const ignoreDistance: TDistance = $isNil(ignoreDistanceByType)
+    ? dangerConfig.IGNORE_DISTANCE_GENERAL_SQR
+    : ignoreDistanceByType * ignoreDistanceByType;
 
   // Verify danger distance.
   if (dangerDistanceSqrt > ignoreDistance) {

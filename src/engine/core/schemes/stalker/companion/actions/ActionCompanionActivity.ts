@@ -1,6 +1,7 @@
 import { action_base, level, LuabindClass, time_global } from "xray16";
 import { EGameObjectPath, GameObject, Vector } from "xray16/alias";
 import { ACTOR_ID, Nillable, TNumberId, vectorRotateY } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
@@ -199,7 +200,7 @@ function selectPosition(object: GameObject): Nillable<TNumberId> {
 
   let node1Distance: Nillable<TNumberId>;
 
-  if (node1VertexId !== null) {
+  if ($isNotNil(node1VertexId)) {
     node1Distance = object.position().distance_to_sqr(level.vertex_position(node1VertexId));
   } else {
     node1Distance = -1;
@@ -207,7 +208,7 @@ function selectPosition(object: GameObject): Nillable<TNumberId> {
 
   let node2Distance: Nillable<TNumberId>;
 
-  if (node2VertexId !== null) {
+  if ($isNotNil(node2VertexId)) {
     node2Distance = object.position().distance_to_sqr(level.vertex_position(node2VertexId));
   } else {
     node2Distance = -1;

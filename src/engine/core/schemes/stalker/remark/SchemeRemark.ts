@@ -1,6 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { NIL, TSection } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -32,7 +33,7 @@ export class SchemeRemark extends AbstractScheme {
     state.anim = parseConditionsList(readIniString(ini, section, "anim", false, null, "wait"));
     state.tipsId = readIniString(ini, section, "tips", false);
 
-    if (state.tipsId !== null) {
+    if ($isNotNil(state.tipsId)) {
       state.sender = readIniString(ini, section, "tips_sender", false);
     }
 

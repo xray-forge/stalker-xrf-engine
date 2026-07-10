@@ -87,7 +87,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
         for (const k of $range(0, lookPatrol.count() - 1)) {
           for (const i of $range(0, 31)) {
             if (lookPatrol.flag(k, i)) {
-              if (this.state.scanTable.get(i) === null) {
+              if ($isNil(this.state.scanTable.get(i))) {
                 this.state.scanTable.set(i, new LuaTable());
               }
 

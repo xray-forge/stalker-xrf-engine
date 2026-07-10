@@ -135,7 +135,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     const signal: Nillable<TName> = this.pathWalkInfo!.get(index).sig as TName;
 
-    if (signal !== null) {
+    if ($isNotNil(signal)) {
       // -- HACK, fixme:
       const objectId: TNumberId = this.object.id();
       const scheme: EScheme = registry.objects.get(objectId).activeScheme!;

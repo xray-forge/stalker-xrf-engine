@@ -1,4 +1,5 @@
 import { TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
@@ -55,7 +56,7 @@ home_max_radius = %s
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       stringBuilder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
   }

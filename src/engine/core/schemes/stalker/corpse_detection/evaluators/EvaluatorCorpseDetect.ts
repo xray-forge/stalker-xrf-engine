@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { TNumberId } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { setPortableStoreValue } from "@/engine/core/database";
 import {
@@ -33,7 +33,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
       // Dead cannot loot.
       this.object.alive() &&
       // Is in combat, cannot loot.
-      this.object.best_enemy() === null &&
+      $isNil(this.object.best_enemy()) &&
       // Looting logics should not be disabled
       this.state.isCorpseDetectionEnabled !== false &&
       // Is zombied, does not care.

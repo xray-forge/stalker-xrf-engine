@@ -131,7 +131,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         } else {
           const n = this.state.fireTarget;
 
-          if (n !== null) {
+          if ($isNotNil(n)) {
             const obj = getObjectByStoryId(n);
 
             if (obj && obj.alive()) {

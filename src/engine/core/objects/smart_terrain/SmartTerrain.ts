@@ -297,7 +297,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
       object.clear_smart_terrain();
 
-      if (registry.objects.get(object.id) !== null) {
+      if ($isNotNil(registry.objects.get(object.id))) {
         const registryState: IRegistryObjectState = registry.objects.get(object.id);
 
         initializeObjectSchemeLogic(

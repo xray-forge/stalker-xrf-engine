@@ -36,7 +36,7 @@ export class SchemeHear extends AbstractScheme {
     for (const it of $range(0, lineCount - 1)) {
       const [, id, value] = ini.r_line(section, it, "", "");
 
-      if (string.find(id, "^on_sound%d*$")[0] !== null) {
+      if ($isNotNil(string.find(id, "^on_sound%d*$")[0])) {
         const parameters: LuaArray<TName> = parseParameters(value);
 
         state.hearInfo[parameters.get(1)] = state.hearInfo[parameters.get(1)] || {};

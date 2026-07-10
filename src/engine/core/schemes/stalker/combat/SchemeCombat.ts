@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionBase, ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -34,7 +34,7 @@ export class SchemeCombat extends AbstractScheme {
   public static override disable(object: GameObject, scheme: EScheme): void {
     const state: Nillable<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
-    if (state !== null) {
+    if ($isNotNil(state)) {
       state.enabled = false;
     }
   }

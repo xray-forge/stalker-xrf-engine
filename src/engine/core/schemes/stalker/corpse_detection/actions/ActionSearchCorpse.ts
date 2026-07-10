@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 import { EGameObjectPath, Vector } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, setStalkerState } from "@/engine/core/database";
@@ -63,7 +63,7 @@ export class ActionSearchCorpse extends action_base {
   public override execute(): void {
     super.execute();
 
-    if (this.lootingObjectId === null) {
+    if ($isNil(this.lootingObjectId)) {
       return;
     }
 

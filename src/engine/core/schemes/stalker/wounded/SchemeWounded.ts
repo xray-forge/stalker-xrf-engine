@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { LuaArray, NIL, TName, TSection } from "xray16/lib";
-import { $fromArray } from "xray16/macros";
+import { $fromArray, $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -74,7 +74,7 @@ export class SchemeWounded extends AbstractScheme {
     section: TSection
   ): void {
     const woundedSection: TSection =
-      scheme === null || scheme === EScheme.NIL
+      $isNil(scheme) || scheme === EScheme.NIL
         ? readIniString(state.ini, state.sectionLogic, "wounded", false)
         : readIniString(state.ini, section, "wounded", false);
 

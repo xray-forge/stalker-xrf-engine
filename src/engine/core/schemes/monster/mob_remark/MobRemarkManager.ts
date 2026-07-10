@@ -1,6 +1,7 @@
 import { anim, cond } from "xray16";
 import { Cond } from "xray16/alias";
 import { LuaArray, TDuration, TName } from "xray16/lib";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry, setMonsterState } from "@/engine/core/database";
@@ -30,7 +31,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     const timesList: LuaArray<TName> = this.state.time ? parseStringsList(this.state.time) : new LuaTable();
 
     for (const [index, animation] of animationsList) {
-      const timeout: TDuration = timesList.get(index) !== null ? tonumber(timesList.get(index))! : 0;
+      const timeout: TDuration = $isNil(timesList.get(index)) ? 0 : tonumber(timesList.get(index))!;
       const condition: Cond = timeout === 0 ? new cond(cond.anim_end) : new cond(cond.time_end, timeout);
 
       if (this.state.animationMovement) {
@@ -45,7 +46,7 @@ export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkStat
     // Sync dialog / speaking state.
     if (
       this.state.dialogCondition &&
-      pickSectionFromCondList(registry.actor, this.object, this.state.dialogCondition.condlist) !== null
+      $isNotNil(pickSectionFromCondList(registry.actor, this.object, this.state.dialogCondition.condlist))
     ) {
       if (!this.object.is_talk_enabled()) {
         this.object.enable_talk();

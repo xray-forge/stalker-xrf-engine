@@ -11,7 +11,7 @@ import {
   TNumberId,
   TRate,
 } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -173,7 +173,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     const descriptionState: EStalkerState = smartCover.description() as EStalkerState;
 
-    if (animpoint_predicates.get(descriptionState) === null) {
+    if ($isNil(animpoint_predicates.get(descriptionState))) {
       assert(
         this.state.availableAnimations,
         "Wrong animpoint smart_cover description '%s', name '%s'.",

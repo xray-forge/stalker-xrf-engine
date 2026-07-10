@@ -1,5 +1,5 @@
 import { abort, NIL, Nillable, TNumberId, TSection } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -127,7 +127,7 @@ export function selectTerrainObjectJob(
 ): LuaMultiReturn<[Nillable<TNumberId>, Nillable<ISmartTerrainJobDescriptor>]> {
   const [selectedJobId, selectedJob] = selectTerrainJob(terrain, terrain.jobs, objectJobDescriptor);
 
-  if (selectedJobId === null) {
+  if ($isNil(selectedJobId)) {
     abort(
       "Insufficient smart terrain jobs: %s, %s @ '%s' '%s' %s/%s",
       terrain.name(),

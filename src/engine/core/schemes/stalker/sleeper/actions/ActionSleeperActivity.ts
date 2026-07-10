@@ -1,6 +1,7 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 import { GameObject, Patrol, Vector } from "xray16/alias";
 import { abort, LuaArray, Nillable, TCount, TDuration } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -89,7 +90,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.state.signals = new LuaTable();
     this.sleepingState = ESleeperState.WALKING;
 
-    if (this.state.pathWalkInfo === null) {
+    if ($isNil(this.state.pathWalkInfo)) {
       const patrolMain: Patrol = new patrol(this.state.pathMain);
 
       if (!patrolMain) {

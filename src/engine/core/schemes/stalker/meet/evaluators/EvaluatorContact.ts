@@ -1,6 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 import { FALSE, Nillable } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";
@@ -37,7 +38,7 @@ export class EvaluatorContact extends property_evaluator {
     this.state.meetManager.update();
 
     // Wounded or have enemy, cannot speak.
-    if (isObjectWounded(this.object.id()) || this.object.best_enemy() !== null) {
+    if (isObjectWounded(this.object.id()) || $isNotNil(this.object.best_enemy())) {
       return false;
     }
 
@@ -53,6 +54,6 @@ export class EvaluatorContact extends property_evaluator {
       return false;
     }
 
-    return this.state.meetManager.currentDistanceToSpeaker !== null;
+    return $isNotNil(this.state.meetManager.currentDistanceToSpeaker);
   }
 }

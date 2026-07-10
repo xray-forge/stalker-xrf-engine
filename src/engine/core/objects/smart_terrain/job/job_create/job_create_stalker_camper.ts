@@ -1,6 +1,7 @@
 import { level, patrol } from "xray16";
 import { Patrol } from "xray16/alias";
 import { TDistance, TIndex, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { jobPreconditionCamper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -35,7 +36,7 @@ export function createStalkerCamperJobs(
     let state: TName = EStalkerState.HIDE;
     let radius: TDistance = 0;
 
-    if (waypointData.state !== null) {
+    if ($isNotNil(waypointData.state)) {
       if (waypointData.state === "stand") {
         state = EStalkerState.THREAT;
       }
