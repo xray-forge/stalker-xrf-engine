@@ -15,12 +15,12 @@ import {
   yawDegree,
   Z_VECTOR,
 } from "xray16/lib";
-import { $filename, $fromObject } from "xray16/macros";
+import { $filename, $fromObject, $isNil } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database/registry";
-import type { Squad } from "@/engine/core/objects/squad";
+import { type Squad } from "@/engine/core/objects/squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
@@ -175,7 +175,7 @@ export class ReachTaskPatrolManager {
 
     const commander: Nillable<number> = this.objectsList.get(this.commanderId).soldier;
 
-    if (commander === null) {
+    if ($isNil(commander)) {
       abort("Patrol commander not present in PatrolManager[%s]", this.targetId);
     }
 
@@ -189,7 +189,7 @@ export class ReachTaskPatrolManager {
    * @returns Target level vertex id, desired direction and movement state to apply.
    */
   public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Nillable<EStalkerState>]> {
-    if (object === null) {
+    if ($isNil(object)) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 

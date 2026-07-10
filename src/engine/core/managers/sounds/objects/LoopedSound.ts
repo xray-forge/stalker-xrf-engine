@@ -19,7 +19,11 @@ export class LoopedSound extends AbstractPlayableSound {
   public constructor(ini: IniFile, section: TSection) {
     super(ini, section);
 
-    assert(getFS().exist(roots.gameSounds, this.path + ".ogg"), "There are no looped sound with path: '%s'", this.path);
+    assert(
+      getFS().exist(roots.gameSounds, this.path + ".ogg") !== null,
+      "There are no looped sound with path: '%s'",
+      this.path
+    );
   }
 
   /**

@@ -1,6 +1,7 @@
 import { patrol } from "xray16";
 import { GameObject, Patrol } from "xray16/alias";
 import { getPatrolFlag, isObjectAtWaypoint, Nillable } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 
@@ -24,7 +25,7 @@ export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamper
     if (isObjectAtWaypoint(object, walkPatrol, index)) {
       state.waypointFlag = getPatrolFlag(walkPatrol, index);
 
-      return state.waypointFlag !== null;
+      return $isNotNil(state.waypointFlag);
     }
   }
 
