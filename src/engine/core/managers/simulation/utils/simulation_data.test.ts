@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { time_global } from "xray16";
 import { Nillable, TName, TNumberId } from "xray16/lib";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { registerSimulator } from "@/engine/core/database";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -90,18 +92,23 @@ describe("getTerrainAssignedSquadsCount util", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
     const squad: Squad = MockSquad.mockRegistered();
 
-    assignSimulationSquadToTerrain(squad, terrain.id);
+    try {
+      replaceFunctionMock(time_global, () => 1000);
+      assignSimulationSquadToTerrain(squad, terrain.id);
 
-    resetSimulationDataCache();
-    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
+      resetSimulationDataCache();
+      expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
 
-    // Scripted-target flips are invisible within the same stamped millisecond - by design.
-    jest.spyOn(squad, "getScriptedSimulationTarget").mockImplementation(() => 1);
-    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
+      // Scripted-target flips are invisible within the same stamped millisecond - by design.
+      jest.spyOn(squad, "getScriptedSimulationTarget").mockImplementation(() => 1);
+      expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
 
-    // Explicit invalidation forces a recompute, used by assignment mutations.
-    invalidateSimulationTerrainAssignedSquadsCount(terrain.id);
-    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(0);
+      // Explicit invalidation forces a recompute, used by assignment mutations.
+      invalidateSimulationTerrainAssignedSquadsCount(terrain.id);
+      expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(0);
+    } finally {
+      replaceFunctionMock(time_global, () => Date.now());
+    }
   });
 });
 
