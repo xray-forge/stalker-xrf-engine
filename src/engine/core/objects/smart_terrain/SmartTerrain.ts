@@ -27,6 +27,7 @@ import {
   TCount,
   TDistance,
   TDuration,
+  TLabel,
   TName,
   TNumberId,
   TRate,
@@ -74,6 +75,8 @@ import {
   createObjectJobDescriptor,
   createTerrainJobs,
   IObjectJobState,
+  ISmartTerrainJobDescriptor,
+  markTerrainJobsDirty,
   selectTerrainObjectJob,
   TSmartTerrainJobsList,
   unlinkTerrainObjectJob,
@@ -110,6 +113,7 @@ import {
   turnOnTerrainCampfires,
   updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
+import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { ESchemeType } from "@/engine/lib/types";
@@ -147,6 +151,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   // If smart terrain is attacked, all active squads will react.
   public alarmStartedAt: Nillable<Time> = null;
+
+  // Whether job assignments require a full selection pass on the next heavy tick, transient.
+  public jobsDirty: boolean = true;
+  public jobsDirtyReason: Nillable<TLabel> = null;
+  // Cached job precondition environment inputs for edge detection, transient.
+  public jobsAlarmState: Nillable<boolean> = null;
+  public jobsSurgeState: Nillable<boolean> = null;
+  public jobsNightState: Nillable<boolean> = null;
 
   public stayingObjectsCount: TCount = 0; // Count of game object inside smart terrain.
   public maxStayingSquadsCount: TCount = 0; // Maximal count of staying squads.
@@ -265,10 +277,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     // In other cases track it and wait for arrival.
 
     if (isObjectArrivedToTerrain(object, this)) {
-      this.jobDeadTimeById = new LuaTable();
+      // Arrival lifts all dead-time locks so arriving objects are guaranteed to find jobs.
+      resetTable(this.jobDeadTimeById);
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
 
       const [jobId, job] = selectTerrainObjectJob(this, this.objectJobDescriptors.get(object.id));
+
+      markTerrainJobsDirty(this, "arrival");
 
       logger.info("Assign to job on register: %s, %s, %s - %s", this.name(), object.name(), jobId, job?.section);
     } else {
@@ -294,6 +309,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       unlinkTerrainObjectJob(this, objectJobDescriptor);
 
       this.objectJobDescriptors.delete(object.id);
+      markTerrainJobsDirty(this, "departure");
 
       object.clear_smart_terrain();
 
@@ -511,6 +527,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     for (const [id, time] of this.jobDeadTimeById) {
       if (currentGameTime.diffSec(time) >= smartTerrainConfig.DEATH_IDLE_TIME) {
         this.jobDeadTimeById.delete(id);
+        markTerrainJobsDirty(this, "dead_time_expiry");
       }
     }
 
@@ -663,14 +680,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
         newJobDescriptor.isBegun = jobDescriptor.isBegun;
         newJobDescriptor.desiredJob = jobDescriptor.desiredJob;
 
-        // todo: ID is index, probably can find without loop.
-        for (const [, job] of this.jobs) {
-          if (job.id === newJobDescriptor.jobId) {
-            newJobDescriptor.job = job;
-            job.objectId = newJobDescriptor.object.id;
+        // Job ids are assigned as 1..n list indexes after priority sort, direct access is exact.
+        const job: Nillable<ISmartTerrainJobDescriptor> = this.jobs.get(newJobDescriptor.jobId);
 
-            break;
-          }
+        if ($isNotNil(job)) {
+          newJobDescriptor.job = job;
+          job.objectId = newJobDescriptor.object.id;
         }
 
         this.objectJobDescriptors.set(objectId, newJobDescriptor);
@@ -696,10 +711,16 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     // Object arrived and aws assigned to job.
     if (this.objectJobDescriptors.get(object.id) as Nillable<IObjectJobState>) {
-      this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).jobId, game.get_game_time());
+      const objectJobDescriptor: IObjectJobState = this.objectJobDescriptors.get(object.id);
 
-      this.objectJobDescriptors.get(object.id).job!.objectId = null;
+      // Objects may be transiently jobless under lenient job selection.
+      if (objectJobDescriptor.job) {
+        this.jobDeadTimeById.set(objectJobDescriptor.jobId, game.get_game_time());
+        objectJobDescriptor.job.objectId = null;
+      }
+
       this.objectJobDescriptors.delete(object.id);
+      markTerrainJobsDirty(this, "death");
 
       object.clear_smart_terrain();
 

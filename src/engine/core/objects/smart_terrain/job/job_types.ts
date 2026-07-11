@@ -70,6 +70,10 @@ export interface IObjectJobState {
   // Whether job is begun and logics for object schemes is set.
   isBegun: boolean;
   schemeType: ESchemeType;
+  // Transient bounded-scan cursor into the priority-sorted jobs list, never saved.
+  scanCursor: TNumberId;
+  // Transient shadow-compare divergence streak, used only when diagnostic comparison is enabled.
+  shadowDivergentTicks?: TNumberId;
 }
 
 /**

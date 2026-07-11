@@ -370,6 +370,7 @@ describe("object conditions implementation", () => {
       desiredJob: "",
       jobPriority: 0,
       jobId: 0,
+      scanCursor: 1,
       job: {
         section: "test-job",
         type: EJobType.ANIMPOINT,

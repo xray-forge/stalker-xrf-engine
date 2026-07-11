@@ -24,5 +24,6 @@ export function createObjectJobDescriptor(object: ServerCreatureObject): IObject
     jobId: -1, // -1 so any other jobs can be considered
     isBegun: false,
     schemeType: isObjectStalker ? ESchemeType.STALKER : ESchemeType.MONSTER,
+    scanCursor: 1,
   };
 }

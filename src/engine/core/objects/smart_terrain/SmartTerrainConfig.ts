@@ -10,6 +10,11 @@ export const smartTerrainConfig = {
   ALARM_SMART_TERRAIN_GENERIC: 6 * 60 * 60,
   // Throttle updates on death.
   DEATH_IDLE_TIME: 600,
+  // Jobs examined per heavy tick when probing for a higher priority job on clean ticks (anomaly variant).
+  JOB_SCAN_STEP_ONLINE: 5,
+  JOB_SCAN_STEP_OFFLINE: 1,
+  // Log-only dry-run comparison of incremental job state against full selection.
+  JOBS_SHADOW_COMPARE: false,
   // Time between respawn attempts for smart terrain.
   RESPAWN_IDLE: 1_000,
   // Distance to consider smart as visited.

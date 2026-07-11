@@ -61,7 +61,6 @@ active = patrol@%s
 meet = meet@generic_lager
 formation = back
 path_walk = patrol_%s_walk
-on_signal = end|%%=search_gulag_job%%
 `,
         patrolName,
         patrolName,

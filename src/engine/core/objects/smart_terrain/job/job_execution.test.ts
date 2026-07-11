@@ -148,6 +148,7 @@ describe("job_execution logic", () => {
       },
       jobPriority: 45,
       desiredJob: "nil",
+      scanCursor: 1,
       schemeType: 1,
     });
   });
@@ -229,6 +230,7 @@ describe("job_execution logic", () => {
         },
         jobPriority: 30,
         desiredJob: "nil",
+        scanCursor: 1,
         schemeType: 1,
       },
       [secondStalker.id]: {
@@ -267,6 +269,7 @@ describe("job_execution logic", () => {
         },
         jobPriority: 45,
         desiredJob: "nil",
+        scanCursor: 1,
         schemeType: 1,
       },
     });
@@ -327,6 +330,7 @@ describe("job_execution logic", () => {
       },
       jobPriority: 40,
       desiredJob: "nil",
+      scanCursor: 1,
       schemeType: 2,
     });
   });
@@ -466,6 +470,7 @@ describe("selectSmartTerrainObjectJob util", () => {
         },
         jobPriority: 45,
         desiredJob: "nil",
+        scanCursor: 1,
         schemeType: 1,
       },
       [secondStalker.id]: {
@@ -504,6 +509,7 @@ describe("selectSmartTerrainObjectJob util", () => {
         },
         jobPriority: 30,
         desiredJob: "nil",
+        scanCursor: 1,
         schemeType: 1,
       },
     });
