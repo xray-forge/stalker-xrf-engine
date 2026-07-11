@@ -105,7 +105,7 @@ export function getMonsterRankByName(rank: TName): IRankDescriptor {
 export function getNextStalkerRank(rank: TName): IRankDescriptor {
   for (const [index, descriptor] of registry.ranks.stalker) {
     if (descriptor.name === rank && registry.ranks.stalker.get(index + 1)) {
-      return registry.ranks.stalker.get(index + 1);
+      return registry.ranks.stalker.get(index + 1) as IRankDescriptor;
     }
   }
 
@@ -121,7 +121,7 @@ export function getNextStalkerRank(rank: TName): IRankDescriptor {
 export function getNextMonsterRank(rank: TName): IRankDescriptor {
   for (const [index, descriptor] of registry.ranks.monster) {
     if (descriptor.name === rank && registry.ranks.monster.get(index + 1)) {
-      return registry.ranks.monster.get(index + 1);
+      return registry.ranks.monster.get(index + 1) as IRankDescriptor;
     }
   }
 

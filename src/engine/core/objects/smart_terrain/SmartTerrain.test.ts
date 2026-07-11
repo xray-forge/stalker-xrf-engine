@@ -138,7 +138,7 @@ describe("SmartTerrain generic logic", () => {
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBe(terrain.id);
     expect(registry.storyLink.sidById.get(terrain.id)).toBe("test_smart_sid");
 
-    expect(registry.simulationObjects.length()).toBe(1);
+    expect(table.size(registry.simulationObjects)).toBe(1);
     expect(registry.simulationObjects.get(terrain.id)).toBe(terrain);
     expect(terrain.smartTerrainAlifeTask instanceof MockCALifeSmartTerrainTask).toBe(true);
     expect(terrain.isRegistered).toBe(true);

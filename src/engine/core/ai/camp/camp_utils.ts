@@ -3,7 +3,7 @@ import { LuaArray, Nillable, TCount, TName, TNumberId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
-import type { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { type CampManager } from "@/engine/core/ai/camp/CampManager";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";

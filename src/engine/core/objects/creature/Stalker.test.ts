@@ -94,7 +94,7 @@ describe("Stalker server object", () => {
 
     expect(fn).toHaveBeenCalledTimes(1);
     expect(fn).toHaveBeenCalledWith(stalker);
-    expect(registry.offlineObjects.length()).toBe(0);
+    expect(table.size(registry.offlineObjects)).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
   });
@@ -220,7 +220,7 @@ describe("Stalker server object", () => {
     stalker.on_spawn();
     stalker.on_register();
 
-    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id) as IRegistryOfflineState;
 
     offlineState.activeSection = "test_section";
     offlineState.levelVertexId = 435;
@@ -261,7 +261,7 @@ describe("Stalker server object", () => {
     stalker.on_spawn();
     stalker.on_register();
 
-    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id) as IRegistryOfflineState;
 
     offlineState.activeSection = "test_section";
 
@@ -299,7 +299,7 @@ describe("Stalker server object", () => {
     stalker.on_spawn();
     stalker.on_register();
 
-    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id);
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(stalker.id) as IRegistryOfflineState;
 
     offlineState.activeSection = "test_section";
 
@@ -318,7 +318,7 @@ describe("Stalker server object", () => {
     another.on_spawn();
     another.on_register();
 
-    registry.offlineObjects.get(another.id).levelVertexId = 730;
+    registry.offlineObjects.get(another.id)!.levelVertexId = 730;
 
     another.STATE_Read(processor.asNetPacket(), 0);
 

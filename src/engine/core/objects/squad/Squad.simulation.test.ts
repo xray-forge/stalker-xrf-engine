@@ -156,7 +156,7 @@ describe("Squad server object", () => {
     expect(another.setLocationTypes).toHaveBeenCalledTimes(1);
     expect(another.assignToTerrain).toHaveBeenCalledWith(null);
 
-    expect(registry.offlineObjects.length()).toBe(2);
+    expect(table.size(registry.offlineObjects)).toBe(2);
     expect(registry.offlineObjects.get(first.id)).toEqual({
       levelVertexId: null,
       activeSection: null,

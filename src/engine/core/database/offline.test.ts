@@ -24,13 +24,13 @@ describe("offline database module", () => {
       levelVertexId: 1,
     });
 
-    expect(registry.offlineObjects.length()).toBe(1);
+    expect(table.size(registry.offlineObjects)).toBe(1);
     expect(registry.offlineObjects.get(object.id())).toEqual({
       activeSection: "test",
       levelVertexId: 1,
     });
 
-    registry.offlineObjects.get(object.id()).levelVertexId = 255;
+    registry.offlineObjects.get(object.id())!.levelVertexId = 255;
 
     expect(registry.offlineObjects.get(object.id())).toEqual({
       activeSection: "test",
@@ -48,7 +48,7 @@ describe("offline database module", () => {
     });
 
     softResetOfflineObject(MAX_I32);
-    expect(registry.offlineObjects.get(MAX_I32)).toBeNull();
+    expect(registry.offlineObjects.get(MAX_I32)).toBeNil();
 
     hardResetOfflineObject(MAX_I32, { levelVertexId: 11, activeSection: null });
     expect(registry.offlineObjects.get(MAX_I32)).toEqual({
@@ -56,7 +56,7 @@ describe("offline database module", () => {
       levelVertexId: 11,
     });
 
-    registry.offlineObjects.get(object.id()).levelVertexId = 444;
+    registry.offlineObjects.get(object.id())!.levelVertexId = 444;
     hardResetOfflineObject(object.id());
 
     expect(registry.offlineObjects.get(object.id())).toEqual({
@@ -67,6 +67,6 @@ describe("offline database module", () => {
     unregisterOfflineObject(object.id());
     unregisterOfflineObject(MAX_I32);
 
-    expect(registry.offlineObjects.length()).toBe(0);
+    expect(table.size(registry.offlineObjects)).toBe(0);
   });
 });

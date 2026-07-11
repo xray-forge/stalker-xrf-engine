@@ -31,13 +31,13 @@ describe("simulation module of the database", () => {
 
     updateSimulationObjectAvailability(objectMock);
 
-    expect(registry.simulationObjects.length()).toBe(1);
+    expect(table.size(registry.simulationObjects)).toBe(1);
     expect(registry.simulationObjects.get(400)).toBe(objectMock);
 
     objectMock.isSimulationAvailable = () => false;
     updateSimulationObjectAvailability(objectMock);
 
-    expect(registry.simulationObjects.length()).toBe(0);
+    expect(table.size(registry.simulationObjects)).toBe(0);
     expect(registry.simulationObjects.get(400)).toBeNull();
   });
 
@@ -65,10 +65,10 @@ describe("simulation module of the database", () => {
     simulationObject.isSimulationAvailable = () => true;
 
     registerSimulationObject(simulationObject);
-    expect(registry.simulationObjects.length()).toBe(1);
+    expect(table.size(registry.simulationObjects)).toBe(1);
 
     unregisterSimulationObject(simulationObject);
-    expect(registry.simulationObjects.length()).toBe(0);
+    expect(table.size(registry.simulationObjects)).toBe(0);
   });
 
   it("should correctly initialize simulation objects properties", () => {

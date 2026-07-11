@@ -18,7 +18,7 @@ export function setupSpawnedObjectPosition(object: GameObject, terrainId: Nillab
     object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(objectId)));
     registry.spawnedVertexes.delete(objectId);
   } else if (registry.offlineObjects.get(objectId)?.levelVertexId) {
-    object.set_npc_position(level.vertex_position(registry.offlineObjects.get(objectId).levelVertexId as TNumberId));
+    object.set_npc_position(level.vertex_position(registry.offlineObjects.get(objectId)!.levelVertexId as TNumberId));
   } else if (terrainId && terrainId !== MAX_ALIFE_ID) {
     const terrain: SmartTerrain = registry.simulator.object<SmartTerrain>(terrainId)!;
 

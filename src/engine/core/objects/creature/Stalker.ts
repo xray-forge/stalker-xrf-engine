@@ -114,15 +114,13 @@ export class Stalker extends cse_alife_human_stalker {
   public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
+    const offlineState: IRegistryOfflineState = registry.offlineObjects.get(this.id) as IRegistryOfflineState;
+
     packet.w_stringZ(
-      tostring(
-        this.online
-          ? level?.object_by_id(this.id)?.level_vertex_id()
-          : registry.offlineObjects.get(this.id).levelVertexId
-      )
+      tostring(this.online ? level?.object_by_id(this.id)?.level_vertex_id() : offlineState.levelVertexId)
     );
 
-    packet.w_stringZ(tostring(registry.offlineObjects.get(this.id).activeSection));
+    packet.w_stringZ(tostring(offlineState.activeSection));
     packet.w_bool(this.isCorpseLootDropped);
   }
 

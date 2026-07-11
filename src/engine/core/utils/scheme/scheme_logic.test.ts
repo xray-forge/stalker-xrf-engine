@@ -145,7 +145,7 @@ describe("getSectionToActivate util", () => {
 
     expect(getSectionToActivate(object, ini, "sr_idle@desired")).toBe("sr_idle@previous");
 
-    expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
+    expect(registry.offlineObjects.get(object.id())?.activeSection).toBeNil();
   });
 });
 

@@ -86,11 +86,11 @@ export const registry = {
     /**
      * Memoized stalker ranks list.
      */
-    stalker: new LuaTable<TIndex, IRankDescriptor>(),
+    stalker: new LuaMap<TIndex, IRankDescriptor>(),
     /**
      * Memoized monster ranks list.
      */
-    monster: new LuaTable<TIndex, IRankDescriptor>(),
+    monster: new LuaMap<TIndex, IRankDescriptor>(),
     /**
      * Max rank for stalkers.
      */
@@ -103,15 +103,15 @@ export const registry = {
   /**
    * List of offline objects.
    */
-  offlineObjects: new LuaTable<TNumberId, IRegistryOfflineState>(),
+  offlineObjects: new LuaMap<TNumberId, IRegistryOfflineState>(),
   /**
    * List of wounded objects.
    */
-  objectsWounded: new LuaTable<TNumberId, IRegistryObjectState>(),
+  objectsWounded: new LuaMap<TNumberId, IRegistryObjectState>(),
   /**
    * List of objects participating in alife simulation.
    */
-  simulationObjects: new LuaTable<TNumberId, TSimulationObject>(),
+  simulationObjects: new LuaMap<TNumberId, TSimulationObject>(),
   /**
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */

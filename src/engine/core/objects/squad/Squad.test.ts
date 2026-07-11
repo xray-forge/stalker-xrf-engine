@@ -180,7 +180,7 @@ describe("Squad object", () => {
 
     expect(chaser.setLocationTypes).toHaveBeenCalled();
     expect(assignSimulationSquadToTerrain).toHaveBeenCalledWith(chaser, null);
-    expect(registry.offlineObjects.length()).toBe(1);
+    expect(table.size(registry.offlineObjects)).toBe(1);
     expect(registry.offlineObjects.get(first.id)).toEqual({ levelVertexId: null, activeSection: null });
   });
 });

@@ -340,7 +340,7 @@ describe("ActorBinder update events", () => {
     expect(eventsManager.emitEvent).toHaveBeenCalledTimes(8);
     expect(eventsManager.tick).toHaveBeenCalledTimes(2);
 
-    expect(registry.simulationObjects.length()).toBe(0);
+    expect(table.size(registry.simulationObjects)).toBe(0);
   });
 
   it("should correctly handle update event 100 throttling", () => {

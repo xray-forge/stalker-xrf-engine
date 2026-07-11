@@ -19,8 +19,8 @@ describe("ranks", () => {
     registerRanks();
 
     expect(registry.ranks.isInitialized).toBe(true);
-    expect(registry.ranks.stalker.length()).toBe(4);
-    expect(registry.ranks.monster.length()).toBe(3);
+    expect(table.size(registry.ranks.stalker)).toBe(4);
+    expect(table.size(registry.ranks.monster)).toBe(3);
     expect(registry.ranks.maxStalkerRank).toEqual({
       max: MAX_ALIFE_RANK,
       min: 900,

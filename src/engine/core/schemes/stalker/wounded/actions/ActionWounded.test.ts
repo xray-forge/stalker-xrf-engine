@@ -83,7 +83,7 @@ describe("ActionWounded", () => {
     expect(object.wounded).toHaveBeenCalledWith(false);
     expect(object.movement_enabled).toHaveBeenCalledWith(true);
 
-    expect(registry.objectsWounded.get(object.id())).toBeNull();
+    expect(registry.objectsWounded.get(object.id())).toBeNil();
   });
 
   it("should correctly execute being wounded and hit object when state is true", () => {

@@ -26,7 +26,7 @@ export function setSquadPosition(squad: Squad, position: Vector): void {
   for (const squadMember of squad.squad_members()) {
     const object: Nillable<GameObject> = registry.objects.get(squadMember.id)?.object as Nillable<GameObject>;
 
-    registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
+    registry.offlineObjects.get(squadMember.id)!.levelVertexId = level.vertex_id(position);
 
     if (object) {
       resetStalkerState(object);

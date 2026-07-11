@@ -20,9 +20,9 @@ describe("registry storage", () => {
     expect(registry.cache.conditionLists).toBeInstanceOf(LuaMap);
     expect(registry.actorCombat).toBeInstanceOf(LuaMap);
     expect(registry.objects).toBeInstanceOf(LuaTable);
-    expect(registry.objectsWounded).toBeInstanceOf(LuaTable);
-    expect(registry.offlineObjects).toBeInstanceOf(LuaTable);
-    expect(registry.simulationObjects).toBeInstanceOf(LuaTable);
+    expect(registry.objectsWounded).toBeInstanceOf(LuaMap);
+    expect(registry.offlineObjects).toBeInstanceOf(LuaMap);
+    expect(registry.simulationObjects).toBeInstanceOf(LuaMap);
     expect(registry.storyLink.sidById).toBeInstanceOf(LuaTable);
     expect(registry.storyLink.idBySid).toBeInstanceOf(LuaTable);
     expect(registry.stalkers).toBeInstanceOf(LuaTable);
@@ -51,8 +51,8 @@ describe("registry storage", () => {
     expect(registry.smartTerrainNearest.distanceSqr).toBe(math.huge);
     expect(registry.smartCovers).toBeInstanceOf(LuaMap);
     expect(registry.doors).toBeInstanceOf(LuaTable);
-    expect(registry.ranks.stalker).toBeInstanceOf(LuaTable);
-    expect(registry.ranks.monster).toBeInstanceOf(LuaTable);
+    expect(registry.ranks.stalker).toBeInstanceOf(LuaMap);
+    expect(registry.ranks.monster).toBeInstanceOf(LuaMap);
     expect(registry.ranks.maxStalkerRank).toBeNull();
     expect(registry.ranks.maxStalkerRank).toBeNull();
     expect(registry.saveMarkers).toBeInstanceOf(LuaTable);

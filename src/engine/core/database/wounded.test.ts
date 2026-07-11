@@ -16,6 +16,6 @@ describe("database objects utilities", () => {
     expect(registry.objectsWounded.get(object.id())).toBe(state);
 
     unRegisterWoundedObject(object);
-    expect(registry.objectsWounded.get(object.id())).toBeNull();
+    expect(registry.objectsWounded.get(object.id())).toBeNil();
   });
 });

@@ -93,7 +93,7 @@ describe("Monster server object", () => {
 
     monster.on_register();
 
-    expect(registry.offlineObjects.length()).toBe(1);
+    expect(table.size(registry.offlineObjects)).toBe(1);
     expect(registry.storyLink.sidById.length()).toBe(1);
     expect(registry.storyLink.idBySid.length()).toBe(1);
 
@@ -104,7 +104,7 @@ describe("Monster server object", () => {
 
     monster.on_unregister();
 
-    expect(registry.offlineObjects.length()).toBe(0);
+    expect(table.size(registry.offlineObjects)).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
 
@@ -118,13 +118,13 @@ describe("Monster server object", () => {
 
     expect(monster.brain().can_choose_alife_tasks).toHaveBeenCalledWith(false);
 
-    expect(registry.offlineObjects.length()).toBe(1);
+    expect(table.size(registry.offlineObjects)).toBe(1);
     expect(registry.storyLink.sidById.length()).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
 
     monster.on_unregister();
 
-    expect(registry.offlineObjects.length()).toBe(0);
+    expect(table.size(registry.offlineObjects)).toBe(0);
   });
 
   it("should correctly handle death callback", () => {
@@ -159,7 +159,7 @@ describe("Monster server object", () => {
 
     monster.on_register();
 
-    const state: IRegistryOfflineState = registry.offlineObjects.get(monster.id);
+    const state: IRegistryOfflineState = registry.offlineObjects.get(monster.id) as IRegistryOfflineState;
 
     state.levelVertexId = 450;
     state.activeSection = "scheme@test";
@@ -179,7 +179,7 @@ describe("Monster server object", () => {
 
     another.STATE_Read(processor.asNetPacket(), 512);
 
-    const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
+    const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id) as IRegistryOfflineState;
 
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
@@ -210,7 +210,7 @@ describe("Monster server object", () => {
 
     another.STATE_Read(processor.asNetPacket(), 512);
 
-    const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
+    const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id) as IRegistryOfflineState;
 
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
