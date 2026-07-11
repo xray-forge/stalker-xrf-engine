@@ -1339,9 +1339,9 @@ extern("dialogs_jupiter.jup_b32_anomaly_do_not_has_af", (_: GameObject, __: Game
     return true;
   }
 
-  const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(azTable.get(index));
+  const anomalyZone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(azTable.get(index));
 
-  if (anomalyZone === null) {
+  if (!anomalyZone) {
     disableInfoPortion(infoPortionsTable.get(index));
 
     return true;
@@ -2352,13 +2352,13 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (_: GameObject, __: GameObject)
     return false;
   }
 
-  const anomalZone: AnomalyZoneBinder = registry.anomalyZones.get(azTable.get(index));
+  const anomalyZone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(azTable.get(index));
 
-  if (anomalZone === null) {
+  if (!anomalyZone) {
     return false;
   }
 
-  if (anomalZone.spawnedArtefactsCount > 0) {
+  if (anomalyZone.spawnedArtefactsCount > 0) {
     disableInfoPortion(infopTable.get(index));
     giveInfoPortion(infoPortions.jup_b32_anomaly_true);
 

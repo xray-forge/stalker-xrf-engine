@@ -226,7 +226,7 @@ extern(
     const anomalyZoneName: Nillable<TName> = params && params[1];
     let artefactSection: TSection = params && params[2];
 
-    const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(anomalyZoneName as TName);
+    const anomalyZone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(anomalyZoneName as TName);
 
     if (params && params[0]) {
       const objectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
