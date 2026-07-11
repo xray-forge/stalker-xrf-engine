@@ -65,7 +65,7 @@ export const registry = {
     /**
      * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.
      */
-    conditionLists: new LuaTable<string, TConditionList>(),
+    conditionLists: new LuaMap<string, TConditionList>(),
   },
   /**
    * Set of objects in combat with actor.
