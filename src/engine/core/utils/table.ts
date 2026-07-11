@@ -69,7 +69,7 @@ export function mergeTables<K extends AnyNotNil, V>(
  *
  * @param target - Table to reset and empty.
  */
-export function resetTable(target: LuaTable<any>): void {
+export function resetTable(target: LuaTable<any> | LuaMap<any, any>): void {
   for (const [k] of target) {
     target.delete(k);
   }

@@ -14,6 +14,7 @@ import {
 } from "@/engine/core/managers/simulation/activity/simulation_preconditions";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
+import { resetPositionCache } from "@/engine/core/utils/position";
 import { MockSquad } from "@/fixtures/engine";
 
 describe("simulationPreconditionAlways", () => {
@@ -110,12 +111,15 @@ describe("simulationPreconditionNear", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 149.5);
     expect(simulationPreconditionNear(first, second)).toBe(true);
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150);
     expect(simulationPreconditionNear(first, second)).toBe(true);
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150.5);
     expect(simulationPreconditionNear(first, second)).toBe(false);
   });
@@ -126,6 +130,7 @@ describe("simulationPreconditionNearAndDay", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150);
 
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 5);
@@ -145,6 +150,7 @@ describe("simulationPreconditionNearAndDay", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150.5);
 
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 6);
@@ -166,6 +172,7 @@ describe("simulationPreconditionNearAndNight", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150);
 
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 5);
@@ -185,6 +192,7 @@ describe("simulationPreconditionNearAndNight", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
 
+    resetPositionCache();
     jest.spyOn(game_graph().vertex(first.m_game_vertex_id).game_point(), "distance_to").mockImplementation(() => 150.5);
 
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 6);

@@ -1,5 +1,5 @@
 import type { AlifeSimulator, GameObject, IniFile, ZoneCampfire } from "xray16/alias";
-import type { Nillable, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
+import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import type { CampManager } from "@/engine/core/ai/camp";
@@ -66,6 +66,19 @@ export const registry = {
      * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.
      */
     conditionLists: new LuaMap<string, TConditionList>(),
+    /**
+     * Memoized game graph vertex -> level id lookups, constant for the loaded game graph.
+     */
+    gameVertexLevelIds: new LuaMap<TNumberId, TNumberId>(),
+    /**
+     * Memoized level id -> level name lookups, constant for the loaded game graph.
+     */
+    levelNames: new LuaMap<TNumberId, TName>(),
+    /**
+     * Memoized straight-line graph distances keyed by symmetric vertex pair, growth is bounded.
+     */
+    graphDistances: new LuaMap<TNumberId, TDistance>(),
+    graphDistancesCount: 0 as TCount,
   },
   /**
    * Set of objects in combat with actor.

@@ -1,4 +1,4 @@
-import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
+import { CGameTask, game, level, task, time_global } from "xray16";
 import { GameTask, IniFile, NetPacket, NetProcessor, ServerObject, Time } from "xray16/alias";
 import {
   AnyCallablesModule,
@@ -42,6 +42,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { getGameLevelName, getGameVertexLevelId } from "@/engine/core/utils/position";
 import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -276,9 +277,7 @@ export class TaskObject {
 
     if (alifeObject) {
       const levelName: TLevel = level.name();
-      const targetLevel: TLevel = registry.simulator.level_name(
-        game_graph().vertex(alifeObject.m_game_vertex_id).level_id()
-      );
+      const targetLevel: TLevel = getGameLevelName(getGameVertexLevelId(alifeObject.m_game_vertex_id)) as TLevel;
 
       if (levelName === targetLevel) {
         removeGuiderSpot(levelName);

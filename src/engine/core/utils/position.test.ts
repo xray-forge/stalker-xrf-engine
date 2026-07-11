@@ -21,6 +21,8 @@ import {
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
   areObjectsOnSameLevel,
+  getGameLevelName,
+  getGameVertexLevelId,
   getObjectTerrain,
   getServerDistanceBetween,
   isActorInNoWeaponZone,
@@ -28,6 +30,7 @@ import {
   isObjectInSilenceZone,
   isObjectInSmartTerrain,
   isObjectOnLevel,
+  resetPositionCache,
   sendToNearestAccessibleVertex,
   teleportActorWithEffects,
 } from "@/engine/core/utils/position";
@@ -36,6 +39,7 @@ import { mockRegisteredActor } from "@/fixtures/engine";
 beforeEach(() => {
   registerSimulator();
   MockSoundObject.resetRegistry();
+  resetPositionCache();
 });
 
 describe("isObjectInSmartTerrain", () => {
@@ -97,6 +101,53 @@ describe("areObjectsOnSameLevel", () => {
     expect(
       areObjectsOnSameLevel(MockAlifeObject.mock({ gameVertexId: 200 }), MockAlifeObject.mock({ gameVertexId: 200 }))
     ).toBe(true);
+  });
+});
+
+describe("getGameVertexLevelId", () => {
+  it("should memoize level id lookups per game vertex", () => {
+    const vertexSpy = jest.spyOn(game_graph(), "vertex");
+
+    expect(getGameVertexLevelId(350)).toBe(3);
+
+    const crossings: number = vertexSpy.mock.calls.length;
+
+    // Memo hit - no additional graph crossings.
+    expect(getGameVertexLevelId(350)).toBe(3);
+    expect(vertexSpy.mock.calls).toHaveLength(crossings);
+  });
+});
+
+describe("getGameLevelName", () => {
+  it("should memoize level name lookups per level id", () => {
+    expect(getGameLevelName(3)).toBe("pripyat");
+
+    const crossings: number = (registry.simulator.level_name as unknown as jest.Mock).mock.calls.length;
+
+    // Memo hit - no additional simulator crossings.
+    expect(getGameLevelName(3)).toBe("pripyat");
+    expect((registry.simulator.level_name as unknown as jest.Mock).mock.calls).toHaveLength(crossings);
+  });
+});
+
+describe("getServerDistanceBetween", () => {
+  it("should memoize distances by symmetric vertex pair until reset", () => {
+    const first: ServerObject = MockAlifeObject.mock({ gameVertexId: 100 });
+    const second: ServerObject = MockAlifeObject.mock({ gameVertexId: 101 });
+
+    MockVector.DEFAULT_DISTANCE = 20;
+
+    expect(getServerDistanceBetween(first, second)).toBe(20);
+
+    // Underlying changes are invisible while memoized, key is symmetric.
+    MockVector.DEFAULT_DISTANCE = 50;
+
+    expect(getServerDistanceBetween(first, second)).toBe(20);
+    expect(getServerDistanceBetween(second, first)).toBe(20);
+
+    resetPositionCache();
+
+    expect(getServerDistanceBetween(first, second)).toBe(50);
   });
 });
 

@@ -1,10 +1,11 @@
-import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
+import { device, game_graph, level, sound_object } from "xray16";
 import { AlifeSimulator, ESoundObjectType, GameObject, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import {
   graphDistance,
   MAX_ALIFE_ID,
   MAX_LEVEL_VERTEX_ID,
   Nillable,
+  TCount,
   TDistance,
   TName,
   TNumberId,
@@ -15,6 +16,73 @@ import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { resetTable } from "@/engine/core/utils/table";
+
+/**
+ * Cap is ~10x the expected steady-state pair diversity (terrain-terrain pairs per level are ~1-2k, squads add churn).
+ * Worst-case memory stays negligible (~0.5 MB of hash nodes at 2^14 entries).
+ *
+ * @inline
+ */
+const DISTANCE_MEMO_LIMIT: TCount = 16_384;
+
+/**
+ * Symmetric pair key packs `min(a, b) * 2^20 + max(a, b)` into one exact number.
+ * Any multiplier above 2^16 is collision-free; 2^20 adds headroom and the largest key (~2^36).
+ *
+ * @inline
+ */
+const DISTANCE_MEMO_PAIR_KEY: TCount = 2 ** 20;
+
+/**
+ * Reset memoized game graph lookups, needed by tests only - the graph never changes at runtime.
+ */
+export function resetPositionCache(): void {
+  resetTable(registry.cache.gameVertexLevelIds);
+  resetTable(registry.cache.levelNames);
+  resetTable(registry.cache.graphDistances);
+  registry.cache.graphDistancesCount = 0;
+}
+
+/**
+ * Get level name by level id through a session-immutable memo.
+ *
+ * @param levelId - Level id to get name for.
+ * @returns Name of the level.
+ */
+export function getGameLevelName(levelId: TNumberId): TName {
+  const existing: Nillable<TName> = registry.cache.levelNames.get(levelId);
+
+  if ($isNotNil(existing)) {
+    return existing;
+  }
+
+  const levelName: TName = registry.simulator.level_name(levelId);
+
+  registry.cache.levelNames.set(levelId, levelName);
+
+  return levelName;
+}
+
+/**
+ * Get level id of the game graph vertex through a session-immutable memo.
+ *
+ * @param gameVertexId - Game graph vertex id to get level for.
+ * @returns Level id of the vertex.
+ */
+export function getGameVertexLevelId(gameVertexId: TNumberId): TNumberId {
+  const existing: Nillable<TNumberId> = registry.cache.gameVertexLevelIds.get(gameVertexId);
+
+  if ($isNotNil(existing)) {
+    return existing;
+  }
+
+  const levelId: TNumberId = game_graph().vertex(gameVertexId).level_id();
+
+  registry.cache.gameVertexLevelIds.set(gameVertexId, levelId);
+
+  return levelId;
+}
 
 /**
  * Get smart terrain linked to object.
@@ -77,10 +145,7 @@ export function isObjectInSilenceZone(object: GameObject): boolean {
  * @returns Whether provided object is on a level.
  */
 export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName): boolean {
-  return (
-    $isNotNil(object) &&
-    registry.simulator.level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName
-  );
+  return $isNotNil(object) && getGameLevelName(getGameVertexLevelId(object.m_game_vertex_id)) === levelName;
 }
 
 /**
@@ -91,25 +156,41 @@ export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName
  * @returns Whether objects are on same level.
  */
 export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject): boolean {
-  const graph: CGameGraph = game_graph();
-
-  return graph.vertex(first.m_game_vertex_id).level_id() === graph.vertex(second.m_game_vertex_id).level_id();
+  return getGameVertexLevelId(first.m_game_vertex_id) === getGameVertexLevelId(second.m_game_vertex_id);
 }
 
 /**
  * Get distance for objects based on game graphs.
  * Approximately calculates distance for servers that are offline and may be on different levels.
- *
- * Todo: Use table memo for storing distance between different static vertexes.
- * Todo: Check other implementation to confirm it is worth it.
- * Todo: Make it configurable.
+ * Straight-line graph distance is constant per vertex pair, results are memoized with a bounded cache.
  *
  * @param first - Object to check.
  * @param second - Object to check.
  * @returns Graph distance between two objects.
  */
 export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
-  return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
+  const firstVertexId: TNumberId = first.m_game_vertex_id;
+  const secondVertexId: TNumberId = second.m_game_vertex_id;
+
+  const key: TNumberId =
+    firstVertexId < secondVertexId
+      ? firstVertexId * DISTANCE_MEMO_PAIR_KEY + secondVertexId
+      : secondVertexId * DISTANCE_MEMO_PAIR_KEY + firstVertexId;
+
+  const existing: Nillable<TDistance> = registry.cache.graphDistances.get(key);
+
+  if ($isNotNil(existing)) {
+    return existing;
+  }
+
+  const distance: TDistance = graphDistance(firstVertexId, secondVertexId);
+
+  if (registry.cache.graphDistancesCount < DISTANCE_MEMO_LIMIT) {
+    registry.cache.graphDistances.set(key, distance);
+    registry.cache.graphDistancesCount += 1;
+  }
+
+  return distance;
 }
 
 /**
