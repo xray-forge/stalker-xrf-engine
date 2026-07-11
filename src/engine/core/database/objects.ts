@@ -50,6 +50,9 @@ export function resetObject(object: GameObject, state: Partial<IRegistryObjectSt
   return state as IRegistryObjectState;
 }
 
+export function getObjectDynamicState(objectId: TNumberId): IDynamicObjectState;
+export function getObjectDynamicState(objectId: TNumberId, initialize: true): IDynamicObjectState;
+
 /**
  * Get dynamic state for game object.
  * Dynamic state is persistent and saved in files by lua marshal lib.
@@ -58,7 +61,7 @@ export function resetObject(object: GameObject, state: Partial<IRegistryObjectSt
  * @param initialize - Whether data should be initialized in case it is null.
  * @returns Dynamic state of the object.
  */
-export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
+export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): Nillable<IDynamicObjectState> {
   let state: Nillable<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
 
   if (!state && initialize) {

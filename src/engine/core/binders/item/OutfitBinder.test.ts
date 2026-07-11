@@ -21,12 +21,12 @@ describe("HelmetBinder", () => {
     }) as ServerItemHelmetObject;
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.dynamicData.objects.length()).toBe(0);
+    expect(table.size(registry.dynamicData.objects)).toBe(0);
 
     binder.net_spawn(serverObject as ItemOutfit);
 
     expect(registry.objects.length()).toBe(1);
-    expect(registry.dynamicData.objects.length()).toBe(1);
+    expect(table.size(registry.dynamicData.objects)).toBe(1);
 
     const previous: IRegistryObjectState = registry.objects.get(binder.object.id());
 
@@ -37,7 +37,7 @@ describe("HelmetBinder", () => {
     binder.net_destroy();
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.dynamicData.objects.length()).toBe(1);
+    expect(table.size(registry.dynamicData.objects)).toBe(1);
   });
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
@@ -47,14 +47,14 @@ describe("HelmetBinder", () => {
     }) as ItemOutfit;
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.dynamicData.objects.length()).toBe(0);
+    expect(table.size(registry.dynamicData.objects)).toBe(0);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
     binder.net_spawn(serverObject);
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.dynamicData.objects.length()).toBe(0);
+    expect(table.size(registry.dynamicData.objects)).toBe(0);
   });
 
   it("should correctly emit lifecycle signals", () => {

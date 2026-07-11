@@ -54,11 +54,11 @@ describe("ActorBinder", () => {
 
     getObjectDynamicState(released.id(), true);
 
-    expect(registry.dynamicData.objects.length()).toBe(1);
+    expect(table.size(registry.dynamicData.objects)).toBe(1);
 
     binder.net_Relcase(released);
 
-    expect(registry.dynamicData.objects.length()).toBe(0);
+    expect(table.size(registry.dynamicData.objects)).toBe(0);
   });
 
   it("should correctly handle net spawn / destroy", () => {

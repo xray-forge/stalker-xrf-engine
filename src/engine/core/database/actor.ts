@@ -1,9 +1,9 @@
-import type { GameObject, ServerActorObject } from "xray16/alias";
+import { type GameObject, type ServerActorObject } from "xray16/alias";
 
-import type { IRegistryObjectState } from "@/engine/core/database/database_types";
+import { type IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { Actor } from "@/engine/core/objects/creature/Actor";
+import { type Actor } from "@/engine/core/objects/creature/Actor";
 
 /**
  * Register new actor entry in db.

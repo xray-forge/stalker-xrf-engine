@@ -246,5 +246,5 @@ export interface IDynamicSaveData {
   event: AnyObject;
   store: AnyObject;
   extensions: AnyObject;
-  objects: LuaTable<TNumberId, IDynamicObjectState>;
+  objects: LuaMap<TNumberId, IDynamicObjectState>;
 }
