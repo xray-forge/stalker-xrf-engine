@@ -25,13 +25,13 @@ describe("AnomalyFieldBinder", () => {
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
 
-    expect(registry.anomalyFields.length()).toBe(0);
+    expect(table.size(registry.anomalyFields)).toBe(0);
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
     binder.net_spawn(serverObject);
 
-    expect(registry.anomalyFields.length()).toBe(1);
+    expect(table.size(registry.anomalyFields)).toBe(1);
     expect(registry.anomalyFields.get(object.name())).toBe(binder);
     expect(registry.zones.length()).toBe(1);
     expect(registry.zones.get(object.name())).toBe(object);
@@ -40,7 +40,7 @@ describe("AnomalyFieldBinder", () => {
 
     binder.net_destroy();
 
-    expect(registry.anomalyFields.length()).toBe(0);
+    expect(table.size(registry.anomalyFields)).toBe(0);
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });
@@ -54,7 +54,7 @@ describe("AnomalyFieldBinder", () => {
 
     binder.net_spawn(serverObject);
 
-    expect(registry.anomalyFields.length()).toBe(0);
+    expect(table.size(registry.anomalyFields)).toBe(0);
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });

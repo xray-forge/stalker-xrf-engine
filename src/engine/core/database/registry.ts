@@ -150,11 +150,11 @@ export const registry = {
   /**
    * Anomaly zones by name.
    */
-  anomalyZones: new LuaTable<TName, AnomalyZoneBinder>(),
+  anomalyZones: new LuaMap<TName, AnomalyZoneBinder>(),
   /**
    * Anomaly fields by name.
    */
-  anomalyFields: new LuaTable<TName, AnomalyFieldBinder>(),
+  anomalyFields: new LuaMap<TName, AnomalyFieldBinder>(),
   /**
    * List of data for game artefacts.
    */

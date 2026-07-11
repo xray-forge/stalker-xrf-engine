@@ -17,6 +17,7 @@ import {
 } from "xray16/lib";
 import { $filename, $fromArray, $fromObject, $isNotNil } from "xray16/macros";
 
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
@@ -1117,7 +1118,7 @@ extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
 
   const zoneName: TName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
 
-  registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zatB29AfTable.get(key as number));
+  (registry.anomalyZones.get(zoneName) as AnomalyZoneBinder).setForcedSpawnOverride(zatB29AfTable.get(key as number));
 });
 
 /**

@@ -420,8 +420,10 @@ export class AnomalyZoneBinder extends object_binder {
     for (const [layer] of this.layerFieldsTable) {
       if (layer !== currentLayer) {
         for (const [, vv] of this.layerFieldsTable.get(layer)) {
-          if (anomalyFields.has(vv)) {
-            anomalyFields.get(vv).setEnabled(false);
+          const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(vv);
+
+          if (field) {
+            field.setEnabled(false);
           } else {
             counter += 1;
           }
@@ -432,8 +434,10 @@ export class AnomalyZoneBinder extends object_binder {
     for (const [layer] of this.layerMinesTable) {
       if (layer !== currentLayer) {
         for (const [, vv] of this.layerMinesTable.get(layer)) {
-          if (anomalyFields.has(vv)) {
-            anomalyFields.get(vv).setEnabled(false);
+          const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(vv);
+
+          if (field) {
+            field.setEnabled(false);
           } else {
             counter += 1;
           }
@@ -447,14 +451,18 @@ export class AnomalyZoneBinder extends object_binder {
 
     if (!this.isTurnedOff) {
       for (const [, vv] of this.layerFieldsTable.get(currentLayer)) {
-        if (anomalyFields.has(vv)) {
-          anomalyFields.get(vv).setEnabled(true);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(vv);
+
+        if (field) {
+          field.setEnabled(true);
         }
       }
 
       for (const [, vv] of this.layerMinesTable.get(currentLayer)) {
-        if (anomalyFields.has(vv)) {
-          anomalyFields.get(vv).setEnabled(true);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(vv);
+
+        if (field) {
+          field.setEnabled(true);
         }
       }
     }
@@ -466,7 +474,7 @@ export class AnomalyZoneBinder extends object_binder {
   public respawnArtefactsAndChangeLayers(): void {
     logger.info("Surge spawn / layers change: %s", this.object.name());
 
-    const anomalyFields: LuaTable<TName, AnomalyFieldBinder> = registry.anomalyFields;
+    const anomalyFields: LuaMap<TName, AnomalyFieldBinder> = registry.anomalyFields;
 
     this.shouldRespawnArtefactsIfPossible = true;
 
@@ -474,28 +482,36 @@ export class AnomalyZoneBinder extends object_binder {
       let layer: string = this.currentZoneLayer;
 
       for (const [, v] of this.layerFieldsTable.get(layer)) {
-        if (anomalyFields.has(v)) {
-          anomalyFields.get(v).setEnabled(false);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(v);
+
+        if (field) {
+          field.setEnabled(false);
         }
       }
 
       for (const [, v] of this.layerMinesTable.get(layer)) {
-        if (anomalyFields.has(v)) {
-          anomalyFields.get(v).setEnabled(false);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(v);
+
+        if (field) {
+          field.setEnabled(false);
         }
       }
 
       layer = ANOMALY_ZONE_LAYER + math.random(1, this.zoneLayersCount);
 
       for (const [, v] of this.layerFieldsTable.get(layer)) {
-        if (anomalyFields.has(v)) {
-          anomalyFields.get(v).setEnabled(true);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(v);
+
+        if (field) {
+          field.setEnabled(true);
         }
       }
 
       for (const [, v] of this.layerMinesTable.get(layer)) {
-        if (anomalyFields.has(v)) {
-          anomalyFields.get(v).setEnabled(true);
+        const field: Nillable<AnomalyFieldBinder> = anomalyFields.get(v);
+
+        if (field) {
+          field.setEnabled(true);
         }
       }
 

@@ -21,7 +21,7 @@ describe("anomaly zones module of the database", () => {
 
     expect(registry.objects.length()).toBe(1);
     expect(registry.objects.get(object.id())).toEqual({ object });
-    expect(registry.anomalyZones.length()).toBe(1);
+    expect(table.size(registry.anomalyZones)).toBe(1);
     expect(registry.anomalyZones.get(object.name())).toBe(anomalyZone);
     expect(registry.zones.length()).toBe(1);
     expect(registry.zones.get(object.name())).toBe(object);
@@ -29,7 +29,7 @@ describe("anomaly zones module of the database", () => {
     unregisterAnomalyZone(anomalyZone);
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.anomalyZones.length()).toBe(0);
+    expect(table.size(registry.anomalyZones)).toBe(0);
     expect(registry.zones.length()).toBe(0);
   });
 });
@@ -43,12 +43,12 @@ describe("anomaly fields module of the database", () => {
 
     expect(registry.objects.length()).toBe(1);
     expect(registry.objects.get(object.id())).toEqual({ object });
-    expect(registry.anomalyFields.length()).toBe(1);
+    expect(table.size(registry.anomalyFields)).toBe(1);
     expect(registry.anomalyFields.get(object.name())).toBe(anomalyField);
 
     unregisterAnomalyField(anomalyField);
 
     expect(registry.objects.length()).toBe(0);
-    expect(registry.anomalyFields.length()).toBe(0);
+    expect(table.size(registry.anomalyFields)).toBe(0);
   });
 });

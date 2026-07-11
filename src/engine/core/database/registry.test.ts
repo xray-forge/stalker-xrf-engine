@@ -33,8 +33,8 @@ describe("registry storage", () => {
     expect(registry.helicopter.storage).toBeInstanceOf(LuaTable);
     expect(registry.helicopter.enemies).toBeInstanceOf(LuaTable);
     expect(registry.helicopter.enemyIndex).toBe(0);
-    expect(registry.anomalyZones).toBeInstanceOf(LuaTable);
-    expect(registry.anomalyFields).toBeInstanceOf(LuaTable);
+    expect(registry.anomalyZones).toBeInstanceOf(LuaMap);
+    expect(registry.anomalyFields).toBeInstanceOf(LuaMap);
     expect(registry.artefacts.ways).toBeInstanceOf(LuaTable);
     expect(registry.artefacts.points).toBeInstanceOf(LuaTable);
     expect(registry.artefacts.parentZones).toBeInstanceOf(LuaTable);
