@@ -18,7 +18,7 @@ describe("registry storage", () => {
     expect(registry.managersByName).toBeInstanceOf(LuaMap);
     expect(registry.schemes).toBeInstanceOf(LuaTable);
     expect(registry.cache.conditionLists).toBeInstanceOf(LuaMap);
-    expect(registry.actorCombat).toBeInstanceOf(LuaTable);
+    expect(registry.actorCombat).toBeInstanceOf(LuaMap);
     expect(registry.objects).toBeInstanceOf(LuaTable);
     expect(registry.objectsWounded).toBeInstanceOf(LuaTable);
     expect(registry.offlineObjects).toBeInstanceOf(LuaTable);

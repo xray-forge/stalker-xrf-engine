@@ -153,7 +153,7 @@ describe("MonsterBinder", () => {
     binder.net_destroy();
 
     expect(registry.objects.get(object.id())).toBeNull();
-    expect(registry.actorCombat.length()).toBe(0);
+    expect(table.size(registry.actorCombat)).toBe(0);
 
     expect(object.set_callback).toHaveBeenCalledTimes(4);
     expect(object.set_callback).toHaveBeenCalledWith(callback.death, null);
@@ -297,7 +297,7 @@ describe("MonsterBinder", () => {
 
     binder.update(100);
 
-    expect(registry.actorCombat.length()).toBe(0);
+    expect(table.size(registry.actorCombat)).toBe(0);
   });
 
   it("should be net save relevant", () => {
@@ -424,7 +424,7 @@ describe("MonsterBinder", () => {
 
     binder.onDeath(object, killer);
 
-    expect(registry.actorCombat.length()).toBe(0);
+    expect(table.size(registry.actorCombat)).toBe(0);
     expect(binder.onHit).toHaveBeenCalledTimes(1);
     expect(binder.onHit).toHaveBeenCalledWith(object, 1, ZERO_VECTOR, killer, -1);
     expect(binder.resetCallbacks).toHaveBeenCalledTimes(1);

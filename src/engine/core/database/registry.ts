@@ -70,7 +70,7 @@ export const registry = {
   /**
    * Set of objects in combat with actor.
    */
-  actorCombat: new LuaTable<TNumberId, boolean>(),
+  actorCombat: new LuaMap<TNumberId, boolean>(),
   /**
    * List of active objects.
    */

@@ -7,7 +7,9 @@ import { AnyObject, LuaArray, Nillable } from "xray16/lib";
  * @param target - Object to check emptiness.
  * @returns Whether target table is empty.
  */
-export function isEmpty(target: Nillable<LuaTable<any>>): target is LuaTable {
+export function isEmpty(target: Nillable<LuaMap<any>>): target is LuaMap;
+export function isEmpty(target: Nillable<LuaTable<any>>): target is LuaTable;
+export function isEmpty(target: Nillable<LuaTable | LuaMap>): target is LuaTable | LuaMap {
   if (!target) {
     return true;
   }
