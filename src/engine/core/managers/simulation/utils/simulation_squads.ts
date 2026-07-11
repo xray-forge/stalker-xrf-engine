@@ -8,7 +8,10 @@ import { removeSquadMapSpot, updateSquadMapSpot } from "@/engine/core/managers/m
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils/map_spot_terrain";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
-import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils/simulation_data";
+import {
+  getSimulationTerrainAssignedSquadsCount,
+  invalidateSimulationTerrainAssignedSquadsCount,
+} from "@/engine/core/managers/simulation/utils/simulation_data";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
@@ -260,6 +263,7 @@ export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Nillable
     const oldTerrain: SmartTerrain = oldTerrainDescriptor.terrain;
 
     oldTerrainDescriptor.assignedSquads.delete(squad.id);
+    invalidateSimulationTerrainAssignedSquadsCount(oldTerrainId as TNumberId);
     oldTerrainDescriptor.assignedSquadsCount = getSimulationTerrainAssignedSquadsCount(oldTerrainId as TNumberId);
 
     updateTerrainMapSpot(oldTerrain);
@@ -273,6 +277,7 @@ export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Nillable
     squad.assignToTerrain(newTerrainDescriptor.terrain);
 
     newTerrainDescriptor.assignedSquads.set(squad.id, squad);
+    invalidateSimulationTerrainAssignedSquadsCount(terrainId);
     newTerrainDescriptor.assignedSquadsCount = getSimulationTerrainAssignedSquadsCount(terrainId);
 
     updateTerrainMapSpot(newTerrainDescriptor.terrain);

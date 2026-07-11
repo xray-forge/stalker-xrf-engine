@@ -61,6 +61,11 @@ export const registry = {
    * List of activated schemes in game.
    */
   schemes: new LuaTable<EScheme, TAbstractSchemeConstructor>(),
+  /**
+   * Session-constant derived facts only: entries are computed once, never invalidated and always
+   * safe to read. Transient or coherence-managed caches (per-tick snapshots, scratch buffers)
+   * belong next to their mutation points in domain modules instead.
+   */
   cache: {
     /**
      * Memoized condlist for parsing simplification, where key is string data and value is parsed descriptor.

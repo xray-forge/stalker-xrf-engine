@@ -19,6 +19,9 @@ export const simulationConfig = {
   ALIFE_DAY_START_HOUR: 6,
   ALIFE_DAY_END_HOUR: 19,
   ALIFE_LATE_NIGHT_HOUR: 21,
+  // Interval between "squad target outranks assigned terrain" full-registry rescans per squad,
+  // staggered by squad id. The rescan is the dominant scan trigger; 0 restores per-tick vanilla behavior.
+  SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL: 5_000,
   IS_SIMULATION_INITIALIZED: false,
   TERRAINS: new LuaTable<TName, SmartTerrain>(),
   TERRAIN_DESCRIPTORS: new LuaTable<TNumberId, ISmartTerrainDescriptor>(),

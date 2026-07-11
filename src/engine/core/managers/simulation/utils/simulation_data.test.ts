@@ -12,6 +12,8 @@ import {
   getSimulationTerrainDescriptorById,
   getSimulationTerrainDescriptors,
   getSimulationTerrains,
+  invalidateSimulationTerrainAssignedSquadsCount,
+  resetSimulationDataCache,
 } from "@/engine/core/managers/simulation/utils/simulation_data";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils/simulation_squads";
@@ -65,17 +67,40 @@ describe("getTerrainAssignedSquadsCount util", () => {
     assignSimulationSquadToTerrain(second, terrain.id);
     assignSimulationSquadToTerrain(third, terrain.id);
 
+    resetSimulationDataCache();
     expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
 
     jest.spyOn(second, "getScriptedSimulationTarget").mockImplementation(() => null);
     jest.spyOn(first, "getScriptedSimulationTarget").mockImplementation(() => null);
 
+    resetSimulationDataCache();
     expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(3);
 
     assignSimulationSquadToTerrain(first, null);
     assignSimulationSquadToTerrain(second, null);
     assignSimulationSquadToTerrain(third, null);
 
+    resetSimulationDataCache();
+    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(0);
+  });
+
+  it("should cache counts within one millisecond stamp and recompute on invalidation", () => {
+    mockRegisteredActor();
+
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const squad: Squad = MockSquad.mockRegistered();
+
+    assignSimulationSquadToTerrain(squad, terrain.id);
+
+    resetSimulationDataCache();
+    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
+
+    // Scripted-target flips are invisible within the same stamped millisecond - by design.
+    jest.spyOn(squad, "getScriptedSimulationTarget").mockImplementation(() => 1);
+    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
+
+    // Explicit invalidation forces a recompute, used by assignment mutations.
+    invalidateSimulationTerrainAssignedSquadsCount(terrain.id);
     expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(0);
   });
 });

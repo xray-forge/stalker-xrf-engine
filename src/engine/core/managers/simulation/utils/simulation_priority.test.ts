@@ -114,6 +114,39 @@ describe("getSlicedSimulationTargets", () => {
     expect(result.get(5).target).toBe(weakest);
     expect(result.get(1).target).toBe(targets[4]);
   });
+
+  it("should reuse the shared scratch buffer and trim stale records between calls", () => {
+    const squad: Squad = MockSquad.mock({ behaviour: $fromObject<string, string>({ a: "1" }) });
+    const targets: Array<Squad> = [10, 20, 30].map((rate) => mockSimulationTargetSquad(rate));
+    const first = getSlicedSimulationTargets(squad, 5);
+
+    expect(first.length()).toBe(3);
+
+    // Same shared buffer instance is returned on every call.
+    expect(getSlicedSimulationTargets(squad, 5)).toBe(first);
+
+    // Shrinking candidate sets trim stale records from previous fills.
+    registry.simulationObjects.delete(targets[1].id);
+    registry.simulationObjects.delete(targets[2].id);
+
+    const second = getSlicedSimulationTargets(squad, 5);
+
+    expect(second).toBe(first);
+    expect(second.length()).toBe(1);
+    expect(second.get(1).target).toBe(targets[0]);
+  });
+
+  it("should reject off-level candidates before evaluating target validity", () => {
+    const squad: Squad = MockSquad.mock({ behaviour: $fromObject<string, string>({ a: "1" }) });
+    const offLevelTarget: Squad = MockSquad.mock({ simulationProperties: $fromObject<TName, TRate>({ a: 10 }) });
+
+    (offLevelTarget as unknown as { m_game_vertex_id: number }).m_game_vertex_id = 330;
+
+    const validitySpy = jest.spyOn(offLevelTarget, "isValidSimulationTarget");
+
+    expect(evaluateSimulationPriority(offLevelTarget, squad)).toBe(0);
+    expect(validitySpy).not.toHaveBeenCalled();
+  });
 });
 
 describe("getSquadSimulationTarget", () => {

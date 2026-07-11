@@ -11,6 +11,7 @@ import {
   getSimulationTerrainDescriptorById,
   getSimulationTerrainDescriptors,
   getSimulationTerrains,
+  resetSimulationDataCache,
 } from "@/engine/core/managers/simulation/utils/simulation_data";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
 import {
@@ -92,6 +93,7 @@ describe("initializeSimulationTerrain util", () => {
 
     registerSimulationTerrain(terrain);
 
+    resetSimulationDataCache();
     expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(0);
 
     simulationConfig.TEMPORARY_ASSIGNED_SQUADS = $fromObject<TNumberId, LuaArray<Squad>>({
@@ -104,6 +106,9 @@ describe("initializeSimulationTerrain util", () => {
     expect(firstSquad.assignToTerrain).toHaveBeenCalledWith(terrain);
     expect(secondSquad.assignedTerrainId).toBe(terrain.id);
     expect(secondSquad.assignToTerrain).toHaveBeenCalledWith(terrain);
+
+    resetSimulationDataCache();
+
     expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(2);
     expect(simulationConfig.TERRAIN_DESCRIPTORS.get(terrain.id).assignedSquadsCount).toBe(2);
   });

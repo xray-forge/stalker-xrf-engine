@@ -1,4 +1,4 @@
-import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } from "xray16";
+import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass, time_global } from "xray16";
 import { ALifeSmartTerrainTask, GameObject, NetPacket, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import {
   abort,
@@ -15,6 +15,7 @@ import {
   TRate,
   TRUE,
   TSection,
+  TTimestamp,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
@@ -35,6 +36,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
 import { simulationActivities } from "@/engine/core/managers/simulation/activity";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ESimulationTerrainRole, ISimulationTarget, TSimulationObject } from "@/engine/core/managers/simulation/types";
 import {
   getSimulationTerrainByName,
@@ -109,6 +111,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public simulationTask: Nillable<ALifeSmartTerrainTask> = null;
   public simulationTaskGameVertexId: Nillable<TNumberId> = null;
   public simulationTaskLevelVertexId: Nillable<TNumberId> = null;
+
+  // Next allowed time for the throttled "squad target outranks terrain" rescan, transient.
+  public nextTargetOutrankCheckAt: TTimestamp = 0;
 
   public assignedTerrainId: Nillable<TNumberId> = null; // ID of linked smart terrain.
   public assignedTargetId: Nillable<TNumberId> = null; // Target squad should reach.
@@ -205,19 +210,28 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     }
 
     // If currently assigned to a non-squad target but priority selection now yields a squad target,
-    // switch to it immediately instead of waiting for the current action to finish.
+    // switch to it instead of waiting for the current action to finish.
+    // The full-registry rescan behind this check is throttled per squad with deterministic stagger -
+    // target loss, help calls and action completion still react immediately in the other branches.
     if ($isNotNil(this.assignedTargetId)) {
-      const assignedTarget: Nillable<ServerObject> = registry.simulator.object(this.assignedTargetId);
+      const now: TTimestamp = time_global();
 
-      if (assignedTarget && !isSquad(assignedTarget)) {
-        const squadTarget: Nillable<TSimulationObject> = getSquadSimulationTarget(this);
+      if (now >= this.nextTargetOutrankCheckAt) {
+        this.nextTargetOutrankCheckAt =
+          now + simulationConfig.SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL + (this.id % 500);
 
-        if (squadTarget && isSquad(squadTarget as ServerObject)) {
-          this.assignedTargetId = squadTarget.id;
-          this.currentAction = null;
-          this.selectNewAction(true);
+        const assignedTarget: Nillable<ServerObject> = registry.simulator.object(this.assignedTargetId);
 
-          return;
+        if (assignedTarget && !isSquad(assignedTarget)) {
+          const squadTarget: Nillable<TSimulationObject> = getSquadSimulationTarget(this);
+
+          if (squadTarget && isSquad(squadTarget as ServerObject)) {
+            this.assignedTargetId = squadTarget.id;
+            this.currentAction = null;
+            this.selectNewAction(true);
+
+            return;
+          }
         }
       }
     }

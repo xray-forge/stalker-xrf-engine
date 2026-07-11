@@ -1,9 +1,34 @@
-import { LuaArray, Nillable, TCount, TName, TNumberId } from "xray16/lib";
+import { time_global } from "xray16";
+import { LuaArray, Nillable, TCount, TName, TNumberId, TTimestamp } from "xray16/lib";
 
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
+import { resetTable } from "@/engine/core/utils/table";
+
+// Assigned squads count scans every assigned squad with a condlist evaluation and is queried
+// once per candidate during target scans - recompute at most once per millisecond per terrain.
+const assignedSquadsCounts: LuaMap<TNumberId, TCount> = new LuaMap();
+const assignedSquadsCountStamps: LuaMap<TNumberId, TTimestamp> = new LuaMap();
+
+/**
+ * Reset per-tick simulation data caches, needed by tests only.
+ */
+export function resetSimulationDataCache(): void {
+  resetTable(assignedSquadsCounts);
+  resetTable(assignedSquadsCountStamps);
+}
+
+/**
+ * Drop cached assigned squads count for terrain - called when the assigned squads set mutates,
+ * so read-backs within the same millisecond observe the mutation exactly.
+ *
+ * @param terrainId - Id of smart terrain to invalidate cached count for.
+ */
+export function invalidateSimulationTerrainAssignedSquadsCount(terrainId: TNumberId): void {
+  assignedSquadsCountStamps.delete(terrainId);
+}
 
 /**
  * Get squads participating in simulation.
@@ -21,6 +46,12 @@ export function getSimulationSquads(): LuaTable<TNumberId, Squad> {
  * @returns Count of squads assigned to smart terrain.
  */
 export function getSimulationTerrainAssignedSquadsCount(terrainId: TNumberId): TCount {
+  const now: TTimestamp = time_global();
+
+  if (assignedSquadsCountStamps.get(terrainId) === now) {
+    return assignedSquadsCounts.get(terrainId) as TCount;
+  }
+
   let count: TCount = 0;
 
   for (const [, squad] of simulationConfig.TERRAIN_DESCRIPTORS.get(terrainId).assignedSquads) {
@@ -28,6 +59,9 @@ export function getSimulationTerrainAssignedSquadsCount(terrainId: TNumberId): T
       count += 1;
     }
   }
+
+  assignedSquadsCounts.set(terrainId, count);
+  assignedSquadsCountStamps.set(terrainId, now);
 
   return count;
 }

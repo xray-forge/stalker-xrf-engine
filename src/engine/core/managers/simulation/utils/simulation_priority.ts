@@ -1,11 +1,26 @@
 import { ServerObject } from "xray16/alias";
 import { LuaArray, Nillable, TCount, TIndex, TNumberId, TRate } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { IAvailableSimulationTargetDescriptor, TSimulationObject } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
+
+// Shared result buffer for sliced targets - rewritten on every call, consumers read the result
+// immediately and never retain the reference (allocation-free, anomaly-proven pattern).
+const SLICED_TARGETS_BUFFER: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
+
+/**
+ * Hoisted sort comparator to avoid closure allocation on every sort call.
+ */
+function compareSimulationTargetsByPriority(
+  first: IAvailableSimulationTargetDescriptor,
+  second: IAvailableSimulationTargetDescriptor
+): boolean {
+  return first.priority > second.priority;
+}
 
 /**
  * Evaluates simulation priority by distance.
@@ -30,7 +45,9 @@ export function evaluateSimulationPriority(target: TSimulationObject, squad: Squ
   let priority: TRate = 3;
 
   // Blocking level traveling and specific preconditions.
-  if (!target.isValidSimulationTarget(squad) || !areObjectsOnSameLevel(target, squad)) {
+  // Same-level check runs first - most registry entries are off-level and the check is two
+  // memoized table reads, while target validity evaluates population counts and preconditions.
+  if (!areObjectsOnSameLevel(target, squad) || !target.isValidSimulationTarget(squad)) {
     return 0;
   }
 
@@ -49,32 +66,11 @@ export function evaluateSimulationPriority(target: TSimulationObject, squad: Squ
 }
 
 /**
- * Get all available simulation targets for an object.
- * Targets are sorted by priority.
- *
- * @param squad - Squad to get simulation targets for.
- * @returns List of possible simulation targets to pick with priorities.
- */
-export function getAvailableSimulationTargets(squad: Squad): LuaArray<IAvailableSimulationTargetDescriptor> {
-  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
-  const squadId: TNumberId = squad.id;
-
-  for (const [, target] of registry.simulationObjects) {
-    const priority: TRate = target.id === squadId ? 0 : evaluateSimulationPriority(target, squad);
-
-    if (priority > 0) {
-      table.insert(availableTargets, { priority: priority, target: target });
-    }
-  }
-
-  table.sort(availableTargets, (a, b) => a.priority > b.priority);
-
-  return availableTargets;
-}
-
-/**
  * Get sliced available simulation targets for an object.
  * Targets are sorted by priority and count / rotation is based on slice parameter.
+ *
+ * Note: returns a shared scratch buffer rewritten on every call - read results immediately,
+ * do not retain the reference between calls.
  *
  * @param squad - Squad to get simulation targets for.
  * @param slice - Number of priority tasks to get.
@@ -84,21 +80,28 @@ export function getSlicedSimulationTargets(
   squad: Squad,
   slice: TCount
 ): LuaArray<IAvailableSimulationTargetDescriptor> {
-  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
+  const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = SLICED_TARGETS_BUFFER;
   const squadId: TNumberId = squad.id;
 
   let index: TIndex = 1;
+  let filled: TCount = 0;
 
   for (const [, target] of registry.simulationObjects) {
     const priority: TRate = target.id === squadId ? 0 : evaluateSimulationPriority(target, squad);
-    const existing: Nillable<IAvailableSimulationTargetDescriptor> = availableTargets.get(index);
 
     if (priority > 0) {
-      if (existing && existing.priority < priority) {
+      const existing: Nillable<IAvailableSimulationTargetDescriptor> = availableTargets.get(index);
+
+      // Slots are overwritten in rotation, existing records are mutated in place to avoid garbage.
+      if ($isNil(existing)) {
+        availableTargets.set(index, { target, priority });
+      } else {
         existing.target = target;
         existing.priority = priority;
-      } else {
-        availableTargets.set(index, { target, priority });
+      }
+
+      if (index > filled) {
+        filled = index;
       }
 
       if (index === slice) {
@@ -109,7 +112,12 @@ export function getSlicedSimulationTargets(
     }
   }
 
-  table.sort(availableTargets, (a, b) => a.priority > b.priority);
+  // Drop stale records left from previous, longer fills.
+  for (const it of $range(filled + 1, availableTargets.length())) {
+    availableTargets.delete(it);
+  }
+
+  table.sort(availableTargets, compareSimulationTargetsByPriority);
 
   return availableTargets;
 }

@@ -1,13 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { CALifeSmartTerrainTask, level } from "xray16";
+import { CALifeSmartTerrainTask, level, time_global } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { FALSE, TRUE } from "xray16/lib";
+import { FALSE, TName, TRate, TRUE } from "xray16/lib";
+import { $fromObject } from "xray16/macros";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
-import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
+import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
+import { ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
@@ -172,5 +177,51 @@ describe("Squad server object", () => {
     const another: MockSquad = MockSquad.mock();
 
     expect(() => squad.onSimulationTargetDeselected(another)).not.toThrow();
+  });
+
+  it("should throttle the squad-target-outranks-terrain rescan with per-squad stagger", () => {
+    mockRegisteredActor();
+    registerSimulator();
+
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const squad: Squad = MockSquad.mockRegistered();
+    const enemy: Squad = MockSquad.mockRegistered();
+
+    // Enemy squad is a valid, positive-priority squad target on the same level.
+    jest.spyOn(enemy, "isValidSimulationTarget").mockImplementation(() => true);
+    squad.behaviour.set("a", "1");
+    enemy.simulationProperties = $fromObject<TName, TRate>({ a: 10 });
+    registry.simulationObjects.set(enemy.id, enemy);
+
+    // Keep the action-update branch inert and selection side effects out of scope.
+    jest.spyOn(squad, "selectNewAction").mockImplementation(jest.fn());
+    jest.spyOn(squad, "isAssignedTargetAvailable").mockImplementation(() => true);
+    squad.currentAction = { update: () => false, finalize: jest.fn() } as unknown as ISquadAction;
+
+    replaceFunctionMock(time_global, () => 1_000);
+
+    // First tick rescans and switches to the outranking squad target.
+    squad.assignedTargetId = terrain.id;
+    squad.updateCurrentGenericAction();
+
+    expect(squad.assignedTargetId).toBe(enemy.id);
+    expect(squad.nextTargetOutrankCheckAt).toBe(
+      1_000 + simulationConfig.SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL + (squad.id % 500)
+    );
+
+    // Within the throttle window the rescan is skipped.
+    squad.assignedTargetId = terrain.id;
+    squad.currentAction = { update: () => false, finalize: jest.fn() } as unknown as ISquadAction;
+    squad.updateCurrentGenericAction();
+
+    expect(squad.assignedTargetId).toBe(terrain.id);
+
+    // After the interval passes the rescan resumes.
+    replaceFunctionMock(time_global, () => 60_000);
+
+    squad.currentAction = { update: () => false, finalize: jest.fn() } as unknown as ISquadAction;
+    squad.updateCurrentGenericAction();
+
+    expect(squad.assignedTargetId).toBe(enemy.id);
   });
 });
