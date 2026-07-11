@@ -47,7 +47,7 @@ import { DialogManager } from "@/engine/core/managers/dialogs";
 import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
+import { invalidateObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
 import { Squad } from "@/engine/core/objects/squad";
@@ -153,7 +153,6 @@ export class StalkerBinder extends object_binder {
 
     this.helicopterEnemyIndex = registerHelicopterEnemy(object);
 
-    initializeObjectThemes(object);
     SchemeReachTask.setup(object);
 
     setupSpawnedObjectPosition(object, stalker.m_smart_terrain_id);
@@ -176,6 +175,7 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     getManager(SoundManager).stop(objectId);
+    invalidateObjectThemes(objectId);
 
     registry.actorCombat.delete(objectId);
 

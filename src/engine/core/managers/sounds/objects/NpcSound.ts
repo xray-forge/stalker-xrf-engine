@@ -83,6 +83,8 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly objects: LuaTable<TNumberId, INpcSoundDescriptor> = new LuaTable();
   public readonly availableCommunities: LuaTable<TCommunity, boolean> = new LuaTable();
   public readonly soundPaths: LuaTable<TNumberId, LuaArray<TPath>> = new LuaTable();
+  // Paths resolved once per unique `prefix + path` key and shared by reference across objects, empty lists included.
+  public readonly resolvedSoundPaths: LuaMap<TPath, LuaArray<TPath>> = new LuaTable();
 
   public readonly shuffle: ESoundPlaylistType;
   public readonly faction: string;
@@ -183,6 +185,16 @@ export class NpcSound extends AbstractPlayableSound {
 
     if ($isNil(object)) {
       return false;
+    }
+
+    // Sounds are registered lazily on first play request instead of eager net_spawn initialization.
+    // Community mismatch mirrors the eager variant where such objects were never registered.
+    if (!this.objects.has(objectId)) {
+      if (!this.availableCommunities.has(getObjectCommunity(object))) {
+        return false;
+      }
+
+      this.initializeObject(object);
     }
 
     if (this.isGroupSound) {
@@ -401,20 +413,18 @@ export class NpcSound extends AbstractPlayableSound {
   /**
    * Register the sound files for the object and collect their playable paths and count.
    *
-   * Note: Performance heavy method, especially when sound files are not cached yet.
+   * Note: Performance heavy method, called lazily on first play request for the object.
    *
    * @param object - Game object to initialize the NPC sound for.
    */
   public initializeObject(object: GameObject): void {
     const objectId: TNumberId = object.id();
-    const objectDescriptor = {
+    const objectDescriptor: INpcSoundDescriptor = {
       id: NpcSound.getNextId(),
       max: 0,
     };
-    const objectPathsDescriptor: LuaArray<TPath> = new LuaTable();
 
     this.objects.set(objectId, objectDescriptor);
-    this.soundPaths.set(objectId, objectPathsDescriptor);
 
     let characterPrefix: string = "";
 
@@ -428,29 +438,40 @@ export class NpcSound extends AbstractPlayableSound {
       ? object.add_combat_sound(this.path, 64, snd_type.talk, 2, 1, objectDescriptor.id, "bip01_head") - 1
       : object.add_sound(this.path, 64, snd_type.talk, 2, 1, objectDescriptor.id) - 1;
 
-    const fs: FS = getFS();
     const objectSoundPrefix: TLabel = object.sound_prefix();
+    const resolvedKey: TPath = objectSoundPrefix + this.path;
 
-    if ($isNotNil(fs.exist(roots.gameSounds, `${objectSoundPrefix}${this.path}.ogg`))) {
-      objectPathsDescriptor.set(1, objectSoundPrefix + this.path);
-    } else {
-      let index: TIndex = 1;
+    let resolvedPaths: Nillable<LuaArray<TPath>> = this.resolvedSoundPaths.get(resolvedKey);
 
-      while (fs.exist(roots.gameSounds, `${objectSoundPrefix}${this.path}${index}.ogg`)) {
-        objectPathsDescriptor.set(index, objectSoundPrefix + this.path + index);
-        index += 1;
+    if ($isNil(resolvedPaths)) {
+      const fs: FS = getFS();
+
+      resolvedPaths = new LuaTable();
+
+      if ($isNotNil(fs.exist(roots.gameSounds, `${resolvedKey}.ogg`))) {
+        resolvedPaths.set(1, resolvedKey);
+      } else {
+        let index: TIndex = 1;
+
+        while (fs.exist(roots.gameSounds, `${resolvedKey}${index}.ogg`)) {
+          resolvedPaths.set(index, resolvedKey + index);
+          index += 1;
+        }
       }
+
+      this.resolvedSoundPaths.set(resolvedKey, resolvedPaths);
     }
 
-    if (this.objects.get(objectId).max < 0) {
+    this.soundPaths.set(objectId, resolvedPaths);
+
+    if (objectDescriptor.max < 0) {
       abort(
-        "Could not find sounds '%s' with prefix '%s', name '%s', path '%s', index '%s', at '%s' - '%s'",
+        "Could not find sounds '%s' with prefix '%s' for object '%s', id '%s', max '%s'.",
         tostring(this.path),
         objectSoundPrefix,
         object.name(),
-        this.path,
-        this.objects.get(objectId).id,
-        this.objects.get(objectId).max
+        objectDescriptor.id,
+        objectDescriptor.max
       );
     }
 
@@ -465,6 +486,20 @@ export class NpcSound extends AbstractPlayableSound {
         this.canPlaySound.set(objectId, true);
       }
     }
+  }
+
+  /**
+   * Forget the per-object registration so the next play request re-initializes the sound.
+   *
+   * Engine-side registrations die with the client object on network destroy, so keeping the descriptor
+   * would make `play_sound` silently no-op after the object goes online again. Play availability
+   * state is kept intact as it is persisted in object saves.
+   *
+   * @param objectId - Identifier of the object to invalidate the sound registration for.
+   */
+  public invalidateObject(objectId: TNumberId): void {
+    this.objects.delete(objectId);
+    this.soundPaths.delete(objectId);
   }
 
   /**

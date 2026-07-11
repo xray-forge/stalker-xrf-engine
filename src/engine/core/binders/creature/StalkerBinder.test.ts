@@ -10,7 +10,7 @@ import { getManager, IRegistryObjectState, registerObject, registerSimulator, re
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
-import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
+import { invalidateObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
@@ -70,7 +70,7 @@ describe("StalkerBinder", () => {
     expect(setupObjectStalkerVisual).toHaveBeenCalledTimes(1);
     expect(setupObjectInfoPortions).toHaveBeenCalledTimes(1);
     expect(setupObjectLogicsOnSpawn).toHaveBeenCalledWith(object, binder.state, ESchemeType.STALKER, false);
-    expect(initializeObjectThemes).toHaveBeenCalledWith(object);
+    expect(invalidateObjectThemes).not.toHaveBeenCalled();
     expect(SchemeReachTask.setup).toHaveBeenCalledWith(object);
     expect(SchemePostCombatIdle.setup).toHaveBeenCalledWith(object);
     expect(object.group_throw_time_interval).toHaveBeenCalledWith(2000);
@@ -83,6 +83,7 @@ describe("StalkerBinder", () => {
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.stalkers.length()).toBe(0);
+    expect(invalidateObjectThemes).toHaveBeenCalledWith(object.id());
   });
 
   it.todo("should correctly handle going online/offline when spawn check is falsy");

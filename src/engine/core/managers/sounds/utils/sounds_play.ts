@@ -1,24 +1,22 @@
-import { GameObject } from "xray16/alias";
+import { TNumberId } from "xray16/lib";
 
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { getObjectCommunity } from "@/engine/core/utils/community";
-import { TCommunity } from "@/engine/lib/constants/communities";
 
 /**
- * Initialize NPC sound themes for the object whose community matches the theme requirements.
+ * Forget per-object NPC sound registrations when the object goes offline.
  *
- * @param object - Game object to initialize matching sound themes for.
+ * Engine-side sound registrations die with the client object, so descriptors kept from the previous
+ * online cycle would silently no-op on play. NPC themes are registered lazily on first play request,
+ * so no re-initialization happens until a sound is actually needed.
+ *
+ * @param objectId - Identifier of the game object to invalidate sound themes for.
  */
-export function initializeObjectThemes(object: GameObject): void {
-  const objectCommunity: TCommunity = getObjectCommunity(object);
-
+export function invalidateObjectThemes(objectId: TNumberId): void {
   for (const [, sound] of soundsConfig.themes) {
     if (sound.type === EPlayableSound.NPC) {
-      if ((sound as NpcSound).availableCommunities.has(objectCommunity)) {
-        (sound as NpcSound).initializeObject(object);
-      }
+      (sound as NpcSound).invalidateObject(objectId);
     }
   }
 }

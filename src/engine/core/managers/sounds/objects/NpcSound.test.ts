@@ -1,10 +1,30 @@
-import { describe, expect, it, jest } from "@jest/globals";
-import { IniFile } from "xray16/alias";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { $isNotNil } from "xray16/macros";
+import { EMockPacketDataType, MockFileSystem, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { registerObject } from "@/engine/core/database";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds";
-import { NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
+import { INpcSoundDescriptor, NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
+import { roots } from "@/engine/lib/constants/roots";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+
+/**
+ * Emulate engine `sound_prefix` getter/setter pair on the mock object.
+ */
+function mockObjectSoundPrefix(object: GameObject, initial: string = ""): void {
+  let soundPrefix: string = initial;
+
+  replaceFunctionMock(object.sound_prefix, (prefix?: string): string => {
+    if ($isNotNil(prefix)) {
+      soundPrefix = prefix;
+    }
+
+    return soundPrefix;
+  });
+}
 
 describe("NpcSound", () => {
   it("should fail init on missing data", () => {
@@ -41,6 +61,7 @@ describe("NpcSound", () => {
       zombied: true,
     });
     expect(sound.soundPaths).toEqualLuaTables({});
+    expect(sound.resolvedSoundPaths).toEqualLuaTables({});
     expect(sound.shuffle).toBe(ESoundPlaylistType.RANDOM);
     expect(sound.faction).toBe("");
     expect(sound.point).toBe("");
@@ -89,6 +110,7 @@ describe("NpcSound", () => {
       dolg: true,
     });
     expect(sound.soundPaths).toEqualLuaTables({});
+    expect(sound.resolvedSoundPaths).toEqualLuaTables({});
     expect(sound.shuffle).toBe(ESoundPlaylistType.SEQUENCE);
     expect(sound.faction).toBe("army");
     expect(sound.point).toBe("test_point");
@@ -122,7 +144,6 @@ describe("NpcSound", () => {
 
     randomSpy.mockReturnValueOnce(0);
     expect(sound.selectNextSound(objectId)).toBe(0); // 0 < 2 -> unchanged
-
     randomSpy.mockReturnValueOnce(2);
     expect(sound.selectNextSound(objectId)).toBe(3); // draw == previous -> shifted up (never repeats)
 
@@ -137,9 +158,217 @@ describe("NpcSound", () => {
 
   it.todo("should correctly handle sound play end");
 
-  it.todo("should correctly play/stop");
-
   it.todo("should correctly reset");
+});
 
-  it.todo("should correctly save/load");
+describe("NpcSound lazy initialization", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+  });
+
+  it("should lazily initialize object on first play and reuse the registration", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_lazy: { path: "test\\lazy_theme" } });
+    const sound: NpcSound = new NpcSound(ini, "test_lazy");
+    const object: GameObject = MockGameObject.mockStalker();
+    const fileSystem: MockFileSystem = MockFileSystem.getInstance();
+
+    registerObject(object);
+    mockObjectSoundPrefix(object);
+    replaceFunctionMock(object.add_sound, () => 1);
+
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\lazy_theme_pda.ogg", false);
+
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(true);
+
+    expect(object.add_sound).toHaveBeenCalledTimes(1);
+    expect(object.play_sound).toHaveBeenCalledTimes(1);
+    expect(sound.objects.get(object.id())).toEqual({ id: expect.any(Number), max: 0 });
+    expect(sound.soundPaths.get(object.id())).toEqualLuaTables({ 1: "characters_voice\\test\\lazy_theme" });
+    expect(sound.canPlaySound.get(object.id())).toBe(false);
+
+    // Play availability consumed -> no replay, no re-initialization.
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(false);
+    expect(object.add_sound).toHaveBeenCalledTimes(1);
+
+    // After reset the same registration is reused without engine re-registration.
+    sound.reset(object.id());
+
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(true);
+    expect(object.add_sound).toHaveBeenCalledTimes(1);
+    expect(object.play_sound).toHaveBeenCalledTimes(2);
+  });
+
+  it("should not initialize objects with mismatched communities", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
+      test_gated: { path: "test\\gated_theme", avail_communities: "dolg" },
+    });
+    const sound: NpcSound = new NpcSound(ini, "test_gated");
+    const stalkerObject: GameObject = MockGameObject.mockStalker();
+    const monsterObject: GameObject = MockGameObject.mock();
+
+    registerObject(stalkerObject);
+    registerObject(monsterObject);
+
+    expect(sound.play(stalkerObject.id(), "faction", null, "message")).toBe(false);
+    expect(sound.play(monsterObject.id(), "faction", null, "message")).toBe(false);
+
+    expect(stalkerObject.add_sound).not.toHaveBeenCalled();
+    expect(monsterObject.add_sound).not.toHaveBeenCalled();
+    expect(sound.objects.length()).toBe(0);
+  });
+
+  it("should resolve sound paths once per prefix key and share them by reference", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_cached: { path: "test\\cached_theme" } });
+    const sound: NpcSound = new NpcSound(ini, "test_cached");
+    const first: GameObject = MockGameObject.mockStalker();
+    const second: GameObject = MockGameObject.mockStalker();
+    const fileSystem: MockFileSystem = MockFileSystem.getInstance();
+
+    mockObjectSoundPrefix(first);
+    mockObjectSoundPrefix(second);
+    replaceFunctionMock(first.add_sound, () => 3);
+    replaceFunctionMock(second.add_sound, () => 3);
+
+    // Indexed variants: base path does not exist, indexes 1-3 resolve through the permissive root.
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\cached_theme.ogg", false);
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\cached_theme4.ogg", false);
+
+    sound.initializeObject(first);
+
+    const scansCount: number = fileSystem.exist.mock.calls.length;
+
+    sound.initializeObject(second);
+
+    expect(fileSystem.exist.mock.calls).toHaveLength(scansCount);
+    expect(sound.soundPaths.get(second.id())).toBe(sound.soundPaths.get(first.id()));
+    expect(sound.soundPaths.get(first.id())).toEqualLuaTables({
+      1: "characters_voice\\test\\cached_theme1",
+      2: "characters_voice\\test\\cached_theme2",
+      3: "characters_voice\\test\\cached_theme3",
+    });
+  });
+
+  it("should cache empty resolution results and still abort when engine finds no sounds", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_missing: { path: "test\\missing_theme" } });
+    const sound: NpcSound = new NpcSound(ini, "test_missing");
+    const first: GameObject = MockGameObject.mockStalker();
+    const second: GameObject = MockGameObject.mockStalker();
+    const fileSystem: MockFileSystem = MockFileSystem.getInstance();
+
+    mockObjectSoundPrefix(first);
+    mockObjectSoundPrefix(second);
+    replaceFunctionMock(first.add_sound, () => 0);
+    replaceFunctionMock(second.add_sound, () => 0);
+
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\missing_theme.ogg", false);
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\missing_theme1.ogg", false);
+
+    expect(() => sound.initializeObject(first)).toThrow("Could not find sounds");
+
+    const scansCount: number = fileSystem.exist.mock.calls.length;
+
+    expect(() => sound.initializeObject(second)).toThrow("Could not find sounds");
+
+    expect(fileSystem.exist.mock.calls).toHaveLength(scansCount);
+    expect(sound.resolvedSoundPaths.get("characters_voice\\test\\missing_theme")).toEqualLuaTables({});
+  });
+
+  it("should resolve prefixed themes per object voice prefix", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_prefixed: { path: "attack_theme", npc_prefix: true } });
+    const sound: NpcSound = new NpcSound(ini, "test_prefixed");
+    const first: GameObject = MockGameObject.mockStalker();
+    const second: GameObject = MockGameObject.mockStalker();
+
+    replaceFunctionMock(first.sound_prefix, () => "voice_a\\");
+    replaceFunctionMock(second.sound_prefix, () => "voice_b\\");
+    replaceFunctionMock(first.add_sound, () => 1);
+    replaceFunctionMock(second.add_sound, () => 1);
+
+    sound.initializeObject(first);
+    sound.initializeObject(second);
+
+    expect(sound.soundPaths.get(first.id())).toEqualLuaTables({ 1: "voice_a\\attack_theme" });
+    expect(sound.soundPaths.get(second.id())).toEqualLuaTables({ 1: "voice_b\\attack_theme" });
+    expect(sound.soundPaths.get(first.id())).not.toBe(sound.soundPaths.get(second.id()));
+  });
+
+  it("should preserve group sound restrictions through lazy play", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_group: { path: "test\\group_theme", group_snd: true } });
+    const sound: NpcSound = new NpcSound(ini, "test_group");
+    const object: GameObject = MockGameObject.mockStalker();
+    const fileSystem: MockFileSystem = MockFileSystem.getInstance();
+
+    registerObject(object);
+    mockObjectSoundPrefix(object);
+    replaceFunctionMock(object.add_sound, () => 1);
+
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\group_theme_pda.ogg", false);
+
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(true);
+    expect(sound.canPlayGroupSound).toBe(false);
+    expect(sound.canPlaySound.has(object.id())).toBe(false);
+
+    // Group availability consumed -> no replay, no re-initialization.
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(false);
+    expect(object.add_sound).toHaveBeenCalledTimes(1);
+  });
+
+  it("should invalidate object registration while keeping play availability", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_invalidate: { path: "test\\invalidate_theme" } });
+    const sound: NpcSound = new NpcSound(ini, "test_invalidate");
+    const object: GameObject = MockGameObject.mockStalker();
+    const fileSystem: MockFileSystem = MockFileSystem.getInstance();
+
+    registerObject(object);
+    mockObjectSoundPrefix(object);
+    replaceFunctionMock(object.add_sound, () => 1);
+
+    fileSystem.setMock(roots.gameSounds, "characters_voice\\test\\invalidate_theme_pda.ogg", false);
+
+    expect(sound.play(object.id(), "faction", null, "message")).toBe(true);
+
+    const firstId: TNumberId = (sound.objects.get(object.id()) as INpcSoundDescriptor).id;
+
+    sound.invalidateObject(object.id());
+
+    expect(sound.objects.has(object.id())).toBe(false);
+    expect(sound.soundPaths.has(object.id())).toBe(false);
+    expect(sound.canPlaySound.get(object.id())).toBe(false);
+
+    // Next initialization registers again with a new id, availability flag is not clobbered.
+    sound.initializeObject(object);
+
+    expect(sound.objects.get(object.id()).id).toBeGreaterThan(firstId);
+    expect(sound.canPlaySound.get(object.id())).toBe(false);
+    expect(sound.soundPaths.get(object.id())).toEqualLuaTables({ 1: "characters_voice\\test\\invalidate_theme" });
+  });
+
+  it("should keep per-object save layout independent of initialization", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_saved: { path: "test\\save_theme" } });
+    const sound: NpcSound = new NpcSound(ini, "test_saved");
+    const object: GameObject = MockGameObject.mockStalker();
+    const processor: MockNetProcessor = new MockNetProcessor();
+
+    // Never initialized object still writes the availability flag keeping the save layout stable.
+    sound.saveObject(processor.asNetPacket(), object);
+
+    expect(processor.writeDataOrder).toEqual([EMockPacketDataType.BOOLEAN]);
+    expect(processor.dataList).toEqual([false]);
+
+    const loaded: NpcSound = new NpcSound(ini, "test_saved");
+
+    loaded.loadObject(processor.asNetProcessor(), object);
+
+    expect(processor.dataList).toEqual([]);
+    expect(loaded.canPlaySound.get(object.id())).toBe(false);
+
+    // Loaded availability flag survives later lazy initialization.
+    mockObjectSoundPrefix(object);
+    replaceFunctionMock(object.add_sound, () => 1);
+
+    loaded.initializeObject(object);
+
+    expect(loaded.canPlaySound.get(object.id())).toBe(false);
+  });
 });
