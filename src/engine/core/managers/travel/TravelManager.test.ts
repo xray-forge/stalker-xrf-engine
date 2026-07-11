@@ -7,6 +7,7 @@ import {
   MockAlifeSmartZone,
   MockGameObject,
   MockPhraseDialog,
+  MockPhraseScript,
 } from "xray16/mocks";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
@@ -96,297 +97,297 @@ describe("TravelManager", () => {
         goodwillLevel: -10000,
         id: "0",
         prevPhraseId: "",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_what_are_you_doing",
       },
       "1": {
         goodwillLevel: -10000,
         id: "1",
         prevPhraseId: "0",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: "travel_callbacks.get_squad_current_action_description",
-        },
+        }),
         text: "if you see this - this is bad",
       },
       "1000": {
         goodwillLevel: -10000,
         id: "1000",
         prevPhraseId: "121",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
           text: null,
-        },
+        }),
         text: "translated_st_zat_a2_name.",
       },
       "1000_1": {
         goodwillLevel: -10000,
         id: "1000_1",
         prevPhraseId: "1000",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: "travel_callbacks.get_travel_cost",
-        },
+        }),
         text: "if you see this - this is bad",
       },
       "1000_11": {
         goodwillLevel: -10000,
         id: "1000_11",
         prevPhraseId: "1000_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
           preconditions: ["travel_callbacks.is_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_agree",
       },
       "1000_13": {
         goodwillLevel: -10000,
         id: "1000_13",
         prevPhraseId: "1000_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_has_no_money",
       },
       "1000_14": {
         goodwillLevel: -10000,
         id: "1000_14",
         prevPhraseId: "1000_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_refuse",
       },
       "1001": {
         goodwillLevel: -10000,
         id: "1001",
         prevPhraseId: "121",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
           text: null,
-        },
+        }),
         text: "translated_st_zat_b55_name.",
       },
       "1001_1": {
         goodwillLevel: -10000,
         id: "1001_1",
         prevPhraseId: "1001",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: "travel_callbacks.get_travel_cost",
-        },
+        }),
         text: "if you see this - this is bad",
       },
       "1001_11": {
         goodwillLevel: -10000,
         id: "1001_11",
         prevPhraseId: "1001_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
           preconditions: ["travel_callbacks.is_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_agree",
       },
       "1001_13": {
         goodwillLevel: -10000,
         id: "1001_13",
         prevPhraseId: "1001_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_has_no_money",
       },
       "1001_14": {
         goodwillLevel: -10000,
         id: "1001_14",
         prevPhraseId: "1001_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_refuse",
       },
       "1002": {
         goodwillLevel: -10000,
         id: "1002",
         prevPhraseId: "121",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
           text: null,
-        },
+        }),
         text: "translated_st_zat_b100_name.",
       },
       "1002_1": {
         goodwillLevel: -10000,
         id: "1002_1",
         prevPhraseId: "1002",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: "travel_callbacks.get_travel_cost",
-        },
+        }),
         text: "if you see this - this is bad",
       },
       "1002_11": {
         goodwillLevel: -10000,
         id: "1002_11",
         prevPhraseId: "1002_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
           preconditions: ["travel_callbacks.is_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_agree",
       },
       "1002_13": {
         goodwillLevel: -10000,
         id: "1002_13",
         prevPhraseId: "1002_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_has_no_money",
       },
       "1002_14": {
         goodwillLevel: -10000,
         id: "1002_14",
         prevPhraseId: "1002_1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_refuse",
       },
       "11": {
         goodwillLevel: -10000,
         id: "11",
         prevPhraseId: "1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_actor_move_with_squad"],
           text: null,
-        },
+        }),
         text: "dm_traveler_can_i_go_with_you",
       },
       "111": {
         goodwillLevel: -10000,
         id: "111",
         prevPhraseId: "11",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_squad_take_actor"],
           text: null,
-        },
+        }),
         text: "dm_traveler_stalker_actor_companion_yes",
       },
       "1111": {
         goodwillLevel: -10000,
         id: "1111",
         prevPhraseId: "111",
-        script: {
+        script: MockPhraseScript.mock({
           actions: ["travel_callbacks.on_travel_together_with_squad"],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_go_with_squad",
       },
       "1112": {
         goodwillLevel: -10000,
         id: "1112",
         prevPhraseId: "111",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_dont_go_with_squad",
       },
       "112": {
         goodwillLevel: -10000,
         id: "112",
         prevPhraseId: "11",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.cannot_squad_take_actor"],
           text: null,
-        },
+        }),
         text: "dm_traveler_stalker_actor_companion_no",
       },
       "12": {
         goodwillLevel: -10000,
         id: "12",
         prevPhraseId: "1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_take_me_to",
       },
       "121": {
         goodwillLevel: -10000,
         id: "121",
         prevPhraseId: "12",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.can_squad_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_stalker_where_do_you_want",
       },
       "1211": {
         goodwillLevel: -10000,
         id: "1211",
         prevPhraseId: "121",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_actor_refuse",
       },
       "122": {
         goodwillLevel: -10000,
         id: "122",
         prevPhraseId: "12",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: ["travel_callbacks.cannot_squad_travel"],
           text: null,
-        },
+        }),
         text: "dm_traveler_stalker_i_cant_travel",
       },
       "13": {
         goodwillLevel: -10000,
         id: "13",
         prevPhraseId: "1",
-        script: {
+        script: MockPhraseScript.mock({
           actions: [],
           preconditions: [],
           text: null,
-        },
+        }),
         text: "dm_traveler_bye",
       },
     });

@@ -15,7 +15,8 @@
       "xray16/typedefs/extensions",
       "xray16/typedefs/luajit",
       "xray16/typedefs/lfs",
-      "xray16/typedefs/marshal"
+      "xray16/typedefs/marshal",
+      "xray16/typedefs/jest"
     ],
     "jsx": "preserve",
     "jsxFactory": "JSXXML",

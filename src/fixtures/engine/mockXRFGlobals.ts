@@ -1,9 +1,12 @@
 import { jest } from "@jest/globals";
+import { MockFileSystem, MockIniFile, MockPatrol } from "xray16/mocks";
 
-import { mockLfs } from "@/fixtures/engine/mocks/lfs.mock";
+import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
+
+import { roots } from "@/engine/lib/constants/roots";
 import { MockLuaLogger } from "@/fixtures/engine/mocks/LuaLogger.mock";
-import { mockMarshal } from "@/fixtures/engine/mocks/marshal.mock";
 import { mockTableUtils } from "@/fixtures/engine/mocks/table.mock";
+import { INI_FILES_MOCKS, patrols } from "@/fixtures/xray";
 
 /**
  * Mock global functions for XRF engine that should be ignored / replaced when executing tests.
@@ -17,9 +20,9 @@ export function mockXRFGlobals(): void {
   // Handle tables differently in typescript.
   jest.mock("@/engine/core/utils/table", () => mockTableUtils);
 
-  // @ts-ignore injection of marshal mocks
-  globalThis.marshal = mockMarshal;
+  MockIniFile.setup({ configsDir: GAME_DATA_LTX_CONFIGS_DIR, files: INI_FILES_MOCKS });
 
-  // @ts-ignore injection of lfs mocks
-  globalThis.lfs = mockLfs;
+  MockPatrol.setup(patrols);
+
+  MockFileSystem.getInstance().setMockRoot(roots.gameSounds);
 }

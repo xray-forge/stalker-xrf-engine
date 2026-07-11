@@ -5,6 +5,8 @@ import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 /**
  * Create rectangle based on screen base layout expectations.
  *
+ * @inline
+ *
  * @returns New rectangle describing screen layout.
  */
 export function createScreenRectangle(): Frect {
@@ -13,6 +15,8 @@ export function createScreenRectangle(): Frect {
 
 /**
  * Create rectangle based on 4 coordinates.
+ *
+ * @inline
  *
  * @param x1 - Top left x point.
  * @param y1 - Top left y point.
@@ -26,6 +30,8 @@ export function createRectangle(x1: number, y1: number, x2: number, y2: number):
 
 /**
  * Create rectangle based on another rectangle.
+ *
+ * @inline
  *
  * @param from - Target to copy coordinates from.
  * @returns New copied rectangle.

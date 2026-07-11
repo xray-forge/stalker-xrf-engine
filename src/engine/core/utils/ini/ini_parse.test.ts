@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { flags32 } from "xray16";
 import { Flags32, GameObject } from "xray16/alias";
 import { EMPTY_LUA_ARRAY, extern, LuaArray, NIL } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { MockFlags32, MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -370,7 +370,7 @@ describe("parseWaypointData util", () => {
     expect(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_02_look")).toEqualLuaTables({
       "0": {
         a: null,
-        flags: {},
+        flags: MockFlags32.mock(),
         p: "30",
         ret: null,
         sig: null,
@@ -378,7 +378,7 @@ describe("parseWaypointData util", () => {
       },
       "1": {
         a: null,
-        flags: {},
+        flags: MockFlags32.mock(),
         p: "70",
         ret: null,
         sig: null,
@@ -386,7 +386,7 @@ describe("parseWaypointData util", () => {
       },
       "2": {
         a: null,
-        flags: {},
+        flags: MockFlags32.mock(),
         p: "30",
         ret: null,
         sig: null,
@@ -394,7 +394,7 @@ describe("parseWaypointData util", () => {
       },
       "3": {
         a: null,
-        flags: {},
+        flags: MockFlags32.mock(),
         p: "50",
         ret: null,
         sig: null,
@@ -408,7 +408,7 @@ describe("parseWaypointData util", () => {
             section: "search",
           },
         },
-        flags: {},
+        flags: MockFlags32.mock(),
         p: null,
         ret: null,
         sig: null,
@@ -420,8 +420,6 @@ describe("parseWaypointData util", () => {
 
 describe("parseWaypointsDataFromList util", () => {
   it("should correctly parse generic paths to waypoint data", () => {
-    const flags: Flags32 = new flags32();
-
     expect(
       parseWaypointsDataFromList(
         "zat_b40_smart_terrain_zat_b40_merc_01_walk",
@@ -439,7 +437,7 @@ describe("parseWaypointsDataFromList util", () => {
             section: "patrol",
           },
         },
-        flags,
+        flags: MockFlags32.mock(),
         p: null,
         ret: null,
         sig: null,
@@ -453,7 +451,7 @@ describe("parseWaypointsDataFromList util", () => {
             section: "patrol",
           },
         },
-        flags,
+        flags: MockFlags32.mock(1),
         p: null,
         ret: null,
         sig: null,
@@ -467,7 +465,7 @@ describe("parseWaypointsDataFromList util", () => {
             section: "patrol",
           },
         },
-        flags,
+        flags: MockFlags32.mock(2),
         p: null,
         ret: null,
         sig: null,

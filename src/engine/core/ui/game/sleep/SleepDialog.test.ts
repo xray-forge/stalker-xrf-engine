@@ -6,6 +6,7 @@ import { getManager } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { SleepDialog } from "@/engine/core/ui/game/sleep/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { createRectangle } from "@/engine/core/utils/rectangle";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
@@ -57,22 +58,12 @@ describe("SleepDialog ui component", () => {
       );
     }
 
-    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith({
-      x1: 197,
-      x2: 591,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith(createRectangle(197, 413, 591, 531));
     expect(dialog.uiSleepStatic.SetWndSize).toHaveBeenCalledWith({
       x: 394,
       y: 118,
     });
-    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith({
-      x1: 0,
-      x2: 197,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith(createRectangle(0, 413, 197, 531));
     expect(dialog.uiSleepStatic2.SetWndSize).toHaveBeenCalledWith({
       x: 197,
       y: 118,
@@ -103,22 +94,12 @@ describe("SleepDialog ui component", () => {
       );
     }
 
-    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith({
-      x1: 541,
-      x2: 591,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith(createRectangle(541, 413, 591, 531));
     expect(dialog.uiSleepStatic.SetWndSize).toHaveBeenCalledWith({
       x: 50,
       y: 118,
     });
-    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith({
-      x1: 0,
-      x2: 541,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith(createRectangle(0, 413, 541, 531));
     expect(dialog.uiSleepStatic2.SetWndSize).toHaveBeenCalledWith({
       x: 541,
       y: 118,
@@ -149,22 +130,12 @@ describe("SleepDialog ui component", () => {
       );
     }
 
-    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith({
-      x1: 197,
-      x2: 591,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic.SetTextureRect).toHaveBeenCalledWith(createRectangle(197, 413, 591, 531));
     expect(dialog.uiSleepStatic.SetWndSize).toHaveBeenCalledWith({
       x: 315.20000000000005,
       y: 118,
     });
-    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith({
-      x1: 0,
-      x2: 197,
-      y1: 413,
-      y2: 531,
-    });
+    expect(dialog.uiSleepStatic2.SetTextureRect).toHaveBeenCalledWith(createRectangle(0, 413, 197, 531));
     expect(dialog.uiSleepStatic2.SetWndSize).toHaveBeenCalledWith({
       x: 157.60000000000002,
       y: 118,
