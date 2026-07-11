@@ -1,5 +1,6 @@
 ﻿import { JSXNode, JSXXML } from "jsx-xml";
 
+import { MapMultiplayerSpots } from "@/engine/forms/game/map/spots/MapMultiplayerSpots";
 import { MapRelationSpots } from "@/engine/forms/game/map/spots/MapRelationSpots";
 import { SmartTerrainSpots } from "@/engine/forms/game/map/spots/SmartTerrainSpots";
 import { SquadSpots } from "@/engine/forms/game/map/spots/SquadSpots";
@@ -14,6 +15,7 @@ import { TreasureSpots } from "@/engine/forms/game/map/spots/TreasureSpots";
 export function MapSpots(): JSXNode {
   return (
     <map_spots>
+      <MapMultiplayerSpots />
       <MapRelationSpots />
       <SmartTerrainSpots />
       <SquadSpots />
