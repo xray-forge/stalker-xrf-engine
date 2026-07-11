@@ -1,6 +1,6 @@
 import { GameObject, PhysicObject, PhysicsElement, PhysicsJoint, PhysicsShell, Vector } from "xray16/alias";
 import { abort, Nillable, TCount, TIndex, TRate, TSection } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
@@ -224,7 +224,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     logger.info("Close door: %s %s", this.object.name(), this.state.section);
 
     if (!disableSound) {
-      if (this.state.sndCloseStart !== null) {
+      if ($isNotNil(this.state.sndCloseStart)) {
         getManager(SoundManager).play(this.object.id(), this.state.sndCloseStart);
       }
     }

@@ -816,7 +816,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    if (isMonsterSquad(squad) && squad.getScriptedSimulationTarget() === null) {
+    if (isMonsterSquad(squad) && $isNil(squad.getScriptedSimulationTarget())) {
       return squad.position.distance_to_sqr(this.position) <= smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
     }
 

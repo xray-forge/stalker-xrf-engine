@@ -219,8 +219,9 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
           }
         } else {
           if (isOnCampPatrolWalkPoint(this.object, this.state)) {
-            const position: Nillable<ILookTargetDescriptor> =
-              this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
+            const position: Nillable<ILookTargetDescriptor> = $isNil(this.enemyPosition)
+              ? null
+              : { lookPosition: this.enemyPosition, lookObjectId: null };
 
             setStalkerState(
               this.object,

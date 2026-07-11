@@ -1,12 +1,12 @@
 import { AnyObject } from "xray16/lib";
-import { $fromArray } from "xray16/macros";
+import { $fromArray, $isNil } from "xray16/macros";
 
 /**
  * Mock table utils for correct interoperation with typescript.
  */
 export const mockTableUtils = {
   isEmpty: (target: AnyObject): boolean => {
-    if (target === null) {
+    if ($isNil(target)) {
       return true;
     }
 

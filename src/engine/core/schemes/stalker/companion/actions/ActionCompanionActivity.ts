@@ -116,7 +116,7 @@ export class ActionCompanionActivity extends action_base {
       }
     }
 
-    if (nextState !== null && nextState !== this.lastState) {
+    if ($isNotNil(nextState) && nextState !== this.lastState) {
       setStalkerState(this.object, nextState, null, null, target, { animation: true });
       this.lastState = nextState;
     }

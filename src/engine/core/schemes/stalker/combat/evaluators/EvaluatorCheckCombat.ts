@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
@@ -22,7 +23,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
    */
   public override evaluate(): boolean {
     if (this.state.enabled && this.object.best_enemy()) {
-      return registry.actor !== null && this.state.scriptCombatType !== null;
+      return $isNotNil(registry.actor) && $isNotNil(this.state.scriptCombatType);
     }
 
     return false;

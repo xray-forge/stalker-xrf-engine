@@ -1,4 +1,5 @@
 import { AnyObject, TNumberId } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type {
@@ -22,12 +23,12 @@ export function isJobAvailableToObject(
   terrain: SmartTerrain
 ): boolean {
   // Job worker recently died, ignore it for now.
-  if (terrain.jobDeadTimeById.get(terrainJob.id as TNumberId) !== null) {
+  if ($isNotNil(terrain.jobDeadTimeById.get(terrainJob.id as TNumberId))) {
     return false;
   }
 
   // Check monster / stalker restriction for job.
-  if (terrainJob.isMonsterJob !== null && terrainJob.isMonsterJob !== objectJob.isMonster) {
+  if ($isNotNil(terrainJob.isMonsterJob) && terrainJob.isMonsterJob !== objectJob.isMonster) {
     return false;
   }
 

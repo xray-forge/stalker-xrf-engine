@@ -35,7 +35,7 @@ export function createStalkerSniperJobs(
 
     let state: TName = EStalkerState.HIDE;
 
-    if (waypointData.state !== null) {
+    if ($isNotNil(waypointData.state)) {
       // todo: Add stand state?
       if (waypointData.state === "stand") {
         state = EStalkerState.THREAT;

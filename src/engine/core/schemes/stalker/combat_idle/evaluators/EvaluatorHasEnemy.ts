@@ -1,6 +1,7 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TDistance, TTimestamp } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { ILogicsOverrides, registry } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
@@ -70,7 +71,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
     if (state.animation) {
       state.animation.setState(null);
 
-      return state.animation.state.animationMarker !== null;
+      return $isNotNil(state.animation.state.animationMarker);
     }
 
     return false;

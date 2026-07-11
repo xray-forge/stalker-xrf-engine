@@ -1,5 +1,6 @@
 import { level } from "xray16";
 import { TIndex, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import {
   jobPreconditionGuard,
@@ -60,11 +61,11 @@ path_look = guard_%s_look
       )
     );
 
-    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
+    if ($isNotNil(terrain.safeRestrictor) && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
@@ -88,11 +89,11 @@ on_info2 = {=distance_to_obj_on_job_le(logic@follower_%s:3)} remark@%s
       )
     );
 
-    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
+    if ($isNotNil(terrain.safeRestrictor) && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
@@ -107,7 +108,7 @@ target = logic@follower_%s
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
@@ -141,7 +142,7 @@ on_info = {=distance_to_obj_on_job_le(logic@%s:3)} remark@follower_%s
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
@@ -157,7 +158,7 @@ on_timer = 2000 | %%=switch_to_desired_job%%
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 

@@ -259,7 +259,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public updateCurrentScriptedAction(scriptTarget: TNumberId): void {
     let isNewActionNeeded: boolean = false;
 
-    if (this.assignedTargetId !== null && this.assignedTargetId === scriptTarget) {
+    if ($isNotNil(this.assignedTargetId) && this.assignedTargetId === scriptTarget) {
       if (this.currentAction) {
         if (this.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
           if (this.isOnAssignedTarget()) {
@@ -447,13 +447,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns Whether the squad is on the assigned terrain target and a next target exists.
    */
   public isOnAssignedTarget(): boolean {
-    if (this.parsedTargets === null) {
+    if ($isNil(this.parsedTargets)) {
       return true;
     }
 
     const nextTargetId: TNumberId = (this.nextTargetIndex ?? 0) + 1;
 
-    if (this.assignedTargetId !== null && this.assignedTargetId === this.assignedTerrainId) {
+    if ($isNotNil(this.assignedTargetId) && this.assignedTargetId === this.assignedTerrainId) {
       if (this.parsedTargets.has(nextTargetId)) {
         this.nextTargetIndex = nextTargetId;
 
@@ -510,7 +510,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
     }
 
-    if (this.assignedTargetId === this.currentTargetId || this.assignedTargetId === null) {
+    if (this.assignedTargetId === this.currentTargetId || $isNil(this.assignedTargetId)) {
       this.currentAction = new SquadStayOnTargetAction(this);
       this.currentTargetId = this.assignedTargetId;
       this.currentAction.initialize(isUnderSimulation);

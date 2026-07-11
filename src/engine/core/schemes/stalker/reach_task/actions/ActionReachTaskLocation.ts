@@ -1,7 +1,7 @@
 import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
 import { EGameObjectMovementType, EGameObjectPath, GameObject, Vector } from "xray16/alias";
 import { areSameVectors, createEmptyVector, Nillable, TNumberId, TTimestamp, Z_VECTOR } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -85,7 +85,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     gameObject.set_sight(look.path_dir, null, 0);
 
     // Add to patrol init.
-    if (reachTaskConfig.PATROLS.get(this.squadId) === null) {
+    if ($isNil(reachTaskConfig.PATROLS.get(this.squadId))) {
       reachTaskConfig.PATROLS.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
     }
 
@@ -113,7 +113,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     let target: Nillable<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
-    if (target === null && squad.getScriptedSimulationTarget() !== null) {
+    if ($isNil(target) && $isNotNil(squad.getScriptedSimulationTarget())) {
       target = registry.simulator.object(squad.assignedTargetId!);
     }
 
@@ -192,7 +192,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     const desiredDirection: Vector = this.direction;
 
-    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
+    if ($isNotNil(desiredDirection) && !areSameVectors(desiredDirection, createEmptyVector())) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }

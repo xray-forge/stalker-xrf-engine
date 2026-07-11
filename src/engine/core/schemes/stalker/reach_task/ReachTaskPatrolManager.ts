@@ -15,7 +15,7 @@ import {
   yawDegree,
   Z_VECTOR,
 } from "xray16/lib";
-import { $filename, $fromObject, $isNil } from "xray16/macros";
+import { $filename, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -92,7 +92,7 @@ export class ReachTaskPatrolManager {
   public removeObjectFromPatrol(object: GameObject): void {
     logger.info("Remove object from patrol: %s %s", object.name(), this.targetId);
 
-    if (this.objectsList.get(object.id()) === null) {
+    if ($isNil(this.objectsList.get(object.id()))) {
       return;
     }
 
@@ -142,7 +142,7 @@ export class ReachTaskPatrolManager {
    * @param formation - Patrol formation to apply.
    */
   public setFormation(formation: EPatrolFormation): void {
-    if (formation === null) {
+    if ($isNil(formation)) {
       abort("Invalid formation (nil) for PatrolManager[%s]", this.targetId);
     }
 
@@ -161,11 +161,11 @@ export class ReachTaskPatrolManager {
    * @returns Game object that is the commander of the patrol.
    */
   public getCommander(object: GameObject): GameObject {
-    if (object === null) {
+    if ($isNil(object)) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 
-    if (this.objectsList.get(object.id()) === null) {
+    if ($isNil(this.objectsList.get(object.id()))) {
       abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.targetId);
     }
 
@@ -195,9 +195,9 @@ export class ReachTaskPatrolManager {
 
     const objectId: TNumberId = object.id();
 
-    if (this.objectsList.get(this.commanderId) === null) {
+    if ($isNil(this.objectsList.get(this.commanderId))) {
       return $multi(object.level_vertex_id(), object.direction(), this.currentState);
-    } else if (this.objectsList.get(object.id()) === null) {
+    } else if ($isNil(this.objectsList.get(object.id()))) {
       abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.targetId);
     } else if (object.id() === this.commanderId) {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
@@ -245,7 +245,7 @@ export class ReachTaskPatrolManager {
     if (distance > distS + 2) {
       const nextState: EStalkerState = accelerationByCurrentType.get(this.currentState);
 
-      if (nextState !== null) {
+      if ($isNotNil(nextState)) {
         return $multi(vertex, direction, nextState);
       }
     }
@@ -261,7 +261,7 @@ export class ReachTaskPatrolManager {
    * @param formation - Patrol formation to apply.
    */
   public setObjectOrders(object: GameObject, command: EStalkerState, formation: EPatrolFormation): void {
-    if (object === null || !object.alive()) {
+    if ($isNil(object) || !object.alive()) {
       abort("NPC commander possible dead in PatrolManager[%s]", this.targetId);
     }
 

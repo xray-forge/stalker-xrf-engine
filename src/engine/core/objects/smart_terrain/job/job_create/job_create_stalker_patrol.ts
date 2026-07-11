@@ -1,10 +1,11 @@
 import { level, patrol } from "xray16";
 import { Patrol } from "xray16/alias";
 import { TCount, TIndex, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { jobPreconditionPatrol } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { type SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
@@ -73,11 +74,11 @@ on_signal = end|%%=search_gulag_job%%
       builder.append(string.format("path_look = patrol_%s_look\n", index));
     }
 
-    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
+    if ($isNotNil(terrain.safeRestrictor) && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 

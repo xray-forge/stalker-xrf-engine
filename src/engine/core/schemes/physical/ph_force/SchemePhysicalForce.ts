@@ -1,6 +1,7 @@
 import { patrol } from "xray16";
 import { GameObject, IniFile, Patrol } from "xray16/alias";
 import { abort, TIndex, TName, TSection } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
@@ -31,15 +32,15 @@ export class SchemePhysicalForce extends AbstractScheme {
     const pathName: TName = readIniString(ini, section, "point", true);
     const index: TIndex = readIniNumber(ini, section, "point_index", false, 0);
 
-    if (state.force === null || state.force <= 0) {
+    if ($isNil(state.force) || state.force <= 0) {
       abort("PH_FORCE : invalid force !");
     }
 
-    if (state.time === null || state.time <= 0) {
+    if ($isNil(state.time) || state.time <= 0) {
       abort("PH_FORCE : invalid time !");
     }
 
-    if (pathName === null || pathName === "") {
+    if ($isNil(pathName) || pathName === "") {
       abort("PH_FORCE : invalid waypoint name !");
     }
 

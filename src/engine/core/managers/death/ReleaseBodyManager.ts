@@ -1,7 +1,7 @@
 import { game_graph, time_global } from "xray16";
 import { GameObject, NetPacket, NetProcessor, ServerObject } from "xray16/alias";
 import { AnyObject, Nillable, TCount, TNumberId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -126,11 +126,11 @@ export class ReleaseBodyManager extends AbstractManager {
       const [index, descriptor] = getNearestCorpseToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
 
       // Nothing to release, can skip further checks.
-      if (index === null) {
+      if ($isNil(index)) {
         return;
       }
 
-      const object: Nillable<ServerObject> = registry.simulator.object(descriptor.id);
+      const object: Nillable<ServerObject> = registry.simulator.object((descriptor as IReleaseDescriptor).id);
 
       if (object && isCreature(object)) {
         logger.info("Releasing object: %s", object.name());

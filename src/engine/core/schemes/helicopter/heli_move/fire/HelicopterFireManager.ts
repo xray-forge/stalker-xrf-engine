@@ -25,6 +25,7 @@ import {
   TRate,
   TTimestamp,
 } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { getIdBySid, registry } from "@/engine/core/database";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
@@ -97,7 +98,7 @@ export class HelicopterFireManager {
     const hud: CUIGameCustom = get_hud();
     const uiHelicopterHealth: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
-    if (uiHelicopterHealth === null) {
+    if ($isNil(uiHelicopterHealth)) {
       hud.AddCustomStatic("cs_heli_health", true);
 
       const xml: XmlInit = resolveXmlFile(helicopterConfig.HELICOPTER_STATIC_UI_XML_PATH);

@@ -1,5 +1,6 @@
 import { time_global } from "xray16";
 import { Vector } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
@@ -29,7 +30,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
       return;
     }
 
-    if (this.state.delay !== null) {
+    if ($isNotNil(this.state.delay)) {
       if (time_global() - this.time < 0) {
         return;
       }

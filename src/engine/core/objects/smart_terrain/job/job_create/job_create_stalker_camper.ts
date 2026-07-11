@@ -42,7 +42,7 @@ export function createStalkerCamperJobs(
       }
     }
 
-    if (waypointData.radius !== null) {
+    if ($isNotNil(waypointData.radius)) {
       radius = waypointData.radius as TDistance;
     }
 
@@ -82,7 +82,7 @@ def_state_campering_fire = %s_fire
       builder.append(string.format("path_look = camper_%s_look\n", index));
     }
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 

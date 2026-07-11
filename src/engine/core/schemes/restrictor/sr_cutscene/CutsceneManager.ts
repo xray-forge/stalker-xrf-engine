@@ -1,7 +1,7 @@
 import { level, patrol } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyCallablesModule, getExtern, Nillable, TName, TNumberId } from "xray16/lib";
-import { $filename, $fromArray } from "xray16/macros";
+import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
@@ -45,7 +45,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public update(): void {
     if (this.motion) {
       this.motion.update();
-      if (this.state.signals!.get("cam_effector_stop") !== null) {
+      if ($isNotNil(this.state.signals!.get("cam_effector_stop"))) {
         this.motion.stopEffect();
         this.onCutscene();
         this.state.signals!.delete("cam_effector_stop");
@@ -76,7 +76,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     const timeHours: number = level.get_time_hours();
 
-    if (this.state.isOutdoor && actor !== null && (timeHours < 6 || timeHours > 21)) {
+    if (this.state.isOutdoor && $isNotNil(actor) && (timeHours < 6 || timeHours > 21)) {
       this.isPostprocess = true;
       level.add_complex_effector("brighten", 1999);
       // --level.add_pp_effector("brighten.ppe", 1999, true)
@@ -97,7 +97,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
     const motion: TName = this.state.cameraEffector!.get(this.motionId);
 
-    if (effectorSets[motion] === null) {
+    if ($isNil(effectorSets[motion])) {
       this.motion = new CameraEffectorSet(
         {
           start: new LuaTable(),

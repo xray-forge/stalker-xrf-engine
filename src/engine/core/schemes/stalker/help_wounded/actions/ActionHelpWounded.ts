@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 import { EGameObjectPath, Vector } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, setStalkerState } from "@/engine/core/database";
@@ -56,7 +56,7 @@ export class ActionHelpWounded extends action_base {
     super.execute();
 
     // Do not execute if target is not defined.
-    if (this.helpingTargetId === null) {
+    if ($isNil(this.helpingTargetId)) {
       return;
     }
 

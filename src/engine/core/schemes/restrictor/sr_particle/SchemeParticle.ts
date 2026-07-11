@@ -1,5 +1,6 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { abort, TSection } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
@@ -31,7 +32,7 @@ export class SchemeParticle extends AbstractScheme {
     state.mode = readIniNumber(ini, section, "mode", true);
     state.looped = readIniBoolean(ini, section, "looped", false);
 
-    if (state.path === null || state.path === "") {
+    if ($isNil(state.path) || state.path === "") {
       abort("Scheme sr_particle: invalid path name in configuration.");
     }
 

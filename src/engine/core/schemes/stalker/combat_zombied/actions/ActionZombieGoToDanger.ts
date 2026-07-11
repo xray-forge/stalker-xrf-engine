@@ -121,7 +121,7 @@ export class ActionZombieGoToDanger extends action_base {
    * @param boneId - Identifier of the bone that was hit.
    */
   public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
-    if (who === null) {
+    if (!who) {
       return;
     }
 
@@ -131,7 +131,7 @@ export class ActionZombieGoToDanger extends action_base {
       if (bestDanger) {
         const bestDangerObject: Nillable<GameObject> = bestDanger.object();
 
-        if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
+        if (bestDangerObject && (bestDanger.type() === danger_object.attacked || amount > 0)) {
           this.enemyLastSeenPos = bestDangerObject.position();
           this.enemyLastSeenVid = bestDangerObject.level_vertex_id();
           this.wasHit = true;

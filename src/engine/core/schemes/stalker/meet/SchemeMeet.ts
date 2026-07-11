@@ -1,6 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { NIL, Nillable, TSection } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -84,7 +85,7 @@ export class SchemeMeet extends AbstractScheme {
   ): void {
     // Read meet configuration from current logics section or from provided section, if it is valid.
     const meetSection: TSection =
-      scheme === null || scheme === NIL
+      $isNil(scheme) || scheme === NIL
         ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION)
         : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION);
 

@@ -110,7 +110,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   const objectState: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   // No state configurations, can select.
-  if (objectState === null) {
+  if ($isNil(objectState)) {
     return true;
   }
 

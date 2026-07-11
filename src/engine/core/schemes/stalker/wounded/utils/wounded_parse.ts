@@ -1,5 +1,5 @@
 import { LuaArray, Nillable, TDistance, TIndex, TRate } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
@@ -23,7 +23,7 @@ export function parseWoundedData(serialized: Nillable<string>): LuaArray<IWounde
       let state: Nillable<string> = null;
       let sound: Nillable<string> = null;
 
-      if (sPosition !== null) {
+      if ($isNotNil(sPosition)) {
         state = string.sub(name, tPosition + 1, sPosition - 1);
         sound = string.sub(name, sPosition + 1);
       } else {

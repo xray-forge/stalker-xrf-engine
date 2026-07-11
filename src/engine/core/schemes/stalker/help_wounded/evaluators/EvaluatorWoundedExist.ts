@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { GameObject } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
@@ -37,7 +37,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
       // Should be alive.
       object.alive() &&
       // Should have no enemies.
-      object.best_enemy() === null &&
+      $isNil(object.best_enemy()) &&
       // Should be not zombied.
       object.character_community() !== communities.zombied &&
       // Should be not wounded.

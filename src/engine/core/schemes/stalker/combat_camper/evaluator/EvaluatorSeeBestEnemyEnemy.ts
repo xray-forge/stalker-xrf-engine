@@ -1,6 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 
@@ -24,7 +25,7 @@ export class EvaluatorSeeBestEnemyEnemy extends property_evaluator {
     const bestEnemy: Nillable<GameObject> = this.object.best_enemy();
 
     // Side effect of evaluator.
-    if (bestEnemy !== null && this.object.alive() && this.object.see(bestEnemy)) {
+    if ($isNotNil(bestEnemy) && this.object.alive() && this.object.see(bestEnemy)) {
       this.state.lastSeenEnemyAtPosition = bestEnemy.position();
 
       return true;

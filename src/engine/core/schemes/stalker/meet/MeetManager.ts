@@ -56,7 +56,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public initialize(): void {
     const actor: Nillable<GameObject> = registry.actor;
 
-    if (actor === null || !this.object.alive()) {
+    if ($isNil(actor) || !this.object.alive()) {
       this.isHelloPassed = false;
       this.isByePassed = false;
       this.currentDistanceToSpeaker = null;
@@ -109,7 +109,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Find by SID if defined.
-    if (victimStoryId !== null && registry.simulator !== null) {
+    if ($isNotNil(victimStoryId) && $isNotNil(registry.simulator)) {
       victim = getObjectByStoryId(victimStoryId as TStringId);
     }
 
