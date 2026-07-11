@@ -105,6 +105,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public currentAction: Nillable<ISquadAction> = null;
   public currentTargetId: Nillable<TNumberId> = null; // Target squad currently stays on.
 
+  // Cached simulation task, recreated only when the squad moves to another graph vertex.
+  public simulationTask: Nillable<ALifeSmartTerrainTask> = null;
+  public simulationTaskGameVertexId: Nillable<TNumberId> = null;
+  public simulationTaskLevelVertexId: Nillable<TNumberId> = null;
+
   public assignedTerrainId: Nillable<TNumberId> = null; // ID of linked smart terrain.
   public assignedTargetId: Nillable<TNumberId> = null; // Target squad should reach.
 
@@ -729,7 +734,17 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns Alife smart terrain task to reach/stay on current object.
    */
   public getSimulationTask(): ALifeSmartTerrainTask {
-    return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
+    if (
+      !this.simulationTask ||
+      this.simulationTaskGameVertexId !== this.m_game_vertex_id ||
+      this.simulationTaskLevelVertexId !== this.m_level_vertex_id
+    ) {
+      this.simulationTask = new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
+      this.simulationTaskGameVertexId = this.m_game_vertex_id;
+      this.simulationTaskLevelVertexId = this.m_level_vertex_id;
+    }
+
+    return this.simulationTask;
   }
 
   /**

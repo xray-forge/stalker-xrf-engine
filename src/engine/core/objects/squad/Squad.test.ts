@@ -157,6 +157,21 @@ describe("Squad object", () => {
     expect(squad.getSimulationTask()).not.toEqual(new CALifeSmartTerrainTask(1, 2));
   });
 
+  it("getSimulationTask should reuse the cached task until the squad moves to another vertex", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const task: CALifeSmartTerrainTask = squad.getSimulationTask();
+
+    // Same vertex - same cached instance.
+    expect(squad.getSimulationTask()).toBe(task);
+
+    (squad as unknown as { m_game_vertex_id: number }).m_game_vertex_id += 1;
+
+    const moved: CALifeSmartTerrainTask = squad.getSimulationTask();
+
+    expect(moved).not.toBe(task);
+    expect(squad.getSimulationTask()).toBe(moved);
+  });
+
   it("onSimulationTargetDeselected should be empty and non-throwable", () => {
     const squad: MockSquad = MockSquad.mock();
 
