@@ -107,6 +107,7 @@ jobs:
       - run: npm ci
       - run: npm run setup
       - run: npm run typecheck
+      - run: npm run format:check
       - run: npm run lint
       - run: npm run cli format ltx -- --check
       - run: npm run cli verify ltx
