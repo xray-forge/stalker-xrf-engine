@@ -559,7 +559,7 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
     mockRestrictorGetter.mockReset();
 
     resetObjectGenericSchemesOnSectionSwitch(item, EScheme.SR_IDLE, "sr_idle@test");
-    expect(item.set_callback).toHaveBeenCalledWith(callback.use_object, null);
+    expect(item.set_callback).not.toHaveBeenCalled();
     expect(item.set_nonscript_usable).toHaveBeenCalledWith(true);
 
     // Does not throw.

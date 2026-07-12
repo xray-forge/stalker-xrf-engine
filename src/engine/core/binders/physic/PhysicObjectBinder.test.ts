@@ -121,27 +121,52 @@ describe("PhysicObjectBinder", () => {
     expect(binder.isInitialized).toBe(false);
 
     binder.reinit();
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
 
     binder.state.activeScheme = EScheme.ANIMPOINT;
     binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
-
-    binder.update(150);
 
     expect(object.set_callback).toHaveBeenCalledTimes(3);
     expect(object.set_callback).toHaveBeenCalledWith(callback.hit, binder.onHit, binder);
     expect(object.set_callback).toHaveBeenCalledWith(callback.death, binder.onDeath, binder);
     expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, binder.onUse, binder);
 
+    binder.update(150);
+
+    expect(object.set_callback).toHaveBeenCalledTimes(3);
+
     expect(binder.isInitialized).toBe(true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.OBJECT);
     expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
     expect(getManager(SoundManager).update).toHaveBeenCalledWith(object.id());
+
+    binder.update(150);
+
+    expect(object.set_callback).toHaveBeenCalledTimes(3);
+
+    binder.reinit();
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
+
+    expect(object.set_callback).toHaveBeenCalledTimes(6);
   });
 
   it("should be save relevant", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
 
     expect(binder.net_save_relevant()).toBe(true);
+  });
+
+  it("should clear callbacks when going offline", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+
+    binder.reinit();
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
+    binder.net_destroy();
+
+    expect(object.set_callback).toHaveBeenCalledWith(callback.hit, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.death, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, null);
   });
 
   it("should handle save/load", () => {

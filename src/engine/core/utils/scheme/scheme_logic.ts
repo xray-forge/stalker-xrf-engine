@@ -340,7 +340,6 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
     }
 
     case ESchemeType.OBJECT: {
-      object.set_callback(callback.use_object, null);
       object.set_nonscript_usable(true);
 
       return;

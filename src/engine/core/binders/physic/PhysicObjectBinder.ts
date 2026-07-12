@@ -56,6 +56,8 @@ export class PhysicObjectBinder extends object_binder {
 
     registerObject(this.object);
 
+    this.setupCallbacks();
+
     return true;
   }
 
@@ -64,6 +66,8 @@ export class PhysicObjectBinder extends object_binder {
     const objectId: TNumberId = object.id();
 
     logger.info("Go offline: %s", object.name());
+
+    this.resetCallbacks();
 
     if (level.map_has_object_spot(objectId, "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
@@ -101,8 +105,6 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     getManager(SoundManager).update(this.object.id());
-
-    this.setupCallbacks();
   }
 
   public override net_save_relevant(): boolean {
@@ -136,6 +138,15 @@ export class PhysicObjectBinder extends object_binder {
     this.object.set_callback(callback.hit, this.onHit, this);
     this.object.set_callback(callback.death, this.onDeath, this);
     this.object.set_callback(callback.use_object, this.onUse, this);
+  }
+
+  /**
+   * Clear binder callbacks before the script binder instance is destroyed.
+   */
+  public resetCallbacks(): void {
+    this.object.set_callback(callback.hit, null);
+    this.object.set_callback(callback.death, null);
+    this.object.set_callback(callback.use_object, null);
   }
 
   /**
