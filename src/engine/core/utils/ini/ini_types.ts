@@ -1,5 +1,5 @@
 import type { Flags32 } from "xray16/alias";
-import type { LuaArray, Nillable, TCount, TIndex, TName, TProbability, TSection } from "xray16/lib";
+import type { AnyCallable, LuaArray, Nillable, TCount, TIndex, TName, TProbability, TSection } from "xray16/lib";
 
 /**
  * Data descriptor describing waypoint logics.
@@ -63,6 +63,8 @@ export interface ISpawnDescriptor {
 export interface IConfigCondition {
   name?: TName;
   func?: TName;
+  // Resolved `xr_conditions` / `xr_effects` function reference, cached at first use.
+  funcRef?: AnyCallable;
   required?: boolean;
   expected?: boolean;
   prob?: TProbability;

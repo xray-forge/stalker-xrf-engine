@@ -3,6 +3,7 @@ import {
   abort,
   AnyCallable,
   AnyObject,
+  assert,
   EMPTY_LUA_ARRAY,
   LuaArray,
   NEVER,
@@ -66,8 +67,6 @@ export function getSectionsFromConditionLists(object: GameObject, data: Nillable
  * Pick resulting scheme based on info portions and xr_conditions requirements.
  * Process side effects of such checks and give needed infos and call effects on switch.
  *
- * Todo: Implement static condlists and check performance without parsing etc.
- *
  * @param actor - Actor Game object.
  * @param object - Game object.
  * @param condlist - Target condlist to process.
@@ -96,14 +95,20 @@ export function pickSectionFromCondList<T extends TSection>(
           break;
         }
       } else if (configCondition.func) {
-        const condition: Nillable<AnyCallable> = (_G as AnyObject)["xr_conditions"][configCondition.func];
+        // Function references resolve once per unique parsed condition - declarations register at load.
+        let condition: Nillable<AnyCallable> = configCondition.funcRef;
 
         if (!condition) {
-          abort(
+          condition = (_G as AnyObject)["xr_conditions"][configCondition.func];
+
+          assert(
+            condition,
             "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_conditions.",
             object?.name(),
             configCondition.func
           );
+
+          configCondition.funcRef = condition;
         }
 
         if (condition(actor, object, configCondition.params ?? EMPTY_LUA_ARRAY)) {
@@ -141,14 +146,19 @@ export function pickSectionFromCondList<T extends TSection>(
         const configCondition: IConfigCondition = infoPortionsSetList.get(setIndex);
 
         if (configCondition.func) {
-          const effect: Nillable<AnyCallable> = (_G as AnyObject)["xr_effects"][configCondition.func];
+          let effect: Nillable<AnyCallable> = configCondition.funcRef;
 
           if (!effect) {
-            abort(
+            effect = (_G as AnyObject)["xr_effects"][configCondition.func];
+
+            assert(
+              effect,
               "object '%s': pickSectionFromCondList: function '%s' is not defined in xr_effects.",
               object?.name(),
               configCondition.func
             );
+
+            configCondition.funcRef = effect;
           }
 
           effect(actor, object, configCondition.params ?? EMPTY_LUA_ARRAY);
