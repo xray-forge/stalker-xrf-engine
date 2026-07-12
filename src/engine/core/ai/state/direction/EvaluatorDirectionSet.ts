@@ -1,6 +1,6 @@
 import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 import { TSightType, Vector } from "xray16/alias";
-import { AnyCallable, areSameVectorsByPrecision, subVectors } from "xray16/lib";
+import { AnyCallable, areSameVectorsByPrecision, createEmptyVector } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -12,6 +12,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 @LuabindClass()
 export class EvaluatorDirectionSet extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
+  private readonly direction: Vector = createEmptyVector();
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorDirectionSet.__name);
@@ -53,7 +54,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
         return true;
       }
 
-      const direction: Vector = subVectors(manager.lookPosition!, this.object.position());
+      const direction: Vector = this.direction.sub(manager.lookPosition!, this.object.position());
 
       if (manager.isLookObjectType()) {
         direction.y = 0;
