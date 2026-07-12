@@ -55,7 +55,7 @@ export function logObjectPlannerState(object: GameObject): void {
   logger.info("Current best enemy: %s", object.best_enemy()?.name());
   logger.info("Current best danger: %s", object.best_danger()?.object()?.name());
   logger.info("Current planner initialized: %s", actionPlanner.initialized());
-  logger.info("Current planner action id: %s %s", currentActionId);
+  logger.info("Current planner action id: %s", currentActionId);
 
   // Detect specifically which action is played.
   if (
@@ -87,7 +87,7 @@ export function logObjectPlannerState(object: GameObject): void {
     const currentActionId: Nillable<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current state planner initialized: %s", actionPlanner.initialized());
-    logger.info("Current state action id: %s %s", currentActionId);
+    logger.info("Current state action id: %s", currentActionId);
 
     if ($isNotNil(actionPlanner.show)) {
       actionPlanner.show(plannerShowPrefix + "[planner] ");
@@ -170,12 +170,12 @@ export function logObjectRelations(object: GameObject): void {
 
   Object.values(stalkerCommunities).forEach((it) => {
     logger.info(
-      "Community to object: %s",
+      "Community to object: %s %s",
       it,
       getNumberRelationBetweenCommunities(it, object.character_community() as TCommunity)
     );
     logger.info(
-      "Object to community: %s",
+      "Object to community: %s %s",
       it,
       getNumberRelationBetweenCommunities(object.character_community() as TCommunity, it)
     );
@@ -191,7 +191,7 @@ export function logObjectRelations(object: GameObject): void {
  */
 export function logObjectState(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object state report: %s %s %", object.name(), object.id(), object.section());
+  logger.info("Print object state report: %s %s %s", object.name(), object.id(), object.section());
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
