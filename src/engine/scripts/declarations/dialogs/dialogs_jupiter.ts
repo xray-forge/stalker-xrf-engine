@@ -14,7 +14,7 @@ import {
   TName,
   TSection,
 } from "xray16/lib";
-import { $filename, $fromArray, $fromObject } from "xray16/macros";
+import { $filename, $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { getManager, registry } from "@/engine/core/database";
@@ -98,9 +98,9 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_all_mail_items", (_: GameObject, __
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_a9_conservation_info) !== null &&
-    actor.object(questItems.jup_a9_power_info) !== null &&
-    actor.object(questItems.jup_a9_way_info) !== null
+    $isNotNil(actor.object(questItems.jup_a9_conservation_info)) &&
+    $isNotNil(actor.object(questItems.jup_a9_power_info)) &&
+    $isNotNil(actor.object(questItems.jup_a9_way_info))
   );
 });
 
@@ -115,13 +115,13 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_items", (_: GameObject, __: Gam
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_a9_delivery_info) !== null ||
-    actor.object(questItems.jup_a9_evacuation_info) !== null ||
-    actor.object(questItems.jup_a9_losses_info) !== null ||
-    actor.object(questItems.jup_a9_power_info) !== null ||
-    actor.object(questItems.jup_a9_conservation_info) !== null ||
-    actor.object(questItems.jup_a9_way_info) !== null ||
-    actor.object(questItems.jup_a9_meeting_info) !== null
+    $isNotNil(actor.object(questItems.jup_a9_delivery_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_evacuation_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_losses_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_power_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_conservation_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_way_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_meeting_info))
   );
 });
 
@@ -136,9 +136,9 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_mail_items", (_: GameObject, __
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_a9_conservation_info) !== null ||
-    actor.object(questItems.jup_a9_power_info) !== null ||
-    actor.object(questItems.jup_a9_way_info) !== null
+    $isNotNil(actor.object(questItems.jup_a9_conservation_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_power_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_way_info))
   );
 });
 
@@ -153,10 +153,10 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_secondary_items", (_: GameObjec
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_a9_delivery_info) !== null ||
-    actor.object(questItems.jup_a9_evacuation_info) !== null ||
-    actor.object(questItems.jup_a9_losses_info) !== null ||
-    actor.object(questItems.jup_a9_meeting_info) !== null
+    $isNotNil(actor.object(questItems.jup_a9_delivery_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_evacuation_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_losses_info)) ||
+    $isNotNil(actor.object(questItems.jup_a9_meeting_info))
   );
 });
 
@@ -171,9 +171,9 @@ extern("dialogs_jupiter.jupiter_a9_actor_hasnt_any_mail_items", (_: GameObject, 
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(questItems.jup_a9_conservation_info) === null ||
-    actor.object(questItems.jup_a9_power_info) === null ||
-    actor.object(questItems.jup_a9_way_info) === null
+    $isNil(actor.object(questItems.jup_a9_conservation_info)) ||
+    $isNil(actor.object(questItems.jup_a9_power_info)) ||
+    $isNil(actor.object(questItems.jup_a9_way_info))
   );
 });
 
@@ -445,7 +445,7 @@ extern(
  * @returns Whether the actor has the conservation info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_conservation_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_conservation_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_conservation_info));
 });
 
 /**
@@ -486,7 +486,7 @@ extern(
  * @returns Whether the actor has the power info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_power_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_power_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_power_info));
 });
 
 /**
@@ -524,7 +524,7 @@ extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: GameObject, s
  * @returns Whether the actor has the way info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_way_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_way_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_way_info));
 });
 
 /**
@@ -562,7 +562,7 @@ extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: GameObject, sec
  * @returns Whether the actor has the meeting info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_meeting_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_meeting_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_meeting_info));
 });
 
 /**
@@ -601,7 +601,7 @@ extern("dialogs_jupiter.actor_relocate_meeting_info", (firstSpeaker: GameObject,
  * @returns Whether the actor has the delivery info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_delivery_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_delivery_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_delivery_info));
 });
 
 /**
@@ -629,7 +629,7 @@ extern(
  * @returns Whether the actor has the evacuation info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_evacuation_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_evacuation_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_evacuation_info));
 });
 
 /**
@@ -682,7 +682,7 @@ extern("dialogs_jupiter.actor_relocate_delivery_info", (firstSpeaker: GameObject
  * @returns Whether the actor has the losses info.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_losses_info", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_a9_losses_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_a9_losses_info));
 });
 
 /**
@@ -721,7 +721,7 @@ extern("dialogs_jupiter.actor_relocate_losses_info", (firstSpeaker: GameObject, 
  * @returns Whether the actor has the plant item.
  */
 extern("dialogs_jupiter.actor_has_plant", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b206_plant) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b206_plant));
 });
 
 /**
@@ -923,7 +923,7 @@ extern(
  * @returns Whether the actor has the oasis artefact.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b16_oasis_artifact", (firstSpeaker: GameObject, __: GameObject): boolean => {
-  return firstSpeaker.object(artefacts.af_oasis_heart) !== null;
+  return $isNotNil(firstSpeaker.object(artefacts.af_oasis_heart));
 });
 
 /**
@@ -1004,7 +1004,7 @@ const jupA12AfTable: LuaArray<TArtefact> = $fromArray<TArtefact>([
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefacts", (_: GameObject, __: GameObject): boolean => {
   for (const [k, v] of jupA12AfTable) {
-    if (registry.actor.object(v) !== null) {
+    if ($isNotNil(registry.actor.object(v))) {
       return true;
     }
   }
@@ -1020,7 +1020,7 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefacts", (_: GameObject, __: GameOb
  * @returns Whether the actor has the first artefact.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_1", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(jupA12AfTable.get(1)) !== null;
+  return $isNotNil(registry.actor.object(jupA12AfTable.get(1)));
 });
 
 /**
@@ -1031,7 +1031,7 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefact_1", (_: GameObject, __: GameO
  * @returns Whether the actor has the second artefact.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_2", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(jupA12AfTable.get(2)) !== null;
+  return $isNotNil(registry.actor.object(jupA12AfTable.get(2)));
 });
 
 /**
@@ -1042,7 +1042,7 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefact_2", (_: GameObject, __: GameO
  * @returns Whether the actor has the third artefact.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_3", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(jupA12AfTable.get(3)) !== null;
+  return $isNotNil(registry.actor.object(jupA12AfTable.get(3)));
 });
 
 /**
@@ -1053,7 +1053,7 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefact_3", (_: GameObject, __: GameO
  * @returns Whether the actor has the fourth artefact.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_4", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(jupA12AfTable.get(4)) !== null;
+  return $isNotNil(registry.actor.object(jupA12AfTable.get(4)));
 });
 
 /**
@@ -1067,7 +1067,7 @@ extern("dialogs_jupiter.jup_a12_actor_do_not_has_artefacts", (_: GameObject, __:
   const actor: GameObject = registry.actor;
 
   for (const [k, v] of jupA12AfTable) {
-    if (actor.object(v) !== null) {
+    if ($isNotNil(actor.object(v))) {
       return false;
     }
   }
@@ -1368,7 +1368,7 @@ extern(
   (_: GameObject, secondSpeaker: GameObject): boolean => {
     const actor: GameObject = registry.actor;
 
-    if (actor.object(questItems.jup_b9_blackbox) !== null) {
+    if ($isNotNil(actor.object(questItems.jup_b9_blackbox))) {
       return true;
     }
 
@@ -1388,7 +1388,7 @@ extern(
  * @returns Whether the actor has the dealer PDA.
  */
 extern("dialogs_jupiter.jup_b207_actor_has_dealers_pda", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object("device_pda_zat_b5_dealer") !== null;
+  return $isNotNil(registry.actor.object("device_pda_zat_b5_dealer"));
 });
 
 /**
@@ -1421,7 +1421,7 @@ extern("dialogs_jupiter.jup_b207_give_dealers_pda", (firstSpeaker: GameObject, s
  * @returns Whether the actor has the mercenary PDA.
  */
 extern("dialogs_jupiter.jup_b207_actor_has_merc_pda_with_contract", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object("jup_b207_merc_pda_with_contract") !== null;
+  return $isNotNil(registry.actor.object("jup_b207_merc_pda_with_contract"));
 });
 
 /**
@@ -1486,7 +1486,7 @@ extern("dialogs_jupiter.give_jup_b1_art", (firstSpeaker: GameObject, secondSpeak
  * @returns Whether the actor has the half artefact.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b1_art", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object("jup_b1_half_artifact") !== null;
+  return $isNotNil(registry.actor.object("jup_b1_half_artifact"));
 });
 
 /**
@@ -1526,7 +1526,7 @@ extern("dialogs_jupiter.jup_b1_reward_actor", (_: GameObject, __: GameObject): v
 extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
 
-  if (actor.item_in_slot(7) !== null && actor.item_in_slot(7)!.section() === "cs_heavy_outfit") {
+  if ($isNotNil(actor.item_in_slot(7)) && actor.item_in_slot(7)!.section() === "cs_heavy_outfit") {
     return true;
   }
 
@@ -1632,11 +1632,11 @@ extern("dialogs_jupiter.jup_b1_actor_have_good_suit", (_: GameObject, __: GameOb
 
   const actor: GameObject = registry.actor;
 
-  if (actor.item_in_slot(7) !== null && suitsList.get(actor.section())) {
+  if ($isNotNil(actor.item_in_slot(7)) && suitsList.get(actor.section())) {
     return true;
   }
 
-  if (actor.item_in_slot(12) !== null && helmetsList.get(actor.item_in_slot(12)!.section())) {
+  if ($isNotNil(actor.item_in_slot(12)) && helmetsList.get(actor.item_in_slot(12)!.section())) {
     return true;
   }
 
@@ -1704,9 +1704,9 @@ extern("dialogs_jupiter.jup_b202_actor_has_medkit", (_: GameObject, __: GameObje
   const actor: GameObject = registry.actor;
 
   return (
-    actor.object(drugs.medkit) !== null ||
-    actor.object(drugs.medkit_army) !== null ||
-    actor.object(drugs.medkit_scientic) !== null
+    $isNotNil(actor.object(drugs.medkit)) ||
+    $isNotNil(actor.object(drugs.medkit_army)) ||
+    $isNotNil(actor.object(drugs.medkit_scientic))
   );
 });
 
@@ -1760,13 +1760,13 @@ extern(
       return false;
     }
 
-    if (registry.simulator.object(npcAlife.group_id) === null) {
+    if ($isNil(registry.simulator.object(npcAlife.group_id))) {
       return false;
     }
 
     const squadName: TName = registry.simulator.object(npcAlife.group_id)!.section_name();
 
-    if (squadName !== null && squadName !== "") {
+    if ($isNotNil(squadName) && squadName !== "") {
       if (!hasInfoPortion(infoPortions.jup_b1_squad_is_dead) && squadName === infoPortions.jup_b1_stalker_squad) {
         return true;
       } else if (
@@ -1822,7 +1822,7 @@ extern("dialogs_jupiter.jup_b217_actor_got_toolkit", (_: GameObject, __: GameObj
 
   actor.iterate_inventory(isToolkit, actor);
 
-  if ((actor as AnyObject).toolkit !== null) {
+  if ($isNotNil((actor as AnyObject).toolkit)) {
     return true;
   }
 
@@ -1856,7 +1856,7 @@ extern(
 
         count = count + 1;
 
-        if (itemsToRelocate.get(section) === null) {
+        if ($isNil(itemsToRelocate.get(section))) {
           itemsToRelocate.set(section, 1);
         } else {
           itemsToRelocate.set(section, itemsToRelocate.get(section) + 1);
@@ -1897,11 +1897,11 @@ extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: GameObject, secondSpeak
 extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
 
-  if (actor.object(drugs.medkit) !== null) {
+  if ($isNotNil(actor.object(drugs.medkit))) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit);
-  } else if (actor.object(drugs.medkit_army) !== null) {
+  } else if ($isNotNil(actor.object(drugs.medkit_army))) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_army);
-  } else if (actor.object(drugs.medkit_scientic) !== null) {
+  } else if ($isNotNil(actor.object(drugs.medkit_scientic))) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic);
   }
 });
@@ -2037,7 +2037,7 @@ extern("dialogs_jupiter.jup_b9_actor_has_not_money", (firstSpeaker: GameObject, 
  * @returns Whether the actor has the blackbox.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b9_blackbox", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b9_blackbox) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b9_blackbox));
 });
 
 /**
@@ -2048,7 +2048,7 @@ extern("dialogs_jupiter.if_actor_has_jup_b9_blackbox", (_: GameObject, __: GameO
  * @returns Whether the actor has the mincer meat artefact.
  */
 extern("dialogs_jupiter.if_actor_has_af_mincer_meat", (firstSpeaker: GameObject, __: GameObject): boolean => {
-  return firstSpeaker.object(artefacts.af_mincer_meat) !== null;
+  return $isNotNil(firstSpeaker.object(artefacts.af_mincer_meat));
 });
 
 /**
@@ -2059,7 +2059,7 @@ extern("dialogs_jupiter.if_actor_has_af_mincer_meat", (firstSpeaker: GameObject,
  * @returns Whether the actor has the fuzz kolobok artefact.
  */
 extern("dialogs_jupiter.if_actor_has_af_fuzz_kolobok", (firstSpeaker: GameObject, __: GameObject): boolean => {
-  return firstSpeaker.object(artefacts.af_fuzz_kolobok) !== null;
+  return $isNotNil(firstSpeaker.object(artefacts.af_fuzz_kolobok));
 });
 
 /**
@@ -2071,7 +2071,7 @@ extern("dialogs_jupiter.if_actor_has_af_fuzz_kolobok", (firstSpeaker: GameObject
  */
 extern("dialogs_jupiter.actor_has_first_or_second_artefact", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return (
-    firstSpeaker.object(artefacts.af_mincer_meat) !== null || firstSpeaker.object(artefacts.af_fuzz_kolobok) !== null
+    $isNotNil(firstSpeaker.object(artefacts.af_mincer_meat)) || $isNotNil(firstSpeaker.object(artefacts.af_fuzz_kolobok))
   );
 });
 
@@ -2127,7 +2127,7 @@ extern("dialogs_jupiter.jup_b46_sell_duty_founder_pda", (_: GameObject, __: Game
 extern(
   "dialogs_jupiter.jup_b46_transfer_duty_founder_pda",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-    if (registry.actor.object(questItems.jup_b46_duty_founder_pda) !== null) {
+    if ($isNotNil(registry.actor.object(questItems.jup_b46_duty_founder_pda))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b46_duty_founder_pda);
     }
   }
@@ -2157,7 +2157,7 @@ extern(
  * @returns Whether the actor has the founder PDA.
  */
 extern("dialogs_jupiter.jup_b46_actor_has_founder_pda", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b46_duty_founder_pda) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b46_duty_founder_pda));
 });
 
 /**
@@ -2183,7 +2183,7 @@ extern("dialogs_jupiter.jup_b47_jupiter_docs_enabled", (_: GameObject, __: GameO
   let a: boolean = false;
 
   for (const [k, v] of itemsTable) {
-    if (actor.object(v) !== null) {
+    if ($isNotNil(actor.object(v))) {
       a = true;
       break;
     }
@@ -2191,7 +2191,7 @@ extern("dialogs_jupiter.jup_b47_jupiter_docs_enabled", (_: GameObject, __: GameO
 
   const b: boolean =
     !hasInfoPortion(infoPortions.jup_b47_jupiter_products_start) &&
-    actor.object(infoPortions.jup_b47_jupiter_products_info) !== null;
+    $isNotNil(actor.object(infoPortions.jup_b47_jupiter_products_info));
   const c: boolean = hasInfoPortion(infoPortions.jup_b6_scientist_nuclear_physicist_jupiter_docs_talked);
 
   return (a || b) && !c;
@@ -2494,7 +2494,7 @@ extern(
  * @returns Whether the products info is present.
  */
 extern("dialogs_jupiter.jup_b47_jupiter_products_info_enabled", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b47_jupiter_products_info) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b47_jupiter_products_info));
 });
 
 /**
@@ -2505,7 +2505,7 @@ extern("dialogs_jupiter.jup_b47_jupiter_products_info_enabled", (_: GameObject, 
  * @returns Whether the products info is absent.
  */
 extern("dialogs_jupiter.jup_b47_jupiter_products_info_disabled", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b47_jupiter_products_info) === null;
+  return $isNil(registry.actor.object(questItems.jup_b47_jupiter_products_info));
 });
 
 /**
@@ -2536,7 +2536,7 @@ extern(
  * @returns Whether the actor has the mercenary PDA.
  */
 extern("dialogs_jupiter.jup_b47_actor_has_merc_pda", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object("jup_b47_merc_pda") !== null;
+  return $isNotNil(registry.actor.object("jup_b47_merc_pda"));
 });
 
 /**
@@ -2629,7 +2629,7 @@ extern("dialogs_jupiter.jup_b47_gauss_rifle_revard", (_: GameObject, __: GameObj
  * @returns Whether the actor has the gauss rifle docs.
  */
 extern("dialogs_jupiter.jup_b47_actor_has_hauss_rifle_docs", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_a23_gauss_rifle_docs) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_a23_gauss_rifle_docs));
 });
 
 /**
@@ -2654,7 +2654,7 @@ extern(
  * @returns Whether the actor has the UFO memory.
  */
 extern("dialogs_jupiter.jup_b10_ufo_memory_give_to_actor", (firstSpeaker: GameObject, __: GameObject): boolean => {
-  return firstSpeaker.object(questItems.jup_b10_ufo_memory) !== null;
+  return $isNotNil(firstSpeaker.object(questItems.jup_b10_ufo_memory));
 });
 
 /**
@@ -2760,7 +2760,7 @@ extern(
  * @returns Whether the actor has the UFO memory.
  */
 extern("dialogs_jupiter.jup_b10_actor_has_ufo_memory", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b10_ufo_memory) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b10_ufo_memory));
 });
 
 /**
@@ -2804,7 +2804,7 @@ extern("dialogs_jupiter.jupiter_b6_sell_halfartefact", (_: GameObject, __: GameO
  * @returns Whether the actor has the note.
  */
 extern("dialogs_jupiter.pri_a15_sokolov_actor_has_note", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(questItems.jup_b205_sokolov_note) !== null;
+  return $isNotNil(registry.actor.object(questItems.jup_b205_sokolov_note));
 });
 
 /**
@@ -2868,7 +2868,7 @@ extern("dialogs_jupiter.jup_b47_actor_not_enemy_to_dolg", (_: GameObject, __: Ga
  * @returns Whether the actor has the scientific outfit.
  */
 extern("dialogs_jupiter.jup_b15_actor_sci_outfit", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(outfits.scientific_outfit) !== null;
+  return $isNotNil(registry.actor.object(outfits.scientific_outfit));
 });
 
 /**
@@ -2879,7 +2879,7 @@ extern("dialogs_jupiter.jup_b15_actor_sci_outfit", (_: GameObject, __: GameObjec
  * @returns Whether the actor lacks the scientific outfit.
  */
 extern("dialogs_jupiter.jup_b15_no_actor_sci_outfit", (_: GameObject, __: GameObject): boolean => {
-  return registry.actor.object(outfits.scientific_outfit) === null;
+  return $isNil(registry.actor.object(outfits.scientific_outfit));
 });
 
 /**

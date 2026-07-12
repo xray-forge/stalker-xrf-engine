@@ -15,7 +15,7 @@ import {
   TSection,
   TStringId,
 } from "xray16/lib";
-import { $filename, $fromArray, $fromObject, $isNotNil } from "xray16/macros";
+import { $filename, $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
@@ -190,7 +190,7 @@ extern("dialogs_zaton.zat_b30_actor_has_200", (firstSpeaker: GameObject, secondS
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b36_monolith_hiding_place_pda",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.pri_b36_monolith_hiding_place_pda) !== null;
+    return $isNotNil(registry.actor.object(questItems.pri_b36_monolith_hiding_place_pda));
   }
 );
 
@@ -204,7 +204,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b306_envoy_pda",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.pri_b306_envoy_pda) !== null;
+    return $isNotNil(registry.actor.object(questItems.pri_b306_envoy_pda));
   }
 );
 
@@ -218,7 +218,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_1",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.jup_b10_notes_01) !== null;
+    return $isNotNil(registry.actor.object(questItems.jup_b10_notes_01));
   }
 );
 
@@ -232,7 +232,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_2",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.jup_b10_notes_02) !== null;
+    return $isNotNil(registry.actor.object(questItems.jup_b10_notes_02));
   }
 );
 
@@ -246,7 +246,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_3",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.jup_b10_notes_03) !== null;
+    return $isNotNil(registry.actor.object(questItems.jup_b10_notes_03));
   }
 );
 
@@ -260,7 +260,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_detector_scientific",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(detectors.detector_scientific) !== null;
+    return $isNotNil(registry.actor.object(detectors.detector_scientific));
   }
 );
 
@@ -274,7 +274,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_flash_snag",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.device_flash_snag) !== null;
+    return $isNotNil(registry.actor.object(questItems.device_flash_snag));
   }
 );
 
@@ -288,7 +288,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_pda_port_bandit_leader",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.device_pda_port_bandit_leader) !== null;
+    return $isNotNil(registry.actor.object(questItems.device_pda_port_bandit_leader));
   }
 );
 
@@ -302,7 +302,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_ufo_memory",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.jup_b10_ufo_memory_2) !== null;
+    return $isNotNil(registry.actor.object(questItems.jup_b10_ufo_memory_2));
   }
 );
 
@@ -316,7 +316,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b202_bandit_pda",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.jup_b202_bandit_pda) !== null;
+    return $isNotNil(registry.actor.object(questItems.jup_b202_bandit_pda));
   }
 );
 
@@ -569,7 +569,7 @@ extern("dialogs_zaton.zat_b14_transfer_artefact", (firstSpeaker: GameObject, sec
  * @returns Whether the first speaker owns the twisted quest artefact.
  */
 extern("dialogs_zaton.actor_has_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return firstSpeaker.object(artefacts.af_quest_b14_twisted) !== null;
+  return $isNotNil(firstSpeaker.object(artefacts.af_quest_b14_twisted));
 });
 
 /**
@@ -957,7 +957,7 @@ extern("dialogs_zaton.zat_b33_transfer_safe_container", (firstSpeaker: GameObjec
  * @returns Whether the actor owns the zat_b33 safe container.
  */
 extern("dialogs_zaton.zat_b33_aractor_has_habar", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b33_safe_container) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b33_safe_container));
 });
 
 /**
@@ -1261,7 +1261,7 @@ extern("dialogs_zaton.zat_b29_actor_has_exchange_item", (): boolean => {
     (actor as AnyObject).goodGun = table.random(actorWeaponsTable)[1];
   }
 
-  return (actor as AnyObject).goodGun !== null;
+  return $isNotNil((actor as AnyObject).goodGun);
 });
 
 /**
@@ -1275,7 +1275,7 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: GameObject, second
 
   for (const i of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-      if ((actor as AnyObject).goodGun !== null) {
+      if ($isNotNil((actor as AnyObject).goodGun)) {
         transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).goodGun);
         transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
 
@@ -1330,7 +1330,7 @@ extern("dialogs_zaton.zat_b30_actor_second_exchange", (firstSpeaker: GameObject,
 extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
 
-  if ((actor as AnyObject).goodGun !== null) {
+  if ($isNotNil((actor as AnyObject).goodGun)) {
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), (actor as AnyObject).goodGun);
     transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
     (actor as AnyObject).goodGun = null;
@@ -1435,7 +1435,7 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker
   } as unknown as LuaSet<TWeapon>;
 
   for (const k of needItem) {
-    if (actor.object(k) !== null) {
+    if ($isNotNil(actor.object(k))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k, "all");
     }
   }
@@ -1468,15 +1468,15 @@ extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, sec
   } as unknown as LuaSet<TWeapon>;
 
   for (const k of needItem) {
-    if (actor.object(k) !== null) {
+    if ($isNotNil(actor.object(k))) {
       table.insert(actorHasItem, k);
     }
 
-    if (actor.item_in_slot(2) !== null && actor.item_in_slot(2)!.section() === k) {
+    if ($isNotNil(actor.item_in_slot(2)) && actor.item_in_slot(2)!.section() === k) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k);
 
       return;
-    } else if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === k) {
+    } else if ($isNotNil(actor.item_in_slot(3)) && actor.item_in_slot(3)!.section() === k) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k);
 
       return;
@@ -1745,7 +1745,7 @@ extern(
     let cnt: TCount = 0;
     let cnt2: TCount = 0;
 
-    if (actor.object(questItems.zat_b12_documents_1) !== null) {
+    if ($isNotNil(actor.object(questItems.zat_b12_documents_1))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b12_documents_1);
       giveInfoPortion(infoPortions.zat_b12_documents_sold_1);
       amountTotal = amountTotal + amountDoc1;
@@ -1763,7 +1763,7 @@ extern(
       }
     }, actor);
 
-    if (actor.object(questItems.zat_b12_documents_2) !== null) {
+    if ($isNotNil(actor.object(questItems.zat_b12_documents_2))) {
       if (cnt < 1) {
         amountTotal = amountTotal + amountDoc2;
 
@@ -1809,7 +1809,7 @@ extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: GameObject, seco
     }
   }, actor);
 
-  return (actor as AnyObject).toolkit !== null;
+  return $isNotNil((actor as AnyObject).toolkit);
 });
 
 /**
@@ -1844,7 +1844,7 @@ extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: GameObject, secondSpeaker:
  * @returns Whether the actor owns the first toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(misc.toolkit_1) !== null;
+  return $isNotNil(registry.actor.object(misc.toolkit_1));
 });
 
 /**
@@ -1867,7 +1867,7 @@ extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: GameObject, secondSpeaker:
  * @returns Whether the actor owns the second toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(misc.toolkit_2) !== null;
+  return $isNotNil(registry.actor.object(misc.toolkit_2));
 });
 
 /**
@@ -2055,7 +2055,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_1",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(16)) && registry.actor.object(zatB29AfTable.get(16)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(16)) && $isNotNil(registry.actor.object(zatB29AfTable.get(16)));
   }
 );
 
@@ -2069,7 +2069,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_2",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(17)) && registry.actor.object(zatB29AfTable.get(17)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(17)) && $isNotNil(registry.actor.object(zatB29AfTable.get(17)));
   }
 );
 
@@ -2083,7 +2083,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_3",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(18)) && registry.actor.object(zatB29AfTable.get(18)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(18)) && $isNotNil(registry.actor.object(zatB29AfTable.get(18)));
   }
 );
 
@@ -2097,7 +2097,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_4",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(19)) && registry.actor.object(zatB29AfTable.get(19)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(19)) && $isNotNil(registry.actor.object(zatB29AfTable.get(19)));
   }
 );
 
@@ -2111,7 +2111,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_5",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(20)) && registry.actor.object(zatB29AfTable.get(20)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(20)) && $isNotNil(registry.actor.object(zatB29AfTable.get(20)));
   }
 );
 
@@ -2125,7 +2125,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_6",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(21)) && registry.actor.object(zatB29AfTable.get(21)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(21)) && $isNotNil(registry.actor.object(zatB29AfTable.get(21)));
   }
 );
 
@@ -2139,7 +2139,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_7",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(22)) && registry.actor.object(zatB29AfTable.get(22)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(22)) && $isNotNil(registry.actor.object(zatB29AfTable.get(22)));
   }
 );
 
@@ -2153,7 +2153,7 @@ extern(
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_8",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return hasInfoPortion(zatB29InfopTable.get(23)) && registry.actor.object(zatB29AfTable.get(23)) !== null;
+    return hasInfoPortion(zatB29InfopTable.get(23)) && $isNotNil(registry.actor.object(zatB29AfTable.get(23)));
   }
 );
 
@@ -2191,7 +2191,7 @@ extern(
  * @returns Whether the actor owns the compass artefact.
  */
 extern("dialogs_zaton.zat_b30_actor_has_compass", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(artefacts.af_compass) !== null;
+  return $isNotNil(registry.actor.object(artefacts.af_compass));
 });
 
 /**
@@ -2246,7 +2246,7 @@ extern(
  * @returns Whether the actor owns Noah's PDA quest item.
  */
 extern("dialogs_zaton.zat_b30_actor_has_noah_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b20_noah_pda) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b20_noah_pda));
 });
 
 /**
@@ -2268,7 +2268,7 @@ extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: GameObject, secondS
  * @returns Whether the actor owns the zat_b40 notebook quest item.
  */
 extern("dialogs_zaton.zat_b40_actor_has_notebook", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b40_notebook) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b40_notebook));
 });
 
 /**
@@ -2279,7 +2279,7 @@ extern("dialogs_zaton.zat_b40_actor_has_notebook", (firstSpeaker: GameObject, se
  * @returns Whether the actor owns the first zat_b40 mercenary PDA.
  */
 extern("dialogs_zaton.zat_b40_actor_has_merc_pda_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b40_pda_1) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b40_pda_1));
 });
 
 /**
@@ -2290,7 +2290,7 @@ extern("dialogs_zaton.zat_b40_actor_has_merc_pda_1", (firstSpeaker: GameObject, 
  * @returns Whether the actor owns the second zat_b40 mercenary PDA.
  */
 extern("dialogs_zaton.zat_b40_actor_has_merc_pda_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b40_pda_2) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b40_pda_2));
 });
 
 /**
@@ -2301,7 +2301,7 @@ extern("dialogs_zaton.zat_b40_actor_has_merc_pda_2", (firstSpeaker: GameObject, 
  * @returns Whether the actor owns the third toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(misc.toolkit_3) !== null;
+  return $isNotNil(registry.actor.object(misc.toolkit_3));
 });
 
 /**
@@ -2322,7 +2322,7 @@ extern("dialogs_zaton.give_vodka", (firstSpeaker: GameObject, secondSpeaker: Gam
  * @returns Whether the actor owns a bottle of vodka.
  */
 extern("dialogs_zaton.if_actor_has_vodka", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(food.vodka) !== null;
+  return $isNotNil(registry.actor.object(food.vodka));
 });
 
 /**
@@ -2416,7 +2416,7 @@ extern("dialogs_zaton.return_zat_a23_gauss_rifle_docs", (firstSpeaker: GameObjec
 extern(
   "dialogs_zaton.if_actor_has_zat_a23_gauss_rifle_docs",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return firstSpeaker.object(questItems.zat_a23_gauss_rifle_docs) !== null;
+    return $isNotNil(firstSpeaker.object(questItems.zat_a23_gauss_rifle_docs));
   }
 );
 
@@ -2428,7 +2428,7 @@ extern(
  * @returns Whether the first speaker owns the gauss rifle quest item.
  */
 extern("dialogs_zaton.if_actor_has_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return firstSpeaker.object(questItems.pri_a17_gauss_rifle) !== null;
+  return $isNotNil(firstSpeaker.object(questItems.pri_a17_gauss_rifle));
 });
 
 /**
@@ -2618,8 +2618,8 @@ extern(
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_global", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
-    registry.actor.object(questItems.zat_b39_joker_pda) !== null ||
-    registry.actor.object(questItems.zat_b44_barge_pda) !== null
+    $isNotNil(registry.actor.object(questItems.zat_b39_joker_pda)) ||
+    $isNotNil(registry.actor.object(questItems.zat_b44_barge_pda))
   );
 });
 
@@ -2634,8 +2634,8 @@ extern(
   "dialogs_zaton.zat_b44_actor_has_not_pda_global",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     return (
-      registry.actor.object(questItems.zat_b39_joker_pda) === null ||
-      registry.actor.object(questItems.zat_b44_barge_pda) === null
+      $isNil(registry.actor.object(questItems.zat_b39_joker_pda)) ||
+      $isNil(registry.actor.object(questItems.zat_b44_barge_pda))
     );
   }
 );
@@ -2648,7 +2648,7 @@ extern(
  * @returns Whether the actor owns the barge PDA quest item.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_barge", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b44_barge_pda) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b44_barge_pda));
 });
 
 /**
@@ -2659,7 +2659,7 @@ extern("dialogs_zaton.zat_b44_actor_has_pda_barge", (firstSpeaker: GameObject, s
  * @returns Whether the actor owns the Joker PDA quest item.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_joker", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b39_joker_pda) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b39_joker_pda));
 });
 
 /**
@@ -2671,8 +2671,8 @@ extern("dialogs_zaton.zat_b44_actor_has_pda_joker", (firstSpeaker: GameObject, s
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_both", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
-    registry.actor.object(questItems.zat_b39_joker_pda) !== null &&
-    registry.actor.object(questItems.zat_b44_barge_pda) !== null
+    $isNotNil(registry.actor.object(questItems.zat_b39_joker_pda)) &&
+    $isNotNil(registry.actor.object(questItems.zat_b44_barge_pda))
   );
 });
 
@@ -3046,7 +3046,7 @@ extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: GameObject, secondS
 extern(
   "dialogs_zaton.zat_a23_actor_has_access_card",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    return registry.actor.object(questItems.zat_a23_access_card) !== null;
+    return $isNotNil(registry.actor.object(questItems.zat_a23_access_card));
   }
 );
 
@@ -3087,7 +3087,7 @@ extern(
  * @returns Whether the actor owns the zat_b57 gas quest item.
  */
 extern("dialogs_zaton.actor_has_gas", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return registry.actor.object(questItems.zat_b57_gas) !== null;
+  return $isNotNil(registry.actor.object(questItems.zat_b57_gas));
 });
 
 /**
