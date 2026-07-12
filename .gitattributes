@@ -1,0 +1,6 @@
+# Store text files with the repository's intended CRLF line endings on checkout.
+* text=auto eol=crlf
+
+# Shell entry points must remain LF so Git can execute them reliably.
+*.sh text eol=lf
+.husky/* text eol=lf
