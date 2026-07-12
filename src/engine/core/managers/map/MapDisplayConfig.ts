@@ -13,6 +13,7 @@ export const MAP_DISPLAY_CONFIG_LTX: IniFile = new ini_file("managers\\map_displ
 
 export const mapDisplayConfig = {
   REQUIRE_SMART_TERRAIN_VISIT: readIniBoolean(MAP_DISPLAY_CONFIG_LTX, "config", "require_smart_terrain_visit", true),
+  DISTANCE_CHECK_INTERVAL: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "distance_check_interval", true),
   DISTANCE_TO_OPEN: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "distance_to_open", true),
   DISTANCE_TO_DISPLAY: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "distance_to_display", true),
   MAP_MARKS: readIniMapMarks(MAP_DISPLAY_CONFIG_LTX),

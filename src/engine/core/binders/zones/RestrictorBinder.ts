@@ -38,6 +38,8 @@ export class RestrictorBinder extends object_binder {
   public isLoaded: boolean = false;
   public isVisited: boolean = false;
 
+  public visitCheckElapsed: TDuration = mapDisplayConfig.DISTANCE_CHECK_INTERVAL;
+
   public override reinit(): void {
     super.reinit();
 
@@ -98,12 +100,20 @@ export class RestrictorBinder extends object_binder {
       initializeObjectSchemeLogic(object, state, this.isLoaded, ESchemeType.RESTRICTOR);
     }
 
-    if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
-      logger.info("Visited: %s", object.name());
+    if (!this.isVisited) {
+      this.visitCheckElapsed += delta;
 
-      this.isVisited = true;
-      giveInfoPortion(string.format("%s_visited", object.name()));
-      EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_VISITED, object, this);
+      if (this.visitCheckElapsed >= mapDisplayConfig.DISTANCE_CHECK_INTERVAL) {
+        this.visitCheckElapsed = 0;
+
+        if (object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
+          logger.info("Visited: %s", object.name());
+
+          this.isVisited = true;
+          giveInfoPortion(string.format("%s_visited", object.name()));
+          EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_VISITED, object, this);
+        }
+      }
     }
 
     if (state.activeScheme) {

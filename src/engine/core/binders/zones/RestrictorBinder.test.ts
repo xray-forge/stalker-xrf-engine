@@ -147,17 +147,21 @@ describe("RestrictorBinder", () => {
 
     binder.update(100);
 
+    expect(binder.isVisited).toBe(false);
+
+    binder.update(150);
+
     expect(binder.isVisited).toBe(true);
     expect(hasInfoPortion(binder.object.name() + "_visited")).toBe(true);
     expect(onVisit).toHaveBeenCalledTimes(1);
     expect(onVisit).toHaveBeenCalledWith(binder.object, binder);
-    expect(soundManager.update).toHaveBeenCalledTimes(2);
+    expect(soundManager.update).toHaveBeenCalledTimes(3);
 
     soundsConfig.playing.delete(serverObject.id);
     binder.update(2555);
 
     expect(onVisit).toHaveBeenCalledTimes(1);
-    expect(soundManager.update).toHaveBeenCalledTimes(2);
+    expect(soundManager.update).toHaveBeenCalledTimes(3);
   });
 
   it("should correctly handle save/load", () => {

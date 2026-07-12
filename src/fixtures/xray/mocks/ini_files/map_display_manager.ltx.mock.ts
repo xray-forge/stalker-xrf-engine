@@ -4,6 +4,7 @@ import { storyNames } from "@/engine/lib/constants/story_names";
 export const mockMapDisplayManager = {
   config: {
     require_smart_terrain_visit: false,
+    distance_check_interval: 250,
     distance_to_open: 50,
     distance_to_display: 75,
   },
