@@ -2,7 +2,7 @@ import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TCount, TName, TRUE } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { getManager, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
@@ -10,7 +10,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/planner";
+import { isObjectHelpingWounded, isObjectSearchingCorpse } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { EScheme } from "@/engine/lib/types";
 
@@ -20,28 +20,24 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
  * Enable or disable talking with the object based on its wounded state, relation to the actor and meet use flag.
  *
  * @param object - Game object whose talk availability is updated.
+ * @param state - Registry state containing the object's wounded and meet scheme state.
  */
-export function updateObjectMeetAvailability(object: GameObject): void {
-  if (isObjectWounded(object.id())) {
+export function updateObjectMeetAvailability(object: GameObject, state: IRegistryObjectState): void {
+  const woundedState: Nillable<ISchemeWoundedState> = state[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>;
+
+  if (woundedState && tostring(woundedState.woundManager.woundState) !== NIL) {
     if (object.relation(registry.actor) === EGameObjectRelation.ENEMY) {
       object.disable_talk();
+    } else if (woundedState.isTalkEnabled) {
+      object.enable_talk();
     } else {
-      const state: Nillable<ISchemeWoundedState> = registry.objects.get(object.id())[
-        EScheme.WOUNDED
-      ] as ISchemeWoundedState;
-
-      if (state.isTalkEnabled) {
-        object.enable_talk();
-      } else {
-        object.disable_talk();
-      }
+      object.disable_talk();
     }
 
     return;
   }
 
-  const state: ISchemeMeetState = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
-  const use: Nillable<string> = state.meetManager.use;
+  const use: Nillable<string> = (state[EScheme.MEET] as ISchemeMeetState).meetManager.use;
 
   if (use === TRUE) {
     if (isObjectSearchingCorpse(object) || isObjectHelpingWounded(object)) {

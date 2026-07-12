@@ -92,7 +92,7 @@ describe("updateObjectDialog util", () => {
     updateObjectDialog(object);
 
     expect(meetState.meetManager.update).toHaveBeenCalledTimes(1);
-    expect(updateObjectMeetAvailability).toHaveBeenCalledWith(object);
-    expect(updateStalkerLogic).toHaveBeenCalledWith(object);
+    expect(updateObjectMeetAvailability).toHaveBeenCalledWith(object, state);
+    expect(updateStalkerLogic).toHaveBeenCalledWith(object, state);
   });
 });

@@ -110,7 +110,9 @@ export class RestrictorBinder extends object_binder {
       emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
-    getManager(SoundManager).update(objectId);
+    if (soundsConfig.playing.has(objectId)) {
+      getManager(SoundManager).update(objectId);
+    }
   }
 
   public override net_save_relevant(): boolean {

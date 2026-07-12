@@ -25,18 +25,25 @@ describe("initializeObjectInvulnerability util", () => {
     });
     state.activeSection = "existing";
 
-    initializeObjectInvulnerability(object);
+    initializeObjectInvulnerability(object, state);
 
     expect(object.invulnerable).toHaveBeenCalledTimes(2);
     expect(object.invulnerable).toHaveBeenNthCalledWith(1);
     expect(object.invulnerable).toHaveBeenNthCalledWith(2, true);
+    expect(state.hasInvulnerabilityCache).toBe(true);
+    expect(state.invulnerabilitySection).toBe("existing");
+
+    initializeObjectInvulnerability(object, state);
+
+    expect(state.invulnerabilitySection).toBe("existing");
 
     state.activeSection = "not-existing";
+    initializeObjectInvulnerability(object, state);
 
-    initializeObjectInvulnerability(object);
-    expect(object.invulnerable).toHaveBeenCalledTimes(4);
-    expect(object.invulnerable).toHaveBeenNthCalledWith(3);
-    expect(object.invulnerable).toHaveBeenNthCalledWith(4, false);
+    expect(state.invulnerabilitySection).toBe("not-existing");
+    expect(object.invulnerable).toHaveBeenCalledTimes(5);
+    expect(object.invulnerable).toHaveBeenNthCalledWith(4);
+    expect(object.invulnerable).toHaveBeenNthCalledWith(5, false);
   });
 });
 

@@ -184,6 +184,18 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    */
   invulnerable: Nillable<boolean>;
   /**
+   * Whether the invulnerability condition-list cache has been initialized for the current object state.
+   */
+  hasInvulnerabilityCache?: boolean;
+  /**
+   * Active section used to build the cached invulnerability condition list.
+   */
+  invulnerabilitySection?: Nillable<TSection>;
+  /**
+   * Parsed immutable invulnerability configuration for `invulnerabilitySection`.
+   */
+  invulnerabilityConditionList?: Nillable<TConditionList>;
+  /**
    * Whether game object is immortal.
    * Todo: Applicable for heli only. Should be somewhere else?
    */

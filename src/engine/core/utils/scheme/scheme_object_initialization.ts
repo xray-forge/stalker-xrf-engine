@@ -15,17 +15,27 @@ import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { EScheme } from "@/engine/lib/types";
 
 /**
- * Synchronize object invulnerability state based.
+ * Synchronize object invulnerability with the active section's condition list.
+ * Reuses the parsed condition list until the active section changes.
  *
  * @param object - Game object.
+ * @param state - Registry state containing the active section and cached condition list.
  */
-export function initializeObjectInvulnerability(object: GameObject): void {
-  const state: IRegistryObjectState = registry.objects.get(object.id());
-  const invulnerability: Nillable<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
+export function initializeObjectInvulnerability(
+  object: GameObject,
+  state: IRegistryObjectState
+): void {
+  if (!state.hasInvulnerabilityCache || state.invulnerabilitySection !== state.activeSection) {
+    const invulnerability: Nillable<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
 
-  const nextInvulnerabilityState: boolean = $isNil(invulnerability)
+    state.hasInvulnerabilityCache = true;
+    state.invulnerabilitySection = state.activeSection;
+    state.invulnerabilityConditionList = invulnerability ? parseConditionsList(invulnerability) : null;
+  }
+
+  const nextInvulnerabilityState: boolean = $isNil(state.invulnerabilityConditionList)
     ? false
-    : pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === TRUE;
+    : pickSectionFromCondList(registry.actor, object, state.invulnerabilityConditionList) === TRUE;
 
   if (object.invulnerable() !== nextInvulnerabilityState) {
     object.invulnerable(nextInvulnerabilityState);

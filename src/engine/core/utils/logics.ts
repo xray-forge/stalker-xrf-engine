@@ -11,13 +11,13 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
  * Update active logic of a stalker object, handling combat overrides and switching to another scheme section.
  *
  * @param object - Game object to update logic for.
+ * @param state - Registry state containing the active scheme, combat state, and overrides.
  */
-export function updateStalkerLogic(object: GameObject): void {
-  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
+export function updateStalkerLogic(object: GameObject, state: IRegistryObjectState): void {
+  const actor: GameObject = registry.actor;
   const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
 
-  if (state && state.activeScheme && object.alive()) {
-    const actor: GameObject = registry.actor;
+  if (state.activeScheme && object.alive()) {
     const manager: ActionPlanner = object.motivation_action_manager();
 
     let switched: boolean = false;
@@ -46,6 +46,6 @@ export function updateStalkerLogic(object: GameObject): void {
       trySwitchToAnotherSection(object, state[state.activeScheme] as IBaseSchemeState);
     }
   } else {
-    SchemeCombat.setCombatType(object, registry.actor, combatState);
+    SchemeCombat.setCombatType(object, actor, combatState);
   }
 }

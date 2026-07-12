@@ -477,9 +477,7 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
 extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Nillable<TStringId>]): void => {
   const storyId: Nillable<TStringId> = p[0];
 
-  if (!storyId) {
-    abort("Wrong squad identificator [NIL] in kill_squad function");
-  }
+  assert(storyId, "Wrong squad identification [NIL] in kill_squad function");
 
   const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
@@ -590,15 +588,15 @@ extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: Lu
     const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject) {
-      updateStalkerLogic(storyObject);
+      const state: IRegistryObjectState = registry.objects.get(storyObject.id());
+
+      updateStalkerLogic(storyObject, state);
 
       const planner: ActionPlanner = storyObject.motivation_action_manager();
 
       planner.update();
       planner.update();
       planner.update();
-
-      const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
       // todo: Is it ok? Why?
       state.stateManager!.update();

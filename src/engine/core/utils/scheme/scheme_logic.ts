@@ -184,6 +184,8 @@ export function enableObjectBaseSchemes(
   schemeType: ESchemeType,
   logicsSection: TSection
 ): void {
+  const state: IRegistryObjectState = registry.objects.get(object.id());
+
   switch (schemeType) {
     case ESchemeType.STALKER: {
       registry.schemes.get(EScheme.DANGER).activate(object, ini, EScheme.DANGER, "danger");
@@ -193,7 +195,7 @@ export function enableObjectBaseSchemes(
 
       registry.schemes.get(EScheme.COMBAT).activate(object, ini, EScheme.COMBAT, combatSection);
 
-      initializeObjectInvulnerability(object);
+      initializeObjectInvulnerability(object, state);
 
       const infoSection: Nillable<TSection> = readIniString(ini, logicsSection, "info", false);
 
@@ -249,7 +251,7 @@ export function enableObjectBaseSchemes(
         registry.schemes.get(EScheme.MOB_DEATH).activate(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
-      initializeObjectInvulnerability(object);
+      initializeObjectInvulnerability(object, state);
 
       const hitSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
@@ -313,7 +315,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       updateObjectMapSpot(object, scheme, state, section);
 
       initializeObjectIgnoreThreshold(object, scheme, state, section);
-      initializeObjectInvulnerability(object);
+      initializeObjectInvulnerability(object, state);
       initializeObjectGroup(object, state.ini, section);
       initializeObjectTakeItemsEnabledState(object, scheme, state, section);
       initializeObjectCanSelectWeaponState(object, scheme, state, section);
@@ -331,7 +333,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
 
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
-      initializeObjectInvulnerability(object);
+      initializeObjectInvulnerability(object, state);
       ObjectRestrictionsManager.activateForObject(object, section);
 
       return;

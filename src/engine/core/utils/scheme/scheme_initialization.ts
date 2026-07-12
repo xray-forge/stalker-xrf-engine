@@ -113,6 +113,9 @@ export function configureObjectSchemes(
   state.sectionLogic = logicsSection;
   state.ini = actualIni;
   state.iniFilename = actualIniFilename;
+  state.hasInvulnerabilityCache = false;
+  state.invulnerabilityConditionList = null;
+  state.invulnerabilitySection = null;
 
   // todo: Move to separate activation methods?
   if (schemeType === ESchemeType.STALKER) {

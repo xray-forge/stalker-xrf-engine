@@ -2,7 +2,7 @@ import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
@@ -51,7 +51,9 @@ export function breakObjectDialog(object: GameObject): void {
  * @param object - Game object to update dialog for.
  */
 export function updateObjectDialog(object: GameObject): void {
-  (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();
-  updateObjectMeetAvailability(object);
-  updateStalkerLogic(object);
+  const state: IRegistryObjectState = registry.objects.get(object.id());
+
+  (state[EScheme.MEET] as ISchemeMeetState).meetManager.update();
+  updateObjectMeetAvailability(object, state);
+  updateStalkerLogic(object, state);
 }

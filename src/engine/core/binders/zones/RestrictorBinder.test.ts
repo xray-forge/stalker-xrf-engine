@@ -121,9 +121,11 @@ describe("RestrictorBinder", () => {
     binder.net_spawn(serverObject);
 
     const objectState: IRegistryObjectState = registry.objects.get(serverObject.id);
+    const playingSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
     objectState.activeScheme = EScheme.ANIMPOINT;
     objectState[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    soundsConfig.playing.set(serverObject.id, playingSound);
 
     binder.update(100);
 
@@ -149,9 +151,13 @@ describe("RestrictorBinder", () => {
     expect(hasInfoPortion(binder.object.name() + "_visited")).toBe(true);
     expect(onVisit).toHaveBeenCalledTimes(1);
     expect(onVisit).toHaveBeenCalledWith(binder.object, binder);
+    expect(soundManager.update).toHaveBeenCalledTimes(2);
 
+    soundsConfig.playing.delete(serverObject.id);
     binder.update(2555);
+
     expect(onVisit).toHaveBeenCalledTimes(1);
+    expect(soundManager.update).toHaveBeenCalledTimes(2);
   });
 
   it("should correctly handle save/load", () => {

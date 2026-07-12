@@ -80,6 +80,9 @@ describe("configureObjectSchemes util", () => {
 
     loadSchemeImplementations($fromArray(schemes));
 
+    state.hasInvulnerabilityCache = true;
+    state.invulnerabilitySection = "cached";
+
     expect(() => {
       configureObjectSchemes(object, ini, "test.ltx", ESchemeType.STALKER, "logics", "test-smart");
     }).toThrow();
@@ -89,6 +92,9 @@ describe("configureObjectSchemes util", () => {
     expect(state.sectionLogic).toBe("logics");
     expect(state.jobIni).toBeUndefined();
     expect(state.activeSection).toBeNull();
+    expect(state.hasInvulnerabilityCache).toBe(false);
+    expect(state.invulnerabilitySection).toBeNull();
+    expect(state.invulnerabilityConditionList).toBeNull();
 
     expect(SchemeAbuse.activate).toHaveBeenCalled();
     expect(SchemeCombat.activate).toHaveBeenCalled();

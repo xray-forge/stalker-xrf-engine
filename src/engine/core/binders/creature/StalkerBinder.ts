@@ -214,15 +214,17 @@ export class StalkerBinder extends object_binder {
     const now: TTimestamp = time_global();
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const squad: Nillable<Squad> = getObjectSquad(this.object);
+    const state: IRegistryObjectState = this.state;
+    const squad: Nillable<Squad> = getObjectSquad(object);
     const isObjectAlive: boolean = object.alive();
     const isSquadCommander: boolean = squad?.commander_id() === objectId;
+    const stateManager: Nillable<StalkerStateManager> = state.stateManager;
 
     if (registry.actorCombat.get(objectId) && !object.best_enemy()) {
       registry.actorCombat.delete(objectId);
     }
 
-    updateStalkerLogic(object);
+    updateStalkerLogic(object, state);
 
     if (!this.isFirstUpdate) {
       this.isFirstUpdate = true;
@@ -237,23 +239,23 @@ export class StalkerBinder extends object_binder {
       this.updateLightState(object);
     }
 
-    if (this.state.stateManager) {
+    if (stateManager) {
       if (isObjectAlive) {
-        this.state.stateManager.update();
+        stateManager.update();
 
-        if (!this.state.stateManager.isCombat && !this.state.stateManager.isAlife) {
+        if (!stateManager.isCombat && !stateManager.isAlife) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           getManager(TradeManager).updateForObject(object);
         }
       } else {
-        this.state.stateManager = null;
+        state.stateManager = null;
       }
     }
 
     if (isObjectAlive) {
-      getManager(SoundManager).update(object.id());
-      updateObjectMeetAvailability(object);
-      initializeObjectInvulnerability(this.object);
+      getManager(SoundManager).update(objectId);
+      updateObjectMeetAvailability(object, state);
+      initializeObjectInvulnerability(object, state);
     } else {
       object.set_tip_text_default();
     }
