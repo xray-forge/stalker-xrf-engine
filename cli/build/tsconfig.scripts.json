@@ -22,13 +22,13 @@
     "noImplicitSelf": true,
     "noResolvePaths": ["xray16", "xray16/macros", "xray16/alias"],
     "luaPlugins": [
-      { "name": "xray16/plugins/inline" },
-      { "name": "xray16/plugins/luabind" },
       { "name": "xray16/plugins/macros" },
+      { "name": "xray16/plugins/luabind" },
       { "name": "xray16/plugins/optimize" },
       { "name": "xray16/plugins/strip" },
       { "name": "xray16/plugins/tracy" },
-      { "name": "xray16/plugins/libcompile" }
+      { "name": "xray16/plugins/libcompile" },
+      { "name": "xray16/plugins/inline" }
     ]
   }
 }
