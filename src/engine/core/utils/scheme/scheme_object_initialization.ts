@@ -21,10 +21,7 @@ import { EScheme } from "@/engine/lib/types";
  * @param object - Game object.
  * @param state - Registry state containing the active section and cached condition list.
  */
-export function initializeObjectInvulnerability(
-  object: GameObject,
-  state: IRegistryObjectState
-): void {
+export function initializeObjectInvulnerability(object: GameObject, state: IRegistryObjectState): void {
   if (!state.hasInvulnerabilityCache || state.invulnerabilitySection !== state.activeSection) {
     const invulnerability: Nillable<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
 

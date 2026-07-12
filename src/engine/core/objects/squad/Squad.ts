@@ -217,8 +217,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       const now: TTimestamp = time_global();
 
       if (now >= this.nextTargetOutrankCheckAt) {
-        this.nextTargetOutrankCheckAt =
-          now + simulationConfig.SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL + (this.id % 500);
+        this.nextTargetOutrankCheckAt = now + simulationConfig.SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL + (this.id % 500);
 
         const assignedTarget: Nillable<ServerObject> = registry.simulator.object(this.assignedTargetId);
 

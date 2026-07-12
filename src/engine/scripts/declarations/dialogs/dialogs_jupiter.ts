@@ -2071,7 +2071,8 @@ extern("dialogs_jupiter.if_actor_has_af_fuzz_kolobok", (firstSpeaker: GameObject
  */
 extern("dialogs_jupiter.actor_has_first_or_second_artefact", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return (
-    $isNotNil(firstSpeaker.object(artefacts.af_mincer_meat)) || $isNotNil(firstSpeaker.object(artefacts.af_fuzz_kolobok))
+    $isNotNil(firstSpeaker.object(artefacts.af_mincer_meat)) ||
+    $isNotNil(firstSpeaker.object(artefacts.af_fuzz_kolobok))
   );
 });
 

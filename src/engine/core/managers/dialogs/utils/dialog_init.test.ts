@@ -21,36 +21,48 @@ describe("initializeCategoryDialogs util", () => {
     expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_information_3", "16", "1", -10_000);
     expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_information_4", "17", "1", -10_000);
 
-    expect(dialog.GetPhrase("0").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: [],
-      actions: [],
-    }));
-    expect(dialog.GetPhrase("1").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: [],
-      actions: ["dialog_manager.fill_priority_information_table"],
-    }));
-    expect(dialog.GetPhrase("14").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_information_dialogs"],
-    }));
-    expect(dialog.GetPhrase("15").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_information_dialogs"],
-    }));
-    expect(dialog.GetPhrase("16").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_information_dialogs"],
-    }));
-    expect(dialog.GetPhrase("17").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_information_dialogs"],
-    }));
+    expect(dialog.GetPhrase("0").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: [],
+        actions: [],
+      })
+    );
+    expect(dialog.GetPhrase("1").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: [],
+        actions: ["dialog_manager.fill_priority_information_table"],
+      })
+    );
+    expect(dialog.GetPhrase("14").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_information_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("15").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_information_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("16").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_information_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("17").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_information_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_information_dialogs"],
+      })
+    );
   });
 
   it("should correctly generate phrases and scripts for generic categories", () => {
@@ -68,41 +80,55 @@ describe("initializeCategoryDialogs util", () => {
     expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_hello_1", "21", "1", -10_000);
     expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_hello_2", "22", "1", -10_000);
 
-    expect(dialog.GetPhrase("0").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: [],
-      actions: [],
-    }));
-    expect(dialog.GetPhrase("1").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: [],
-      actions: ["dialog_manager.fill_priority_hello_table"],
-    }));
-    expect(dialog.GetPhrase("18").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_wounded"],
-      actions: ["dialog_manager.action_hello_dialogs"],
-    }));
-    expect(dialog.GetPhrase("19").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_wounded"],
-      actions: ["dialog_manager.action_hello_dialogs"],
-    }));
-    expect(dialog.GetPhrase("20").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_hello_dialogs"],
-    }));
-    expect(dialog.GetPhrase("21").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_hello_dialogs"],
-    }));
-    expect(dialog.GetPhrase("22").GetPhraseScript()).toEqual(MockPhraseScript.mock({
-      text: null,
-      preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
-      actions: ["dialog_manager.action_hello_dialogs"],
-    }));
+    expect(dialog.GetPhrase("0").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: [],
+        actions: [],
+      })
+    );
+    expect(dialog.GetPhrase("1").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: [],
+        actions: ["dialog_manager.fill_priority_hello_table"],
+      })
+    );
+    expect(dialog.GetPhrase("18").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_wounded"],
+        actions: ["dialog_manager.action_hello_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("19").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_wounded"],
+        actions: ["dialog_manager.action_hello_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("20").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_hello_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("21").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_hello_dialogs"],
+      })
+    );
+    expect(dialog.GetPhrase("22").GetPhraseScript()).toEqual(
+      MockPhraseScript.mock({
+        text: null,
+        preconditions: ["dialog_manager.precondition_hello_dialogs", "dialogs.is_not_wounded"],
+        actions: ["dialog_manager.action_hello_dialogs"],
+      })
+    );
   });
 
   it("should correctly assert phrases and scripts for unknown categories", () => {
@@ -166,11 +192,13 @@ describe("initializeNewDialog util", () => {
         for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
           expect(dialog.AddPhrase).toHaveBeenCalledWith(descriptor.name, descriptor.id, expect.any(String), -10_000);
 
-          expect(dialog.GetPhrase(descriptor.id).GetPhraseScript()).toEqual(MockPhraseScript.mock({
-            text: null,
-            actions: [`dialog_manager.action_${category}_dialogs`],
-            preconditions: [`dialog_manager.precondition_${category}_dialogs`],
-          }));
+          expect(dialog.GetPhrase(descriptor.id).GetPhraseScript()).toEqual(
+            MockPhraseScript.mock({
+              text: null,
+              actions: [`dialog_manager.action_${category}_dialogs`],
+              preconditions: [`dialog_manager.precondition_${category}_dialogs`],
+            })
+          );
         }
 
         expect(dialog.AddPhrase).toHaveBeenCalledWith(
