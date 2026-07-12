@@ -156,7 +156,7 @@ export class PhysicObjectBinder extends object_binder {
    * @param who - Game object using it.
    */
   public onUse(object: GameObject, who: Nillable<GameObject>): void {
-    logger.info("Object used: %s by %s", object.name(), object.section(), who?.name());
+    logger.info("Object used: %s (%s) by %s", object.name(), object.section(), who?.name());
 
     if (this.state.activeScheme) {
       emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.USE, object, who);
@@ -208,7 +208,7 @@ export class PhysicObjectBinder extends object_binder {
    * @param who - Game object that destroyed it.
    */
   public onDeath(object: GameObject, who: GameObject): void {
-    logger.info("Object destroyed: %s by %s", object.name(), object.section(), who.name());
+    logger.info("Object destroyed: %s (%s) by %s", object.name(), object.section(), who.name());
 
     if (this.state.activeScheme) {
       emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, who);

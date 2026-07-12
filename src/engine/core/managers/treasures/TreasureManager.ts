@@ -413,7 +413,7 @@ export class TreasureManager extends AbstractManager {
     const treasure: Nillable<ITreasureDescriptor> = treasureId ? treasureConfig.TREASURES.get(treasureId) : null;
 
     if (treasure) {
-      logger.info("Treasure item taken:", objectId);
+      logger.info("Treasure item taken: %s", objectId);
 
       treasure.itemsToFindRemain -= 1;
 

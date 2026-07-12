@@ -19,7 +19,7 @@ describe("MockLuaLogger", () => {
     );
   });
 
-  it("should reject extra arguments for %s", (method) => {
+  it("should reject extra arguments for %s", () => {
     const logger: MockLuaLogger = new MockLuaLogger();
 
     expect(() => logger.info("Value: %s", "first", "second")).toThrow(
@@ -27,7 +27,7 @@ describe("MockLuaLogger", () => {
     );
   });
 
-  it("should reject incompatible arguments for %s", (method) => {
+  it("should reject incompatible arguments for %s", () => {
     const logger: MockLuaLogger = new MockLuaLogger();
 
     expect(() => logger.info("Value: %d", "not a number")).toThrow();
