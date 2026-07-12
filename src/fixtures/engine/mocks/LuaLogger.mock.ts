@@ -24,7 +24,9 @@ export class MockLuaLogger {
     return count;
   }
 
-  public static validateLogArguments(format: string, ...args: AnyArgs): void {
+  public getFullPrefix = jest.fn(() => "[]");
+
+  public info = jest.fn((format: string, ...args: AnyArgs): void => {
     const expectedArguments: number = MockLuaLogger.countFormatArguments(format);
 
     if (expectedArguments !== args.length) {
@@ -34,21 +36,7 @@ export class MockLuaLogger {
     }
 
     string.format(format, ...args);
-  }
-
-  public getFullPrefix = jest.fn(() => "[]");
-
-  public error = jest.fn((format: string, ...args: AnyArgs): void =>
-    MockLuaLogger.validateLogArguments(format, ...args)
-  );
-
-  public warn = jest.fn((format: string, ...args: AnyArgs): void =>
-    MockLuaLogger.validateLogArguments(format, ...args)
-  );
-
-  public info = jest.fn((format: string, ...args: AnyArgs): void =>
-    MockLuaLogger.validateLogArguments(format, ...args)
-  );
+  });
 
   public printStack = jest.fn();
 

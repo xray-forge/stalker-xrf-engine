@@ -1,6 +1,5 @@
 import { log, print_stack, time_global } from "xray16";
 import { AnyArgs, AnyObject, Nillable, TLabel } from "xray16/lib";
-import { $isNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
@@ -53,21 +52,19 @@ export class LuaLogger {
 
     const result: string = string.format("[%s][%s][info] %s", time_global(), this.prefix, string.format(base, ...args));
 
-    // Write into custom file if it is defined for current logger.
-    if (this.loggerFile) {
-      this.loggerFile.write(result);
-      this.loggerFile.write("\n");
-    }
-
     // Write into shared game console if no file defined/dual mode enabled.
-    if ($isNil(this.loggerFile) || this.mode === ELuaLoggerMode.DUAL) {
-      if (luaLog) {
-        luaLog(result);
-      }
+    if (luaLog) {
+      luaLog(result);
     }
 
     // Write into custom file if it is defined for current logger.
     if (forgeConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
+      // Write into custom file if it is defined for current logger.
+      if (this.loggerFile) {
+        this.loggerFile.write(result);
+        this.loggerFile.write("\n");
+      }
+
       this.luaFile.write(result);
       this.luaFile.write("\n");
     }
