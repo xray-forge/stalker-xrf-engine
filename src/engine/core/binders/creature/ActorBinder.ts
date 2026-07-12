@@ -19,7 +19,6 @@ import {
   unregisterActor,
   unregisterObjectDynamicState,
 } from "@/engine/core/database";
-import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
@@ -117,17 +116,20 @@ export class ActorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
+    const now: TTimestamp = time_global();
+
+    this.eventsManager.tick();
+
     if (!this.isFirstUpdatePerformed) {
       this.isFirstUpdatePerformed = true;
       this.eventsManager.emitEvent(EGameEvent.ACTOR_FIRST_UPDATE, delta, this);
     }
 
-    const now: TTimestamp = time_global();
-
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta, this);
-    this.eventsManager.tick();
 
-    if (now >= this.nextUpdate100) {
+    const isNextUpdate100Passed: boolean = now >= this.nextUpdate100;
+
+    if (isNextUpdate100Passed) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_100, delta, this);
       this.nextUpdate100 = now + 100;
     }
@@ -139,21 +141,18 @@ export class ActorBinder extends object_binder {
 
     if (now >= this.nextUpdate1000) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_1000, delta, this);
-      this.nextUpdate1000 = now + 1000;
+      this.nextUpdate1000 = now + 1_000;
     }
 
     if (now >= this.nextUpdate5000) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_5000, delta, this);
-      this.nextUpdate5000 = now + 5000;
+      this.nextUpdate5000 = now + 5_000;
     }
 
     if (now >= this.nextUpdate10000) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_10000, delta, this);
-      this.nextUpdate10000 = now + 10000;
+      this.nextUpdate10000 = now + 10_000;
     }
-
-    // todo: Probably part of simulation manager?
-    updateSimulationObjectAvailability(registry.actorServer);
   }
 
   public override save(packet: NetPacket): void {

@@ -3,7 +3,8 @@ import { NetPacket, NetProcessor } from "xray16/alias";
 import { ACTOR_ID, AnyObject } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
-import { getManager } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
+import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -23,6 +24,7 @@ export class SimulationManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE_100, this.onActorUpdate100, this);
   }
 
   public override destroy(): void {
@@ -31,6 +33,7 @@ export class SimulationManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE_100, this.onActorUpdate100);
 
     destroySimulationData();
   }
@@ -61,6 +64,13 @@ export class SimulationManager extends AbstractManager {
     simulationLogger.info("Actor network register");
 
     initializeDefaultSimulationSquads();
+  }
+
+  /**
+   * Refresh the actor as a simulation target on the actor 100ms cadence.
+   */
+  public onActorUpdate100(): void {
+    updateSimulationObjectAvailability(registry.actorServer);
   }
 
   /**

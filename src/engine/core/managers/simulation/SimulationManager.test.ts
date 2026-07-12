@@ -1,14 +1,14 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { actor_stats } from "xray16";
 import { ACTOR_ID, AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 
-import { disposeManager, getManager, initializeManager, registerSimulator } from "@/engine/core/database";
+import { disposeManager, getManager, initializeManager, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
+import { ISmartTerrainDescriptor, TSimulationObject } from "@/engine/core/managers/simulation/types";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
@@ -41,14 +41,36 @@ describe("SimulationManager", () => {
 
     getManager(SimulationManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getSubscribersCount()).toBe(4);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_REGISTER)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_OFFLINE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE_100)).toBe(1);
 
     disposeManager(SimulationManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
+
+  it("should refresh actor simulation availability on actor update", () => {
+    getManager(SimulationManager);
+
+    const actor: TSimulationObject = registry.actorServer as TSimulationObject;
+    const isSimulationAvailable = jest.fn(() => true);
+
+    actor.isSimulationAvailable = isSimulationAvailable;
+    registry.simulationObjects.delete(actor.id);
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_100);
+
+    expect(isSimulationAvailable).toHaveBeenCalledTimes(1);
+    expect(registry.simulationObjects.get(actor.id)).toBe(actor);
+
+    actor.isSimulationAvailable = jest.fn(() => false);
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_100);
+
+    expect(registry.simulationObjects.has(actor.id)).toBe(false);
   });
 
   it("should correctly destroy values", () => {

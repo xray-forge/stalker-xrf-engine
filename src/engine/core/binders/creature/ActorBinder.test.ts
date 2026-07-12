@@ -24,7 +24,6 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save";
-import { TSimulationObject } from "@/engine/core/managers/simulation/types";
 import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { EScheme } from "@/engine/lib/types";
@@ -306,7 +305,7 @@ describe("ActorBinder", () => {
 
 describe("ActorBinder update events", () => {
   it("should correctly handle update event", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -315,8 +314,6 @@ describe("ActorBinder update events", () => {
     jest.spyOn(eventsManager, "tick");
 
     expect(binder.isFirstUpdatePerformed).toBe(false);
-
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
 
     binder.update(521);
 
@@ -331,25 +328,18 @@ describe("ActorBinder update events", () => {
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_5000, 521, binder);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_10000, 521, binder);
 
-    expect(registry.simulationObjects.get(actorGameObject.id())).toBe(actorServerObject);
-
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => false);
-
     binder.update(551);
 
     expect(eventsManager.emitEvent).toHaveBeenCalledTimes(8);
     expect(eventsManager.tick).toHaveBeenCalledTimes(2);
-
-    expect(table.size(registry.simulationObjects)).toBe(0);
   });
 
   it("should correctly handle update event 100 throttling", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
     replaceFunctionMockOnce(time_global, () => 0);
 
     jest.spyOn(eventsManager, "emitEvent");
@@ -375,12 +365,11 @@ describe("ActorBinder update events", () => {
   });
 
   it("should correctly handle update event 500 throttling", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
     replaceFunctionMockOnce(time_global, () => 0);
 
     jest.spyOn(eventsManager, "emitEvent");
@@ -406,12 +395,11 @@ describe("ActorBinder update events", () => {
   });
 
   it("should correctly handle update event 1000 throttling", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
     replaceFunctionMockOnce(time_global, () => 0);
 
     jest.spyOn(eventsManager, "emitEvent");
@@ -437,12 +425,11 @@ describe("ActorBinder update events", () => {
   });
 
   it("should correctly handle update event 5000 throttling", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
     replaceFunctionMockOnce(time_global, () => 0);
 
     jest.spyOn(eventsManager, "emitEvent");
@@ -468,12 +455,11 @@ describe("ActorBinder update events", () => {
   });
 
   it("should correctly handle update event 10000 throttling", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+    const { actorGameObject } = mockRegisteredActor();
 
     const binder: ActorBinder = new ActorBinder(actorGameObject);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
     replaceFunctionMockOnce(time_global, () => 0);
 
     jest.spyOn(eventsManager, "emitEvent");
