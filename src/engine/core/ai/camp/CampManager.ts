@@ -1,17 +1,6 @@
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import {
-  abort,
-  assert,
-  LuaArray,
-  Nillable,
-  TCount,
-  TDuration,
-  TName,
-  TNumberId,
-  TProbability,
-  TTimestamp,
-} from "xray16/lib";
+import { assert, LuaArray, Nillable, TCount, TDuration, TName, TNumberId, TProbability, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
@@ -265,8 +254,8 @@ export class CampManager {
   public registerObject(objectId: TNumberId): void {
     logger.info("Register object in camp: %s", objectId);
 
-    const state: IRegistryObjectState = registry.objects.get(objectId);
     const campState: ICampStateDescriptor = { state: this.activity } as ICampStateDescriptor;
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
     this.objects.set(objectId, campState);
 
