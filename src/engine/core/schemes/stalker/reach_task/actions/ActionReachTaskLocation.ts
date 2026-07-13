@@ -97,6 +97,8 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * Update object movement towards the squad assigned target on each planner update, throttled by a period.
    */
   public override execute(): void {
+    super.execute();
+
     const now: TTimestamp = time_global();
 
     if (now < this.nextUpdateAt) {
@@ -122,8 +124,6 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     } else {
       this.executeSquadSoldier(squad, target);
     }
-
-    super.execute();
   }
 
   /**

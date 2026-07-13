@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { anim, look, move, property_storage } from "xray16";
+import { action_base, anim, look, move, property_storage } from "xray16";
 import {
   EGameObjectMovementType,
   EGameObjectPath,
@@ -135,6 +135,21 @@ describe("ActionReachTaskLocation", () => {
     action.finalize();
 
     expect(object.set_movement_selection_type).toHaveBeenCalledWith(EGameObjectMovementType.RANDOM);
+  });
+
+  it("should execute base action while movement update is throttled", () => {
+    const { object, action } = mockActionData();
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    const baseActionExecute = jest.spyOn(action_base.prototype, "execute");
+
+    action.execute();
+
+    expect(baseActionExecute).toHaveBeenCalledTimes(1);
+
+    baseActionExecute.mockRestore();
   });
 
   it.todo("should correctly execute for squad participant");
