@@ -1,6 +1,17 @@
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import { abort, LuaArray, Nillable, TCount, TDuration, TName, TNumberId, TProbability, TTimestamp } from "xray16/lib";
+import {
+  abort,
+  assert,
+  LuaArray,
+  Nillable,
+  TCount,
+  TDuration,
+  TName,
+  TNumberId,
+  TProbability,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
@@ -34,7 +45,7 @@ export class CampManager {
   public storyManager: StoryManager;
 
   // List of objects registered in camp.
-  public objects: LuaTable<TNumberId, ICampStateDescriptor> = new LuaTable();
+  public objects: LuaMap<TNumberId, ICampStateDescriptor> = new LuaMap();
   public directorId: Nillable<TNumberId> = null;
   public idleTalkerId: Nillable<TNumberId> = null;
 
@@ -254,20 +265,25 @@ export class CampManager {
   public registerObject(objectId: TNumberId): void {
     logger.info("Register object in camp: %s", objectId);
 
-    this.objects.set(objectId, { state: this.activity } as ICampStateDescriptor);
-
     const state: IRegistryObjectState = registry.objects.get(objectId);
+    const campState: ICampStateDescriptor = { state: this.activity } as ICampStateDescriptor;
+
+    this.objects.set(objectId, campState);
 
     state.camp = this.object.id();
 
     for (const [activity] of campConfig.CAMP_ACTIVITIES) {
       const role: EObjectCampRole = getObjectCampActivityRole(objectId, activity);
 
-      if (role === EObjectCampRole.NONE) {
-        abort("Wrong role for object '%s' in camp '%s', activity '%s'.", objectId, this.object.name(), activity);
-      }
+      assert(
+        role !== EObjectCampRole.NONE,
+        "Wrong role for object '%s' in camp '%s', activity '%s'.",
+        objectId,
+        this.object.name(),
+        activity
+      );
 
-      this.objects.get(objectId)[activity] = role;
+      campState[activity] = role;
     }
 
     this.storyManager.registerObject(objectId);
