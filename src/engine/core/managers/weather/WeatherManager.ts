@@ -99,7 +99,7 @@ export class WeatherManager extends AbstractManager {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
-    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE_2500, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn, this);
 
     // Apply settings for console if any exist.
@@ -110,7 +110,7 @@ export class WeatherManager extends AbstractManager {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
-    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE_2500, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorNetworkSpawn);
   }
 

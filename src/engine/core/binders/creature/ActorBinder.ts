@@ -44,8 +44,10 @@ export class ActorBinder extends object_binder {
   public isFirstUpdatePerformed: boolean = false;
 
   public nextUpdate100: TTimestamp = -1;
+  public nextUpdate250: TTimestamp = -1;
   public nextUpdate500: TTimestamp = -1;
   public nextUpdate1000: TTimestamp = -1;
+  public nextUpdate2500: TTimestamp = -1;
   public nextUpdate5000: TTimestamp = -1;
   public nextUpdate10000: TTimestamp = -1;
 
@@ -134,6 +136,11 @@ export class ActorBinder extends object_binder {
       this.nextUpdate100 = now + 100;
     }
 
+    if (now >= this.nextUpdate250) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_250, delta, this);
+      this.nextUpdate250 = now + 250;
+    }
+
     if (now >= this.nextUpdate500) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_500, delta, this);
       this.nextUpdate500 = now + 500;
@@ -142,6 +149,11 @@ export class ActorBinder extends object_binder {
     if (now >= this.nextUpdate1000) {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_1000, delta, this);
       this.nextUpdate1000 = now + 1_000;
+    }
+
+    if (now >= this.nextUpdate2500) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_2500, delta, this);
+      this.nextUpdate2500 = now + 2_500;
     }
 
     if (now >= this.nextUpdate5000) {

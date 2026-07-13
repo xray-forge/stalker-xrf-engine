@@ -35,6 +35,10 @@ export enum EGameEvent {
    */
   ACTOR_UPDATE_100,
   /**
+   * Actor update generic tick with 250 ms throttle.
+   */
+  ACTOR_UPDATE_250,
+  /**
    * Actor update generic tick with 500 ms throttle.
    */
   ACTOR_UPDATE_500,
@@ -42,6 +46,10 @@ export enum EGameEvent {
    * Actor update generic tick with 1000 ms throttle.
    */
   ACTOR_UPDATE_1000,
+  /**
+   * Actor update generic tick with 2500 ms throttle.
+   */
+  ACTOR_UPDATE_2500,
   /**
    * Actor update generic tick with 5000 ms throttle.
    */
