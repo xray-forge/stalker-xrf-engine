@@ -163,7 +163,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public stayingObjectsCount: TCount = 0; // Count of game object inside smart terrain.
   public maxStayingSquadsCount: TCount = 0; // Maximal count of staying squads.
 
-  public nextCheckAt: TTimestamp = 0;
+  public nextJobsUpdateAt: TTimestamp = -1;
+  public nextCheckAt: TTimestamp = -1;
 
   public travelerActorPointName: TName = ""; // Patrol point name to arrive as actor.
   public travelerSquadPointName: TName = ""; // Patrol point name to arrive as squad.
@@ -213,6 +214,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       updateTerrainMapSpot(this);
     }
 
+    this.nextCheckAt = -1;
+    this.nextJobsUpdateAt = -1;
     this.isRegistered = true;
     this.smartTerrainAlifeTask = new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
 
@@ -233,7 +236,6 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     this.objectsToRegister = new LuaTable();
-    this.nextCheckAt = time_global();
 
     EventsManager.emitEvent(EGameEvent.SMART_TERRAIN_REGISTER, this);
   }
@@ -517,6 +519,16 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const distance: TDistance = registry.actor.position().distance_to_sqr(this.position);
       const idleTime: TDuration = math.max(60, 0.003 * distance);
 
+      /*
+       * | 0–141.4 m | ≤60 ms |
+       * | 150 m | 67.5 ms |
+       * | 200 m | 120 ms |
+       * | 300 m | 270 ms |
+       * | 500 m | 750 ms |
+       * | 600 m | 1,080 ms |
+       * | 1,000 m | 3,000 ms |
+       */
+
       this.nextCheckAt = now + idleTime;
     } else {
       this.nextCheckAt = now + 10;
@@ -532,7 +544,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     updateTerrainAlarmStatus(this);
-    updateTerrainJobs(this);
+
+    if (updateTerrainJobs(this, now >= this.nextJobsUpdateAt)) {
+      this.nextJobsUpdateAt = now + smartTerrainConfig.JOBS_UPDATE_INTERVAL;
+    }
+
     updateSimulationObjectAvailability(this);
 
     this.terrainControl?.update();

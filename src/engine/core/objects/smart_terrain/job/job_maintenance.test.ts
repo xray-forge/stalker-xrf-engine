@@ -6,6 +6,7 @@ import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 import { registerObject, registerSimulator } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
+  markTerrainJobsDirty,
   switchTerrainObjectToDesiredJob,
   updateTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
@@ -301,6 +302,25 @@ describe("smart terrain job maintenance mechanisms", () => {
 
     expect(terrain.jobsDirty).toBe(true);
     expect(terrain.jobsDirtyReason).toBe("departure");
+  });
+
+  it("should defer clean maintenance but immediately process dirty job state", () => {
+    const terrain: SmartTerrain = mockTerrain();
+    const stalker: ServerHumanObject = mockArrivedStalker(terrain);
+
+    registerObject(MockGameObject.mock({ id: stalker.id }));
+    expect(updateTerrainJobs(terrain)).toBe(true);
+
+    const descriptor: IObjectJobState = terrain.objectJobDescriptors.get(stalker.id);
+    const initialCursor: TNumberId = descriptor.scanCursor;
+
+    expect(updateTerrainJobs(terrain, false)).toBe(false);
+    expect(descriptor.scanCursor).toBe(initialCursor);
+
+    markTerrainJobsDirty(terrain, "test");
+
+    expect(updateTerrainJobs(terrain, false)).toBe(true);
+    expect(terrain.jobsDirty).toBe(false);
   });
 
   it("should run a full pass on surge transitions detected as environment edges", () => {

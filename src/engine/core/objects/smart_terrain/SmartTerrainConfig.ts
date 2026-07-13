@@ -13,6 +13,8 @@ export const smartTerrainConfig = {
   // Jobs examined per heavy tick when probing for a higher priority job on clean ticks (anomaly variant).
   JOB_SCAN_STEP_ONLINE: 5,
   JOB_SCAN_STEP_OFFLINE: 1,
+  // Time between clean job-maintenance passes. Dirty terrain state is still applied immediately.
+  JOBS_UPDATE_INTERVAL: 1_000,
   // Log-only dry-run comparison of incremental job state against full selection.
   JOBS_SHADOW_COMPARE: false,
   // Time between respawn attempts for smart terrain.

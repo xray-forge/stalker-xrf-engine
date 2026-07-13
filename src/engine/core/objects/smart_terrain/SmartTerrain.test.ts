@@ -63,7 +63,8 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.arrivalDistance).toBe(25);
     expect(terrain.stayingObjectsCount).toBe(0);
     expect(terrain.maxStayingSquadsCount).toBe(0);
-    expect(terrain.nextCheckAt).toBe(0);
+    expect(terrain.nextCheckAt).toBe(-1);
+    expect(terrain.nextJobsUpdateAt).toBe(-1);
     expect(terrain.lastRespawnUpdatedAt).toBeNull();
 
     expect(terrain.travelerActorPointName).toBe("");
@@ -144,7 +145,7 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.isRegistered).toBe(true);
     expect(terrain.isOnLevel).toBe(true);
     expect(terrain.jobs).toBeDefined();
-    expect(terrain.nextCheckAt).toBe(4000);
+    expect(terrain.nextCheckAt).toBe(-1);
   });
 
   it("should correctly handle unregister", () => {

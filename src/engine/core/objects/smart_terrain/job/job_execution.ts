@@ -32,13 +32,15 @@ export function markTerrainJobsDirty(terrain: SmartTerrain, reason: TLabel): voi
 /**
  * Perform generic sync and update of current smart terrain jobs.
  *
- * Full selection passes run only on dirty ticks (arrivals, deaths, departures, dead-time expiry
- * and alarm/surge/night precondition input edges); clean ticks run a cheap keep-check plus a
- * bounded higher-priority probe per object, following the anomaly-proven pattern.
+ * Full selection passes run on dirty ticks (arrivals, deaths, departures, dead-time expiry and
+ * alarm/surge/night precondition input edges). Clean keep-checks and bounded higher-priority
+ * probes run at the caller's selected cadence, following the CoC/Anomaly patterns.
  *
  * @param terrain - Target smart terrain to update current jobs state for.
+ * @param isMaintenanceDue - Whether the scheduled clean maintenance pass is due.
+ * @returns Whether job assignments were updated.
  */
-export function updateTerrainJobs(terrain: SmartTerrain): void {
+export function updateTerrainJobs(terrain: SmartTerrain, isMaintenanceDue: boolean = true): boolean {
   // Edge-detect global precondition inputs - same next-tick latency as explicit event marks.
   const isAlarmed: boolean = $isNotNil(terrain.alarmStartedAt);
   const isSurgeStarted: boolean = surgeConfig.IS_STARTED === true;
@@ -70,6 +72,10 @@ export function updateTerrainJobs(terrain: SmartTerrain): void {
     }
   }
 
+  if (!terrain.jobsDirty && !isMaintenanceDue) {
+    return false;
+  }
+
   if (terrain.jobsDirty) {
     for (const [, objectJobDescriptor] of terrain.objectJobDescriptors) {
       selectTerrainObjectJob(terrain, objectJobDescriptor);
@@ -86,6 +92,8 @@ export function updateTerrainJobs(terrain: SmartTerrain): void {
   if (smartTerrainConfig.JOBS_SHADOW_COMPARE) {
     compareTerrainJobsWithFullSelection(terrain);
   }
+
+  return true;
 }
 
 /**
