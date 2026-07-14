@@ -4,7 +4,7 @@ import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { sleepConfig } from "@/engine/core/managers/sleep/SleepConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -59,7 +59,7 @@ export class SleepManager extends AbstractManager {
 
     this.nextSleepDuration = hours;
 
-    getManager(ActorInputManager).disableGameUi();
+    getManager(ActorInputManager).acquireControl(EActorControlHandle.SLEEP, "sleep", EActorControlPolicy.FULL_UI);
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_start_sleeping");
     level.add_pp_effector(postProcessors.sleep_fade, 11, false);
@@ -105,7 +105,7 @@ export class SleepManager extends AbstractManager {
   public onFinishSleeping(): void {
     logger.info("On finish sleeping");
 
-    getManager(ActorInputManager).enableGameUi();
+    getManager(ActorInputManager).releaseGameUiControl(EActorControlHandle.SLEEP);
 
     executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
     executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);

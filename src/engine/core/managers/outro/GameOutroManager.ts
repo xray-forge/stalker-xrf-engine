@@ -5,7 +5,7 @@ import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
@@ -85,7 +85,7 @@ export class GameOutroManager extends AbstractManager {
 
     get_hud().AddCustomStatic("blackscreen", true);
 
-    getManager(ActorInputManager).disableGameUiOnly();
+    getManager(ActorInputManager).acquireControl(EActorControlHandle.OUTRO, "outro", EActorControlPolicy.UI_ONLY, true);
   }
 
   /**

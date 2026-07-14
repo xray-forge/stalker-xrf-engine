@@ -21,6 +21,7 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
+import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
@@ -505,9 +506,7 @@ export class TravelManager extends AbstractManager {
     this.travelDistance = null;
     this.travelToSmartId = null;
 
-    level.show_weapon(true);
-    level.enable_input();
-    level.show_indicators();
+    getManager(ActorInputManager).releaseControl(EActorControlHandle.TRAVEL);
   }
 
   /**
@@ -535,8 +534,12 @@ export class TravelManager extends AbstractManager {
 
     object.stop_talk();
 
-    level.disable_input();
-    level.hide_indicators_safe();
+    getManager(ActorInputManager).acquireControl(
+      EActorControlHandle.TRAVEL,
+      "travel",
+      EActorControlPolicy.INPUT_AND_INDICATORS
+    );
+
     level.add_pp_effector(postProcessors.fade_in_out, 613, false);
 
     // todo: Alife distance vs abs distance.
@@ -582,8 +585,12 @@ export class TravelManager extends AbstractManager {
 
     object.stop_talk();
 
-    level.disable_input();
-    level.hide_indicators_safe();
+    getManager(ActorInputManager).acquireControl(
+      EActorControlHandle.TRAVEL,
+      "travel",
+      EActorControlPolicy.INPUT_AND_INDICATORS
+    );
+
     level.add_pp_effector(postProcessors.fade_in_out, 613, false);
 
     this.isTravelTeleported = false;

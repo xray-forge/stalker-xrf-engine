@@ -4,6 +4,7 @@ import { LuaArray, Nillable, TRUE, Z_VECTOR } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
+import { EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor/actor_input_types";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSimulationSquads } from "@/engine/core/managers/simulation/utils";
@@ -144,7 +145,12 @@ export function killAllSurgeUnhidden(): void {
         EventsManager.emitEvent(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC);
       }
 
-      getManagerByName<ActorInputManager>("ActorInputManager")?.disableGameUiOnly();
+      getManagerByName<ActorInputManager>("ActorInputManager")?.acquireControl(
+        EActorControlHandle.SURGE,
+        "surge",
+        EActorControlPolicy.UI_ONLY,
+        true
+      );
 
       /**
        * Whether actor should survive surge.

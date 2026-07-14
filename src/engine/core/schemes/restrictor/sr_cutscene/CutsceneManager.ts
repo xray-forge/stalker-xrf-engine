@@ -5,7 +5,7 @@ import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActorControlHandle } from "@/engine/core/managers/actor";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { effectorSets } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
@@ -142,7 +142,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
             // Restore the memoized weapon slot (matches sr_cutscene.script `enable_ui(actor, nil)`).
             getManager(ActorInputManager).enableGameUi(true);
           } else if (this.state.shouldEnableUiOnEnd) {
-            level.enable_input();
+            getManager(ActorInputManager).releaseControl(EActorControlHandle.SCRIPT_UI, false);
           }
 
           actor.set_actor_direction(

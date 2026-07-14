@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game, get_console, level } from "xray16";
-import { Console, GameObject } from "xray16/alias";
-import { AnyObject, createTime } from "xray16/lib";
+import { game, get_console, get_hud, level } from "xray16";
+import { Console, GameHud, GameObject, Time } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
+import { EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor/actor_input_types";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -17,8 +18,8 @@ describe("ActorInputManager", () => {
     resetRegistry();
     mockRegisteredActor();
 
-    actorConfig.DISABLED_INPUT_AT = null;
-    actorConfig.DISABLED_INPUT_DURATION = null;
+    actorConfig.IS_WEAPON_HIDDEN = false;
+    actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = false;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -37,7 +38,7 @@ describe("ActorInputManager", () => {
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
-  it("should correctly save and load data", () => {
+  it("should persist and restore all control state through the actor input packet", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
     const processor: MockNetProcessor = new MockNetProcessor();
 
@@ -45,10 +46,15 @@ describe("ActorInputManager", () => {
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
     manager.setInactiveInputTime(10);
+    manager.acquireControl(EActorControlHandle.TRAVEL, "travel", EActorControlPolicy.INPUT_AND_INDICATORS);
+    manager.disableGameUi(true);
 
     manager.save(processor.asNetPacket());
 
-    expect(processor.writeDataOrder).toEqual([
+    const savedDataOrder: Array<EMockPacketDataType> = [...processor.writeDataOrder];
+    const savedData: Array<unknown> = [...processor.dataList];
+
+    expect(savedDataOrder).toEqual([
       EMockPacketDataType.BOOLEAN,
       EMockPacketDataType.U8,
       EMockPacketDataType.U8,
@@ -57,10 +63,49 @@ describe("ActorInputManager", () => {
       EMockPacketDataType.U8,
       EMockPacketDataType.U8,
       EMockPacketDataType.U16,
+      EMockPacketDataType.U32,
       EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
       EMockPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual([true, 12, 6, 12, 9, 30, 0, 0, 10, 9]);
+    expect(savedData).toEqual([
+      true,
+      12,
+      6,
+      12,
+      9,
+      30,
+      0,
+      0,
+      10,
+      10,
+      3,
+      "timed",
+      "timed",
+      EActorControlPolicy.INPUT,
+      false,
+      "travel",
+      "travel",
+      EActorControlPolicy.INPUT_AND_INDICATORS,
+      false,
+      "script-ui",
+      "script-ui",
+      EActorControlPolicy.FULL_UI,
+      true,
+      23,
+    ]);
 
     disposeManager(ActorInputManager);
 
@@ -71,19 +116,44 @@ describe("ActorInputManager", () => {
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
     expect(newActorInputManager).not.toBe(manager);
-    expect(actorConfig.ACTIVE_ITEM_SLOT).toBe(10);
+
+    jest.clearAllMocks();
+    newActorInputManager.onFirstUpdate();
+
+    expect(registry.actor.activate_slot).toHaveBeenCalledWith(10);
+
+    const restoredProcessor: MockNetProcessor = new MockNetProcessor();
+
+    newActorInputManager.save(restoredProcessor.asNetPacket());
+
+    expect(restoredProcessor.writeDataOrder).toEqual(savedDataOrder);
+    expect(restoredProcessor.dataList).toEqual(savedData);
+
+    jest.clearAllMocks();
+
+    newActorInputManager.releaseControl(EActorControlHandle.SCRIPT_UI, false);
+
+    expect(level.disable_input).toHaveBeenCalledTimes(1);
+    expect(level.enable_input).not.toHaveBeenCalled();
+
+    newActorInputManager.releaseControl(EActorControlHandle.TRAVEL, false);
+
+    expect(level.disable_input).toHaveBeenCalledTimes(2);
+    expect(level.enable_input).not.toHaveBeenCalled();
+
+    newActorInputManager.releaseControl(EActorControlHandle.TIMED, false);
+
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly toggle inactive input state", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
-    expect(actorConfig.DISABLED_INPUT_AT).toBeNull();
-
     manager.setInactiveInputTime(7_000);
-    expect(actorConfig.DISABLED_INPUT_AT).toBeDefined();
-    expect(String(actorConfig.DISABLED_INPUT_AT)).toBe(String(game.get_game_time()));
-    expect(actorConfig.DISABLED_INPUT_DURATION).toBe(7_000);
     expect(level.disable_input).toHaveBeenCalledTimes(1);
+
+    manager.releaseControl(EActorControlHandle.TIMED, false);
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly toggle night vision state", () => {
@@ -146,23 +216,65 @@ describe("ActorInputManager", () => {
     expect(torch.enable_torch).toHaveBeenNthCalledWith(2, false);
   });
 
-  it.todo("should correctly enable game ui");
+  it("should correctly disable and enable game UI", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+    const hud: GameHud = get_hud();
 
-  it.todo("should correctly disable game ui");
+    jest.spyOn(registry.actor, "active_slot").mockReturnValue(EActiveItemSlot.PRIMARY);
+    jest.spyOn(registry.actor, "item_in_slot").mockReturnValue(MockGameObject.mock());
 
-  it.todo("should correctly handle update event");
+    manager.disableGameUi(true);
+
+    expect(level.show_weapon).toHaveBeenCalledWith(false);
+    expect(level.disable_input).toHaveBeenCalledTimes(1);
+    expect(level.hide_indicators_safe).toHaveBeenCalledTimes(1);
+    expect(hud.HideActorMenu).toHaveBeenCalledTimes(1);
+    expect(hud.HidePdaMenu).toHaveBeenCalledTimes(1);
+    expect(registry.actor.activate_slot).toHaveBeenCalledWith(EActiveItemSlot.NONE);
+
+    manager.enableGameUi(true);
+
+    expect(level.show_weapon).toHaveBeenCalledWith(true);
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
+    expect(level.show_indicators).toHaveBeenCalledTimes(1);
+    expect(registry.actor.activate_slot).toHaveBeenLastCalledWith(EActiveItemSlot.PRIMARY);
+  });
+
+  it("should expire timed input and restore dialog and no-weapon state on update", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    manager.setInactiveInputTime(1);
+
+    jest.spyOn(game, "get_game_time").mockReturnValue({ diffSec: () => 1 } as unknown as Time);
+    jest.spyOn(registry.actor, "is_talking").mockReturnValue(true);
+    registry.noWeaponZones.set(1, true);
+
+    manager.onUpdate(0);
+
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
+    expect(registry.actor.hide_weapon).toHaveBeenCalledTimes(2);
+    expect(actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG).toBe(true);
+    expect(actorConfig.IS_WEAPON_HIDDEN).toBe(true);
+
+    jest.spyOn(registry.actor, "is_talking").mockReturnValue(false);
+    registry.noWeaponZones.delete(1);
+
+    manager.onUpdate(0);
+
+    expect(registry.actor.restore_weapon).toHaveBeenCalledTimes(2);
+    expect(actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG).toBe(false);
+    expect(actorConfig.IS_WEAPON_HIDDEN).toBe(false);
+  });
 
   it("should process anabiotics usage", () => {
     const console: Console = get_console();
     const manager: ActorInputManager = getManager(ActorInputManager);
 
-    jest.spyOn(manager, "disableGameUiOnly").mockImplementation(jest.fn());
-
     jest.spyOn(console, "get_float").mockReturnValueOnce(0.9).mockReturnValue(0.8);
 
     manager.processAnabioticItemUsage();
 
-    expect(manager.disableGameUiOnly).toHaveBeenCalledTimes(1);
+    expect(level.disable_input).toHaveBeenCalledTimes(1);
     expect(level.add_cam_effector).toHaveBeenCalledWith(
       "camera_effects\\surge_02.anm",
       10,
@@ -185,26 +297,57 @@ describe("ActorInputManager", () => {
   it("should correctly handle first update event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
-    actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.PRIMARY;
     manager.onFirstUpdate();
 
     expect(registry.actor.activate_slot).toHaveBeenNthCalledWith(1, EActiveItemSlot.PRIMARY);
-
-    actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.KNIFE;
-    manager.onFirstUpdate();
-
-    expect(registry.actor.activate_slot).toHaveBeenNthCalledWith(2, EActiveItemSlot.KNIFE);
   });
 
   it("should correctly handle network spawn event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
-    actorConfig.DISABLED_INPUT_AT = createTime(2012, 12, 1, 12, 30, 5, 500);
+    manager.acquireControl(EActorControlHandle.SCRIPT_UI, "script-ui", EActorControlPolicy.FULL_UI, true);
+
+    jest.clearAllMocks();
+
     manager.onActorGoOnline();
+
+    expect(level.disable_input).toHaveBeenCalledTimes(1);
     expect(level.enable_input).toHaveBeenCalledTimes(0);
 
-    actorConfig.DISABLED_INPUT_AT = null;
+    manager.releaseControl(EActorControlHandle.SCRIPT_UI, false);
+
+    jest.clearAllMocks();
+
     manager.onActorGoOnline();
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps input disabled until every independent control owner releases its lock", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    manager.acquireControl(EActorControlHandle.TRAVEL, "travel", EActorControlPolicy.INPUT_AND_INDICATORS);
+    manager.acquireControl(EActorControlHandle.SCRIPT_UI, "script-ui", EActorControlPolicy.FULL_UI, true);
+    manager.releaseControl(EActorControlHandle.TRAVEL);
+
+    expect(level.enable_input).not.toHaveBeenCalled();
+    expect(level.disable_input).toHaveBeenCalledTimes(3);
+
+    manager.releaseControl(EActorControlHandle.SCRIPT_UI);
+
+    expect(level.enable_input).toHaveBeenCalledTimes(1);
+  });
+
+  it("restores the UI without enabling input when an input-only lock remains", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    manager.acquireControl(EActorControlHandle.TIMED, "timed", EActorControlPolicy.INPUT);
+    manager.acquireControl(EActorControlHandle.SCRIPT_UI, "script-ui", EActorControlPolicy.FULL_UI, true);
+    manager.releaseGameUiControl(EActorControlHandle.SCRIPT_UI);
+
+    expect(level.enable_input).not.toHaveBeenCalled();
+    expect(level.show_indicators).toHaveBeenCalledTimes(1);
+
+    manager.releaseControl(EActorControlHandle.TIMED, false);
     expect(level.enable_input).toHaveBeenCalledTimes(1);
   });
 

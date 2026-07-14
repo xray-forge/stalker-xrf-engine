@@ -5,7 +5,7 @@ import { AnyObject } from "xray16/lib";
 import { MockConsole, MockCUITrackBar } from "xray16/mocks";
 
 import { disposeManager, getManager, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { sleepConfig, SleepManager } from "@/engine/core/managers/sleep";
 import { surgeConfig, SurgeManager } from "@/engine/core/managers/surge";
@@ -92,7 +92,7 @@ describe("SleepManager", () => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
-    jest.spyOn(actorInputManager, "disableGameUi").mockImplementation(jest.fn());
+    jest.spyOn(actorInputManager, "acquireControl").mockImplementation(jest.fn());
     jest.spyOn(surgeManager, "setSkipResurrectMessage").mockImplementation(jest.fn());
 
     expect(sleepManager.nextSleepDuration).toBe(0);
@@ -100,7 +100,11 @@ describe("SleepManager", () => {
     sleepManager.startSleep(14);
 
     expect(sleepManager.nextSleepDuration).toBe(14);
-    expect(actorInputManager.disableGameUi).toHaveBeenCalled();
+    expect(actorInputManager.acquireControl).toHaveBeenCalledWith(
+      EActorControlHandle.SLEEP,
+      "sleep",
+      EActorControlPolicy.FULL_UI
+    );
 
     expect(level.add_cam_effector).toHaveBeenCalledWith(
       animations.camera_effects_sleep,
@@ -161,7 +165,7 @@ describe("SleepManager", () => {
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    jest.spyOn(actorInputManager, "enableGameUi").mockImplementation(jest.fn());
+    jest.spyOn(actorInputManager, "releaseGameUiControl").mockImplementation(jest.fn());
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
 
     giveInfoPortion(infoPortions.actor_is_sleeping);
@@ -172,7 +176,7 @@ describe("SleepManager", () => {
 
     sleepManager.onFinishSleeping();
 
-    expect(actorInputManager.enableGameUi).toHaveBeenCalled();
+    expect(actorInputManager.releaseGameUiControl).toHaveBeenCalledWith(EActorControlHandle.SLEEP);
 
     expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.51");
     expect(console.execute).toHaveBeenCalledWith("snd_volume_eff 0.52");

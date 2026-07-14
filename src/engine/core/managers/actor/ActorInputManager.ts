@@ -1,16 +1,16 @@
 import { game, get_hud, level } from "xray16";
-import { GameHud, GameObject, NetPacket, NetProcessor } from "xray16/alias";
+import { GameHud, GameObject, NetPacket, NetProcessor, Time } from "xray16/alias";
 import {
   AnyObject,
   Nillable,
   readTimeFromPacket,
   TDuration,
-  TIndex,
+  TName,
   TNumberId,
   TRate,
   writeTimeToPacket,
 } from "xray16/lib";
-import { $filename, $isNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -22,6 +22,11 @@ import {
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
+import {
+  EActorControlHandle,
+  EActorControlPolicy,
+  IActorControlDescriptor,
+} from "@/engine/core/managers/actor/actor_input_types";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -41,9 +46,16 @@ import { EActiveItemSlot } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Manager to handle actor input.
+ * Manage actor input, UI, and persistent control locks.
  */
 export class ActorInputManager extends AbstractManager {
+  private locks: LuaMap<TName, IActorControlDescriptor> = new LuaMap();
+
+  private activeItemSlot: EActiveItemSlot = EActiveItemSlot.PRIMARY;
+  private memoizedItemSlot: EActiveItemSlot = EActiveItemSlot.NONE;
+  private disabledInputAt: Nillable<Time> = null;
+  private disabledInputDuration: Nillable<TDuration> = null;
+
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
@@ -67,14 +79,25 @@ export class ActorInputManager extends AbstractManager {
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ActorInputManager.name);
 
-    if ($isNil(actorConfig.DISABLED_INPUT_AT)) {
+    if ($isNil(this.disabledInputAt)) {
       packet.w_bool(false);
     } else {
       packet.w_bool(true);
-      writeTimeToPacket(packet, actorConfig.DISABLED_INPUT_AT);
+      writeTimeToPacket(packet, this.disabledInputAt);
+      packet.w_u32(this.disabledInputDuration as number);
     }
 
     packet.w_u8(registry.actor.active_slot());
+
+    packet.w_u8(table.size(this.locks));
+
+    for (const [handle, descriptor] of this.locks) {
+      packet.w_stringZ(handle);
+      packet.w_stringZ(descriptor.reason);
+      packet.w_u8(descriptor.policy);
+      packet.w_bool(descriptor.resetSlot);
+    }
+
     closeSaveMarker(packet, ActorInputManager.name);
   }
 
@@ -82,25 +105,119 @@ export class ActorInputManager extends AbstractManager {
     openLoadMarker(reader, ActorInputManager.name);
 
     if (reader.r_bool()) {
-      actorConfig.DISABLED_INPUT_AT = readTimeFromPacket(reader);
+      this.disabledInputAt = readTimeFromPacket(reader);
+      this.disabledInputDuration = reader.r_u32();
+    } else {
+      this.disabledInputAt = null;
+      this.disabledInputDuration = null;
     }
 
-    actorConfig.ACTIVE_ITEM_SLOT = reader.r_u8();
+    this.activeItemSlot = reader.r_u8();
+
+    this.locks = new LuaTable();
+
+    const controlsCount: number = reader.r_u8();
+
+    for (const _ of $range(1, controlsCount)) {
+      const handle: TName = reader.r_stringZ();
+      const reason: TName = reader.r_stringZ();
+      const policy: EActorControlPolicy = reader.r_u8() as EActorControlPolicy;
+
+      this.locks.set(handle, {
+        reason,
+        policy,
+        resetSlot: reader.r_bool(),
+      });
+    }
+
     closeLoadMarker(reader, ActorInputManager.name);
+
+    this.reconcileControlState(false);
   }
 
   /**
-   * Disable game input for delta duration.
+   * Acquire or strengthen a persistent control lock.
    *
-   * @param duration - Time to stop handling of actor controls input.
+   * Repeated acquisitions keep the stronger policy and preserve any slot reset request.
+   *
+   * @param handle - Stable lock owner.
+   * @param reason - Diagnostic reason stored with the lock.
+   * @param policy - Restrictions applied while the lock is active.
+   * @param resetSlot - Whether the lock may memoize and clear the active item slot.
+   */
+  public acquireControl(
+    handle: EActorControlHandle,
+    reason: TName,
+    policy: EActorControlPolicy,
+    resetSlot: boolean = false
+  ): void {
+    const existing: Nillable<IActorControlDescriptor> = this.locks.get(handle);
+
+    if ($isNotNil(existing)) {
+      existing.policy = math.max(existing.policy, policy) as EActorControlPolicy;
+      existing.resetSlot = existing.resetSlot || resetSlot;
+    } else {
+      this.locks.set(handle, { reason, policy, resetSlot });
+    }
+
+    this.reconcileControlState(false);
+  }
+
+  /**
+   * Release a control lock and reconcile the remaining locks.
+   *
+   * @param handle - Stable lock owner to release.
+   * @param restoreUi - Whether to restore owned UI when no stronger UI lock remains.
+   */
+  public releaseControl(handle: EActorControlHandle, restoreUi: boolean = true): void {
+    if (!this.locks.delete(handle)) {
+      logger.info("Release missing actor control lock: %s", handle);
+
+      return;
+    }
+
+    this.reconcileControlState(restoreUi);
+  }
+
+  /**
+   * Release a UI lock and optionally restore the memoized item slot.
+   *
+   * The slot is restored only after all UI locks have been released.
+   *
+   * @param handle - Stable UI lock owner to release.
+   * @param restoreSlot - Whether to reactivate the memoized slot after UI locks are released.
+   */
+  public releaseGameUiControl(handle: EActorControlHandle, restoreSlot: boolean = false): void {
+    const memoizedSlot: EActiveItemSlot = this.memoizedItemSlot;
+
+    this.releaseControl(handle, true);
+
+    if (
+      restoreSlot &&
+      !this.hasUiControl() &&
+      memoizedSlot !== EActiveItemSlot.NONE &&
+      registry.actor.item_in_slot(memoizedSlot)
+    ) {
+      registry.actor.activate_slot(memoizedSlot);
+    }
+
+    if (!this.hasUiControl()) {
+      this.memoizedItemSlot = EActiveItemSlot.NONE;
+    }
+  }
+
+  /**
+   * Temporarily disable actor input.
+   *
+   * @param duration - Duration of the input restriction.
    */
   public setInactiveInputTime(duration: TDuration): void {
     logger.info("Deactivate actor input: '%s'", duration);
 
-    actorConfig.DISABLED_INPUT_AT = game.get_game_time();
-    actorConfig.DISABLED_INPUT_DURATION = duration;
+    this.disabledInputAt = game.get_game_time();
+    this.disabledInputDuration = duration;
 
-    level.disable_input();
+    this.acquireControl(EActorControlHandle.TIMED, "timed", EActorControlPolicy.INPUT);
   }
 
   /**
@@ -166,99 +283,30 @@ export class ActorInputManager extends AbstractManager {
    * @param resetSlot - Whether currently active item slot should be memoized and deactivated.
    */
   public disableGameUi(resetSlot: boolean = false): void {
-    logger.info("Disable game UI");
-
-    const actor: GameObject = registry.actor;
-
-    if (actor.is_talking()) {
-      actor.stop_talk();
-    }
-
-    level.show_weapon(false);
-
-    if (resetSlot) {
-      const slot: TIndex = actor.active_slot();
-
-      if (slot !== EActiveItemSlot.NONE) {
-        actorConfig.MEMOIZED_ITEM_SLOT = slot;
-        actor.activate_slot(EActiveItemSlot.NONE);
-      }
-    }
-
-    level.disable_input();
-    level.hide_indicators_safe();
-
-    const hud: GameHud = get_hud();
-
-    hud.HideActorMenu();
-    hud.HidePdaMenu();
-
-    this.disableActorNightVision();
-    this.disableActorTorch();
+    this.acquireControl(EActorControlHandle.SCRIPT_UI, "script-ui", EActorControlPolicy.FULL_UI, resetSlot);
   }
 
   /**
-   * Enable game UI, show actor weapon and indicators, and enable input.
+   * Release the scripted UI lock and restore owned UI when possible.
    *
-   * @param restore - Whether previously memoized active item slot should be activated again.
+   * @param restore - Whether to reactivate the previously memoized item slot.
    */
   public enableGameUi(restore: boolean = false): void {
-    logger.info("Enable game UI");
-
-    if (restore) {
-      if (
-        actorConfig.MEMOIZED_ITEM_SLOT !== EActiveItemSlot.NONE &&
-        registry.actor.item_in_slot(actorConfig.MEMOIZED_ITEM_SLOT)
-      ) {
-        registry.actor.activate_slot(actorConfig.MEMOIZED_ITEM_SLOT);
-      }
-    }
-
-    actorConfig.MEMOIZED_ITEM_SLOT = EActiveItemSlot.NONE;
-
-    level.show_weapon(true);
-    level.enable_input();
-    level.show_indicators();
-
-    this.enableActorNightVision();
-    this.enableActorTorch();
+    this.releaseGameUiControl(EActorControlHandle.SCRIPT_UI, restore);
   }
 
   /**
    * Disable game UI by hiding actor weapon, indicators and menus without disabling night vision or torch.
    */
   public disableGameUiOnly(): void {
-    logger.info("Disable game UI only");
-
-    const actor: GameObject = registry.actor;
-
-    if (actor.is_talking()) {
-      actor.stop_talk();
-    }
-
-    level.show_weapon(false);
-
-    const slot: TIndex = actor.active_slot();
-
-    if (slot !== EActiveItemSlot.NONE) {
-      actorConfig.MEMOIZED_ITEM_SLOT = slot;
-      actor.activate_slot(EActiveItemSlot.NONE);
-    }
-
-    level.disable_input();
-    level.hide_indicators_safe();
-
-    const hud: GameHud = get_hud();
-
-    hud.HideActorMenu();
-    hud.HidePdaMenu();
+    this.acquireControl(EActorControlHandle.SCRIPT_UI, "script-ui", EActorControlPolicy.UI_ONLY, true);
   }
 
   /**
-   * Handle scripted behaviour when consuming anabiotics.
+   * Lock actor UI while consuming an anabiotic and start its effects.
    */
   public processAnabioticItemUsage(): void {
-    this.disableGameUiOnly();
+    this.acquireControl(EActorControlHandle.ANABIOTIC, "anabiotic", EActorControlPolicy.UI_ONLY, true);
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
@@ -273,18 +321,131 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Handle generic update from actor input perspective.
+   * Reconcile input and UI with the strongest active control policy.
+   *
+   * @param restoreUi - Whether to restore owned UI when no UI lock remains.
+   */
+  private reconcileControlState(restoreUi: boolean): void {
+    const policy: Nillable<EActorControlPolicy> = this.getActiveControlPolicy();
+
+    if (policy) {
+      level.disable_input();
+    } else {
+      level.enable_input();
+    }
+
+    if (policy === EActorControlPolicy.FULL_UI) {
+      this.hideGameUi(this.hasResetSlotControl(), true);
+    } else if (policy === EActorControlPolicy.UI_ONLY) {
+      this.hideGameUi(true, false);
+    } else if (policy === EActorControlPolicy.INPUT_AND_INDICATORS) {
+      level.hide_indicators_safe();
+    } else if ((policy === EActorControlPolicy.INPUT || !policy) && restoreUi) {
+      this.showGameUi();
+    }
+  }
+
+  /**
+   * Get the strongest active control policy.
+   *
+   * Every active policy blocks input.
+   *
+   * @returns The strongest policy, or null when no lock is active.
+   */
+  private getActiveControlPolicy(): Nillable<EActorControlPolicy> {
+    let result: Nillable<EActorControlPolicy> = null;
+
+    for (const [, descriptor] of this.locks) {
+      if (!result || descriptor.policy > result) {
+        result = descriptor.policy;
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Check whether any active UI lock requested an active-slot reset.
+   *
+   * @returns Whether a lock requested an active-slot reset.
+   */
+  private hasResetSlotControl(): boolean {
+    for (const [, descriptor] of this.locks) {
+      if (descriptor.resetSlot) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Check whether an active lock still owns a hidden UI presentation.
+   *
+   * @returns Whether a UI-only or full-UI lock remains active.
+   */
+  private hasUiControl(): boolean {
+    const policy: Nillable<EActorControlPolicy> = this.getActiveControlPolicy();
+
+    return policy === EActorControlPolicy.UI_ONLY || policy === EActorControlPolicy.FULL_UI;
+  }
+
+  /**
+   * Hide actor-facing UI components controlled by this manager.
+   *
+   * @param resetSlot - Whether to memoize and clear the active item slot.
+   * @param resetTools - Whether to disable night vision and the torch.
+   */
+  private hideGameUi(resetSlot: boolean, resetTools: boolean): void {
+    const actor: GameObject = registry.actor;
+    const hud: GameHud = get_hud();
+
+    if (actor.is_talking()) {
+      actor.stop_talk();
+    }
+
+    level.show_weapon(false);
+
+    if (resetSlot && actor.active_slot() !== EActiveItemSlot.NONE) {
+      this.memoizedItemSlot = actor.active_slot();
+      actor.activate_slot(EActiveItemSlot.NONE);
+    }
+
+    level.hide_indicators_safe();
+
+    hud.HideActorMenu();
+    hud.HidePdaMenu();
+
+    if (resetTools) {
+      this.disableActorNightVision();
+      this.disableActorTorch();
+    }
+  }
+
+  /**
+   * Restore actor-facing UI components owned by this manager.
+   */
+  private showGameUi(): void {
+    level.show_weapon(true);
+    level.show_indicators();
+    this.enableActorNightVision();
+    this.enableActorTorch();
+  }
+
+  /**
+   * Update timed input locks and actor weapon visibility.
+   *
+   * @param delta - Time since the previous actor update.
    */
   public onUpdate(delta: TDuration): void {
     const actor: GameObject = registry.actor;
 
     if (
-      actorConfig.DISABLED_INPUT_AT &&
-      game.get_game_time().diffSec(actorConfig.DISABLED_INPUT_AT) >= (actorConfig.DISABLED_INPUT_DURATION as number)
+      this.disabledInputAt &&
+      game.get_game_time().diffSec(this.disabledInputAt) >= (this.disabledInputDuration as number)
     ) {
-      logger.info("Enabling actor game input");
-      level.enable_input();
-      actorConfig.DISABLED_INPUT_AT = null;
+      this.disabledInputAt = null;
+      this.releaseControl(EActorControlHandle.TIMED, false);
     }
 
     if (actor.is_talking()) {
@@ -320,17 +481,15 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(): void {
-    logger.info("Apply active item slot: %s", actorConfig.ACTIVE_ITEM_SLOT);
-    registry.actor.activate_slot(actorConfig.ACTIVE_ITEM_SLOT);
+    logger.info("Apply active item slot: %s", this.activeItemSlot);
+    registry.actor.activate_slot(this.activeItemSlot);
   }
 
   /**
-   * Handle actor network spawn.
+   * Reconcile actor control state after the actor goes online.
    */
   public onActorGoOnline(): void {
-    if (!actorConfig.DISABLED_INPUT_AT) {
-      level.enable_input();
-    }
+    this.reconcileControlState(false);
   }
 
   /**
@@ -379,7 +538,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle wake-up from anabiotic sleep, restore game UI and sound volumes, and clear the in-process info portion.
    */
   public onAnabioticWakeUp(): void {
-    getManager(ActorInputManager).enableGameUi();
+    this.releaseGameUiControl(EActorControlHandle.ANABIOTIC);
 
     setMusicVolume(registry.musicVolume);
     setEffectsVolume(registry.effectsVolume);
@@ -403,10 +562,10 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Handle end of surge survival by re-enabling the game UI.
+   * Release surge UI control after survival ends.
    */
   public onSurgeSurviveEnd(): void {
-    this.enableGameUi();
+    this.releaseGameUiControl(EActorControlHandle.SURGE);
   }
 
   /**
