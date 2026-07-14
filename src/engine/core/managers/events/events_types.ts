@@ -195,6 +195,10 @@ export enum EGameEvent {
    */
   SMART_TERRAIN_VISITED,
   /**
+   * Smart terrain job assignments require scheduled full reselection.
+   */
+  SMART_TERRAIN_JOBS_DIRTY,
+  /**
    * Registered physic object.
    */
   OBJECT_PHYSIC_REGISTER,
