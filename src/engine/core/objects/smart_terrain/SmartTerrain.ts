@@ -155,6 +155,10 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   // Whether job assignments require a full selection pass on the next heavy tick, transient.
   public jobsDirty: boolean = true;
   public jobsDirtyReason: Nillable<TLabel> = null;
+  // Incremented while a scheduled dirty pass is active to retain invalidations occurring mid-pass.
+  public jobsDirtyRevision: TCount = 0;
+  // Whether SimulationManager currently owns a queued dirty pass for this terrain.
+  public jobsDirtyScheduled: boolean = false;
   // Cached job precondition environment inputs for edge detection, transient.
   public jobsAlarmState: Nillable<boolean> = null;
   public jobsSurgeState: Nillable<boolean> = null;

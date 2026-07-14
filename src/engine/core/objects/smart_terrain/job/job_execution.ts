@@ -2,6 +2,7 @@ import { isInTimeInterval, NIL, Nillable, TCount, TLabel, TNumberId, TSection } 
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";
@@ -25,16 +26,24 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
  * @param reason - Human-readable invalidation reason for logs and diagnostics.
  */
 export function markTerrainJobsDirty(terrain: SmartTerrain, reason: TLabel): void {
+  if (terrain.jobsDirtyScheduled) {
+    terrain.jobsDirtyRevision += 1;
+  }
+
   terrain.jobsDirty = true;
   terrain.jobsDirtyReason = reason;
+
+  if (terrain.isRegistered) {
+    EventsManager.emitEvent(EGameEvent.SMART_TERRAIN_JOBS_DIRTY, terrain);
+  }
 }
 
 /**
  * Perform generic sync and update of current smart terrain jobs.
  *
- * Full selection passes run on dirty ticks (arrivals, deaths, departures, dead-time expiry and
- * alarm/surge/night precondition input edges). Clean keep-checks and bounded higher-priority
- * probes run at the caller's selected cadence, following the CoC/Anomaly patterns.
+ * Dirty full-selection passes are scheduled by SimulationManager. If that manager is not initialized
+ * yet, retain the previous local full-pass behaviour as a safe lifecycle fallback. Clean keep-checks
+ * and bounded higher-priority probes run at the caller's selected cadence, following CoC/Anomaly patterns.
  *
  * @param terrain - Target smart terrain to update current jobs state for.
  * @param isMaintenanceDue - Whether the scheduled clean maintenance pass is due.
@@ -72,21 +81,31 @@ export function updateTerrainJobs(terrain: SmartTerrain, isMaintenanceDue: boole
     }
   }
 
-  if (!terrain.jobsDirty && !isMaintenanceDue) {
-    return false;
-  }
-
   if (terrain.jobsDirty) {
+    if (terrain.jobsDirtyScheduled) {
+      return false;
+    }
+
     for (const [, objectJobDescriptor] of terrain.objectJobDescriptors) {
       selectTerrainObjectJob(terrain, objectJobDescriptor);
     }
 
     terrain.jobsDirty = false;
     terrain.jobsDirtyReason = null;
-  } else {
-    for (const [, objectJobDescriptor] of terrain.objectJobDescriptors) {
-      maintainTerrainObjectJob(terrain, objectJobDescriptor);
+
+    if (smartTerrainConfig.JOBS_SHADOW_COMPARE) {
+      compareTerrainJobsWithFullSelection(terrain);
     }
+
+    return true;
+  }
+
+  if (!isMaintenanceDue) {
+    return false;
+  }
+
+  for (const [, objectJobDescriptor] of terrain.objectJobDescriptors) {
+    maintainTerrainObjectJob(terrain, objectJobDescriptor);
   }
 
   if (smartTerrainConfig.JOBS_SHADOW_COMPARE) {

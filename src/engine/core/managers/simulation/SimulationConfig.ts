@@ -22,6 +22,9 @@ export const simulationConfig = {
   // Interval between "squad target outranks assigned terrain" full-registry rescans per squad,
   // staggered by squad id. The rescan is the dominant scan trigger; 0 restores per-tick vanilla behavior.
   SQUAD_TARGET_OUTRANK_RECHECK_INTERVAL: 5_000,
+  // Global smart-terrain dirty-job reselection budget. Time-scaled to make work independent of FPS.
+  SMART_TERRAIN_DIRTY_JOBS_PER_SECOND: 960,
+  SMART_TERRAIN_DIRTY_JOBS_PER_FRAME: 16,
   IS_SIMULATION_INITIALIZED: false,
   TERRAINS: new LuaTable<TName, SmartTerrain>(),
   TERRAIN_DESCRIPTORS: new LuaTable<TNumberId, ISmartTerrainDescriptor>(),

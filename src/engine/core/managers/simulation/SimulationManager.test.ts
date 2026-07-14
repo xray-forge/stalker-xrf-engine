@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { actor_stats } from "xray16";
 import { ACTOR_ID, AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
@@ -23,6 +23,12 @@ describe("SimulationManager", () => {
     mockRegisteredActor();
 
     simulationConfig.IS_SIMULATION_INITIALIZED = false;
+    simulationConfig.SMART_TERRAIN_DIRTY_JOBS_PER_SECOND = 960;
+    simulationConfig.SMART_TERRAIN_DIRTY_JOBS_PER_FRAME = 16;
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it("should have correct initial config", () => {
@@ -41,11 +47,15 @@ describe("SimulationManager", () => {
 
     getManager(SimulationManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getSubscribersCount()).toBe(8);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_REGISTER)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_OFFLINE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE_100)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SMART_TERRAIN_REGISTER)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SMART_TERRAIN_UNREGISTER)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SMART_TERRAIN_JOBS_DIRTY)).toBe(1);
 
     disposeManager(SimulationManager);
 
