@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, clsid } from "xray16";
 import { GameObject, ServerCreatureObject, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
-import { ACTOR_ID } from "xray16/lib";
+import { ACTOR_ID, AnyObject, LuaArray, TName } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import {
   MockAlifeHumanStalker,
@@ -284,17 +284,26 @@ describe("object conditions implementation", () => {
   });
 
   it("check_npc_name should check object name", () => {
+    const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
+    const checkNpcName = (_G as AnyObject).xr_conditions.check_npc_name as (
+      actor: GameObject,
+      object: GameObject,
+      params: LuaArray<TName>
+    ) => boolean;
 
     jest.spyOn(object, "name").mockImplementation(() => "some-name");
 
-    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "test")).toBe(false);
+    expect(checkNpcName(actor, object, $fromArray(["test"]))).toBe(false);
+
+    jest.spyOn(object, "name").mockImplementation(() => "aXb");
+    expect(checkNpcName(actor, object, $fromArray(["a.b"]))).toBe(false);
 
     jest.spyOn(object, "name").mockImplementation(() => "test-123");
 
-    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "test")).toBe(true);
-    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "123")).toBe(true);
-    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "abc", "efg", "test")).toBe(true);
+    expect(checkNpcName(actor, object, $fromArray(["test"]))).toBe(true);
+    expect(checkNpcName(actor, object, $fromArray(["123"]))).toBe(true);
+    expect(checkNpcName(actor, object, $fromArray(["abc", "efg", "test"]))).toBe(true);
   });
 
   it("check_enemy_name should check object name", () => {

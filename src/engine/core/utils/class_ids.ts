@@ -10,11 +10,11 @@ import type {
   ServerSmartZoneObject,
   TClassId,
 } from "xray16/alias";
-import type { Nillable } from "xray16/lib";
+import { type Nillable } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import type { Stalker } from "@/engine/core/objects/creature";
+import { type Stalker } from "@/engine/core/objects/creature";
 import { classIds } from "@/engine/lib/constants/class_ids";
 
 /**
@@ -111,6 +111,8 @@ export function isStrappableWeapon(object: Nillable<GameObject>): object is Game
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is actor class.
  */
@@ -119,6 +121,8 @@ export function isActor<T extends ServerGroupObject>(object: ServerObject): obje
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is squad class.
  */
@@ -127,6 +131,8 @@ export function isSquad<T extends ServerGroupObject>(object: ServerObject): obje
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is smart terrain class.
  */
@@ -145,6 +151,8 @@ export function isMonsterSquad<T extends ServerGroupObject>(squad: T): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is snork.
  */
@@ -153,6 +161,8 @@ export function isSnork(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is dog.
  */
@@ -161,6 +171,8 @@ export function isDog(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is psy dog.
  */
@@ -169,6 +181,8 @@ export function isPsyDog(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is poltergeist.
  */
@@ -177,6 +191,8 @@ export function isPoltergeist(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is tushkano.
  */
@@ -185,6 +201,8 @@ export function isTushkano(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is burer.
  */
@@ -193,6 +211,8 @@ export function isBurer(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is controller.
  */
@@ -201,6 +221,8 @@ export function isController(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is flesh.
  */
@@ -209,6 +231,8 @@ export function isFlesh(object: AnyGameObject): boolean {
 }
 
 /**
+ * @inline
+ *
  * @param object - Object to check.
  * @returns Whether provided object is boar.
  */

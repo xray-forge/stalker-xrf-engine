@@ -9,6 +9,7 @@ import {
   isDistanceBetweenObjectsLessOrEqual,
   isObjectInZone,
   LuaArray,
+  MAX_ALIFE_ID,
   Nillable,
   TCount,
   TDistance,
@@ -45,9 +46,9 @@ import {
   isBoar,
   isBurer,
   isController,
+  isCreature,
   isDog,
   isFlesh,
-  isMonster,
   isPoltergeist,
   isPsyDog,
   isSnork,
@@ -150,9 +151,12 @@ extern("xr_conditions.enemy_in_zone", (_: GameObject, __: GameObject, [name]: [T
  */
 extern("xr_conditions.check_npc_name", (_: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
   const objectName: TName = object.name();
+  const paramsCount: TCount = params.length();
 
-  for (const [, name] of ipairs(params)) {
-    if (string.find(objectName, name)[0]) {
+  for (let index: TCount = 1; index <= paramsCount; index += 1) {
+    const name: TName = params.get(index);
+
+    if (string.find(objectName, name, 1, true)[0]) {
       return true;
     }
   }
@@ -709,18 +713,24 @@ extern("xr_conditions.squads_in_zone_b41", (): boolean => {
  * @returns Whether the squad section contains the name or the object section equals the name.
  */
 extern("xr_conditions.target_squad_name", (_: GameObject, object: ServerCreatureObject, [name]: [TName]): boolean => {
-  if (!object || !name) {
+  if ($isNil(object) || $isNil(name)) {
     return false;
   }
 
-  if (isStalker(object) || isMonster(object)) {
-    const squad: Nillable<Squad> = registry.simulator.object(object.group_id);
+  if (isCreature(object)) {
+    const groupId: TNumberId = object.group_id;
+
+    if (groupId === MAX_ALIFE_ID) {
+      return false;
+    }
+
+    const squad: Nillable<Squad> = registry.simulator.object(groupId);
 
     if (!squad) {
       return false;
     }
 
-    if ($isNotNil(string.find(squad.section_name(), name)[0])) {
+    if ($isNotNil(string.find(squad.section_name(), name, 1, true)[0])) {
       return true;
     }
   }
