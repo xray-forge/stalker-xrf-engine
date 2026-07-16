@@ -14,7 +14,10 @@ import { roots } from "@/engine/lib/constants/roots";
 export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
   const fs: FS = getFS();
 
-  if ($isNotNil(lfs) && fs.exist(roots.gameData, "extensions", FS.FS_ListFolders)) {
+  const extensionsFolder: TPath = fs.update_path(roots.gameData, "extensions");
+  const extensionsFolderAttributes: Nillable<LuaTable> = $isNotNil(lfs) ? lfs.attributes(extensionsFolder) : null;
+
+  if (extensionsFolderAttributes?.get("mode") === "directory") {
     const list: LuaArray<IExtensionsDescriptor> = new LuaTable();
     const extensionsFolder: TPath = fs.update_path(roots.gameData, "extensions");
 

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { FileStatus, FS, getFS } from "xray16";
-import { MockFileStatus } from "xray16/mocks";
+import { getFS } from "xray16";
+import { Nullable } from "xray16/lib";
 
 import { getAvailableExtensions } from "@/engine/core/utils/extensions/extensions_list";
 
@@ -11,13 +11,18 @@ jest.mock("extensions.d.main", () => ({ canToggle: false, register: () => {} }),
 
 describe("getAvailableExtensions util", () => {
   it("should correctly return list of available extensions", () => {
-    jest.spyOn(getFS(), "exist").mockImplementation(() => null as unknown as FileStatus);
+    jest.spyOn(getFS(), "exist");
+    jest.spyOn(lfs, "attributes").mockImplementation(() => null);
 
     expect(getAvailableExtensions()).toEqualLuaTables({});
-    expect(getFS().exist).toHaveBeenCalledWith("$game_data$", "extensions", FS.FS_ListFolders);
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => MockFileStatus.mock());
-    jest.spyOn(lfs, "attributes").mockImplementation(() => new LuaTable());
+    jest.spyOn(lfs, "attributes").mockImplementation((path: string) => {
+      const attributes: LuaTable<string, string> = new LuaTable();
+
+      attributes.set("mode", path.endsWith("main.script") ? "file" : "directory");
+
+      return attributes as unknown as Nullable<LuaTable>;
+    });
     jest.spyOn(lfs, "dir").mockImplementation(() => {
       const items = ["a", "b", "c", "d"];
 
