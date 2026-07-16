@@ -1,5 +1,7 @@
 export * from "@/fixtures/engine/mocks/extension.mock";
+export * from "@/fixtures/engine/mocks/ini_files.mock";
 export * from "@/fixtures/engine/mocks/object.mock";
+export * from "@/fixtures/engine/mocks/patrols.mock";
 export * from "@/fixtures/engine/mocks/registry.mock";
 export * from "@/fixtures/engine/mocks/scheme.mock";
 export * from "@/fixtures/engine/mocks/smart_cover.mock";

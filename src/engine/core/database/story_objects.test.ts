@@ -18,8 +18,7 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
-import { resetRegistry } from "@/fixtures/engine";
-import { INI_FILES_MOCKS } from "@/fixtures/xray";
+import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {

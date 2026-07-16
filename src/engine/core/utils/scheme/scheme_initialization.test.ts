@@ -38,8 +38,7 @@ import {
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
-import { INI_FILES_MOCKS } from "@/fixtures/xray";
+import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 

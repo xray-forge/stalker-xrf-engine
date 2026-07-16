@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { registerZone } from "@/engine/core/database";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
-import { patrols } from "@/fixtures/xray";
+import { patrols } from "@/fixtures/engine";
 
 describe("isObjectAtWaypoint util", () => {
   it("should correctly check whether object is at waypoint", () => {

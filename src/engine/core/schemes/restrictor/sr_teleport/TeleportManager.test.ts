@@ -14,8 +14,7 @@ import {
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
-import { getSchemeAction } from "@/fixtures/engine";
-import { patrols } from "@/fixtures/xray";
+import { getSchemeAction, patrols } from "@/fixtures/engine";
 
 describe("TeleportManager", () => {
   it("should correctly call updates, teleport and react to generic logic", () => {
