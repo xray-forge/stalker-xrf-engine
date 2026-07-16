@@ -2,6 +2,7 @@
   path = cli/bin
   url = https://github.com/xray-forge/stalker-xrf-bin.git
   branch = main
+  ignore = dirty
 
 [submodule "src/resources"]
   path = src/resources
