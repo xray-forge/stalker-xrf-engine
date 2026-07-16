@@ -34,6 +34,10 @@ export function registerExtensions(isNewGame: boolean): void {
   }
 
   for (const [, extension] of sortedExtensions) {
+    if (extension.isAvailable === false) {
+      continue;
+    }
+
     if (extension.isEnabled) {
       registerExtension(extension);
       (extension.module as AnyCallablesModule).register(isNewGame, extension);

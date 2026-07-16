@@ -37,6 +37,8 @@ describe("getAvailableExtensions util", () => {
       {
         entry: "$game_data$\\extensions\\a\\main.script",
         isEnabled: true,
+        isAvailable: true,
+        availabilityReason: null,
         canToggle: true,
         module: {
           name: "custom name",
@@ -48,6 +50,8 @@ describe("getAvailableExtensions util", () => {
       {
         entry: "$game_data$\\extensions\\c\\main.script",
         isEnabled: false,
+        isAvailable: true,
+        availabilityReason: null,
         canToggle: true,
         module: {
           enabled: false,
@@ -59,6 +63,8 @@ describe("getAvailableExtensions util", () => {
       {
         entry: "$game_data$\\extensions\\d\\main.script",
         isEnabled: true,
+        isAvailable: true,
+        availabilityReason: null,
         canToggle: false,
         module: {
           canToggle: false,

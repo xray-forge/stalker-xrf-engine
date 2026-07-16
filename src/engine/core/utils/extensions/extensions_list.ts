@@ -2,7 +2,7 @@ import { FS, getFS } from "xray16";
 import { AnyObject, LuaArray, Nillable, TName, TPath } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+import { IExtensionCheckResult, IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { roots } from "@/engine/lib/constants/roots";
 
 /**
@@ -27,19 +27,44 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
     while (directoryItem) {
       const extensionPath: TPath = fs.update_path(roots.gameData, string.format("extensions\\%s", directoryItem));
       const extensionEntryPath: TPath = string.format("%s\\main.script", extensionPath);
+      const extensionCheckPath: TPath = string.format("%s\\check.script", extensionPath);
 
       // If entry exists and has register callback, collect descriptor.
       if (lfs.attributes(extensionEntryPath)) {
-        const module: Nillable<AnyObject> = require(string.format("extensions.%s.main", directoryItem));
+        let isAvailable: boolean = true;
+        let availabilityReason: Nillable<string> = null;
+        let metadata: AnyObject = {};
 
-        if (module && type(module.register) === "function") {
+        if (lfs.attributes(extensionCheckPath)?.get("mode") === "file") {
+          metadata = require(string.format("extensions.%s.check", directoryItem));
+
+          const result: unknown = (metadata.check as () => unknown)();
+
+          if (type(result) !== "table" || type((result as IExtensionCheckResult).enabled) !== "boolean") {
+            isAvailable = false;
+            availabilityReason = "Compatibility check returned an invalid result.";
+          } else {
+            isAvailable = (result as IExtensionCheckResult).enabled;
+            availabilityReason = (result as IExtensionCheckResult).reason ?? null;
+          }
+        }
+
+        const module: Nillable<AnyObject> = isAvailable
+          ? require(string.format("extensions.%s.main", directoryItem))
+          : null;
+
+        metadata = module ?? metadata;
+
+        if (!isAvailable || (module && type(module.register) === "function")) {
           table.insert(list, {
-            isEnabled: type(module.enabled) === "boolean" ? module.enabled : true,
-            canToggle: type(module.canToggle) === "boolean" ? module.canToggle : true,
-            name: type(module.name) === "string" ? module.name : directoryItem,
+            isEnabled: type(metadata.enabled) === "boolean" ? metadata.enabled : true,
+            isAvailable: isAvailable,
+            availabilityReason: availabilityReason,
+            canToggle: isAvailable && type(metadata.canToggle) === "boolean" ? metadata.canToggle : isAvailable,
+            name: type(metadata.name) === "string" ? metadata.name : directoryItem,
             path: extensionPath,
             entry: extensionEntryPath,
-            module: module,
+            module: module ?? {},
           });
         }
       }
