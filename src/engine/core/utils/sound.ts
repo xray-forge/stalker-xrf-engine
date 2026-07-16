@@ -7,6 +7,8 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ESoundType } from "@/engine/lib/constants/sound";
 
 /**
+ * @inline
+ *
  * @returns Currently set music volume.
  */
 export function getMusicVolume(): TRate {
@@ -14,6 +16,8 @@ export function getMusicVolume(): TRate {
 }
 
 /**
+ * @inline
+ *
  * @returns Currently set effects volume.
  */
 export function getEffectsVolume(): TRate {
@@ -21,6 +25,8 @@ export function getEffectsVolume(): TRate {
 }
 
 /**
+ * @inline
+ *
  * @param volume - Rate to set music volume.
  */
 export function setMusicVolume(volume: TRate): void {
@@ -28,6 +34,8 @@ export function setMusicVolume(volume: TRate): void {
 }
 
 /**
+ * @inline
+ *
  * @param volume - Rate to set effects volume.
  */
 export function setEffectsVolume(volume: TRate): void {
@@ -36,6 +44,8 @@ export function setEffectsVolume(volume: TRate): void {
 
 /**
  * Check whether sound is included in actual sound bit mask.
+ *
+ * @inline
  *
  * @param heard - Actual heard sound bit mask.
  * @param expected - Sound to check containing in the mask.
