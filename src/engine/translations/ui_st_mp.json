@@ -53,7 +53,7 @@
     "eng": "Modes",
     "fra": "Modes",
     "ger": "Modi",
-    "ita": "Modalitŕ",
+    "ita": "Modalità",
     "pol": "Tryby",
     "rus": "Режимы",
     "spa": "Modos",
@@ -63,7 +63,7 @@
     "eng": "The artifact was destroyed.",
     "fra": "L'artefact a été détruit.",
     "ger": "Das Artefakt wurde zerstört.",
-    "ita": "Il manufatto č stato distrutto.",
+    "ita": "Il manufatto è stato distrutto.",
     "pol": "Artefakt został zniszczony.",
     "rus": "Артефакт был уничтожен",
     "spa": "El artefacto se ha destruido.",
@@ -71,9 +71,9 @@
   },
   "mp_art_spowned": {
     "eng": "The artifact has spawned. Bring it to the base to score a point.",
-    "fra": "L'artefact a réapparu. Rapportez-le ŕ la base pour marquer un point !",
+    "fra": "L'artefact a réapparu. Rapportez-le à la base pour marquer un point !",
     "ger": "Das Artefakt ist aufgetaucht. Bringen Sie es in die Basis, um zu punkten.",
-    "ita": "Il manufatto si č generato. Portalo alla base per ottenere i punti.",
+    "ita": "Il manufatto si è generato. Portalo alla base per ottenere i punti.",
     "pol": "Powstał artefakt. Zanieś go do bazy, żeby zdobyć punkt.",
     "rus": "Артефакт появился. Принесите его на базу, чтобы заработать очко.",
     "spa": "Ha aparecido el artefacto. Tráelo a la base para obtener un punto.",
@@ -83,7 +83,7 @@
     "eng": "The artifact was lost.",
     "fra": "L'artefact a été perdu.",
     "ger": "Das Artefakt wurde verloren.",
-    "ita": "Il manufatto č andato perduto.",
+    "ita": "Il manufatto è andato perduto.",
     "pol": "Artefakt został utracony.",
     "rus": "Артефакт потерян",
     "spa": "El artefacto se ha perdido.",
@@ -93,7 +93,7 @@
     "eng": "The artifact is at our base.",
     "fra": "L'artefact est dans notre base.",
     "ger": "Das Artefakt befindet sich in unserer Basis.",
-    "ita": "Il manufatto č alla nostra base.",
+    "ita": "Il manufatto è alla nostra base.",
     "pol": "Artefakt jest w naszej bazie.",
     "rus": "Артефакт на нашей базе",
     "spa": "El artefacto está en nuestra base.",
@@ -103,7 +103,7 @@
     "eng": "The artifact is at the enemy base.",
     "fra": "L'artefact est dans la base ennemie.",
     "ger": "Das Artefakt befindet sich in der gegnerischen Basis.",
-    "ita": "Il manufatto č alla base nemica.",
+    "ita": "Il manufatto è alla base nemica.",
     "pol": "Artefakt jest w bazie wroga.",
     "rus": "Артефакт на вражеской базе",
     "spa": "El artefacto está en la base enemiga.",
@@ -341,7 +341,7 @@
   },
   "mp_free_look": {
     "eng": "(Third person view)",
-    "fra": "(vue Troisičme personne)",
+    "fra": "(vue Troisième personne)",
     "ger": "(Dritte-Person-Ansicht)",
     "ita": "(visuale in terza persona)",
     "pol": "(widok z trzeciej osoby)",
@@ -363,7 +363,7 @@
     "eng": "7. Mode",
     "fra": "7. Mode",
     "ger": "7. Modus",
-    "ita": "7. Modalitŕ",
+    "ita": "7. Modalità",
     "pol": "7. Zmień tryb",
     "rus": "7. Режим",
     "spa": "7. Modo",
@@ -386,14 +386,14 @@
     "ita": "AVANTI!",
     "pol": "NAPRZÓD!",
     "rus": "ВПЕРЁД!",
-    "spa": "ˇADELANTE!",
+    "spa": "¡ADELANTE!",
     "ukr": "ВПЕРЕД!"
   },
   "mp_gp_unique_nick_too_short": {
     "eng": "The nickname is too short",
     "fra": "Le pseudo est trop court",
     "ger": "Der Benutzername ist zu kurz",
-    "ita": "Il soprannome č troppo breve",
+    "ita": "Il soprannome è troppo breve",
     "pol": "Pseudonim jest za krótki",
     "rus": "Слишком короткое уникальное имя",
     "spa": "El apodo es demasiado corto.",
@@ -463,7 +463,7 @@
     "eng": "is now",
     "fra": "est désormais",
     "ger": "ist jetzt",
-    "ita": "č adesso",
+    "ita": "è adesso",
     "pol": "jest teraz",
     "rus": "теперь",
     "spa": "ahora es",
@@ -473,7 +473,7 @@
     "eng": "has joined",
     "fra": "a rejoint",
     "ger": "ist beigetreten",
-    "ita": "si č unito",
+    "ita": "si è unito",
     "pol": "dołącza",
     "rus": "присоединился к команде",
     "spa": "se ha unido a",
@@ -521,7 +521,7 @@
   },
   "mp_look_at": {
     "eng": "(Free-locked)",
-    "fra": "(Troisičme personne libre)",
+    "fra": "(Troisième personne libre)",
     "ger": "(Free-Locked)",
     "ita": "(Libera-bloccata)",
     "pol": "(wolny widok)",
@@ -546,7 +546,7 @@
     "ita": "Scontro iniziato",
     "pol": "Rozpoczął się mecz!",
     "rus": "Бой начался!",
-    "spa": "ˇLa partida ha comenzado!",
+    "spa": "¡La partida ha comenzado!",
     "ukr": "Бій розпочався!"
   },
   "mp_military_2": {
@@ -563,7 +563,7 @@
     "eng": "Modes",
     "fra": "Modes",
     "ger": "Modi",
-    "ita": "Modalitŕ",
+    "ita": "Modalità",
     "pol": "Tryby",
     "rus": "Режимы",
     "spa": "Modos",
@@ -616,7 +616,7 @@
     "ita": "%s ha vinto la partita!",
     "pol": "Gracz %s wygrywa mecz!",
     "rus": "Игрок %s выиграл бой!",
-    "spa": "ˇ%s ha ganado la partida!",
+    "spa": "¡%s ha ganado la partida!",
     "ukr": "Гравець %s виграв бій!"
   },
   "mp_players": {
@@ -633,7 +633,7 @@
     "eng": "Press Fire to switch to Spectator mode",
     "fra": "Appuyez sur Tirer pour passer en mode Spectateur.",
     "ger": "Zum Wechseln in den Zuschauermodus \"Feuern\" drücken",
-    "ita": "Premi il pulsante di fuoco per passare alla modalitŕ Spettatore",
+    "ita": "Premi il pulsante di fuoco per passare alla modalità Spettatore",
     "pol": "Wciśnij „strzał”, żeby przełączyć się w tryb widza",
     "rus": "Нажмите «Огонь», чтобы перейти в режим наблюдения",
     "spa": "Pulsa Disparar para cambiar al modo Espectador",
@@ -703,7 +703,7 @@
     "eng": "You have %d$. You can respawn for %d$. Click Yes to pay.",
     "fra": "Vous avez %d $. Vous pouvez réapparaître pour %d $. Cliquez sur Oui pour payer.",
     "ger": "Sie haben %d$. Für %d$ können Sie respawnen. Klicken Sie auf \"Ja\", um zu spielen.",
-    "ita": "Hai %d$. Puoi rigenerarti per %d$. Clicca su Sě per pagare.",
+    "ita": "Hai %d$. Puoi rigenerarti per %d$. Clicca su Sì per pagare.",
     "pol": "Masz: %d$. Możesz kupić odrodzenie za: %d$. Kliknij „tak\", żeby zapłacić.",
     "rus": "У Вас есть %d$. Вы можете купить рождение за %d$. Нажмите «Да», чтобы заплатить",
     "spa": "Tienes %d$. Puedes reaparecer por %d$. Haz clic en Sí para pagar.",
@@ -711,7 +711,7 @@
   },
   "mp_ready": {
     "eng": "Ready...",
-    "fra": "Pręt...",
+    "fra": "Prêt...",
     "ger": "Bereit...",
     "ita": "Pronto...",
     "pol": "Przygotuj się...",
@@ -771,7 +771,7 @@
   },
   "mp_select_ban": {
     "eng": "Select player to ban by voting",
-    "fra": "Sélectionnez le joueur ŕ exclure.",
+    "fra": "Sélectionnez le joueur à exclure.",
     "ger": "Spieler auswählen, der per Abstimmung gesperrt werden soll",
     "ita": "Seleziona il giocatore da bandire tramite votazione",
     "pol": "Wybierz gracza, który w głosowaniu ma zostać zablokowany",
@@ -791,7 +791,7 @@
   },
   "mp_select_kick": {
     "eng": "Select player to kick by voting",
-    "fra": "Sélectionnez le joueur ŕ exclure par vote.",
+    "fra": "Sélectionnez le joueur à exclure par vote.",
     "ger": "Spieler auswählen, der per Abstimmung gekickt werden soll",
     "ita": "Seleziona il giocatore da espellere tramite votazione",
     "pol": "Wybierz gracza, który w głosowaniu ma zostać wyrzucony",
@@ -801,7 +801,7 @@
   },
   "mp_select_kick_player": {
     "eng": "Select player to kick by voting",
-    "fra": "Sélectionnez le joueur ŕ exclure par vote.",
+    "fra": "Sélectionnez le joueur à exclure par vote.",
     "ger": "Spieler auswählen, der per Abstimmung gekickt werden soll",
     "ita": "Seleziona il giocatore da espellere tramite votazione",
     "pol": "Wybierz gracza, który w głosowaniu ma zostać wyrzucony",
@@ -1053,7 +1053,7 @@
     "eng": "Invisibility:",
     "fra": "Invincibilité :",
     "ger": "Unsichtbarkeit",
-    "ita": "Invisibilitŕ:",
+    "ita": "Invisibilità:",
     "pol": "Niewidoczność:",
     "rus": "Невидимость:",
     "spa": "Invisibilidad:",
@@ -1081,7 +1081,7 @@
   },
   "mp_si_look_at": {
     "eng": "- Third person",
-    "fra": "- Troisičme personne",
+    "fra": "- Troisième personne",
     "ger": "- Dritte Person",
     "ita": "- Terza persona",
     "pol": "- Trzecia osoba",
@@ -1183,7 +1183,7 @@
     "eng": "Spectator Modes:",
     "fra": "Modes spectateur :",
     "ger": "Zuschauermodi:",
-    "ita": "Modalitŕ spettatore:",
+    "ita": "Modalità spettatore:",
     "pol": "Tryby widza:",
     "rus": "Режимы наблюдения:",
     "spa": "Modos Espectador:",
@@ -1243,7 +1243,7 @@
     "eng": "Yes",
     "fra": "Oui",
     "ger": "Ja",
-    "ita": "Sě",
+    "ita": "Sì",
     "pol": "Tak",
     "rus": "Да",
     "spa": "Sí",
@@ -1301,9 +1301,9 @@
   },
   "mp_switched_to": {
     "eng": "has switched to",
-    "fra": "est passé ŕ",
+    "fra": "est passé à",
     "ger": "hat gewechselt zu",
-    "ita": "č passato a",
+    "ita": "è passato a",
     "pol": "przełącza się do",
     "rus": "перешёл в команду",
     "spa": "ha cambiado a",
@@ -1336,7 +1336,7 @@
     "ita": "La squadra %s HA VINTO!",
     "pol": "Drużyna %s WYGRYWA!",
     "rus": "Команда %s ВЫИГРЫВАЕТ!",
-    "spa": "ˇEl equipo %s ha ganado!",
+    "spa": "¡El equipo %s ha ganado!",
     "ukr": "Команда %s ВИГРАЄ!"
   },
   "mp_text": {
@@ -1441,7 +1441,7 @@
     "eng": "Yes",
     "fra": "Oui",
     "ger": "Ja",
-    "ita": "Sě",
+    "ita": "Sì",
     "pol": "Za",
     "rus": "За",
     "spa": "Sí",
@@ -1471,7 +1471,7 @@
     "eng": "Yes",
     "fra": "Oui",
     "ger": "Ja",
-    "ita": "Sě",
+    "ita": "Sì",
     "pol": "Za",
     "rus": "«За»",
     "spa": "Sí",
@@ -1484,7 +1484,7 @@
     "ita": "Voto cancellato dal server",
     "pol": "Głosowanie anulowane przez serwer!",
     "rus": "Голосование аннулировано сервером!",
-    "spa": "ˇVotación cancelada por el servidor!",
+    "spa": "¡Votación cancelada por el servidor!",
     "ukr": "Голосування анульовано сервером!"
   },
   "mp_voting_started": {
@@ -1501,10 +1501,10 @@
     "eng": "Voting has started!",
     "fra": "Le vote a commencé !",
     "ger": "Die Abstimmung hat begonnen!",
-    "ita": "La votazione č iniziata!",
+    "ita": "La votazione è iniziata!",
     "pol": "Głosowanie się rozpoczęło!",
     "rus": "Голосование началось!",
-    "spa": "ˇHa comenzado la votación!",
+    "spa": "¡Ha comenzado la votación!",
     "ukr": "Голосування розпочалося!"
   },
   "mp_weather_clear": {
@@ -1554,17 +1554,17 @@
     "ita": "Pugnalato alle spalle!",
     "pol": "Cios w plecy!",
     "rus": "зарезан!",
-    "spa": "ˇApuńalado!",
+    "spa": "¡Apuñalado!",
     "ukr": "зарізаний!"
   },
   "mp_with_headshot": {
     "eng": "Headshot!",
-    "fra": "Tué d'une balle en pleine tęte !",
+    "fra": "Tué d'une balle en pleine tête !",
     "ger": "Kopfschuss!",
     "ita": "Colpito alla testa!",
     "pol": "Strzał w głowę!",
     "rus": "в голову!",
-    "spa": "ˇDisparo a la cabeza!",
+    "spa": "¡Disparo a la cabeza!",
     "ukr": "в голову!"
   },
   "mp_you_captured_artefact": {
@@ -1574,24 +1574,24 @@
     "ita": "Hai catturato il manufatto nemico, ora portalo alla tua base!",
     "pol": "Udało ci się zdobyć artefakt wroga. Zanieś go do swojego artefaktu!",
     "rus": "Вы захватили вражеский артефакт, принесите его к своему!",
-    "spa": "Tienes el artefacto enemigo, ˇllévalo a tu base!",
+    "spa": "Tienes el artefacto enemigo, ¡llévalo a tu base!",
     "ukr": "Ви захопили ворожий артефакт, принесіть його до свого!"
   },
   "mp_you_captured_own_artefact": {
     "eng": "You got the artifact. Activate it to return it to your base!",
-    "fra": "Vous avez ramassé l'artefact. Activez-le pour le rapporter ŕ votre base !",
+    "fra": "Vous avez ramassé l'artefact. Activez-le pour le rapporter à votre base !",
     "ger": "Sie haben das Artefakt. Aktivieren Sie es, um es in Ihre Basis zurückzubringen!",
     "ita": "Hai preso il manufatto!?Attivalo per riportarlo alla tua base!",
     "pol": "Udało ci się zdobyć artefakt. Aktywuj go, aby dostarczyć go do bazy!",
     "rus": "Вы подняли свой артефакт. Активируйте его, чтобы возратить на базу!",
-    "spa": "Tienes el artefacto. ˇActívalo para llevarlo a tu base!",
+    "spa": "Tienes el artefacto. ¡Actívalo para llevarlo a tu base!",
     "ukr": "Ви підняли свій артефакт. Активуйте його, щоб повернути на базу!"
   },
   "mp_your_rank": {
     "eng": "Your rank is now",
     "fra": "Votre rang est désormais",
     "ger": "Ihr Rang lautet jetzt",
-    "ita": "Ora il tuo rango č",
+    "ita": "Ora il tuo rango è",
     "pol": "Masz teraz rangę:",
     "rus": "Ваш ранг теперь",
     "spa": "Ahora tu rango es",
@@ -1639,7 +1639,7 @@
   },
   "mpd_rewind_until_artdeliver": {
     "eng": "to the artifact delivery",
-    "fra": "ŕ la livraison de l'artefact",
+    "fra": "à la livraison de l'artefact",
     "ger": "Zur Artefaktlieferung",
     "ita": "alla consegna del manufatto",
     "pol": "do dostarczenia artefaktu",
@@ -1649,7 +1649,7 @@
   },
   "mpd_rewind_until_artdrop": {
     "eng": "to the artifact loss",
-    "fra": "ŕ la perte de l'artefact",
+    "fra": "à la perte de l'artefact",
     "ger": "Zum Artefaktverlust",
     "ita": "alla perdita del manufatto",
     "pol": "do utraty artefaktu",
@@ -1659,7 +1659,7 @@
   },
   "mpd_rewind_until_arttake": {
     "eng": "to the artifact capture",
-    "fra": "ŕ la capture de l'artefact",
+    "fra": "à la capture de l'artefact",
     "ger": "Zur Artefakteroberung",
     "ita": "alla conquista del manufatto",
     "pol": "do zdobycia artefaktu",
@@ -1711,7 +1711,7 @@
     "eng": "Voting is not available on this server.",
     "fra": "Le vote n'est pas disponible sur ce serveur.",
     "ger": "Auf diesem Server sind Abstimmungen nicht möglich.",
-    "ita": "La votazione non č disponibile su questo server.",
+    "ita": "La votazione non è disponibile su questo server.",
     "pol": "Na tym serwerze nie można głosować.",
     "rus": "Голосование недоступно на этом сервере",
     "spa": "Las votaciones no están disponibles en este servidor.",
@@ -1731,7 +1731,7 @@
     "eng": "Only one active vote permitted.",
     "fra": "Un seul vote actif autorisé.",
     "ger": "Nur eine aktive Abstimmung gestattet.",
-    "ita": "Č permesso solo un voto attivo.",
+    "ita": "È permesso solo un voto attivo.",
     "pol": "Dozwolone jest tylko jedno aktywne głosowanie.",
     "rus": "Разрешено только одно активное голосование",
     "spa": "Solo se permite una votación activa.",
@@ -1739,7 +1739,7 @@
   },
   "st_mp_ready": {
     "eng": "Ready",
-    "fra": "Pręt",
+    "fra": "Prêt",
     "ger": "Bereit",
     "ita": "Pronto",
     "pol": "Gotów",
@@ -1749,7 +1749,7 @@
   },
   "st_mp_say_to_all": {
     "eng": "To all",
-    "fra": "Ŕ tous",
+    "fra": "À tous",
     "ger": "An alle",
     "ita": "A tutti",
     "pol": "Wszyscy",
@@ -1759,7 +1759,7 @@
   },
   "st_mp_say_to_team": {
     "eng": "To team",
-    "fra": "Ŕ l'équipe",
+    "fra": "À l'équipe",
     "ger": "Ans Team",
     "ita": "Alla squadra",
     "pol": "Drużyna",
@@ -1774,7 +1774,7 @@
     "ita": "Voto fallito!",
     "pol": "Głosowanie nieudane!",
     "rus": "Голосование провалено!",
-    "spa": "ˇError al votar!",
+    "spa": "¡Error al votar!",
     "ukr": "Голосування провалено!"
   },
   "st_mp_voting_succeed": {
@@ -1784,7 +1784,7 @@
     "ita": "Voto riuscito!",
     "pol": "Głosowanie udane!",
     "rus": "Голосование прошло успешно!",
-    "spa": "ˇÉxito al votar!",
+    "spa": "¡Éxito al votar!",
     "ukr": "Голосування відбулося успішно!"
   },
   "team_base_1": {
@@ -1909,7 +1909,7 @@
   },
   "ui_mp_am_change_game_limits": {
     "eng": "Change game settings",
-    "fra": "Modifier les paramčtres de la partie",
+    "fra": "Modifier les paramètres de la partie",
     "ger": "Spieleinstellungen ändern",
     "ita": "Cambia impostazioni gioco",
     "pol": "Zmień ustawienia gry",
@@ -2041,7 +2041,7 @@
     "eng": "Weather change speed",
     "fra": "Vitesse changement météo",
     "ger": "Geschwindigk. Wetterwechsel",
-    "ita": "Velocitŕ variazione meteo",
+    "ita": "Velocità variazione meteo",
     "pol": "Szybkość zmiany pogody",
     "rus": "Скорость смены погоды",
     "spa": "Veloc. cambio tiempo",
@@ -2139,7 +2139,7 @@
   },
   "ui_mp_dm": {
     "eng": "1. Free for all",
-    "fra": "1. Match ŕ mort",
+    "fra": "1. Match à mort",
     "ger": "1. Jeder gegen Jeden",
     "ita": "1. Tutti contro tutti",
     "pol": "1. Wszyscy przeciwko wszystkim",
@@ -2214,7 +2214,7 @@
     "ita": "Vuoi usare il profilo esistente con il nome",
     "pol": "Czy chcesz użyć istniejącego profilu o nazwie",
     "rus": "Хотите ли вы использовать существующий профиль с именем",
-    "spa": "żQuieres usar el perfil ya existente con el nombre",
+    "spa": "¿Quieres usar el perfil ya existente con el nombre",
     "ukr": "Чи хочете Ви використовувати наявний профіль з ім'ям"
   },
   "ui_mp_gamespy_verify_account_profiles": {
@@ -2229,9 +2229,9 @@
   },
   "ui_mp_gamespy_verify_account_profiles_error1": {
     "eng": "You already have a profile. Please connect to it.",
-    "fra": "Vous avez déjŕ un profil. Veuillez vous y connecter.",
+    "fra": "Vous avez déjà un profil. Veuillez vous y connecter.",
     "ger": "Sie haben bereits ein Profil. Bitte verbinden Sie sich damit.",
-    "ita": "Hai giŕ un profilo. Connettiti a esso.",
+    "ita": "Hai già un profilo. Connettiti a esso.",
     "pol": "Masz już profil. Połącz się z nim.",
     "rus": "Ваш профиль уже создан. Пожалуйста, подключитесь к нему.",
     "spa": "Ya tienes un perfil. Inicia sesión con él.",
@@ -2249,9 +2249,9 @@
   },
   "ui_mp_gamespy_verify_nickname_error1": {
     "eng": "This unique name is already in use. Please choose from the drop-down list below or enter another one.",
-    "fra": "Ce nom unique est déjŕ utilisé. Choisissez-en un autre dans la liste déroulante ou saisissez un autre nom.",
+    "fra": "Ce nom unique est déjà utilisé. Choisissez-en un autre dans la liste déroulante ou saisissez un autre nom.",
     "ger": "Dieser eindeutige Name wird bereits verwendet. Bitte wählen Sie aus der Auswahlliste eine Alternative aus oder geben Sie einen neuen Namen ein.",
-    "ita": "Questo nome unico č giŕ in uso. Scegline uno dalla lista a tendina sottostante o inseriscine un altro.",
+    "ita": "Questo nome unico è già in uso. Scegline uno dalla lista a tendina sottostante o inseriscine un altro.",
     "pol": "To unikalne imię jest już używane. Wprowadź inne imię lub wybierz jedno z poniższej listy rozwijanej.",
     "rus": "Это уникальное имя уже используется. Пожалуйста, выберите одно из предложеных в выпадающем списке ниже, или введите другое.",
     "spa": "Este apodo ya está en uso. Elige uno de la lista desplegable de abajo o escribe uno nuevo.",
@@ -2264,7 +2264,7 @@
     "ita": "Le password non corrispondono!",
     "pol": "Hasła nie są zgodne.",
     "rus": "Введёные пароли не совпадают!",
-    "spa": "ˇLas contraseńas no coinciden!",
+    "spa": "¡Las contraseñas no coinciden!",
     "ukr": "Уведені паролі не збігаються!"
   },
   "ui_mp_tdm": {
@@ -2314,7 +2314,7 @@
     "ita": "Mappa non corretta o corrotta",
     "pol": "Niewłaściwa lub uszkodzona mapa",
     "rus": "Карта не верна или испорчена",
-    "spa": "Mapa incorrecto o dańado",
+    "spa": "Mapa incorrecto o dañado",
     "ukr": "Карта невірна або зіпсована"
   },
   "ui_st_map_not_found": {
@@ -2364,7 +2364,7 @@
     "ita": "Conferma password",
     "pol": "Potwierdź hasło",
     "rus": "Подтвердите пароль",
-    "spa": "Confirmar contraseńa",
+    "spa": "Confirmar contraseña",
     "ukr": "Підтвердіть пароль"
   },
   "ui_st_mp_create_new_account": {
@@ -2394,7 +2394,7 @@
     "ita": "Dimentic. la pw?",
     "pol": "Nie pamiętasz hasła?",
     "rus": "Забыли пароль?",
-    "spa": "żSin contraseńa?",
+    "spa": "¿Sin contraseña?",
     "ukr": "Забули пароль?"
   },
   "ui_st_mp_gamespy_account_creation": {
@@ -2424,7 +2424,7 @@
     "ita": "Password",
     "pol": "Hasło",
     "rus": "Пароль",
-    "spa": "Contraseńa",
+    "spa": "Contraseña",
     "ukr": "Пароль"
   },
   "ui_st_mp_remember_me": {

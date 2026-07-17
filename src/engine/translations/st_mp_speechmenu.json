@@ -1,12 +1,12 @@
 {
   "speech_attack": {
     "eng": "Everyone, attack!",
-    "fra": "Tout le monde, ŕ l'attaque !",
+    "fra": "Tout le monde, à l'attaque !",
     "ger": "Alle angreifen!",
     "ita": "Gente, attaccare!",
     "pol": "Wszyscy, do ataku!",
     "rus": "Все в атаку!",
-    "spa": "ˇAtacad todos!",
+    "spa": "¡Atacad todos!",
     "ukr": "Усі в атаку!"
   },
   "speech_covermeartifact": {
@@ -16,7 +16,7 @@
     "ita": "Vado a prendere il manufatto! Coprimi!",
     "pol": "Idę po artefakt! Osłaniać mnie!",
     "rus": "Беру артефакт! Прикройте!",
-    "spa": "ˇVoy a por el artefacto! ˇCúbreme!",
+    "spa": "¡Voy a por el artefacto! ¡Cúbreme!",
     "ukr": "Беру артефакт! Прикрийте!"
   },
   "speech_followme": {
@@ -26,7 +26,7 @@
     "ita": "Seguimi!",
     "pol": "Za mną!",
     "rus": "За мной!",
-    "spa": "ˇSígueme!",
+    "spa": "¡Sígueme!",
     "ukr": "За мною!"
   },
   "speech_guardartifact": {
@@ -36,7 +36,7 @@
     "ita": "Per ora proteggi il manufatto. Aspetta a prenderlo!",
     "pol": "Na razie pilnuj artefaktu. Jeszcze go nie bierz!",
     "rus": "Охраняем арефакт. Пока не берём!",
-    "spa": "De momento protege el artefacto. ˇNo lo cojas todavía!",
+    "spa": "De momento protege el artefacto. ¡No lo cojas todavía!",
     "ukr": "Охороняємо артефакт. Поки що не беремо!"
   },
   "speech_holdingpos": {
@@ -46,7 +46,7 @@
     "ita": "Mantengo la posizione!",
     "pol": "Trzymam pozycję!",
     "rus": "Остаюсь на позиции",
-    "spa": "ˇMantengo mi posición!",
+    "spa": "¡Mantengo mi posición!",
     "ukr": "Залишаюся на позиції"
   },
   "speech_holdpos": {
@@ -56,7 +56,7 @@
     "ita": "Mantenete la posizione!",
     "pol": "Trzymać pozycje!",
     "rus": "Держим позицию!",
-    "spa": "ˇMantened posiciones!",
+    "spa": "¡Mantened posiciones!",
     "ukr": "Тримаємо позицію!"
   },
   "speech_icoverartifact": {
@@ -66,7 +66,7 @@
     "ita": "Prendi il manufatto! Ti copro io!",
     "pol": "Bierz artefakt! Będę cię osłaniać!",
     "rus": "Берите артефакт! Я прикрою!",
-    "spa": "ˇCoge el artefacto! ˇYo te cubro!",
+    "spa": "¡Coge el artefacto! ¡Yo te cubro!",
     "ukr": "Беріть артефакт! Я прикрию!"
   },
   "speech_needhelp": {
@@ -76,7 +76,7 @@
     "ita": "Mi serve aiuto!",
     "pol": "Potrzebuję pomocy!",
     "rus": "Нужна помощь!",
-    "spa": "ˇNecesito ayuda!",
+    "spa": "¡Necesito ayuda!",
     "ukr": "Потрібна допомога!"
   },
   "speech_needmoney": {
@@ -86,7 +86,7 @@
     "ita": "Non ho soldi... comprami dell'equipaggiamento!",
     "pol": "Nie mam pieniędzy - kup więcej sprzętu!",
     "rus": "Нет денег, купите экипировку!",
-    "spa": "No tengo dinero. ˇCómprame equipo!",
+    "spa": "No tengo dinero. ¡Cómprame equipo!",
     "ukr": "Немає грошей, придбайте спорядження!"
   },
   "speech_no": {
@@ -106,7 +106,7 @@
     "ita": "Nessuno in vista!",
     "pol": "Czysto!",
     "rus": "Никого поблизости.",
-    "spa": "ˇNadie a la vista!",
+    "spa": "¡Nadie a la vista!",
     "ukr": "Нікого поблизу."
   },
   "speech_report": {
@@ -116,7 +116,7 @@
     "ita": "Rapporto, subito!",
     "pol": "Zgłoś się!",
     "rus": "Доложите ситуацию!",
-    "spa": "ˇInforma!",
+    "spa": "¡Informa!",
     "ukr": "Доповідайте ситуацію!"
   },
   "speech_retreat": {
@@ -126,7 +126,7 @@
     "ita": "Ritirata!",
     "pol": "Odwrót!",
     "rus": "Отступаем!",
-    "spa": "ˇRetirada!",
+    "spa": "¡Retirada!",
     "ukr": "Відступаємо!"
   },
   "speech_returntheartefact": {
@@ -136,7 +136,7 @@
     "ita": "Restituisci il manufatto!",
     "pol": "Odnieś artefakt!",
     "rus": "Верните артефакт!",
-    "spa": "ˇDevuelve el artefacto!",
+    "spa": "¡Devuelve el artefacto!",
     "ukr": "Поверніть артефакт!"
   },
   "speech_roger": {
@@ -156,7 +156,7 @@
     "ita": "Taci!",
     "pol": "Cicho!",
     "rus": "Заткнитесь!",
-    "spa": "ˇCállate!",
+    "spa": "¡Cállate!",
     "ukr": "Стуліть пельку!"
   },
   "speech_sticktogether": {
@@ -176,7 +176,7 @@
     "ita": "Prendi il manufatto!",
     "pol": "Bierz artefakt!",
     "rus": "Берём артефакт!",
-    "spa": "ˇCoge el artefacto!",
+    "spa": "¡Coge el artefacto!",
     "ukr": "Беремо артефакт!"
   }
 }

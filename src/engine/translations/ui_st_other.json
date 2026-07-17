@@ -33,7 +33,7 @@
     "eng": "Yes",
     "fra": "Oui",
     "ger": "Ja",
-    "ita": "Sě",
+    "ita": "Sì",
     "pol": "Tak",
     "rus": "Да",
     "spa": "Sí",
@@ -143,7 +143,7 @@
     "eng": "Only one active vote permitted.",
     "fra": "Un seul vote actif autorisé.",
     "ger": "Nur eine aktive Abstimmung gestattet.",
-    "ita": "Č permesso solo un voto attivo.",
+    "ita": "È permesso solo un voto attivo.",
     "pol": "Dozwolone jest tylko jedno aktywne głosowanie.",
     "rus": "Разрешено только одно активное голосование",
     "spa": "Solo se permite una votación activa.",
@@ -323,7 +323,7 @@
     "eng": "No active task",
     "fra": "Aucune mission en cours",
     "ger": "Kein aktiver Task",
-    "ita": "Nessuna attivitŕ in corso",
+    "ita": "Nessuna attività in corso",
     "pol": "Brak aktywnego zadania",
     "rus": "Нет активного задания",
     "spa": "Tarea inactiva",
@@ -441,7 +441,7 @@
   },
   "st_save_jup_b19_arrived_to_kopachy": {
     "eng": "sent to Kopachy",
-    "fra": "envoyé ŕ Kopachy",
+    "fra": "envoyé à Kopachy",
     "ger": "nach Kopatschi geschickt",
     "ita": "in viaggio verso Kopachy",
     "pol": "przejście do Kopaczi",
@@ -466,7 +466,7 @@
     "ita": "pianta anomala recuperata",
     "pol": "zebranie anormalnej rośliny",
     "rus": "взято аномальное растение",
-    "spa": "planta extrańa recogida",
+    "spa": "planta extraña recogida",
     "ukr": "взято аномальну рослину"
   },
   "st_save_jup_b207_arrived_to_duty_depot": {
@@ -491,7 +491,7 @@
   },
   "st_save_jup_b217_arrived_to_jup": {
     "eng": "arrival at Yanov",
-    "fra": "arrivée ŕ Yanov",
+    "fra": "arrivée à Yanov",
     "ger": "Ankunft in der Janow-Station",
     "ita": "arrivo a Yanov",
     "pol": "dotarcie do płaskowyżu",
@@ -603,7 +603,7 @@
     "eng": "military forces located",
     "fra": "militaires localisés",
     "ger": "Militäreinheiten entdeckt",
-    "ita": "unitŕ militari individuate",
+    "ita": "unità militari individuate",
     "pol": "zlokalizowanie sił wojskowych",
     "rus": "найдены военные",
     "spa": "fuerzas militares localizadas",
@@ -661,7 +661,7 @@
   },
   "st_save_pri_a21_killed_controller": {
     "eng": "controller near sentry killed",
-    "fra": "contrôleur prčs de la sentinelle tué",
+    "fra": "contrôleur près de la sentinelle tué",
     "ger": "Controller bei der Wache ausgeschaltet",
     "ita": "controllore vicino alla sentinella ucciso",
     "pol": "zabicie kontrolera przy wartowniku",
@@ -701,7 +701,7 @@
   },
   "st_save_pri_a28_evacuation_end": {
     "eng": "evacuation helicopters reached",
-    "fra": "hélicoptčres sur zone",
+    "fra": "hélicoptères sur zone",
     "ger": "Evakuierungshubschrauber erreicht",
     "ita": "elicotteri per l'evacuazione raggiunti",
     "pol": "dotarcie do helikopterów ewakuacyjnych",
@@ -711,7 +711,7 @@
   },
   "st_save_pri_a28_evacuation_heli": {
     "eng": "evacuation helicopter take-off",
-    "fra": "décollage des hélicoptčres d'évacuation",
+    "fra": "décollage des hélicoptères d'évacuation",
     "ger": "Start des Evakuierungshubschraubers",
     "ita": "decollo elicottero di evacuazione",
     "pol": "start helikoptera ewakuacyjnego",
@@ -751,7 +751,7 @@
   },
   "st_save_pri_b35_ready_to_snipe": {
     "eng": "Operation One Shot initiated",
-    "fra": "Opération Mise ŕ mort lancée",
+    "fra": "Opération Mise à mort lancée",
     "ger": "Operation \"Ein Schuss\" eingeleitet",
     "ita": "operazione Occasione unica avviata",
     "pol": "rozpoczęcie operacji Jeden Strzał",
@@ -821,7 +821,7 @@
   },
   "st_save_uni_travel_pas_to_pri": {
     "eng": "arrival in Pripyat",
-    "fra": "arrivée ŕ Pripyat",
+    "fra": "arrivée à Pripyat",
     "ger": "Ankunft in Pripyat",
     "ita": "arrivo a Pripyat",
     "pol": "przybycie do Prypeci",
@@ -891,7 +891,7 @@
   },
   "st_save_zat_a23_entered_test_center": {
     "eng": "testing workshop accessed",
-    "fra": "accčs ŕ l'atelier de test",
+    "fra": "accès à l'atelier de test",
     "ger": "Testwerkstatt betreten",
     "ita": "ingresso nell'officina collaudi",
     "pol": "wejście do magazynu testowego",
@@ -951,7 +951,7 @@
   },
   "st_save_zat_b106_arrived_to_chimera_lair": {
     "eng": "hunting the chimera",
-    "fra": "chasse ŕ la chimčre",
+    "fra": "chasse à la chimère",
     "ger": "jagt die Chimäre",
     "ita": "a caccia della chimera",
     "pol": "polowanie na chimerę",
@@ -966,7 +966,7 @@
     "ita": "fonte dello strano bagliore individuata",
     "pol": "znalezienie źródła dziwnego światła",
     "rus": "найден источник странного свечения",
-    "spa": "origen del extrańo brillo encontrado",
+    "spa": "origen del extraño brillo encontrado",
     "ukr": "знайдено джерело дивного світіння"
   },
   "st_save_zat_b18_noah_showed_teleport": {
@@ -1031,7 +1031,7 @@
   },
   "st_save_zat_b5_met_with_others": {
     "eng": "deal by the ranger station",
-    "fra": "rencontre prčs du poste des rangers",
+    "fra": "rencontre près du poste des rangers",
     "ger": "Geschäft bei der Forststation",
     "ita": "accordo vicino alla stazione dei ranger",
     "pol": "transakcja przy leśniczówce",
@@ -1163,7 +1163,7 @@
     "eng": "Connection error: Your CD-Key is disabled. Contact customer service.",
     "fra": "Erreur de connexion : votre numéro de série n'est pas activé. Contactez le service client.",
     "ger": "Verbindungsfehler: Ihr CD-Schlüssel ist deaktiviert. Kontaktieren Sie den Kundenservice.",
-    "ita": "Errore di connessione: la tua chiave CD č disabilitata. Contatta il servizio clienti.",
+    "ita": "Errore di connessione: la tua chiave CD è disabilitata. Contatta il servizio clienti.",
     "pol": "Błąd połączenia: klucz CD jest nieaktywny. Skontaktuj się z działem pomocy technicznej.",
     "rus": "Ошибка соединения: Ваш CD-key заблокирован. Свяжитесь со службой поддержки.",
     "spa": "Error de conexión: clave del CD desactivada. Contactar con el servicio de atención al cliente.",
@@ -1171,9 +1171,9 @@
   },
   "ui_st_conn_cdkey_in_use": {
     "eng": "Connection error: CD-Key already in use.",
-    "fra": "Erreur de connexion : numéro de série déjŕ utilisé.",
+    "fra": "Erreur de connexion : numéro de série déjà utilisé.",
     "ger": "Verbindungsfehler: CD-Schlüssel wird bereits verwendet.",
-    "ita": "Errore di connessione: chiave CD giŕ in uso",
+    "ita": "Errore di connessione: chiave CD già in uso",
     "pol": "Błąd połączenia: klucz CD jest już w użyciu.",
     "rus": "Ошибка соединения: такой CD-key уже используется",
     "spa": "Error de conexión: clave del CD en uso",
@@ -1206,7 +1206,7 @@
     "ita": "Errore di connessione: password non valida",
     "pol": "Błąd połączenia: nieprawidłowe hasło.",
     "rus": "Ошибка соединения: неверный пароль",
-    "spa": "Error de conexión: contraseńa no válida",
+    "spa": "Error de conexión: contraseña no válida",
     "ukr": "Помилка з'єднання: неправильний пароль"
   },
   "ui_st_conn_new_patch": {
@@ -1217,7 +1217,7 @@
       "Do you want to download it now?"
     ],
     "fra": [
-      "Nouvelle mise ŕ jour disponible.",
+      "Nouvelle mise à jour disponible.",
       " Version : %s",
       " Emplacement :%s",
       "Télécharger maintenant ?"
@@ -1228,7 +1228,7 @@
       "Quelle: %s\\Wollen Sie den Patch herunterladen?"
     ],
     "ita": [
-      "Č disponibile una nuova patch.",
+      "È disponibile una nuova patch.",
       " Versione: %s",
       " Posizione: %s",
       "Vuoi scaricarla adesso?"
@@ -1244,7 +1244,7 @@
       "Nuevo parche disponible.",
       " Versión: %s",
       " Localización: %s",
-      "żDescargar ahora?"
+      "¿Descargar ahora?"
     ],
     "ukr": [
       "Доступний новий патч. ",
@@ -1255,7 +1255,7 @@
   },
   "ui_st_conn_no_new_patch": {
     "eng": "No new patches currently available",
-    "fra": "Aucune nouvelle mise ŕ jour disponible",
+    "fra": "Aucune nouvelle mise à jour disponible",
     "ger": "Momentan ist kein neuer Patch verfügbar.",
     "ita": "Non ci sono nuove patch disponibili",
     "pol": "Brak nowych poprawek",
@@ -1335,7 +1335,7 @@
   },
   "ui_st_exit_hint": {
     "eng": "Close window ($$ACTION_USE$$)",
-    "fra": "Fermer la fenętre ($$ACTION_USE$$)",
+    "fra": "Fermer la fenêtre ($$ACTION_USE$$)",
     "ger": "Fenster schließen ($$ACTION_USE$$)",
     "ita": "Chiudi la finestra ($$ACTION_USE$$)",
     "pol": "Zamknij okno ($$ACTION_USE$$)",
@@ -1345,19 +1345,19 @@
   },
   "ui_st_file_exist_owerwrite_q": {
     "eng": "A file with this name already exists. Do you want to overwrite it?",
-    "fra": "Il existe déjŕ un fichier du męme nom. Voulez-vous l'écraser ?",
+    "fra": "Il existe déjà un fichier du même nom. Voulez-vous l'écraser ?",
     "ger": "Eine Datei mit diesem Namen existiert bereits. Wollen Sie sie überschreiben?",
-    "ita": "Un file con questo nome esiste giŕ. Vuoi sovrascriverlo?",
+    "ita": "Un file con questo nome esiste già. Vuoi sovrascriverlo?",
     "pol": "Plik o tej nazwie już istnieje. Czy chcesz go zastąpić?",
     "rus": "Файл с таким именем уже существует. Перезаписать?",
-    "spa": "Ya existe un archivo con este nombre. żQuieres sobrescribirlo?",
+    "spa": "Ya existe un archivo con este nombre. ¿Quieres sobrescribirlo?",
     "ukr": "Файл із таким ім'ям вже існує. Перезаписати?"
   },
   "ui_st_file_name_is_empty": {
     "eng": "The file name is empty",
     "fra": "Le nom de fichier est vide.",
     "ger": "Es wurde kein Dateiname eingegeben",
-    "ita": "Il nome file č vuoto",
+    "ita": "Il nome file è vuoto",
     "pol": "Nazwa pliku jest pusta",
     "rus": "Имя файла пустое",
     "spa": "El archivo no tiene nombre",
@@ -1385,9 +1385,9 @@
   },
   "ui_st_kicked_by_battleye": {
     "eng": "Was disconnected by BattleEye protection system:",
-    "fra": "Déconnecté par le systčme de protection BattleEye :",
+    "fra": "Déconnecté par le système de protection BattleEye :",
     "ger": "Verbindung wurde durch das BattlEye-Schutzsystem getrennt:",
-    "ita": "Č stato disconnesso dal sistema di protezione BattleEye:",
+    "ita": "È stato disconnesso dal sistema di protezione BattleEye:",
     "pol": "Użytkownik został odłączony przez system ochrony BattleEye:",
     "rus": "был отключён защитой BattlEye:",
     "spa": "Desconectado por el sistema de protección de BattleEye:",
@@ -1420,7 +1420,7 @@
     "ita": "Caricando questa partita tutti i dati non salvati andranno persi. Vuoi procedere?",
     "pol": "Wczytanie tej gry spowoduje utratę niezapisanych danych. Czy chcesz kontynuować?",
     "rus": "Загрузка игры приведёт к потере несохраненных данных. Желаете продолжить?",
-    "spa": "Si cargas esta partida, se perderán los datos no guardados. żContinuar?",
+    "spa": "Si cargas esta partida, se perderán los datos no guardados. ¿Continuar?",
     "ukr": "Завантаження гри призведе до втрати незбережених даних. Бажаєте продовжити?"
   },
   "ui_st_mins": {
@@ -1445,7 +1445,7 @@
   },
   "ui_st_opponent_items": {
     "eng": "Backpack",
-    "fra": "Sac ŕ dos",
+    "fra": "Sac à dos",
     "ger": "Rucksack",
     "ita": "Zaino",
     "pol": "Plecak",
@@ -1455,7 +1455,7 @@
   },
   "ui_st_params": {
     "eng": "Parameters",
-    "fra": "Paramčtres",
+    "fra": "Paramètres",
     "ger": "Parameter",
     "ita": "Parametri",
     "pol": "Parametry",
@@ -1465,7 +1465,7 @@
   },
   "ui_st_patch_download_error": {
     "eng": "Unable to download the patch.",
-    "fra": "Téléchargement de la mise ŕ jour impossible.",
+    "fra": "Téléchargement de la mise à jour impossible.",
     "ger": "Patch kann nicht heruntergeladen werden.",
     "ita": "Impossibile scaricare la patch.",
     "pol": "Nie udało się pobrać poprawki.",
@@ -1475,12 +1475,12 @@
   },
   "ui_st_patch_download_success": {
     "eng": "Patch successfully downloaded. Do you want to install it?",
-    "fra": "Téléchargement de la mise ŕ jour terminé. Voulez-vous l'installer ?",
+    "fra": "Téléchargement de la mise à jour terminé. Voulez-vous l'installer ?",
     "ger": "Der Patch wurde erfolgreich heruntergeladen. Wollen Sie ihn installieren?",
     "ita": "Patch caricata con successo. Vuoi installarla?",
     "pol": "Udało się pobrać poprawkę. Czy chcesz ją zainstalować?",
     "rus": "Патч успешно загружен. Желаете установить?",
-    "spa": "El parche se ha descargado correctamente. żQuieres instalarlo?",
+    "spa": "El parche se ha descargado correctamente. ¿Quieres instalarlo?",
     "ukr": "Патч успішно завантажено. Бажаєте встановити?"
   },
   "ui_st_price": {
@@ -1575,7 +1575,7 @@
   },
   "ui_st_take_all_hint": {
     "eng": "Move all items to your backpack ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Placer tous les objets dans le sac ŕ dos ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Placer tous les objets dans le sac à dos ($$ACTION_SPRINT_TOGGLE$$)",
     "ger": "Alle Gegenstände in den Rucksack legen ($$ACTION_SPRINT_TOGGLE$$)",
     "ita": "Sposta tutti gli oggetti nel tuo zaino ($$ACTION_SPRINT_TOGGLE$$)",
     "pol": "Przenieś wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)",
@@ -1605,7 +1605,7 @@
   },
   "ui_st_trade_hint": {
     "eng": "Open trading window ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Ouvrir la fenętre Échanger ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Ouvrir la fenêtre Échanger ($$ACTION_SPRINT_TOGGLE$$)",
     "ger": "Handelsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
     "ita": "Apri la finestra del commercio ($$ACTION_SPRINT_TOGGLE$$)",
     "pol": "Otwórz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)",
@@ -1625,7 +1625,7 @@
   },
   "ui_st_upgrade_hint": {
     "eng": "Open repair and modification window ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Ouvrir la fenętre Réparations/modifications ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Ouvrir la fenêtre Réparations/modifications ($$ACTION_SPRINT_TOGGLE$$)",
     "ger": "Reparatur- und Modifikationsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
     "ita": "Apri la finestra di riparazioni e modifiche ($$ACTION_SPRINT_TOGGLE$$)",
     "pol": "Otwórz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)",
@@ -1650,7 +1650,7 @@
     "ita": "Vuoi davvero abbandonare la partita?",
     "pol": "Czy na pewno chcesz wyjść z gry?",
     "rus": "Вы действительно хотите покинуть игру?",
-    "spa": "żSeguro que quieres salir del juego?",
+    "spa": "¿Seguro que quieres salir del juego?",
     "ukr": "Ви справді хочете полишити гру?"
   },
   "ui_total_price": {
@@ -1665,7 +1665,7 @@
   },
   "very_bad": {
     "eng": "very bad",
-    "fra": "trčs nég.",
+    "fra": "très nég.",
     "ger": "Sehr schlecht",
     "ita": "molto male",
     "pol": "bardzo źle",
@@ -1675,7 +1675,7 @@
   },
   "very_good": {
     "eng": "very good",
-    "fra": "trčs posit.",
+    "fra": "très posit.",
     "ger": "Sehr gut",
     "ita": "molto bene",
     "pol": "bardzo dobrze",

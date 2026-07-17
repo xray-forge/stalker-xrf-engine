@@ -11,7 +11,7 @@
   },
   "cant_walk": {
     "eng": "You’re too exhausted to move",
-    "fra": "Vous ętes trop épuisé pour pouvoir vous déplacer.",
+    "fra": "Vous êtes trop épuisé pour pouvoir vous déplacer.",
     "ger": "Sie sind zu erschöpft, um weiterzugehen",
     "ita": "Sei troppo esausto per muoverti",
     "pol": "Wyczerpanie nie pozwala ci iść dalej",
@@ -21,7 +21,7 @@
   },
   "cant_walk_weight": {
     "eng": "You’re too overloaded to move",
-    "fra": "Vous ętes trop chargé pour pouvoir vous déplacer.",
+    "fra": "Vous êtes trop chargé pour pouvoir vous déplacer.",
     "ger": "Sie sind zu überladen, um weiterzugehen",
     "ita": "Sei troppo sovraccarico per muoverti",
     "pol": "Nadmierne obciążenie nie pozwala ci iść dalej",
@@ -172,7 +172,7 @@
   },
   "general_update_task": {
     "eng": "Mission updated:",
-    "fra": "Mission mise ŕ jour :",
+    "fra": "Mission mise à jour :",
     "ger": "Mission aktualisiert:",
     "ita": "Missione aggiornata:",
     "pol": "Nowe informacje o zadaniu:",
@@ -184,7 +184,7 @@
     "eng": "Your weapon has jammed. Reload it.",
     "fra": "Votre arme s'est enrayée. Vous devez la recharger.",
     "ger": "Ihre Waffe klemmt. Bitte nachladen.",
-    "ita": "La tua arma si č inceppata. Ricaricala.",
+    "ita": "La tua arma si è inceppata. Ricaricala.",
     "pol": "Broń się zacięła. Musisz przeładować.",
     "rus": "Оружие заклинило. Нужно перезарядить.",
     "spa": "El arma se ha atascado. Recárgala.",
@@ -234,7 +234,7 @@
     "eng": "The door is locked from the inside",
     "fra": "La porte est verrouillée de l'intérieur.",
     "ger": "Die Tür ist von innen verschlossen",
-    "ita": "La porta č chiusa dall'interno",
+    "ita": "La porta è chiusa dall'interno",
     "pol": "Drzwi są zamknięte od środka",
     "rus": "Дверь закрыта изнутри",
     "spa": "La puerta está cerrada por dentro",
@@ -308,7 +308,7 @@
     ],
     "fra": [
       "Modérateur d'agressivité Arc-en-ciel",
-      "Modčle du complexe d'émission externe",
+      "Modèle du complexe d'émission externe",
       "échelle 1:20"
     ],
     "ger": [
@@ -317,7 +317,7 @@
       "Maßstab 1:20"
     ],
     "ita": [
-      "Riduttore di aggressivitŕ Arcobaleno",
+      "Riduttore di aggressività Arcobaleno",
       "modello del complesso di emissioni esterne",
       "scala 01:20"
     ],
@@ -415,7 +415,7 @@
     "ita": "Non puoi dormire!?Perdi molto sangue e sei stato esposto alle radiazioni! Usa le droghe o contatta un medico.",
     "pol": "Nie możesz spać! Gwałtownie krwawisz, a aktualny stopień napromieniowania zagraża twojemu życiu. Użyj lekarstw lub odwiedź medyka. ",
     "rus": "Вы не можете спать! У Вас опасное кровотечение и высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
-    "spa": "ˇNo puedes dormir! Te estás desangrando gravemente y te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
+    "spa": "¡No puedes dormir! Te estás desangrando gravemente y te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас небезпечна кровотеча та високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
   },
   "sleep_warning_bleeding": {
@@ -425,7 +425,7 @@
     "ita": "Non puoi dormire!?Perdi molto sangue. Usa le droghe o contatta un medico.",
     "pol": "Nie możesz spać! Gwałtownie krwawisz. Użyj lekarstw lub odwiedź medyka.",
     "rus": "Вы не можете спать! У Вас опасное кровотечение. Используйте медикаменты или обратитесь к медику.",
-    "spa": "ˇNo puedes dormir! Te estás desangrando gravemente. Necesitas medicinas o un médico.",
+    "spa": "¡No puedes dormir! Te estás desangrando gravemente. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас небезпечна кровотеча. Використайте медикаменти або зверніться до медика."
   },
   "sleep_warning_radiation": {
@@ -435,7 +435,7 @@
     "ita": "Non puoi dormire! Sei stato esposto alle radiazioni! Usa le droghe o contatta un medico.",
     "pol": "Nie możesz spać! Aktualny stopień napromieniowania zagraża twojemu życiu. Użyj lekarstw lub odwiedź medyka. ",
     "rus": "Вы не можете спать! У Вас высокий уровень облучённости организма. Используйте медикаменты или обратитесь к медику.",
-    "spa": "ˇNo puedes dormir! Te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
+    "spa": "¡No puedes dormir! Te has expuesto a las radiaciones. Necesitas medicinas o un médico.",
     "ukr": "Ви не можете спати! У Вас високий рівень опромінення організму. Використайте медикаменти або зверніться до медика."
   },
   "sleep_zone_tip": {
@@ -450,7 +450,7 @@
   },
   "st_ach_balance_advocate": {
     "eng": "You have attained the Man of Balance achievement.",
-    "fra": "Vous avez obtenu le succčs Homme équilibré.",
+    "fra": "Vous avez obtenu le succès Homme équilibré.",
     "ger": "Sie haben folgenden Erfolg errungen: Mann des Gleichgewichts.",
     "ita": "Hai ottenuto l'obiettivo Uomo equilibrato.",
     "pol": "Udało ci się zdobyć osiągnięcie „Obrońca równowagi”.",
@@ -460,7 +460,7 @@
   },
   "st_ach_battle_systems_master": {
     "eng": "You have attained the Weapon Systems Master achievement.",
-    "fra": "Vous avez obtenu le succčs Expert en armement.",
+    "fra": "Vous avez obtenu le succès Expert en armement.",
     "ger": "Sie haben folgenden Erfolg errungen: Experte für Waffensysteme.",
     "ita": "Hai ottenuto l'obiettivo Maestro dei sistemi delle armi.",
     "pol": "Udało ci się zdobyć osiągnięcie „Ekspert systemów obronnych”.",
@@ -470,7 +470,7 @@
   },
   "st_ach_detective": {
     "eng": "You have attained the Detective achievement.",
-    "fra": "Vous avez obtenu le succčs Détective.",
+    "fra": "Vous avez obtenu le succès Détective.",
     "ger": "Sie haben folgenden Erfolg errungen: Detektiv.",
     "ita": "Hai ottenuto l'obiettivo Detective.",
     "pol": "Udało ci się zdobyć osiągnięcie „Detektyw”.",
@@ -480,7 +480,7 @@
   },
   "st_ach_diplomat": {
     "eng": "You have attained the Diplomat achievement.",
-    "fra": "Vous avez obtenu le succčs Diplomate.",
+    "fra": "Vous avez obtenu le succès Diplomate.",
     "ger": "Sie haben folgenden Erfolg errungen: Diplomat.",
     "ita": "Hai ottenuto l'obiettivo Diplomatico.",
     "pol": "Udało ci się zdobyć osiągnięcie „Dyplomata”. ",
@@ -490,7 +490,7 @@
   },
   "st_ach_friend_of_duty": {
     "eng": "You have attained the Friend of Duty achievement.",
-    "fra": "Vous avez obtenu le succčs Ami du Devoir.",
+    "fra": "Vous avez obtenu le succès Ami du Devoir.",
     "ger": "Sie haben folgenden Erfolg errungen: Freund der Wächter.",
     "ita": "Hai ottenuto l'obiettivo Amico della Duty.",
     "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel Powinności”.",
@@ -500,7 +500,7 @@
   },
   "st_ach_friend_of_freedom": {
     "eng": "You have attained the Friend of Freedom achievement.",
-    "fra": "Vous avez obtenu le succčs Ami de la Liberté.",
+    "fra": "Vous avez obtenu le succès Ami de la Liberté.",
     "ger": "Sie haben folgenden Erfolg errungen: Freund der Freiheit.",
     "ita": "Hai ottenuto l'obiettivo Amico della Freedom.",
     "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel Wolności”.",
@@ -510,7 +510,7 @@
   },
   "st_ach_friend_of_stalkers": {
     "eng": "You have attained the Friend of Stalkers achievement.",
-    "fra": "Vous avez obtenu le succčs Ami des stalkers.",
+    "fra": "Vous avez obtenu le succès Ami des stalkers.",
     "ger": "Sie haben folgenden Erfolg errungen: Freund der Stalker.",
     "ita": "Hai ottenuto l'obiettivo Amico degli stalker.",
     "pol": "Udało ci się zdobyć osiągnięcie „Przyjaciel stalkerów”.",
@@ -520,7 +520,7 @@
   },
   "st_ach_herald_of_justice": {
     "eng": "You have attained the Courier of Justice achievement.",
-    "fra": "Vous avez obtenu le succčs Messager de la Justice.",
+    "fra": "Vous avez obtenu le succès Messager de la Justice.",
     "ger": "Sie haben folgenden Erfolg errungen: Verfechter der Gerechtigkeit.",
     "ita": "Hai ottenuto l'obiettivo Corriere della giustizia.",
     "pol": "Udało ci się zdobyć osiągnięcie „Wysłannik sprawiedliwości”.",
@@ -530,7 +530,7 @@
   },
   "st_ach_high_tech_master": {
     "eng": "You have attained the Hi-Tech Expert achievement.",
-    "fra": "Vous avez obtenu le succčs Expert en technologie de pointe.",
+    "fra": "Vous avez obtenu le succès Expert en technologie de pointe.",
     "ger": "Sie haben folgenden Erfolg errungen: High-Tech-Experte.",
     "ita": "Hai ottenuto l'obiettivo Esperto di tecnologia.",
     "pol": "Udało ci się zdobyć osiągnięcie „Ekspert wysokiej technologii”.",
@@ -540,7 +540,7 @@
   },
   "st_ach_information_dealer": {
     "eng": "You have attained the Trafficker of Information achievement.",
-    "fra": "Vous avez obtenu le succčs Trafiquant d'informations.",
+    "fra": "Vous avez obtenu le succès Trafiquant d'informations.",
     "ger": "Sie haben folgenden Erfolg errungen: Informationsmakler.",
     "ita": "Hai ottenuto l'obiettivo Trafficante d'informazioni.",
     "pol": "Udało ci się zdobyć osiągnięcie „Handlarz informacjami”.",
@@ -550,7 +550,7 @@
   },
   "st_ach_keeper_of_secrets": {
     "eng": "You have attained the Keeper of Secrets achievement.",
-    "fra": "Vous avez obtenu le succčs Gardien des secrets.",
+    "fra": "Vous avez obtenu le succès Gardien des secrets.",
     "ger": "Sie haben folgenden Erfolg errungen: Bewahrer von Geheimnissen.",
     "ita": "Hai ottenuto l'obiettivo Custode di segreti.",
     "pol": "Udało ci się zdobyć osiągnięcie „Strażnik sekretów”.",
@@ -560,7 +560,7 @@
   },
   "st_ach_kingpin": {
     "eng": "You have attained the Boss achievement.",
-    "fra": "Vous avez obtenu le succčs Boss.",
+    "fra": "Vous avez obtenu le succès Boss.",
     "ger": "Sie haben folgenden Erfolg errungen: Boss.",
     "ita": "Hai ottenuto l'obiettivo Boss.",
     "pol": "Udało ci się zdobyć osiągnięcie „Szef”.",
@@ -570,7 +570,7 @@
   },
   "st_ach_leader": {
     "eng": "You have attained the Leader achievement.",
-    "fra": "Vous avez obtenu le succčs Chef.",
+    "fra": "Vous avez obtenu le succès Chef.",
     "ger": "Sie haben folgenden Erfolg errungen: Anführer.",
     "ita": "Hai ottenuto l'obiettivo Leader.",
     "pol": "Udało ci się zdobyć osiągnięcie „Przywódca”.",
@@ -580,7 +580,7 @@
   },
   "st_ach_marked_by_zone": {
     "eng": "You have attained the Marked by the Zone achievement.",
-    "fra": "Vous avez obtenu le succčs Affecté par la Zone.",
+    "fra": "Vous avez obtenu le succès Affecté par la Zone.",
     "ger": "Sie haben folgenden Erfolg errungen: Gezeichnet von der Zone.",
     "ita": "Hai ottenuto l'obiettivo Marcato dalla Zona",
     "pol": "Udało ci się zdobyć osiągnięcie „Naznaczony przez Zonę\".",
@@ -590,7 +590,7 @@
   },
   "st_ach_mutant_hunter": {
     "eng": "You have attained the Mutant Hunter achievement.",
-    "fra": "Vous avez obtenu le succčs Chasseur de mutants.",
+    "fra": "Vous avez obtenu le succès Chasseur de mutants.",
     "ger": "Sie haben folgenden Erfolg errungen: Mutantenjäger.",
     "ita": "Hai ottenuto l'obiettivo Cacciatore di mutanti.",
     "pol": "Udało ci się zdobyć osiągnięcie „Łowca mutantów”.",
@@ -600,7 +600,7 @@
   },
   "st_ach_one_of_the_lads": {
     "eng": "You have attained the One of Ours achievement.",
-    "fra": "Vous avez obtenu le succčs L'un des nôtres.",
+    "fra": "Vous avez obtenu le succès L'un des nôtres.",
     "ger": "Sie haben folgenden Erfolg errungen: Einer von uns.",
     "ita": "Hai ottenuto l'obiettivo Uno dei nostri.",
     "pol": "Udało ci się zdobyć osiągnięcie „Jeden z nas”.",
@@ -610,7 +610,7 @@
   },
   "st_ach_pioneer": {
     "eng": "You have attained the Pioneer achievement.",
-    "fra": "Vous avez obtenu le succčs Pionnier.",
+    "fra": "Vous avez obtenu le succès Pionnier.",
     "ger": "Sie haben folgenden Erfolg errungen: Pionier.",
     "ita": "Hai ottenuto l'obiettivo Pioniere.",
     "pol": "Udało ci się zdobyć osiągnięcie „Pionier”.",
@@ -620,7 +620,7 @@
   },
   "st_ach_research_man": {
     "eng": "You have attained the Research Assistant achievement.",
-    "fra": "Vous avez obtenu le succčs Assistant de recherche.",
+    "fra": "Vous avez obtenu le succès Assistant de recherche.",
     "ger": "Sie haben folgenden Erfolg errungen: Wissenschaftlicher Mitarbeiter.",
     "ita": "Hai ottenuto l'obiettivo Assistente ricercatore.",
     "pol": "Udało ci się zdobyć osiągnięcie „Asystent”.",
@@ -630,7 +630,7 @@
   },
   "st_ach_seeker": {
     "eng": "You have attained the Artifact Hunter achievement.",
-    "fra": "Vous avez obtenu le succčs Chasseur d'artefacts.",
+    "fra": "Vous avez obtenu le succès Chasseur d'artefacts.",
     "ger": "Sie haben folgenden Erfolg errungen: Artefaktjäger.",
     "ita": "Hai ottenuto l'obiettivo Cacciatore di manufatti.",
     "pol": "Udało ci się zdobyć osiągnięcie „Łowca artefaktów”.",
@@ -640,7 +640,7 @@
   },
   "st_ach_skilled_stalker": {
     "eng": "You have attained the Seasoned Stalker achievement.",
-    "fra": "Vous avez obtenu le succčs Stalker aguerri.",
+    "fra": "Vous avez obtenu le succès Stalker aguerri.",
     "ger": "Sie haben folgenden Erfolg errungen: Erfahrener Stalker.",
     "ita": "Hai ottenuto l'obiettivo Stalker esperto.",
     "pol": "Udało ci się zdobyć osiągnięcie „Doświadczony stalker”.",
@@ -650,7 +650,7 @@
   },
   "st_ach_wealthy": {
     "eng": "You have attained the Wealthy Client achievement.",
-    "fra": "Vous avez obtenu le succčs Bon client.",
+    "fra": "Vous avez obtenu le succès Bon client.",
     "ger": "Sie haben folgenden Erfolg errungen: Reicher Kunde.",
     "ita": "Hai ottenuto l'obiettivo Un ricco cliente.",
     "pol": "Udało ci się zdobyć osiągnięcie „Bogaty klient”.",
@@ -690,32 +690,32 @@
   },
   "st_detective_news": {
     "eng": "Medical supplies have been placed in the personal box on the Skadovsk for solving the secret of the missing stalkers.",
-    "fra": "Des fournitures médicales ont été placées dans votre cantine du Skadovsk pour vous remercier d'avoir élucidé le mystčre des stalkers disparus.",
+    "fra": "Des fournitures médicales ont été placées dans votre cantine du Skadovsk pour vous remercier d'avoir élucidé le mystère des stalkers disparus.",
     "ger": "Als Belohnung dafür, dass Sie das Geheimnis der verschwundenen Stalker lüften konnten, wurden medizinische Vorräte in Ihrer persönlichen Kiste auf der Skadowsk hinterlegt.",
     "ita": "I medicinali sono stati collocati nel ripostiglio personale sulla Skadovsk per aver risolto il mistero degli stalker scomparsi.",
     "pol": "W nagrodę za rozwiązanie tajemnicy zaginionych stalkerów w twojej skrytce na Skadowsku zostały umieszczone środki medyczne.",
     "rus": "За раскрытие дела о пропаже сталкеров в личный ящик на «Скадовске» добавлены медикаменты.",
-    "spa": "Se han ańadido medicinas en la caja personal del Skadovsk por resolver el misterio de los stalkers desaparecidos.",
+    "spa": "Se han añadido medicinas en la caja personal del Skadovsk por resolver el misterio de los stalkers desaparecidos.",
     "ukr": "За розкриття справи про пропажу сталкерів до особистого ящика на «Скадовську» покладено медикаменти."
   },
   "st_duty_first_reward_news": {
     "eng": "A PS5-M Universal Protection suit has been placed in the personal box at Yanov for helping Duty.",
     "fra": "Une combinaison PS5-M a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée au Devoir.",
     "ger": "Als Belohnung für die Hilfe, die Sie den Wächtern geleistet haben, wurde ein PS5-M Universalschutzanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
-    "ita": "Una tuta di protezione universale PS5-M č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
+    "ita": "Una tuta di protezione universale PS5-M è stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
     "pol": "W nagrodę za pomoc Powinności w twojej skrytce na stacji Janów umieszczony został kombinezon PS5-M Uniwersalna ochrona.",
     "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПС5-М «Универсальная защита».",
-    "spa": "Se ha ańadido un traje blindado universal PS5-M en la caja personal de Yanov por ayudar a Deber.",
+    "spa": "Se ha añadido un traje blindado universal PS5-M en la caja personal de Yanov por ayudar a Deber.",
     "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПС5-М «Універсальний захист»."
   },
   "st_duty_second_reward_news": {
     "eng": "A PSZ-9d Duty Armor suit has been placed in the personal box at Yanov for helping Duty.",
     "fra": "Une combinaison PSZ-9d a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée au Devoir.",
     "ger": "Als Belohnung für die Hilfe, die Sie den Wächtern geleistet haben, wurde eine PSZ-9d Wächterpanzerung in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
-    "ita": "Una tuta corazzata PSZ-9d della Duty č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
+    "ita": "Una tuta corazzata PSZ-9d della Duty è stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Duty.",
     "pol": "W nagrodę za pomoc Powinności w twojej skrytce na stacji Janów umieszczony został kombinezon Pancerz Powinności PSZ-9d. ",
     "rus": "За помощь «Долгу» в личный ящик на «Янове» помещён костюм ПСЗ-9д «Броня «Долга».",
-    "spa": "Se ha ańadido un traje blindado PSZ-9d de Deber en la caja personal de Yanov por ayudar a Deber.",
+    "spa": "Se ha añadido un traje blindado PSZ-9d de Deber en la caja personal de Yanov por ayudar a Deber.",
     "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПСЗ-9д «Броня «Долгу»."
   },
   "st_found_new_treasure": {
@@ -730,9 +730,9 @@
   },
   "st_found_old_treasure": {
     "eng": "Received coordinates of a stash that has already been discovered.",
-    "fra": "Coordonnées d'une planque déjŕ découverte récupérées",
+    "fra": "Coordonnées d'une planque déjà découverte récupérées",
     "ger": "Koordinaten eines Verstecks erhalten, das schon bekannt ist.",
-    "ita": "Hai ricevuto le coordinate di un ripostiglio giŕ scoperto.",
+    "ita": "Hai ricevuto le coordinate di un ripostiglio già scoperto.",
     "pol": "Otrzymano współrzędne schowka, który już wcześniej został odkryty.",
     "rus": "Получены координаты ранее найденного тайника",
     "spa": "Recibidas coordenadas del escondite que ya ha sido descubierto.",
@@ -740,27 +740,27 @@
   },
   "st_freedom_first_reward_news": {
     "eng": "A Wind of Freedom suit has been placed in the personal box at Yanov for helping Freedom.",
-    "fra": "Une combinaison \"Vent de Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée ŕ la Liberté.",
+    "fra": "Une combinaison \"Vent de Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée à la Liberté.",
     "ger": "Als Belohnung für die Hilfe, die Sie der Freiheit geleistet haben, wurde ein Freiheit-Sturmanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
-    "ita": "Una tuta \"Vento della Freedom\" č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
+    "ita": "Una tuta \"Vento della Freedom\" è stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
     "pol": "W nagrodę za pomoc Wolności w twojej skrytce na stacji Janów umieszczony został kombinezon Powiew Wolności.",
     "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Ветер свободы».",
-    "spa": "Se ha ańadido un traje Viento de Libertad en la caja personal de Yanov por ayudar a Libertad.",
+    "spa": "Se ha añadido un traje Viento de Libertad en la caja personal de Yanov por ayudar a Libertad.",
     "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вітер свободи»."
   },
   "st_freedom_second_reward_news": {
     "eng": "A Freedom Guard suit has been placed in the personal box at Yanov for helping Freedom.",
-    "fra": "Une combinaison \"Garde de la Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée ŕ la Liberté.",
+    "fra": "Une combinaison \"Garde de la Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée à la Liberté.",
     "ger": "Als Belohnung für die Hilfe, die Sie der Freiheit geleistet haben, wurde ein Freiheit-Wachanzug in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
-    "ita": "Una tuta \"Guardiano della Freedom\" č stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
+    "ita": "Una tuta \"Guardiano della Freedom\" è stata collocata nel tuo ripostiglio personale a Yanov per aver aiutato la Freedom.",
     "pol": "W nagrodę za pomoc Wolności w twojej skrytce na stacji Janów umieszczony został kombinezon Strażnik wolności.",
     "rus": "За помощь «Свободе» в личный ящик на «Янове» помещён костюм «Страж свободы».",
-    "spa": "Se ha ańadido un traje de guardia de Libertad en la caja personal de Yanov por ayudar a Libertad.",
+    "spa": "Se ha añadido un traje de guardia de Libertad en la caja personal de Yanov por ayudar a Libertad.",
     "ukr": "За допомогу «Волі» до особистого ящика на «Янові» поміщено костюм «Вартовий волі»."
   },
   "st_freeplay_text_ok": {
     "eng": "You didn’t manage to reach the helicopters and the evacuation team left the Zone without you.",
-    "fra": "Vous n'avez pas réussi ŕ atteindre les hélicoptčres ŕ temps et l'équipe d'évacuation est partie sans vous.",
+    "fra": "Vous n'avez pas réussi à atteindre les hélicoptères à temps et l'équipe d'évacuation est partie sans vous.",
     "ger": "Sie haben es nicht bis zum Hubschrauber geschafft und das Evakuierungsteam hat die Zone ohne Sie verlassen.",
     "ita": "Non sei riuscito a raggiungere gli elicotteri e la squadra di evacuazione ha lasciato la Zona senza di te.",
     "pol": "Nie udało ci się dotrzeć do helikopterów i drużyna ewakuacyjna opuściła Zonę bez ciebie.",
@@ -770,12 +770,12 @@
   },
   "st_freeplay_text_yes_no": {
     "eng": "Are you ready to leave the Zone? There’s no way back.",
-    "fra": "Pręt ŕ quitter la Zone ? C'est un voyage ŕ sens unique...",
+    "fra": "Prêt à quitter la Zone ? C'est un voyage à sens unique...",
     "ger": "Sind Sie bereit, die Zone zu verlassen? Es gibt keinen Weg zurück.",
-    "ita": "Sei pronto per lasciare la Zona??Non potrai piů tornare indietro.",
+    "ita": "Sei pronto per lasciare la Zona??Non potrai più tornare indietro.",
     "pol": "Czy na pewno chcesz opuścić Zonę? Powrót jest niemożliwy.",
     "rus": "Готовы ли Вы покинуть Зону? Обратного пути не будет.",
-    "spa": "żListo para irte de la Zona? No hay vuelta atrás.",
+    "spa": "¿Listo para irte de la Zona? No hay vuelta atrás.",
     "ukr": "Чи готові Ви покинути Зону? Дороги назад не буде."
   },
   "st_game_over": {
@@ -832,10 +832,10 @@
     "eng": "An artifact has been placed in the personal box on the Skadovsk for helping to expose Magpie.",
     "fra": "Un artefact a été placé dans votre cantine du Skadovsk en remerciement pour votre aide dans l'affaire de la Pie.",
     "ger": "Als Belohnung für Ihre Hilfe dabei, Magpie zu überführen, wurde ein Artefakt in Ihrer persönlichen Kiste auf der Skadowsk hinterlegt.",
-    "ita": "Č stato collocato un manufatto nel tuo ripostiglio personale sulla Skadovsk per aver smascherato Magpie.",
+    "ita": "È stato collocato un manufatto nel tuo ripostiglio personale sulla Skadovsk per aver smascherato Magpie.",
     "pol": "W nagrodę za pomoc w zdemaskowaniu Sroki w twojej skrytce na Skadowsku umieszczony został artefakt.",
     "rus": "За помощь в разоблачении Сороки в личный ящик на «Скадовске» помещён артефакт.",
-    "spa": "Se ha ańadido un artefacto a la caja personal del Skadovsk por ayudar a desenmascarar a Urraca.",
+    "spa": "Se ha añadido un artefacto a la caja personal del Skadovsk por ayudar a desenmascarar a Urraca.",
     "ukr": "За допомогу у викритті Сороки до особистого ящика на «Скадовську» покладено артефакт."
   },
   "st_jup_b41_door_locked": {
@@ -850,7 +850,7 @@
   },
   "st_lx8_button_press_true": {
     "eng": "Access granted",
-    "fra": "Accčs autorisé",
+    "fra": "Accès autorisé",
     "ger": "Zugang gewährt",
     "ita": "Accesso consentito",
     "pol": "Przyznano dostęp",
@@ -875,7 +875,7 @@
     "ita": "Delle munizioni sono state collocate nel tuo ripostiglio personale a Yanov per aver eliminato i mutanti.",
     "pol": "W nagrodę za eliminację niebezpiecznych mutantów w twojej skrytce na stacji Janów została umieszczona amunicja.",
     "rus": "За уничтожение опасных мутантов в личный ящик на «Янове» помещены боеприпасы.",
-    "spa": "Se ha ańadido munición a la caja personal de Yanov por eliminar a los mutantes peligrosos.",
+    "spa": "Se ha añadido munición a la caja personal de Yanov por eliminar a los mutantes peligrosos.",
     "ukr": "За знищення небезпечних мутантів до особистого ящика на «Янові» покладено боєприпаси."
   },
   "st_press_any_key": {
@@ -912,7 +912,7 @@
     "eng": "Dangerous radiation levels. Protection required to go further.",
     "fra": "Niveaux de radiations élevés. Vous ne pouvez pas aller plus loin sans protection.",
     "ger": "Kritisches Strahlungsniveau. Um weiterzugehen, wird Schutz benötigt.",
-    "ita": "Livelli di radiazione pericolosi. Č necessaria una protezione per avanzare.",
+    "ita": "Livelli di radiazione pericolosi. È necessaria una protezione per avanzare.",
     "pol": "Niebezpieczny poziom promieniowania. Aby przejść dalej, niezbędna jest ochrona.",
     "rus": "Опасный уровень радиации. Для прохода необходима защита.",
     "spa": "Niveles de radiación peligrosos. Necesitas protección para seguir.",
@@ -920,7 +920,7 @@
   },
   "st_resupply_ready": {
     "eng": "You can restock on medical supplies and ammo by visiting Lieutenant Rogovets and Lieutenant Kirillov.",
-    "fra": "Vous pouvez obtenir des fournitures médicales et des munitions auprčs des lieutenants Rogovets et Kirillov.",
+    "fra": "Vous pouvez obtenir des fournitures médicales et des munitions auprès des lieutenants Rogovets et Kirillov.",
     "ger": "Sie können bei Leutnant Rogowez und Leutnant Kirilloff Ihre Vorräte an Medikamenten und Munition auffrischen.",
     "ita": "Puoi fare scorta di medicinali e munizioni dal Tenente Rogovets e dal Tenente Kirillov.",
     "pol": "Możesz uzupełnić swój zapas środków medycznych, odwiedzając poruczników Rogowca i Kiryłowa.",
@@ -930,7 +930,7 @@
   },
   "st_search_helicopter": {
     "eng": "Examine helicopter ($$ACTION_USE$$)",
-    "fra": "Examiner l'hélicoptčre ($$ACTION_USE$$)",
+    "fra": "Examiner l'hélicoptère ($$ACTION_USE$$)",
     "ger": "Hubschrauber untersuchen ($$ACTION_USE$$)",
     "ita": "Esamina elicottero ($$ACTION_USE$$)",
     "pol": "Zbadaj helikopter ($$ACTION_USE$$)",
@@ -962,7 +962,7 @@
     "eng": "An emission has recently occurred in the Zone.",
     "fra": "Une émission s'est produite récemment dans la Zone.",
     "ger": "Vor kurzem fand eine Emission in der Zone statt.",
-    "ita": "Da poco si č verificata un'emissione nella Zona",
+    "ita": "Da poco si è verificata un'emissione nella Zona",
     "pol": "Niedawno w Zonie nastąpiła emisja.",
     "rus": "В Зоне недавно произошёл выброс.",
     "spa": "Una emisión se acaba de producir en la Zona.",
@@ -1002,7 +1002,7 @@
     "eng": "Door locked - the camp is on alert",
     "fra": "Porte verrouillée. Le camp est en alerte.",
     "ger": "Tür verschlossen - das Lager befindet sich im Alarmzustand",
-    "ita": "Porta chiusa - l'accampamento č in all'erta",
+    "ita": "Porta chiusa - l'accampamento è in all'erta",
     "pol": "Drzwi zamknięte - obóz jest w stanie pogotowia",
     "rus": "Дверь заперта - в лагере тревога",
     "spa": "Puerta cerrada: campamento en alerta",
@@ -1032,7 +1032,7 @@
     "eng": "Door is not being powered",
     "fra": "La porte n'est pas sous tension.",
     "ger": "Stromzufuhr der Tür ist unterbrochen",
-    "ita": "La porta non č alimentata",
+    "ita": "La porta non è alimentata",
     "pol": "Brak zasilania drzwi",
     "rus": "Дверь обесточена",
     "spa": "La puerta no tiene corriente",
@@ -1060,7 +1060,7 @@
   },
   "tip_need_access_card": {
     "eng": "Use the access card ($$ACTION_USE$$)",
-    "fra": "Utiliser la carte d'accčs ($$ACTION_USE$$)",
+    "fra": "Utiliser la carte d'accès ($$ACTION_USE$$)",
     "ger": "Zugangskarte benutzen ($$ACTION_USE$$)",
     "ita": "Usa la tessera d'accesso ($$ACTION_USE$$)",
     "pol": "Użyj karty dostępu ($$ACTION_USE$$)",
@@ -1070,7 +1070,7 @@
   },
   "tip_no_access_card": {
     "eng": "Access card required",
-    "fra": "Carte d'accčs nécessaire",
+    "fra": "Carte d'accès nécessaire",
     "ger": "Zugangskarte erforderlich",
     "ita": "Tessera d'accesso richiesta",
     "pol": "Wymagana karta dostępu",
@@ -1080,7 +1080,7 @@
   },
   "tip_open_another_site": {
     "eng": "The door cannot be opened from this side",
-    "fra": "Cette porte ne peut pas ętre ouverte de ce côté.",
+    "fra": "Cette porte ne peut pas être ouverte de ce côté.",
     "ger": "Die Tür kann nicht von dieser Seite aus geöffnet werden",
     "ita": "Impossibile aprire la porta da questa parte",
     "pol": "Drzwi nie można otworzyć z tej strony",
@@ -1102,7 +1102,7 @@
     "eng": "The container is locked. Two keys are needed to open it.",
     "fra": "Ce conteneur est verrouillé. Deux clefs sont nécessaires pour l'ouvrir.",
     "ger": "Die Kiste ist verschlossen. Es werden zwei Schlüssel benötigt.",
-    "ita": "Il contenitore č chiuso a chiave. Servono due chiavi per aprirlo.",
+    "ita": "Il contenitore è chiuso a chiave. Servono due chiavi per aprirlo.",
     "pol": "Pojemnik jest zamknięty. Aby go otworzyć, potrzebne są dwa klucze.",
     "rus": "Контейнер закрыт - необходимы два ключа",
     "spa": "El contenedor está cerrado. Necesitas dos llaves para abrirlo.",
@@ -1130,9 +1130,9 @@
   },
   "zat_b12_conteiner_locked": {
     "eng": "The container is locked. You need the second key to open it.",
-    "fra": "Ce conteneur est verrouillé. Vous avez besoin de la deuxičme clef pour l'ouvrir.",
+    "fra": "Ce conteneur est verrouillé. Vous avez besoin de la deuxième clef pour l'ouvrir.",
     "ger": "Die Kiste ist verschlossen. Sie benötigen den zweiten Schlüssel, um sie zu öffnen.",
-    "ita": "Il contenitore č chiuso a chiave. Ti serve la seconda chiave per aprirlo.",
+    "ita": "Il contenitore è chiuso a chiave. Ti serve la seconda chiave per aprirlo.",
     "pol": "Pojemnik jest zamknięty. Aby go otworzyć, potrzebny jest drugi klucz.",
     "rus": "Контейнер закрыт - необходим второй ключ",
     "spa": "El contenedor está cerrado. Necesitas la segunda llave para abrirlo.",
@@ -1152,7 +1152,7 @@
     "eng": "The door mechanism has been blocked from the inside.",
     "fra": "Le mécanisme de la porte est bloqué de l'intérieur.",
     "ger": "Der Türmechanismus wurde von innen blockiert",
-    "ita": "Il meccanismo della porta č stato bloccato dall'interno",
+    "ita": "Il meccanismo della porta è stato bloccato dall'interno",
     "pol": "Mechanizm drzwi został zablokowany od środka.",
     "rus": "Дверной механизм заблокирован изнутри",
     "spa": "El mecanismo de la puerta está bloqueado desde dentro.",
@@ -1185,7 +1185,7 @@
     "ita": "Attenzione!?Pericolo chimico!",
     "pol": "Uwaga! Zagrożenie chemiczne!",
     "rus": "Осторожно! Химическая опасность!",
-    "spa": "ˇAviso! ˇRiesgo químico!",
+    "spa": "¡Aviso! ¡Riesgo químico!",
     "ukr": "Обережно! Хімічна небезпека!"
   },
   "zat_b57_vintil_press": {

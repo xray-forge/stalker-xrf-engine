@@ -1,9 +1,9 @@
 {
   "hide_from_surge_descr_1_a": {
     "eng": "You must run to the nearest cover immediately and hide from the emission.",
-    "fra": "Mettez-vous immédiatement ŕ couvert pour vous protéger de l'émission.",
+    "fra": "Mettez-vous immédiatement à couvert pour vous protéger de l'émission.",
     "ger": "Sie müssen sich in den nächsten Unterschlupf begeben, um sich vor der Emission zu schützen.",
-    "ita": "Devi raggiungere subito la copertura piů vicina per ripararti dall'emissione.",
+    "ita": "Devi raggiungere subito la copertura più vicina per ripararti dall'emissione.",
     "pol": "Musisz natychmiast biec do najbliższego schronienia i ukryć się przed emisją.",
     "rus": "Необходимо срочно бежать к ближайшему укрытию и спрятаться от выброса.",
     "spa": "Busca el lugar más cercano para guarecerte inmediatamente de la emisión.",
@@ -26,12 +26,12 @@
     "ita": "Attenzione! Inizio emissione tra:",
     "pol": "Uwaga! Emisja rozpocznie się za:",
     "rus": "Внимание! До выброса осталось",
-    "spa": "ˇAtención! La emisión comenzará en:",
+    "spa": "¡Atención! La emisión comenzará en:",
     "ukr": "Увага! До викиду залишилося"
   },
   "hide_from_surge_name_1": {
     "eng": "Emission: find cover",
-    "fra": "Emission : se mettre ŕ couvert",
+    "fra": "Emission : se mettre à couvert",
     "ger": "Emission: Deckung suchen",
     "ita": "Emissione: trova un riparo",
     "pol": "Emisja: znajdź schronienie",
@@ -41,7 +41,7 @@
   },
   "hide_from_surge_name_2": {
     "eng": "Emission: wait in cover",
-    "fra": "Emission : rester ŕ couvert",
+    "fra": "Emission : rester à couvert",
     "ger": "Emission: In Deckung warten",
     "ita": "Emissione: attendi al riparo",
     "pol": "Emisja: czekaj w schronieniu",

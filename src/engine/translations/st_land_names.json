@@ -76,7 +76,7 @@
     "ita": "Anomalia Bagno di cemento",
     "pol": "Anomalia Betonowa Wanna",
     "rus": "Аномалия «Бетонная ванна»",
-    "spa": "La anomalía del Bańo de Cemento",
+    "spa": "La anomalía del Baño de Cemento",
     "ukr": "Аномалія «Бетонна ванна»"
   },
   "st_jup_b202_name": {
@@ -121,7 +121,7 @@
   },
   "st_jup_b209_name": {
     "eng": "Bitumen anomaly",
-    "fra": "Puits ŕ bitume (anomalie)",
+    "fra": "Puits à bitume (anomalie)",
     "ger": "Asphalt-Anomalie",
     "ita": "Anomalia Bitume",
     "pol": "Anomalia Bitumin",
@@ -141,7 +141,7 @@
   },
   "st_jup_b212_name": {
     "eng": "Ventilation complex",
-    "fra": "Systčme d'aération",
+    "fra": "Système d'aération",
     "ger": "Belüftungsanlage",
     "ita": "Complesso di ventilazione",
     "pol": "Kompleks wentylacyjny",
@@ -151,7 +151,7 @@
   },
   "st_jup_b25_name": {
     "eng": "Quarry",
-    "fra": "Carričre",
+    "fra": "Carrière",
     "ger": "Steinbruch",
     "ita": "Cava",
     "pol": "Kamieniołomy",
@@ -351,7 +351,7 @@
   },
   "st_zat_b100_name": {
     "eng": "Iron Forest anomaly",
-    "fra": "Foręt de Fer (anomalie)",
+    "fra": "Forêt de Fer (anomalie)",
     "ger": "Eisenwald-Anomalie",
     "ita": "Anomalia Foresta d'acciaio",
     "pol": "Anomalia Żelazny Las",
@@ -431,7 +431,7 @@
   },
   "st_zat_b20_name": {
     "eng": "Burnt farmstead",
-    "fra": "Ferme brűlée",
+    "fra": "Ferme brûlée",
     "ger": "Abgebrannter Bauernhof",
     "ita": "Fattoria bruciata",
     "pol": "Spalone gospodarstwo",
@@ -471,7 +471,7 @@
   },
   "st_zat_b39_name": {
     "eng": "Oakpine anomaly",
-    "fra": "Pinchęne (anomalie)",
+    "fra": "Pinchêne (anomalie)",
     "ger": "Pinieneiche-Anomalie",
     "ita": "Anomalia Pinquercia",
     "pol": "Anomalia Sosnodąb",

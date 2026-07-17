@@ -81,7 +81,7 @@
   },
   "lname_bandit_105": {
     "eng": "Ox",
-    "fra": "Bśuf",
+    "fra": "Bœuf",
     "ger": "Ochse",
     "ita": "Ox",
     "pol": "Wół",
@@ -111,7 +111,7 @@
   },
   "lname_bandit_108": {
     "eng": "Beast",
-    "fra": "Bęte",
+    "fra": "Bête",
     "ger": "Bestie",
     "ita": "Beast",
     "pol": "Bestia",
@@ -186,7 +186,7 @@
     "ita": "Nark",
     "pol": "Szpicel",
     "rus": "Легавый",
-    "spa": "Gruńón",
+    "spa": "Gruñón",
     "ukr": "Лягавий"
   },
   "lname_bandit_115": {
@@ -521,12 +521,12 @@
   },
   "lname_bandit_145": {
     "eng": "Crosstie",
-    "fra": "Nśud-pap'",
+    "fra": "Nœud-pap'",
     "ger": "Schwelle",
     "ita": "Crosstie",
     "pol": "Podkład",
     "rus": "Шпала",
-    "spa": "Travesańo",
+    "spa": "Travesaño",
     "ukr": "Шпала"
   },
   "lname_bandit_146": {
@@ -556,7 +556,7 @@
     "ita": "Pugno",
     "pol": "Piącha",
     "rus": "Кулак",
-    "spa": "Puńos",
+    "spa": "Puños",
     "ukr": "Куркуль"
   },
   "lname_bandit_149": {
@@ -571,7 +571,7 @@
   },
   "lname_bandit_15": {
     "eng": "Tadpole",
-    "fra": "Tętard",
+    "fra": "Têtard",
     "ger": "Frosch",
     "ita": "Tadpole",
     "pol": "Kijanka",
@@ -601,7 +601,7 @@
   },
   "lname_bandit_152": {
     "eng": "Koschei",
-    "fra": "Koscheď",
+    "fra": "Koscheï",
     "ger": "Koschei",
     "ita": "Koschei",
     "pol": "Kościej",
@@ -611,7 +611,7 @@
   },
   "lname_bandit_153": {
     "eng": "Rambo",
-    "fra": "Tęte brűlée",
+    "fra": "Tête brûlée",
     "ger": "Rambo",
     "ita": "Rambo",
     "pol": "Rambo",
@@ -641,7 +641,7 @@
   },
   "lname_bandit_156": {
     "eng": "Chapai",
-    "fra": "Chapaď",
+    "fra": "Chapaï",
     "ger": "Tschapaj",
     "ita": "Chapai",
     "pol": "Czapaj",
@@ -721,7 +721,7 @@
   },
   "lname_bandit_163": {
     "eng": "Gangrene",
-    "fra": "Gangrčne",
+    "fra": "Gangrène",
     "ger": "Wundbrand",
     "ita": "Gangrene",
     "pol": "Gangrena",
@@ -956,7 +956,7 @@
     "ita": "Tightwad",
     "pol": "Kutwa",
     "rus": "Жмот",
-    "spa": "Tacańo",
+    "spa": "Tacaño",
     "ukr": "Жмикрут"
   },
   "lname_bandit_21": {
@@ -1066,7 +1066,7 @@
     "ita": "Local",
     "pol": "Tutejszy",
     "rus": "Местный",
-    "spa": "Lugareńo",
+    "spa": "Lugareño",
     "ukr": "Тутешній"
   },
   "lname_bandit_31": {
@@ -1251,7 +1251,7 @@
   },
   "lname_bandit_48": {
     "eng": "Ears",
-    "fra": "Toute-ouďe",
+    "fra": "Toute-ouïe",
     "ger": "Ohr",
     "ita": "Ears",
     "pol": "Uszatek",
@@ -1411,7 +1411,7 @@
   },
   "lname_bandit_62": {
     "eng": "Unorthodox",
-    "fra": "Énergumčne",
+    "fra": "Énergumène",
     "ger": "Unorthodox",
     "ita": "Unorthodox",
     "pol": "Oryginał",
@@ -1716,7 +1716,7 @@
     "ita": "Boulder",
     "pol": "Głaz",
     "rus": "Глыба",
-    "spa": "Peńón",
+    "spa": "Peñón",
     "ukr": "Брила"
   },
   "lname_bandit_90": {
@@ -2251,7 +2251,7 @@
   },
   "lname_captain_137": {
     "eng": "Mostovoi",
-    "fra": "Mostovoď",
+    "fra": "Mostovoï",
     "ger": "Mostowoj",
     "ita": "Mostovoi",
     "pol": "Mostowoj",
@@ -2811,7 +2811,7 @@
   },
   "lname_captain_188": {
     "eng": "Skameika",
-    "fra": "Skameďka",
+    "fra": "Skameïka",
     "ger": "Skamejka",
     "ita": "Skameika",
     "pol": "Skamejka",
@@ -2831,7 +2831,7 @@
   },
   "lname_captain_19": {
     "eng": "Boiko",
-    "fra": "Boďko",
+    "fra": "Boïko",
     "ger": "Bojko",
     "ita": "Boiko",
     "pol": "Bojko",
@@ -2951,7 +2951,7 @@
   },
   "lname_captain_20": {
     "eng": "Boichenko",
-    "fra": "Boďchenko",
+    "fra": "Boïchenko",
     "ger": "Bojtschenko",
     "ita": "Boichenko",
     "pol": "Bojczenko",
@@ -4251,7 +4251,7 @@
   },
   "lname_lieutenant_137": {
     "eng": "Mostovoi",
-    "fra": "Mostovoď",
+    "fra": "Mostovoï",
     "ger": "Mostowoj",
     "ita": "Mostovoi",
     "pol": "Mostowoj",
@@ -4811,7 +4811,7 @@
   },
   "lname_lieutenant_188": {
     "eng": "Skameika",
-    "fra": "Skameďka",
+    "fra": "Skameïka",
     "ger": "Skamejka",
     "ita": "Skameika",
     "pol": "Skamejka",
@@ -4831,7 +4831,7 @@
   },
   "lname_lieutenant_19": {
     "eng": "Boiko",
-    "fra": "Boďko",
+    "fra": "Boïko",
     "ger": "Bojko",
     "ita": "Boiko",
     "pol": "Bojko",
@@ -4951,7 +4951,7 @@
   },
   "lname_lieutenant_20": {
     "eng": "Boichenko",
-    "fra": "Boďchenko",
+    "fra": "Boïchenko",
     "ger": "Bojtschenko",
     "ita": "Boichenko",
     "pol": "Bojczenko",
@@ -6251,7 +6251,7 @@
   },
   "lname_private_137": {
     "eng": "Mostovoi",
-    "fra": "Mostovoď",
+    "fra": "Mostovoï",
     "ger": "Mostowoj",
     "ita": "Mostovoi",
     "pol": "Mostowój",
@@ -6811,7 +6811,7 @@
   },
   "lname_private_188": {
     "eng": "Skameika",
-    "fra": "Skameďka",
+    "fra": "Skameïka",
     "ger": "Skamejka",
     "ita": "Skameika",
     "pol": "Skamejka",
@@ -6831,7 +6831,7 @@
   },
   "lname_private_19": {
     "eng": "Boiko",
-    "fra": "Boďko",
+    "fra": "Boïko",
     "ger": "Bojko",
     "ita": "Boiko",
     "pol": "Bojko",
@@ -6951,7 +6951,7 @@
   },
   "lname_private_20": {
     "eng": "Boichenko",
-    "fra": "Boďchenko",
+    "fra": "Boïchenko",
     "ger": "Bojtschenko",
     "ita": "Boichenko",
     "pol": "Bojczenko",
@@ -7931,7 +7931,7 @@
   },
   "lname_science_19": {
     "eng": "Zaikin",
-    "fra": "Zaďkin",
+    "fra": "Zaïkin",
     "ger": "Sajikin",
     "ita": "Zaikin",
     "pol": "Zajkin",
@@ -8541,7 +8541,7 @@
   },
   "lname_sergeant_137": {
     "eng": "Mostovoi",
-    "fra": "Mostovoď",
+    "fra": "Mostovoï",
     "ger": "Mostowoj",
     "ita": "Mostovoi",
     "pol": "Mostowój",
@@ -9101,7 +9101,7 @@
   },
   "lname_sergeant_188": {
     "eng": "Skameika",
-    "fra": "Skameďka",
+    "fra": "Skameïka",
     "ger": "Skamejka",
     "ita": "Skameika",
     "pol": "Skamejka",
@@ -9121,7 +9121,7 @@
   },
   "lname_sergeant_19": {
     "eng": "Boiko",
-    "fra": "Boďko",
+    "fra": "Boïko",
     "ger": "Bojko",
     "ita": "Boiko",
     "pol": "Bojko",
@@ -9241,7 +9241,7 @@
   },
   "lname_sergeant_20": {
     "eng": "Boichenko",
-    "fra": "Boďchenko",
+    "fra": "Boïchenko",
     "ger": "Bojtschenko",
     "ita": "Boichenko",
     "pol": "Bojczenko",
@@ -10381,7 +10381,7 @@
   },
   "lname_stalker_122": {
     "eng": "Ears",
-    "fra": "Toute-ouďe",
+    "fra": "Toute-ouïe",
     "ger": "Ohr",
     "ita": "Ears",
     "pol": "Uszatek",
@@ -10631,7 +10631,7 @@
   },
   "lname_stalker_145": {
     "eng": "Bard",
-    "fra": "Ačde",
+    "fra": "Aède",
     "ger": "Barde",
     "ita": "Bard",
     "pol": "Bard",
@@ -10661,7 +10661,7 @@
   },
   "lname_stalker_148": {
     "eng": "Unorthodox",
-    "fra": "Énergumčne",
+    "fra": "Énergumène",
     "ger": "Unorthodox",
     "ita": "Unorthodox",
     "pol": "Oryginał",
@@ -10681,7 +10681,7 @@
   },
   "lname_stalker_15": {
     "eng": "Athlete",
-    "fra": "Athlčte",
+    "fra": "Athlète",
     "ger": "Athlet",
     "ita": "Athlete",
     "pol": "Atleta",
@@ -10981,7 +10981,7 @@
   },
   "lname_stalker_177": {
     "eng": "Grandpa",
-    "fra": "Grand-pčre",
+    "fra": "Grand-père",
     "ger": "Raffke",
     "ita": "Grandpa",
     "pol": "Dziadek",
@@ -11396,7 +11396,7 @@
     "ita": "Lord",
     "pol": "Lord",
     "rus": "Лорд",
-    "spa": "Seńor",
+    "spa": "Señor",
     "ukr": "Лорд"
   },
   "lname_stalker_214": {
@@ -11621,7 +11621,7 @@
   },
   "lname_stalker_234": {
     "eng": "Daddy",
-    "fra": "Pépčre",
+    "fra": "Pépère",
     "ger": "Daddy",
     "ita": "Daddy",
     "pol": "Tatuś",
@@ -11671,7 +11671,7 @@
   },
   "lname_stalker_239": {
     "eng": "Plowman",
-    "fra": "Bśuf",
+    "fra": "Bœuf",
     "ger": "Pflüger",
     "ita": "Aratore",
     "pol": "Oracz",
@@ -11831,7 +11831,7 @@
   },
   "lname_stalker_253": {
     "eng": "Poet",
-    "fra": "Počte",
+    "fra": "Poète",
     "ger": "Poet",
     "ita": "Poeta",
     "pol": "Poeta",
@@ -11851,7 +11851,7 @@
   },
   "lname_stalker_255": {
     "eng": "Prophet",
-    "fra": "Prophčte",
+    "fra": "Prophète",
     "ger": "Prophet",
     "ita": "Profeta",
     "pol": "Prorok",
@@ -11891,7 +11891,7 @@
   },
   "lname_stalker_259": {
     "eng": "Workhorse",
-    "fra": "Dur-ŕ-la-tâche",
+    "fra": "Dur-à-la-tâche",
     "ger": "Maultier",
     "ita": "Workhorse",
     "pol": "Wół roboczy",
@@ -11901,7 +11901,7 @@
   },
   "lname_stalker_26": {
     "eng": "Loyal",
-    "fra": "Fidčle",
+    "fra": "Fidèle",
     "ger": "Loyal",
     "ita": "Leale",
     "pol": "Lojalny",
@@ -11981,7 +11981,7 @@
   },
   "lname_stalker_267": {
     "eng": "Samurai",
-    "fra": "Samouraď",
+    "fra": "Samouraï",
     "ger": "Samurai",
     "ita": "Samurai",
     "pol": "Samuraj",
@@ -12021,7 +12021,7 @@
   },
   "lname_stalker_270": {
     "eng": "Priest",
-    "fra": "Prętre",
+    "fra": "Prêtre",
     "ger": "Priester",
     "ita": "Prete",
     "pol": "Kapłan",
@@ -12126,7 +12126,7 @@
     "ita": "Boulder",
     "pol": "Głaz",
     "rus": "Глыба",
-    "spa": "Peńón",
+    "spa": "Peñón",
     "ukr": "Брила"
   },
   "lname_stalker_280": {
@@ -12256,7 +12256,7 @@
     "ita": "Mopper-up",
     "pol": "Wymiatacz",
     "rus": "Трофейщик",
-    "spa": "Rebańador",
+    "spa": "Rebañador",
     "ukr": "Трофейник"
   },
   "lname_stalker_292": {
@@ -12501,7 +12501,7 @@
   },
   "lname_stalker_313": {
     "eng": "Heathen",
-    "fra": "Paďen",
+    "fra": "Païen",
     "ger": "Heide",
     "ita": "Heathen",
     "pol": "Poganin",
@@ -12601,7 +12601,7 @@
   },
   "lname_stalker_322": {
     "eng": "Ox",
-    "fra": "Bśuf",
+    "fra": "Bœuf",
     "ger": "Ochse",
     "ita": "Ox",
     "pol": "Wół",
@@ -12666,7 +12666,7 @@
     "ita": "Scavenger",
     "pol": "Śmieciarz",
     "rus": "Дворник",
-    "spa": "Carrońero",
+    "spa": "Carroñero",
     "ukr": "Двірник"
   },
   "lname_stalker_329": {
@@ -12771,7 +12771,7 @@
   },
   "lname_stalker_338": {
     "eng": "Hare",
-    "fra": "Ličvre",
+    "fra": "Lièvre",
     "ger": "Feldhase",
     "ita": "Lepre",
     "pol": "Zając",
@@ -12781,7 +12781,7 @@
   },
   "lname_stalker_339": {
     "eng": "Beast",
-    "fra": "Bęte",
+    "fra": "Bête",
     "ger": "Bestie",
     "ita": "Beast",
     "pol": "Bestia",
@@ -12946,7 +12946,7 @@
     "ita": "Nark",
     "pol": "Szpicel",
     "rus": "Легавый",
-    "spa": "Gruńón",
+    "spa": "Gruñón",
     "ukr": "Лягавий"
   },
   "lname_stalker_354": {
@@ -13036,7 +13036,7 @@
     "ita": "Ragno",
     "pol": "Pająk",
     "rus": "Паук",
-    "spa": "Arańa",
+    "spa": "Araña",
     "ukr": "Павук"
   },
   "lname_stalker_362": {
@@ -13051,7 +13051,7 @@
   },
   "lname_stalker_363": {
     "eng": "Pilgrim",
-    "fra": "Pčlerin",
+    "fra": "Pèlerin",
     "ger": "Pilger",
     "ita": "Pellegrino",
     "pol": "Pielgrzym",
@@ -13066,7 +13066,7 @@
     "ita": "Piranha",
     "pol": "Pirania",
     "rus": "Пиранья",
-    "spa": "Pirańa",
+    "spa": "Piraña",
     "ukr": "Піранья"
   },
   "lname_stalker_365": {
@@ -13081,7 +13081,7 @@
   },
   "lname_stalker_366": {
     "eng": "Hare",
-    "fra": "Ličvre",
+    "fra": "Lièvre",
     "ger": "Feldhase",
     "ita": "Lepre",
     "pol": "Zając",
@@ -13121,7 +13121,7 @@
   },
   "lname_stalker_37": {
     "eng": "Softie",
-    "fra": "Cśur d'artichaut",
+    "fra": "Cœur d'artichaut",
     "ger": "Weichling",
     "ita": "Softie",
     "pol": "Mięczak",
@@ -13461,7 +13461,7 @@
   },
   "lname_stalker_40": {
     "eng": "Tadpole",
-    "fra": "Tętard",
+    "fra": "Têtard",
     "ger": "Frosch",
     "ita": "Tadpole",
     "pol": "Kijanka",
@@ -13496,7 +13496,7 @@
     "ita": "Boulder",
     "pol": "Głaz",
     "rus": "Глыба",
-    "spa": "Peńón",
+    "spa": "Peñón",
     "ukr": "Брила"
   },
   "lname_stalker_403": {
@@ -13731,12 +13731,12 @@
   },
   "lname_stalker_424": {
     "eng": "Log Splitter",
-    "fra": "Brise-bűches",
+    "fra": "Brise-bûches",
     "ger": "Baumspalter",
     "ita": "Log Splitter",
     "pol": "Drwal",
     "rus": "Колун",
-    "spa": "Parteleńos",
+    "spa": "Parteleños",
     "ukr": "Колун"
   },
   "lname_stalker_425": {
@@ -13766,7 +13766,7 @@
     "ita": "Falce",
     "pol": "Kosa",
     "rus": "Коса",
-    "spa": "Guadańa",
+    "spa": "Guadaña",
     "ukr": "Коса"
   },
   "lname_stalker_428": {
@@ -13921,7 +13921,7 @@
   },
   "lname_stalker_441": {
     "eng": "Shotgun",
-    "fra": "Fusil ŕ pompe",
+    "fra": "Fusil à pompe",
     "ger": "Flinte",
     "ita": "Doppietta",
     "pol": "Strzelba",
@@ -14196,7 +14196,7 @@
     "ita": "Barile",
     "pol": "Beczka",
     "rus": "Ствол",
-    "spa": "Cańón",
+    "spa": "Cañón",
     "ukr": "Стовбур"
   },
   "lname_stalker_467": {
@@ -14261,7 +14261,7 @@
   },
   "lname_stalker_472": {
     "eng": "Knot",
-    "fra": "Nśud",
+    "fra": "Nœud",
     "ger": "Knoten",
     "ita": "Knot",
     "pol": "Węzeł",
@@ -14381,12 +14381,12 @@
   },
   "lname_stalker_483": {
     "eng": "Crosstie",
-    "fra": "Nśud-pap'",
+    "fra": "Nœud-pap'",
     "ger": "Schwelle",
     "ita": "Crosstie",
     "pol": "Podkład",
     "rus": "Шпала",
-    "spa": "Travesańo",
+    "spa": "Travesaño",
     "ukr": "Шпала"
   },
   "lname_stalker_484": {
@@ -14461,7 +14461,7 @@
   },
   "lname_stalker_490": {
     "eng": "Brainiac",
-    "fra": "Tęte d'śuf",
+    "fra": "Tête d'œuf",
     "ger": "Hirni",
     "ita": "Brainiac",
     "pol": "Mózgowiec",
@@ -14506,7 +14506,7 @@
     "ita": "Pugno",
     "pol": "Pięść",
     "rus": "Кулак",
-    "spa": "Puńos",
+    "spa": "Puños",
     "ukr": "Куркуль"
   },
   "lname_stalker_495": {
@@ -14576,7 +14576,7 @@
     "ita": "Tightwad",
     "pol": "Kutwa",
     "rus": "Жмот",
-    "spa": "Tacańo",
+    "spa": "Tacaño",
     "ukr": "Жмикрут"
   },
   "lname_stalker_500": {
@@ -14601,7 +14601,7 @@
   },
   "lname_stalker_502": {
     "eng": "Athlete",
-    "fra": "Athlčte",
+    "fra": "Athlète",
     "ger": "Athlet",
     "ita": "Athlete",
     "pol": "Atleta",
@@ -14641,7 +14641,7 @@
   },
   "lname_stalker_506": {
     "eng": "Homer",
-    "fra": "Homčre",
+    "fra": "Homère",
     "ger": "Tauber",
     "ita": "Omero",
     "pol": "Homer",
@@ -14731,7 +14731,7 @@
   },
   "lname_stalker_514": {
     "eng": "Koschei",
-    "fra": "Koscheď",
+    "fra": "Koscheï",
     "ger": "Koschei",
     "ita": "Koschei",
     "pol": "Kościej",
@@ -14853,7 +14853,7 @@
     "eng": "Friday",
     "fra": "Vendredi",
     "ger": "Freitag",
-    "ita": "Venerdě",
+    "ita": "Venerdì",
     "pol": "Piątek",
     "rus": "Пятница",
     "spa": "Viernes",
@@ -14861,7 +14861,7 @@
   },
   "lname_stalker_526": {
     "eng": "Rambo",
-    "fra": "Tęte brűlée",
+    "fra": "Tête brûlée",
     "ger": "Rambo",
     "ita": "Rambo",
     "pol": "Rambo",
@@ -14941,7 +14941,7 @@
   },
   "lname_stalker_533": {
     "eng": "Chapai",
-    "fra": "Chapaď",
+    "fra": "Chapaï",
     "ger": "Tschapaj",
     "ita": "Chapai",
     "pol": "Czapaj",
@@ -15106,7 +15106,7 @@
     "ita": "Bombolo",
     "pol": "Pyza",
     "rus": "Вареник",
-    "spa": "Buńuelo",
+    "spa": "Buñuelo",
     "ukr": "Вареник"
   },
   "lname_stalker_549": {
@@ -15131,7 +15131,7 @@
   },
   "lname_stalker_550": {
     "eng": "Gangrene",
-    "fra": "Gangrčne",
+    "fra": "Gangrène",
     "ger": "Wundbrand",
     "ita": "Gangrene",
     "pol": "Gangrena",
@@ -15721,7 +15721,7 @@
   },
   "lname_stalker_64": {
     "eng": "Spine",
-    "fra": "Vertčbre",
+    "fra": "Vertèbre",
     "ger": "Rückgrat",
     "ita": "Spine",
     "pol": "Grzbiet",
@@ -15791,7 +15791,7 @@
   },
   "lname_stalker_70": {
     "eng": "Brown Nose",
-    "fra": "Lčche-cul",
+    "fra": "Lèche-cul",
     "ger": "Kriecher",
     "ita": "Brown Nose",
     "pol": "Lizus",
@@ -15846,7 +15846,7 @@
     "ita": "Local",
     "pol": "Tutejszy",
     "rus": "Местный",
-    "spa": "Lugareńo",
+    "spa": "Lugareño",
     "ukr": "Місцевий"
   },
   "lname_stalker_76": {
@@ -16071,7 +16071,7 @@
   },
   "lname_stalker_96": {
     "eng": "Workhorse",
-    "fra": "Dur-ŕ-la-tâche",
+    "fra": "Dur-à-la-tâche",
     "ger": "Maultier",
     "ita": "Workhorse",
     "pol": "Wół roboczy",

@@ -191,7 +191,7 @@
   },
   "month_august": {
     "eng": "August",
-    "fra": "Aoűt",
+    "fra": "Août",
     "ger": "August",
     "ita": "Agosto",
     "pol": "sierpień",
@@ -503,7 +503,7 @@
     "eng": "Most powerful mutant killed",
     "fra": "Mutant le plus puissant tué",
     "ger": "Stärkster getöteter Mutant",
-    "ita": "Mutante piů potente ucciso",
+    "ita": "Mutante più potente ucciso",
     "pol": "Najpotężniejszy zabity mutant",
     "rus": "Самый сильный убитый мутант",
     "spa": "Mutante más fuerte asesinado",
@@ -801,7 +801,7 @@
   },
   "ui_map_btn_zmreset": {
     "eng": "Maximum zoom out",
-    "fra": "Zoom arričre maximal",
+    "fra": "Zoom arrière maximal",
     "ger": "Maximal Herauszoomen",
     "ita": "Distanza massima della visuale",
     "pol": "Maksymalne oddalenie",
@@ -821,7 +821,7 @@
   },
   "ui_map_btn_zoom_out": {
     "eng": "Zoom out",
-    "fra": "Zoom arričre",
+    "fra": "Zoom arrière",
     "ger": "Herauszoomen",
     "ita": "Allontana visuale",
     "pol": "Oddalenie",
@@ -841,7 +841,7 @@
   },
   "ui_ranking_center_caption": {
     "eng": "Achievements",
-    "fra": "Succčs",
+    "fra": "Succès",
     "ger": "Erfolge",
     "ita": "Obiettivi",
     "pol": "Osiągnięcia",

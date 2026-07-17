@@ -41,7 +41,7 @@
   },
   "jup_a6_stalker_barmen": {
     "eng": "Hawaiian",
-    "fra": "Hawaď",
+    "fra": "Hawaï",
     "ger": "Hawaiianer",
     "ita": "Hawaiano",
     "pol": "Hawajczyk",
@@ -486,7 +486,7 @@
     "ita": "Sottuff. Valentir",
     "pol": "Chorąży Walentir",
     "rus": "Прапорщик Валентир",
-    "spa": "Brig. 1ş Valentir",
+    "spa": "Brig. 1º Valentir",
     "ukr": "Прапорщик Валентир"
   },
   "pri_a17_military_sergeant_morozov": {
@@ -496,7 +496,7 @@
     "ita": "Sergente Morozov",
     "pol": "St. sierżant Morozow",
     "rus": "Ст. сержант Морозов",
-    "spa": "Sgto. 1ş Morozov",
+    "spa": "Sgto. 1º Morozov",
     "ukr": "Ст. сержант Морозов"
   },
   "pri_a18_skorlupko_in_suit_name": {
@@ -661,7 +661,7 @@
   },
   "st_jup_b207_freedom_recon_squad_leader_name": {
     "eng": "Gaiduk",
-    "fra": "Gaďduk",
+    "fra": "Gaïduk",
     "ger": "Gajduk",
     "ita": "Gaiduk",
     "pol": "Gajduk",
@@ -901,7 +901,7 @@
   },
   "zat_b103_lost_merc_2_name": {
     "eng": "Oak",
-    "fra": "Chęne",
+    "fra": "Chêne",
     "ger": "Eiche",
     "ita": "Oak",
     "pol": "Dąb",
@@ -1011,7 +1011,7 @@
   },
   "zat_b28_draper_name": {
     "eng": "Lt Drapei",
-    "fra": "Ltn Drapeď",
+    "fra": "Ltn Drapeï",
     "ger": "Lt. Drapej",
     "ita": "Ten Drapei",
     "pol": "Porucznik Drapej",
@@ -1026,7 +1026,7 @@
     "ita": "Tenente Smolyak",
     "pol": "St. porucznik Smoliak",
     "rus": "Ст. лейтенант Смоляк",
-    "spa": "Ten. 1ş Smolyak",
+    "spa": "Ten. 1º Smolyak",
     "ukr": "Ст. сержант Смоляк"
   },
   "zat_b28_umerov_name": {

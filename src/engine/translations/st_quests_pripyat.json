@@ -11,9 +11,9 @@
   },
   "pri_a17_get_gauss_rifle_documentation_text": {
     "eng": "You need to find documents concerning item 62. The documents should clarify whether the weapon could have been used to shoot down the helicopters.",
-    "fra": "Trouvez les documents concernant l'Objet 62. Ils devraient vous permettre de déterminer si l'arme a été utilisée pour abattre les hélicoptčres.",
+    "fra": "Trouvez les documents concernant l'Objet 62. Ils devraient vous permettre de déterminer si l'arme a été utilisée pour abattre les hélicoptères.",
     "ger": "Sie müssen Dokumente über Forschungsobjekt 62 finden. Diese sollten Klarheit darüber bringen, ob die Hubschrauber mit dieser Waffe abgeschossen worden sein könnten.",
-    "ita": "Devi cercare dei documenti riguardanti l'oggetto 62. Dovrebbero spiegare se l'arma puň essere stata utilizzata per abbattere gli elicotteri.",
+    "ita": "Devi cercare dei documenti riguardanti l'oggetto 62. Dovrebbero spiegare se l'arma può essere stata utilizzata per abbattere gli elicotteri.",
     "pol": "Musisz znaleźć dokumenty dotyczące przedmiotu 62. Wyjaśnią one, czy broń ta mogła zostać użyta do zestrzelenia helikopterów.",
     "rus": "Необходимо найти документацию по «изделию №62». Из неё должно стать ясно, могло ли данное оружие оказаться причиной падения вертолётов.",
     "spa": "Tienes que buscar documentos relacionados con el objeto 62. Estos documentos deberían aclarar si el arma pudo haber sido usada para derribar los helicópteros.",
@@ -31,7 +31,7 @@
   },
   "pri_a17_get_in_cover_text": {
     "eng": "You must take cover in the building and repel the Monolith attack.",
-    "fra": "Mettez-vous ŕ couvert dans le bâtiment et repoussez l'attaque du Monolithe.",
+    "fra": "Mettez-vous à couvert dans le bâtiment et repoussez l'attaque du Monolithe.",
     "ger": "Sie müssen Schutz in dem Gebäude suchen und den Angriff der Monolither abwehren.",
     "ita": "Devi ripararti nell'edificio e respingere l'attacco dei Monolith.",
     "pol": "Musisz ukryć się w budynku i odeprzeć atak Monolitu.",
@@ -51,9 +51,9 @@
   },
   "pri_a17_get_info_text": {
     "eng": "The weapon is not operational and it's not clear how it works. You need to find a technician who can make sense of the unidentified weapon.",
-    "fra": "L'arme n'est pas opérationnelle et son fonctionnement reste un mystčre. Trouvez un technicien capable de découvrir comment elle marche.",
+    "fra": "L'arme n'est pas opérationnelle et son fonctionnement reste un mystère. Trouvez un technicien capable de découvrir comment elle marche.",
     "ger": "Die Waffe funktioniert nicht und es ist auch nicht klar, wie sie funktionieren könnte. Sie müssen einen Techniker finden, der mehr mit der unbekannten Waffe anfangen kann.",
-    "ita": "L'arma non č operativa, e il suo funzionamento non č chiaro. Trova un tecnico che possa identificarla.",
+    "ita": "L'arma non è operativa, e il suo funzionamento non è chiaro. Trova un tecnico che possa identificarla.",
     "pol": "Broń jest niesprawna i nie wiadomo, w jaki sposób działa. Musisz znaleźć technika, który zrozumie sposób jej działania.",
     "rus": "Оружие неисправно, а принцип его действия неизвестен. Необходимо найти техника, который разобрался бы в этом странном образце.",
     "spa": "El arma no funciona, y no comprendes su mecanismo. Tienes que encontrar a un técnico que pueda sacar algo en claro de ella.",
@@ -91,7 +91,7 @@
   },
   "pri_a17_maraud_text": {
     "eng": "The Monolith fighters should have the unidentified weapon with them - find it.",
-    "fra": "Les combattants du Monolithe devraient ętre en possession de l'arme non identifiée. Trouvez-la.",
+    "fra": "Les combattants du Monolithe devraient être en possession de l'arme non identifiée. Trouvez-la.",
     "ger": "Die Monolither müssten die unbekannte Waffe bei sich haben - finden Sie sie.",
     "ita": "I combattenti Monolith devono avere con sé l'arma non identificata. Trovala.",
     "pol": "Bojownicy Monolitu powinni mieć niezidentyfikowaną broń przy sobie - znajdź ją.",
@@ -101,7 +101,7 @@
   },
   "pri_a17_stalker_tech_produce_62_get_info_name": {
     "eng": "Unidentified weapon: talk to Cardan",
-    "fra": "Arme non identifiée : parler ŕ Cardan.",
+    "fra": "Arme non identifiée : parler à Cardan.",
     "ger": "Unbekannte Waffe: Mit Kardan reden",
     "ita": "Arma non identificata: parla con Cardan",
     "pol": "Niezidentyfikowana broń: porozmawiaj z Kardanem",
@@ -131,7 +131,7 @@
   },
   "pri_a17_stalker_tech_produce_62_show_text": {
     "eng": "Cardan probably knows about the weapon - you need to talk to him when he wakes up.",
-    "fra": "Cardan saura sűrement vous renseigner sur l'arme. Allez lui parler quand il se réveillera.",
+    "fra": "Cardan saura sûrement vous renseigner sur l'arme. Allez lui parler quand il se réveillera.",
     "ger": "Kardan weiß vermutlich mehr über die Waffe. Sie müssen sich mit ihm unterhalten, wenn er wieder aufwacht.",
     "ita": "Cardan potrebbe sapere qualcosa sull'arma, ma prima dovrai aspettare che si svegli.",
     "pol": "Kardan powinien wiedzieć coś o broni - musisz z nim porozmawiać, kiedy się obudzi.",
@@ -141,7 +141,7 @@
   },
   "pri_a17_talk_with_kovalski_about_gauss_rifle_information_name": {
     "eng": "Gauss rifle: tell Kovalsky about the weapon",
-    "fra": "Fusil Gauss : parler de l'arme ŕ Kovalsky.",
+    "fra": "Fusil Gauss : parler de l'arme à Kovalsky.",
     "ger": "Gaußgewehr: Kowalski von der Waffe berichten",
     "ita": "Fucile Gauss: informa Kovalsky riguardo all'arma",
     "pol": "Karabin Gaussa: powiedz Kowalskiemu o broni",
@@ -151,9 +151,9 @@
   },
   "pri_a17_talk_with_kovalski_about_gauss_rifle_information_text": {
     "eng": "You need to tell Kovalsky everything you've learned about item 62.",
-    "fra": "Dites ŕ Kovalsky tout ce que vous savez sur l'Objet 62.",
+    "fra": "Dites à Kovalsky tout ce que vous savez sur l'Objet 62.",
     "ger": "Sie müssen Kowalski alles berichten, was Sie über Forschungsobjekt 62 in Erfahrung bringen konnten.",
-    "ita": "Devi riferire a Kovalsky tutto ciň che hai scoperto sull'oggetto 62.",
+    "ita": "Devi riferire a Kovalsky tutto ciò che hai scoperto sull'oggetto 62.",
     "pol": "Musisz przekazać Kowalskiemu wszystko, co wiesz o przedmiocie 62.",
     "rus": "Нужно изложить полковнику Ковальскому всю информацию, полученную об «изделии №62».",
     "spa": "Tienes que contarle a Kovalsky todo lo que has averiguado sobre el objeto 62.",
@@ -201,7 +201,7 @@
   },
   "pri_a17_task_give_gauss_rifle_to_kovalski_name": {
     "eng": "Unidentified weapon: take the weapon to Kovalsky",
-    "fra": "Arme non identifiée : remettre l'arme ŕ Kovalsky.",
+    "fra": "Arme non identifiée : remettre l'arme à Kovalsky.",
     "ger": "Unbekannte Waffe: Die Waffe zu Kowalski bringen",
     "ita": "Arma non identificata: porta l'arma a Kovalsky",
     "pol": "Niezidentyfikowana broń: zabierz broń do Kowalskiego",
@@ -211,17 +211,17 @@
   },
   "pri_a17_task_give_gauss_rifle_to_kovalski_text": {
     "eng": "You have the weapon - now you should show it to Kovalsky and find out whether the weapon could have caused the helicopter crashes.",
-    "fra": "Vous avez récupéré l'arme. Apportez-la ŕ Kovalsky et déterminez si elle a été utilisée pour abattre les hélicoptčres.",
+    "fra": "Vous avez récupéré l'arme. Apportez-la à Kovalsky et déterminez si elle a été utilisée pour abattre les hélicoptères.",
     "ger": "Sie haben die Waffe - jetzt sollten Sie sie Kowalski zeigen und herausfinden, ob die Waffe den Absturz der Hubschrauber verursacht haben könnte.",
     "ita": "Hai ottenuto l'arma. Ora devi mostrarla a Kovalsky e scoprire se potrebbe aver causato lo schianto degli elicotteri.",
     "pol": "Masz broń - teraz musisz zabrać ją do Kowalskiego i dowiedzieć się, czy to ona zestrzeliła helikoptery.",
     "rus": "Оружие получено. Теперь следует показать его Ковальскому и выяснить, не стало ли именно оно причиной падения вертолётов.",
-    "spa": "Ya tienes el arma, ahora debes enseńársela a Kovalsky para averiguar si pudieron usarla para derribar los helicópteros.",
+    "spa": "Ya tienes el arma, ahora debes enseñársela a Kovalsky para averiguar si pudieron usarla para derribar los helicópteros.",
     "ukr": "Зброю отримано. Тепер варто показати її Ковальському та з'ясувати, чи не стала саме вона причиною падіння гелікоптерів."
   },
   "pri_a17_watch_recons_six_name": {
     "eng": "Unidentified weapon: take part in the Monolith ambush",
-    "fra": "Arme non identifiée : participer ŕ l'embuscade du Monolithe.",
+    "fra": "Arme non identifiée : participer à l'embuscade du Monolithe.",
     "ger": "Unbekannte Waffe: Am Hinterhalt gegen die Monolither teilnehmen",
     "ita": "Arma non identificata: partecipa all'imboscata contro i Monolith",
     "pol": "Niezidentyfikowana broń: weź udział w zasadzce na bojowników Monolitu",
@@ -231,9 +231,9 @@
   },
   "pri_a17_watch_recons_six_text": {
     "eng": "The military recon unit is setting up an ambush to attack the Monolith squad. You should take part in the operation.",
-    "fra": "L'unité de reconnaissance militaire s'appręte ŕ tendre une embuscade aux combattants du Monolithe. Vous devriez participer ŕ l'opération.",
+    "fra": "L'unité de reconnaissance militaire s'apprête à tendre une embuscade aux combattants du Monolithe. Vous devriez participer à l'opération.",
     "ger": "Der Armeespähtrupp bereitet einen Hinterhalt gegen den Monolithertrupp vor. Sie sollten sich daran beteiligen.",
-    "ita": "L'unitŕ di ricognizione militare sta preparando un'imboscata alla squadra Monolith. Partecipa all'operazione.",
+    "ita": "L'unità di ricognizione militare sta preparando un'imboscata alla squadra Monolith. Partecipa all'operazione.",
     "pol": "Wojskowy oddział zwiadowczy przygotowuje zasadzkę na drużynę Monolitu.",
     "rus": "Разведгруппа военных организует засаду на отряд «Монолита». Необходимо принять участие в операции.",
     "spa": "La unidad de reconocimiento del ejército va a tender una emboscada al escuadrón del Monolito. Deberías ayudarles.",
@@ -251,7 +251,7 @@
   },
   "pri_a18_get_reinforcement_text": {
     "eng": "Kovalsky has sent reinforcements to help you eliminate the Monolith squad holed up in the book store.",
-    "fra": "Kovalsky a envoyé des renforts pour vous aider ŕ éliminer les combattants du Monolithe qui se cachent dans la librairie.",
+    "fra": "Kovalsky a envoyé des renforts pour vous aider à éliminer les combattants du Monolithe qui se cachent dans la librairie.",
     "ger": "Kowalski hat Verstärkung geschickt, die Ihnen beim Ausschalten der Monolither helfen soll, die sich in den Buchladen verkrochen haben.",
     "ita": "Kovalsky ha inviato dei rinforzi per aiutarti a eliminare la squadra Monolith trincerata nella libreria.",
     "pol": "Kowalski przysłał wsparcie, które pomoże ci wyeliminować drużynę Monolitu zabarykadowaną w księgarni. ",
@@ -273,7 +273,7 @@
     "eng": "You need to eliminate all Monolith forces in the building. Large Monolith units are a danger to the military camp.",
     "fra": "Éliminez tous les combattants du Monolithe cachés dans le bâtiment. Des unités de taille importante constituent une menace pour le camp militaire.",
     "ger": "Sie müssen alle Monolither in dem Gebäude ausschalten. Große Monolithereinheiten stellen eine Bedrohung für das Armeelager dar.",
-    "ita": "Devi eliminare tutte le forze Monolith nell'edificio. Le unitŕ Monolith cosě numerose sono un pericolo per il campo militare.",
+    "ita": "Devi eliminare tutte le forze Monolith nell'edificio. Le unità Monolith così numerose sono un pericolo per il campo militare.",
     "pol": "Musisz wyeliminować siły Monolitu w budynku. Duże oddziały Monolitu są zagrożeniem dla obozu wojskowego.",
     "rus": "Необходимо уничтожить всех «монолитовцев» засевших в здании. Их скопления представляют угрозу для лагеря военных.",
     "spa": "Tienes que eliminar a todas las fuerzas del Monolito que hay en el edificio. Las unidades numerosas son un riesgo para el campamento militar.",
@@ -286,7 +286,7 @@
     "ita": "Forze Monolith: indaga sullo strano dispositivo",
     "pol": "Siły Monolitu: zbadaj dziwną konstrukcję",
     "rus": "Скопление «Монолита»: обследовать странную конструкцию",
-    "spa": "Fuerzas del Monolito: investiga la extrańa construcción",
+    "spa": "Fuerzas del Monolito: investiga la extraña construcción",
     "ukr": "Скупчення «Моноліту»: обстежити дивну конструкцію"
   },
   "pri_a18_use_idol_text": {
@@ -296,7 +296,7 @@
     "ita": "Nell'edificio c'era uno strano dispositivo. Indaga su di esso.",
     "pol": "W budynku znajdowało się dziwne urządzenie. Dowiedz się o nim czegoś więcej.",
     "rus": "Внутри здания, в котором были «монолитовцы», обнаружена странная конструкция. Необходимо изучить её.",
-    "spa": "Había un extrańo dispositivo en el edificio. Investígalo.",
+    "spa": "Había un extraño dispositivo en el edificio. Investígalo.",
     "ukr": "Всередині будинку, в якому були «монолітівці», виявлено дивну конструкцію. Необхідно вивчити її."
   },
   "pri_a18_wait_reinf_name": {
@@ -321,7 +321,7 @@
   },
   "pri_a19_lab_x8_investigation_1_name": {
     "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
-    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
+    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer à chercher des documents.",
     "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
     "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
     "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
@@ -341,7 +341,7 @@
   },
   "pri_a19_lab_x8_investigation_2_name": {
     "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
-    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
+    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer à chercher des documents.",
     "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
     "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
     "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
@@ -391,7 +391,7 @@
   },
   "pri_a19_lab_x8_investigation_text": {
     "eng": "The information you found refers to a central laboratory, designated X8. It could contain information about secret experiments conducted in the Zone.",
-    "fra": "Les informations que vous avez recueillies concernent un laboratoire central, nommé X8. Il contient peut-ętre des documents traitant des expériences secrčtes menées dans la Zone.",
+    "fra": "Les informations que vous avez recueillies concernent un laboratoire central, nommé X8. Il contient peut-être des documents traitant des expériences secrètes menées dans la Zone.",
     "ger": "Die Informationen, die Sie gefunden haben, beziehen sich auf ein Zentrallabor, das als X8 bezeichnet wird. Dort könnten Sie Informationen über geheime Experimente in der Zone finden.",
     "ita": "Le informazioni che hai trovato fanno riferimento a un laboratorio centrale denominato \"X8\". Questo luogo potrebbe custodire delle informazioni sugli esperimenti segreti condotti nella Zona.",
     "pol": "Informacje przez ciebie znalezione odnoszą się do centralnego laboratorium oznaczonego jako X8. Może ono zawierać dane na temat tajnych eksperymentów przeprowadzanych w Zonie.",
@@ -403,7 +403,7 @@
     "eng": "Missing recon unit: find the squad",
     "fra": "L'unité de reconnaissance disparue : retrouver le groupe.",
     "ger": "Verschwundene Späher: Trupp finden",
-    "ita": "Unitŕ di ricognizione scomparsa: trova la squadra",
+    "ita": "Unità di ricognizione scomparsa: trova la squadra",
     "pol": "Zaginiony oddział zwiadowczy: znajdź drużynę",
     "rus": "Пропавшая разведгруппа: разыскать отряд",
     "spa": "Unidad de reconocimiento desaparecida: encuentra al escuadrón",
@@ -411,19 +411,19 @@
   },
   "pri_a20_check_recon_squad_task_text": {
     "eng": "The recon unit dispatched by Kovalsky disappeared after a strange communication session. You must find them to work out what happened.",
-    "fra": "L'unité de reconnaissance envoyée par Kovalsky a disparu aprčs une étrange communication radio. Retrouvez-la pour découvrir ce qui s'est passé.",
+    "fra": "L'unité de reconnaissance envoyée par Kovalsky a disparu après une étrange communication radio. Retrouvez-la pour découvrir ce qui s'est passé.",
     "ger": "Der Spähtrupp, den Kowalski losgeschickt hatte, ist nach merkwürdigem Funkkontakt verschwunden. Sie müssen ihn finden, um herauszufinden, was geschehen ist.",
-    "ita": "L'unitŕ di ricognizione inviata da Kovalsky č scomparsa dopo uno strano scambio di comunicazioni. Devi trovarla e scoprire cosa č successo.",
+    "ita": "L'unità di ricognizione inviata da Kovalsky è scomparsa dopo uno strano scambio di comunicazioni. Devi trovarla e scoprire cosa è successo.",
     "pol": "Oddział zwiadowczy wysłany przez Kowalskiego zniknął po nadaniu dziwnego komunikatu. Musisz odkryć, co się stało.",
     "rus": "Разведгруппа, посланная Ковальским, исчезла после странного сеанса связи. Необходимо найти их и узнать, что произошло.",
-    "spa": "La unidad de reconocimiento enviada por Kovalsky desapareció tras una extrańa comunicación. Debes encontrarla para averiguar qué ha sucedido.",
+    "spa": "La unidad de reconocimiento enviada por Kovalsky desapareció tras una extraña comunicación. Debes encontrarla para averiguar qué ha sucedido.",
     "ukr": "Розвідувальна група, котру послав Ковальський, зникла після дивного сеансу зв'язку. Необхідно знайти їх та довідатися, що сталося."
   },
   "pri_a21_chasovoi_body_search_name": {
     "eng": "Missing sentry: investigate the area where the sentry died",
-    "fra": "Sentinelle disparue : fouiller l'endroit oů la sentinelle a disparu.",
+    "fra": "Sentinelle disparue : fouiller l'endroit où la sentinelle a disparu.",
     "ger": "Verschwundene Wache: Gebiet untersuchen, in dem die Wache gestorben ist",
-    "ita": "Sentinella scomparsa: perlustra l'area in cui la sentinella č morta",
+    "ita": "Sentinella scomparsa: perlustra l'area in cui la sentinella è morta",
     "pol": "Zaginiony wartownik: zbadaj miejsce, w którym zginął wartownik",
     "rus": "Пропавший часовой: осмотреть место гибели часового",
     "spa": "Centinela desaparecido: investiga la zona donde murió el centinela",
@@ -431,12 +431,12 @@
   },
   "pri_a21_chasovoi_body_search_text": {
     "eng": "The sentry was behaving very strangely, so you should investigate and find the reason for this.",
-    "fra": "La sentinelle avait un comportement étrange, vous devriez mener votre enquęte.",
+    "fra": "La sentinelle avait un comportement étrange, vous devriez mener votre enquête.",
     "ger": "Die Wache benahm sich sehr seltsam. Sie sollten den Grund dafür herausfinden.",
     "ita": "La sentinella si comportava in modo piuttosto strano. Cerca di scoprirne il motivo.",
     "pol": "Wartownik zachowywał się bardzo dziwnie, więc musisz odkryć przyczyny.",
     "rus": "Часовой вёл себя очень странно. Нужно осмотреться вокруг и найти причину его поведения.",
-    "spa": "El centinela se comportaba de forma extrańa; deberías investigar el motivo.",
+    "spa": "El centinela se comportaba de forma extraña; deberías investigar el motivo.",
     "ukr": "Вартовий поводився дуже дивно. Мабуть, слід роззирнутися навколо і знайти причину такої його поведінки."
   },
   "pri_a21_find_chasovoi_name": {
@@ -451,9 +451,9 @@
   },
   "pri_a21_find_chasovoi_text": {
     "eng": "One of the soldiers went missing from his post - you need to find him and determine why he went missing.",
-    "fra": "L'un des soldats manquait ŕ l'appel. Retrouvez-le pour déterminer la raison de sa disparition.",
+    "fra": "L'un des soldats manquait à l'appel. Retrouvez-le pour déterminer la raison de sa disparition.",
     "ger": "Einer der Soldaten ist nicht mehr auf seinem Posten - Sie müssen herausfinden, warum er verschwunden ist.",
-    "ita": "Uno dei soldati č scomparso dalla propria postazione. Devi trovarlo e scoprire il motivo della sparizione.",
+    "ita": "Uno dei soldati è scomparso dalla propria postazione. Devi trovarlo e scoprire il motivo della sparizione.",
     "pol": "Jeden z żołnierzy zaginął z posterunku - musisz go odnaleźć i odkryć przyczyny jego zniknięcia.",
     "rus": "Один из военных исчез со своего поста. Нужно найти его и выяснить причину исчезновения.",
     "spa": "Uno de los soldados se ha ausentado de su puesto; tienes que encontrarlo y averiguar por qué lo ha hecho.",
@@ -471,7 +471,7 @@
   },
   "pri_a21_kill_kontroler_text": {
     "eng": "There was a controller near the missing sentry - it must be eliminated.",
-    "fra": "Un contrôleur se trouvait prčs de la sentinelle disparue. Il doit ętre éliminé.",
+    "fra": "Un contrôleur se trouvait près de la sentinelle disparue. Il doit être éliminé.",
     "ger": "In der Nähe der verschwundenen Wache trieb ein Controller sein Unwesen - er muss ausgeschaltet werden.",
     "ita": "C'era un controllore vicino alla sentinella scomparsa. Deve essere eliminato.",
     "pol": "W pobliżu zaginionego wartownika znajdował się kontroler - musi on zostać wyeliminowany.",
@@ -491,9 +491,9 @@
   },
   "pri_a22_find_dead_squad_text": {
     "eng": "The squad which was looking for the source of radio interference went missing - you need to find it.",
-    "fra": "L'unité partie ŕ la recherche des interférences radio est portée disparue. Retrouvez-la.",
+    "fra": "L'unité partie à la recherche des interférences radio est portée disparue. Retrouvez-la.",
     "ger": "Der Trupp, der auf der Suche nach der Quelle der Funkstörung war, ist verschwunden - Sie müssen ihn finden.",
-    "ita": "La squadra che stava cercando la fonte dell'interferenza radio č scomparsa. Devi trovarla.",
+    "ita": "La squadra che stava cercando la fonte dell'interferenza radio è scomparsa. Devi trovarla.",
     "pol": "Oddział szukający źródła zakłóceń radiowych zaginął. Twoim zadaniem jest jego odnalezienie.",
     "rus": "Отряд, вышедший на поиски источника радиопомех, пропал. Нужно найти его.",
     "spa": "El escuadrón que buscaba el origen de la interferencia de radio ha desaparecido; tienes que encontrarlo.",
@@ -511,7 +511,7 @@
   },
   "pri_a22_search_bodys_text": {
     "eng": "Search the bodies - this may help to establish why they died.",
-    "fra": "Fouillez les cadavres, vous pourrez peut-ętre déterminer la cause de leur décčs.",
+    "fra": "Fouillez les cadavres, vous pourrez peut-être déterminer la cause de leur décès.",
     "ger": "Durchsuchen Sie die Leichen - vielleicht können Sie so herausfinden, wie die Personen gestorben sind.",
     "ita": "Perquisisci i cadaveri per indagare sul motivo del decesso.",
     "pol": "Przeszukaj ciała - może to pomóc w ustaleniu przyczyny zgonu.",
@@ -531,7 +531,7 @@
   },
   "pri_a22_search_yarmoshuk_body_text": {
     "eng": "Search the body - this may help to establish why he died.",
-    "fra": "Fouillez le cadavre, vous pourrez peut-ętre déterminer la cause du décčs.",
+    "fra": "Fouillez le cadavre, vous pourrez peut-être déterminer la cause du décès.",
     "ger": "Durchsuchen Sie die Leiche - vielleicht können Sie so herausfinden, wie die Person gestorben ist.",
     "ita": "Perquisisci il cadavere per indagare sul motivo del decesso.",
     "pol": "Przeszukaj ciało - może to pomóc w ustaleniu przyczyny zgonu.",
@@ -541,7 +541,7 @@
   },
   "pri_a22_talk_with_kovalski_name": {
     "eng": "A quiet word: talk to Kovalsky",
-    "fra": "Entretien : parler ŕ Kovalsky.",
+    "fra": "Entretien : parler à Kovalsky.",
     "ger": "Unter vier Augen: Mit Kowalski reden",
     "ita": "Una conversazione tranquilla: parla con Kovalsky",
     "pol": "Cicha rozmowa: porozmawiaj z Kowalskim",
@@ -551,7 +551,7 @@
   },
   "pri_a22_talk_with_kovalski_text": {
     "eng": "You need to talk to Kovalsky. It looks like he’s got something important to say.",
-    "fra": "Vous devez parler ŕ Kovalsky. Il semble avoir des choses importantes ŕ vous dire.",
+    "fra": "Vous devez parler à Kovalsky. Il semble avoir des choses importantes à vous dire.",
     "ger": "Sie müssen mit Kowalski reden. Es sieht so aus, als ob er etwas Wichtiges zu sagen hätte.",
     "ita": "Devi parlare con Kovalsky: a quanto pare ha qualcosa di importante da dire.",
     "pol": "Musisz porozmawiać z Kowalskim. Wygląda na to, że ma coś ważnego do powiedzenia.",
@@ -591,7 +591,7 @@
   },
   "pri_a25_check_freezer_knock_text": {
     "eng": "There is a noise coming from the fridge - looks like someone's locked inside it. Investigate.",
-    "fra": "Un bruit provient du réfrigérateur, on dirait que quelqu'un est enfermé ŕ l'intérieur. Examinez-le.",
+    "fra": "Un bruit provient du réfrigérateur, on dirait que quelqu'un est enfermé à l'intérieur. Examinez-le.",
     "ger": "Aus dem Kühlschrank sind Geräusche zu hören - es scheint so, als ob jemand darin eingeschlossen wäre. Überprüfen Sie das.",
     "ita": "Il frigorifero emette un rumore sospetto, come se qualcuno fosse chiuso al suo interno. Controlla.",
     "pol": "Z lodówki dochodzi hałas - brzmi, jakby ktoś był w niej zamknięty. Zbadaj to.",
@@ -633,7 +633,7 @@
     "eng": "There is a source of radio interference in the building - find it.",
     "fra": "Trouvez la source des interférences dans le bâtiment.",
     "ger": "In dem Gebäude befindet sich eine Quelle der Funkstörung - finden Sie sie.",
-    "ita": "Nell'edificio c'č una fonte di interferenza radio. Trovala.",
+    "ita": "Nell'edificio c'è una fonte di interferenza radio. Trovala.",
     "pol": "W budynku znajduje się źródło zakłóceń radiowych - znajdź je.",
     "rus": "Где-то в здании находится источник радиопомех. Необходимо обнаружить его.",
     "spa": "Hay una fuente de interferencia en el edificio: encuéntrala.",
@@ -676,7 +676,7 @@
     "ita": "La fonte del segnale si trova nell'asilo. Entra nell'edificio.",
     "pol": "Źródło sygnału znajduje się gdzieś w budynku przedszkola, tak więc musisz dostać się do środka.",
     "rus": "Источник сигнала находится где-то в здании детского сада. Необходимо туда проникнуть.",
-    "spa": "La seńal procede del interior del jardín de infancia, así que tendrás que entrar.",
+    "spa": "La señal procede del interior del jardín de infancia, así que tendrás que entrar.",
     "ukr": "Джерело сигналу знаходиться десь у будівлі дитячого садка. Необхідно туди проникнути."
   },
   "pri_a28_cover_militarys_name": {
@@ -691,9 +691,9 @@
   },
   "pri_a28_cover_militarys_text": {
     "eng": "Strelok may be dead, but you still have to help the military get to the helicopters.",
-    "fra": "Strelok est mort, mais vous devez tout de męme aider les militaires ŕ atteindre les hélicoptčres.",
+    "fra": "Strelok est mort, mais vous devez tout de même aider les militaires à atteindre les hélicoptères.",
     "ger": "Strelok mag zwar tot sein, aber Sie müssen der Armee immer noch helfen, zu den Hubschraubern zu gelangen.",
-    "ita": "Anche se Strelok puň essere morto, devi comunque aiutare i militari a raggiungere gli elicotteri.",
+    "ita": "Anche se Strelok può essere morto, devi comunque aiutare i militari a raggiungere gli elicotteri.",
     "pol": "Striełok może i jest martwy, ale ty nadal musisz doprowadzić żołnierzy do helikopterów.",
     "rus": "Несмотря на то, что Стрелок погиб, нужно помочь военным добраться до вертолётов.",
     "spa": "Puede que Strelok esté muerto, pero aún tienes que ayudar al ejército a llegar hasta los helicópteros.",
@@ -711,9 +711,9 @@
   },
   "pri_a28_cover_strelok_text": {
     "eng": "The HQ is interested in the information Strelok has to offer. You must get him to the helicopters.",
-    "fra": "Le QG est intéressé par les informations de Strelok. Vous devez l'escorter jusqu'aux hélicoptčres.",
+    "fra": "Le QG est intéressé par les informations de Strelok. Vous devez l'escorter jusqu'aux hélicoptères.",
     "ger": "Das Hauptquartier interessiert sich für die Informationen, die Strelok zu bieten hat. Sie müssen ihn zu den Hubschraubern geleiten.",
-    "ita": "Il quartier generale č interessato alle informazioni di Strelok. Devi scortarlo fino agli elicotteri.",
+    "ita": "Il quartier generale è interessato alle informazioni di Strelok. Devi scortarlo fino agli elicotteri.",
     "pol": "Kwatera główna jest zainteresowana informacjami, które posiada Striełok. Musisz doprowadzić go do helikopterów.",
     "rus": "Командование заинтересовано в информации, которая известна Стрелку. Нужно доставить Стрелка к вертолётам.",
     "spa": "El CG está interesado en la información que Strelok puede ofrecer. Debes llevarlo hasta los helicópteros.",
@@ -721,7 +721,7 @@
   },
   "pri_a28_defend_helis_name": {
     "eng": "Evacuation: hold out by the helicopters",
-    "fra": "Évacuation : tenir la position prčs des hélicoptčres.",
+    "fra": "Évacuation : tenir la position près des hélicoptères.",
     "ger": "Evakuierung: Bei den Hubschraubern warten",
     "ita": "Evacuazione: resisti vicino agli elicotteri",
     "pol": "Ewakuacja: utrzymaj się przy helikopterach",
@@ -731,7 +731,7 @@
   },
   "pri_a28_defend_helis_text": {
     "eng": "You must protect the helicopters from the enemy until they can take off.",
-    "fra": "Vous devez protéger les hélicoptčres jusqu'ŕ ce qu'ils puissent décoller.",
+    "fra": "Vous devez protéger les hélicoptères jusqu'à ce qu'ils puissent décoller.",
     "ger": "Sie müssen die Hubschrauber vor den Gegnern beschützen, bis sie starten können.",
     "ita": "Devi proteggere gli elicotteri dagli attacchi nemici, finché non saranno pronti al decollo.",
     "pol": "Musisz osłaniać helikoptery do chwili ich startu.",
@@ -741,7 +741,7 @@
   },
   "pri_a28_go_hellis_name": {
     "eng": "Evacuation: get to the helicopters",
-    "fra": "Évacuation : atteindre les hélicoptčres.",
+    "fra": "Évacuation : atteindre les hélicoptères.",
     "ger": "Evakuierung: Zu den Hubschraubern gelangen",
     "ita": "Evacuazione: raggiungi gli elicotteri",
     "pol": "Ewakuacja: dostań się do helikopterów",
@@ -751,7 +751,7 @@
   },
   "pri_a28_go_hellis_text": {
     "eng": "Everyone is dead - you'll have to get to the helicopters on your own.",
-    "fra": "Tout le monde est mort, vous allez devoir vous rendre seul jusqu'aux hélicoptčres.",
+    "fra": "Tout le monde est mort, vous allez devoir vous rendre seul jusqu'aux hélicoptères.",
     "ger": "Es ist niemand mehr am Leben - Sie müssen es alleine bis zu den Hubschraubern schaffen.",
     "ita": "Sono tutti morti. Dovrai raggiungere gli elicotteri da solo.",
     "pol": "Wszyscy zginęli - musisz sam dostać się do helikopterów.",
@@ -761,7 +761,7 @@
   },
   "pri_a28_helis_gonna_fly_name": {
     "eng": "Evacuation: return to the helicopters ASAP",
-    "fra": "Évacuation : retourner au plus vite aux hélicoptčres.",
+    "fra": "Évacuation : retourner au plus vite aux hélicoptères.",
     "ger": "Evakuierung: Sofort zu den Hubschraubern zurückkehren",
     "ita": "Evacuazione: torna subito agli elicotteri",
     "pol": "Ewakuacja: jak najszybciej wróć do helikopterów",
@@ -771,7 +771,7 @@
   },
   "pri_a28_helis_gonna_fly_text": {
     "eng": "The helicopters are ready for take-off. You must board one of them immediately - the pilots cannot wait long.",
-    "fra": "Les hélicoptčres sont pręts ŕ décoller. Vous devez immédiatement monter ŕ bord. Les pilotes ne peuvent pas attendre plus longtemps.",
+    "fra": "Les hélicoptères sont prêts à décoller. Vous devez immédiatement monter à bord. Les pilotes ne peuvent pas attendre plus longtemps.",
     "ger": "Die Hubschrauber sind bereit zu starten. Sie müssen sofort an Bord gehen - die Piloten können nicht mehr viel länger warten.",
     "ita": "Gli elicotteri sono pronti al decollo, devi salire immediatamente a bordo, i piloti non potranno aspettare a lungo.",
     "pol": "Helikoptery są gotowe do startu. Musisz natychmiast wejść na pokład jednego z nich - piloci nie mogą długo czekać.",
@@ -781,7 +781,7 @@
   },
   "pri_a28_return_to_helis_name": {
     "eng": "Evacuation: return to the helicopters",
-    "fra": "Évacuation : retourner aux hélicoptčres.",
+    "fra": "Évacuation : retourner aux hélicoptères.",
     "ger": "Evakuierung: Zu den Hubschraubern zurückkehren",
     "ita": "Evacuazione: torna agli elicotteri",
     "pol": "Ewakuacja: wróć do helikopterów",
@@ -791,7 +791,7 @@
   },
   "pri_a28_return_to_helis_text": {
     "eng": "You must return to the helicopters as they might be able to take off any moment now.",
-    "fra": "Vous devez retourner aux hélicoptčres car ils risquent de décoller d'un instant ŕ l'autre.",
+    "fra": "Vous devez retourner aux hélicoptères car ils risquent de décoller d'un instant à l'autre.",
     "ger": "Sie müssen zu den Hubschraubern zurückkehren, weil sie jetzt jeden Moment starten könnten.",
     "ita": "Devi tornare agli elicotteri, ormai saranno pronti al decollo da un momento all'altro.",
     "pol": "Musisz wrócić do helikopterów, ponieważ mogą one wkrótce wystartować.",
@@ -813,7 +813,7 @@
     "eng": "It seems the medic has been hit by unidentified forces again. Revive him as quickly as possible.",
     "fra": "L'infirmier a apparemment été touché une nouvelle fois par des forces non identifiées. Réanimez-le le plus vite possible.",
     "ger": "Es sieht so aus, als ob der Arzt erneut von Unbekannten getroffen wurde. Beleben Sie ihn so schnell wie möglich wieder.",
-    "ita": "Sembra che il medico sia stato nuovamente colpito da delle forze non identificate. Rianimalo il piů rapidamente possibile.",
+    "ita": "Sembra che il medico sia stato nuovamente colpito da delle forze non identificate. Rianimalo il più rapidamente possibile.",
     "pol": "Medyk został porażony przez nieznaną siłę. Musisz jak najszybciej przywrócić go do przytomności.",
     "rus": "Похоже, медик снова попал под неизвестное воздействие. Необходимо срочно привести его в чувство.",
     "spa": "Parece que unas fuerzas sin identificar han vuelto a herir al médico. Reanímalo cuanto antes.",
@@ -821,7 +821,7 @@
   },
   "pri_a28_talk_with_kovalski_name": {
     "eng": "Evacuation: talk to Kovalsky",
-    "fra": "Évacuation : parler ŕ Kovalsky.",
+    "fra": "Évacuation : parler à Kovalsky.",
     "ger": "Evakuierung: Mit Kowalski reden",
     "ita": "Evacuazione: parla con Kovalsky",
     "pol": "Ewakuacja: porozmawiaj z Kowalskim",
@@ -831,7 +831,7 @@
   },
   "pri_a28_talk_with_kovalski_text": {
     "eng": "You need to talk to Kovalsky before the evacuation starts.",
-    "fra": "Parlez ŕ Kovalsky avant le début de l'évacuation.",
+    "fra": "Parlez à Kovalsky avant le début de l'évacuation.",
     "ger": "Sie müssen mit Kowalski reden, bevor die Evakuierung beginnt.",
     "ita": "Devi parlare con Kovalsky prima che l'evacuazione abbia inizio.",
     "pol": "Musisz porozmawiać z Kowalskim przed rozpoczęciem ewakuacji.",
@@ -841,7 +841,7 @@
   },
   "pri_a28_tell_kovalski_when_ready_name": {
     "eng": "Evacuation: tell Kovalsky you are ready",
-    "fra": "Évacuation : dire ŕ Kovalsky que vous ętes pręt.",
+    "fra": "Évacuation : dire à Kovalsky que vous êtes prêt.",
     "ger": "Evakuierung: Kowalski mitteilen, dass Sie bereit sind",
     "ita": "Evacuazione: di' a Kovalsky che sei pronto",
     "pol": "Ewakuacja: poinformuj Kowalskiego o swojej gotowości",
@@ -851,7 +851,7 @@
   },
   "pri_a28_tell_kovalski_when_ready_text": {
     "eng": "You should inform Kovalsky that you are ready to begin the evacuation.",
-    "fra": "Vous devriez dire ŕ Kovalsky que vous ętes pręt ŕ commencer l'évacuation.",
+    "fra": "Vous devriez dire à Kovalsky que vous êtes prêt à commencer l'évacuation.",
     "ger": "Sie sollten Kowalski darüber informieren, dass Sie bereit sind, die Evakuierung zu starten.",
     "ita": "Informa Kovalsky che sei pronto a iniziare l'evacuazione.",
     "pol": "Musisz poinformować Kowalskiego o swojej gotowości do rozpoczęcia ewakuacji.",
@@ -881,12 +881,12 @@
   },
   "pri_b305_check_unknown_signal_1_name": {
     "eng": "Unknown: investigate the source of the signal",
-    "fra": "Inconnu : enquęter sur la source du signal.",
+    "fra": "Inconnu : enquêter sur la source du signal.",
     "ger": "Unbekannt: Die Quelle des Signals finden",
     "ita": "Mistero: indaga sulla fonte del segnale",
     "pol": "Nieznany: zbadaj źródło sygnału",
     "rus": "Неизвестный: проверить источник сигнала",
-    "spa": "Desconocido: investiga el origen de la seńal",
+    "spa": "Desconocido: investiga el origen de la señal",
     "ukr": "Невідомий: перевірити джерело сигналу"
   },
   "pri_b305_check_unknown_signal_1_text": {
@@ -896,7 +896,7 @@
     "ita": "Kirillov ha identificato uno strano segnale non lontano dalla base. Devi indagare sulla fonte del segnale.",
     "pol": "Kiryłow wykrył dziwny sygnał niedaleko bazy. Musisz zbadać jego źródło.",
     "rus": "Кирилов засёк странный сигнал неподалеку от базы. Нужно проверить источник сигнала.",
-    "spa": "Kirillov ha identificado una extrańa seńal no muy lejos de la base. Tienes que investigar el origen de esta seńal.",
+    "spa": "Kirillov ha identificado una extraña señal no muy lejos de la base. Tienes que investigar el origen de esta señal.",
     "ukr": "Кирилов засік дивний сигнал неподалік бази. Треба перевірити джерело сигналу."
   },
   "pri_b305_check_unknown_signal_2_name": {
@@ -906,42 +906,42 @@
     "ita": "Mistero: segui il segnale",
     "pol": "Nieznany: podążaj za sygnałem",
     "rus": "Неизвестный: следовать за сигналом",
-    "spa": "Desconocido: sigue la seńal",
+    "spa": "Desconocido: sigue la señal",
     "ukr": "Невідомий: рухатися за сигналом"
   },
   "pri_b305_check_unknown_signal_2_text": {
     "eng": "The signal coordinates are accessible again, so follow them.",
-    "fra": "Les coordonnées du signal sont ŕ nouveau accessibles. Suivez-les !",
+    "fra": "Les coordonnées du signal sont à nouveau accessibles. Suivez-les !",
     "ger": "Die Koordinaten des Signals stehen wieder zur Verfügung, folgen Sie ihnen.",
     "ita": "Le coordinate del segnale sono tornate disponibili. Seguile.",
     "pol": "Współrzędne sygnału są znowu dostępne, więc podążaj za nimi.",
     "rus": "Координаты сигнала вновь доступны. Нужно проследовать за ним.",
-    "spa": "Las coordenadas de la seńal vuelven a estar disponibles; síguelas.",
+    "spa": "Las coordenadas de la señal vuelven a estar disponibles; síguelas.",
     "ukr": "Координати сигналу знову доступні. Треба рухатися за ним."
   },
   "pri_b305_check_unknown_signal_3_name": {
     "eng": "Unknown: investigate the last known signal location",
-    "fra": "Inconnu : examiner la derničre position connue du signal.",
+    "fra": "Inconnu : examiner la dernière position connue du signal.",
     "ger": "Unbekannt: Den letzten bekannten Ort des Signals untersuchen",
     "ita": "Mistero: indaga sull'ultima posizione conosciuta del segnale",
     "pol": "Nieznany: zbadaj ostatnią znaną lokację sygnału",
     "rus": "Неизвестный: обследовать место последнего появления сигнала",
-    "spa": "Desconocido: investiga la última posición conocida de la seńal",
+    "spa": "Desconocido: investiga la última posición conocida de la señal",
     "ukr": "Невідомий: обстежувати місце останньої появи сигналу"
   },
   "pri_b305_check_unknown_signal_3_text": {
     "eng": "The signal vanished in the building's yard, so investigate the last known signal location.",
-    "fra": "Le signal a disparu dans la cour du bâtiment, allez examiner la derničre position connue du signal.",
+    "fra": "Le signal a disparu dans la cour du bâtiment, allez examiner la dernière position connue du signal.",
     "ger": "Das Signal hat im Hof des Gebäudes ausgesetzt. Untersuchen Sie daher den letzten bekannten Ort des Signals.",
-    "ita": "Il segnale č scomparso nello spiazzo dell'edificio. Indaga sull'ultima posizione conosciuta del segnale.",
+    "ita": "Il segnale è scomparso nello spiazzo dell'edificio. Indaga sull'ultima posizione conosciuta del segnale.",
     "pol": "Sygnał ucichł na dziedzińcu budynku, tak więc zbadaj jego ostatnią znaną lokalizację.",
     "rus": "Сигнал исчез во дворе здания. Нужно обследовать место последнего появления сигнала.",
-    "spa": "La seńal se desvaneció en el patio del edificio; investiga la última posición conocida de la seńal.",
+    "spa": "La señal se desvaneció en el patio del edificio; investiga la última posición conocida de la señal.",
     "ukr": "Сигнал зник у дворі будинку. Слід обстежити місце останньої появи сигналу."
   },
   "pri_b305_check_unknown_signal_4_name": {
     "eng": "Unknown: prepare for an attack on the base",
-    "fra": "Inconnu : se préparer ŕ l'attaque de la base.",
+    "fra": "Inconnu : se préparer à l'attaque de la base.",
     "ger": "Unbekannt: Bereit machen für Angriff auf die Basis",
     "ita": "Mistero: preparati a un attacco contro la base",
     "pol": "Nieznany: przygotuj się na atak na bazę",
@@ -951,7 +951,7 @@
   },
   "pri_b305_check_unknown_signal_4_text": {
     "eng": "Return to the army base and prepare for a likely attack.",
-    "fra": "Retournez ŕ la base de l'armée et préparez-vous ! Il semblerait qu'une attaque soit imminente.",
+    "fra": "Retournez à la base de l'armée et préparez-vous ! Il semblerait qu'une attaque soit imminente.",
     "ger": "Kehren Sie zur Armeebasis zurück und machen Sie sich für einen wahrscheinlichen Angriff bereit.",
     "ita": "Torna alla base militare e preparati a un eventuale attacco.",
     "pol": "Wróć do bazy wojskowej i przygotuj się na prawdopodobny atak.",
@@ -961,7 +961,7 @@
   },
   "pri_b305_kovalskiy_talk_name": {
     "eng": "Radio interference: talk to Kovalsky",
-    "fra": "Interférences radio : parler ŕ Kovalsky.",
+    "fra": "Interférences radio : parler à Kovalsky.",
     "ger": "Funkstörung: Mit Kowalski reden",
     "ita": "Interferenza radio: parla con Kovalsky",
     "pol": "Zakłócenia radiowe: porozmawiaj z Kowalskim",
@@ -971,7 +971,7 @@
   },
   "pri_b305_kovalskiy_talk_text": {
     "eng": "Colonel Kovalsky has asked for you.",
-    "fra": "Le colonel Kovalsky a demandé ŕ vous voir.",
+    "fra": "Le colonel Kovalsky a demandé à vous voir.",
     "ger": "Oberst Kowalski möchte sich mit Ihnen unterhalten.",
     "ita": "Il Colonnello Kovalsky vuole parlare con te.",
     "pol": "Pułkownik Kowalski pytał o ciebie.",
@@ -993,7 +993,7 @@
     "eng": "The entrance to the underground laboratory is below the Yubileiny service center, with the only way of getting inside being the elevator shaft.",
     "fra": "L'entrée du laboratoire souterrain se trouve sous le centre de service de Yubileiny. Le seul moyen d'y accéder est de passer par la cage d'ascenseur.",
     "ger": "Der Eingang zum unterirdischen Labor befindet sich unter dem Servicezentrum Jubilejni. Und der einzige Weg dorthin führt durch den Aufzugschacht.",
-    "ita": "L'ingresso del laboratorio sotterraneo si trova sotto il centro servizi Yubileiny. L'unico modo per accedervi č dal pozzo dell'ascensore.",
+    "ita": "L'ingresso del laboratorio sotterraneo si trova sotto il centro servizi Yubileiny. L'unico modo per accedervi è dal pozzo dell'ascensore.",
     "pol": "Do wejścia do podziemnego laboratorium pod centrum usługowym Jubilejny można dostać się tylko przez szyb windy.",
     "rus": "Под зданем КБО «Юбилейный» находится вход в подземную лабораторию. Попасть туда можно только через шахту лифта.",
     "spa": "La entrada al laboratorio subterráneo está bajo la estación de servicio de Yubileiny. La única forma de acceder a él es por el hueco del ascensor.",
@@ -1041,7 +1041,7 @@
   },
   "pri_b35_task_envoy_name": {
     "eng": "One shot: eliminate the messenger",
-    "fra": "Mise ŕ mort : éliminer le messager.",
+    "fra": "Mise à mort : éliminer le messager.",
     "ger": "Ein Schuss: Boten ausschalten",
     "ita": "Occasione unica: elimina il messaggero",
     "pol": "Jeden strzał: wyeliminuj posłańca",
@@ -1053,7 +1053,7 @@
     "eng": "You must eliminate the messenger. With him dead, the mercenaries won't be able to find the laboratory.",
     "fra": "Éliminez le messager. Sans lui, les mercenaires ne pourront pas trouver le laboratoire.",
     "ger": "Sie müssen den Boten eliminieren. Wenn er tot ist, werden die Söldner das Labor nicht finden können.",
-    "ita": "Devi eliminare il messaggero, cosě i mercenari non potranno trovare il laboratorio.",
+    "ita": "Devi eliminare il messaggero, così i mercenari non potranno trovare il laboratorio.",
     "pol": "Musisz wyeliminować posłańca. Bez niego najemnicy nie będą w stanie odnaleźć laboratorium.",
     "rus": "Надо ликвидировать посланника: без него наёмники не смогут обнаружить лабораторию.",
     "spa": "Debes eliminar al mensajero. Si muere, los mercenarios no podrán encontrar el laboratorio.",
@@ -1061,7 +1061,7 @@
   },
   "pri_b35_task_envoy_wait_name": {
     "eng": "One shot: wait for the client's people",
-    "fra": "Mise ŕ mort : attendre les hommes du client.",
+    "fra": "Mise à mort : attendre les hommes du client.",
     "ger": "Ein Schuss: Auf die Männer des Auftraggebers warten",
     "ita": "Occasione unica: attendi gli uomini del cliente",
     "pol": "Jeden strzał: poczekaj na ludzi klienta",
@@ -1073,7 +1073,7 @@
     "eng": "Wait for the client's people to show up and kill their leader. With him dead, the mercenaries won't be able to find the laboratory.",
     "fra": "Attendez les hommes du client et tuez leur chef. Sans lui, les mercenaires ne pourront pas trouver le laboratoire.",
     "ger": "Warten Sie auf die Männer des Auftraggebers und töten Sie dann ihren Anführer. Wenn er tot ist, werden die Söldner das Labor nicht finden können.",
-    "ita": "Attendi gli uomini del cliente e uccidi il loro leader, cosě i mercenari non potranno trovare il laboratorio.",
+    "ita": "Attendi gli uomini del cliente e uccidi il loro leader, così i mercenari non potranno trovare il laboratorio.",
     "pol": "Poczekaj na ludzi klienta i zabij ich dowódcę. Bez niego najemnicy nie będą w stanie odnaleźć laboratorium.",
     "rus": "Надо дождаться появления людей заказчика и ликвидировать их лидера. Без него наёмники не смогут обнаружить лабораторию.",
     "spa": "Espera a que aparezca el equipo del cliente y mata a su líder. Si muere, los mercenarios no podrán encontrar el laboratorio.",
@@ -1081,7 +1081,7 @@
   },
   "pri_b35_task_merc_name": {
     "eng": "One shot: kill the mercenary squad leader",
-    "fra": "Mise ŕ mort : tuer le chef des mercenaires.",
+    "fra": "Mise à mort : tuer le chef des mercenaires.",
     "ger": "Ein Schuss: Anführer des Söldnertrupps töten",
     "ita": "Occasione unica: uccidi il leader della squadra dei mercenari",
     "pol": "Jeden strzał: zabij dowódcę drużyny najemników",
@@ -1093,7 +1093,7 @@
     "eng": "You must kill the mercenary squad leader. With him dead, the mercenaries will be disorganized and not much of a threat.",
     "fra": "Éliminez le chef des mercenaires. Sans lui, les mercenaires ne pourront pas trouver le laboratoire.",
     "ger": "Sie müssen den Anführer des Söldnertrupps ausschalten. Wenn er tot ist, werden die Söldner keine große Gefahr mehr darstellen.",
-    "ita": "Devi uccidere il leader della squadra dei mercenari, cosě i mercenari saranno allo sbando e molto meno pericolosi.",
+    "ita": "Devi uccidere il leader della squadra dei mercenari, così i mercenari saranno allo sbando e molto meno pericolosi.",
     "pol": "Musisz zabić dowódcę drużyny najemników. Bez niego będą zdezorganizowani i niegroźni.",
     "rus": "Нужно ликвидировать лидера наёмников: без него наёмники утратят сплочённость и будут не так опасны.",
     "spa": "Debes matar al líder del escuadrón mercenario. Si muere, los mercenarios se desbandarán y no supondrán una amenaza tan grande.",
@@ -1101,7 +1101,7 @@
   },
   "pri_b35_task_merc_wait_name": {
     "eng": "One shot: wait for the mercenaries to appear",
-    "fra": "Mise ŕ mort : attendre l'arrivée des mercenaires.",
+    "fra": "Mise à mort : attendre l'arrivée des mercenaires.",
     "ger": "Ein Schuss: Auf die Söldner warten",
     "ita": "Occasione unica: attendi l'arrivo dei mercenari",
     "pol": "Jeden strzał: poczekaj, aż pojawią się najemnicy",
@@ -1113,7 +1113,7 @@
     "eng": "You must wait for the mercenaries to show up and kill their leader. With him dead, the mercenaries will be disorganized and not much of a threat.",
     "fra": "Attendez l'arrivée des mercenaires et tuez leur chef. Sans lui, les mercenaires ne pourront pas trouver le laboratoire.",
     "ger": "Warten Sie auf die Söldner und töten Sie dann ihren Anführer. Wenn er tot ist, werden die Söldner keine große Gefahr mehr darstellen.",
-    "ita": "Attendi i mercenari e uccidi il loro leader, cosě i mercenari saranno allo sbando e molto meno pericolosi.",
+    "ita": "Attendi i mercenari e uccidi il loro leader, così i mercenari saranno allo sbando e molto meno pericolosi.",
     "pol": "Musisz poczekać, aż pojawią się najemnicy i zabij ich dowódcę. Bez niego będą zdezorganizowani i niegroźni.",
     "rus": "Надо дождаться появления наёмников и ликвидировать их лидера: без него наёмники утратят сплочённость и будут не так опасны.",
     "spa": "Debes esperar a que aparezcan los mercenarios y matar a su líder. Si muere, los mercenarios se desbandarán y no supondrán una amenaza tan grande.",
@@ -1121,7 +1121,7 @@
   },
   "pri_b35_task_reward_name": {
     "eng": "One shot: talk to Kovalsky",
-    "fra": "Mise ŕ mort : parler ŕ Kovalsky.",
+    "fra": "Mise à mort : parler à Kovalsky.",
     "ger": "Ein Schuss: Mit Kowalski reden",
     "ita": "Occasione unica: parla con Kovalsky",
     "pol": "Jeden strzał: porozmawiaj z Kowalskim",
@@ -1131,7 +1131,7 @@
   },
   "pri_b35_task_reward_text": {
     "eng": "Report the mission results to Kovalsky.",
-    "fra": "Faites votre rapport ŕ Kovalsky.",
+    "fra": "Faites votre rapport à Kovalsky.",
     "ger": "Berichten Sie Kowalski vom Ausgang der Mission.",
     "ita": "Aggiorna Kovalsky sull'esito della missione.",
     "pol": "Złóż raport o wynikach misji Kowalskiemu. ",

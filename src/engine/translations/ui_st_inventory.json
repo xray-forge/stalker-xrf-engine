@@ -231,7 +231,7 @@
   },
   "st_move_on_belt": {
     "eng": "attach to belt",
-    "fra": "fixer ŕ la ceinture",
+    "fra": "fixer à la ceinture",
     "ger": "An Gürtel anbringen",
     "ita": "attacca alla cintura",
     "pol": "Przymocuj do paska",
@@ -241,7 +241,7 @@
   },
   "st_move_to_bag": {
     "eng": "move to backpack",
-    "fra": "déplacer vers le sac ŕ dos",
+    "fra": "déplacer vers le sac à dos",
     "ger": "In den Rucksack",
     "ita": "sposta nello zaino",
     "pol": "Przenieś do plecaka",
@@ -271,9 +271,9 @@
   },
   "st_no_trade_tip_2": {
     "eng": "The item is too damaged to be traded.",
-    "fra": "Cet objet est en trop mauvais état pour pouvoir ętre vendu.",
+    "fra": "Cet objet est en trop mauvais état pour pouvoir être vendu.",
     "ger": "Dieser Gegenstand ist zu stark beschädigt, um damit zu handeln.",
-    "ita": "L'oggetto č troppo danneggiato per essere scambiato.",
+    "ita": "L'oggetto è troppo danneggiato per essere scambiato.",
     "pol": "Nie można handlować tak uszkodzonym przedmiotem.",
     "rus": "Предмет в слишком плохом состоянии для продажи.",
     "spa": "El objeto está demasiado estropeado para venderlo.",
@@ -473,7 +473,7 @@
     "eng": "Amount restrictions",
     "fra": "Restrictions de quantité",
     "ger": "Anzahlbeschränkung",
-    "ita": "Restrizioni alla quantitŕ",
+    "ita": "Restrizioni alla quantità",
     "pol": "Ograniczenia ilości",
     "rus": "Ограничение по количеству",
     "spa": "Restricciones de cantidad",
@@ -486,7 +486,7 @@
     "ita": "Danno",
     "pol": "Obrażenia",
     "rus": "Повреждение",
-    "spa": "Dańo",
+    "spa": "Daño",
     "ukr": "Пошкодження"
   },
   "ui_inv_default(F5)": {
@@ -851,7 +851,7 @@
   },
   "ui_inv_sell_items(X)": {
     "eng": "Sell all items in backpack (X)",
-    "fra": "Vendre tous les objets du sac ŕ dos (X)",
+    "fra": "Vendre tous les objets du sac à dos (X)",
     "ger": "Alle Gegenstände im Rucksack verkaufen (X)",
     "ita": "Vendi tutti gli oggetti nello zaino (X)",
     "pol": "Sprzedaj wszystkie przedmioty z plecaka (X)",
@@ -901,7 +901,7 @@
   },
   "ui_inv_survive_surge": {
     "eng": "Allows you to survive an emission",
-    "fra": "Permet de survivre ŕ une émission",
+    "fra": "Permet de survivre à une émission",
     "ger": "Ermöglicht es, eine Emission zu überleben",
     "ita": "Consente di sopravvivere a un'emissione",
     "pol": "Umożliwia przetrwanie emisji",
@@ -931,9 +931,9 @@
   },
   "ui_inv_you_already_have": {
     "eng": "Already got one",
-    "fra": "Déjŕ possédé",
+    "fra": "Déjà possédé",
     "ger": "Sie haben bereits",
-    "ita": "Ne hai giŕ uno",
+    "ita": "Ne hai già uno",
     "pol": "Już to masz",
     "rus": "Уже есть",
     "spa": "Ya tienes uno",

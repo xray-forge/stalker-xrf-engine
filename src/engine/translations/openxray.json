@@ -34,7 +34,7 @@
     "fra": "Italienne (Italian)",
     "ger": "Italienisch (Italian)",
     "ita": "Italiana (Italian)",
-    "pol": "Wіoski (Italian)",
+    "pol": "Włoski (Italian)",
     "rus": "Итальянский (Italian)",
     "spa": "Italiana (Italian)",
     "ukr": "Італійська (Italian)"
@@ -54,7 +54,7 @@
     "fra": "Éclairage dynamique complet amélioré (OpenGL)",
     "ger": "Verbesserte volldynamische Beleuchtung (OpenGL)",
     "ita": "Illuminazione completamente dinamica migliorata (OpenGL)",
-    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
+    "pol": "Rozsz. pełne ośw. dynam. (OpenGL)",
     "rus": "Ул. полное освещение (OpenGL)",
     "spa": "Iluminación dinámica completa mejorada (OpenGL)",
     "ukr": "Покр. повне освітлення (OpenGL)"
@@ -64,7 +64,7 @@
     "fra": "Écl. dyn. comp. amél. (OpenGL)",
     "ger": "Erw. Volldyn. Beleuchtung (OpenGL)",
     "ita": "Illum. din. compl. migli. (OpenGL)",
-    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
+    "pol": "Rozsz. pełne ośw. dynam. (OpenGL)",
     "rus": "Ул. полное освещение (OpenGL)",
     "spa": "Ilum. din. compl. mejor. (OpenGL)",
     "ukr": "Покр. повне освітлення (OpenGL)"
@@ -84,7 +84,7 @@
     "fra": "Espagnole (Spanish)",
     "ger": "Spanisch (Spanish)",
     "ita": "Spagnola (Spanish)",
-    "pol": "Hiszpaсski (Spanish)",
+    "pol": "Hiszpański (Spanish)",
     "rus": "Испанский (Spanish)",
     "spa": "Española (Spanish)",
     "ukr": "Іспанська (Spanish)"
@@ -144,7 +144,7 @@
     "fra": "Éclairage de chargement",
     "ger": "Beleuchtung wird geladen",
     "ita": "Caricamento illuminazione",
-    "pol": "Wczytywanie oњwietlenia",
+    "pol": "Wczytywanie oświetlenia",
     "rus": "Загрузка освещения",
     "spa": "Cargando iluminación",
     "ukr": "Завантаження освітлення"
@@ -184,7 +184,7 @@
     "fra": "décharger toutes les armes",
     "ger": "entlade alle Waffen",
     "ita": "scaricare tutte le armi",
-    "pol": "rozіaduj wszystkie bronie",
+    "pol": "rozładuj wszystkie bronie",
     "rus": "разрядить всё оружие",
     "spa": "descargar todas las armas",
     "ukr": "розрядити всю зброю"
@@ -254,7 +254,7 @@
     "fra": "Afficher les étapes de chargement",
     "ger": "Ladestufen anzeigen",
     "ita": "Mostra le fasi di caricamento",
-    "pol": "Postкp wczytywania",
+    "pol": "Postęp wczytywania",
     "rus": "Стадии загрузки",
     "spa": "Mostrar etapas de carga",
     "ukr": "Стадии загрузки"
@@ -264,7 +264,7 @@
     "fra": "Langue",
     "ger": "Sprache",
     "ita": "Lingua",
-    "pol": "Jкzyk",
+    "pol": "Język",
     "rus": "Язык",
     "spa": "Idioma",
     "ukr": "Мова"
@@ -274,7 +274,7 @@
     "fra": "Ramassage de plusieurs articles",
     "ger": "Abholung mehrerer Artikel",
     "ita": "Ritiro di più articoli  ",
-    "pol": "Podn. wsz. przedmiotуw na raz",
+    "pol": "Podn. wsz. przedmiotów na raz",
     "rus": "Множ. подбор предметов",
     "spa": "Recogida de varios artículos",
     "ukr": "Підняття декількох предметів"
@@ -294,7 +294,7 @@
     "fra": "Qualité de la carte des ombres",
     "ger": "Qualität der Schattenkarte",
     "ita": "Qualità della mappa delle ombre",
-    "pol": "Jakoњж cieni map",
+    "pol": "Jakość cieni map",
     "rus": "Качество теневых карт",
     "spa": "Calidad del mapa de sombras",
     "ukr": "Якість тіньових мап"
@@ -304,7 +304,7 @@
     "fra": "Surfaces mouillées à grande distance",
     "ger": "Nasse Oberflächen in großer Entfernung",
     "ita": "Superfici bagnate a grande distanza",
-    "pol": "Mokre pow. na dal. odlegіoњci",
+    "pol": "Mokre pow. na dal. odległości",
     "rus": "Намокание вдали",
     "spa": "Superficies mojadas a gran distancia",
     "ukr": "Намокання вдалі"
@@ -314,7 +314,7 @@
     "fra": "Surfaces mouillées à proximité",
     "ger": "Nasse Oberflächen in der Nähe",
     "ita": "Superfici bagnate a distanza ravvicinata",
-    "pol": "Mokre pow. na blisk. odlegіoњci",
+    "pol": "Mokre pow. na blisk. odległości",
     "rus": "Намокание вблизи",
     "spa": "Superficies mojadas cerca de la distancia",
     "ukr": "Вологі поверхні поблизу"
@@ -334,7 +334,7 @@
     "fra": "Qualité des surfaces mouillées",
     "ger": "Qualität nasser Oberflächen",
     "ita": "Qualità delle superfici bagnate",
-    "pol": "Jakoњж mokrych powierzchni",
+    "pol": "Jakość mokrych powierzchni",
     "rus": "Качество намокания",
     "spa": "Calidad de la superficie húmeda",
     "ukr": "Якість намокання поверхонь"
@@ -344,7 +344,7 @@
     "fra": "Récupération simplifiée des articles",
     "ger": "Vereinfachte Artikelabholung",
     "ita": "Ritiro degli articoli semplificato",
-    "pol": "Uproszczone podn. przedmiotуw",
+    "pol": "Uproszczone podn. przedmiotów",
     "rus": "Упр. подбор предметов",
     "spa": "Recogida de artículos simplificada",
     "ukr": "Спрощене підняття предметів"
@@ -374,7 +374,7 @@
     "fra": "Mode fenêtre",
     "ger": "Window mode",
     "ita": "Modalità finestra",
-    "pol": "Tryb wyњwietlania",
+    "pol": "Tryb wyświetlania",
     "rus": "Режим окна",
     "spa": "Modo ventana",
     "ukr": "Режим вікна"

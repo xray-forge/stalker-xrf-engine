@@ -436,7 +436,7 @@
     "ita": "Dipartimento progettazione",
     "pol": "Dział projektantów gry",
     "rus": "Отдел геймдизайна",
-    "spa": "Departamento de diseńo del juego",
+    "spa": "Departamento de diseño del juego",
     "ukr": "Відділ геймдизайну"
   },
   "st_gameplay": {
@@ -461,7 +461,7 @@
   },
   "st_genega_thanks": {
     "eng": "Special thanks to",
-    "fra": "Un grand merci ŕ",
+    "fra": "Un grand merci à",
     "ger": "Besonderer Dank an",
     "ita": "Ringraziamenti speciali",
     "pol": "Szczególne podziękowania dla:",
@@ -876,7 +876,7 @@
     "ita": "Capo progettista di gioco",
     "pol": "Główny projektant gry",
     "rus": "Ведущий геймдизайнер",
-    "spa": "Jefe de diseńo del juego",
+    "spa": "Jefe de diseño del juego",
     "ukr": "Провідний геймдизайнер"
   },
   "st_lead_programmer": {
@@ -916,7 +916,7 @@
     "ita": "Progettazione livelli",
     "pol": "Projektowanie poziomów",
     "rus": "Дизайн уровней",
-    "spa": "Diseńo de niveles",
+    "spa": "Diseño de niveles",
     "ukr": "Дизайн рівнів"
   },
   "st_lit_editor": {
@@ -1101,7 +1101,7 @@
   },
   "st_mocap": {
     "eng": "Huge thanks to Oleg Fomenko",
-    "fra": "Un trčs grand merci ŕ Oleg Fomenko",
+    "fra": "Un très grand merci à Oleg Fomenko",
     "ger": "Großer Dank an Oleg Fomenko",
     "ita": "Un sentito ringraziamento a Oleg Fomenko",
     "pol": "Serdeczne podziękowania dla Olega Fomenko",
@@ -1561,7 +1561,7 @@
   },
   "st_special_thanks1": {
     "eng": "thanks to",
-    "fra": "merci ŕ",
+    "fra": "merci à",
     "ger": "Dank an",
     "ita": "speciali a",
     "pol": "podziękowania dla:",
@@ -1651,7 +1651,7 @@
   },
   "st_support1": {
     "eng": "Support",
-    "fra": "clientčle",
+    "fra": "clientèle",
     "ger": "Kundendienst",
     "ita": "clienti",
     "pol": "klienta",
@@ -1731,7 +1731,7 @@
   },
   "st_thanks1": {
     "eng": "make the game even better:",
-    "fra": "ŕ rendre le jeu encore meilleur :",
+    "fra": "à rendre le jeu encore meilleur :",
     "ger": "haben, das Spiel noch besser zu machen:",
     "ita": "creare un gioco migliore dei precedenti:",
     "pol": "osobom, które przyczyniły się do ulepszenia gry:",
@@ -2026,7 +2026,7 @@
     "ita": "Progettazione interfaccia",
     "pol": "Projekt interfejsu",
     "rus": "Дизайн интерфейса",
-    "spa": "Diseńo de la interfaz",
+    "spa": "Diseño de la interfaz",
     "ukr": "Дизайн інтерфейсу"
   },
   "st_uralskiy": {
