@@ -1,0 +1,37 @@
+[$mob_combat]:$scheme_common,$scheme_object_common
+strict = true
+
+[$mob_death]:$scheme_common,$scheme_object_common
+strict = true
+
+[$mob_home]:$scheme_common,$scheme_object_common
+strict = true
+aggressive = ?bool
+gulag_point = ?bool
+home_max_radius = ?f32
+home_mid_radius = ?f32
+home_min_radius = ?f32
+path_home = ?string
+
+[$mob_jump]:$scheme_common,$scheme_object_common
+strict = true
+offset = string
+path_jump = ?string
+ph_jump_factor = ?f32
+
+[$mob_remark]:$scheme_common,$scheme_object_common
+strict = true
+anim = ?string
+anim_head = ?string
+anim_movement = ?bool
+dialog_cond = ?condlist
+snd = ?string
+time = ?string
+tip = ?string
+
+[$mob_walker]:$scheme_common,$scheme_object_common
+strict = true
+aggressive = ?bool
+no_reset = ?bool
+path_look = ?string
+path_walk = ?string
