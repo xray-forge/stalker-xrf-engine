@@ -92,7 +92,7 @@ export class NodeLogger {
   public pushNewLine(): void {
     if (this.isEnabled) {
       if (NodeLogger.IS_CONSOLE_ENABLED) {
-        console.info("\n");
+        console.info("");
       }
 
       if (NodeLogger.IS_FILE_ENABLED) {
