@@ -73,54 +73,67 @@ wounded_medkit
 radio_call
 
 [surge_earthquake_sound_looped]
+$scheme = $script_sound
 type = looped
 path = ambient\earthquake
 
 [surge_earthquake_sound]
+$scheme = $script_sound
 type = 3d
 path = ambient\earthquake
 
 [blowout_begin]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_begin
 
 [blowout_rumble]
+$scheme = $script_sound
 type = looped
 path = ambient\blowout\blowout_rumble
 
 [blowout_hit_1]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_impact
 
 [blowout_hit_2]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_impact_02
 
 [blowout_hit_3]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_outro
 
 [blowout_wave_1]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_wave_01
 
 [blowout_wave_2]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout\blowout_wave_04
 
 [blowout_wave_3]
+$scheme = $script_sound
 type = 3d
 path = ambient\blowout_wave_3
 
 [blowout_particle_wave_looped]
+$scheme = $script_sound
 type = looped
 path = ambient\blowout\blowout_particle_wave
 
 [fallout_acid_rain]
+$scheme = $script_sound
 type = looped
 path = anomaly\acid_rain
 
 [state]
+$scheme = $script_sound
 type = npc
 npc_prefix = true
 path = states\idle\idle_
@@ -129,6 +142,7 @@ idle = 7,13,100
 group_snd = true
 
 [state_1]
+$scheme = $script_sound
 type = npc|actor|3d
 actor_stereo = true|false
 npc_prefix = true|false
@@ -137,6 +151,7 @@ shuffle = rnd|seq|loop
 idle = 3,5,100 ; min,max,rnd
 
 [wait]
+$scheme = $script_sound
 type = npc
 avail_communities = stalker, bandit, dolg, freedom, army, monolith
 npc_prefix = true
@@ -145,36 +160,42 @@ shuffle = rnd
 idle = 7,10,100
 
 [bloodsucker_swarm]
+$scheme = $script_sound
 type = 3d
 path = monsters\bloodsucker\swamp_run_
 shuffle = rnd
 idle = 1,1,100
 
 [boar_swarm]
+$scheme = $script_sound
 type = 3d
 path = monsters\boar\boar_swamp_run_
 shuffle = rnd
 idle = 0,0,100
 
 [boar_swamp_runaway]
+$scheme = $script_sound
 type = 3d
 path = monsters\boar\boar_swamp_runaway_
 shuffle = rnd
 idle = 0,0,100
 
 [bloodsucker_growl]
+$scheme = $script_sound
 type = 3d
 path = monsters\bloodsucker\attack_hit_
 shuffle = rnd
 idle = 0,0,100
 
 [bloodsucker_hit]
+$scheme = $script_sound
 type = 3d
 path = monsters\bloodsucker\heavy_hit_
 shuffle = rnd
 idle = 0,0,100
 
 [patrol_sneak]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = false
@@ -183,6 +204,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [patrol_run]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = false
@@ -191,6 +213,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [patrol_walk]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = false
@@ -199,6 +222,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [fight_attack]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = true
@@ -208,6 +232,7 @@ idle = 1,1,100
 is_combat_sound = true
 
 [post_combat_wait]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = true
@@ -218,6 +243,7 @@ shuffle = rnd
 idle = 3,5,100
 
 [post_combat_wait_long]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = true
@@ -228,6 +254,7 @@ shuffle = rnd
 idle = 7,10,100
 
 [post_combat_relax]
+$scheme = $script_sound
 type = npc
 actor_stereo = false
 npc_prefix = true
@@ -240,6 +267,7 @@ idle = 1,1,100
 ; ***************************************************************
 
 [pl_test]
+$scheme = $script_sound
 type = npc
 npc_prefix = true
 path = fight\attack\attack_
@@ -247,90 +275,105 @@ shuffle = rnd
 idle = 1,1,100
 
 [trader_door_open_start]
+$scheme = $script_sound
 type = 3d
 path = device\door_start
 shuffle = rnd
 idle = 1,1,100
 
 [trader_door_close_start]
+$scheme = $script_sound
 type = 3d
 path = device\door_closing
 shuffle = rnd
 idle = 1,1,100
 
 [trader_door_close_stop]
+$scheme = $script_sound
 type = 3d
 path = device\door_stop
 shuffle = rnd
 idle = 1,1,100
 
 [trader_door_locked]
+$scheme = $script_sound
 type = 3d
 path = device\door_locked
 shuffle = rnd
 idle = 1,1,100
 
 [trader_door_unlock]
+$scheme = $script_sound
 type = 3d
 path = device\door_servomotor
 shuffle = rnd
 idle = 1,1,100
 
 [wood_small_open]
+$scheme = $script_sound
 type = 3d
 path = device\wood_small_open
 shuffle = rnd
 idle = 1,1,100
 
 [wood_small_close_start]
+$scheme = $script_sound
 type = 3d
 path = device\wood_small_close_start
 shuffle = rnd
 idle = 1,1,100
 
 [wood_small_close_stop]
+$scheme = $script_sound
 type = 3d
 path = device\wood_small_close_stop
 shuffle = rnd
 idle = 1,1,100
 
 [wood_large_open]
+$scheme = $script_sound
 type = 3d
 path = device\wood_large_open
 shuffle = rnd
 idle = 1,1,100
 
 [wood_large_close_start]
+$scheme = $script_sound
 type = 3d
 path = device\wood_large_close_start
 shuffle = rnd
 idle = 1,1,100
 
 [wood_large_close_stop]
+$scheme = $script_sound
 type = 3d
 path = device\wood_large_close_stop
 shuffle = rnd
 idle = 1,1,100
 
 [metal_small_open]
+$scheme = $script_sound
 type = 3d
 path = device\metal_small_open
 shuffle = rnd
 idle = 1,1,100
 
 [metal_small_close_start]
+$scheme = $script_sound
 type = 3d
 path = device\metal_small_close_start
 shuffle = rnd
 idle = 1,1,100
 
 [metal_small_close_stop]
+$scheme = $script_sound
 type = 3d
 path = device\metal_small_close_stop
 shuffle = rnd
 idle = 1,1,100
 
 [power_switch]
+$scheme = $script_sound
 type = 3d
 path = device\power_switch
 shuffle = rnd
@@ -339,6 +382,7 @@ idle = 1,1,100
 ; ***************************************************************
 
 [radio_call]
+$scheme = $script_sound
 type = 3d
 path = device\radio_call
 shuffle = rnd
@@ -347,6 +391,7 @@ idle = 0,0,100
 ; ***************************************************************
 
 [pda_alarm]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = device\pda\pda_alarm
@@ -354,6 +399,7 @@ shuffle = rnd
 idle = 0,0,100
 
 [pda_news]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = device\pda\pda_news
@@ -361,6 +407,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [pda_tips]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = device\pda\pda_tip
@@ -368,6 +415,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [pda_task]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = device\pda\pda_objective
@@ -377,6 +425,7 @@ idle = 1,1,100
 ; ***************************************************************
 
 [heli_damaged]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = vehicles\helicopter\damage_
@@ -384,6 +433,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [heli_down]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = vehicles\helicopter\death_
@@ -391,6 +441,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [heli_hit]
+$scheme = $script_sound
 type = actor
 npc_prefix = false
 path = vehicles\helicopter\hit_
@@ -400,12 +451,14 @@ idle = 3,4,40
 ; ***************************************************************
 
 [alarm]
+$scheme = $script_sound
 type = 3d
 path = ambient\siren1
 shuffle = loop
 idle = 0,0,100
 
 [meet_hello]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -414,6 +467,7 @@ shuffle = rnd
 idle = 2,2,100
 
 [meet_hide_weapon]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -422,6 +476,7 @@ shuffle = rnd
 idle = 5,7,100
 
 [meet_use_no_default]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -430,6 +485,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [meet_use_no_fight]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -438,6 +494,7 @@ shuffle = rnd
 idle = 2,2,100
 
 [meet_use_no_weapon]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -446,6 +503,7 @@ shuffle = rnd
 idle = 5,7,100
 
 [meet_use_no_talk_leader]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -454,6 +512,7 @@ shuffle = rnd
 idle = 5,7,100
 
 [corpse_loot_begin]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -462,6 +521,7 @@ shuffle = rnd
 idle = 10,11,100
 
 [corpse_loot_good]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -470,6 +530,7 @@ shuffle = rnd
 idle = 10,11,100
 
 [corpse_loot_bad]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -478,6 +539,7 @@ shuffle = rnd
 idle = 10,11,100
 
 [help_heavy]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom
 npc_prefix = true
@@ -486,6 +548,7 @@ shuffle = rnd
 idle = 4,8,100
 
 [help_thanks]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom, killer
 npc_prefix = true
@@ -494,6 +557,7 @@ shuffle = rnd
 idle = 1,1,100
 
 [wounded_medkit]
+$scheme = $script_sound
 type = npc
 avail_communities = army, stalker, bandit, dolg, freedom, killer, monolith
 npc_prefix = true
@@ -504,24 +568,28 @@ idle = 1,1,100
 ; ***************************************************************
 
 [shooting_target_up]
+$scheme = $script_sound
 type = 3d
 path = ambient\special\target_up
 shuffle = rnd
 idle = 0,0,100
 
 [shooting_target_down]
+$scheme = $script_sound
 type = 3d
 path = ambient\special\target_down
 shuffle = rnd
 idle = 0,0,100
 
 [shooting_target_hit]
+$scheme = $script_sound
 type = 3d
 path = ambient\special\target_hit_
 shuffle = rnd
 idle = 0,0,100
 
 [steam_blowout]
+$scheme = $script_sound
 type = 3d
 path = anomaly\steam_blowout
 shuffle = rnd

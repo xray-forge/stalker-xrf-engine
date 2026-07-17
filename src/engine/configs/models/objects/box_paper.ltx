@@ -1,29 +1,35 @@
 [disable]
+$scheme = $model_object_disable
 linear_factor = 1.0
 angular_factor = 1.0
 
 [collide]
+$scheme = $model_object_collide
 not_collide_parts
 
 [collide_parts]
+$scheme = $model_object_collide_parts
 small_object
 
 [destroyed]
 dynamics\box\part\box_paper_part_1
 
 [autoremove_parts]
+$scheme = $model_object_autoremove_parts
 time = 50
 
 [collision_damage]
 link = 0.004
 
 [particles]
+$scheme = $model_object_particles
 destroy_particles = destroy_fx\destroy_paper_box
 
 [particle_bones]
 link = 0.0, 0.2, 0.0
 
 [sound]
+$scheme = $model_object_sound
 break_sound = material\large_furniture\large_furniture_1
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
@@ -31,6 +37,7 @@ break_sound = material\large_furniture\large_furniture_1
 default = 1.0, -1, 0.0
 
 [immunities]
+$scheme = $model_object_immunities
 burn_immunity = 0.25
 strike_immunity = 0.5
 shock_immunity = 0.0
@@ -42,6 +49,7 @@ explosion_immunity = 1.0
 fire_wound_immunity = 3.5
 
 [impulse_transition_to_parts]
+$scheme = $model_object_impulse_transition_to_parts
 random_min = 0.0
 random_hit_imp = 0.0
 ; ref_bone

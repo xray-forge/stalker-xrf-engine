@@ -1,26 +1,31 @@
 [disable]
+$scheme = $model_object_disable
 linear_factor = 0.5
 angular_factor = 0.5
 
 [collide]
+$scheme = $model_object_collide
 
 [destroyed]
 dynamics\box\part\box_metall_01_part_1
 dynamics\box\part\box_metall_01_part_2
 
 [autoremove_parts]
+$scheme = $model_object_autoremove_parts
 time = 60
 
 [collision_damage]
 link = 0.1
 
 [particles]
+$scheme = $model_object_particles
 destroy_particles = destroy_fx\destroy_wood_00
 
 [particle_bones]
 link = 0.0, 0.15, 0.0
 
 [sound]
+$scheme = $model_object_sound
 break_sound = material\metal_box\collide\big_metal_1
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
@@ -28,6 +33,7 @@ break_sound = material\metal_box\collide\big_metal_1
 default = 1.0, -1, 0.0
 
 [immunities]
+$scheme = $model_object_immunities
 burn_immunity = 0.5
 strike_immunity = 0.5
 shock_immunity = 0.5
@@ -39,6 +45,7 @@ explosion_immunity = 0.5
 fire_wound_immunity = 0.5
 
 [impulse_transition_to_parts]
+$scheme = $model_object_impulse_transition_to_parts
 random_min = 0.2
 random_hit_imp = 0.2
 ; ref_bone

@@ -1,8 +1,10 @@
 [disable]
+$scheme = $model_object_disable
 linear_factor = 0.5
 angular_factor = 0.5
 
 [collide]
+$scheme = $model_object_collide
 not_collide_parts
 ignore_static = 1
 
@@ -15,18 +17,21 @@ dynamics\scene_objects\hospital\part\hospital_debris_01_part_05
 dynamics\scene_objects\hospital\part\hospital_debris_01_part_06
 
 [autoremove_parts]
+$scheme = $model_object_autoremove_parts
 time = 30
 
 [collision_damage]
 link = 5.0
 
 [particles]
+$scheme = $model_object_particles
 destroy_particles = explosions\explosion_hospital_stone
 
 [particle_bones]
 link = -0.7, 0.0, 0.0
 
 [sound]
+$scheme = $model_object_sound
 break_sound = material\large_furniture\large_furniture_1
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
@@ -34,6 +39,7 @@ break_sound = material\large_furniture\large_furniture_1
 default = 1.0, -1, 0.0
 
 [immunities]
+$scheme = $model_object_immunities
 burn_immunity = 0
 strike_immunity = 0
 shock_immunity = 0
@@ -45,6 +51,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [impulse_transition_to_parts]
+$scheme = $model_object_impulse_transition_to_parts
 random_min = 2.0
 random_hit_imp = 1.0
 ; ref_bone

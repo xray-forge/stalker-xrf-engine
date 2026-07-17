@@ -1,4 +1,5 @@
 [disable]
+$scheme = $model_capture_disable
 linear_factor = 1.0
 angular_factor = 1.0
 
@@ -14,6 +15,7 @@ back_right = bip01_r_foot
 back_left = bip01_l_foot
 
 [capture]
+$scheme = $model_capture
 bone = bip01_ponytail2 ; bone for capture
 distance = 0.05 ; distance - less this distance between bone and capture taget object is captured
 time_limit = 5 ; max time for trying to capture object "sec"
@@ -23,4 +25,5 @@ velocity_scale = 1 ; velocity scale for pulling 1- normal
 capture_force = 65000000 ; max force for holding taget
 
 [capture_used_bones]
+$scheme = $model_capture_used_bones
 bones = bip01_r_calf, bip01_l_calf, bip01_r_forearm, bip01_l_forearm

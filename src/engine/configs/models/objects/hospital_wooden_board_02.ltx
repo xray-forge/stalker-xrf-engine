@@ -1,8 +1,10 @@
 [disable]
+$scheme = $model_object_disable
 linear_factor = 0.5
 angular_factor = 0.5
 
 [collide]
+$scheme = $model_object_collide
 not_collide_parts
 
 [destroyed]
@@ -14,18 +16,21 @@ dynamics\scene_objects\hospital\part\hospital_wooden_board_02_part_05
 dynamics\scene_objects\hospital\part\hospital_wooden_board_02_part_06
 
 [autoremove_parts]
+$scheme = $model_object_autoremove_parts
 time = 30
 
 [collision_damage]
 link = 0.02
 
 [particles]
+$scheme = $model_object_particles
 destroy_particles = destroy_fx\destroy_wood_00
 
 [particle_bones]
 link = 0.0, 1.0, 0.5
 
 [sound]
+$scheme = $model_object_sound
 break_sound = material\wood\wood_big_hard_1
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
@@ -33,6 +38,7 @@ break_sound = material\wood\wood_big_hard_1
 default = 1.0, -1, 0.0
 
 [immunities]
+$scheme = $model_object_immunities
 burn_immunity = 0.6
 strike_immunity = 0.5
 shock_immunity = 0
@@ -44,6 +50,7 @@ explosion_immunity = 1
 fire_wound_immunity = 0.6
 
 [impulse_transition_to_parts]
+$scheme = $model_object_impulse_transition_to_parts
 random_min = 2.0
 random_hit_imp = 1.0
 ; ref_bone
