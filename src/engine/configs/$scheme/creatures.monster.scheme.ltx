@@ -1,5 +1,5 @@
 [$monster_base]:$common_ph_friction_params_on_npc_death
-strict = false ; todo: Remove after definition of creatures
+$strict = false ; todo: Remove after definition of creatures
 actor_hit_effect = ?string
 custom_data = ?string
 feel_enemy_max_distance = ?f32
@@ -7,7 +7,7 @@ feel_enemy_who_just_hit_max_distance = ?f32
 feel_enemy_who_made_sound_max_distance = ?f32
 
 [$monsters_common]
-strict = true
+$strict = true
 stay_after_death_time_interval = u32
 script_move_min_offset_from_leader = f32
 script_move_max_offset_from_leader = f32
@@ -230,7 +230,7 @@ weapon_usage = ?u8 ; boolean
 wound_incarnation_v = f32
 
 [$monster_vision]
-strict = true
+$strict = true
 always_visible_distance = f32
 decrease_value = f32
 luminocity_factor = f32
@@ -242,7 +242,7 @@ velocity_factor = f32
 visibility_threshold = f32
 
 [$monster_step_params]
-strict = true
+$strict = true
 ; anim | Cycles | time1 | power1 | time2 | power2 |
 stand_crawl_0 = ?f32[]
 stand_drag_0 = ?f32[]
@@ -258,7 +258,7 @@ stand_walk_fwd_0 = ?f32[]
 stand_walk_fwd_dmg_0 = ?f32[]
 
 [$monster_attack_params]
-strict = true
+$strict = true
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 jump_ataka_02 = ?f32[]
 jump_attack_1 = ?f32[]
@@ -278,7 +278,7 @@ stand_stamina_attack_0 = ?f32[]
 vampire_2 = ?f32[]
 
 [$monster_damage]
-strict = true
+$strict = true
 ; bone_name = <hit_scale>,-1,<wound_scale>
 bip01_head = ?f32[]
 bip01_l_thigh = ?vector
@@ -300,12 +300,12 @@ spine = ?vector
 tail = ?vector
 
 [$monster_protections]
-strict = true
+$strict = true
 skin_armor = f32
 hit_fraction_monster = f32
 
 [$bloodsucker]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 EffectDistance = f32
 Invisibility_BlinkMicroInterval = u32
 Invisibility_BlinkTime = u32
@@ -335,10 +335,10 @@ vampire_effector = string
 visibility_state_change_min_delay = u16
 
 [$boar]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 
 [$burer]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 Gravi_Cooldown = u32
 Gravi_Hit_Power = f32
 Gravi_Impulse_To_Enemy = f32
@@ -394,7 +394,7 @@ weapon_drop_velocity = f32
 weight_to_stamina_hit = f32
 
 [$chimera]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
-strict = true
+$strict = true
 attack_jump_timeout = u32
 attack_radius = f32
 default = vector
@@ -409,7 +409,7 @@ spine_1 = vector
 stealth_timeout = u32
 
 [$controller]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 Control_Hit = string
 Friend_Community_Overrides = string
 Max_Controlled_Count = u8
@@ -434,7 +434,7 @@ tube_condition_see_duration = u32
 tube_damage = f32
 
 [$crow]:$spawn_object,$monster_shared_elements
-strict = true
+$strict = true
 Health = f32
 MaxHealthValue = f32
 angular_speed = f32
@@ -478,7 +478,7 @@ wound_immunity = f32
 wound_incarnation_v = f32
 
 [$dog]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
-strict = true
+$strict = true
 anim_factor = f32
 corpse_use_timeout = u32
 drive_out_time = u32
@@ -488,10 +488,10 @@ min_move_dist = f32
 min_sleep_time = u32
 
 [$flesh]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 
 [$gigant]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
-strict = true
+$strict = true
 Anomaly_Detect_Radius = f32
 Anomaly_Detect_Time_Remember = u32
 HugeKick_Damage = f32
@@ -505,7 +505,7 @@ step_effector_time = f32
 threaten_effector = string
 
 [$phantom]:$monster_base,$spawn_object,$monster_shared_sound,$monster_shared_elements
-strict = true
+$strict = true
 spawn = enum:on,off
 rank = u8
 visuals = string[]
@@ -521,7 +521,7 @@ material = string
 visual = ?string
 
 [$poltergeist]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 Delay_Flame_Aggressive = u32
 Delay_Flame_Min = u32
 Delay_Flame_Normal = u32
@@ -601,13 +601,13 @@ pp_highest_at = f32
 type = enum:telekinetic,flamer
 
 [$pseudodog]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
-strict = true
+$strict = true
 anger_hunger_threshold = f32
 anger_loud_threshold = f32
 sound_psy_attack = string
 
 [$psy_dog]:$pseudodog
-strict = true
+$strict = true
 Max_Phantoms_Count = ?u32
 Min_Phantoms_Count = ?u32
 Phantoms_Count = u32
@@ -619,17 +619,17 @@ aura_effector = string
 sound_psy_attack = string
 
 [$pseudodog_phantom]:$pseudodog
-strict = true
+$strict = true
 appear_effector = string
 particles_appear = string
 particles_disappear = string
 attack_params = string
 
 [$snork]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
-strict = true
+$strict = true
 
 [$tushkano]:$alife_base,$spawn_object,$monster_base,$monster_shared
-strict = true
+$strict = true
 ImpulseMax = f32
 ImpulseMin = f32
 always_visible_distance = f32

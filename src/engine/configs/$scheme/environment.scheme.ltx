@@ -5,7 +5,7 @@ stancia_02 = string
 stancia_03 = string
 
 [$thunderbolt]
-strict = true
+$strict = true
 color_anim = string
 gradient_center_opacity = f32
 gradient_center_radius = tuple:f32,f32
@@ -19,7 +19,7 @@ lightning_model = string
 sound = string
 
 [$sun]
-strict = true
+$strict = true
 blend_down_time = u32
 blend_rise_time = u32
 blend_time = f32
@@ -41,7 +41,7 @@ sun_shader = string
 sun_texture = string
 
 [$sound_channel]
-strict = true
+$strict = true
 max_distance = f32
 min_distance = f32
 period0 = u32
@@ -51,7 +51,7 @@ period3 = u32
 sounds = string[]
 
 [$environment]
-strict = true
+$strict = true
 altitude = f32
 delta_longitude = f32
 fog_color = f32
@@ -62,7 +62,7 @@ sun_color = f32
 tilt = f32
 
 [$effect]
-strict = true
+$strict = true
 life_time = u32
 offset = vector
 particles = string
@@ -74,18 +74,18 @@ wind_blast_strength = f32
 wind_gust_factor = f32
 
 [$surge_settings]
-strict = true
+$strict = true
 surge_state = u8 ; bool
 
 [$ambient]
-strict = true
+$strict = true
 effects = ?string[]
 max_effect_period = f32
 min_effect_period = f32
 sound_channels = ?string[]
 
 [$fog_volume]
-strict = true
+$strict = true
 EmittersNum = u32
 GravityBuoyancy = ?f32
 Hemi = f32
@@ -93,7 +93,7 @@ ConfinementScale = ?f32
 Decay = ?f32
 
 [$fog]
-strict = true
+$strict = true
 ApplyDensity = u8 ; bool
 ApplyImpulse = u8 ; bool
 Density = f32
@@ -109,7 +109,7 @@ Type = enum:SimpleGaussian,SimpleDraught
 WorldPosition = ?vector
 
 [$weather]
-strict = true
+$strict = true
 ambient = enum:default,rain,night,morning,day,tuman,evening,indoor,blowout,pre_blowout,indoor_underground,storm_day,storm_night,pre_psi_storm,psi_storm,post_psi_storm,post_blowout,rain_night,rain_day,tuman_night,tuman_day
 ambient_color = vector
 clouds_color = f32[]

@@ -1,17 +1,17 @@
 [$ph_button]:$scheme_common
-strict = true
+$strict = true
 anim = string
 anim_blend = ?bool
 on_press = ?condlist
 tooltip = ?string
 
 [$ph_code]:$scheme_common
-strict = true
+$strict = true
 code = ?u32
 on_code = ?condlist
 
 [$ph_door]:$scheme_common
-strict = true
+$strict = true
 closed = ?bool
 hit_on_bone = ?string
 locked = ?bool
@@ -27,7 +27,7 @@ tip_close = ?string
 tip_open = ?string
 
 [$ph_force]:$scheme_common
-strict = true
+$strict = true
 delay = ?f32
 force = f32
 point = string
@@ -35,21 +35,21 @@ point_index = ?u32
 time = f32
 
 [$ph_hit]:$scheme_common
-strict = true
+$strict = true
 bone = string
 dir_path = string
 impulse = ?f32
 power = ?f32
 
 [$ph_idle]:$scheme_common
-strict = true
+$strict = true
 hit_on_bone = ?string
 nonscript_usable = ?bool
 on_use = ?condlist
 tips = ?string
 
 [$ph_minigun]:$scheme_common
-strict = true
+$strict = true
 auto_fire = ?bool
 fire_angle = ?f32
 fire_range = ?f32
@@ -63,13 +63,13 @@ target = ?string
 track_target = ?bool
 
 [$ph_on_death]:$scheme_common
-strict = true
+$strict = true
 
 [$ph_on_hit]:$scheme_common
-strict = true
+$strict = true
 
 [$ph_oscillate]:$scheme_common
-strict = true
+$strict = true
 correct_angle = ?f32
 force = f32
 joint = string

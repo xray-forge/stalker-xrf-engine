@@ -61,7 +61,7 @@ weapon_bone2 = string
 [$stalker_shared]:$stalker_shared_physical,$stalker_kill_animations,$stalker_sound,$stalker_bone
 
 [$actor]:$spawn_object,$common_ph_friction_params_on_npc_death,$stalker_shared_physical,$stalker_bone
-strict = true
+$strict = true
 $ed_icon = string
 $player = enum:on,off
 DynamicObjectsCount = i32
@@ -134,7 +134,7 @@ walk_accel = f32
 walk_back_coef = f32
 
 [$actor_condition]
-strict = true
+$strict = true
 accel_k = f32
 acid_zone_max_power = f32
 alcohol_v = f32
@@ -194,7 +194,7 @@ wound_incarnation_v = f32
 wound_incarnation_v_sleep = f32
 
 [$actor_animation]
-strict = true
+$strict = true
 back_l_strafe_yaw = f32
 back_r_strafe_yaw = f32
 fwd_l_strafe_yaw = f32
@@ -203,7 +203,7 @@ l_strafe_yaw = f32
 r_strafe_yaw = f32
 
 [$actor_hit_snds]
-strict = true
+$strict = true
 burn = string[]
 shock = string[]
 strike = string[]
@@ -217,13 +217,13 @@ wound_2 = string[]
 light_burn = string[]
 
 [$actor_thd]
-strict = true
+$strict = true
 invulnerable_time = f32
 killing_hit_treshold = f32
 last_chance_health = f32
 
 [$actor_hud]
-strict = true
+$strict = true
 ancor_0 = string
 ancor_1 = string
 orientation = vector
@@ -231,7 +231,7 @@ position = vector
 visual = string
 
 [$stalker_condition]
-strict = true
+$strict = true
 bleeding_v = f32
 health_hit_part = f32
 health_restore_v = f32
@@ -255,7 +255,7 @@ use_limping_state = enum:on,off
 wound_incarnation_v = f32
 
 [$stalker]:$spawn_object,$common_ph_friction_params_on_npc_death,$stalker_shared
-strict = true
+$strict = true
 DynamicHitCount = u32
 DynamicObjectsCount = u32
 DynamicSoundsCount = u32

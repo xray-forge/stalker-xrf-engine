@@ -1,10 +1,10 @@
 [$sr_crow_spawner]:$scheme_common
-strict = true
+$strict = true
 max_crows_on_level = ?u32
 spawn_path = ?string[]
 
 [$sr_cutscene]:$scheme_common
-strict = true
+$strict = true
 cam_effector = string[]
 enable_ui_on_end = ?bool
 fov = ?f32
@@ -15,7 +15,7 @@ point = string
 pp_effector = ?string
 
 [$sr_deimos]:$scheme_common
-strict = true
+$strict = true
 cam_effector = string
 cam_effector_repeating_time = ?f32
 disable_bound = ?f32
@@ -31,14 +31,14 @@ switch_lower_bound = ?f32
 switch_upper_bound = ?f32
 
 [$sr_idle]:$scheme_common
-strict = true
+$strict = true
 
 [$sr_light]:$scheme_common
-strict = true
+$strict = true
 light_on = ?bool
 
 [$sr_monster]:$scheme_common
-strict = true
+$strict = true
 delay = ?f32
 idle = ?f32
 monster_section = string
@@ -47,23 +47,23 @@ snd = string
 sound_path = string[]
 
 [$sr_no_weapon]:$scheme_common
-strict = true
+$strict = true
 
 [$sr_particle]:$scheme_common
-strict = true
+$strict = true
 looped = ?bool
 mode = enum:1,2
 name = string
 path = string
 
 [$sr_postprocess]:$scheme_common
-strict = true
+$strict = true
 hit_intensity = f32
 intensity = f32
 intensity_speed = f32
 
 [$sr_psy_antenna]:$scheme_common
-strict = true
+$strict = true
 eff_intensity = f32
 hit_freq = ?f32
 hit_intensity = f32
@@ -75,16 +75,16 @@ phantom_prob = ?f32
 postprocess = ?string
 
 [$sr_silence]:$scheme_common
-strict = true
+$strict = true
 
 [$sr_teleport]:$scheme_common
-strict = true
+$strict = true
 look1 = ?string
 point1 = ?string
 timeout = ?f32
 
 [$sr_timer]:$scheme_common
-strict = true
+$strict = true
 on_value = ?string
 start_value = ?u32
 string = ?string

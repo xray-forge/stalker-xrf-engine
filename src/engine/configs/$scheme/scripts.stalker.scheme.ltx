@@ -1,8 +1,8 @@
 [$abuse]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$animpoint]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 avail_animations = ?string
 cover_name = ?string
 reach_distance = ?f32
@@ -12,7 +12,7 @@ target = ?string
 use_camp = ?bool
 
 [$camper]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 attack_sound = ?string
 def_state_campering = ?string
 def_state_campering_fire = ?string
@@ -33,26 +33,26 @@ sniper = ?bool
 sniper_anim = ?string
 
 [$combat]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 combat_type = ?condlist
 
 [$combat_camper]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$combat_ignore]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$combat_zombied]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$companion]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$corpse_detection]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$cover]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 anim = ?condlist
 radius_max = ?f32
 radius_min = ?f32
@@ -61,7 +61,7 @@ sound_idle = ?string
 use_attack_direction = ?bool
 
 [$danger]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 danger_inertion_time_grenade = ?f32
 danger_inertion_time_hit = ?f32
 danger_inertion_time_ricochet = ?f32
@@ -73,19 +73,19 @@ ignore_distance_hit = ?f32
 ignore_distance_sound = ?f32
 
 [$death]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$gather_items]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$help_wounded]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$hit]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$meet]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 abuse = ?condlist
 allow_break = ?condlist
 close_anim = ?condlist
@@ -112,7 +112,7 @@ victim = ?condlist
 victim_wpn = ?condlist
 
 [$patrol]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 commander = ?bool
 def_state_moving = ?string
 def_state_moving1 = ?string
@@ -124,10 +124,10 @@ path_walk = ?string
 silent = ?bool
 
 [$reach_task]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 
 [$remark]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 anim = ?condlist
 def_state_campering = ?string
 def_state_campering_fire = ?string
@@ -144,12 +144,12 @@ tips = ?string
 tips_sender = ?string
 
 [$sleeper]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 path_main = ?string
 wakeable = ?bool
 
 [$smartcover]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 cover_name = ?string
 cover_state = ?string
 def_state_campering = ?string
@@ -173,7 +173,7 @@ use_precalc_cover = ?bool
 weapon_type = ?string
 
 [$walker]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 combat_ignore_condition = ?condlist
 combat_igrore_cond = ?condlist
 def_state_campering = ?string
@@ -194,7 +194,7 @@ team = ?string
 use_camp = ?bool
 
 [$wounded]:$scheme_common,$scheme_object_common
-strict = true
+$strict = true
 autoheal = ?bool
 enable_talk = ?bool
 help_dialog = ?string

@@ -184,7 +184,7 @@ upgr_icon_x = ?u32
 upgr_icon_y = ?u32
 
 [$item]:$spawn_object,$identity_immunities,$item_inventory_icon
-strict = true
+$strict = true
 animation_slot = ?u8
 attach_angle_offset = ?vector
 attach_bone_name = ?string
@@ -198,7 +198,7 @@ hud = ?string
 quest_item = ?bool
 
 [$item_scope]:$item
-strict = true
+$strict = true
 holder_fov_modifier = f32
 holder_range_modifier = f32
 scope_alive_detector = ?string
@@ -208,13 +208,13 @@ scope_texture = string
 scope_zoom_factor = f32
 
 [$scope_contrast]
-strict = true
+$strict = true
 pp_eff_name = string
 pp_eff_cyclic = u8 ; bool
 pp_eff_overlap = bool
 
 [$scope_nightvision]
-strict = true
+$strict = true
 pp_eff_cyclic = u8 ; bool
 pp_eff_name = string
 pp_eff_overlap = bool
@@ -224,14 +224,14 @@ snd_night_vision_off = string
 snd_night_vision_on = string
 
 [$scope_detector]
-strict = true
+$strict = true
 vis_frame_speed = f32
 vis_frame_color = tuple:f32,f32,f32,f32
 found_snd = string
 catch_snd = string
 
 [$item_silencer]:$item
-strict = true
+$strict = true
 bullet_hit_impulse_k = f32
 bullet_hit_power_k = f32
 bullet_speed_k = f32
@@ -240,15 +240,15 @@ cam_dispersion_k = f32
 fire_dispersion_base_k = f32
 
 [$item_grenade_launcher]:$item
-strict = true
+$strict = true
 grenade_vel = f32
 
 [$ammo_base]:$identity_immunities,$default_weapon_params
-strict = true
+$strict = true
 explosive = bool
 
 [$ammo]:$default_weapon_params,$item
-strict = true
+$strict = true
 allow_ricochet = ?bool ; true by default
 box_size = u8
 buck_shot = u8 ; bool
@@ -274,7 +274,7 @@ wallmark_section = ?section
 wm_size = f32
 
 [$fake_missile]:$default_weapon_params,$item
-strict = true
+$strict = true
 blast = f32
 blast_impulse = f32
 blast_impulse = f32
@@ -308,11 +308,11 @@ wallmark_section = section
 wm_size = f32
 
 [$artefact_spawn_zones]
-strict = true
+$strict = true
 * = tuple:string,f32,f32
 
 [$artefact_activation]
-strict = true
+$strict = true
 ; time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
 starting = tuple:f32,string,f32,f32,f32,f32,string,string
 flying = tuple:f32,string,f32,f32,f32,f32,string,string
@@ -320,7 +320,7 @@ idle_before_spawning = tuple:f32,string,f32,f32,f32,f32,string,string
 spawning = tuple:f32,string,f32,f32,f32,f32,string,string
 
 [$artefact_absorbation]
-strict = true
+$strict = true
 burn_immunity = f32
 chemical_burn_immunity = f32
 explosion_immunity = f32
@@ -339,7 +339,7 @@ radiation_restore_speed = ?f32
 satiety_restore_speed = ?f32
 
 [$artefact_hud]:$hud_base
-strict = true
+$strict = true
 anm_activate = string
 anm_hide = string
 anm_idle = string
@@ -373,7 +373,7 @@ inv_grid_y = u32
 particles_bone = string
 
 [$item_artefact]:$item,$artefact_base,$artefact_params
-strict = true
+$strict = true
 artefact_activation_seq = ?section
 hit_absorbation_sect = section
 impulse_threshold = ?f32
@@ -386,7 +386,7 @@ trail_light_color = tuple:f32,f32,f32
 trail_light_range = f32
 
 [$vodka_hud]:$identity_immunities,$hud_base
-strict = true
+$strict = true
 anim_eat = string
 anim_hide = string
 anim_idle = string
@@ -428,7 +428,7 @@ eat_satiety = f32
 wounds_heal_perc = f32
 
 [$item_booster]:$booster
-strict = true
+$strict = true
 angle_offset = ?vector
 bone_name = ?string
 break_particles = ?string
@@ -442,7 +442,7 @@ set_timer_particles = string
 time_to_explode = f32
 
 [$item_explosive]:$item,$action_fuse,$default_weapon_params
-strict = true
+$strict = true
 blast = f32
 blast_impulse = f32
 blast_r = f32
@@ -464,7 +464,7 @@ wallmark_section = section
 wm_size = f32
 
 [$inventory_box]
-strict = true
+$strict = true
 $spawn = string
 GroupControlSection = string
 cform = string
@@ -474,14 +474,14 @@ script_binding = string
 visual = string
 
 [$flare]:$item
-strict = true
+$strict = true
 GroupControlSection = ?string
 cform = ?string
 work_time_sec = u32
 working_particles = string
 
 [$item_detector]:$item,$af_class,$af_freq,$af_sound,$zone_class,$zone_freq
-strict = true
+$strict = true
 af_radius = f32
 af_vis_radius = f32
 ef_detector_type = enum:1
@@ -491,10 +491,10 @@ ui_p = ?vector
 ui_r = ?vector
 
 [$item_device]:$item
-strict = true
+$strict = true
 
 [$item_torch]:$item_device
-strict = true
+$strict = true
 disabled_maps = string[]
 light_trace_bone = string
 night_vision = enum:on,off
@@ -510,11 +510,11 @@ snd_night_vision_off = string
 snd_night_vision_on = string
 
 [$item_document]:$spawn_object,$item_inventory_icon
-strict = true
+$strict = true
 cost = u32
 
 [$item_attachable]:$spawn_object,$item_inventory_icon
-strict = true
+$strict = true
 attach_angle_offset = vector
 attach_bone_name = string
 attach_position_offset = vector
@@ -532,7 +532,7 @@ script_binding = string
 sprint_allowed = bool
 
 [$item_outfit]:$item,$outfit_base
-strict = true
+$strict = true
 actor_visual = string
 artefact_count = u8
 bones_koeff_protection = section
@@ -555,7 +555,7 @@ upgrades = ?string[]
 wound_protection = f32
 
 [$item_helmet]:$item
-strict = true
+$strict = true
 bones_koeff_protection = section
 burn_protection = f32
 chemical_burn_protection = f32
@@ -572,12 +572,12 @@ upgrades = ?string[]
 wound_protection = f32
 
 [$item_quest]:$item
-strict = true
+$strict = true
 radius = ?f32
 startup_animation = ?string
 
 [$item_quest_unstrapped]
-strict = true
+$strict = true
 $inventory_icon = ?bool
 attach_angle_offset = vector
 attach_position_offset = vector

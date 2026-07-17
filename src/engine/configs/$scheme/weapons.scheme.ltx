@@ -19,7 +19,7 @@ explode_particles = string
 * = tuple:f32,f32,f32,f32
 
 [$item_weapon_scope]
-strict = true
+$strict = true
 scope_name = string
 scope_x = i32
 scope_y = i32
@@ -125,7 +125,7 @@ anm_throw_begin = ?string
 anm_throw_idle = ?tuple:string,?string,?f32
 
 [$item_weapon_hud]:$hud_base,$item_weapon_hud_animations
-strict = true
+$strict = true
 attach_place_idx = u8
 fire_bone = ?string
 fire_bone2 = ?string
@@ -301,7 +301,7 @@ zoom_dof = ?vector
 zoom_enabled = ?enum:on,off,true,false ; todo: fix the mess
 
 [$item_weapon]:$item,$item_weapon_sounds,$item_weapon_attachable,$item_weapon_params
-strict = true
+$strict = true
 ammo_class = ?string[]
 ammo_current = ?u8
 ammo_elapsed = ?u8
@@ -345,7 +345,7 @@ wallmark_section = ?section
 weapon_class = ?enum:assault_rifle,shotgun,sniper_rifle,heavy_weapon,pistol,grenade,misc
 
 [$item_weapon_meta]:$item_weapon
-strict = true
+$strict = true
 direction = vector
 installed_upgrades = ?section
 normal = ?vector
@@ -354,7 +354,7 @@ vis_frame_color = ?tuple:f32,f32,f32,f32
 vision_present = bool
 
 [$item_weapon_knife]:$item_weapon
-strict = true
+$strict = true
 installed_upgrades = ?section[]
 normal = ?vector
 orientation = vector
@@ -372,7 +372,7 @@ upgrades = ?string[]
 wm_size = f32
 
 [$item_weapon_throwable]:$item_weapon
-strict = true
+$strict = true
 destroy_time = f32
 force_const = f32
 force_grow_speed = f32
@@ -385,7 +385,7 @@ throw_point = ?vector
 upgrades = ?string[]
 
 [$item_weapon_grenade]:$item_weapon_throwable
-strict = true
+$strict = true
 PDM_disp_accel_factor = ?f32
 PDM_disp_base = ?f32
 PDM_disp_crouch = ?f32
@@ -415,7 +415,7 @@ wallmark_section = section
 wm_size = f32
 
 [$weapon_mounted]:$spawn_object
-strict = true
+$strict = true
 ammo_class = section
 bullet_speed = f32
 cam_dispersion = f32
@@ -451,7 +451,7 @@ snd_shoot = string
 visual = string
 
 [$stationary_mgun]:$spawn_object,$identity_immunities,$default_weapon_params,$default_weapon_probability
-strict = true
+$strict = true
 ammo_class = section
 bullet_speed = f32
 cam_max_angle = f32
