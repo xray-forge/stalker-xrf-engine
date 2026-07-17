@@ -189,6 +189,21 @@ describe("parseConditionsList util", () => {
         },
       },
     ]);
+
+    // jup_b8_psy_dog_1/2: only a prefixed function call is a condlist condition.
+    expect(parseConditionsList("{=actor_in_zone(jup_surge_hide_b8)} mob_home@1")).toStrictEqualLuaArrays([
+      {
+        infop_check: {
+          "1": {
+            expected: true,
+            func: "actor_in_zone",
+            params: { "1": "jup_surge_hide_b8" },
+          },
+        },
+        infop_set: {},
+        section: "mob_home@1",
+      },
+    ]);
   });
 });
 
