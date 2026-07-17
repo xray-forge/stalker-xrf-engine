@@ -2,8 +2,10 @@
 active = ph_idle@humm
 
 [ph_idle@humm]
+$scheme = $ph_idle
 ; on_info = ph_idle@nil %=play_sound_looped(pas_b400_transformer)%
 on_info = {!black_screen} %=play_sound_looped(pas_b400_transformer)%
 
 [ph_idle@nil]
+$scheme = $ph_idle
 on_info = ph_idle@humm

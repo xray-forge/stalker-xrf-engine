@@ -2,6 +2,7 @@
 active = ph_door@no_key
 
 [ph_door@no_key]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = trader_door_locked
@@ -9,6 +10,7 @@ on_info = {=actor_has_item(pri_b35_lab_x8_key)} ph_door@closed
 tip_open = tip_no_access_card
 
 [ph_door@closed]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = metal_small_open
@@ -19,6 +21,7 @@ on_info = {!actor_has_item(pri_b35_lab_x8_key)} ph_door@no_key
 tip_open = tip_need_access_card
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = metal_small_open
@@ -27,6 +30,7 @@ snd_close_stop = metal_small_close_stop
 on_use = ph_door@closed_regular
 
 [ph_door@closed_regular]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = metal_small_open

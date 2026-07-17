@@ -2,6 +2,7 @@
 active = ph_idle@full_locked
 
 [ph_idle@full_locked]
+$scheme = $ph_idle
 nonscript_usable = false
 tips = zat_b12_conteiner_full_locked
 on_info = {=actor_has_item(zat_b12_key_1) =actor_has_item(zat_b12_key_2)} ph_idle@has_two_key, {=actor_has_item(zat_b12_key_1) !actor_has_item(zat_b12_key_2)} ph_idle@has_one_key, {=actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} ph_idle@has_one_key
@@ -9,6 +10,7 @@ on_info2 = {+zat_b12_conteiner_open} ph_idle@open, {+zat_b12_one_lock_open} ph_i
 on_use = {!actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} %+zat_b12_find_the_way_to_open%
 
 [ph_idle@has_one_key]
+$scheme = $ph_idle
 nonscript_usable = false
 tips = zat_b12_conteiner_has_one_key
 on_use = {=actor_has_item(zat_b12_key_1) !actor_has_item(zat_b12_key_2)} ph_idle@locked %=remove_item(zat_b12_key_1) =play_sound(power_switch) +zat_b12_one_lock_open%, {=actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} ph_idle@locked %=remove_item(zat_b12_key_2) =play_sound(power_switch) +zat_b12_one_lock_open%
@@ -16,12 +18,14 @@ on_info = {=actor_has_item(zat_b12_key_1) =actor_has_item(zat_b12_key_2)} ph_idl
 on_info2 = {+zat_b12_conteiner_open} ph_idle@open, {+zat_b12_one_lock_open} ph_idle@locked
 
 [ph_idle@locked]
+$scheme = $ph_idle
 nonscript_usable = false
 tips = zat_b12_conteiner_locked
 on_info = {=actor_has_item(zat_b12_key_1) !actor_has_item(zat_b12_key_2)} ph_idle@locked_has_second_key, {=actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} ph_idle@locked_has_second_key
 on_info2 = {+zat_b12_conteiner_open} ph_idle@open
 
 [ph_idle@locked_has_second_key]
+$scheme = $ph_idle
 nonscript_usable = false
 tips = zat_b12_conteiner_has_one_key
 on_use = {=actor_has_item(zat_b12_key_1) !actor_has_item(zat_b12_key_2)} ph_idle@open %=remove_item(zat_b12_key_1) =play_sound(power_switch) +zat_b12_conteiner_open%, {=actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} ph_idle@open %=remove_item(zat_b12_key_2) =play_sound(power_switch) +zat_b12_conteiner_open%
@@ -29,6 +33,7 @@ on_info = {!actor_has_item(zat_b12_key_2) !actor_has_item(zat_b12_key_1)} ph_idl
 on_info2 = {+zat_b12_conteiner_open} ph_idle@open
 
 [ph_idle@has_two_key]
+$scheme = $ph_idle
 nonscript_usable = false
 tips = zat_b12_conteiner_has_two_key
 on_use = {=actor_has_item(zat_b12_key_1) =actor_has_item(zat_b12_key_2)} ph_idle@open %=play_sound(power_switch) =remove_item(zat_b12_key_1) =remove_item(zat_b12_key_2) +zat_b12_conteiner_open%
@@ -36,6 +41,7 @@ on_info = {=actor_has_item(zat_b12_key_1) !actor_has_item(zat_b12_key_2)} ph_idl
 on_info2 = {+zat_b12_conteiner_open} ph_idle@open
 
 [ph_idle@open]
+$scheme = $ph_idle
 nonscript_usable = true
 tips = zat_b12_conteiner_open
 on_info = {-zat_b12_conteiner_open} %+zat_b12_conteiner_open%

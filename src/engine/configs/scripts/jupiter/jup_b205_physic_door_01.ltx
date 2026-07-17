@@ -2,6 +2,7 @@
 active = ph_door@closed
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 closed = true
 on_info = {+jup_b205_pass_code_valide} ph_door@closed
@@ -12,6 +13,7 @@ tip_open = tip_door_blocked
 not_for_npc = true
 
 [ph_door@closed]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = metal_small_open
@@ -24,6 +26,7 @@ tip_open = tip_door_blocked
 ; tip_door_open
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = metal_small_open

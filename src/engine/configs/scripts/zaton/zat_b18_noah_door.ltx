@@ -2,6 +2,7 @@
 active = ph_door@close
 
 [ph_door@close]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = trader_door_open_start
@@ -13,6 +14,7 @@ on_info2 = {-zat_b18_dog_close} %+zat_b18_dog_close -zat_b18_dog_open%
 on_info3 = {+zat_b18_dog_noah_free -zat_b18_dog_noah_free_door} ph_door@open %+zat_b18_dog_noah_free_door%
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = trader_door_open_start
@@ -23,6 +25,7 @@ on_info = {+zat_b18_reset_memory} ph_door@close %-zat_b18_noah_shot_door -zat_b1
 on_info2 = {-zat_b18_dog_open} %+zat_b18_dog_open -zat_b18_dog_close%
 
 [ph_door@free]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = trader_door_open_start

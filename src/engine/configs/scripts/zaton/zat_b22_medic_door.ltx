@@ -2,6 +2,7 @@
 active = ph_door@locked
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 on_info = {+zat_b22_medic_respawn} ph_door@locked_timer
 tip_open = tip_door_locked
@@ -9,6 +10,7 @@ snd_open_start = trader_door_locked
 not_for_npc = true
 
 [ph_door@locked_timer]
+$scheme = $ph_door
 locked = true
 tip_open = tip_door_locked
 snd_open_start = trader_door_locked
@@ -17,6 +19,7 @@ on_game_timer = 10800 | {+zat_b22_trick_done} ph_door@close %+zat_b22_can_go_in%
 on_info = {+zat_b38_disappearance_stalkers_find_cop_near_port_krans_give -zat_b22_can_go_in +zat_b22_trick_done} ph_door@close %+zat_b22_can_go_in%
 
 [ph_door@close]
+$scheme = $ph_door
 locked = false
 closed = true
 tip_open = tip_door_open
@@ -24,6 +27,7 @@ on_use = {-zat_b22_actor_can_hurt} ph_door@open %+zat_b22_actor_can_hurt%, ph_do
 not_for_npc = true
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 on_use = ph_door@close

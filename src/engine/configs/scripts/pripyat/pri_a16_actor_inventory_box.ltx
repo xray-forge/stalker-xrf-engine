@@ -2,10 +2,12 @@
 active = ph_idle@open
 
 [ph_idle@open]
+$scheme = $ph_idle
 nonscript_usable = true
 tips = actor_inventory_box_use
 on_info = {=actor_in_zone(pri_a16_sr_sleep)} ph_idle@sleep
 
 [ph_idle@sleep]
+$scheme = $ph_idle
 nonscript_usable = false
 on_info = {!actor_in_zone(pri_a16_sr_sleep)} ph_idle@open

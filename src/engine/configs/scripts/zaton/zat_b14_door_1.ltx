@@ -2,6 +2,7 @@
 active = ph_door@locked
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 closed = true
 on_info = {+zat_b14_door_1_unlock} ph_door@close
@@ -10,6 +11,7 @@ tip_open = zat_b14_door_locked_hint
 not_for_npc = true
 
 [ph_door@close]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = metal_small_open
@@ -19,6 +21,7 @@ on_use = ph_door@open
 not_for_npc = true
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = metal_small_open

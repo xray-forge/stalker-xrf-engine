@@ -2,6 +2,7 @@
 active = ph_door@locked
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 closed = true
 snd_open_start = wood_small_open
@@ -10,6 +11,7 @@ snd_close_stop = wood_small_close_stop
 hit_on_bone = 2|ph_door@close
 
 [ph_door@close]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = wood_small_open
@@ -19,6 +21,7 @@ on_use = ph_door@open
 hit_on_bone = 1|ph_door@free|2|ph_door@free
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = wood_small_open
@@ -28,6 +31,7 @@ on_use = ph_door@close
 hit_on_bone = 1|ph_door@free|2|ph_door@free
 
 [ph_door@free]
+$scheme = $ph_door
 locked = false
 closed = true
 no_force = true

@@ -2,6 +2,7 @@
 active = ph_door@locked
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 closed = true
 on_info = {!actor_in_zone(jup_b205_zombie_zone_01)} ph_door@closed
@@ -11,6 +12,7 @@ snd_close_stop = metal_small_close_stop
 tip_open = tip_open_another_site
 
 [ph_door@closed]
+$scheme = $ph_door
 locked = false
 closed = true
 on_info = {=actor_in_zone(jup_b205_zombie_zone_01)} ph_door@locked
@@ -22,6 +24,7 @@ not_for_npc = true
 tip_open = tip_door_open
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = metal_small_open

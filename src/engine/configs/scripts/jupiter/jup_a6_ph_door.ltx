@@ -2,6 +2,7 @@
 active = ph_door@closed
 
 [ph_door@closed]
+$scheme = $ph_door
 closed = true
 locked = false
 on_use = ph_door@open
@@ -11,6 +12,7 @@ snd_close_start = wood_large_close_start
 snd_close_stop = wood_large_close_stop
 
 [ph_door@open]
+$scheme = $ph_door
 closed = false
 locked = false
 on_use = ph_door@closed
@@ -21,6 +23,7 @@ snd_close_start = wood_large_close_start
 snd_close_stop = wood_large_close_stop
 
 [ph_door@locked]
+$scheme = $ph_door
 closed = true
 locked = true
 on_info = {=check_smart_alarm_status(jup_a6:normal)} ph_door@closed
@@ -29,6 +32,7 @@ snd_open_start = trader_door_locked
 tip_open = tip_door_closed_hide_weapon
 
 [ph_door@locked_alarm]
+$scheme = $ph_door
 closed = true
 locked = true
 on_info = {=check_smart_alarm_status(jup_a6:normal)} ph_door@closed

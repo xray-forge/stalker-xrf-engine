@@ -2,6 +2,7 @@
 active = ph_door@locked
 
 [ph_door@locked]
+$scheme = $ph_door
 locked = true
 closed = true
 snd_open_start = trader_door_locked
@@ -9,6 +10,7 @@ tip_open = jup_b1_door_is_closed
 on_info = {=actor_in_zone(jup_b1_open_door_zone)} ph_door@close
 
 [ph_door@close]
+$scheme = $ph_door
 locked = false
 closed = true
 snd_open_start = trader_door_open_start
@@ -19,6 +21,7 @@ tip_open = tip_door_open
 on_info = {!actor_in_zone(jup_b1_open_door_zone)} ph_door@locked
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 snd_open_start = trader_door_open_start

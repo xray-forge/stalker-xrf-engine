@@ -2,6 +2,7 @@
 active = ph_door@closed
 
 [ph_door@closed]
+$scheme = $ph_door
 not_for_npc = true
 closed = true
 locked = false
@@ -11,6 +12,7 @@ on_info2 = {+pri_a20_squad_cam_end !dist_to_story_obj_ge(pri_a18_wait_reinf:10)}
 on_info3 = {=actor_in_zone(pri_a18_monolith_trance_restrictor)} %+pri_a18_find_antena%
 
 [ph_door@open]
+$scheme = $ph_door
 closed = false
 locked = true
 show_tips = false

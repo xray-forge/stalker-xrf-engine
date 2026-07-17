@@ -2,6 +2,7 @@
 active = ph_door@closed
 
 [ph_door@closed]
+$scheme = $ph_door
 locked = true
 closed = true
 tip_open = tip_door_open
@@ -13,6 +14,7 @@ on_use = {+pri_a25_check_freezer_knock} ph_door@open %+pri_a25_freezer_can_talk%
 on_info = {+pri_a25_wood_board_hit -pri_a25_once_refrigerator_door_open} ph_door@open
 
 [ph_door@open]
+$scheme = $ph_door
 locked = false
 closed = false
 show_tips = false
