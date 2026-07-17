@@ -2,9 +2,11 @@
 active = sr_idle@start
 
 [sr_idle@start]
+$scheme = $sr_idle
 on_info = sr_idle@zaton %=set_counter(anomalies_visited:0)%
 
 [sr_idle@zaton]
+$scheme = $sr_idle
 on_info = {+actor_was_in_many_bad_places} sr_idle@nil
 on_info2 = {=counter_greater(anomalies_visited:18)} sr_idle@nil %+actor_was_in_many_bad_places%
 on_info3 = {-zat_b100_visited =actor_in_zone(zat_b100_zone_field_radioactive_weak)} %+zat_b100_visited =inc_counter(anomalies_visited)%
@@ -24,3 +26,4 @@ on_info14 = {-zat_b55_visited =actor_in_zone(zat_b55_zone_field_radioactive_aver
 on_info15 = {-zat_b56_visited =actor_in_zone(zaton_b56_zone_field_thermal_average)} %+zat_b56_visited =inc_counter(anomalies_visited)%
 
 [sr_idle@nil]
+$scheme = $sr_idle

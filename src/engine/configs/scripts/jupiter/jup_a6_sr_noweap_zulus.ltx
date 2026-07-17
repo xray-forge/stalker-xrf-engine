@@ -2,8 +2,10 @@
 active = sr_idle@wait
 
 [sr_idle@wait]
+$scheme = $sr_idle
 on_actor_inside = {=check_smart_alarm_status(jup_a6:normal) !actor_has_weapon} sr_no_weapon@wait
 on_info = {=actor_in_zone(jup_b15_sr_light)} sr_no_weapon@wait
 
 [sr_no_weapon@wait]
+$scheme = $sr_no_weapon
 on_actor_outside = sr_idle@wait

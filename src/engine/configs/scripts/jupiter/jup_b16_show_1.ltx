@@ -2,12 +2,15 @@
 active = sr_idle
 
 [sr_idle]
+$scheme = $sr_idle
 on_info = {+jup_b16_go_particle} sr_idle@2
 
 [sr_idle@2]
+$scheme = $sr_idle
 on_actor_in_zone = jup_b16_show_particles_sr |{+jup_b16_show_particles} sr_idle@wait_for_show_particle
 
 [sr_idle@wait_for_show_particle]
+$scheme = $sr_idle
 on_timer = 100 | {+jup_b16_sr_1_1 +jup_b16_row_complete_1} sr_particle@1_1 %-jup_b16_row_complete_1%
 on_timer2 = 100 | {+jup_b16_sr_1_2 +jup_b16_row_complete_1} sr_particle@1_2 %-jup_b16_row_complete_1%
 on_timer3 = 100 | {+jup_b16_sr_1_3 +jup_b16_row_complete_1} sr_particle@1_3 %-jup_b16_row_complete_1%
@@ -16,6 +19,7 @@ on_timer5 = 100 | {+jup_b16_sr_1_5 +jup_b16_row_complete_1} sr_particle@1_5 %-ju
 on_info = {-jup_b16_row_complete_1} sr_idle
 
 [sr_particle@1_1]
+$scheme = $sr_particle
 name = anomaly2\oasis_way
 path = jup_b16_sr_1_1_particle
 mode = 2
@@ -25,6 +29,7 @@ on_info2 = {-jup_b16_sr_1_1} sr_idle %-jup_b16_sound_1_1 -jup_b16_show_particles
 ; on_info = {-jup_b16_show_particles} sr_idle
 
 [sr_particle@1_2]
+$scheme = $sr_particle
 name = anomaly2\oasis_way
 path = jup_b16_sr_1_2_particle
 mode = 2
@@ -34,6 +39,7 @@ on_info2 = {-jup_b16_sr_1_2} sr_idle %-jup_b16_sound_1_2 -jup_b16_show_particles
 ; on_info = {-jup_b16_show_particles} sr_idle
 
 [sr_particle@1_3]
+$scheme = $sr_particle
 name = anomaly2\oasis_way
 path = jup_b16_sr_1_3_particle
 mode = 2
@@ -43,6 +49,7 @@ on_info2 = {-jup_b16_sr_1_3} sr_idle %-jup_b16_sound_1_3 -jup_b16_show_particles
 ; on_info = {-jup_b16_show_particles} sr_idle
 
 [sr_particle@1_4]
+$scheme = $sr_particle
 name = anomaly2\oasis_way
 path = jup_b16_sr_1_4_particle
 mode = 2
@@ -52,6 +59,7 @@ on_info2 = {-jup_b16_sr_1_4} sr_idle %-jup_b16_sound_1_4 -jup_b16_show_particles
 ; on_info = {-jup_b16_show_particles} sr_idle
 
 [sr_particle@1_5]
+$scheme = $sr_particle
 name = anomaly2\oasis_way
 path = jup_b16_sr_1_5_particle
 mode = 2

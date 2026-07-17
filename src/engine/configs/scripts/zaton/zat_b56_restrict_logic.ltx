@@ -2,10 +2,13 @@
 active = sr_idle@1
 
 [sr_idle@1]
+$scheme = $sr_idle
 on_info = sr_idle@end %=create_squad(zat_b56_polter_squad:zat_b56)%
 
 [sr_idle@end]
+$scheme = $sr_idle
 on_info = {!squad_exist(zat_b56_polter_squad) =surge_started} sr_idle@delay
 
 [sr_idle@delay]
+$scheme = $sr_idle
 on_info = {=surge_complete} sr_idle@1

@@ -2,6 +2,8 @@
 active = sr_idle@task
 
 [sr_idle@task]
+$scheme = $sr_idle
 on_info = {+jup_b212_jupiter_chimera_hunt_started -jup_b212_jupiter_chimera_hunt_give} sr_idle@end %=give_task(jup_b212_jupiter_chimera_hunt) +jup_b212_jupiter_chimera_hunt_give%
 
 [sr_idle@end]
+$scheme = $sr_idle

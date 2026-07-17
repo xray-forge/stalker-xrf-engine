@@ -2,15 +2,19 @@
 active = sr_idle@dead_squad_cutscene
 
 [sr_idle@dead_squad_cutscene]
+$scheme = $sr_idle
 on_info = {+pri_a20_squad_attack_cam =actor_in_zone(pri_a20_squad_task_complete_restrictor)} sr_idle@timer_before_fade %=create_cutscene_actor_with_weapon(pri_a20_cutscene_actor_squad:pri_b35_mercs_leader_rendevous_look:0:0)%
 
 [sr_idle@timer_before_fade]
+$scheme = $sr_idle
 on_game_timer = 20 | sr_idle@fade %=disable_ui =run_postprocess(fade_in:2022) =teleport_npc_by_story_id(pri_a20_cutscene_actor_squad:pri_a20_deadman_military_3_im)%
 
 [sr_idle@fade]
+$scheme = $sr_idle
 on_game_timer = 20 | sr_cutscene@cut %=run_postprocess(black:2023:true)%
 
 [sr_cutscene@cut]
+$scheme = $sr_cutscene
 global_cameffect = true
 enable_ui_on_end = false
 outdoor = true
@@ -25,10 +29,13 @@ on_info2 = {+pri_a20_cam_end -pri_a20_fade_2_in} %=stop_sr_cutscene =run_postpro
 on_info3 = {+pri_a20_cut_actor_hit} %=stop_sr_cutscene =run_postprocess(black:2021:true) +pri_a20_fade_2_in +pri_a20_cam_end +pri_a20_squad_cam_end +pri_a20_fade_in +pri_a20_squad_cutscene_actor_talk +pri_a20_squad_cutscene_actor_talk_complete +pri_a20_squad_cutscene_actor_talk_2 +pri_a20_squad_cutscene_actor_talk_2_complete%
 
 [sr_idle@cutscene_end_postprocess]
+$scheme = $sr_idle
 on_game_timer = 10 | sr_idle@autosave %=stop_postprocess(2021) =enable_ui%
 
 [sr_idle@autosave]
+$scheme = $sr_idle
 on_info = {-pri_a20_once_autosave} %+pri_a20_once_autosave =scenario_autosave(st_save_pri_a20_found_dead_recon)%
 on_info2 = {+pri_a20_once_autosave} sr_idle@nil
 
 [sr_idle@nil]
+$scheme = $sr_idle

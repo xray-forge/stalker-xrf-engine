@@ -2,15 +2,19 @@
 active = sr_idle@kovalski_office_cutscene
 
 [sr_idle@kovalski_office_cutscene]
+$scheme = $sr_idle
 on_info = {+pri_a17_actor_has_gauss_rifle} sr_idle@wait_cutscene %=remove_squad(pri_a20_missing_military_recon)%
 
 [sr_idle@wait_cutscene]
+$scheme = $sr_idle
 on_game_timer = 50 | {+pri_a20_cutscene_start} sr_idle@fade %=disable_ui =create_squad(pri_a20_missing_military_recon:pri_b35_mercs) =run_postprocess(fade_in:2121)%
 
 [sr_idle@fade]
+$scheme = $sr_idle
 on_game_timer = 10 | {+pri_a20_squad_attack_cam} sr_cutscene@cut %=run_postprocess(black:2122:true)%
 
 [sr_cutscene@cut]
+$scheme = $sr_cutscene
 point = pri_a16_yarmoshuk_look
 look = pri_a16_yarmoshuk_look
 global_cameffect = true
@@ -21,9 +25,12 @@ on_info = {+pri_a20_once_task_give} %=run_postprocess(fade_in:2021) =stop_sr_cut
 on_signal = cameff_end | sr_idle@cutscene_end_postprocess
 
 [sr_idle@cutscene_end_postprocess]
+$scheme = $sr_idle
 on_game_timer = 10 | sr_idle@check_actor_in_koval_office %=teleport_actor(pri_a16_cutscene_actor_walk:pri_a16_military_colonel_kovalski_walk) =enable_ui =stop_postprocess(2021)%
 
 [sr_idle@check_actor_in_koval_office]
+$scheme = $sr_idle
 on_info = {=actor_in_zone(pri_a21_meet_kovalski_restrictor)} sr_idle@nil %+pri_a20_task_gived%
 
 [sr_idle@nil]
+$scheme = $sr_idle

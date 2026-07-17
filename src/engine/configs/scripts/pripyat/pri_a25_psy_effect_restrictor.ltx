@@ -2,6 +2,7 @@
 active = sr_psy_antenna@check_antena_destroy
 
 [sr_psy_antenna@check_antena_destroy]
+$scheme = $sr_psy_antenna
 eff_intensity = 55
 hit_intensity = 0.6
 hit_freq = 100
@@ -10,6 +11,7 @@ postprocess = psi.ppe
 no_static = true
 
 [sr_psy_antenna@nil]
+$scheme = $sr_psy_antenna
 eff_intensity = 0
 hit_intensity = 0
 no_static = true

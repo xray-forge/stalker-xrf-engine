@@ -2,12 +2,15 @@
 active = sr_idle
 
 [sr_idle]
+$scheme = $sr_idle
 on_info = {+jup_a10_vano_give_task} sr_idle@2
 on_info2 = {+jup_a10_run_quest} %+jup_b218_gather_squad +jup_a9_tech_conservation_info%
 on_info3 = {!squad_exist(jup_a10_bandit_squad_3)} %+jup_a10_bandit_out%
 
 [sr_idle@2]
+$scheme = $sr_idle
 on_info = {+jup_a10_vano_give_task -jup_a10_bandit_take_money -jup_a10_bandit_take_all_money !squad_exist(jup_a10_bandit_squad_3)} %+jup_a10_bandit_out +jup_a10_back_vano%
 on_info2 = {+jup_a10_back_vano} sr_idle@3
 
 [sr_idle@3]
+$scheme = $sr_idle

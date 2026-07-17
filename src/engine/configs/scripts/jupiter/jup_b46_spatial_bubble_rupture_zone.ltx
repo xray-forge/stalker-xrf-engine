@@ -2,10 +2,12 @@
 active = sr_idle@jup_b46_ruptured
 
 [sr_idle@jup_b46_ruptured]
+$scheme = $sr_idle
 on_info = {=actor_in_zone(jup_b46_spatial_bubble_zone) =actor_active_detector(detector_scientific) -jup_b46_spatial_bubble_ruptured} sr_particle@jup_b46_rupture_particle
 on_info2 = {+jup_b46_spatial_bubble_ruptured} sr_idle@jup_b46_end
 
 [sr_particle@jup_b46_rupture_particle]
+$scheme = $sr_particle
 name = anomaly2\anomaly_spatial_bubble_rupture
 path = jup_b46_particle_point
 mode = 2
@@ -14,3 +16,4 @@ on_info = {-jup_b46_spatial_bubble_ruptured} %+jup_b46_spatial_bubble_ruptured =
 on_signal = particle_end | {+jup_b46_spatial_bubble_ruptured} sr_idle@jup_b46_end
 
 [sr_idle@jup_b46_end]
+$scheme = $sr_idle

@@ -2,6 +2,7 @@
 active = sr_idle@jup_a9_logic
 
 [sr_idle@jup_a9_logic]
+$scheme = $sr_idle
 on_info1 = {-jup_a9_delivery_info_taked =actor_has_item(jup_a9_delivery_info)} %+jup_a9_delivery_info_taked%
 on_info2 = {-jup_a9_losses_info_taked =actor_has_item(jup_a9_losses_info)} %+jup_a9_losses_info_taked%
 on_info3 = {-jup_a9_meeting_info_taked =actor_has_item(jup_a9_meeting_info)} %+jup_a9_meeting_info_taked%
@@ -13,3 +14,4 @@ on_info8 = {+zat_b107_evacuation_info_full +jup_a9_way_info +jup_a9_conservation
 on_info9 = {+zat_b107_evacuation_info_full +jup_a9_way_info +jup_a9_conservation_info +jup_a9_power_info -jup_a9_way_to_pripyat_tech_started} sr_idle@jup_a9_end %+jup_a9_actor_found_main_documents =give_task(jup_a9_way_to_pripyat_tech)%
 
 [sr_idle@jup_a9_end]
+$scheme = $sr_idle

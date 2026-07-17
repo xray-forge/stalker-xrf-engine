@@ -2,9 +2,11 @@
 active = sr_idle
 
 [sr_idle]
+$scheme = $sr_idle
 on_actor_inside = {+zat_b57_gas_running_play} sr_psy_antenna %=add_cs_text(zat_b57_gas_warning)%
 
 [sr_psy_antenna]
+$scheme = $sr_psy_antenna
 mute_sound_threshold = 1
 postprocess = pas_b400_acidic.ppe
 eff_intensity = 100

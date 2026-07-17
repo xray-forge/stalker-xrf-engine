@@ -2,6 +2,8 @@
 active = sr_idle@check_bloodsuckers_squad_death
 
 [sr_idle@check_bloodsuckers_squad_death]
+$scheme = $sr_idle
 on_info = {!squad_exist(jup_b6_swamp_hunters)} sr_idle@nil %+jup_b6_all_hunters_are_dead%
 
 [sr_idle@nil]
+$scheme = $sr_idle

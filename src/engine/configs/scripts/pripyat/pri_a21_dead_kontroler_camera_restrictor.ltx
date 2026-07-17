@@ -2,15 +2,19 @@
 active = sr_idle@pre_controler_dead_cutscene
 
 [sr_idle@pre_controler_dead_cutscene]
+$scheme = $sr_idle
 on_info = {+pri_a21_kontro_dead} sr_idle@timer_before_cutscene
 
 [sr_idle@timer_before_cutscene]
+$scheme = $sr_idle
 on_game_timer = 20 | sr_idle@cutscene_start %=disable_ui =run_postprocess(fade_in:2023)%
 
 [sr_idle@cutscene_start]
+$scheme = $sr_idle
 on_game_timer = 10 | sr_cutscene %=run_postprocess(black:2024:true) =create_cutscene_actor_with_weapon(pri_a21_cutscene_actor:pri_a21_smart_terrain_cutscene_actor_spawn_point:0:306)%
 
 [sr_cutscene]
+$scheme = $sr_cutscene
 global_cameffect = true
 enable_ui_on_end = false
 outdoor = true
@@ -25,10 +29,13 @@ on_info2 = {+pri_a21_cam_stop} %=stop_sr_cutscene%
 on_info3 = {+pri_a21_cut_actor_hit} %=stop_sr_cutscene +pri_a21_cam_stop +pri_a21_cam_end +pri_a21_fade_in +pri_a21_actor_talk_after_done%
 
 [sr_idle@cutscene_end_postprocess]
+$scheme = $sr_idle
 on_game_timer = 10 | sr_idle@autosave %=stop_postprocess(2021) =stop_postprocess(2022) =enable_ui%
 
 [sr_idle@autosave]
+$scheme = $sr_idle
 on_info = {-pri_a21_once_autosave_2} %+pri_a21_once_autosave_2 =scenario_autosave(st_save_pri_a21_killed_controller)%
 on_info2 = {+pri_a21_once_autosave_2} sr_idle@nil
 
 [sr_idle@nil]
+$scheme = $sr_idle

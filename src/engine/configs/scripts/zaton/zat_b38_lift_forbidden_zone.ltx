@@ -2,6 +2,8 @@
 active = sr_idle@kill
 
 [sr_idle@kill]
+$scheme = $sr_idle
 on_actor_inside = {-zat_b38_break_lift} sr_idle@nil %+zat_b38_forbidden_fail =kill_actor%
 
 [sr_idle@nil]
+$scheme = $sr_idle

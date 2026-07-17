@@ -2,7 +2,9 @@
 active = sr_idle@out
 
 [sr_idle@out]
+$scheme = $sr_idle
 on_actor_inside = sr_idle@in %+pri_b304_actor_in_store_hall%
 
 [sr_idle@in]
+$scheme = $sr_idle
 on_actor_not_in_zone = pri_b304_actor_run_away | sr_idle@out %-pri_b304_actor_in_store_hall%

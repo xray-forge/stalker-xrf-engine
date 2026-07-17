@@ -2,23 +2,30 @@
 active = sr_idle@wait_for_sound
 
 [sr_idle@wait_for_sound]
+$scheme = $sr_idle
 on_info2 = {+pri_a22_actor_to_base_talked} sr_idle@play_sound
 
 [sr_idle@play_sound]
+$scheme = $sr_idle
 on_signal = sound_end | sr_idle@wait_cam_2 %+pri_a22_cam_2_fade%
 on_game_timer = 10 | %=play_sound(pri_a22_base_to_actor_has_rfi_coordinates)%
 
 [sr_idle@wait_cam_2]
+$scheme = $sr_idle
 on_game_timer = 15 | sr_idle@kindergarden_koval_snd %+pri_a22_find_squad_cam_end%
 
 [sr_idle@kindergarden_koval_snd]
+$scheme = $sr_idle
 on_info = {+pri_a25_actor_all_doors_locked_snd_end} sr_idle@kindergarden_koval_snd_timer
 
 [sr_idle@kindergarden_koval_snd_timer]
+$scheme = $sr_idle
 on_signal = sound_end | sr_idle@timer_for_door_cam %+pri_a25_find_explosive%
 on_game_timer = 10 | %=play_sound(pri_a25_kovalski_take_explosive)%
 
 [sr_idle@timer_for_door_cam]
+$scheme = $sr_idle
 on_game_timer = 15 | sr_idle@nil %+pri_a25_cam_stop%
 
 [sr_idle@nil]
+$scheme = $sr_idle

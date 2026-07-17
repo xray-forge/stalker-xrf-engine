@@ -2,10 +2,13 @@
 active = sr_idle
 
 [sr_idle]
+$scheme = $sr_idle
 on_info = sr_idle@2 %=disable_anomaly(pri_b302_electric_ball)%
 
 [sr_idle@2]
+$scheme = $sr_idle
 on_actor_inside = sr_idle@3 %=enable_anomaly(pri_b302_electric_ball)%
 
 [sr_idle@3]
+$scheme = $sr_idle
 on_timer = 15000 | sr_idle

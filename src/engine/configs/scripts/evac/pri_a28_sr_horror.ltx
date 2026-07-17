@@ -3,9 +3,11 @@ active = sr_idle@start
 ; active = sr_deimos
 
 [sr_idle@start]
+$scheme = $sr_idle
 on_info = {+pri_b305_fifth_cam_end =actor_in_zone(pri_a28_sr_horror)} sr_deimos, {+pri_a28_scene_end} sr_idle@wait_2
 
 [sr_deimos]
+$scheme = $sr_deimos
 movement_speed = 42
 growing_rate = 0.45 ; 0.25
 lowering_rate = 0.22 ; 0.06
@@ -25,9 +27,11 @@ on_info3 = {!actor_in_zone(pri_a28_sr_horror)} sr_idle@wait_2
 on_game_timer = 100 | {=check_deimos_phase(disable_bound:decreasing) !actor_in_zone(pri_a28_sr_horror)} sr_idle@wait_1
 
 [sr_idle@wait_1]
+$scheme = $sr_idle
 on_game_timer = 18000 | {~20} sr_deimos, sr_idle@wait_2
 on_info = {-pri_a28_evac_com_to_helicopter =actor_in_zone(pri_a28_sr_horror)} sr_deimos
 
 [sr_idle@wait_2]
+$scheme = $sr_idle
 on_game_timer = 9000 | {~25} sr_deimos, sr_idle@wait_1
 on_info = {-pri_a28_evac_com_to_helicopter =actor_in_zone(pri_a28_sr_horror)} sr_deimos

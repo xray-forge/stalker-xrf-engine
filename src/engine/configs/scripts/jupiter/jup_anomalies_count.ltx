@@ -2,6 +2,7 @@
 active = sr_idle@jupiter
 
 [sr_idle@jupiter]
+$scheme = $sr_idle
 on_info = {+actor_was_in_many_bad_places} sr_idle@nil
 on_info2 = {=counter_greater(anomalies_visited:18)} sr_idle@nil %+actor_was_in_many_bad_places%
 on_info3 = {-jup_b10_visited =actor_in_zone(jup_b10_zone_field_thermal_average)} %+jup_b10_visited =inc_counter(anomalies_visited)%
@@ -15,3 +16,4 @@ on_info10 = {-jup_b25_visited =actor_in_zone(jup_b25_zone_field_acidic_weak)} %+
 on_info11 = {-jup_b32_visited =actor_in_zone(jup_b32_zone_field_radioactive_weak)} %+jup_b32_visited =inc_counter(anomalies_visited)%
 
 [sr_idle@nil]
+$scheme = $sr_idle

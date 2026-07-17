@@ -2,10 +2,12 @@
 active = sr_idle@wait
 
 [sr_idle@wait]
+$scheme = $sr_idle
 on_info = {+zat_b14_stalker_robbery_cutscene_end} sr_idle@end
 on_info2 = {-zat_b14_stalker_robbery_cutscene_start +zat_b14_stalker_robbery -zat_b14_actor_enemy} sr_cutscene@coming %+zat_b14_stalker_robbery_cutscene_start%
 
 [sr_cutscene@coming]
+$scheme = $sr_cutscene
 point = zat_b14_robbery_actor_walk
 look = zat_b14_robbery_actor_look
 cam_effector = scenario_cam\zaton\zat_b14_robbery
@@ -14,3 +16,4 @@ global_cameffect = true
 outdoor = true
 
 [sr_idle@end]
+$scheme = $sr_idle

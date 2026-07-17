@@ -2,6 +2,8 @@
 active = sr_idle@1
 
 [sr_idle@1]
+$scheme = $sr_idle
 on_info = {=actor_in_zone(jup_b205_tushkano_zone_01)} sr_idle@end %=set_counter(jup_b205_death_count:1)%
 
 [sr_idle@end]
+$scheme = $sr_idle
