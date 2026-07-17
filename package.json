@@ -22,7 +22,7 @@
     "format:check": "prettier --check \"**/*.(js|ts|tsx|md)\" \"!cli/bin/**/*\"",
     "format:ltx:hook": "ts-node -P ./cli/tsconfig.json cli/hooks/format_ltx_for_staged.ts",
     "lint": "eslint . --config cli/lint/eslint.config.mjs --cache --cache-location target/eslint/cache.json",
-    "lint:staged": "lint-staged --config cli/hooks/lint-staged.config.mjs",
+    "lint:staged": "lint-staged --config cli/hooks/lint-staged.config.mjs --max-arg-length 7000",
     "lint:strict": "eslint . --config cli/lint/eslint.config.strict.mjs",
     "test": "jest",
     "test:coverage": "jest --coverage",
