@@ -1,0 +1,27 @@
+[$model_capture_disable]
+strict = true
+angular_factor = ?f32
+change_count = ?i8
+linear_factor = ?f32
+
+[$model_capture]
+strict = true
+bone = string
+capture_force = f32
+distance = f32
+pull_distance = f32
+pull_force = f32
+time_limit = u32
+velocity_scale = f32
+
+[$model_capture_used_bones]
+strict = true
+bones = string[]
+
+[$model_capture_immunities]
+strict = true
+immunities_sect = string
+
+[$model_capture_bone_protection]
+strict = true
+bones_protection_sect = string
