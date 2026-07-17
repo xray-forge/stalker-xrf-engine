@@ -107,7 +107,31 @@ describe("quests conditions implementation", () => {
     ).toBe(true);
   });
 
-  it.todo("jup_b221_who_will_start should check start object");
+  it("jup_b221_who_will_start should report and choose available faction themes", () => {
+    mockRegisteredActor();
+
+    expect(() => callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "No such parameters in function 'jup_b221_who_will_start'"
+    );
+    expect(
+      callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock(), "ability")
+    ).toBe(false);
+
+    giveInfoPortion(infoPortions.jup_b25_freedom_flint_gone);
+
+    expect(
+      callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock(), "ability")
+    ).toBe(true);
+    expect(
+      callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock(), "choose")
+    ).toBe(true);
+
+    giveInfoPortion("jup_b221_duty_main_1_played");
+
+    expect(
+      callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock(), "ability")
+    ).toBe(false);
+  });
 
   it.todo("pas_b400_actor_far_forward should check actor state");
 
@@ -141,7 +165,23 @@ describe("quests conditions implementation", () => {
     expect(callXrCondition("pri_a28_actor_is_far", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
   });
 
-  it.todo("jup_b25_senya_spawn_condition should check alcoholic spawn condition");
+  it("jup_b25_senya_spawn_condition should require quest progress and the Soroka search", () => {
+    mockRegisteredActor();
+
+    expect(callXrCondition("jup_b25_senya_spawn_condition", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
+      false
+    );
+
+    giveInfoPortion(infoPortions.jup_b16_oasis_found);
+    expect(callXrCondition("jup_b25_senya_spawn_condition", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
+      false
+    );
+
+    giveInfoPortion(infoPortions.zat_b106_search_soroka);
+    expect(callXrCondition("jup_b25_senya_spawn_condition", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
+      true
+    );
+  });
 
   it("jup_b25_flint_gone_condition should check flint gone condition", () => {
     mockRegisteredActor();
