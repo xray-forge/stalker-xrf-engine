@@ -48,6 +48,35 @@ describe("correct generic condlists parsing", () => {
       },
     ]);
   });
+
+  it("zat_b7_duty_illicit_dealer_b5: keeps combat-ignore predicates in separate branches", () => {
+    expect(
+      parseConditionsList(
+        "{=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2)} true, " +
+          "{=check_enemy_name(sim_default) =fighting_dist_ge(30)} true"
+      )
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: {
+          "1": {
+            expected: true,
+            func: "check_enemy_name",
+            params: { "1": "zat_b5_dealer_assistant_1", "2": "zat_b5_dealer_assistant_2" },
+          },
+        },
+        infop_set: {},
+        section: "true",
+      },
+      {
+        infop_check: {
+          "1": { expected: true, func: "check_enemy_name", params: { "1": "sim_default" } },
+          "2": { expected: true, func: "fighting_dist_ge", params: { "1": 30 } },
+        },
+        infop_set: {},
+        section: "true",
+      },
+    ]);
+  });
 });
 
 describe("incorrect generic condlists parsing", () => {
@@ -87,6 +116,29 @@ describe("incorrect generic condlists parsing", () => {
           "2": { expected: true, func: "destroy_object", params: null },
         },
         section: "",
+      },
+    ]);
+  });
+
+  it("zat_b7_duty_illicit_dealer_b5: legacy missing brace drops the assistant predicate", () => {
+    expect(
+      parseConditionsList(
+        "{=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2) true, " +
+          "{=check_enemy_name(sim_default) =fighting_dist_ge(30)} true"
+      )
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: {},
+        infop_set: {},
+        section: "{=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2) true",
+      },
+      {
+        infop_check: {
+          "1": { expected: true, func: "check_enemy_name", params: { "1": "sim_default" } },
+          "2": { expected: true, func: "fighting_dist_ge", params: { "1": 30 } },
+        },
+        infop_set: {},
+        section: "true",
       },
     ]);
   });
