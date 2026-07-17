@@ -5,6 +5,7 @@ prior = 200
 monster_job = true
 
 [mob_home@pas_b400_snork_elevator_4]
+$scheme = $mob_home
 path_home = 4_snork_spawn
 home_min_radius = 10
 home_max_radius = 20
@@ -12,6 +13,7 @@ aggressive = true
 on_info = {=actor_in_zone(pas_b400_sr_elevator_3)} mob_home@pas_b400_snork_elevator_4_attack
 
 [mob_home@pas_b400_snork_elevator_4_attack]
+$scheme = $mob_home
 path_home = 4_snork_home
 home_min_radius = 10
 home_max_radius = 20
@@ -24,6 +26,7 @@ prior = 200
 monster_job = true
 
 [mob_home@pas_b400_tushkano_elevator_1]
+$scheme = $mob_home
 path_home = tushkano_home_1
 
 [logic@pas_b400_tushkano_elevator_2]
@@ -33,4 +36,5 @@ prior = 200
 monster_job = true
 
 [mob_home@pas_b400_tushkano_elevator_2]
+$scheme = $mob_home
 path_home = tushkano_home_2

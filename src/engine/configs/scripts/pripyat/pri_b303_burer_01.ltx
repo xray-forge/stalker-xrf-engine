@@ -5,6 +5,7 @@ monster_job = true
 active = mob_walker@save
 
 [mob_walker@save]
+$scheme = $mob_walker
 path_walk = save_home
 path_look = attack_home
 out_restr = pri_surge_hide_b303
@@ -13,6 +14,7 @@ on_info = {=actor_in_zone(pri_b303_actor_come)} mob_walker@wait, {=actor_in_zone
 on_info2 = {-pri_b303_door_must_be_opened =npc_in_zone(pri_surge_hide_b303)} %+pri_b303_door_must_be_opened%, {+pri_b303_door_must_be_opened !npc_in_zone(pri_surge_hide_b303)} %-pri_b303_door_must_be_opened%
 
 [mob_walker@wait]
+$scheme = $mob_walker
 path_walk = burer_walk
 path_look = burer_look
 combat_ignore_cond = true
@@ -27,6 +29,7 @@ on_info2 = {+pri_b303_actor_attack_burer} mob_home@attack
 on_info3 = {-pri_b303_door_must_be_opened =npc_in_zone(pri_surge_hide_b303)} %+pri_b303_door_must_be_opened%, {+pri_b303_door_must_be_opened !npc_in_zone(pri_surge_hide_b303)} %-pri_b303_door_must_be_opened%
 
 [mob_home@attack]
+$scheme = $mob_home
 path_home = attack_home
 home_min_radius = 5
 home_max_radius = 15

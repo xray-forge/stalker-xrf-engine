@@ -6,9 +6,11 @@ on_death = mob_death@burer_1
 suitable = {=target_squad_name(jup_b208_burers_squad)} true
 
 [mob_death@burer_1]
+$scheme = $mob_death
 on_info = %+jup_b208_burer_1_dead%
 
 [mob_home@burer_1]
+$scheme = $mob_home
 path_home = burer_1_home_1
 home_min_radius = 1
 home_max_radius = 2
@@ -26,9 +28,11 @@ suitable = {=target_squad_name(jup_b208_burers_squad)} true
 on_info = %+jup_b208_actor_enemy%
 
 [mob_death@burer_2]
+$scheme = $mob_death
 on_info = %+jup_b208_burer_2_dead%
 
 [mob_walker@burer_2]
+$scheme = $mob_walker
 path_walk = burer_2_walk
 path_look = burer_2_look
 on_info = {=dist_to_actor_le(8) -jup_b208_actor_enemy} %+jup_b208_actor_enemy%
@@ -37,6 +41,7 @@ on_info3 = {+jup_b208_actor_enemy} mob_home@burer_2
 out_restr = jup_b208_burers_restr
 
 [mob_home@burer_2]
+$scheme = $mob_home
 path_home = burer_2_home_1
 home_min_radius = 5
 home_max_radius = 20

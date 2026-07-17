@@ -6,6 +6,7 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_1_school_wait]
+$scheme = $mob_home
 path_home = snork_1_home
 out_restr = pri_a28_sr_school_3
 home_min_radius = 5
@@ -15,18 +16,21 @@ combat_ignore_cond = true
 on_info = {+pri_a28_arch_done} mob_walker@pri_a28_snork_1_school_walk
 
 [mob_walker@pri_a28_snork_1_school_walk]
+$scheme = $mob_walker
 path_walk = snork_1_walk
 path_look = snork_1_jump
 on_signal = path_end | mob_jump@pri_a28_snork_1_school_jump
 on_game_timer = 30 | mob_jump@pri_a28_snork_1_school_jump
 
 [mob_jump@pri_a28_snork_1_school_jump]
+$scheme = $mob_jump
 path_jump = snork_1_jump
 offset = 0,0,0
 ph_jump_factor = 1.1
 on_signal = jumped | mob_home@pri_a28_snork_1_school_home
 
 [mob_home@pri_a28_snork_1_school_home]
+$scheme = $mob_home
 path_home = snork_1_attack
 aggressive = true
 
@@ -41,21 +45,25 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_2_school_wait]:mob_home@pri_a28_snork_1_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_arch_done} mob_walker@pri_a28_snork_2_school_walk
 
 [mob_walker@pri_a28_snork_2_school_walk]
+$scheme = $mob_walker
 path_walk = snork_2_walk
 path_look = snork_2_jump
 on_signal = path_end | mob_jump@pri_a28_snork_2_school_jump
 on_game_timer = 40 | mob_jump@pri_a28_snork_2_school_jump
 
 [mob_jump@pri_a28_snork_2_school_jump]
+$scheme = $mob_jump
 path_jump = snork_2_jump
 offset = 0,0,0
 ph_jump_factor = 1
 on_signal = jumped | mob_home@pri_a28_snork_2_school_home
 
 [mob_home@pri_a28_snork_2_school_home]:mob_home@pri_a28_snork_1_school_home
+$scheme = $mob_home
 
 [logic@pri_a28_snork_3_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_1)} true
@@ -65,21 +73,25 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_3_school_wait]:mob_home@pri_a28_snork_1_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_arch_done} mob_walker@pri_a28_snork_3_school_walk
 
 [mob_walker@pri_a28_snork_3_school_walk]
+$scheme = $mob_walker
 path_walk = snork_3_walk
 path_look = snork_3_jump
 on_signal = path_end | mob_jump@pri_a28_snork_3_school_jump
 on_game_timer = 50 | mob_jump@pri_a28_snork_3_school_jump
 
 [mob_jump@pri_a28_snork_3_school_jump]
+$scheme = $mob_jump
 path_jump = snork_3_jump
 offset = 0,0,0
 ph_jump_factor = 1.2
 on_signal = jumped | mob_home@pri_a28_snork_3_school_home
 
 [mob_home@pri_a28_snork_3_school_home]:mob_home@pri_a28_snork_1_school_home
+$scheme = $mob_home
 
 [logic@pri_a28_snork_4_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_1)} true
@@ -89,21 +101,25 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_4_school_wait]:mob_home@pri_a28_snork_1_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_arch_done} mob_walker@pri_a28_snork_4_school_walk
 
 [mob_walker@pri_a28_snork_4_school_walk]
+$scheme = $mob_walker
 path_walk = snork_4_walk
 path_look = snork_4_jump
 on_signal = path_end | mob_jump@pri_a28_snork_4_school_jump
 on_game_timer = 35 | mob_jump@pri_a28_snork_4_school_jump
 
 [mob_jump@pri_a28_snork_4_school_jump]
+$scheme = $mob_jump
 path_jump = snork_4_jump
 offset = 0,0,0
 ph_jump_factor = 0.95
 on_signal = jumped | mob_home@pri_a28_snork_4_school_home
 
 [mob_home@pri_a28_snork_4_school_home]:mob_home@pri_a28_snork_1_school_home
+$scheme = $mob_home
 
 [logic@pri_a28_snork_5_school]
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_school_snorks_2)} true
@@ -113,6 +129,7 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_5_school_wait]
+$scheme = $mob_home
 path_home = snork_2_home
 out_restr = pri_a28_school_in_restrictor
 home_min_radius = 2
@@ -123,6 +140,7 @@ on_info = {+pri_a28_school_2_leave} mob_walker@pri_a28_snork_5_school_walk
 on_info2 = {!npc_in_zone(pri_a28_school_in_restrictor)} %=teleport_npc(pri_a28_school_snork_2_home)%
 
 [mob_walker@pri_a28_snork_5_school_walk]
+$scheme = $mob_walker
 path_walk = snork_5_walk
 path_look = snork_5_jump
 out_restr = pri_a28_school_in_restrictor
@@ -130,6 +148,7 @@ on_signal = path_end | mob_jump@pri_a28_snork_5_school_jump
 on_game_timer = 30 | mob_jump@pri_a28_snork_5_school_jump
 
 [mob_jump@pri_a28_snork_5_school_jump]
+$scheme = $mob_jump
 path_jump = snork_5_jump
 out_restr = pri_a28_school_in_restrictor
 offset = 0,0,0
@@ -137,6 +156,7 @@ ph_jump_factor = 1
 on_signal = jumped | mob_home@pri_a28_snork_5_school_home
 
 [mob_home@pri_a28_snork_5_school_home]
+$scheme = $mob_home
 path_home = snork_2_attack
 aggressive = true
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_5_school_jump
@@ -149,9 +169,11 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_6_school_wait]:mob_home@pri_a28_snork_5_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_school_2_leave} mob_walker@pri_a28_snork_6_school_walk
 
 [mob_walker@pri_a28_snork_6_school_walk]
+$scheme = $mob_walker
 path_walk = snork_6_walk
 path_look = snork_6_jump
 out_restr = pri_a28_school_in_restrictor
@@ -159,6 +181,7 @@ on_signal = path_end | mob_jump@pri_a28_snork_6_school_jump
 on_game_timer = 40 | mob_jump@pri_a28_snork_6_school_jump
 
 [mob_jump@pri_a28_snork_6_school_jump]
+$scheme = $mob_jump
 path_jump = snork_6_jump
 out_restr = pri_a28_school_in_restrictor
 offset = 0,0,0
@@ -166,6 +189,7 @@ ph_jump_factor = 1.1
 on_signal = jumped | mob_home@pri_a28_snork_6_school_home
 
 [mob_home@pri_a28_snork_6_school_home]:mob_home@pri_a28_snork_5_school_home
+$scheme = $mob_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_6_school_jump
 
 [logic@pri_a28_snork_7_school]
@@ -176,9 +200,11 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_7_school_wait]:mob_home@pri_a28_snork_5_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_school_2_leave} mob_walker@pri_a28_snork_7_school_walk
 
 [mob_walker@pri_a28_snork_7_school_walk]
+$scheme = $mob_walker
 path_walk = snork_7_walk
 path_look = snork_7_jump
 out_restr = pri_a28_school_in_restrictor
@@ -186,6 +212,7 @@ on_signal = path_end | mob_jump@pri_a28_snork_7_school_jump
 on_game_timer = 50 | mob_jump@pri_a28_snork_7_school_jump
 
 [mob_jump@pri_a28_snork_7_school_jump]
+$scheme = $mob_jump
 path_jump = snork_7_jump
 out_restr = pri_a28_school_in_restrictor
 offset = 0,0,0
@@ -193,6 +220,7 @@ ph_jump_factor = 1.1
 on_signal = jumped | mob_home@pri_a28_snork_7_school_home
 
 [mob_home@pri_a28_snork_7_school_home]:mob_home@pri_a28_snork_5_school_home
+$scheme = $mob_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_7_school_jump
 
 [logic@pri_a28_snork_8_school]
@@ -203,9 +231,11 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_8_school_wait]:mob_home@pri_a28_snork_5_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_school_2_leave} mob_walker@pri_a28_snork_8_school_walk
 
 [mob_walker@pri_a28_snork_8_school_walk]
+$scheme = $mob_walker
 path_walk = snork_8_walk
 path_look = snork_8_jump
 out_restr = pri_a28_school_in_restrictor
@@ -213,6 +243,7 @@ on_signal = path_end | mob_jump@pri_a28_snork_8_school_jump
 on_game_timer = 55 | mob_jump@pri_a28_snork_8_school_jump
 
 [mob_jump@pri_a28_snork_8_school_jump]
+$scheme = $mob_jump
 path_jump = snork_8_jump
 out_restr = pri_a28_school_in_restrictor
 offset = 0,0,0
@@ -220,6 +251,7 @@ ph_jump_factor = 1
 on_signal = jumped | mob_home@pri_a28_snork_8_school_home
 
 [mob_home@pri_a28_snork_8_school_home]:mob_home@pri_a28_snork_5_school_home
+$scheme = $mob_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_8_school_jump
 
 [logic@pri_a28_snork_9_school]
@@ -230,9 +262,11 @@ monster_job = true
 on_hit = hit@pri_a28_snork_hit
 
 [mob_home@pri_a28_snork_9_school_wait]:mob_home@pri_a28_snork_5_school_wait
+$scheme = $mob_home
 on_info = {+pri_a28_school_2_leave} mob_walker@pri_a28_snork_9_school_walk
 
 [mob_walker@pri_a28_snork_9_school_walk]
+$scheme = $mob_walker
 path_walk = snork_9_walk
 path_look = snork_9_jump
 out_restr = pri_a28_school_in_restrictor
@@ -240,6 +274,7 @@ on_signal = path_end | mob_jump@pri_a28_snork_9_school_jump
 on_game_timer = 45 | mob_jump@pri_a28_snork_9_school_jump
 
 [mob_jump@pri_a28_snork_9_school_jump]
+$scheme = $mob_jump
 path_jump = snork_9_jump
 out_restr = pri_a28_school_in_restrictor
 offset = 0,0,0
@@ -247,4 +282,5 @@ ph_jump_factor = 0.85
 on_signal = jumped | mob_home@pri_a28_snork_9_school_home
 
 [mob_home@pri_a28_snork_9_school_home]:mob_home@pri_a28_snork_5_school_home
+$scheme = $mob_home
 on_game_timer = 25 | {=npc_in_zone(pri_a28_school_in_restrictor)} mob_jump@pri_a28_snork_9_school_jump

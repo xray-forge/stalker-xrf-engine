@@ -1,4 +1,5 @@
 [mob_home@squad_01_wait]
+$scheme = $mob_home
 path_home = tushkano_home_1
 home_min_radius = 2
 home_max_radius = 5
@@ -6,6 +7,7 @@ out_restr = jup_b205_tushkano_zone_03
 on_info = {!npc_in_zone(jup_b205_tushkano_zone_03)} %=teleport_npc(jup_b205_smart_terrain_tushkano_home_1)%
 
 [mob_home@squad_01_attack]
+$scheme = $mob_home
 path_home = tushkano_home_2
 home_min_radius = 5
 home_max_radius = 20
@@ -37,25 +39,33 @@ active = mob_home@tushkano_06_wait
 active = mob_home@tushkano_07_wait
 
 [mob_home@tushkano_01_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:1)} mob_home@squad_01_attack
 
 [mob_home@tushkano_02_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:2)} mob_home@squad_01_attack
 
 [mob_home@tushkano_03_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:3)} mob_home@squad_01_attack
 
 [mob_home@tushkano_04_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:4)} mob_home@squad_01_attack
 
 [mob_home@tushkano_05_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:5)} mob_home@squad_01_attack
 
 [mob_home@tushkano_06_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:6)} mob_home@squad_01_attack
 
 [mob_home@tushkano_07_wait]:mob_home@squad_01_wait
+$scheme = $mob_home
 on_info2 = {=counter_equal(jup_b205_death_count:7)} mob_home@squad_01_attack
 
 [mob_death]
+$scheme = $mob_death
 on_info = %=inc_counter(jup_b205_death_count)%

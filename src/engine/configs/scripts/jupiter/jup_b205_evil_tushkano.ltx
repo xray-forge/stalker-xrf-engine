@@ -4,6 +4,7 @@ active = mob_walker@eat_01
 monster_job = true
 
 [mob_walker@eat_01]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_01
@@ -13,12 +14,14 @@ aggressive = true
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_01]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_01
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_01
 aggressive = true
 
 [mob_home@attack_stairs_01]
+$scheme = $mob_home
 path_home = evil_tushkano_01_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -27,12 +30,14 @@ aggressive = true
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_gate_01]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_01
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_01
 aggressive = true
 
 [mob_home@attack_gate_01]
+$scheme = $mob_home
 path_home = evil_tushkano_01_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -46,6 +51,7 @@ active = mob_walker@eat_02
 monster_job = true
 
 [mob_walker@eat_02]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_02
@@ -53,12 +59,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_02]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_02
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_02
 aggressive = true
 
 [mob_home@attack_stairs_02]
+$scheme = $mob_home
 path_home = evil_tushkano_02_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -66,12 +74,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_02
 aggressive = true
 
 [mob_walker@attack_gate_02]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_02
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_02
 aggressive = true
 
 [mob_home@attack_gate_02]
+$scheme = $mob_home
 path_home = evil_tushkano_01_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -84,6 +94,7 @@ active = mob_walker@eat_03
 monster_job = true
 
 [mob_walker@eat_03]
+$scheme = $mob_walker
 path_walk = evil_tushkano_03_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_03
@@ -91,12 +102,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_03]
+$scheme = $mob_walker
 path_walk = evil_tushkano_03_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_03
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_03
 aggressive = true
 
 [mob_home@attack_stairs_03]
+$scheme = $mob_home
 path_home = evil_tushkano_03_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -104,12 +117,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_03
 aggressive = true
 
 [mob_walker@attack_gate_03]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_03
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_03
 aggressive = true
 
 [mob_home@attack_gate_03]
+$scheme = $mob_home
 path_home = evil_tushkano_01_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -122,6 +137,7 @@ active = mob_walker@eat_04
 monster_job = true
 
 [mob_walker@eat_04]
+$scheme = $mob_walker
 path_walk = evil_tushkano_04_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_04
@@ -129,12 +145,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_04]
+$scheme = $mob_walker
 path_walk = evil_tushkano_04_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_04
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_04
 aggressive = true
 
 [mob_home@attack_stairs_04]
+$scheme = $mob_home
 path_home = evil_tushkano_04_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -142,12 +160,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_04
 aggressive = true
 
 [mob_walker@attack_gate_04]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_04
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_04
 aggressive = true
 
 [mob_home@attack_gate_04]
+$scheme = $mob_home
 path_home = evil_tushkano_02_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -160,6 +180,7 @@ active = mob_walker@eat_05
 monster_job = true
 
 [mob_walker@eat_05]
+$scheme = $mob_walker
 path_walk = evil_tushkano_05_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_05
@@ -167,12 +188,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_05]
+$scheme = $mob_walker
 path_walk = evil_tushkano_04_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_05
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_05
 aggressive = true
 
 [mob_home@attack_stairs_05]
+$scheme = $mob_home
 path_home = evil_tushkano_05_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -180,12 +203,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_05
 aggressive = true
 
 [mob_walker@attack_gate_05]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_05
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_05
 aggressive = true
 
 [mob_home@attack_gate_05]
+$scheme = $mob_home
 path_home = evil_tushkano_02_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -198,6 +223,7 @@ active = mob_walker@eat_06
 monster_job = true
 
 [mob_walker@eat_06]
+$scheme = $mob_walker
 path_walk = evil_tushkano_06_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_06
@@ -205,12 +231,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_06]
+$scheme = $mob_walker
 path_walk = evil_tushkano_06_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_06
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_06
 aggressive = true
 
 [mob_home@attack_stairs_06]
+$scheme = $mob_home
 path_home = evil_tushkano_06_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -218,12 +246,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_06
 aggressive = true
 
 [mob_walker@attack_gate_06]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_06
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_06
 aggressive = true
 
 [mob_home@attack_gate_06]
+$scheme = $mob_home
 path_home = evil_tushkano_02_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -236,6 +266,7 @@ active = mob_walker@eat_07
 monster_job = true
 
 [mob_walker@eat_07]
+$scheme = $mob_walker
 path_walk = evil_tushkano_06_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_07
@@ -243,12 +274,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_07]
+$scheme = $mob_walker
 path_walk = evil_tushkano_06_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_07
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_07
 aggressive = true
 
 [mob_home@attack_stairs_07]
+$scheme = $mob_home
 path_home = evil_tushkano_06_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -256,12 +289,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_07
 aggressive = true
 
 [mob_walker@attack_gate_07]
+$scheme = $mob_walker
 path_walk = evil_tushkano_02_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_07
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_07
 aggressive = true
 
 [mob_home@attack_gate_07]
+$scheme = $mob_home
 path_home = evil_tushkano_02_gate_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -274,6 +309,7 @@ active = mob_walker@eat_08
 monster_job = true
 
 [mob_walker@eat_08]
+$scheme = $mob_walker
 path_walk = evil_tushkano_05_walk
 path_look = evil_tushkano_look
 on_info = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@attack_stairs_08
@@ -281,12 +317,14 @@ on_info2 = {=actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@attac
 out_restr = jup_b205_evil_tushkano_zone
 
 [mob_walker@attack_stairs_08]
+$scheme = $mob_walker
 path_walk = evil_tushkano_05_stairs_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_08
 on_actor_dist_le_nvis = 10 | mob_home@attack_stairs_08
 aggressive = true
 
 [mob_home@attack_stairs_08]
+$scheme = $mob_home
 path_home = evil_tushkano_05_stairs_walk
 home_min_radius = 20
 home_max_radius = 40
@@ -294,12 +332,14 @@ on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_01)} mob_walker@eat_08
 aggressive = true
 
 [mob_walker@attack_gate_08]
+$scheme = $mob_walker
 path_walk = evil_tushkano_01_gate_walk
 on_info = {!actor_in_zone(jup_b205_evil_tushkano_warnzone_02)} mob_walker@eat_08
 on_actor_dist_le_nvis = 10 | mob_home@attack_gate_08
 aggressive = true
 
 [mob_home@attack_gate_08]
+$scheme = $mob_home
 path_home = evil_tushkano_01_gate_walk
 home_min_radius = 20
 home_max_radius = 40

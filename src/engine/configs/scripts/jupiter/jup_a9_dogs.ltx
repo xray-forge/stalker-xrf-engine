@@ -6,6 +6,7 @@ prior = 200
 monster_job = true
 
 [mob_walker@jup_a9_dog_gen]
+$scheme = $mob_walker
 combat_ignore_cond = {=check_enemy_smart(jup_b47)} true
 ; dogs section
 
@@ -25,16 +26,21 @@ active = mob_walker@04
 active = mob_walker@05
 
 [mob_walker@01]:mob_walker@jup_a9_dog_gen
+$scheme = $mob_walker
 path_walk = dogs_1_walk
 
 [mob_walker@02]:mob_walker@jup_a9_dog_gen
+$scheme = $mob_walker
 path_walk = dogs_2_walk
 
 [mob_walker@03]:mob_walker@jup_a9_dog_gen
+$scheme = $mob_walker
 path_walk = dogs_3_walk
 
 [mob_walker@04]:mob_walker@jup_a9_dog_gen
+$scheme = $mob_walker
 path_walk = dogs_4_walk
 
 [mob_walker@05]:mob_walker@jup_a9_dog_gen
+$scheme = $mob_walker
 path_walk = dogs_5_walk
