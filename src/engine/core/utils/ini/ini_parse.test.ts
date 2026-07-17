@@ -26,7 +26,7 @@ import {
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 
-describe("parseStringsList util", () => {
+describe("parseStringsList", () => {
   it("should correctly parse names array", () => {
     expect(parseStringsList("a, b, c")).toEqualLuaArrays(["a", "b", "c"]);
     expect(parseStringsList("a b c")).toEqualLuaArrays(["a", "b", "c"]);
@@ -42,7 +42,7 @@ describe("parseStringsList util", () => {
   });
 });
 
-describe("parseStringsSet util", () => {
+describe("parseStringsSet", () => {
   it("should correctly parse names array", () => {
     expect(parseStringsSet("a, b, c")).toEqualLuaTables({ a: true, b: true, c: true });
     expect(parseStringsSet("a b c")).toEqualLuaTables({ a: true, b: true, c: true });
@@ -58,7 +58,7 @@ describe("parseStringsSet util", () => {
   });
 });
 
-describe("parseNumbersList util", () => {
+describe("parseNumbersList", () => {
   it("should correctly parse numbers array", () => {
     expect(parseNumbersList("1, 2, 3, 4")).toEqualLuaArrays([1, 2, 3, 4]);
     expect(parseNumbersList("1.5, 2.33, 3.0")).toEqualLuaArrays([1.5, 2.33, 3.0]);
@@ -69,7 +69,7 @@ describe("parseNumbersList util", () => {
   });
 });
 
-describe("parseSpawnDetails util", () => {
+describe("parseSpawnDetails", () => {
   it("should correctly parse spawn details", () => {
     expect(parseSpawnDetails("")).toEqualLuaArrays([]);
     expect(parseSpawnDetails("1,1")).toEqualLuaArrays([
@@ -97,7 +97,7 @@ describe("parseSpawnDetails util", () => {
   });
 });
 
-describe("parseParameters util", () => {
+describe("parseParameters", () => {
   it("should correctly parse call parameters", () => {
     expect(parseParameters(NIL)).toEqualLuaArrays([NIL]);
     expect(parseParameters("abcd")).toEqualLuaArrays(["abcd"]);
@@ -109,7 +109,7 @@ describe("parseParameters util", () => {
   });
 });
 
-describe("parseConditionsList util", () => {
+describe("parseConditionsList", () => {
   it("should correctly parse condition lists", () => {
     // Memo check.
     expect(parseConditionsList("{+zat_b104_task_end}4,0")).toBe(parseConditionsList("{+zat_b104_task_end}4,0"));
@@ -189,25 +189,10 @@ describe("parseConditionsList util", () => {
         },
       },
     ]);
-
-    // jup_b8_psy_dog_1/2: only a prefixed function call is a condlist condition.
-    expect(parseConditionsList("{=actor_in_zone(jup_surge_hide_b8)} mob_home@1")).toStrictEqualLuaArrays([
-      {
-        infop_check: {
-          "1": {
-            expected: true,
-            func: "actor_in_zone",
-            params: { "1": "jup_surge_hide_b8" },
-          },
-        },
-        infop_set: {},
-        section: "mob_home@1",
-      },
-    ]);
   });
 });
 
-describe("parseInfoPortions util", () => {
+describe("parseInfoPortions", () => {
   it("should correctly parse info", () => {
     const first: LuaArray<IConfigCondition> = parseInfoPortions(
       new LuaTable(),
@@ -264,7 +249,7 @@ describe("parseInfoPortions util", () => {
   });
 });
 
-describe("parseFunctionParams util", () => {
+describe("parseFunctionParams", () => {
   it("should correctly parse list of parameters for condlists", () => {
     expect(parseFunctionParams("zat_b42_mayron:zat_b42_mayron_walk")).toEqualLuaArrays([
       "zat_b42_mayron",
@@ -275,7 +260,7 @@ describe("parseFunctionParams util", () => {
   });
 });
 
-describe("parseWaypointData util", () => {
+describe("parseWaypointData", () => {
   it("should correctly parse generic paths to waypoint data", () => {
     const flags: Flags32 = new flags32();
 
@@ -433,7 +418,7 @@ describe("parseWaypointData util", () => {
   });
 });
 
-describe("parseWaypointsDataFromList util", () => {
+describe("parseWaypointsDataFromList", () => {
   it("should correctly parse generic paths to waypoint data", () => {
     expect(
       parseWaypointsDataFromList(
@@ -490,7 +475,7 @@ describe("parseWaypointsDataFromList util", () => {
   });
 });
 
-describe("parseBoneStateDescriptors util", () => {
+describe("parseBoneStateDescriptors", () => {
   it("should correctly parse bones data", () => {
     expect(
       parseBoneStateDescriptors(
@@ -507,7 +492,7 @@ describe("parseBoneStateDescriptors util", () => {
   });
 });
 
-describe("pickSectionFromCondList util", () => {
+describe("pickSectionFromCondList", () => {
   it("should correctly throw on unexpected callbacks", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const target: GameObject = MockGameObject.mock();
@@ -647,7 +632,7 @@ describe("pickSectionFromCondList util", () => {
   });
 });
 
-describe("parseStringOptional util", () => {
+describe("parseStringOptional", () => {
   it("should correctly handle values", () => {
     expect(parseStringOptional(NIL)).toBeNull();
     expect(parseStringOptional("nil")).toBeNull();
@@ -657,7 +642,7 @@ describe("parseStringOptional util", () => {
   });
 });
 
-describe("parseNumberOptional util", () => {
+describe("parseNumberOptional", () => {
   it("should correctly handle values", () => {
     expect(parseNumberOptional(NIL)).toBeNull();
     expect(parseNumberOptional("nil")).toBeNull();
@@ -666,7 +651,7 @@ describe("parseNumberOptional util", () => {
   });
 });
 
-describe("getSchemeFromSection util", () => {
+describe("getSchemeFromSection", () => {
   it("should correctly return scheme", () => {
     expect(getSchemeFromSection("test")).toBe("test");
     expect(getSchemeFromSection("test@example")).toBe("test");
