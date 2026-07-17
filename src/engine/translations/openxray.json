@@ -241,12 +241,12 @@
   },
   "ui_mm_hud_fov": {
     "eng": "Hud field of view",
-    "fra": null,
+    "fra": "Champ de vision du HUD",
     "ger": "Sichtfeld der HUD",
-    "ita": null,
+    "ita": "Campo visivo dell'HUD",
     "pol": "Kąt widzenia HUD",
     "rus": "Угол обзора HUD",
-    "spa": null,
+    "spa": "Campo de visión del HUD",
     "ukr": "Кут огляду HUD"
   },
   "ui_mm_loadingstages": {
@@ -351,12 +351,12 @@
   },
   "ui_mm_ui_fov": {
     "eng": "Field of view",
-    "fra": null,
+    "fra": "Champ de vision",
     "ger": "Sichtfeld",
-    "ita": null,
+    "ita": "Campo visivo",
     "pol": "Kąt widzenia",
     "rus": "Угол обзора",
-    "spa": null,
+    "spa": "Campo de visión",
     "ukr": "Кут огляду"
   },
   "ui_mm_ui_style": {
