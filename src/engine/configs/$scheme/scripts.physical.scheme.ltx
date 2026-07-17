@@ -1,0 +1,76 @@
+[$ph_button]:$scheme_common
+strict = true
+anim = string
+anim_blend = ?bool
+on_press = ?condlist
+tooltip = ?string
+
+[$ph_code]:$scheme_common
+strict = true
+code = ?u32
+on_code = ?condlist
+
+[$ph_door]:$scheme_common
+strict = true
+closed = ?bool
+hit_on_bone = ?string
+locked = ?bool
+no_force = ?bool
+not_for_npc = ?bool
+on_use = ?condlist
+show_tips = ?bool
+slider = ?bool
+snd_close_start = ?string
+snd_close_stop = ?string
+snd_open_start = ?string
+tip_close = ?string
+tip_open = ?string
+
+[$ph_force]:$scheme_common
+strict = true
+delay = ?f32
+force = f32
+point = string
+point_index = ?u32
+time = f32
+
+[$ph_hit]:$scheme_common
+strict = true
+bone = string
+dir_path = string
+impulse = ?f32
+power = ?f32
+
+[$ph_idle]:$scheme_common
+strict = true
+hit_on_bone = ?string
+nonscript_usable = ?bool
+on_use = ?condlist
+tips = ?string
+
+[$ph_minigun]:$scheme_common
+strict = true
+auto_fire = ?bool
+fire_angle = ?f32
+fire_range = ?f32
+fire_repeat = ?f32
+fire_time = ?f32
+on_target_nvis = ?string
+on_target_vis = ?string
+path_fire = ?string
+shoot_only_on_visible = ?bool
+target = ?string
+track_target = ?bool
+
+[$ph_on_death]:$scheme_common
+strict = true
+
+[$ph_on_hit]:$scheme_common
+strict = true
+
+[$ph_oscillate]:$scheme_common
+strict = true
+correct_angle = ?f32
+force = f32
+joint = string
+period = f32
