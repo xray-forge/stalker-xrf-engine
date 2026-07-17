@@ -1,0 +1,219 @@
+[$logic]:$scheme_common,$scheme_object_common
+strict = true
+active = ?string
+known_info = ?string
+on_combat = ?string
+on_death = ?string
+post_combat_time = ?string
+prior = ?i32
+suitable = ?condlist
+
+[$abuse]:$scheme_common,$scheme_object_common
+strict = true
+
+[$animpoint]:$scheme_common,$scheme_object_common
+strict = true
+avail_animations = ?string
+cover_name = ?string
+reach_distance = ?f32
+reach_movement = ?string
+snd = ?string
+target = ?string
+use_camp = ?bool
+
+[$camper]:$scheme_common,$scheme_object_common
+strict = true
+attack_sound = ?string
+def_state_campering = ?string
+def_state_campering_fire = ?string
+def_state_moving = ?string
+def_state_moving1 = ?string
+def_state_moving2 = ?string
+def_state_moving3 = ?string
+def_state_moving_fire = ?string
+def_state_standing = ?string
+enemy_idle = ?f32
+no_retreat = ?bool
+path_look = ?string
+path_walk = ?string
+radius = ?f32
+scantime_free = ?f32
+shoot = ?string
+sniper = ?bool
+sniper_anim = ?string
+
+[$combat]:$scheme_common,$scheme_object_common
+strict = true
+combat_type = ?condlist
+
+[$combat_camper]:$scheme_common,$scheme_object_common
+strict = true
+
+[$combat_ignore]:$scheme_common,$scheme_object_common
+strict = true
+
+[$combat_zombied]:$scheme_common,$scheme_object_common
+strict = true
+
+[$companion]:$scheme_common,$scheme_object_common
+strict = true
+
+[$corpse_detection]:$scheme_common,$scheme_object_common
+strict = true
+
+[$cover]:$scheme_common,$scheme_object_common
+strict = true
+anim = ?condlist
+radius_max = ?f32
+radius_min = ?f32
+smart = ?string
+sound_idle = ?string
+use_attack_direction = ?bool
+
+[$danger]:$scheme_common,$scheme_object_common
+strict = true
+danger_inertion_time_grenade = ?f32
+danger_inertion_time_hit = ?f32
+danger_inertion_time_ricochet = ?f32
+danger_inertion_time_sound = ?f32
+ignore_distance = ?f32
+ignore_distance_corpse = ?f32
+ignore_distance_grenade = ?f32
+ignore_distance_hit = ?f32
+ignore_distance_sound = ?f32
+
+[$death]:$scheme_common,$scheme_object_common
+strict = true
+
+[$gather_items]:$scheme_common,$scheme_object_common
+strict = true
+
+[$help_wounded]:$scheme_common,$scheme_object_common
+strict = true
+
+[$hit]:$scheme_common,$scheme_object_common
+strict = true
+
+[$meet]:$scheme_common,$scheme_object_common
+strict = true
+abuse = ?condlist
+allow_break = ?condlist
+close_anim = ?condlist
+close_distance = ?condlist
+close_snd_bye = ?condlist
+close_snd_distance = ?condlist
+close_snd_hello = ?condlist
+close_victim = ?condlist
+far_anim = ?condlist
+far_distance = ?condlist
+far_snd = ?condlist
+far_snd_distance = ?condlist
+far_victim = ?condlist
+meet_dialog = ?condlist
+meet_on_talking = ?bool
+meet_state = ?condlist
+meet_state_wpn = ?condlist
+snd_on_use = ?condlist
+trade_enable = ?condlist
+use = ?condlist
+use_text = ?condlist
+use_wpn = ?condlist
+victim = ?condlist
+victim_wpn = ?condlist
+
+[$patrol]:$scheme_common,$scheme_object_common
+strict = true
+commander = ?bool
+def_state_moving = ?string
+def_state_moving1 = ?string
+def_state_standing = ?string
+formation = ?string
+move_type = ?string
+path_look = ?string
+path_walk = ?string
+silent = ?bool
+
+[$reach_task]:$scheme_common,$scheme_object_common
+strict = true
+
+[$remark]:$scheme_common,$scheme_object_common
+strict = true
+anim = ?condlist
+def_state_campering = ?string
+def_state_campering_fire = ?string
+def_state_moving = ?string
+def_state_standing = ?string
+no_retreat = ?bool
+path_look = ?string
+path_walk = ?string
+radius = ?f32
+snd = ?string
+snd_anim_sync = ?bool
+target = ?string
+tips = ?string
+tips_sender = ?string
+
+[$sleeper]:$scheme_common,$scheme_object_common
+strict = true
+path_main = ?string
+wakeable = ?bool
+
+[$smartcover]:$scheme_common,$scheme_object_common
+strict = true
+cover_name = ?string
+cover_state = ?string
+def_state_campering = ?string
+def_state_moving = ?string
+def_state_moving1 = ?string
+def_state_standing = ?string
+derf_state_moving = ?string
+exit_body_state = ?string
+idle_max_time = ?f32
+idle_min_time = ?f32
+lookout_max_time = ?f32
+lookout_min_time = ?f32
+loophole_name = ?string
+no_retreat = ?bool
+radius = ?f32
+sound_idle = ?string
+target_enemy = ?string
+target_path = ?string
+use_in_combat = ?bool
+use_precalc_cover = ?bool
+weapon_type = ?string
+
+[$walker]:$scheme_common,$scheme_object_common
+strict = true
+combat_ignore_condition = ?condlist
+combat_igrore_cond = ?condlist
+def_state_campering = ?string
+def_state_campering_fire = ?string
+def_state_moving = ?string
+def_state_moving1 = ?string
+def_state_moving2 = ?string
+def_state_moving3 = ?string
+def_state_standing = ?string
+ignore_distance = ?f32
+no_retreat = ?bool
+path+look = ?string
+path_look = ?string
+path_walk = ?string
+radius = ?f32
+sound_idle = ?string
+team = ?string
+use_camp = ?bool
+
+[$wounded]:$scheme_common,$scheme_object_common
+strict = true
+autoheal = ?bool
+enable_talk = ?bool
+help_dialog = ?string
+help_start_dialog = ?string
+hp_cover = ?string
+hp_fight = ?string
+hp_state = ?string
+hp_state_see = ?string
+hp_victim = ?string
+not_for_help = ?bool
+psy_state = ?string
+use_medkit = ?bool
