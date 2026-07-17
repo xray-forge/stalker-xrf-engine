@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 
-describe("generic condlists parsing", () => {
+describe("correct generic condlists parsing", () => {
   it("jup_b8_psy_dog_1/2: only a prefixed function call is a condlist condition", () => {
     expect(parseConditionsList("{=actor_in_zone(jup_surge_hide_b8)} mob_home@1")).toStrictEqualLuaArrays([
       {
@@ -30,6 +30,63 @@ describe("generic condlists parsing", () => {
         },
         infop_set: {},
         section: "walker@vano_hall_12",
+      },
+    ]);
+  });
+
+  it("zat_b20_noah_teleport: runs cleanup effects after the plateau route becomes known", () => {
+    expect(
+      parseConditionsList("{+zat_b20_plateau_way_known} %+zat_b20_destroy_actor =destroy_object%")
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: { "1": { name: "zat_b20_plateau_way_known", required: true } },
+        infop_set: {
+          "1": { name: "zat_b20_destroy_actor", required: true },
+          "2": { expected: true, func: "destroy_object", params: null },
+        },
+        section: "",
+      },
+    ]);
+  });
+});
+
+describe("incorrect generic condlists parsing", () => {
+  it("jup_b8_psy_dog_1/2: legacy silent issue", () => {
+    expect(parseConditionsList("{actor_in_zone(jup_surge_hide_b8)} mob_home@1")).toStrictEqualLuaArrays([
+      {
+        infop_check: {},
+        infop_set: {},
+        section: "mob_home@1",
+      },
+    ]);
+  });
+
+  it("pas_b400_hall: legacy silent issue", () => {
+    expect(
+      parseConditionsList("{pas_b400_vano_about_dome_1_played +pas_b400_sr_hall_12} walker@vano_hall_12")
+    ).toStrictEqualLuaArrays([
+      {
+        infop_check: {
+          "1": { name: "pas_b400_sr_hall_12", required: true },
+        },
+        infop_set: {},
+        section: "walker@vano_hall_12",
+      },
+    ]);
+  });
+
+  it("zat_b20_noah_teleport: legacy silent issue", () => {
+    expect(
+      parseConditionsList("{+zat_b20_plateau_way_known)} %+zat_b20_destroy_actor =destroy_object%")
+    ).toStrictEqualLuaArrays([
+      {
+        // Invalid name.
+        infop_check: { "1": { name: "zat_b20_plateau_way_known)", required: true } },
+        infop_set: {
+          "1": { name: "zat_b20_destroy_actor", required: true },
+          "2": { expected: true, func: "destroy_object", params: null },
+        },
+        section: "",
       },
     ]);
   });
