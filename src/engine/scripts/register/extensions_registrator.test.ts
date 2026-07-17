@@ -10,6 +10,7 @@ import {
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
+import { mockExtension } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/extensions");
 jest.mock("@/engine/core/utils/extensions/extensions_state");
@@ -22,27 +23,22 @@ describe("extensions registrator", () => {
   });
 
   it("should correctly register extensions from available list", () => {
-    const first: IExtensionsDescriptor = {
+    const first: IExtensionsDescriptor = mockExtension({
       canToggle: false,
       entry: "first/",
       isEnabled: true,
-      module: {
-        register: jest.fn(),
-      },
       name: "first",
       path: "first/path",
-    };
+    });
 
-    const second: IExtensionsDescriptor = {
+    const second: IExtensionsDescriptor = mockExtension({
       canToggle: false,
       entry: "first/",
       isEnabled: false,
-      module: {
-        unregister: jest.fn(),
-      },
+
       name: "first",
       path: "first/path",
-    };
+    });
 
     replaceFunctionMockOnce(getAvailableExtensions, () => $fromArray([second, first]));
     replaceFunctionMockOnce(loadExtensionsState, () => $fromArray([first, second]));
