@@ -1,6 +1,7 @@
 #include "pri_a28_general.ltx"
 
 [logic@pri_a28_kovalski_base]
+$scheme = $logic
 active = walker@kovalski_base_1
 suitable = {-pri_a28_base_done =check_npc_name(kovalski)} true
 prior = 200
@@ -64,6 +65,7 @@ path_look = kovalski_2_look
 out_restr = pri_a28_sr_shop_1
 
 [logic@pri_a28_kirillov_base]
+$scheme = $logic
 active = walker@kirillov_base_1
 suitable = {-pri_a28_base_done =check_npc_name(army_signaller)} true
 prior = 200
@@ -117,6 +119,7 @@ path_look = kirillov_2_look
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_strelok_base]
+$scheme = $logic
 active = walker@strelok_base_1
 suitable = {-pri_a28_base_done =check_npc_name(strelok)} true
 prior = 200
@@ -154,6 +157,7 @@ def_state_standing = hide_na
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_military_1_base]
+$scheme = $logic
 active = walker@military_1_base_1
 suitable = {-pri_a28_base_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(army_signaller) !check_npc_name(kovalski)} true
 prior = 110
@@ -190,6 +194,7 @@ path_look = military_1_2_look
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_military_2_base]
+$scheme = $logic
 active = walker@military_2_base_1
 suitable = {-pri_a28_base_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(army_signaller) !check_npc_name(kovalski)} true
 prior = 100
@@ -226,6 +231,7 @@ path_look = military_2_2_look
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_military_3_base]
+$scheme = $logic
 active = walker@military_3_base_1
 suitable = {-pri_a28_base_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(army_signaller) !check_npc_name(kovalski)} true
 prior = 90
@@ -262,6 +268,7 @@ path_look = military_3_2_look
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_military_4_base]
+$scheme = $logic
 active = walker@military_4_base_1
 suitable = {-pri_a28_base_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(army_signaller) !check_npc_name(kovalski)} true
 prior = 100
@@ -298,6 +305,7 @@ path_look = military_4_2_look
 out_restr = pri_a28_sr_base_2
 
 [logic@pri_a28_military_5_base]
+$scheme = $logic
 active = walker@military_5_base_1
 suitable = {-pri_a28_base_done =target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(army_signaller) !check_npc_name(kovalski)} true
 prior = 90

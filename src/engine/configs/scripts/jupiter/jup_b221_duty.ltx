@@ -1,4 +1,5 @@
 [logic@jup_b221_duty_01]
+$scheme = $logic
 active = animpoint@jup_b221_duty_01_reach
 suitable = {=check_npc_name(monolith)} false, {+jup_b25_freedom_flint_gone =npc_in_zone(jup_a6_sr_noweap) =npc_community(dolg)} true
 prior = 150
@@ -60,6 +61,7 @@ snd_on_use = {!dist_to_actor_le(3)} nil
 meet_on_talking = false
 
 [logic@jup_b221_duty_02]
+$scheme = $logic
 active = animpoint@jup_b221_duty_02_reach
 suitable = {=check_npc_name(monolith)} false, {+jup_b25_freedom_flint_gone =npc_in_zone(jup_a6_sr_noweap) =npc_community(dolg)} true
 prior = 150
@@ -108,6 +110,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [logic@jup_b221_duty_03]
+$scheme = $logic
 active = animpoint@jup_b221_duty_03_reach
 suitable = {=check_npc_name(monolith)} false, {+jup_b25_freedom_flint_gone =npc_in_zone(jup_a6_sr_noweap) =npc_community(dolg)} true
 prior = 150

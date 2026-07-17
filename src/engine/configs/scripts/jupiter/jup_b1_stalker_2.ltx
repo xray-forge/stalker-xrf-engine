@@ -7,6 +7,7 @@ wounded = wounded
 danger = danger
 
 [logic@jup_b1_stalker_2]
+$scheme = $logic
 suitable = {=check_npc_name(jup_b1_stalker_2) !actor_has_item(jup_b1_half_artifact) -jup_b1_task_done} true
 prior = 70
 active = walker@first
@@ -126,6 +127,7 @@ meet = no_meet
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
 [logic@jup_b1_zomb_stalker_2]
+$scheme = $logic
 suitable = {=check_npc_name(jup_b1_stalker_2) =actor_has_item(jup_b1_half_artifact)} true
 prior = 70
 active = camper@zombie

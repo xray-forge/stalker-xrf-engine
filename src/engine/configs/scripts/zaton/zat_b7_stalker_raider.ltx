@@ -1,6 +1,7 @@
 ; Raider Leader
 
 [logic@zat_b7_stalker_raider_leader]
+$scheme = $logic
 active = walker@leader_start_first
 prior = 200
 suitable = {=check_npc_name(zat_b7_stalker_raider_leader) -zat_b7_stalkers_raiders_attack} true
@@ -85,6 +86,7 @@ snd_on_use = {-zat_b7_raider_plan} meet_use_no_talk_leader
 abuse = false
 
 [logic@zat_b7_stalker_raider_leader_attack]
+$scheme = $logic
 active = walker@leader_attack
 prior = 200
 suitable = {=is_alive(zat_b7_stalker_raider_leader) =check_npc_name(zat_b7_stalker_raider_leader) +zat_b7_stalkers_raiders_attack} true, {!is_alive(zat_b7_stalker_raider_leader) =target_squad_name(zat_b7_stalkers_raiders) +zat_b7_stalkers_raiders_attack =is_squad_commander} true
@@ -192,6 +194,7 @@ allow_break = false
 meet_dialog = zat_b7_stalkers_raiders_dialog
 
 [logic@zat_b7_stalker_raider_leader_after]
+$scheme = $logic
 active = walker@leader_after
 prior = 200
 suitable = {=is_alive(zat_b7_stalker_raider_leader) =check_npc_name(zat_b7_stalker_raider_leader)} true, {!is_alive(zat_b7_stalker_raider_leader) =target_squad_name(zat_b7_stalkers_raiders) =is_squad_commander} true
@@ -234,6 +237,7 @@ snd_on_use = nil
 ; Raider 1
 
 [logic@zat_b7_stalker_raider_1_attack]
+$scheme = $logic
 active = walker@attack_1
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_stalker_raider_leader) +zat_b7_stalkers_raiders_attack !is_squad_commander} true
@@ -293,6 +297,7 @@ corpse_detection_enabled = false
 ; Raider 2
 
 [logic@zat_b7_stalker_raider_2_attack]
+$scheme = $logic
 active = walker@attack_2
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_stalker_raider_leader) +zat_b7_stalkers_raiders_attack !is_squad_commander} true
@@ -352,6 +357,7 @@ corpse_detection_enabled = false
 ; Raider 3
 
 [logic@zat_b7_stalker_raider_3_attack]
+$scheme = $logic
 active = walker@attack_3
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_stalker_raider_leader) +zat_b7_stalkers_raiders_attack !is_squad_commander} true

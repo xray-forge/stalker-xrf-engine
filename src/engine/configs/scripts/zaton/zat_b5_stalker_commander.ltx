@@ -1,4 +1,5 @@
 [logic@zat_b5_stalker_commander]
+$scheme = $logic
 active = walker
 suitable = {-zat_b5_task_end -zat_b7_stalker_victim_leader_alive =check_npc_name(zat_b5_stalker_commander)} true, {-zat_b5_task_end +zat_b7_stalker_victim_leader_alive =check_npc_name(zat_b5_stalker_commander_b7)} true, { -zat_b5_task_end =target_squad_name(zat_b5_stalkers_squad) !is_alive(zat_b5_stalker_commander_id) !is_alive(zat_b5_stalker_commander_b7_id) =is_squad_commander} true
 prior = 200

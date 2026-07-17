@@ -11,11 +11,13 @@ corpse_detection_enabled = false
 use_camp = true
 
 [logic@pri_a20_missing_military_recon_leader]
+$scheme = $logic
 active = animpoint@base_1
 suitable = {-pri_a17_actor_has_gauss_rifle =check_npc_name(pri_a15_military_recon_leader)} true, {-pri_a17_actor_has_gauss_rifle =check_npc_name(pri_a15_military_recon_1)} true
 prior = 200
 
 [logic@pri_a20_missing_military_recon_1]
+$scheme = $logic
 active = animpoint@base_2
 suitable = {-pri_a17_actor_has_gauss_rifle =check_npc_name(pri_a15_military_recon_leader)} true, {-pri_a17_actor_has_gauss_rifle =check_npc_name(pri_a15_military_recon_1)} true
 prior = 200

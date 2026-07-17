@@ -1,4 +1,5 @@
 [logic@zat_b38_stalker_cop]
+$scheme = $logic
 suitable = {=check_npc_name(zat_b38_stalker_cop)} true
 prior = 200
 active = animpoint@base
@@ -34,6 +35,7 @@ corpse_detection_enabled = false
 ; *****************************************************************
 
 [logic@zat_b38_stalker_cop_in_lair]
+$scheme = $logic
 suitable = {+zat_b38_disappearance_stalkers_find_to_be_missing_hunter_give_task =check_npc_name(zat_b38_stalker_cop)} true
 prior = 200
 active = walker@wait_for_actor

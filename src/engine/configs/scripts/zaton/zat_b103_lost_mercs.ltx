@@ -21,6 +21,7 @@ $scheme = $remark
 ; ************************************< lost_merc #1 >******************************
 
 [logic@lost_merc_1]
+$scheme = $logic
 suitable = {=check_npc_name(zat_b103_lost_merc_1) !surge_started}
 active = walker@1
 prior = 200
@@ -50,6 +51,7 @@ meet = no_meet
 ; ************************************< lost_merc #2 >******************************
 
 [logic@lost_merc_2]
+$scheme = $logic
 suitable = {=check_npc_name(zat_b103_lost_merc_2) !surge_started}
 active = walker@2
 prior = 200
@@ -79,6 +81,7 @@ meet = no_meet
 ; ************************************< lost_merc #3 >******************************
 
 [logic@lost_merc_3]
+$scheme = $logic
 suitable = {=target_squad_name(zat_b103_lost_merc_squad1) !check_npc_name(zat_b103_lost_merc_1) !surge_started}
 active = animpoint@3
 prior = 200
@@ -108,6 +111,7 @@ meet = no_meet
 ; ************************************< lost_merc #4 >******************************
 
 [logic@lost_merc_4]
+$scheme = $logic
 suitable = {=target_squad_name(zat_b103_lost_merc_squad1) !check_npc_name(zat_b103_lost_merc_1) !surge_started}
 active = animpoint@4
 prior = 200
@@ -137,6 +141,7 @@ meet = no_meet
 ; ************************************< lost_merc #5 >******************************
 
 [logic@lost_merc_5]
+$scheme = $logic
 suitable = {=target_squad_name(zat_b103_lost_merc_squad1) !check_npc_name(zat_b103_lost_merc_1) !surge_started}
 active = animpoint@5
 prior = 200
@@ -166,6 +171,7 @@ meet = no_meet
 ; *********************************************< lost_merc #6 >**************************************
 
 [logic@lost_merc_6]
+$scheme = $logic
 suitable = {=check_npc_name(zat_b103_lost_merc_6) !surge_started}
 active = walker@6
 prior = 100
@@ -183,6 +189,7 @@ on_actor_not_in_zone = zat_b103_sr_def_restr | walker@6
 ; *********************************************< lost_merc #7 >**************************************
 
 [logic@lost_merc_7]
+$scheme = $logic
 suitable = {=check_npc_name(zat_b103_lost_merc_7) !surge_started}
 active = walker@7
 prior = 100

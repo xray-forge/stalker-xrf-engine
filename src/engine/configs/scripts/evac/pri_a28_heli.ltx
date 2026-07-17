@@ -1,6 +1,7 @@
 #include "pri_a28_general.ltx"
 
 [logic@pri_a28_kovalski_heli]
+$scheme = $logic
 active = camper@kovalski_heli_1
 suitable = {=check_npc_name(kovalski)} true
 prior = 200
@@ -39,6 +40,7 @@ path_look = kovalski_1_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_strelok_heli]
+$scheme = $logic
 active = camper@strelok_heli_1
 suitable = {=check_npc_name(strelok)} true
 prior = 200
@@ -70,6 +72,7 @@ out_restr = pri_a28_scene_end_zone
 on_info = {-pri_a28_strelok_can_leave =npc_in_zone(pri_a28_scene_end_zone)} %+pri_a28_strelok_can_leave%
 
 [logic@pri_a28_military_1_heli]
+$scheme = $logic
 active = camper@military_1_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 110
@@ -99,6 +102,7 @@ path_look = military_1_2_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_military_2_heli]
+$scheme = $logic
 active = camper@military_2_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 100
@@ -128,6 +132,7 @@ path_look = military_2_2_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_military_3_heli]
+$scheme = $logic
 active = camper@military_3_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 90
@@ -157,6 +162,7 @@ path_look = military_3_2_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_military_4_heli]
+$scheme = $logic
 active = camper@military_4_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 110
@@ -194,6 +200,7 @@ path_look = military_4_2_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_military_5_heli]
+$scheme = $logic
 active = camper@military_5_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 100
@@ -231,6 +238,7 @@ path_look = military_5_2_look
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_military_6_heli]
+$scheme = $logic
 active = camper@military_6_heli_1
 suitable = {=target_squad_name(pri_a16_military_squad) !check_npc_name(strelok) !check_npc_name(kovalski)} true
 prior = 90

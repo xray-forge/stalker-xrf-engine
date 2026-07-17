@@ -18,6 +18,7 @@ $scheme = $walker
 on_info50 = {-pas_b400_about_door !is_alive_one(pas_b400_zulus:pas_b400_vano) +pas_b400_hall_door_opened +pas_b400_hall_monolith_snipers_dead} %+pas_b400_about_door =play_sound(pas_b400_wanderer_about_door_1)%
 
 [logic@pas_b400_zulus_hall]
+$scheme = $logic
 active = walker@zulus_hall_enter
 suitable = {=check_npc_name(pas_b400_zulus) -pas_b400_hall_done} true
 prior = 200
@@ -197,6 +198,7 @@ on_info5 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12)
 on_info6 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_zulus_about_control_gates_1)%
 
 [logic@pas_b400_vano_hall]
+$scheme = $logic
 active = walker@vano_hall_enter
 suitable = {=check_npc_name(pas_b400_vano) -pas_b400_hall_done} true
 prior = 200
@@ -422,6 +424,7 @@ on_info6 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12)
 on_info7 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive_one(pas_b400_sokolov:pas_b400_zulus) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_vano_about_control_gates_1)%
 
 [logic@pas_b400_sokolov_hall]
+$scheme = $logic
 active = walker@sokolov_hall_enter
 suitable = {=check_npc_name(pas_b400_sokolov) -pas_b400_hall_done} true
 prior = 200
@@ -596,6 +599,7 @@ on_info5 = {-pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12)
 on_info6 = {-pas_b400_hall_door_opened +pas_b400_control_down_door_opened =npc_in_zone(pas_b400_sr_hall_12) !is_alive(pas_b400_zulus) !squad_has_enemy(pas_b400_stalkers_squad) -pas_b400_about_control_gates} %+pas_b400_about_control_gates =play_sound(pas_b400_sokolov_about_control_gates_1)%
 
 [logic@pas_b400_wanderer_hall]
+$scheme = $logic
 active = walker@wanderer_hall_enter
 suitable = {=check_npc_name(pas_b400_wanderer) -pas_b400_hall_done} true
 prior = 200

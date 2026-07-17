@@ -13,29 +13,37 @@ home_min_radius = 5
 home_max_radius = 20
 
 [logic@tushkano_works]
+$scheme = $logic
 suitable = {=is_monster_tushkano} true
 monster_job = true
 on_death = mob_death
 
 [logic@tushkano_work_01]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_01_wait
 
 [logic@tushkano_work_02]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_02_wait
 
 [logic@tushkano_work_03]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_03_wait
 
 [logic@tushkano_work_04]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_04_wait
 
 [logic@tushkano_work_05]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_05_wait
 
 [logic@tushkano_work_06]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_06_wait
 
 [logic@tushkano_work_07]:logic@tushkano_works
+$scheme = $logic
 active = mob_home@tushkano_07_wait
 
 [mob_home@tushkano_01_wait]:mob_home@squad_01_wait

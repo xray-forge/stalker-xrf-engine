@@ -16,6 +16,7 @@ path_walk = zat_a23_zombie_attak
 out_restr = zat_a23_zombie_restrictor
 
 [logic@zat_a23_zombie_gen]
+$scheme = $logic
 suitable = {=npc_community(zombied)} true
 prior = 200
 post_combat_time = 0, 0
@@ -23,6 +24,7 @@ on_death = death@zat_a23_zombie_gen
 ; zombied works
 
 [logic@zat_a23_zombie_01]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_01
 
 [walker@zat_a23_zombie_01]:walker@zat_a23_zombie_gen
@@ -31,6 +33,7 @@ path_walk = zat_a23_zombie_06_walk
 on_info1 = {=counter_equal(zat_a23_zombied_attack:1)} walker@zat_a23_zombie_attak
 
 [logic@zat_a23_zombie_02]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_02
 
 [walker@zat_a23_zombie_02]:walker@zat_a23_zombie_gen
@@ -39,6 +42,7 @@ path_walk = zat_a23_zombie_05_walk
 on_info1 = {=counter_equal(zat_a23_zombied_attack:2)} walker@zat_a23_zombie_attak
 
 [logic@zat_a23_zombie_03]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_03
 
 [walker@zat_a23_zombie_03]:walker@zat_a23_zombie_gen
@@ -47,6 +51,7 @@ path_walk = zat_a23_zombie_01_walk
 on_info1 = {=counter_equal(zat_a23_zombied_attack:3)} walker@zat_a23_zombie_attak
 
 [logic@zat_a23_zombie_04]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_04
 
 [walker@zat_a23_zombie_04]:walker@zat_a23_zombie_gen
@@ -55,6 +60,7 @@ path_walk = zat_a23_zombie_02_walk
 on_info1 = {=counter_equal(zat_a23_zombied_attack:4)} walker@zat_a23_zombie_attak
 
 [logic@zat_a23_zombie_05]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_05
 
 [walker@zat_a23_zombie_05]:walker@zat_a23_zombie_gen
@@ -63,6 +69,7 @@ path_walk = zat_a23_zombie_04_walk
 on_info1 = {=counter_equal(zat_a23_zombied_attack:5)} walker@zat_a23_zombie_attak
 
 [logic@zat_a23_zombie_06]:logic@zat_a23_zombie_gen
+$scheme = $logic
 active = walker@zat_a23_zombie_06
 
 [walker@zat_a23_zombie_06]:walker@zat_a23_zombie_gen

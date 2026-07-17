@@ -1,6 +1,7 @@
 ; Guards
 
 [logic@zat_a2_guarder_1]
+$scheme = $logic
 active = walker@guarder_1
 suitable = {=check_npc_name(sim_default_stalker) =npc_in_zone(zat_a2_sr_noweap) !surge_started} true
 prior = 120
@@ -29,6 +30,7 @@ out_restr = zat_a2_sr_noweap
 in_restr = zat_a2_sr_light
 
 [logic@zat_a2_guarder_2]
+$scheme = $logic
 active = walker@guarder_2
 suitable = {=check_npc_name(sim_default_stalker) =npc_in_zone(zat_a2_sr_noweap) !surge_started} true
 prior = 100
@@ -44,6 +46,7 @@ $scheme = $remark
 on_game_timer = 75 | walker@guarder_2
 
 [logic@zat_a2_guarder_3]
+$scheme = $logic
 active = walker@guarder_3
 suitable = {=check_npc_name(sim_default_stalker) =npc_in_zone(zat_a2_sr_noweap) !surge_started} true
 prior = 100
@@ -60,6 +63,7 @@ on_game_timer = 75 | walker@guarder_3
 ; Spartacus
 
 [logic@zat_b7_stalker_victim_leader]
+$scheme = $logic
 active = animpoint@zat_b7_stalker_victim_leader
 suitable = {=check_npc_name(zat_b7_stalker_victim_1) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 150
@@ -92,126 +96,151 @@ meet_on_talking = false
 ; animpoints
 
 [logic@zat_a2_guarder_4]
+$scheme = $logic
 active = animpoint@guarder_4
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_guarder_5]
+$scheme = $logic
 active = animpoint@guarder_5
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_guarder_6]
+$scheme = $logic
 active = animpoint@guarder_6
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_1]
+$scheme = $logic
 active = animpoint@zat_a2_animp_1
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_2]
+$scheme = $logic
 active = animpoint@zat_a2_animp_2
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_3]
+$scheme = $logic
 active = animpoint@zat_a2_animp_3
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_4]
+$scheme = $logic
 active = animpoint@zat_a2_animp_4
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_5]
+$scheme = $logic
 active = animpoint@zat_a2_animp_5
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_6]
+$scheme = $logic
 active = animpoint@zat_a2_animp_6
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_7]
+$scheme = $logic
 active = animpoint@zat_a2_animp_7
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_8]
+$scheme = $logic
 active = animpoint@zat_a2_animp_8
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_9]
+$scheme = $logic
 active = animpoint@zat_a2_animp_9
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_10]
+$scheme = $logic
 active = animpoint@zat_a2_animp_10
 suitable = {=check_npc_name(sim_default) -zat_b14_stalkers_go_sim =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) +zat_b14_stalkers_go_sim =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_11]
+$scheme = $logic
 active = animpoint@zat_a2_animp_11
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_12]
+$scheme = $logic
 active = animpoint@zat_a2_animp_12
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_13]
+$scheme = $logic
 active = animpoint@zat_a2_animp_13
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_14]
+$scheme = $logic
 active = animpoint@zat_a2_animp_14
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_15]
+$scheme = $logic
 active = animpoint@zat_a2_animp_15
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_16]
+$scheme = $logic
 active = animpoint@zat_a2_animp_16
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_17]
+$scheme = $logic
 active = animpoint@zat_a2_animp_17
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_18]
+$scheme = $logic
 active = animpoint@zat_a2_animp_18
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 90
 
 [logic@zat_a2_animp_19]
+$scheme = $logic
 active = animpoint@zat_a2_animp_19
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_20]
+$scheme = $logic
 active = animpoint@zat_a2_animp_20
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100
 
 [logic@zat_a2_animp_21]
+$scheme = $logic
 active = animpoint@zat_a2_animp_21
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 105
 
 [logic@zat_a2_animp_22]
+$scheme = $logic
 active = animpoint@zat_a2_animp_22
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(stalker_raider) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(zat_b14_stalker_) =npc_in_zone(zat_a2_sr_noweap)} true, {=check_npc_name(artefact_hunter) =npc_in_zone(zat_a2_sr_noweap)} true
 prior = 100

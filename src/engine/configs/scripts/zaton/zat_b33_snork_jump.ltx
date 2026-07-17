@@ -1,6 +1,7 @@
 ; generic section
 
 [logic@zat_b33_snork_jump_gen]
+$scheme = $logic
 suitable = {=is_monster_snork} true
 prior = 100
 monster_job = true
@@ -25,6 +26,7 @@ aggressive = true
 ; snork jobs
 
 [logic@zat_b33_snork_jump_01]:logic@zat_b33_snork_jump_gen
+$scheme = $logic
 active = mob_walker@zat_b33_snork_jump_01
 on_hit = hit@zat_b33_snork_jump_01
 
@@ -62,6 +64,7 @@ $scheme = $mob_home
 path_home = snork_jump_01_02
 
 [logic@zat_b33_snork_jump_02]:logic@zat_b33_snork_jump_gen
+$scheme = $logic
 active = mob_walker@zat_b33_snork_jump_02
 on_hit = hit@zat_b33_snork_jump_02
 
@@ -87,6 +90,7 @@ $scheme = $mob_home
 path_home = snork_jump_02_01
 
 [logic@zat_b33_snork_jump_03]:logic@zat_b33_snork_jump_gen
+$scheme = $logic
 active = mob_walker@zat_b33_snork_jump_03
 on_hit = hit@zat_b33_snork_jump_03
 
@@ -124,6 +128,7 @@ $scheme = $mob_home
 path_home = snork_jump_03_02
 
 [logic@zat_b33_snork_jump_04]:logic@zat_b33_snork_jump_gen
+$scheme = $logic
 active = mob_walker@zat_b33_snork_jump_04
 on_hit = hit@zat_b33_snork_jump_04
 
@@ -149,6 +154,7 @@ $scheme = $mob_home
 path_home = snork_jump_04_01
 
 [logic@zat_b33_snork_jump_05]:logic@zat_b33_snork_jump_gen
+$scheme = $logic
 active = mob_walker@zat_b33_snork_jump_05
 suitable = {=is_monster_snork +zat_b33_snork_spawn_05 -zat_b33_snork_jump_05_dead} true
 prior = 200

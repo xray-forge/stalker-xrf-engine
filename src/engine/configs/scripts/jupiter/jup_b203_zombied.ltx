@@ -1,4 +1,5 @@
 [logic@work_1]
+$scheme = $logic
 active = walker@zombied_1
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -13,6 +14,7 @@ sound_idle = state
 combat_ignore_cond = = {=check_enemy_name(sim_default)} true
 
 [logic@work_2]
+$scheme = $logic
 active = walker@zombied_2
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -27,6 +29,7 @@ sound_idle = state
 combat_ignore_cond = = {=check_enemy_name(sim_default)} true
 
 [logic@work_3]
+$scheme = $logic
 active = walker@zombied_3
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -43,9 +46,11 @@ combat_ignore_cond = {=is_enemy_actor -jup_b203_damaged_room_1} true, {=check_en
 on_info = {=actor_in_zone(jup_b203_zombied_restr_1) -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [hit_3]
+$scheme = $hit
 on_info = {=hit_by_actor -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [logic@work_4]
+$scheme = $logic
 active = walker@zombied_4
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -62,9 +67,11 @@ combat_ignore_cond = {=is_enemy_actor -jup_b203_damaged_room_1} true, {=check_en
 on_info = {=actor_in_zone(jup_b203_zombied_restr_1) -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [hit_4]
+$scheme = $hit
 on_info = {=hit_by_actor -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [logic@work_5]
+$scheme = $logic
 active = walker@zombied_5
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -81,9 +88,11 @@ combat_ignore_cond = {=is_enemy_actor -jup_b203_damaged_room_1} true, {=check_en
 on_info = {=actor_in_zone(jup_b203_zombied_restr_1) -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [hit_5]
+$scheme = $hit
 on_info = {=hit_by_actor -jup_b203_damaged_room_1} %+jup_b203_damaged_room_1%
 
 [logic@work_6]
+$scheme = $logic
 active = walker@zombied_6
 suitable = {=target_squad_name(jup_b203_zombied_squad)} true
 prior = 200
@@ -100,4 +109,5 @@ combat_ignore_cond = {=is_enemy_actor -jup_b203_damaged_room_2} true, {=check_en
 on_info = {=actor_in_zone(jup_b203_zombied_restr_2) -jup_b203_damaged_room_2} %+jup_b203_damaged_room_2%
 
 [hit_6]
+$scheme = $hit
 on_info = {=hit_by_actor -jup_b203_damaged_room_2} %+jup_b203_damaged_room_2%

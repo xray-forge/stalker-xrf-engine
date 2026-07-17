@@ -1,6 +1,7 @@
 ; generic section
 
 [logic@zat_b100_poltergeist_gen]
+$scheme = $logic
 prior = 200
 monster_job = true
 
@@ -11,6 +12,7 @@ on_info = {+zat_b100_polter_ignor_actor} %=polter_actor_ignore(true)%, {=actor_i
 ; work section
 
 [logic@zat_b100_poltergeist_01]:logic@zat_b100_poltergeist_gen
+$scheme = $logic
 active = mob_home@zat_b100_poltergeist_01
 suitable = {=is_monster_polter -zat_b100_heli_2_searched} true
 
@@ -21,6 +23,7 @@ home_min_radius = 5
 home_max_radius = 15
 
 [logic@zat_b100_poltergeist_02]:logic@zat_b100_poltergeist_gen
+$scheme = $logic
 active = mob_home@zat_b100_poltergeist_02
 suitable = {=is_monster_polter +zat_b100_heli_2_searched} true
 

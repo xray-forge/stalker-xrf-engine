@@ -1,4 +1,5 @@
 [logic@port_bandit_1_leader]
+$scheme = $logic
 active = walker@wait
 suitable = {=check_npc_name(zat_b52_port_bandit_1) -zat_b52_actor_go_offline} true, {=is_squad_commander +zat_b52_bandit_leader_is_dead =target_squad_name(zat_b52_port_bandits) -zat_b52_actor_go_offline} true
 prior = 100
@@ -128,6 +129,7 @@ $scheme = $death
 on_info = %+zat_b52_bandit_leader_is_dead%
 
 [logic@port_bandit_2]
+$scheme = $logic
 active = walker@wait_bandit_2
 suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_port_bandits) -zat_b52_actor_go_offline} true
 prior = 90
@@ -151,6 +153,7 @@ on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_2
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
 [logic@port_bandit_3]
+$scheme = $logic
 active = walker@wait_bandit_3
 suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_port_bandits) -zat_b52_actor_go_offline} true
 prior = 90
@@ -174,6 +177,7 @@ on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_3
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
 [logic@port_bandit_4]
+$scheme = $logic
 active = walker@wait_bandit_4
 suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_port_bandits) -zat_b52_actor_go_offline} true
 prior = 90
@@ -197,6 +201,7 @@ on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_4
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
 [logic@port_bandit_5]
+$scheme = $logic
 active = walker@wait_bandit_5
 suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_port_bandits) -zat_b52_actor_go_offline} true
 prior = 90

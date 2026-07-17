@@ -1,4 +1,5 @@
 [logic@guard_1]
+$scheme = $logic
 active = walker@guard_1
 suitable = {=check_npc_name(monolith)} true
 prior = 100
@@ -32,11 +33,13 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [danger_1]
+$scheme = $danger
 ignore_distance = 0
 ; [hit_1]
 ; on_info = {=hit_by_actor -pri_b36_ahtung} %+pri_b36_ahtung%
 
 [logic@guard_2]
+$scheme = $logic
 active = walker@guard_2
 suitable = {=check_npc_name(monolith)} true
 prior = 100
@@ -70,6 +73,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [danger_2]
+$scheme = $danger
 ignore_distance = 0
 ; [hit_2]
 ; on_info = {=hit_by_actor -pri_b36_ahtung} %+pri_b36_ahtung%

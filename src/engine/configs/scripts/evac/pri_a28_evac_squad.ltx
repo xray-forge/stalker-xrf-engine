@@ -1,6 +1,7 @@
 #include "pri_a28_general.ltx"
 
 [logic@pri_a28_evac_military_1]
+$scheme = $logic
 active = camper@pri_a28_evac_military_1_wait
 suitable = {+pri_b305_fifth_cam_end =check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) =is_squad_commander} true
 prior = 200
@@ -28,6 +29,7 @@ on_info2 = {+pri_a28_evac_com_to_helicopter} %=play_sound(pri_a28_evac_com_to_he
 on_signal = sound_end | {-pri_a28_evac_come_close_done} %+pri_a28_evac_come_close_done%
 
 [logic@pri_a28_evac_military_2]
+$scheme = $logic
 active = camper@pri_a28_evac_military_2_wait
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_evac_squad) !check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) !is_squad_commander} true
 prior = 200
@@ -49,6 +51,7 @@ def_state_standing = hide_na
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_evac_military_3]
+$scheme = $logic
 active = camper@pri_a28_evac_military_3_wait
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_evac_squad) !check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) !is_squad_commander} true
 prior = 200
@@ -70,6 +73,7 @@ def_state_standing = hide_na
 out_restr = pri_a28_scene_end_zone
 
 [logic@pri_a28_evac_military_4]
+$scheme = $logic
 active = camper@pri_a28_evac_military_4_wait
 suitable = {+pri_b305_fifth_cam_end =target_squad_name(pri_a28_evac_squad) !check_npc_name(pri_a28_evac_com)} true, {+pri_b305_fifth_cam_end !is_alive(pri_a28_evac_com) =target_squad_name(pri_a28_evac_squad) !is_squad_commander} true
 prior = 200

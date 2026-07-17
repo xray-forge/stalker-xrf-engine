@@ -6,6 +6,7 @@ combat_ignore_keep_when_attacked = true
 meet = no_meet
 
 [logic@pri_a22_military_yarmoshuk]
+$scheme = $logic
 active = walker@base_1
 suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_yarmoshuk)} true
 prior = 200
@@ -28,6 +29,7 @@ on_game_timer = 8 | nil %=kill_npc%
 pri_a22_yarmoshuk_body_search
 
 [logic@pri_a22_military_skelja]
+$scheme = $logic
 active = walker@base_2
 suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_skelja)} true
 prior = 200
@@ -47,6 +49,7 @@ $scheme = $walker
 on_game_timer = 8 | nil %=kill_npc%
 
 [logic@pri_a22_military_merkulov]
+$scheme = $logic
 active = walker@base_3
 suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_merkulov)} true
 prior = 200

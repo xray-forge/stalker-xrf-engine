@@ -32,10 +32,12 @@ path_walk = stalker_bandit_leave_walk
 on_signal = to_nill | %=spawn_object_in(wpn_wincheaster1300:jup_b202_bandit) =spawn_object_in(ammo_12x76_zhekan:jup_b202_bandit) =spawn_object_in(grenade_rgd5:jup_b202_bandit) +jup_b202_bandit_go_away%
 
 [logic@jup_b202_gen]
+$scheme = $logic
 prior = 200
 ; snag work
 
 [logic@jup_b202_stalker_snag_wounded]:logic@jup_b202_gen
+$scheme = $logic
 suitable = {=check_npc_name(jup_b202_stalker_snag)}
 active = walker@jup_b202_wait_for_stol
 on_death = death@jup_b202_stalker_snag_wounded
@@ -99,6 +101,7 @@ trade_enable = false
 ; bandit work
 
 [logic@jup_b202_stalker_bandit]:logic@jup_b202_gen
+$scheme = $logic
 suitable = {=check_npc_name(jup_b202_bandit)}
 active = walker@jup_b202_stalker_bandit_teleport
 on_hit = hit@jup_b202_stalker_bandit

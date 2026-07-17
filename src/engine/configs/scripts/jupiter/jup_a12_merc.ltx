@@ -7,6 +7,7 @@ hp_cover = 0|false
 hp_fight = 0|false
 
 [logic@jup_a12_merc_cover]
+$scheme = $logic
 active = walker@merc_cover_start
 post_combat_time = 0, 0
 suitable = {=check_npc_name(jup_a12_merc_cover) -jup_a12_merc_attack_started} true
@@ -73,6 +74,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [logic@jup_a12_merc_cover_attack]
+$scheme = $logic
 active = camper@cover_attack_containers
 post_combat_time = 0, 0
 suitable = {=check_npc_name(jup_a12_merc_cover) +jup_a12_merc_attack_started} true
@@ -121,6 +123,7 @@ meet = no_meet
 wounded = wounded@no_wound
 
 [logic@jup_a12_merc_left]
+$scheme = $logic
 active = walker@merc_left_start
 post_combat_time = 0, 0
 suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a12_merc_cover) -jup_a12_merc_attack_started} true
@@ -167,6 +170,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [logic@jup_a12_merc_left_attack]
+$scheme = $logic
 active = camper@left_attack_containers
 post_combat_time = 0, 0
 suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a12_merc_cover) +jup_a12_merc_attack_started} true
@@ -207,6 +211,7 @@ meet = no_meet
 wounded = wounded@no_wound
 
 [logic@jup_a12_merc_right]
+$scheme = $logic
 active = walker@merc_right_start
 post_combat_time = 0, 0
 suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a12_merc_cover) -jup_a12_merc_attack_started} true
@@ -253,6 +258,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [logic@jup_a12_merc_right_attack]
+$scheme = $logic
 active = camper@right_attack_containers
 post_combat_time = 0, 0
 suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a12_merc_cover) +jup_a12_merc_attack_started} true

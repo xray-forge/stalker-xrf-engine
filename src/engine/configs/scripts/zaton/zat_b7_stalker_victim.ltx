@@ -1,4 +1,5 @@
 [logic@zat_b7_stalker_victim_sleeper_1]
+$scheme = $logic
 active = sleeper@sleeper_1
 prior = 30
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) -zat_b7_stalkers_victims_prepare} true, {+zat_b7_task_end} true
@@ -9,6 +10,7 @@ path_main = stalker_victim_sleeper_1
 meet = no_meet
 
 [logic@zat_b7_stalker_victim_sleeper_2]
+$scheme = $logic
 active = sleeper@sleeper_2
 prior = 30
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) -zat_b7_stalkers_victims_prepare} true, {+zat_b7_task_end} true
@@ -19,6 +21,7 @@ path_main = stalker_victim_sleeper_2
 meet = no_meet
 
 [logic@zat_b7_guard_walker]
+$scheme = $logic
 active = walker@zat_b7_guard_walker
 prior = 35
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) -zat_b7_stalkers_victims_prepare} true, {+zat_b7_task_end} true
@@ -31,6 +34,7 @@ def_state_moving = walk
 meet = no_meet
 
 [logic@zat_b7_stalker_victim_1]
+$scheme = $logic
 active = walker@start_1
 prior = 200
 suitable = {=is_alive(zat_b7_stalker_victim_1) =check_npc_name(zat_b7_stalker_victim_1)} true, {!is_alive(zat_b7_stalker_victim_1) =target_squad_name(zat_b7_stalkers_victims_1) =is_squad_commander} true
@@ -102,6 +106,7 @@ hp_cover = 0|false
 hp_fight = 0|false
 
 [logic@zat_b7_stalker_victim_2]
+$scheme = $logic
 active = camper@prepared_for_attack_2
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true
@@ -118,6 +123,7 @@ def_state_moving_fire = sneak_fire
 radius = 10
 
 [logic@zat_b7_stalker_victim_3]
+$scheme = $logic
 active = camper@prepared_for_attack_3
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true
@@ -153,6 +159,7 @@ meet = no_meet
 def_state_standing = hide_na
 
 [logic@zat_b7_stalker_victim_4]
+$scheme = $logic
 active = camper@prepared_for_attack_4
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true
@@ -169,6 +176,7 @@ def_state_moving_fire = sneak_fire
 radius = 10
 
 [logic@zat_b7_stalker_victim_5]
+$scheme = $logic
 active = camper@prepared_for_attack_5
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true
@@ -204,6 +212,7 @@ meet = no_meet
 def_state_standing = hide_na
 
 [logic@zat_b7_stalker_victim_6]
+$scheme = $logic
 active = camper@prepared_for_attack_6
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true
@@ -220,6 +229,7 @@ def_state_moving_fire = sneak_fire
 radius = 10
 
 [logic@zat_b7_stalker_victim_7]
+$scheme = $logic
 active = camper@prepared_for_attack_7
 prior = 100
 suitable = {=target_squad_name(zat_b7_stalkers_victims_1) +zat_b7_stalkers_victims_prepare -zat_b7_actor_help_stalkers} true

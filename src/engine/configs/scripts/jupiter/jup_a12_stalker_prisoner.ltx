@@ -7,6 +7,7 @@ hp_cover = 0|false
 hp_fight = 0|false
 
 [logic@jup_a12_stalker_prisoner]
+$scheme = $logic
 active = walker@stand_prisoner
 on_hit = hit
 on_death = death
@@ -254,6 +255,7 @@ $scheme = $death
 on_info = %+jup_a12_stalker_prisoner_dead +pri_a12_stalker_prisoner_free +jup_a12_stalker_prisoner_free%
 
 [logic@jup_a12_prisoner_free]
+$scheme = $logic
 active = walker@already_out_of_containers
 on_hit = hit
 on_death = death
@@ -338,6 +340,7 @@ on_info = {=has_enemy} walker@get_out_far_away, {=dist_to_actor_ge(5)} walker@ge
 wounded = wounded@no_wound
 
 [logic@jup_a12_stalker_prisoner_base]
+$scheme = $logic
 active = animpoint@go_to_base_done
 on_hit = hit
 on_death = death

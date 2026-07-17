@@ -1,4 +1,5 @@
 [logic@burer]
+$scheme = $logic
 active = mob_home
 suitable = {=check_npc_name(lx8_burer)} true
 prior = 100
@@ -15,9 +16,11 @@ aggressive = true
 out_restr = lx8_sr_burer_out_restr
 
 [hit_1]
+$scheme = $hit
 on_info = {=hit_by_actor !actor_in_zone(lx8_sr_burer_out_restr)} %=restore_health%
 
 [logic@burer_2]
+$scheme = $logic
 active = mob_home@2
 suitable = {=check_npc_name(lx8_burer_2)} true
 prior = 100
@@ -34,9 +37,11 @@ aggressive = true
 out_restr = lx8_sr_burer_out_restr
 
 [hit_2]
+$scheme = $hit
 on_info = {=hit_by_actor !actor_in_zone(lx8_sr_burer_out_restr)} %=restore_health%
 
 [logic@burer_3]
+$scheme = $logic
 active = mob_home@3
 suitable = {=check_npc_name(lx8_burer_3)} true
 prior = 100
@@ -53,4 +58,5 @@ aggressive = true
 out_restr = lx8_sr_burer_out_restr
 
 [hit_3]
+$scheme = $hit
 on_info = {=hit_by_actor !actor_in_zone(lx8_sr_burer_out_restr)} %=restore_health%

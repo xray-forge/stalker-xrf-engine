@@ -46,6 +46,7 @@ snd_on_use = {!dist_to_actor_le(3)} nil
 meet_on_talking = false
 
 [logic@pri_a16_stalker_1]
+$scheme = $logic
 active = walker@guarder_1_reach
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 190
@@ -69,6 +70,7 @@ path_look = hide_1_look
 on_info = {=surge_complete} walker@guarder_1
 
 [logic@pri_a16_stalker_2]
+$scheme = $logic
 active = walker@guarder_2_reach
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
@@ -92,51 +94,61 @@ path_look = hide_1_look
 on_info = {=surge_complete} walker@guarder_2
 
 [logic@pri_a16_stalker_3]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_3
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_4]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_4
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_5]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_5
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_6]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_6
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_7]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_7
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_8]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_8
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_9]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_9
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_10]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_10
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 150
 
 [logic@pri_a16_stalker_11]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_11
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 140
 
 [logic@pri_a16_stalker_12]
+$scheme = $logic
 active = animpoint@pri_a16_stalker_12
 suitable = {+pri_a28_actor_in_zone_stay =npc_in_zone(pri_a16_sr_noweap)} true
 prior = 120
@@ -238,6 +250,7 @@ cover_name = pri_a16_animp_sokolov
 ; in reserve - pri_a16_animp_zulus
 
 [logic@pri_a16_yar]
+$scheme = $logic
 suitable = {+pri_a28_actor_in_zone_stay =check_npc_name(jup_b19_freedom_yar)} true
 prior = 200
 active = animpoint@base

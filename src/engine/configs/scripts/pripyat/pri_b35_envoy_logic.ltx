@@ -7,6 +7,7 @@ hp_cover = 0|false
 hp_fight = 0|false
 
 [logic@pri_b35_envoy]
+$scheme = $logic
 active = walker@leader_start
 suitable = {-pri_b35_rendevous_done =check_npc_name(pri_b35_envoy)} true
 prior = 200
@@ -49,6 +50,7 @@ $scheme = $combat
 on_info = {-pri_b35_attack_started =has_actor_enemy} %+pri_b35_attack_started%
 
 [logic@pri_b35_envoy_after]
+$scheme = $logic
 active = walker@envoy_after
 suitable = {+pri_b35_rendevous_done =check_npc_name(pri_b35_envoy)} true
 prior = 200
@@ -65,12 +67,14 @@ wounded = wounded@no_wound
 on_info = {=npc_in_zone(pri_b35_sr_envoy_escape)} %=destroy_object +pri_b35_envoy_escape%
 
 [logic@pri_b35_envoy_squad_1]
+$scheme = $logic
 active = walker@envoy_squad_after_no_attack
 suitable = {+pri_b35_rendevous_done !check_npc_name(pri_b35_envoy) =target_squad_name(pri_b35_envoy_squad)} true
 prior = 200
 on_combat = combat
 
 [logic@pri_b35_envoy_squad_2]
+$scheme = $logic
 active = walker@envoy_squad_after_no_attack
 suitable = {+pri_b35_rendevous_done !check_npc_name(pri_b35_envoy) =target_squad_name(pri_b35_envoy_squad)} true
 prior = 200
@@ -99,6 +103,7 @@ def_state_moving = patrol
 wounded = wounded@no_wound
 
 [logic@pri_b35_envoy_1]
+$scheme = $logic
 active = walker@envoy_1_start
 suitable = {-pri_b35_rendevous_done !check_npc_name(pri_b35_envoy) =target_squad_name(pri_b35_envoy_squad)} true
 prior = 200
@@ -116,6 +121,7 @@ path_look = envoy_1_look
 combat_ignore_cond = true
 
 [logic@pri_b35_envoy_2]
+$scheme = $logic
 active = walker@envoy_2_start
 suitable = {-pri_b35_rendevous_done !check_npc_name(pri_b35_envoy) =target_squad_name(pri_b35_envoy_squad)} true
 prior = 200

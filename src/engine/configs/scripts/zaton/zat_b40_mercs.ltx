@@ -47,45 +47,56 @@ combat_ignore_cond = {-zat_b40_merc_in_combat} true, false
 on_info3 = {-zat_b40_call_to_fight_sad +zat_b40_merc_in_combat} %=play_sound(zat_b40_merc_combat) +zat_b40_call_to_fight_sad%
 
 [logic@zat_b40_mercs_gen]
+$scheme = $logic
 suitable = {=npc_community(killer)} true
 prior = 200
 on_hit = hit@zat_b40_mercs_hit_gen
 ; logic
 
 [logic@zat_b40_guard_leader_01]:logic@zat_b40_mercs_gen
+$scheme = $logic
 suitable = {=check_npc_name(zat_b40_merc_squad_leader_1)} true
 prior = 300
 active = camper@zat_b40_guard_leader_01
 known_info = known_info@zat_b40_guard_leader_01
 
 [logic@zat_b40_guard_leader_02]:logic@zat_b40_mercs_gen
+$scheme = $logic
 suitable = {=check_npc_name(zat_b40_merc_squad_leader_2)} true
 prior = 300
 active = camper@zat_b40_guard_leader_02
 known_info = known_info@zat_b40_guard_leader_02
 
 [logic@zat_b40_guard_01]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_01
 
 [logic@zat_b40_guard_02]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_02
 
 [logic@zat_b40_guard_03]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_03
 
 [logic@zat_b40_guard_04]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_04
 
 [logic@zat_b40_guard_05]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_05
 
 [logic@zat_b40_guard_06]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_06
 
 [logic@zat_b40_guard_07]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_07
 
 [logic@zat_b40_guard_08]:logic@zat_b40_mercs_gen
+$scheme = $logic
 active = camper@zat_b40_guard_08
 ; corp
 
