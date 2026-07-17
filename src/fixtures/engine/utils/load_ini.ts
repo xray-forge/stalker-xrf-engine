@@ -1,7 +1,7 @@
 import { create_ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 
-import { readInGameTestLtx } from "@/fixtures/engine/utils/read_ltx";
+import { readInGameTestLtx, resolveInGameTestPath } from "@/fixtures/engine/utils/read_ltx";
 
 const INHERITED_SECTION_PATTERN: RegExp = /^\s*\[[^\]\r\n]+\]\s*:/m;
 const LTX_INCLUDE_PATTERN: RegExp = /^\s*#include\b/m;
@@ -27,4 +27,14 @@ export async function loadInGameTestIni(file: string): Promise<IniFile> {
   }
 
   return create_ini_file(content);
+}
+
+/**
+ * Load a self-contained LTX file relative to the test currently executed by Jest.
+ *
+ * @param parts - Path parts relative to the current test file.
+ * @returns Parsed engine-shaped ini file.
+ */
+export function loadInGameTestIniFromTest(...parts: Array<string>): Promise<IniFile> {
+  return loadInGameTestIni(resolveInGameTestPath(...parts));
 }

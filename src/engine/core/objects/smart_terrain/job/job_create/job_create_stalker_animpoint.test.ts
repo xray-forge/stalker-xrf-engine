@@ -1,5 +1,3 @@
-import * as path from "node:path";
-
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSmartCover } from "@/engine/core/database";
@@ -8,7 +6,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_t
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_animpoint";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { MockSmartCover, MockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
+import { MockSmartCover, MockSmartTerrain, readInGameTestLtxFromTest, resetRegistry } from "@/fixtures/engine";
 
 describe("should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
@@ -24,9 +22,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
   });
 
   it("should correctly generate default animpoint jobs with available smart covers", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.default.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_animpoint.default.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const smartCover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
@@ -50,9 +46,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
   });
 
   it("should correctly generate default animpoint jobs with defend restrictor", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.restrictor.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_animpoint.restrictor.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
@@ -78,9 +72,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
   });
 
   it("should correctly generate default animpoint jobs with ignore restrictor", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.ignore.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_animpoint.ignore.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");

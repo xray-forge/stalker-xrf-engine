@@ -1,5 +1,3 @@
-import * as path from "node:path";
-
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
@@ -10,7 +8,7 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job"
 import { createStalkerWalkerJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_walker";
 import { jobPreconditionWalker } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtxFromTest } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate stalker walker jobs", () => {
   it("should correctly generate default walker jobs with no patrols", async () => {
@@ -23,9 +21,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
   });
 
   it("should correctly generate default walker jobs with test smart", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_walker.default.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_walker.default.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const [jobs, builder] = createStalkerWalkerJobs(terrain, new LuaTable(), new StringBuilder());
@@ -47,9 +43,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
   });
 
   it("should correctly generate default walker jobs with restrictor", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_walker.restrictor.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_walker.restrictor.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
@@ -76,9 +70,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
   });
 
   it("should correctly generate default walker jobs with ignore restrictor", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_walker.ignore.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_walker.ignore.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
@@ -112,9 +104,7 @@ describe("jobs_general should correctly generate stalker walker jobs", () => {
   });
 
   it("should correctly generate default walker jobs with invulnerable state", async () => {
-    const jobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_walker.invulnerable.ltx")
-    );
+    const jobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_walker.invulnerable.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 

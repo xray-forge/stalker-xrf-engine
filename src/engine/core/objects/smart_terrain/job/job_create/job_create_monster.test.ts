@@ -1,5 +1,3 @@
-import * as path from "node:path";
-
 import { describe, expect, it } from "@jest/globals";
 import { range } from "xray16/lib";
 
@@ -7,13 +5,11 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createMonsterJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_monster";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtxFromTest } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate monster default jobs", () => {
   it("should correctly generate default jobs for monsters", async () => {
-    const monsterJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_monster.default.ltx")
-    );
+    const monsterJobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_monster.default.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const [jobs, builder] = createMonsterJobs(terrain, new LuaTable(), new StringBuilder());

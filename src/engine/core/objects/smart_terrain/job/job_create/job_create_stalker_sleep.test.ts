@@ -1,5 +1,3 @@
-import * as path from "node:path";
-
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { range } from "xray16/lib";
@@ -10,7 +8,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_t
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerSleepJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_sleep";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtxFromTest } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   it("should correctly generate sleep jobs for stalkers when no patrols exist", async () => {
@@ -22,9 +20,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   });
 
   it("should correctly generate sleep jobs for stalkers when patrols exist", async () => {
-    const surgeJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_sleep.ltx")
-    );
+    const surgeJobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_sleep.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
@@ -49,8 +45,9 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   });
 
   it("should correctly generate sleep jobs for stalkers when patrols exist with restrictors", async () => {
-    const surgeJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_sleep.restrictors.ltx")
+    const surgeJobsLtx: string = await readInGameTestLtxFromTest(
+      "__test__",
+      "job_create_stalker_sleep.restrictors.ltx"
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
@@ -77,9 +74,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   });
 
   it("should correctly generate sleep jobs for stalkers when patrols exist, when in restrictor", async () => {
-    const surgeJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_sleep.ignore.ltx")
-    );
+    const surgeJobsLtx: string = await readInGameTestLtxFromTest("__test__", "job_create_stalker_sleep.ignore.ltx");
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const object: GameObject = MockGameObject.mock({ name: "some_restrictor" });
@@ -110,8 +105,9 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
   });
 
   it("should correctly generate sleep jobs for stalkers when patrols exist with invulnerable state", async () => {
-    const surgeJobsLtx: string = await readInGameTestLtx(
-      path.resolve(__dirname, "__test__", "job_create_stalker_sleep.invulnerable.ltx")
+    const surgeJobsLtx: string = await readInGameTestLtxFromTest(
+      "__test__",
+      "job_create_stalker_sleep.invulnerable.ltx"
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
