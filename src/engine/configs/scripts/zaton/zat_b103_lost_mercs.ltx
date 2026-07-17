@@ -1,19 +1,23 @@
 ; ************************************< ����� ������ >******************************
 
 [hit]
+$scheme = $hit
 on_info = {=actor_enemy -zat_b103_merc_fight} %+zat_b103_merc_fight%
 
 [meet@snd_1]
+$scheme = $meet
 use = false
 snd_on_use = {-zat_b103_merc_fight} zat_b103_merc_talk_to_commander_1, nil
 trade_enable = false
 
 [meet@snd_2]
+$scheme = $meet
 use = false
 snd_on_use = {-zat_b103_merc_fight} zat_b103_merc_talk_to_commander_2, nil
 trade_enable = false
 
 [remark@nil]
+$scheme = $remark
 ; ************************************< lost_merc #1 >******************************
 
 [logic@lost_merc_1]
@@ -23,6 +27,7 @@ prior = 200
 on_hit = hit
 
 [walker@1]
+$scheme = $walker
 path_walk = lost_merc_1_walk
 path_look = lost_merc_1_look
 def_state_moving1 = sprint
@@ -31,9 +36,11 @@ meet = meet@snd_1
 on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_1
 
 [remark@fm_1]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | walker@1
 
 [remark@1]
+$scheme = $remark
 target = story | actor
 anim = threat_na
 on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_1
@@ -49,6 +56,7 @@ prior = 200
 on_hit = hit
 
 [walker@2]
+$scheme = $walker
 path_walk = lost_merc_2_walk
 path_look = lost_merc_2_look
 def_state_moving1 = sprint
@@ -57,9 +65,11 @@ meet = meet@snd_2
 on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_2
 
 [remark@fm_2]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | walker@2
 
 [remark@2]
+$scheme = $remark
 target = story | actor
 anim = threat_na
 on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_2
@@ -75,6 +85,7 @@ prior = 200
 on_hit = hit
 
 [animpoint@3]
+$scheme = $animpoint
 cover_name = zat_b103_merc_smart_animpoint_1
 reach_distance = 1
 on_actor_in_zone = zat_b103_sr_def_restr | {=actor_has_weapon -zat_b103_force_maj_after} remark@3
@@ -83,9 +94,11 @@ on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_3
 on_info2 = {=actor_enemy} remark@nil
 
 [remark@fm_3]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | animpoint@3
 
 [remark@3]
+$scheme = $remark
 target = story | actor
 anim = threat_na
 on_info = {!actor_has_weapon} animpoint@3
@@ -101,6 +114,7 @@ prior = 200
 on_hit = hit
 
 [animpoint@4]
+$scheme = $animpoint
 cover_name = zat_b103_merc_smart_animpoint_2
 reach_distance = 1
 on_actor_in_zone = zat_b103_sr_def_restr | {=actor_has_weapon -zat_b103_force_maj_after} remark@4
@@ -109,9 +123,11 @@ on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_4
 on_info2 = {=actor_enemy} remark@nil
 
 [remark@fm_4]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | animpoint@4
 
 [remark@4]
+$scheme = $remark
 target = story | actor
 anim = threat_na
 on_info = {!actor_has_weapon} animpoint@4
@@ -127,6 +143,7 @@ prior = 200
 on_hit = hit
 
 [animpoint@5]
+$scheme = $animpoint
 cover_name = zat_b103_merc_smart_animpoint_3
 reach_distance = 1
 on_actor_in_zone = zat_b103_sr_def_restr | {=actor_has_weapon -zat_b103_force_maj_after} remark@5
@@ -135,9 +152,11 @@ on_info = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_5
 on_info2 = {=actor_enemy} remark@nil
 
 [remark@fm_5]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | animpoint@5
 
 [remark@5]
+$scheme = $remark
 target = story | actor
 anim = threat_na
 on_info = {!actor_has_weapon} animpoint@5
@@ -152,12 +171,14 @@ active = walker@6
 prior = 100
 
 [walker@6]
+$scheme = $walker
 path_walk = lost_merc_6_walk
 path_look = lost_merc_6_look
 on_info = {+zat_b103_merc_fight -zat_b103_angry_6} %=hit_npc_from_actor =set_squad_goodwill(zat_b103_lost_merc_squad1:enemy) +zat_b103_angry_6%
 on_info2 = {+zat_b103_force_maj -zat_b103_merc_fight} remark@fm_6
 
 [remark@fm_6]
+$scheme = $remark
 on_actor_not_in_zone = zat_b103_sr_def_restr | walker@6
 ; *********************************************< lost_merc #7 >**************************************
 
@@ -167,6 +188,7 @@ active = walker@7
 prior = 100
 
 [walker@7]
+$scheme = $walker
 path_walk = lost_merc_7_walk
 path_look = lost_merc_7_look
 on_info = {+zat_b103_merc_fight -zat_b103_angry_7} %=hit_npc_from_actor =set_squad_goodwill(zat_b103_lost_merc_squad1:enemy) +zat_b103_angry_7%

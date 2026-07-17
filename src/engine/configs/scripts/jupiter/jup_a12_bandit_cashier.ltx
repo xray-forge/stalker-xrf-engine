@@ -5,6 +5,7 @@ on_death = death
 suitable = {=check_npc_name(jup_a12_bandit_cashier) !surge_started} true
 
 [walker@wait]
+$scheme = $walker
 path_walk = bandit_cashier_wait_walk
 path_look = bandit_cashier_wait_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor_enemy_to_bandits} true
@@ -13,6 +14,7 @@ on_info2 = {+jup_a12_stalker_prisoner_dead} walker@wait_after
 meet = no_meet
 
 [walker@get_payment_wait]
+$scheme = $walker
 path_walk = bandit_cashier_get_payment_walk
 path_look = bandit_cashier_get_payment_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor_enemy_to_bandits} true
@@ -23,6 +25,7 @@ def_state_moving = rush
 meet = no_meet
 
 [walker@get_payment]
+$scheme = $walker
 path_walk = bandit_cashier_get_payment_walk
 path_look = bandit_cashier_get_payment_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor_enemy_to_bandits} true
@@ -31,16 +34,19 @@ on_info = {+jup_a12_actor_did_not_pay_to_cashier} walker@wait_after %=actor_enem
 on_info2 = {+jup_a12_stalker_prisoner_dead} walker@wait_after
 
 [meet@get_payment]
+$scheme = $meet
 use = {!actor_enemy -jup_a12_actor_paid_to_cashier -jup_a12_actor_did_not_pay_to_cashier} self, false
 meet_dialog = jup_a12_bandit_payment_dialog
 trade_enable = false
 allow_break = false
 
 [walker@wait_after]
+$scheme = $walker
 path_walk = bandit_cashier_wait_walk
 path_look = bandit_cashier_wait_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner)} true
 meet = no_meet
 
 [death]
+$scheme = $death
 on_info = {-jup_a12_actor_enemy_to_bandits +jup_a12_bandit_payment_started} %+jup_a12_bandit_cashier_dead =set_squad_neutral_to_actor(jup_a12_bandit_chief_squad) =set_squad_neutral_to_actor(jup_a12_bandit_cashier_squad) =set_squad_neutral_to_actor(jup_a12_bandit_guard_squad) =set_squad_neutral_to_actor(jup_a12_bandit_sim_squad)%, %+jup_a12_bandit_cashier_dead%

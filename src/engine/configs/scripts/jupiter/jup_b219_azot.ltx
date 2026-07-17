@@ -4,6 +4,7 @@ active = walker@sig
 prior = 200
 
 [walker@sig]
+$scheme = $walker
 path_walk = azot_walk
 path_look = azot_look
 on_signal = azot | animpoint@start %+jup_b219_azot_on_pos%
@@ -20,6 +21,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@azot]
+$scheme = $animpoint
 cover_name = jup_b219_azot_smart_cover
 combat_ignore_cond = true
 use_camp = false
@@ -35,6 +37,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@start]:animpoint@azot
+$scheme = $animpoint
 avail_animations = pri_a15_idle_strap
 on_info = {+jup_b219_start_one} animpoint@start_one
 on_info2 = {+jup_b219_start_one_vano} animpoint@start_one_vano
@@ -46,30 +49,39 @@ on_info7 = {+jup_b219_start_soldier_monolith} animpoint@start_soldier_monolith
 on_info8 = {+jup_b219_start_vano_monolith} animpoint@start_vano_monolith
 
 [animpoint@start_one]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_one
 
 [animpoint@start_one_vano]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_one_vano
 
 [animpoint@start_one_monolith]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_one_monolith
 
 [animpoint@start_one_soldier]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_one_soldier
 
 [animpoint@start_all]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_all
 
 [animpoint@start_soldier_vano]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_soldier_vano
 
 [animpoint@start_soldier_monolith]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_soldier_monolith
 
 [animpoint@start_vano_monolith]:animpoint@azot
+$scheme = $animpoint
 avail_animations = jup_b219_azot_vano_monolith
 
 [remark@start_one]
+$scheme = $remark
 anim = jup_b219_azot_one
 target = path | jup_b219_azot_look,0
 combat_ignore_cond = true
@@ -80,6 +92,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_one_vano]
+$scheme = $remark
 anim = jup_b219_azot_one_vano
 target = path | jup_b219_azot_look,0
 combat_ignore_cond = true
@@ -90,6 +103,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_one_monolith]
+$scheme = $remark
 anim = jup_b219_azot_one_monolith
 target = path | jup_b219_azot_look,0
 combat_ignore_cond = true
@@ -100,6 +114,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_one_soldier]
+$scheme = $remark
 anim = jup_b219_azot_one_soldier
 target = path | jup_b219_azot_look,0
 combat_ignore_cond = true
@@ -110,6 +125,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_all]
+$scheme = $remark
 anim = jup_b219_azot_all
 target = path | jup_b219_azot_look,0
 combat_ignore_cond = true
@@ -120,6 +136,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_soldier_vano]
+$scheme = $remark
 anim = jup_b219_azot_soldier_vano
 ; target = path | jup_b219_actor_start_look,0
 combat_ignore_cond = true
@@ -130,6 +147,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_soldier_monolith]
+$scheme = $remark
 anim = jup_b219_azot_soldier_monolith
 ; target = path | jup_b219_actor_start_look,0
 combat_ignore_cond = true
@@ -140,6 +158,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [remark@start_vano_monolith]
+$scheme = $remark
 anim = jup_b219_azot_vano_monolith
 ; target = path | jup_b219_actor_start_look,0
 combat_ignore_cond = true
@@ -150,6 +169,7 @@ invulnerable = true
 out_restr = jup_factory_default_in_restrictor
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 danger_inertion_time_grenade = 0
 danger_inertion_time_hit = 0

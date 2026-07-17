@@ -7,23 +7,28 @@ on_death = death
 on_hit = hit
 
 [walker@def_go_base]
+$scheme = $walker
 on_info10 = {+pri_a18_reinf_go_base} patrol@base
 on_info11 = {-pri_a18_skelja_once_combat_section_go +pri_a18_hit_pray_squad} camper@idol_room %+pri_a18_skelja_once_combat_section_go%
 
 [remark@def_go_base]
+$scheme = $remark
 on_info10 = {+pri_a18_reinf_go_base} patrol@base
 on_info11 = {-pri_a18_skelja_once_combat_section_go +pri_a18_hit_pray_squad} camper@idol_room %+pri_a18_skelja_once_combat_section_go%
 
 [smartcover@def_go_base]
+$scheme = $smartcover
 on_info10 = {+pri_a18_reinf_go_base} patrol@base
 on_info11 = {-pri_a18_skelja_once_combat_section_go +pri_a18_hit_pray_squad} camper@idol_room %+pri_a18_skelja_once_combat_section_go%
 
 [camper@def_go_base]
+$scheme = $camper
 on_info10 = {+pri_a18_reinf_go_base} patrol@base
 on_info11 = {-pri_a18_skelja_once_combat_section_go +pri_a18_hit_pray_squad} camper@idol_room %+pri_a18_skelja_once_combat_section_go%
 ; *****************************************************
 
 [walker@wait_actor]:walker@def_go_base
+$scheme = $walker
 def_state_moving = assault
 corpse_detection_enabled = false
 gather_items_enabled = false
@@ -38,6 +43,7 @@ on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 on_info5 = {+pri_a18_post_guard_combat} walker@go_shop %+pri_a18_get_reinforcement_done%
 
 [remark@hello_snd]:remark@def_go_base
+$scheme = $remark
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -52,6 +58,7 @@ on_info5 = {+pri_a18_post_guard_combat} walker@go_shop %+pri_a18_get_reinforceme
 on_info6 = {-pri_a18_once_scenario_autosave} %+pri_a18_once_scenario_autosave =scenario_autosave(st_save_pri_a18_met_reinforcement)%
 
 [remark@hello_snd_timer]:remark@def_go_base
+$scheme = $remark
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -66,6 +73,7 @@ on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 on_info5 = {+pri_a18_post_guard_combat} walker@go_shop %+pri_a18_get_reinforcement_done%
 
 [walker@go_shop]:walker@def_go_base
+$scheme = $walker
 def_state_moving = assault
 corpse_detection_enabled = false
 gather_items_enabled = false
@@ -79,6 +87,7 @@ on_info2 = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@go_shop_sneak_run]:walker@def_go_base
+$scheme = $walker
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -90,6 +99,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [smartcover@near_shop_enter]:smartcover@def_go_base
+$scheme = $smartcover
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 corpse_detection_enabled = false
 gather_items_enabled = false
@@ -104,6 +114,7 @@ on_info4 = {=dist_to_actor_le(7)} %=play_sound(pri_a18_sokolov_on_place)%
 on_info5 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@hall_smartcover]:walker@def_go_base
+$scheme = $walker
 def_state_moving = sneak_run
 corpse_detection_enabled = false
 gather_items_enabled = false
@@ -115,6 +126,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [smartcover@hall_smartcover]:smartcover@def_go_base
+$scheme = $smartcover
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -125,6 +137,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {!squad_exist(pri_a18_monolith_post_guard_squad)} walker@in_hall
 
 [walker@in_hall]:walker@def_go_base
+$scheme = $walker
 out_restr = pri_a18_post_quard_out_restrictor
 path_walk = pri_a18_reinforcement_in_hall_walk_1
 path_look = pri_a18_reinforcement_corridor_look
@@ -140,6 +153,7 @@ on_info3 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_
 on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@go_corridor]:walker@def_go_base
+$scheme = $walker
 out_restr = pri_surge_hide_a18_2
 combat_ignore_cond = {-pri_a18_actor_enemy !is_alive(pri_a18_monolith_2nd_corridor_1)} true
 corpse_detection_enabled = false
@@ -155,6 +169,7 @@ on_info4 = {=npc_in_zone(pri_surge_hide_a18_2)} walker@go_corridor_2
 on_info5 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@go_corridor_2]:walker@def_go_base
+$scheme = $walker
 out_restr = pri_surge_hide_a18_2
 combat_ignore_cond = {-pri_a18_actor_enemy !is_alive(pri_a18_monolith_2nd_corridor_1)} true
 corpse_detection_enabled = false
@@ -170,6 +185,7 @@ on_info3 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_
 on_info4 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@idolroom_door]:walker@def_go_base
+$scheme = $walker
 combat_ignore_cond = {-pri_a18_actor_enemy} true
 corpse_detection_enabled = false
 gather_items_enabled = false
@@ -183,6 +199,7 @@ on_info2 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [smartcover@idolroom_door]:smartcover@def_go_base
+$scheme = $smartcover
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -195,6 +212,7 @@ on_info2 = {=actor_in_zone(pri_a18_monolith_trance_restrictor) !squad_exist(pri_
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [camper@idol_room]:camper@def_go_base
+$scheme = $camper
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -210,6 +228,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {!squad_exist(pri_a18_monolith_idol_squad)} camper@idolroom_guard
 
 [camper@before_fight]:camper@def_go_base
+$scheme = $camper
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -224,6 +243,7 @@ on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_info2 = {!squad_exist(pri_a18_monolith_idol_squad)} camper@idolroom_guard
 
 [camper@idolroom_guard]:camper@def_go_base
+$scheme = $camper
 corpse_detection_enabled = false
 gather_items_enabled = false
 meet = no_meet
@@ -234,6 +254,7 @@ on_info = {+pri_a18_task_end} walker@in_hall_after_idol_use
 on_info2 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [walker@in_hall_after_idol_use]
+$scheme = $walker
 meet = meet
 path_walk = pri_a18_in_hall_after_fighting_wait_walk_2
 path_look = pri_a18_in_hall_after_fighting_wait_look_2
@@ -244,6 +265,7 @@ on_info2 = {+pri_a18_reinf_go_base} patrol@base
 on_info3 = {+pri_a18_actor_enemy} %=actor_enemy%
 
 [patrol@base]
+$scheme = $patrol
 path_walk = pri_a18_reinforcement_go_base
 out_restr = pri_a16_sr_noweap
 formation = line
@@ -257,6 +279,7 @@ on_info3 = {=surge_started} | %+pri_a18_scene_end_change_smart%
 def_state_moving = assault
 
 [meet]
+$scheme = $meet
 meet_dialog = pri_a18_altar_destroyed_soldiers_start
 use = true
 abuse = false
@@ -268,7 +291,9 @@ close_distance = 0
 far_distance = 0
 
 [hit]
+$scheme = $hit
 on_info = {=hit_by_actor} %+pri_a18_actor_enemy%
 
 [death]
+$scheme = $death
 on_info = %+pri_a18_skorlupko_dead +pri_a18_sokolov_say_hello_done +pri_a18_sokolov_lets_kill_snd_done%

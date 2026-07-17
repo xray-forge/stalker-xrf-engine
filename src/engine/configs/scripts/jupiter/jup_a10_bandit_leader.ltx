@@ -5,6 +5,7 @@ active = animpoint@valet
 on_death = death
 
 [animpoint@valet]
+$scheme = $animpoint
 cover_name = jup_a10_bandit_leader_sit_animpoint
 avail_animations = animpoint_sit_normal
 use_camp = false
@@ -14,9 +15,11 @@ on_info2 = {=is_squad_enemy_to_actor(jup_a10_bandit_squad_3) +jup_a10_vano_give_
 meet = meet
 
 [death]
+$scheme = $death
 on_info = %+jup_a10_death_0%
 
 [meet]
+$scheme = $meet
 snd_on_use = {-jup_a10_vano_give_task} meet_use_no_default, {+jup_a10_back_vano} meet_use_no_default
 close_snd_hello = jup_a10_bandit_leader_hello
 close_distance = 10
@@ -26,6 +29,7 @@ use = {=actor_enemy} false, {=actor_has_weapon} false, true
 trade_enable = false
 
 [animpoint@remark]
+$scheme = $animpoint
 target = story | actor
 snd = meet_hide_weapon
 on_signal = sound_end | animpoint@valet

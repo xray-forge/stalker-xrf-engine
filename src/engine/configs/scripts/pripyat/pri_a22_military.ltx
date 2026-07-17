@@ -1,4 +1,5 @@
 [walker@def]
+$scheme = $walker
 corpse_detection_enabled = false
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -11,13 +12,16 @@ prior = 200
 known_info = known_info@1
 
 [walker@base_1]:walker@def
+$scheme = $walker
 path_walk = military_dead_walk_1
 on_info = walker@start_1 %=teleport_npc(pri_a22_smart_terrain_military_dead_walk_1)%
 
 [walker@start_1]:walker@base_1
+$scheme = $walker
 on_game_timer = 20 | walker@death_1 %=hit_npc(self:pri_a22_smart_terrain_pri_a22_military_dead_walk_im_1:bip01_head:2:12)%
 
 [walker@death_1]:walker@base_1
+$scheme = $walker
 on_game_timer = 8 | nil %=kill_npc%
 
 [known_info@1]
@@ -29,14 +33,17 @@ suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_skelja)} true
 prior = 200
 
 [walker@base_2]:walker@def
+$scheme = $walker
 path_walk = military_dead_walk_2
 on_info = walker@start_2 %=teleport_npc(pri_a22_smart_terrain_military_dead_walk_2)%
 
 [walker@start_2]:walker@base_2
+$scheme = $walker
 on_game_timer = 20 | walker@death_2 %=hit_npc(self:pri_a22_smart_terrain_pri_a22_military_dead_walk_im_2:bip01_head:2:12)%
 on_info = {-pri_a22_skelja_spawned} %+pri_a22_skelja_spawned%
 
 [walker@death_2]:walker@base_2
+$scheme = $walker
 on_game_timer = 8 | nil %=kill_npc%
 
 [logic@pri_a22_military_merkulov]
@@ -45,13 +52,16 @@ suitable = {+pri_a25_task_start =check_npc_name(pri_a22_military_merkulov)} true
 prior = 200
 
 [walker@base_3]:walker@def
+$scheme = $walker
 path_walk = military_dead_walk_3
 on_info = walker@start_3 %=teleport_npc(pri_a22_smart_terrain_military_dead_walk_3)%
 
 [walker@start_3]:walker@base_3
+$scheme = $walker
 path_walk = military_dead_walk_3
 on_game_timer = 20 | walker@death_3 %=hit_npc(self:pri_a22_smart_terrain_pri_a22_military_dead_walk_im_3:bip01_head:2:12)%
 on_info = {-pri_a22_merkulov_spawned} %+pri_a22_merkulov_spawned%
 
 [walker@death_3]:walker@base_3
+$scheme = $walker
 on_game_timer = 8 | nil %=kill_npc%

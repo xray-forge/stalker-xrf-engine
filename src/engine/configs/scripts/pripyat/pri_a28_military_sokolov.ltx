@@ -1,6 +1,7 @@
 ; Reference animpoint
 
 [animpoint@a28_def]
+$scheme = $animpoint
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -15,6 +16,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@a28]
+$scheme = $meet
 abuse = false
 use = {=actor_enemy} false, {=is_playing_sound} false, true
 close_snd_hello = nil
@@ -33,14 +35,17 @@ active = animpoint@a28_surge
 ; Waiting for surge end
 
 [animpoint@a28_surge]:animpoint@a28_def
+$scheme = $animpoint
 on_info2 = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_ready_for_news
 ; Becoming ready for fast exit from animpoint
 
 [animpoint@a28_ready_for_news]:animpoint@a28_def
+$scheme = $animpoint
 avail_animations = animpoint_sit_high_no_rnd
 ; Gathering group before evacuation
 
 [animpoint@a28_wait_near_door]
+$scheme = $animpoint
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true

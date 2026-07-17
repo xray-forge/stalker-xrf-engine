@@ -2,6 +2,7 @@
 active = walker@sig
 
 [walker@sig]
+$scheme = $walker
 path_walk = jup_b219_actor_start_walk
 path_look = jup_b219_actor_start_look
 on_signal = actor | animpoint@start %+jup_b219_actor_on_pos%
@@ -18,6 +19,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@actor]
+$scheme = $animpoint
 cover_name = jup_b219_actor_smart_cover
 combat_ignore_cond = true
 use_camp = false
@@ -33,6 +35,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@start]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_idle_none
 on_info = {+jup_b219_start_one} animpoint@start_one
 on_info2 = {+jup_b219_start_one_vano} animpoint@start_one_vano
@@ -45,38 +48,47 @@ on_info8 = {+jup_b219_start_vano_monolith} animpoint@start_vano_monolith
 on_info9 = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_one]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_one
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_one_vano]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_one_vano
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_one_monolith]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_one_monolith
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_one_soldier]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_one_soldier
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_all]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_all
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_soldier_vano]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_soldier_vano
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_soldier_monolith]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_soldier_monolith
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [animpoint@start_vano_monolith]:animpoint@actor
+$scheme = $animpoint
 avail_animations = jup_b219_actor_vano_monolith
 on_info = {+jup_b219_destroy_actor} %=destroy_object%
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 danger_inertion_time_grenade = 0
 danger_inertion_time_hit = 0

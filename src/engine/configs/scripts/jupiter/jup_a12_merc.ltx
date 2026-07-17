@@ -1,4 +1,5 @@
 [wounded@no_wound]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -12,6 +13,7 @@ suitable = {=check_npc_name(jup_a12_merc_cover) -jup_a12_merc_attack_started} tr
 prior = 200
 
 [walker@merc_cover_start]
+$scheme = $walker
 path_walk = kamp_walker_walk
 path_look = kamp_walker_look
 def_state_moving = assault
@@ -24,12 +26,14 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [meet@cover_merc_kamp_meet]
+$scheme = $meet
 meet_dialog = jup_a12_stalker_give_art_dialog
 trade_enable = false
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [walker@cover_walk_to_position]
+$scheme = $walker
 path_walk = cover_to_position_walk
 path_look = cover_to_position_look
 def_state_moving = assault
@@ -43,6 +47,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@cover_walk_on_position]
+$scheme = $walker
 path_walk = cover_on_position_walk
 path_look = cover_on_position_look
 def_state_moving = sneak_run
@@ -56,6 +61,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [remark@cover_attack_guard]
+$scheme = $remark
 anim = threat_fire
 on_game_timer = 100 | %+jup_a12_bandit_guard_killed%
 target = story | jup_a12_bandit_guard
@@ -73,6 +79,7 @@ suitable = {=check_npc_name(jup_a12_merc_cover) +jup_a12_merc_attack_started} tr
 prior = 200
 
 [camper@cover_attack_containers]
+$scheme = $camper
 path_walk = merc_cover_attack_containers_walk
 path_look = merc_cover_attack_containers_look
 def_state_moving = assault_fire
@@ -87,6 +94,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@cover_walk_to_hangar]
+$scheme = $walker
 path_walk = merc_cover_walk_to_hangar_walk
 path_look = merc_cover_walk_to_hangar_look
 on_actor_dist_ge_nvis = 150 | %+jup_a12_mercs_done%
@@ -98,12 +106,14 @@ wounded = wounded@no_wound
 def_state_moving = assault
 
 [meet@merc_hangar_meet]
+$scheme = $meet
 meet_dialog = jup_a12_merc_done_dialog
 trade_enable = false
 snd_on_use = {=is_wounded} nil, {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {=actor_has_weapon} meet_use_no_weapon
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {=actor_has_weapon} false, true
 
 [walker@cover_merc_kamp_after]
+$scheme = $walker
 path_walk = merc_kamp_walker_walk
 path_look = merc_kamp_walker_look
 def_state_moving = assault
@@ -117,6 +127,7 @@ suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a
 prior = 200
 
 [walker@merc_left_start]
+$scheme = $walker
 path_walk = kamp_walker_1_walk
 path_look = kamp_walker_look
 def_state_moving = assault
@@ -128,6 +139,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@left_walk_to_position]
+$scheme = $walker
 path_walk = left_to_position_walk
 path_look = left_to_position_look
 def_state_moving = assault
@@ -141,6 +153,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@left_walk_on_position]
+$scheme = $walker
 path_walk = left_on_position_walk
 path_look = left_on_position_look
 def_state_moving = sneak_run
@@ -160,6 +173,7 @@ suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a
 prior = 200
 
 [camper@left_attack_containers]
+$scheme = $camper
 path_walk = merc_left_attack_containers_walk
 path_look = merc_left_attack_containers_look
 def_state_moving = assault_fire
@@ -173,6 +187,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@left_walk_to_hangar]
+$scheme = $walker
 path_walk = merc_left_walk_to_hangar_walk
 path_look = merc_left_walk_to_hangar_look
 on_actor_dist_ge_nvis = 150 | %+jup_a12_mercs_done%
@@ -184,6 +199,7 @@ wounded = wounded@no_wound
 def_state_moving = assault
 
 [walker@left_merc_kamp_after]
+$scheme = $walker
 path_walk = merc_kamp_walker_1_walk
 path_look = merc_kamp_walker_look
 def_state_moving = assault
@@ -197,6 +213,7 @@ suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a
 prior = 200
 
 [walker@merc_right_start]
+$scheme = $walker
 path_walk = kamp_walker_2_walk
 path_look = kamp_walker_look
 def_state_moving = assault
@@ -208,6 +225,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@right_walk_to_position]
+$scheme = $walker
 path_walk = right_to_position_walk
 path_look = right_to_position_look
 def_state_moving = assault
@@ -221,6 +239,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@right_walk_on_position]
+$scheme = $walker
 path_walk = right_on_position_walk
 path_look = right_on_position_look
 def_state_moving = sneak_run
@@ -240,6 +259,7 @@ suitable = {=target_squad_name(jup_a12_merc_stalker_squad) !check_npc_name(jup_a
 prior = 200
 
 [camper@right_attack_containers]
+$scheme = $camper
 path_walk = merc_right_attack_containers_walk
 path_look = merc_right_attack_containers_look
 def_state_moving = assault_fire
@@ -253,6 +273,7 @@ corpse_detection_enabled = false
 wounded = wounded@no_wound
 
 [walker@right_walk_to_hangar]
+$scheme = $walker
 path_walk = merc_right_walk_to_hangar_walk
 path_look = merc_right_walk_to_hangar_look
 on_actor_dist_ge_nvis = 150 | %+jup_a12_mercs_done%
@@ -264,6 +285,7 @@ wounded = wounded@no_wound
 def_state_moving = assault
 
 [walker@right_merc_kamp_after]
+$scheme = $walker
 path_walk = merc_kamp_walker_2_walk
 path_look = merc_kamp_walker_look
 def_state_moving = assault

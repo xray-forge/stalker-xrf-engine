@@ -4,11 +4,13 @@ prior = 100
 active = walker@jup_a10_bandit_guard_1
 
 [walker@jup_a10_bandit_guard_1]
+$scheme = $walker
 path_walk = jup_a10_bandit_guard_1_walk
 path_look = jup_a10_bandit_guard_1_look
 on_info = {=surge_started} walker@surge
 
 [walker@surge]
+$scheme = $walker
 path_walk = bodyguard_1_walk
 path_look = bodyguard_1_look
 on_info = {=surge_complete} walker@jup_a10_bandit_guard_1

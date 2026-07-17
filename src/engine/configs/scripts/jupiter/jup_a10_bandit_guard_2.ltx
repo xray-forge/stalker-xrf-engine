@@ -4,11 +4,13 @@ prior = 100
 active = walker@jup_a10_bandit_guard_2
 
 [walker@jup_a10_bandit_guard_2]
+$scheme = $walker
 path_walk = jup_a10_bandit_guard_2_walk
 path_look = jup_a10_bandit_guard_2_look
 on_actor_dist_le = 20 | {=actor_has_weapon} remark
 
 [remark]
+$scheme = $remark
 anim = backoff2
 target = story | actor
 snd = jup_a10_bandits_warn

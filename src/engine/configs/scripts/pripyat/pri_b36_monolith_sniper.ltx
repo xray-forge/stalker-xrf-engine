@@ -5,6 +5,7 @@ prior = 200
 on_death = death
 
 [camper@start]
+$scheme = $camper
 path_walk = pri_b36_sniper_1_walk
 path_look = pri_b36_sniper_1_look
 out_restr = pri_b36_sniper_out_restr
@@ -19,6 +20,7 @@ wounded = wounded
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -26,4 +28,5 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [death]
+$scheme = $death
 on_info = %+pri_b36_sniper_dead%

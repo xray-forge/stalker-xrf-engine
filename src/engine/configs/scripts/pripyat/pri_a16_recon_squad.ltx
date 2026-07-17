@@ -14,6 +14,7 @@ prior = 200
 active = animpoint@base_3
 
 [meet@pri_a17_recon_squad_talk_with_commander]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_anim = nil
@@ -27,6 +28,7 @@ abuse = false
 use = false
 
 [animpoint@def]
+$scheme = $animpoint
 reach_movement = walk_noweap
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -39,18 +41,22 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@base_1]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_1
 on_info = {+pri_a25_rfi_source_eliminated -pri_b305_army_what_freezer_done_end} animpoint@b305_role_1
 
 [animpoint@base_2]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_2
 on_info = {+pri_a25_rfi_source_eliminated -pri_b305_army_what_freezer_done_end} animpoint@b305_role_2
 
 [animpoint@base_3]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_3
 on_info = {+pri_a25_rfi_source_eliminated -pri_b305_army_what_freezer_done_end} animpoint@b305_role_3
 
 [animpoint@b305_role_1]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_1
 use_camp = false
 on_info = {-pri_b305_mil_conversation} %+pri_b305_mil_conversation%
@@ -59,6 +65,7 @@ on_info3 = {+pri_b305_second_cam_start} animpoint@base_1
 on_signal = sound_end | {-pri_b305_army_what_freezer_done_end} animpoint@base_1 %+pri_b305_army_what_freezer_done_end%
 
 [animpoint@b305_role_2]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_2
 use_camp = false
 on_info = {-pri_b305_mil_conversation} %+pri_b305_mil_conversation%
@@ -67,6 +74,7 @@ on_info3 = {+pri_b305_second_cam_start} animpoint@base_2
 on_signal = sound_end | {-pri_b305_army_what_freezer_done_end} animpoint@base_2 %+pri_b305_army_what_freezer_done_end%
 
 [animpoint@b305_role_3]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_3
 use_camp = false
 on_info = {-pri_b305_mil_conversation} %+pri_b305_mil_conversation%

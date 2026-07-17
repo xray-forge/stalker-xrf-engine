@@ -3,6 +3,7 @@ active = walker@signal_temp
 ; <<������ ������>>
 
 [walker@signal_temp]
+$scheme = $walker
 path_walk = pri_b305_signal_temp_walk
 path_look = pri_b305_signal_temp_look
 on_info = {+pri_b305_mooving_signal} walker@signal_role
@@ -12,6 +13,7 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 
 [walker@signal_role]
+$scheme = $walker
 path_walk = pri_b305_signal_move
 out_restr = pri_b305_signal_border_restr
 combat_ignore = true

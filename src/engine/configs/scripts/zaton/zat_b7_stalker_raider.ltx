@@ -7,6 +7,7 @@ suitable = {=check_npc_name(zat_b7_stalker_raider_leader) -zat_b7_stalkers_raide
 post_combat_time = 0, 0
 
 [walker@leader_start_first]
+$scheme = $walker
 path_walk = zat_b7_raider_leader_start_walk
 path_look = zat_b7_raider_leader_start_look
 meet = meet@leader_start
@@ -23,6 +24,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@leader_start]
+$scheme = $walker
 path_walk = zat_b7_raider_leader_start_walk
 path_look = zat_b7_raider_leader_start_look
 meet = meet@leader_start
@@ -38,6 +40,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@leader_start_hello]
+$scheme = $walker
 path_walk = zat_b7_raider_leader_start_walk
 path_look = zat_b7_raider_leader_start_look
 def_state_standing = wait_na
@@ -54,6 +57,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@leader_start]
+$scheme = $meet
 close_distance = 0
 close_anim = nil
 close_snd_hello = nil
@@ -66,6 +70,7 @@ snd_on_use = {-zat_b7_raider_plan} meet_use_no_talk_leader
 abuse = false
 
 [meet@leader_start_hello]
+$scheme = $meet
 close_anim = nil
 close_snd_hello = nil
 close_snd_bye = nil
@@ -86,6 +91,7 @@ suitable = {=is_alive(zat_b7_stalker_raider_leader) =check_npc_name(zat_b7_stalk
 post_combat_time = 0, 0
 
 [walker@leader_attack]
+$scheme = $walker
 path_walk = leader_attack_start_walk
 path_look = leader_attack_start_look
 on_signal = path_end | %+zat_b7_stalkers_raiders_meet%
@@ -100,6 +106,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [meet@leader_start_attack]
+$scheme = $meet
 close_anim = nil
 close_snd_hello = nil
 close_snd_bye = nil
@@ -112,6 +119,7 @@ use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {-zat_b7_st
 meet_dialog = zat_b7_stalkers_raiders_dialog
 
 [walker@leader_walk_to_position]
+$scheme = $walker
 path_walk = leader_to_position_walk
 path_look = leader_to_position_look
 on_signal = position | {!actor_enemy} %+zat_b7_stalker_raider_leader_on_position =play_sound(zat_b7_raiders_attack)%
@@ -127,6 +135,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [camper@leader_attack]
+$scheme = $camper
 path_walk = leader_attack_walk
 path_look = leader_attack_look
 no_retreat = true
@@ -142,6 +151,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@leader_attack_2]
+$scheme = $walker
 path_walk = leader_attack_walk
 path_look = leader_attack_look
 on_info = {+zat_b7_actor_killed_victims_self -zat_b7_actor_help_bandits} %+zat_b7_actor_help_bandits%
@@ -153,12 +163,14 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [remark@leader_confuse]
+$scheme = $remark
 on_info = %=play_sound(zat_b7_raiders_sneak_confuse)%
 anim = threat
 target = story | actor
 on_signal = sound_end | walker@leader_rob_actor
 
 [walker@leader_rob_actor]
+$scheme = $walker
 path_walk = leader_attack_walk
 path_look = leader_attack_look
 def_state_moving = assault
@@ -170,6 +182,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [meet@leader_rob_actor]
+$scheme = $meet
 close_distance = 25
 close_victim = actor
 close_anim = threat
@@ -185,6 +198,7 @@ suitable = {=is_alive(zat_b7_stalker_raider_leader) =check_npc_name(zat_b7_stalk
 post_combat_time = 0, 0
 
 [walker@leader_after]
+$scheme = $walker
 path_walk = stalker_victim_leader_walk
 path_look = stalker_victim_leader_look
 meet = meet@leader_after
@@ -197,6 +211,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [wounded@no_wound]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -204,6 +219,7 @@ hp_cover = 0|false
 hp_fight = 0|false
 
 [meet@leader_after]
+$scheme = $meet
 close_distance = 5
 close_anim = nil
 close_snd_hello = nil
@@ -224,6 +240,7 @@ suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_s
 post_combat_time = 0, 0
 
 [walker@attack_1]
+$scheme = $walker
 path_walk = 1_wait_walk
 path_look = 1_wait_look
 on_info = {=is_squad_enemy_to_actor(zat_b7_stalkers_victims) +zat_b7_stalkers_raiders_meet} camper@attack_1, {+zat_b7_stalkers_raiders_attack_started +zat_b7_stalkers_raiders_meet} walker@walk_to_position_1
@@ -234,6 +251,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk_to_position_1]
+$scheme = $walker
 path_walk = 1_to_position_walk
 path_look = 1_to_position_look
 on_info = {+zat_b7_stalker_raider_leader_on_position} camper@attack_1 %=play_sound(zat_b7_raiders_attack)%
@@ -248,6 +266,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [camper@attack_1]
+$scheme = $camper
 path_walk = 2_attack_walk
 path_look = 2_attack_look
 no_retreat = true
@@ -262,6 +281,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@attack_1_2]
+$scheme = $walker
 path_walk = 2_attack_walk
 path_look = 2_attack_look
 meet = no_meet
@@ -279,6 +299,7 @@ suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_s
 post_combat_time = 0, 0
 
 [walker@attack_2]
+$scheme = $walker
 path_walk = 2_wait_walk
 path_look = 2_wait_look
 def_state_standing = hide_na
@@ -289,6 +310,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk_to_position_2]
+$scheme = $walker
 path_walk = 2_to_position_walk
 path_look = 2_to_position_look
 on_info = {+zat_b7_stalker_raider_leader_on_position} camper@attack_2 %=play_sound(zat_b7_raiders_attack)%
@@ -303,6 +325,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [camper@attack_2]
+$scheme = $camper
 path_walk = 1_attack_walk
 path_look = 1_attack_look
 no_retreat = true
@@ -317,6 +340,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@attack_2_2]
+$scheme = $walker
 path_walk = 1_attack_walk
 path_look = 1_attack_look
 meet = no_meet
@@ -334,6 +358,7 @@ suitable = {=target_squad_name(zat_b7_stalkers_raiders) !check_npc_name(zat_b7_s
 post_combat_time = 0, 0
 
 [walker@attack_3]
+$scheme = $walker
 path_walk = 3_wait_walk
 path_look = 3_wait_look
 def_state_standing = hide_na
@@ -344,6 +369,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk_to_position_3]
+$scheme = $walker
 path_walk = 3_to_position_walk
 path_look = 3_to_position_look
 on_info = {+zat_b7_stalker_raider_leader_on_position} camper@attack_3 %=play_sound(zat_b7_raiders_attack)%
@@ -358,6 +384,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [camper@attack_3]
+$scheme = $camper
 path_walk = 3_attack_walk
 path_look = 3_attack_look
 no_retreat = true
@@ -372,6 +399,7 @@ gather_items_enabled = false
 corpse_detection_enabled = false
 
 [walker@attack_3_2]
+$scheme = $walker
 path_walk = 3_attack_walk
 path_look = 3_attack_look
 meet = no_meet

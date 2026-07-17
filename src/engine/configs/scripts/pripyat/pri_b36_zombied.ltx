@@ -4,6 +4,7 @@ suitable = {=check_npc_name(zombied)} true
 prior = 50
 
 [walker@zombied_1]
+$scheme = $walker
 path_walk = pri_b36_zombied_1_1_walk
 path_look = pri_b36_zombied_1_1_look
 on_info = {+pri_b36_ahtung} walker@fire_actor_1
@@ -19,6 +20,7 @@ out_restr = pri_b36_sr_half_out_restr
 danger = danger_1
 
 [walker@fire_actor_1]
+$scheme = $walker
 path_walk = pri_b36_zombied_1_1_walk
 path_look = pri_b36_zombied_1_1_look
 out_restr = pri_b36_sr_half_out_restr
@@ -35,6 +37,7 @@ suitable = {=check_npc_name(zombied)} true
 prior = 50
 
 [walker@zombied_2]
+$scheme = $walker
 path_walk = pri_b36_zombied_2_1_walk
 path_look = pri_b36_zombied_2_1_look
 on_info = {+pri_b36_ahtung} walker@fire_actor_2
@@ -50,6 +53,7 @@ out_restr = pri_b36_sr_half_out_restr
 danger = danger_2
 
 [walker@fire_actor_2]
+$scheme = $walker
 path_walk = pri_b36_zombied_2_1_walk
 path_look = pri_b36_zombied_2_1_look
 out_restr = pri_b36_sr_half_out_restr
@@ -66,6 +70,7 @@ suitable = {=check_npc_name(zombied)} true
 prior = 50
 
 [walker@zombied_3]
+$scheme = $walker
 path_walk = pri_b36_zombied_3_1_walk
 path_look = pri_b36_zombied_3_1_look
 on_info = {+pri_b36_ahtung} walker@fire_actor_3
@@ -81,6 +86,7 @@ danger = danger_3
 out_restr = pri_b36_sr_half_out_restr
 
 [walker@fire_actor_3]
+$scheme = $walker
 path_walk = pri_b36_zombied_3_1_walk
 path_look = pri_b36_zombied_3_1_look
 sound_idle = state
@@ -97,6 +103,7 @@ suitable = {=check_npc_name(zombied)} true
 prior = 50
 
 [walker@zombied_4]
+$scheme = $walker
 path_walk = pri_b36_zombied_4_1_walk
 path_look = pri_b36_zombied_4_1_look
 out_restr = pri_b36_zombied_restrictor
@@ -112,6 +119,7 @@ combat_ignore_cond = {=is_enemy_actor} true, {=check_enemy_name(sim_default)} tr
 danger = danger_4
 
 [walker@fire_actor_4]
+$scheme = $walker
 path_walk = pri_b36_zombied_4_2_walk
 path_look = pri_b36_zombied_4_2_look
 sound_idle = state
@@ -127,6 +135,7 @@ suitable = {=check_npc_name(zombied)} true
 prior = 50
 
 [walker@zombied_5]
+$scheme = $walker
 path_walk = pri_b36_zombied_5_1_walk
 path_look = pri_b36_zombied_5_1_look
 on_info = {+pri_b36_ahtung} walker@fire_actor_5
@@ -142,6 +151,7 @@ danger = danger_5
 out_restr = pri_b36_zombied_restrictor
 
 [walker@fire_actor_5]
+$scheme = $walker
 path_walk = pri_b36_zombied_5_1_walk
 path_look = pri_b36_zombied_5_1_look
 sound_idle = state

@@ -6,6 +6,7 @@ on_hit = hit
 on_death = death
 
 [animpoint@begin]
+$scheme = $animpoint
 cover_name = jup_b4_animpoint_2
 use_camp = false
 reach_distance = 1.5
@@ -17,6 +18,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@begin_2]
+$scheme = $walker
 use_camp = false
 path_walk = monolith_squad_soldier_4_monolith_skin_begin_2_walk
 path_look = monolith_squad_soldier_4_monolith_skin_begin_2_look
@@ -28,6 +30,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@dolg_come]
+$scheme = $walker
 use_camp = false
 path_walk = monolith_squad_soldier_4_monolith_skin_1_walk
 path_look = monolith_squad_soldier_4_monolith_skin_1_look
@@ -41,9 +44,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [hit]
+$scheme = $hit
 on_info = %+jup_b4_monolith_squad_hit%
 
 [death]
+$scheme = $death
 on_info = %+jup_b4_soldier_4_death +jup_b4_duty_aling4 +jup_b4_recruit_4_serve_duty_sound%
 
 [meet_speak_boos]

@@ -3,6 +3,7 @@ active = animpoint@zat_b28_heli_search
 on_hit = hit
 
 [animpoint@zat_b28_heli_search]
+$scheme = $animpoint
 avail_animations = zat_b28_heli3_serch
 cover_name = zat_b28_heli_3_serch_aminpoint
 on_info = {+zat_b28_heli_3_searched} %=destroy_object%
@@ -17,4 +18,5 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [hit]
+$scheme = $hit
 on_info = %+zat_b28_actor_hit =destroy_object%

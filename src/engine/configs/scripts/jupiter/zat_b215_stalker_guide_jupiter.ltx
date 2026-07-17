@@ -5,6 +5,7 @@ active = animpoint
 level_spot = guider
 
 [animpoint]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_guider_start
 avail_animations = wait_na
 use_camp = false
@@ -20,6 +21,7 @@ corpse_detection_enabled = false
 on_info = {+jup_travel_made -jup_first_meet_made} animpoint@first_visit, {+jup_b217_welcome_faded} animpoint@first_visit
 
 [animpoint@first_visit]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_guider_start
 avail_animations = jup_b217_guide_stand
 use_camp = false
@@ -37,6 +39,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@rest]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_guider
 use_camp = false
 reach_movement = walk_noweap
@@ -52,6 +55,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 close_snd_hello = zat_b215_stalker_guide_greeting
 close_snd_bye = zat_b215_stalker_guide_farewell
 close_anim = nil

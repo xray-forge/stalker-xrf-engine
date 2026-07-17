@@ -8,6 +8,7 @@ post_combat_time = 0,0
 on_death = death
 
 [walker@start]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_1_walk
 path_look = zat_b5_bandit_1_walker_1_look
 ; out_restr = zat_b5_smart_terrain_attack
@@ -25,6 +26,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@start_work_bandit]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_1_walk
 path_look = zat_b5_bandit_1_walker_1_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -40,6 +42,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_work_bandit_2]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_1_walk
 path_look = zat_b5_bandit_1_walker_1_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -56,6 +59,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@go_to_trader_1]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -71,6 +75,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@fear]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_1_look
 out_restr = zat_b5_dolg_trader_1_defence
@@ -86,6 +91,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@see_actor]
+$scheme = $remark
 anim = guard_na
 target = story | actor
 on_info = %=play_sound(zat_b5_bandits_see_actor)%
@@ -98,6 +104,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@fight]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
@@ -111,6 +118,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@after_fight]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
@@ -125,6 +133,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@go_on]
+$scheme = $walker
 path_walk = walker_3_walk
 path_look = walker_3_look
 ; out_restr = zat_b5_smart_terrain_attack
@@ -137,6 +146,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@start_work_stalker]
+$scheme = $walker
 path_walk = zat_b5_bandit_1_walker_2_walk
 path_look = zat_b5_bandit_1_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
@@ -160,16 +170,20 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 close_distance = 0
 close_victim = nil
 use = false
 snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [hit]
+$scheme = $hit
 on_info = {=hit_by_actor -zat_b5_bandit_hit} %+zat_b5_bandit_hit +zat_b5_meat%, {-zat_b5_meat} %+zat_b5_meat%
 
 [death]
+$scheme = $death
 on_info = %=inc_counter(bandits_death)%

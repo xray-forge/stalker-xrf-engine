@@ -1,6 +1,7 @@
 ; Reference animpoint
 
 [animpoint@a28_def]
+$scheme = $animpoint
 cover_name = pri_a16_animp_medic
 reach_movement = walk_noweap
 out_restr = pri_a16_sr_noweap
@@ -14,6 +15,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 abuse = false
 use = true
 close_snd_hello = nil
@@ -34,8 +36,10 @@ level_spot = medic
 ; Waiting for evacuation start
 
 [animpoint@a28]:animpoint@a28_def
+$scheme = $animpoint
 on_info = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_wait_near_door
 ; Gathering group before evacuation
 
 [animpoint@a28_wait_near_door]:animpoint@a28_def
+$scheme = $animpoint
 avail_animations = animpoint_sit_normal_no_rnd

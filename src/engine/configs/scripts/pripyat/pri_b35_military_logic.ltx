@@ -4,11 +4,13 @@ suitable = {=check_npc_name(pri_a22_army_signaller) +pri_b35_actor_is_guided -pr
 prior = 200
 
 [walker@stand]
+$scheme = $walker
 path_walk = spawn
 path_look = look
 meet = meet@self
 
 [meet@self]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_distance = 10

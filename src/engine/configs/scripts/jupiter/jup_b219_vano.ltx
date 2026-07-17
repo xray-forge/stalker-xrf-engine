@@ -4,6 +4,7 @@ active = walker@sig
 prior = 150
 
 [walker@sig]
+$scheme = $walker
 path_walk = vano_walk
 path_look = vano_look
 on_signal = vano | walker %+jup_b219_vano_on_pos%
@@ -19,6 +20,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker]
+$scheme = $walker
 path_walk = vano_walk
 path_look = vano_look
 def_state_standing = guard_na
@@ -36,6 +38,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_one_vano]
+$scheme = $remark
 anim = jup_b219_vano_one
 target = path | jup_b219_vano_look,0
 combat_ignore_cond = true
@@ -48,6 +51,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_all]
+$scheme = $remark
 anim = jup_b219_vano_all
 target = path | jup_b219_vano_look,0
 combat_ignore_cond = true
@@ -60,6 +64,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_soldier_vano]
+$scheme = $remark
 anim = jup_b219_vano_soldier_vano
 target = path | jup_b219_vano_look,0
 combat_ignore_cond = true
@@ -72,6 +77,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_vano_monolith]
+$scheme = $remark
 anim = jup_b219_vano_vano_monolith
 target = path | jup_b219_vano_look,0
 combat_ignore_cond = true
@@ -84,6 +90,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 danger_inertion_time_grenade = 0
 danger_inertion_time_hit = 0

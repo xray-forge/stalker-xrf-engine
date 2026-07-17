@@ -1,4 +1,5 @@
 [meet]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -17,6 +18,7 @@ prior = 200
 active = walker@vano_arrive
 
 [walker@vano_arrive]
+$scheme = $walker
 path_walk = jup_b218_squad_member_arrive_walk
 path_look = jup_b218_squad_member_arrive_look
 def_state_standing = ward_noweap
@@ -32,6 +34,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@vano_tower]
+$scheme = $animpoint
 cover_name = jup_b218_sc_vano
 meet = meet
 combat_ignore_cond = true
@@ -50,6 +53,7 @@ prior = 200
 active = walker@monolith_arrive
 
 [walker@monolith_arrive]
+$scheme = $walker
 path_walk = jup_b218_squad_member_arrive_walk
 path_look = jup_b218_squad_member_arrive_look
 on_info66 = {-jup_b218_monolith_new_friend} %+jup_b218_monolith_new_friend =actor_friend%
@@ -66,6 +70,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@monolith_tower]
+$scheme = $animpoint
 cover_name = jup_b218_sc_monolith
 meet = meet
 combat_ignore_cond = true
@@ -84,6 +89,7 @@ prior = 200
 active = walker@sokolov_arrive
 
 [walker@sokolov_arrive]
+$scheme = $walker
 path_walk = jup_b218_squad_member_arrive_walk
 path_look = jup_b218_squad_member_arrive_look
 def_state_standing = ward_noweap
@@ -99,6 +105,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@sokolov_tower]
+$scheme = $animpoint
 cover_name = jup_b218_sc_sokolov
 meet = meet
 combat_ignore_cond = true

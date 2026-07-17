@@ -6,9 +6,11 @@ post_combat_time = 0, 0
 prior = 200
 
 [death]
+$scheme = $death
 on_info = %+pri_b301_zulus_dead%
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -16,6 +18,7 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [camper@wait_for_actor]
+$scheme = $camper
 path_walk = zulus_walk_1
 path_look = zulus_look_1
 out_restr = pri_b301_zulus_def_restr
@@ -27,6 +30,7 @@ def_state_campering_fire = threat_fire
 def_state_campering = threat
 
 [camper@defend]
+$scheme = $camper
 path_walk = zulus_walk_1
 path_look = zulus_look_1
 out_restr = pri_b301_zulus_def_restr
@@ -41,6 +45,7 @@ def_state_campering_fire = threat_fire
 def_state_campering = threat
 
 [remark@no_danger]
+$scheme = $remark
 target = story | actor
 anim = guard_na
 on_signal = sound_end | remark@dialog
@@ -49,6 +54,7 @@ on_info = %=play_sound(pri_b301_zulus_after_fight)%
 wounded = wounded
 
 [remark@dialog]
+$scheme = $remark
 target = story | actor
 anim = guard
 on_info = {+pri_b301_zulus_remain_alone} walker@wait, {+pri_b301_zulus_go_alone} %+pri_b301_zulus_work_end%, {+pri_b301_go_on_base} %+pri_b301_zulus_work_end%
@@ -57,6 +63,7 @@ meet = meet@self
 wounded = wounded
 
 [walker@wait]
+$scheme = $walker
 path_walk = zulus_walk_1
 path_look = zulus_look_1
 def_state_standing = sit_ass
@@ -64,6 +71,7 @@ on_info = {-pri_b301_go_on_base =dist_to_actor_ge(140) -pri_b301_zulus_destroy_a
 meet = meet
 
 [meet]
+$scheme = $meet
 use = {=actor_enemy} false, true
 use_wpn = {=actor_enemy} false, true
 meet_dialog = jup_b15_zulus_b301_after_fight
@@ -71,6 +79,7 @@ trade_enable = false
 allow_break = false
 
 [meet@self]
+$scheme = $meet
 use = {=actor_enemy} false, {=dist_to_actor_le(3)} self, true
 use_wpn = {=actor_enemy} false, true
 meet_dialog = jup_b15_zulus_b301_after_fight

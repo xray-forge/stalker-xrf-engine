@@ -4,6 +4,7 @@ prior = 200
 active = walker@start
 
 [walker@start]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = garmata_1_walk
 def_state_standing = wait_na
@@ -21,6 +22,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@infirmary]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = garmata_1_walk
 def_state_standing = wait_na
@@ -36,6 +38,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@story_ask]
+$scheme = $remark
 anim = wait_na
 target = path | zat_stalker_base_smart_garmata_1_walk, 0
 on_info = %=play_sound(zat_b106_gonta_story_ask)%
@@ -51,6 +54,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@story_wait]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = garmata_1_walk
 def_state_standing = wait_na
@@ -66,6 +70,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@story_angry]
+$scheme = $remark
 anim = wait_na
 target = path | zat_stalker_base_smart_garmata_1_walk, 0
 on_info = %=play_sound(zat_b106_gonta_story_angry)%
@@ -81,6 +86,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@story_angry]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = gonta_2_look
 def_state_standing = wait_na
@@ -97,6 +103,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@story_calm]
+$scheme = $remark
 anim = stoop_no_weap ; wait_na
 target = story | zat_b106_stalker_crab
 on_info = %=play_sound(zat_b106_gonta_story_calm)%
@@ -112,6 +119,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@story_calm]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = gonta_1_look
 def_state_standing = wait_na
@@ -127,6 +135,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@to_actor]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = gonta_1_look
 def_state_standing = wait_na
@@ -143,6 +152,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@to_actor]
+$scheme = $remark
 anim = wait_na
 target = story | actor
 on_info = %=play_sound(zat_b106_gonta_to_actor)%
@@ -159,6 +169,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@wait_actor]
+$scheme = $walker
 path_walk = gonta_1_walk
 path_look = gonta_1_look
 def_state_standing = wait_na
@@ -175,6 +186,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@wait_actor]
+$scheme = $remark
 anim = wait_na
 target = story | actor
 on_info = {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%
@@ -189,6 +201,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@ya_doma]
+$scheme = $walker
 path_walk = gonta_4_walk
 path_look = gonta_4_look
 on_signal = gonta_home | animpoint@base
@@ -205,6 +218,7 @@ def_state_moving = assault
 wounded = wounded
 
 [animpoint@base]
+$scheme = $animpoint
 cover_name = zat_a2_sc_zat_b106_stalker_gonta
 meet = meet
 use_camp = false
@@ -219,6 +233,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@idle]
+$scheme = $meet
 close_victim = actor
 close_distance = 5
 close_snd_hello = nil
@@ -231,6 +246,7 @@ allow_break = false
 abuse = true
 
 [meet]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -246,6 +262,7 @@ allow_break = false
 meet_on_talking = false
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil

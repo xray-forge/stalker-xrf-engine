@@ -6,6 +6,7 @@ on_hit = hit
 on_death = death
 
 [walker@1]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_1_walk
 path_look = duty_leader_1_look
@@ -17,6 +18,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@2]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_2_walk
 path_look = duty_leader_2_look
@@ -30,6 +32,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@3]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_2_walk
 path_look = duty_leader_2_look
@@ -42,6 +45,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@4]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_3_walk
 path_look = duty_leader_3_look
@@ -53,6 +57,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@5]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_4_walk
 path_look = duty_leader_4_look
@@ -67,6 +72,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@remark]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_5_walk
 path_look = duty_leader_5_look
@@ -79,6 +85,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@final_sound]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_5_walk
 path_look = duty_leader_5_look
@@ -93,6 +100,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@6]
+$scheme = $walker
 use_camp = false
 path_walk = duty_leader_1_walk
 path_look = duty_leader_1_look
@@ -104,10 +112,13 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 meet_dialog = jup_b4_duty_squad_start_dialog
 
 [hit]
+$scheme = $hit
 on_info = {-jup_b4_monolith_squad_in_duty =hitted_by(actor)} %+jup_b4_monolith_squad_out%
 
 [death]
+$scheme = $death
 on_info = {-jup_b4_monolith_squad_in_duty} %+jup_b4_monolith_squad_out%

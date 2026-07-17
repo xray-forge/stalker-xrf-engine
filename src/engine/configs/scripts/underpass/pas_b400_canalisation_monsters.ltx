@@ -119,6 +119,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_1_zombied)} true
 prior = 200
 
 [walker@canalisation_1_zombied_1]
+$scheme = $walker
 path_walk = 1_zombied_1_walk
 on_info = {+pas_b400_way_door_opened} walker@canalisation_1_zombied_attack
 combat_ignore_cond = true
@@ -129,11 +130,13 @@ suitable = {=target_squad_name(pas_b400_canalisation_1_zombied)} true
 prior = 200
 
 [walker@canalisation_1_zombied_2]
+$scheme = $walker
 path_walk = 1_zombied_2_walk
 on_info = {+pas_b400_way_door_opened} walker@canalisation_1_zombied_attack
 combat_ignore_cond = true
 
 [walker@canalisation_1_zombied_attack]
+$scheme = $walker
 path_walk = 1_zombied_attack
 
 [logic@pas_b400_canalisation_3_zombied_1]
@@ -142,6 +145,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_1]
+$scheme = $walker
 path_walk = 3_zombied_1_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_1_attack
 combat_ignore_cond = true
@@ -152,6 +156,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_2]
+$scheme = $walker
 path_walk = 3_zombied_2_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_2_attack
 combat_ignore_cond = true
@@ -162,6 +167,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_3]
+$scheme = $walker
 path_walk = 3_zombied_3_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_1_attack
 combat_ignore_cond = true
@@ -172,6 +178,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_4]
+$scheme = $walker
 path_walk = 3_zombied_4_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_2_attack
 combat_ignore_cond = true
@@ -182,6 +189,7 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_5]
+$scheme = $walker
 path_walk = 3_zombied_5_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_1_attack
 combat_ignore_cond = true
@@ -192,14 +200,17 @@ suitable = {=target_squad_name(pas_b400_canalisation_3_zombied)} true
 prior = 200
 
 [walker@canalisation_3_zombied_6]
+$scheme = $walker
 path_walk = 3_zombied_6_1_walk
 on_info = {+pas_b400_canalisation_zombied_3_attacked} walker@canalisation_3_zombied_2_attack
 combat_ignore_cond = true
 
 [walker@canalisation_3_zombied_1_attack]
+$scheme = $walker
 path_walk = 3_zombied_1_attack
 
 [walker@canalisation_3_zombied_2_attack]
+$scheme = $walker
 path_walk = 3_zombied_2_attack
 
 [logic@pas_b400_canalisation_5_zombied_1]
@@ -209,6 +220,7 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_1]
+$scheme = $walker
 path_walk = 5_zombied_1_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_1_attack
 combat_ignore_cond = true
@@ -220,6 +232,7 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_2]
+$scheme = $walker
 path_walk = 5_zombied_2_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_2_attack
 combat_ignore_cond = true
@@ -231,6 +244,7 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_3]
+$scheme = $walker
 path_walk = 5_zombied_3_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_1_attack
 combat_ignore_cond = true
@@ -242,6 +256,7 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_4]
+$scheme = $walker
 path_walk = 5_zombied_4_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_2_attack
 combat_ignore_cond = true
@@ -253,6 +268,7 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_5]
+$scheme = $walker
 path_walk = 5_zombied_5_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_1_attack
 combat_ignore_cond = true
@@ -264,15 +280,19 @@ prior = 200
 on_hit = hit@zombied
 
 [walker@canalisation_5_zombied_6]
+$scheme = $walker
 path_walk = 5_zombied_6_1_walk
 on_info = {+pas_b400_canalisation_zombied_5_attacked} walker@canalisation_5_zombied_2_attack
 combat_ignore_cond = true
 
 [walker@canalisation_5_zombied_1_attack]
+$scheme = $walker
 path_walk = 5_zombied_1_attack
 
 [walker@canalisation_5_zombied_2_attack]
+$scheme = $walker
 path_walk = 5_zombied_2_attack
 
 [hit@zombied]
+$scheme = $hit
 on_info = %+pas_b400_canalisation_zombied_5_attacked%

@@ -4,6 +4,7 @@ prior = 200
 active = animpoint@wounded ; walker@base
 
 [animpoint@wounded]
+$scheme = $animpoint
 cover_name = zat_a2_sc_zat_b106_crab_wounded
 avail_animations = zat_b106_wounded_idle
 meet = no_meet
@@ -40,6 +41,7 @@ corpse_detection_enabled = false
 ; danger = danger
 
 [animpoint@base]
+$scheme = $animpoint
 cover_name = zat_a2_sc_zat_b106_stalker_crab
 meet = meet@base
 use_camp = false
@@ -52,6 +54,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@base_no_meet]
+$scheme = $animpoint
 cover_name = zat_a2_sc_zat_b106_stalker_crab
 meet = no_meet
 use_camp = false
@@ -65,6 +68,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@base]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -78,9 +82,11 @@ snd_on_use = zat_b106_garmata_refuse_talk
 meet_on_talking = false
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil

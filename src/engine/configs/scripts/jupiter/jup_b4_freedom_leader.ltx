@@ -6,6 +6,7 @@ on_hit = hit
 on_death = death
 
 [walker@1]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_1_walk
 path_look = freedom_leader_1_look
@@ -17,6 +18,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@2]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_2_walk
 path_look = freedom_leader_2_look
@@ -30,6 +32,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@3]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_2_walk
 path_look = freedom_leader_2_look
@@ -43,6 +46,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@4]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_2_walk
 path_look = freedom_leader_2_look
@@ -57,6 +61,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@5]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_2_walk
 path_look = freedom_leader_2_look
@@ -70,6 +75,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@6]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_2_walk
 path_look = freedom_leader_2_look
@@ -84,6 +90,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@7]
+$scheme = $walker
 use_camp = false
 path_walk = freedom_leader_1_walk
 path_look = freedom_leader_1_look
@@ -95,10 +102,13 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 meet_dialog = jup_b4_freedom_squad_start_dialog
 
 [hit]
+$scheme = $hit
 on_info = {-jup_b4_monolith_squad_in_freedom =hitted_by(actor)} %+jup_b4_monolith_squad_out%
 
 [death]
+$scheme = $death
 on_info = {-jup_b4_monolith_squad_in_freedom} %+jup_b4_monolith_squad_out%

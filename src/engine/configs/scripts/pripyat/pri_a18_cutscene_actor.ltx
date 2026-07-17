@@ -3,6 +3,7 @@ active = animpoint@pri_a18_start
 on_hit = hit
 
 [animpoint@pri_a18_start]
+$scheme = $animpoint
 cover_name = pri_a18_sc_cutscene_actor
 avail_animations = pri_a18_inspert_monolit_actor
 meet = no_meet
@@ -18,4 +19,5 @@ on_info = {+pri_a18_radio_start} %=play_sound(pri_a18_actor_report)%
 on_info2 = {+pri_a18_cutscene_actor_destr} %=destroy_object%
 
 [hit]
+$scheme = $hit
 on_info = %+pri_a18_cut_actor_hit =destroy_object%

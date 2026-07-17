@@ -3,6 +3,7 @@ active = remark@start
 on_hit = hit
 
 [remark@start]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -17,6 +18,7 @@ target = story | pri_a22_military_yarmoshuk
 on_game_timer = 50 | remark@stand_up
 
 [remark@stand_up]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -30,6 +32,7 @@ target = story | pri_a22_military_yarmoshuk
 on_game_timer = 30 | remark@talk_rac_actor
 
 [remark@talk_rac_actor]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -45,4 +48,5 @@ on_game_timer = 70 | %=play_sound(pri_a22_actor_to_base_find_squad_member)%
 on_info = {+pri_a22_cutscene_actor_find_squad_destroy} %=destroy_object%
 
 [hit]
+$scheme = $hit
 on_info = %+pri_a22_cut_actor_hit =destroy_object%

@@ -4,6 +4,7 @@ suitable = {=check_npc_name(monolith)}
 prior = 100
 
 [walker@start]
+$scheme = $walker
 path_walk = walker_5_walk
 path_look = walker_5_look
 def_state_standing = trans_0
@@ -25,6 +26,7 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@cover]
+$scheme = $camper
 path_walk = marine_cover_2_walk
 path_look = marine_cover_2_look
 radius = 30
@@ -39,6 +41,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [walker@free]
+$scheme = $walker
 path_walk = marine_sniper_2_walk
 path_look = marine_sniper_2_look
 gather_items_enabled = false
@@ -47,6 +50,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@fire]
+$scheme = $camper
 path_walk = marine_sniper_2_walk
 path_look = marine_sniper_2_look
 radius = 20

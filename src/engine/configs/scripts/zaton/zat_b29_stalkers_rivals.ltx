@@ -1,4 +1,5 @@
 [meet@rival]
+$scheme = $meet
 meet_dialog = {!is_wounded =zat_b29_rivals_dialog_precond} zat_b29_rivals_start_dialog
 
 [logic@zat_b29_stalker_rival_leader]
@@ -7,6 +8,7 @@ prior = 200
 active = walker@stalker_rival_leader
 
 [walker@stalker_rival_leader]
+$scheme = $walker
 path_walk = leader_walk
 path_look = leader_look
 def_state_moving = walk
@@ -20,6 +22,7 @@ prior = 200
 active = walker@stalker_rival_2
 
 [walker@stalker_rival_2]
+$scheme = $walker
 path_walk = 2_walk
 path_look = 2_look
 def_state_moving = walk
@@ -33,6 +36,7 @@ prior = 200
 active = walker@stalker_rival_3
 
 [walker@stalker_rival_3]
+$scheme = $walker
 path_walk = 3_walk
 path_look = 3_look
 def_state_moving = walk
@@ -47,6 +51,7 @@ prior = 200
 active = walker@stalker_rival_base_reach
 
 [walker@stalker_rival_base_reach]
+$scheme = $walker
 path_walk = b29_rival_leader_walk
 path_look = b29_rival_leader_look
 on_signal = path_end | walker@wait_for_actor
@@ -54,6 +59,7 @@ on_info = {=npc_in_zone(zat_a2_sr_light)} walker@stalker_rival_base
 out_restr = zat_a2_sr_noweap
 
 [walker@stalker_rival_base]
+$scheme = $walker
 path_walk = b29_rival_leader_walk
 path_look = b29_rival_leader_look
 on_signal = path_end | walker@wait_for_actor
@@ -68,6 +74,7 @@ corpse_detection_enabled = false
 use_camp = false
 
 [walker@wait_for_actor]
+$scheme = $walker
 path_walk = b29_rival_leader_walk
 path_look = b29_rival_leader_look
 on_info = {=dist_to_actor_le(20)} remark@transfer_af
@@ -81,6 +88,7 @@ corpse_detection_enabled = false
 use_camp = false
 
 [remark@transfer_af]
+$scheme = $remark
 target = story | zat_a2_stalker_barmen
 anim = zat_b14_give_artefact_idle
 on_info = {-zat_b29_rival_sound_played =check_npc_name(zat_b29_stalker_rival_1)} %=play_sound(zat_b29_stalker_rival_1_order_ready)%

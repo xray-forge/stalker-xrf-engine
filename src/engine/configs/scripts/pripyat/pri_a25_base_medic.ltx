@@ -4,6 +4,7 @@ prior = 200
 active = walker@teleport
 
 [walker@teleport]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 path_walk = medic_walk
@@ -15,6 +16,7 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 
 [walker@refrigerator]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 path_walk = medic_walk
@@ -28,6 +30,7 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 
 [remark@a25_timer]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = no_meet
 on_info = {=actor_enemy} %=actor_neutral%
@@ -39,6 +42,7 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 
 [remark@a25_dialog]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = meet@pri_25
 target = story | actor
@@ -49,6 +53,7 @@ combat_ignore_keep_when_attacked = true
 invulnerable = true
 
 [meet@pri_25]
+$scheme = $meet
 meet_dialog = pri_a25_army_medic_freezer
 use = self
 allow_break = false

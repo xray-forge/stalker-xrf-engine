@@ -1,6 +1,7 @@
 ; Reference walker
 
 [walker@a28_def]
+$scheme = $walker
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -17,6 +18,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@meet_snd_surge]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 abuse = false
@@ -28,6 +30,7 @@ close_anim = nil
 meet_on_talking = false
 
 [meet@meet_near_door]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 abuse = false
@@ -46,19 +49,24 @@ active = walker@a28_second_theme_1
 ; Second theme about surge, start
 
 [walker@a28_second_theme_1]:walker@a28_def
+$scheme = $walker
 on_info2 = {!is_alive(pri_a17_military_captain_tarasov)} walker@a28_second_theme_3, {!is_alive(pri_a17_military_prapor_valentyr)} walker@a28_second_theme_3, {+pri_a28_army_surge_talk_1_done} walker@a28_second_theme_2
 
 [walker@a28_second_theme_2]:walker@a28_def
+$scheme = $walker
 on_game_timer = 100 | walker@a28_second_theme_3
 
 [walker@a28_second_theme_3]:walker@a28_def
+$scheme = $walker
 on_game_timer = 100 | {=is_alive(pri_a22_army_signaller) =animpoint_reached} %=play_sound(pri_a28_army_surge_talk_2_first)%
 on_signal = sound_end | walker@a28_second_theme_4 %+pri_a28_army_surge_talk_2_first%
 
 [walker@a28_second_theme_4]:walker@a28_def
+$scheme = $walker
 ; Gathering group before evacuation
 
 [animpoint@a28_wait_near_door]
+$scheme = $animpoint
 cover_name = pri_a16_animp_1
 reach_movement = walk
 out_restr = pri_a16_sr_noweap

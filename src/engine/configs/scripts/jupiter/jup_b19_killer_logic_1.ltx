@@ -6,6 +6,7 @@ on_death = death
 on_hit = hit
 
 [walker@walk1]
+$scheme = $walker
 path_walk = merc1_1_walk
 path_look = merc1_1_look
 on_signal = merc1_1 | walker@walk2
@@ -18,6 +19,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk2]
+$scheme = $walker
 path_walk = merc1_2_walk
 path_look = merc1_2_look
 on_signal = merc1_2 | walker@walk3
@@ -30,6 +32,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk3]
+$scheme = $walker
 path_walk = merc1_3_walk
 path_look = merc1_3_look
 on_signal = merc1_3 | walker@walk4
@@ -42,6 +45,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk4]
+$scheme = $walker
 path_walk = merc1_4_walk
 path_look = merc1_4_look
 on_signal = merc1_4 | {-jup_b19_mercs_can_fight} walker@walk5 %+jup_b19_mercs_can_fight%
@@ -57,6 +61,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@walk5]
+$scheme = $walker
 path_walk = merc1_10_walk
 path_look = merc1_10_look
 wounded = wounded
@@ -67,6 +72,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -74,10 +80,13 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [hit]
+$scheme = $hit
 on_info = {-jup_b19_fight_begun} %+jup_b19_fight_begun%
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [death]
+$scheme = $death
 on_info = %=inc_counter(merc_death)%

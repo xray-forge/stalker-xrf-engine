@@ -3,6 +3,7 @@ active = remark@start
 on_hit = hit
 
 [remark@start]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -16,6 +17,7 @@ target = path | pri_a20_cutscene_actor_walk_squad, 0
 on_game_timer = 50 | remark@stand_up
 
 [remark@stand_up]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -29,6 +31,7 @@ anim = wait_na
 on_game_timer = 30 | remark@speak_radio
 
 [remark@speak_radio]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -43,6 +46,7 @@ on_game_timer = 70 | {-pri_a20_squad_cutscene_actor_talk} %+pri_a20_squad_cutsce
 on_signal = sound_end | remark@speak_radio_2 %+pri_a20_squad_cutscene_actor_talk_complete%
 
 [remark@speak_radio_2]
+$scheme = $remark
 meet = no_meet
 use_camp = false
 combat_ignore_cond = true
@@ -58,4 +62,5 @@ on_info = {+pri_a20_squad_cutscene_actor_talk_2 -pri_a18_use_idol_done} %=play_s
 on_info2 = {+pri_a20_talk_with_colonel_complete} %=destroy_object%
 
 [hit]
+$scheme = $hit
 on_info = %+pri_a20_cut_actor_hit =destroy_object%

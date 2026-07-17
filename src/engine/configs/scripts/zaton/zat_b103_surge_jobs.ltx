@@ -1,19 +1,23 @@
 ; GENERAL
 
 [hit]
+$scheme = $hit
 on_info = %+zat_b103_merc_fight%
 
 [meet@snd_1]
+$scheme = $meet
 use = false
 snd_on_use = {-zat_b103_merc_fight} zat_b103_merc_talk_to_commander_1, nil
 trade_enable = false
 
 [meet@snd_2]
+$scheme = $meet
 use = false
 snd_on_use = {-zat_b103_merc_fight} zat_b103_merc_talk_to_commander_2, nil
 trade_enable = false
 
 [animpoint@def]
+$scheme = $animpoint
 reach_movement = sprint
 meet = no_meet
 out_restr = zat_surge_hide_b103
@@ -28,6 +32,7 @@ prior = 200
 on_hit = hit
 
 [animpoint@leader]
+$scheme = $animpoint
 out_restr = zat_surge_hide_b103
 cover_name = zat_b103_animp_surge_leader
 reach_movement = sprint
@@ -36,12 +41,14 @@ on_info = {=actor_in_zone(zat_b103_merc_inside_yard) -zat_b103_merc_task_done} %
 meet = no_meet
 
 [remark@leader]
+$scheme = $remark
 out_restr = zat_surge_hide_b103
 anim = threat
 target = story | actor
 on_signal = sound_end | {=actor_has_weapon} remark@leader_wait, animpoint@leader
 
 [remark@leader_wait]
+$scheme = $remark
 out_restr = zat_surge_hide_b103
 anim = threat
 target = story | actor
@@ -92,22 +99,29 @@ on_hit = hit
 ; JOB SECTIONS
 
 [animpoint@1]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_1
 
 [animpoint@2]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_2
 
 [animpoint@3]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_3
 
 [animpoint@4]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_4
 
 [animpoint@5]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_5
 
 [animpoint@6]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_6
 
 [animpoint@7]:animpoint@def
+$scheme = $animpoint
 cover_name = zat_b103_animp_surge_7

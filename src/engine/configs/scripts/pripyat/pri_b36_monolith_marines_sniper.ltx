@@ -5,6 +5,7 @@ prior = 150
 on_death = death
 
 [walker@start]
+$scheme = $walker
 path_walk = walker_1_walk
 path_look = walker_1_look
 on_info = {+pri_b36_ahtung} camper@start
@@ -26,6 +27,7 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@start]
+$scheme = $camper
 path_walk = marine_sniper_2_walk
 path_look = marine_sniper_2_look
 def_state_standing = hide_na
@@ -38,6 +40,7 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@back]
+$scheme = $camper
 path_walk = marine_sniper_3_walk
 path_look = marine_sniper_3_look
 ; radius = 15
@@ -52,6 +55,7 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [walker@free]
+$scheme = $walker
 path_walk = marine_sniper_3_walk
 path_look = marine_sniper_3_look
 corpse_detection_enabled = false
@@ -59,4 +63,5 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [death]
+$scheme = $death
 on_info = %+pri_b36_marine_sniper_dead%

@@ -4,6 +4,7 @@ prior = 200
 active = walker@duty_leader
 
 [animpoint@duty_leader]
+$scheme = $animpoint
 cover_name = jup_a6_animpint_duty_leader
 avail_animations = animpoint_sit_normal_no_rnd
 use_camp = false
@@ -19,6 +20,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 
 [walker@duty_leader]
+$scheme = $walker
 path_walk = duty_leader_walk
 path_look = duty_leader_look
 def_state_standing = wait_na
@@ -36,6 +38,7 @@ help_wounded_enabled = false
 use_camp = false
 
 [meet@stand_base]
+$scheme = $meet
 close_snd_hello = jup_a6_duty_leader_greeting
 close_snd_bye = jup_a6_duty_leader_farewell
 close_anim = nil
@@ -51,11 +54,13 @@ trade_enable = false
 meet_on_talking = false
 
 [meet@walker]:meet@stand_base
+$scheme = $meet
 close_anim = wait_na
 close_victim = actor
 close_distance = 3
 
 [remark@jup_b207_radio_talk]
+$scheme = $remark
 target = story | actor
 anim = wait_rac
 on_signal = anim_end | %=play_sound(jup_b207_duty_leader_about_depot)%
@@ -71,6 +76,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@jup_b207_radio_talk_done]
+$scheme = $remark
 target = story | actor
 anim = wait_na
 on_signal = anim_end | %=play_sound(jup_b207_duty_leader_about_depot_after)%

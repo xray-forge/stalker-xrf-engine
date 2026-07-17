@@ -1,4 +1,5 @@
 [walker@def]
+$scheme = $walker
 corpse_detection_enabled = false
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -11,14 +12,17 @@ prior = 200
 known_info = known_info
 
 [walker@base_1]:walker@def
+$scheme = $walker
 path_walk = deadman_military_1_walk
 path_look = deadman_military_1_look
 on_info = walker@start_1 %=teleport_npc(pri_b35_mercs_deadman_military_1_walk)%
 
 [walker@start_1]:walker@base_1
+$scheme = $walker
 on_game_timer = 30 | walker@death_1 %=hit_npc(self:pri_a20_deadman_military_1_im:bip01_head:2:12)%
 
 [walker@death_1]:walker@base_1
+$scheme = $walker
 on_game_timer = 5 | nil %=kill_npc%
 
 [known_info]
@@ -31,14 +35,17 @@ prior = 200
 known_info = known_info
 
 [walker@base_2]:walker@def
+$scheme = $walker
 path_walk = deadman_military_2_walk
 path_look = deadman_military_2_look
 on_info = walker@start_2 %=teleport_npc(pri_b35_mercs_deadman_military_2_walk)%
 
 [walker@start_2]:walker@base_2
+$scheme = $walker
 on_game_timer = 30 | walker@death_2 %=hit_npc(self:pri_a20_deadman_military_2_im:bip01_head:3:33)%
 
 [walker@death_2]:walker@base_2
+$scheme = $walker
 on_game_timer = 5 | nil %=kill_npc%
 
 [logic@pri_a20_missing_military_recon_2]
@@ -48,14 +55,17 @@ prior = 190
 known_info = known_info
 
 [walker@base_3]:walker@def
+$scheme = $walker
 path_walk = deadman_military_3_walk
 path_look = deadman_military_3_look
 on_info = walker@start_3 %=teleport_npc(pri_b35_mercs_deadman_military_3_walk)%
 
 [walker@start_3]:walker@base_3
+$scheme = $walker
 on_game_timer = 30 | walker@death_3 %=hit_npc(self:pri_a20_deadman_military_3_im:bip01_head:4:43)%
 
 [walker@death_3]:walker@base_3
+$scheme = $walker
 on_game_timer = 5 | nil %=kill_npc%
 
 [logic@pri_a20_missing_military_recon_3]
@@ -65,12 +75,15 @@ prior = 190
 known_info = known_info
 
 [walker@base_4]:walker@def
+$scheme = $walker
 path_walk = deadman_military_4_walk
 path_look = deadman_military_4_look
 on_info = walker@start_4 %=teleport_npc(pri_b35_mercs_deadman_military_4_walk)%
 
 [walker@start_4]:walker@base_4
+$scheme = $walker
 on_game_timer = 30 | walker@death_4 %=hit_npc(self:pri_a20_deadman_military_4_im:bip01_head:1:23)%
 
 [walker@death_4]:walker@base_4
+$scheme = $walker
 on_game_timer = 5 | nil %=kill_npc%

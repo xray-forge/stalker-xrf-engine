@@ -2,6 +2,7 @@
 active = walker@start
 
 [walker@start]
+$scheme = $walker
 path_walk = zat_b5_smart_terrain_actor_with_bandits_walk
 path_look = zat_b5_smart_terrain_actor_with_bandits_look
 def_state_standing = guard
@@ -16,6 +17,7 @@ danger = danger
 invulnerable = true
 
 [walker@walk]
+$scheme = $walker
 path_walk = zat_b5_smart_terrain_actor_after_bandits_cutscene_walk
 path_look = zat_b5_smart_terrain_actor_after_bandits_cutscene_look
 def_state_standing = guard
@@ -30,4 +32,5 @@ danger = danger
 invulnerable = true
 
 [danger]
+$scheme = $danger
 ignore_distance = 0

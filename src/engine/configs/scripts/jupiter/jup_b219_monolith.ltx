@@ -4,6 +4,7 @@ active = walker@sig
 prior = 150
 
 [walker@sig]
+$scheme = $walker
 path_walk = monolith_walk
 path_look = monolith_look
 on_signal = monolith | walker %+jup_b219_monolith_on_pos%
@@ -19,6 +20,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker]
+$scheme = $walker
 path_walk = monolith_walk
 path_look = monolith_look
 def_state_standing = guard_na
@@ -37,6 +39,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_one_monolith]
+$scheme = $remark
 anim = jup_b219_monolith_one
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -49,6 +52,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_all]
+$scheme = $remark
 anim = jup_b219_monolith_all
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -61,6 +65,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_soldier_monolith]
+$scheme = $remark
 anim = jup_b219_monolith_soldier_monolith
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -73,6 +78,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@start_vano_monolith]
+$scheme = $remark
 anim = jup_b219_monolith_vano_monolith
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -85,6 +91,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 danger_inertion_time_grenade = 0
 danger_inertion_time_hit = 0

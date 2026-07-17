@@ -5,6 +5,7 @@ prior = 100
 on_hit = hit
 
 [walker@start]
+$scheme = $walker
 path_walk = walker_3_walk
 path_look = walker_3_look
 def_state_standing = wait
@@ -26,6 +27,7 @@ out_restr = pri_b36_zombied_restrictor
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [walker@walk]
+$scheme = $walker
 path_walk = marine_3_2_walk
 path_look = marine_3_2_look
 out_restr = pri_b36_sr_half_out_restr
@@ -36,6 +38,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [camper@walk]
+$scheme = $camper
 path_walk = marine_3_2_walk
 path_look = marine_3_2_look
 out_restr = pri_b36_sr_half_out_restr
@@ -52,4 +55,5 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default)} true
 
 [hit]
+$scheme = $hit
 on_info = {-pri_b36_ahtung} %+pri_b36_ahtung%

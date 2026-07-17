@@ -4,6 +4,7 @@ prior = 200
 active = walker@infirmary
 
 [walker@infirmary]
+$scheme = $walker
 path_walk = garmata_1_walk
 path_look = gonta_1_walk
 def_state_standing = wait_na
@@ -21,6 +22,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@wait_gonta]
+$scheme = $walker
 path_walk = garmata_1_walk
 path_look = gonta_1_walk
 def_state_standing = wait_na
@@ -36,6 +38,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@story_reply]
+$scheme = $remark
 anim = wait_na
 target = path| zat_stalker_base_smart_gonta_1_walk,0 ; story | zat_b106_stalker_gonta
 on_info = %=play_sound(zat_b106_garmata_story_reply)%
@@ -51,6 +54,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@story_reply_wait]
+$scheme = $walker
 path_walk = garmata_1_walk
 path_look = gonta_1_walk
 def_state_standing = wait_na
@@ -66,6 +70,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@wait]
+$scheme = $walker
 path_walk = garmata_1_walk
 path_look = gonta_1_walk
 def_state_standing = wait_na
@@ -81,6 +86,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [walker@ya_doma]
+$scheme = $walker
 path_walk = garmata_4_walk
 path_look = garmata_4_look
 on_signal = garmata_home | animpoint@base
@@ -97,6 +103,7 @@ def_state_moving = assault
 wounded = wounded
 
 [animpoint@base]
+$scheme = $animpoint
 cover_name = zat_a2_sc_zat_b106_stalker_garmata
 meet = meet@base
 use_camp = false
@@ -110,6 +117,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@base]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -123,6 +131,7 @@ snd_on_use = zat_b106_garmata_refuse_talk
 meet_on_talking = false
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil

@@ -6,6 +6,7 @@ can_select_weapon = false
 level_spot = mechanic
 
 [animpoint@base]
+$scheme = $animpoint
 cover_name = zat_a2_sc_tech
 reach_distance = 2
 avail_animations = zat_b3_tech_idle
@@ -26,10 +27,12 @@ corpse_detection_enabled = false
 on_info5 = {=npc_talking} animpoint@short_idle
 
 [animpoint@short_idle]:animpoint@base
+$scheme = $animpoint
 avail_animations = zat_b3_tech_idle_short
 on_actor_dist_ge_nvis = 10 | animpoint@base
 
 [meet]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_anim = nil
@@ -44,6 +47,7 @@ meet_dialog = {+zat_b3_tech_see_produce_62 -zat_a23_actor_has_access_card_to_tes
 meet_on_talking = false
 
 [animpoint@drinking]
+$scheme = $animpoint
 cover_name = zat_a2_sc_tech
 reach_distance = 2
 avail_animations = zat_b3_tech_drink
@@ -60,6 +64,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@sleep]
+$scheme = $animpoint
 cover_name = zat_a2_sc_tech
 reach_distance = 2
 avail_animations = zat_b3_tech_drunk
@@ -77,6 +82,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@sleep]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_anim = nil
@@ -91,6 +97,7 @@ use = false
 meet_on_talking = false
 
 [animpoint@shocked]
+$scheme = $animpoint
 cover_name = zat_a2_sc_tech ; refuse
 reach_distance = 2
 avail_animations = zat_b3_tech_surprise

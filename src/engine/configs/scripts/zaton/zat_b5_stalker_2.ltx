@@ -7,6 +7,7 @@ post_combat_time = 0,0
 on_death = death
 
 [walker]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_1_walk
 path_look = zat_b5_stalker_2_walker_1_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -23,6 +24,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_bandit]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_b_walker_1_walk
 path_look = zat_b5_stalker_2_b_walker_1_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -38,6 +40,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_bandit_2]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_b_walker_2_walk
 path_look = zat_b5_stalker_2_b_walker_2_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -53,6 +56,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_bandit_3]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_b_walker_3_walk
 path_look = zat_b5_stalker_2_b_walker_3_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -68,6 +72,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_bandit_4]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_6_walk
 path_look = zat_b5_stalker_2_walker_6_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -84,6 +89,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@fight]
+$scheme = $walker
 path_walk = zat_b5_bandit_2_walker_2_walk
 path_look = zat_b5_bandit_2_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
@@ -94,6 +100,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_stalker]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_1_walk
 path_look = zat_b5_stalker_2_walker_1_look
 out_restr = zat_b5_stalkers_start_out_restr
@@ -109,6 +116,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_timer_go_to_position]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_1_walk
 path_look = zat_b5_stalker_2_walker_1_look
 out_restr = zat_b5_stalkers_start_out_restr
@@ -125,6 +133,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_go_to_position]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_2_walk
 path_look = zat_b5_stalker_2_walker_2_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -141,6 +150,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_go_to_position_3]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_21_walk
 path_look = zat_b5_stalker_2_walker_21_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -156,6 +166,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_go_to_position_4]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_22_walk
 path_look = zat_b5_stalker_2_walker_22_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -171,6 +182,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_go_to_position_5]
+$scheme = $walker
 path_walk = zat_b5_stalker_2_walker_22_walk
 path_look = zat_b5_stalker_2_walker_22_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -187,6 +199,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [camper@fight]
+$scheme = $camper
 path_walk = zat_b5_stalker_2_camper_1_walk
 path_look = zat_b5_stalker_2_camper_1_look
 on_signal = stalker_1_cam_end | walker@stalker_fight
@@ -204,6 +217,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_fight]
+$scheme = $walker
 path_walk = zat_b5_bandit_2_walker_2_walk
 path_look = zat_b5_bandit_2_walker_2_look
 out_restr = zat_b5_smart_terrain_attack
@@ -216,6 +230,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@stalker_after_fight]
+$scheme = $walker
 path_walk = guard_2_walk
 path_look = guard_2_look
 ; out_restr = zat_b5_dolg_trader_1_defence
@@ -227,6 +242,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -234,16 +250,20 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [meet]
+$scheme = $meet
 close_distance = 0
 close_victim = nil
 use = false
 snd_on_use = {=actor_enemy} nil, {=has_enemy} meet_use_no_fight, {!has_enemy} zat_b5_stalkers_refuse_talk
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [hit]
+$scheme = $hit
 on_info = {=hit_by_actor -zat_b5_stalker_hit} %+zat_b5_stalker_hit +zat_b5_meat%, {-zat_b5_meat +zat_b5_actor_stalker_go_to_trader} %+zat_b5_meat%
 
 [death]
+$scheme = $death
 on_info = %=inc_counter(stalker_death)%

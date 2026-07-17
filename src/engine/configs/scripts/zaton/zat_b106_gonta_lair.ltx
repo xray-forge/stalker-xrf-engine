@@ -6,6 +6,7 @@ on_death = death
 post_combat_time = 0,0
 
 [walker@start]
+$scheme = $walker
 path_walk = gonta_lair_1_walk
 path_look = gonta_lair_1_look
 def_state_moving1 = patrol
@@ -23,6 +24,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@start_timer]
+$scheme = $walker
 path_walk = gonta_lair_1_walk
 path_look = gonta_lair_1_look
 def_state_moving1 = patrol
@@ -41,6 +43,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@to_actor]
+$scheme = $remark
 anim = guard
 target = story | actor
 on_info = {-zat_b106_chimera_dead} %=play_sound(zat_b106_gonta_hunt_sneak)%
@@ -54,6 +57,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@meet]
+$scheme = $walker
 path_walk = gonta_lair_1_walk
 path_look = gonta_lair_1_look
 def_state_moving1 = patrol
@@ -70,6 +74,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position]
+$scheme = $walker
 path_walk = gonta_lair_2_walk
 path_look = gonta_lair_2_look
 def_state_moving1 = patrol
@@ -86,6 +91,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_2]
+$scheme = $walker
 path_walk = gonta_lair_3_walk
 path_look = gonta_lair_3_look
 def_state_moving1 = sneak
@@ -102,6 +108,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_3]
+$scheme = $walker
 path_walk = gonta_lair_4_walk
 path_look = gonta_lair_4_look
 def_state_moving1 = sneak
@@ -118,6 +125,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@hunt_kill]
+$scheme = $remark
 anim = hide
 target = path | zat_b106_smart_terrain_gonta_lair_4_look,0
 on_info = %=play_sound(zat_b106_gonta_hunt_kill)%
@@ -132,6 +140,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_4]
+$scheme = $walker
 path_walk = gonta_lair_5_walk
 path_look = gonta_lair_5_look
 def_state_moving1 = sneak
@@ -148,6 +157,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_timer]
+$scheme = $walker
 path_walk = gonta_lair_5_walk
 path_look = gonta_lair_5_look
 def_state_moving1 = sneak
@@ -164,6 +174,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_5]
+$scheme = $walker
 path_walk = gonta_lair_6_walk
 path_look = gonta_lair_6_look
 def_state_moving1 = sneak
@@ -180,6 +191,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_6]
+$scheme = $walker
 path_walk = gonta_lair_7_walk
 path_look = gonta_lair_7_look
 def_state_moving1 = sneak
@@ -196,6 +208,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@move_to_position_7]
+$scheme = $walker
 path_walk = gonta_lair_8_walk
 path_look = gonta_lair_8_look
 def_state_moving1 = sneak
@@ -212,6 +225,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@timer_position]
+$scheme = $walker
 path_walk = gonta_lair_8_walk
 path_look = gonta_lair_8_look
 def_state_moving1 = sneak
@@ -228,6 +242,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@timer_fire]
+$scheme = $remark
 anim = threat
 target = story | zat_b106_chimera
 on_info = %=play_sound(zat_b106_gonta_see_chimera)%
@@ -243,6 +258,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@fire]
+$scheme = $remark
 anim = threat_fire
 target = story | zat_b106_chimera
 meet = no_meet
@@ -258,6 +274,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@fire]
+$scheme = $walker
 path_walk = gonta_lair_8_walk
 path_look = gonta_lair_8_look
 def_state_standing = guard_na
@@ -270,6 +287,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [remark@finish]
+$scheme = $remark
 anim = guard_na
 target = story | actor
 on_info = {-zat_b108_actor_damaged_chimera} remark@kozel
@@ -284,6 +302,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [remark@after_finish]
+$scheme = $remark
 anim = guard_na
 target = story | actor
 on_info = %=play_sound(zat_b106_gonta_hunt_complete) +zat_b106_chimera_dead_reward%
@@ -296,6 +315,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [remark@wait_actor]
+$scheme = $remark
 anim = guard_na
 target = story | actor
 on_info = {!dist_to_actor_le(140) -zat_b106_hunt_finish} %+zat_b106_hunt_finish%
@@ -308,6 +328,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [walker@home]
+$scheme = $walker
 path_walk = gonta_3_walk
 path_look = gonta_3_look
 on_signal = gonta_close_home | %+zat_b106_hunt_finish%
@@ -322,6 +343,7 @@ def_state_standing = guard_na
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [remark@kozel]
+$scheme = $remark
 anim = guard_na
 target = story | actor
 on_info = %=play_sound(zat_b106_dont_receipt_reward)%
@@ -334,6 +356,7 @@ corpse_detection_enabled = false
 combat_ignore_cond = {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 
 [meet]
+$scheme = $meet
 use = {=actor_enemy} false, true
 abuse = true
 trade_enable = false
@@ -344,6 +367,7 @@ close_victim = actor
 close_distance = 5
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -351,7 +375,9 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [death]
+$scheme = $death
 on_info = %+zat_b106_gonta_dead%

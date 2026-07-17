@@ -7,6 +7,7 @@ can_select_weapon = false
 level_spot = trader
 
 [animpoint@bar]
+$scheme = $animpoint
 cover_name = zat_a2_sc_barmen
 avail_animations = animpoint_stay_table_no_rnd
 use_camp = false
@@ -23,6 +24,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 close_snd_hello = {-zat_b30_barmen_under_sultan} zat_a2_stalker_barmen_greeting, zat_a2_stalker_barmen_greeting_angry
 close_snd_bye = {-zat_b30_barmen_under_sultan} zat_a2_stalker_barmen_farewell, zat_a2_stalker_barmen_farewell_angry
 close_anim = nil
@@ -39,6 +41,7 @@ meet_on_talking = false
 meet_on_talking = false
 
 [remark@wait]
+$scheme = $remark
 target = story | zat_b14_stalker_1
 anim = ward_noweap
 on_info = {+zat_b14_cut_scene_1_point_01} remark@zat_b14_scene_1_stalker_bye
@@ -52,6 +55,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@zat_b14_scene_1_stalker_bye]
+$scheme = $remark
 target = story | zat_b14_stalker_1
 anim = ward_noweap
 on_info = %=play_sound(zat_b14_scene_1_linker_reply)%
@@ -67,6 +71,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@wait_2]
+$scheme = $remark
 target = story | zat_b14_stalker_1
 anim = ward_noweap
 on_info = {+zat_b14_cut_scene_1_point_03} animpoint@bar
@@ -80,6 +85,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@b29_get_af]
+$scheme = $remark
 target = job | zat_b29_stalker_rival, zat_stalker_base_smart
 anim = zat_b14_give_artefact_act
 on_info = {-zat_b29_linker_take_af_from_rival} %=play_sound(zat_a2_linker_b29_take_order)%

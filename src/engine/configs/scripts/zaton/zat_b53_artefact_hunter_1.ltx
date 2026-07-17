@@ -7,6 +7,7 @@ on_death = death
 dont_spawn_loot
 
 [walker@wait_actor_scene_start]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 def_state_moving = walk
@@ -16,6 +17,7 @@ on_signal = zat_b53_artefact_hunter_1_scene_start | remark@scene_start
 on_info = {+zat_b53_thanks_dialog} walker@go_friend
 
 [remark@scene_start]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = no_meet
 anim = probe_stand
@@ -25,6 +27,7 @@ on_info2 = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info3 = {+zat_b53_thanks_dialog} walker@go_friend
 
 [walker@start_go]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 def_state_moving = walk
@@ -35,6 +38,7 @@ on_info2 = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info3 = {+zat_b53_go_nil} %=kill_npc%, {=surge_kill_all} %=kill_npc%
 
 [remark@probe]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = no_meet
 anim = probe_way
@@ -44,6 +48,7 @@ on_info = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info2 = {+zat_b53_go_nil} %=kill_npc%, {=surge_kill_all} %=kill_npc%
 
 [remark@wait_go_big_anomalie]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = no_meet
 anim = guard_na
@@ -53,6 +58,7 @@ on_info = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info2 = {+zat_b53_go_nil} %=kill_npc%, {=surge_kill_all} %=kill_npc%
 
 [walker@go_on_in_big_anomaly]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 path_walk = artefact_hunter_1_big_anomaly_go
@@ -61,6 +67,7 @@ on_info3 = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info4 = {+zat_b53_go_nil} %=kill_npc%, {=surge_kill_all} %=kill_npc%
 
 [walker@wounded]
+$scheme = $walker
 wounded = wounded
 corpse_detection_enabled = false
 meet = meet
@@ -73,6 +80,7 @@ on_info3 = {=actor_enemy} walker@wounded_actor_enemy
 on_info4 = {=dist_to_actor_ge(100)} %=kill_npc%
 
 [walker@wounded_actor_enemy]
+$scheme = $walker
 wounded = wounded
 corpse_detection_enabled = false
 meet = no_meet
@@ -83,6 +91,7 @@ on_info = {+zat_b53_go_nil} %=kill_npc%, {=surge_kill_all} %=kill_npc%
 on_info2 = {=dist_to_actor_ge(100)} %=kill_npc%
 
 [walker@go_friend]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 def_state_moving = run
@@ -93,6 +102,7 @@ on_info = {+zat_b53_actor_enemy} walker@actor_enemy
 on_info2 = {=dist_to_actor_le(5) !npc_in_zone(zat_b53_zone_field_thermal_weak_self_use) -zat_b53_once_use_self_dialog} remark@thanks_self %+zat_b53_once_use_self_dialog%
 
 [remark@thanks_self]
+$scheme = $remark
 meet = meet@self
 combat_ignore_cond = true
 corpse_detection_enabled = false
@@ -101,6 +111,7 @@ target = story | actor
 on_info = {+zat_b53_thanks_dialog_end !talking} walker@go_friend
 
 [remark@sit_ass_talk]
+$scheme = $remark
 corpse_detection_enabled = false
 meet = meet
 anim = sit_ass
@@ -108,12 +119,14 @@ target = path | zat_b53_artefact_hunter_1_sit_ass_look, 0
 on_info = {+zat_b53_actor_enemy} walker@actor_enemy
 
 [walker@actor_enemy]
+$scheme = $walker
 corpse_detection_enabled = false
 meet = no_meet
 path_walk = artefact_hunter_1_spawn_point
 on_info = %=actor_enemy%
 
 [meet]
+$scheme = $meet
 use = true
 abuse = false
 allow_break = false
@@ -124,6 +137,7 @@ close_distance = 0
 far_distance = 0
 
 [meet@self]
+$scheme = $meet
 use = self
 meet_dialog = zat_b53_artefact_hunter_1_gathering_artefacts
 abuse = false
@@ -135,12 +149,15 @@ close_distance = 0
 far_distance = 0
 
 [hit]
+$scheme = $hit
 on_info = {=hit_by_actor} %+zat_b53_actor_enemy%
 
 [death]
+$scheme = $death
 on_info = {=killed_by_actor -zat_b53_dec_faction_goodwill_done} %=dec_faction_goodwill_to_actor(stalker:100) +zat_b53_dec_faction_goodwill_done%
 
 [wounded]
+$scheme = $wounded
 autoheal = false
 enable_talk = true
 not_for_help = true

@@ -1,4 +1,5 @@
 [walker@def]
+$scheme = $walker
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -9,6 +10,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@def]
+$scheme = $animpoint
 reach_movement = walk_noweap
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -21,6 +23,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet@send_far]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -37,12 +40,14 @@ suitable = {-pri_a25_rfi_source_eliminated =npc_in_zone(pri_a16_sr_light)} true
 prior = 140
 
 [walker@guarder_1]:walker@def
+$scheme = $walker
 path_walk = guarder_1_walk
 path_look = guarder_1_look
 on_info = {=surge_started} walker@hide_1
 out_restr = pri_a16_sr_noweap
 
 [walker@hide_1]:walker@def
+$scheme = $walker
 path_walk = hide_1_walk
 path_look = hide_1_look
 on_info = {=surge_complete} walker@guarder_1
@@ -54,11 +59,13 @@ suitable = {-pri_a25_rfi_source_eliminated =npc_in_zone(pri_a16_sr_light)} true
 prior = 140
 
 [walker@guarder_2]:walker@def
+$scheme = $walker
 path_walk = guarder_2_walk
 path_look = guarder_2_look
 on_info = {=surge_started} walker@hide_2
 
 [walker@hide_2]:walker@def
+$scheme = $walker
 path_walk = hide_2_walk
 path_look = hide_1_look
 on_info = {=surge_complete} walker@guarder_2
@@ -69,6 +76,7 @@ suitable = {-pri_a25_rfi_source_eliminated =npc_in_zone(pri_a16_sr_light)} true
 prior = 150
 
 [animpoint@guarder_3]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_5
 use_camp = true
 
@@ -78,6 +86,7 @@ suitable = {-pri_a25_rfi_source_eliminated =npc_in_zone(pri_a16_sr_light)} true
 prior = 150
 
 [animpoint@guarder_4]:animpoint@def
+$scheme = $animpoint
 cover_name = pri_a16_animp_6
 use_camp = true
 
@@ -87,6 +96,7 @@ suitable = {-pri_a25_rfi_source_eliminated +pri_a21_task_end =check_npc_name(sok
 prior = 200
 
 [walker@base]
+$scheme = $walker
 path_walk = yarmoshuk_walk
 path_look = yarmoshuk_look
 combat_ignore_cond = true
@@ -100,6 +110,7 @@ corpse_detection_enabled = false
 use_camp = false
 
 [meet@guard_main]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_anim = nil

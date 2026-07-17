@@ -1,6 +1,7 @@
 ; Vano
 
 [animpoint@vano]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_vano
 meet = no_meet
 use_camp = false
@@ -20,6 +21,7 @@ suitable = {=check_npc_name(pri_a15_vano) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_vano
 
 [animpoint@pri_a15_vano]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_idle_none
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_vano_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_sokolov} animpoint@pri_a15_vano_1_sokolov
@@ -32,31 +34,40 @@ on_info8 = {+pri_a15_cutscene_go +pri_a15_3_vano_alive} animpoint@pri_a15_vano_3
 on_info9 = {-pri_a15_vano_counted} %+pri_a15_vano_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_vano_all_alive]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_all
 
 [animpoint@pri_a15_vano_1_sokolov]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_1_sokolov
 
 [animpoint@pri_a15_vano_1_zulus]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_1_zulus
 
 [animpoint@pri_a15_vano_1_wanderer]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_1_wanderer
 
 [animpoint@pri_a15_vano_2_sokolov_zulus]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_2_sokolov_zulus
 
 [animpoint@pri_a15_vano_2_sokolov_wanderer]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_2_sokolov_wanderer
 
 [animpoint@pri_a15_vano_2_zulus_wanderer]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_2_zulus_wanderer
 
 [animpoint@pri_a15_vano_3_vano_alive]:animpoint@vano
+$scheme = $animpoint
 avail_animations = pri_a15_vano_3_vano_alive
 ; Sokolov
 
 [animpoint@sokolov]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_sokolov
 meet = no_meet
 use_camp = false
@@ -75,6 +86,7 @@ suitable = {=check_npc_name(pri_a15_sokolov_scene) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_sokolov
 
 [animpoint@pri_a15_sokolov]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_idle_none
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_sokolov_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_sokolov_1_vano
@@ -87,31 +99,40 @@ on_info8 = {+pri_a15_cutscene_go +pri_a15_3_sokolov_alive} animpoint@pri_a15_sok
 on_info9 = {-pri_a15_sokolov_counted} %+pri_a15_sokolov_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_sokolov_all_alive]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_all
 
 [animpoint@pri_a15_sokolov_1_vano]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_1_vano
 
 [animpoint@pri_a15_sokolov_1_zulus]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_1_zulus
 
 [animpoint@pri_a15_sokolov_1_wanderer]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_1_wanderer
 
 [animpoint@pri_a15_sokolov_2_vano_zulus]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_2_vano_zulus
 
 [animpoint@pri_a15_sokolov_2_vano_wanderer]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_2_vano_wanderer
 
 [animpoint@pri_a15_sokolov_2_zulus_wanderer]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_2_zulus_wanderer
 
 [animpoint@pri_a15_sokolov_3_sokolov_alive]:animpoint@sokolov
+$scheme = $animpoint
 avail_animations = pri_a15_sokolov_3_sokolov_alive
 ; Zulus
 
 [animpoint@zulus]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_zulus
 meet = no_meet
 use_camp = false
@@ -131,6 +152,7 @@ suitable = {=check_npc_name(pri_a15_zulus) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_zulus
 
 [animpoint@pri_a15_zulus]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_idle_unstrap
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_zulus_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_zulus_1_vano
@@ -143,31 +165,40 @@ on_info8 = {+pri_a15_cutscene_go +pri_a15_3_zulus_alive} animpoint@pri_a15_zulus
 on_info9 = {-pri_a15_zulus_counted} %+pri_a15_zulus_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_zulus_all_alive]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_all
 
 [animpoint@pri_a15_zulus_1_vano]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_1_vano
 
 [animpoint@pri_a15_zulus_1_sokolov]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_1_sokolov
 
 [animpoint@pri_a15_zulus_1_wanderer]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_1_wanderer
 
 [animpoint@pri_a15_zulus_2_vano_sokolov]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_2_vano_sokolov
 
 [animpoint@pri_a15_zulus_2_vano_wanderer]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_2_vano_wanderer
 
 [animpoint@pri_a15_zulus_2_sokolov_wanderer]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_2_sokolov_wanderer
 
 [animpoint@pri_a15_zulus_3_zulus_alive]:animpoint@zulus
+$scheme = $animpoint
 avail_animations = pri_a15_zulus_3_zulus_alive
 ; Wanderer
 
 [animpoint@wanderer]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_wanderer
 meet = no_meet
 use_camp = false
@@ -187,6 +218,7 @@ suitable = {=check_npc_name(pri_a15_wanderer) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_wanderer
 
 [animpoint@pri_a15_wanderer]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_idle_none
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_wanderer_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_wanderer_1_vano
@@ -199,31 +231,40 @@ on_info8 = {+pri_a15_cutscene_go +pri_a15_3_wanderer_alive} animpoint@pri_a15_wa
 on_info9 = {-pri_a15_wanderer_counted} %+pri_a15_wanderer_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_wanderer_all_alive]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_all
 
 [animpoint@pri_a15_wanderer_1_vano]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_1_vano
 
 [animpoint@pri_a15_wanderer_1_sokolov]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_1_sokolov
 
 [animpoint@pri_a15_wanderer_1_zulus]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_1_zulus
 
 [animpoint@pri_a15_wanderer_2_vano_sokolov]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_2_vano_sokolov
 
 [animpoint@pri_a15_wanderer_2_vano_zulus]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_2_vano_zulus
 
 [animpoint@pri_a15_wanderer_2_sokolov_zulus]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_2_sokolov_zulus
 
 [animpoint@pri_a15_wanderer_3_wanderer_alive]:animpoint@wanderer
+$scheme = $animpoint
 avail_animations = pri_a15_wanderer_3_wanderer_alive
 ; actor
 
 [animpoint@actor]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_actor
 meet = no_meet
 use_camp = false
@@ -243,6 +284,7 @@ suitable = {=check_npc_name(pri_a15_actor) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_actor
 
 [animpoint@pri_a15_actor]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_idle_none
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_actor_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_actor_1_vano
@@ -263,55 +305,72 @@ on_info16 = {+pri_a15_cutscene_go +pri_a15_all_dead} animpoint@pri_a15_actor_all
 on_info17 = {-pri_a15_actor_counted} %+pri_a15_actor_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_actor_all_alive]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_all
 
 [animpoint@pri_a15_actor_1_vano]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_1_vano
 
 [animpoint@pri_a15_actor_1_sokolov]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_1_sokolov
 
 [animpoint@pri_a15_actor_1_zulus]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_1_zulus
 
 [animpoint@pri_a15_actor_1_wanderer]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_1_wanderer
 
 [animpoint@pri_a15_actor_2_vano_sokolov]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_vano_sokolov
 
 [animpoint@pri_a15_actor_2_vano_zulus]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_vano_zulus
 
 [animpoint@pri_a15_actor_2_vano_wanderer]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_vano_wanderer
 
 [animpoint@pri_a15_actor_2_sokolov_zulus]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_sokolov_zulus
 
 [animpoint@pri_a15_actor_2_sokolov_wanderer]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_sokolov_wanderer
 
 [animpoint@pri_a15_actor_2_zulus_wanderer]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_2_zulus_wanderer
 
 [animpoint@pri_a15_actor_3_wanderer_alive]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_3_wanderer_alive
 
 [animpoint@pri_a15_actor_3_zulus_alive]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_3_zulus_alive
 
 [animpoint@pri_a15_actor_3_sokolov_alive]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_3_sokolov_alive
 
 [animpoint@pri_a15_actor_3_vano_alive]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_3_vano_alive
 
 [animpoint@pri_a15_actor_all_dead]:animpoint@actor
+$scheme = $animpoint
 avail_animations = pri_a15_actor_all_dead
 ; military tarasov
 
 [animpoint@general_military_1]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_military_1
 meet = no_meet
 use_camp = false
@@ -330,6 +389,7 @@ suitable = {=check_npc_name(pri_a15_military_tarasov) -pri_a15_cutscene_end} tru
 active = animpoint@pri_a15_military_tarasov
 
 [animpoint@pri_a15_military_tarasov]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_idle_unstrap
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_military_tarasov_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_military_tarasov_1_vano
@@ -350,55 +410,72 @@ on_info16 = {+pri_a15_cutscene_go +pri_a15_all_dead} animpoint@pri_a15_military_
 on_info17 = {-pri_a15_mil_1_counted} %+pri_a15_mil_1_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_military_tarasov_all_alive]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_all
 
 [animpoint@pri_a15_military_tarasov_1_vano]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_1_vano
 
 [animpoint@pri_a15_military_tarasov_1_sokolov]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_1_sokolov
 
 [animpoint@pri_a15_military_tarasov_1_zulus]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_1_zulus
 
 [animpoint@pri_a15_military_tarasov_1_wanderer]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_1_wanderer
 
 [animpoint@pri_a15_military_tarasov_2_vano_sokolov]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_vano_sokolov
 
 [animpoint@pri_a15_military_tarasov_2_vano_zulus]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_vano_zulus
 
 [animpoint@pri_a15_military_tarasov_2_vano_wanderer]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_vano_wanderer
 
 [animpoint@pri_a15_military_tarasov_2_sokolov_zulus]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_sokolov_zulus
 
 [animpoint@pri_a15_military_tarasov_2_sokolov_wanderer]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_sokolov_wanderer
 
 [animpoint@pri_a15_military_tarasov_2_zulus_wanderer]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_2_zulus_wanderer
 
 [animpoint@pri_a15_military_tarasov_3_wanderer_alive]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_3_wanderer_alive
 
 [animpoint@pri_a15_military_tarasov_3_zulus_alive]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_3_zulus_alive
 
 [animpoint@pri_a15_military_tarasov_3_sokolov_alive]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_3_sokolov_alive
 
 [animpoint@pri_a15_military_tarasov_3_vano_alive]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_3_vano_alive
 
 [animpoint@pri_a15_military_tarasov_all_dead]:animpoint@general_military_1
+$scheme = $animpoint
 avail_animations = pri_a15_military_tarasov_all_dead
 ; military 2
 
 [animpoint@general_military_2]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_military_2
 meet = no_meet
 use_camp = false
@@ -417,6 +494,7 @@ suitable = {=check_npc_name(pri_a15_military_2) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_military_2
 
 [animpoint@pri_a15_military_2]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_idle_unstrap
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_military_2_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_military_2_1_vano
@@ -437,55 +515,72 @@ on_info16 = {+pri_a15_cutscene_go +pri_a15_all_dead} animpoint@pri_a15_military_
 on_info17 = {-pri_a15_mil_2_counted} %+pri_a15_mil_2_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_military_2_all_alive]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_all
 
 [animpoint@pri_a15_military_2_1_vano]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_1_vano
 
 [animpoint@pri_a15_military_2_1_sokolov]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_1_sokolov
 
 [animpoint@pri_a15_military_2_1_zulus]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_1_zulus
 
 [animpoint@pri_a15_military_2_1_wanderer]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_1_wanderer
 
 [animpoint@pri_a15_military_2_2_vano_sokolov]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_vano_sokolov
 
 [animpoint@pri_a15_military_2_2_vano_zulus]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_vano_zulus
 
 [animpoint@pri_a15_military_2_2_vano_wanderer]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_vano_wanderer
 
 [animpoint@pri_a15_military_2_2_sokolov_zulus]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_sokolov_zulus
 
 [animpoint@pri_a15_military_2_2_sokolov_wanderer]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_sokolov_wanderer
 
 [animpoint@pri_a15_military_2_2_zulus_wanderer]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_2_zulus_wanderer
 
 [animpoint@pri_a15_military_2_3_wanderer_alive]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_3_wanderer_alive
 
 [animpoint@pri_a15_military_2_3_zulus_alive]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_3_zulus_alive
 
 [animpoint@pri_a15_military_2_3_sokolov_alive]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_3_sokolov_alive
 
 [animpoint@pri_a15_military_2_3_vano_alive]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_3_vano_alive
 
 [animpoint@pri_a15_military_2_all_dead]:animpoint@general_military_2
+$scheme = $animpoint
 avail_animations = pri_a15_military_2_all_dead
 ; military 3
 
 [animpoint@general_military_3]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_military_3
 meet = no_meet
 use_camp = false
@@ -504,6 +599,7 @@ suitable = {=check_npc_name(pri_a15_military_3) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_military_3
 
 [animpoint@pri_a15_military_3]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_idle_unstrap
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_military_3_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_military_3_1_vano
@@ -524,55 +620,72 @@ on_info16 = {+pri_a15_cutscene_go +pri_a15_all_dead} animpoint@pri_a15_military_
 on_info17 = {-pri_a15_mil_3_counted} %+pri_a15_mil_3_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_military_3_all_alive]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_all
 
 [animpoint@pri_a15_military_3_1_vano]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_1_vano
 
 [animpoint@pri_a15_military_3_1_sokolov]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_1_sokolov
 
 [animpoint@pri_a15_military_3_1_zulus]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_1_zulus
 
 [animpoint@pri_a15_military_3_1_wanderer]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_1_wanderer
 
 [animpoint@pri_a15_military_3_2_vano_sokolov]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_vano_sokolov
 
 [animpoint@pri_a15_military_3_2_vano_zulus]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_vano_zulus
 
 [animpoint@pri_a15_military_3_2_vano_wanderer]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_vano_wanderer
 
 [animpoint@pri_a15_military_3_2_sokolov_zulus]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_sokolov_zulus
 
 [animpoint@pri_a15_military_3_2_sokolov_wanderer]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_sokolov_wanderer
 
 [animpoint@pri_a15_military_3_2_zulus_wanderer]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_2_zulus_wanderer
 
 [animpoint@pri_a15_military_3_3_wanderer_alive]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_3_wanderer_alive
 
 [animpoint@pri_a15_military_3_3_zulus_alive]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_3_zulus_alive
 
 [animpoint@pri_a15_military_3_3_sokolov_alive]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_3_sokolov_alive
 
 [animpoint@pri_a15_military_3_3_vano_alive]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_3_vano_alive
 
 [animpoint@pri_a15_military_3_all_dead]:animpoint@general_military_3
+$scheme = $animpoint
 avail_animations = pri_a15_military_3_all_dead
 ; military 4
 
 [animpoint@general_military_4]
+$scheme = $animpoint
 cover_name = pri_a15_animpoint_military_4
 meet = no_meet
 use_camp = false
@@ -591,6 +704,7 @@ suitable = {=check_npc_name(pri_a15_military_4) -pri_a15_cutscene_end} true
 active = animpoint@pri_a15_military_4
 
 [animpoint@pri_a15_military_4]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_idle_unstrap
 on_info = {+pri_a15_cutscene_go +pri_a15_all_alive} animpoint@pri_a15_military_4_all_alive
 on_info2 = {+pri_a15_cutscene_go +pri_a15_1_vano} animpoint@pri_a15_military_4_1_vano
@@ -611,49 +725,65 @@ on_info16 = {+pri_a15_cutscene_go +pri_a15_all_dead} animpoint@pri_a15_military_
 on_info17 = {-pri_a15_mil_4_counted} %+pri_a15_mil_4_counted =dec_counter(pri_a15_squad_count)%
 
 [animpoint@pri_a15_military_4_all_alive]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_all
 
 [animpoint@pri_a15_military_4_1_vano]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_1_vano
 
 [animpoint@pri_a15_military_4_1_sokolov]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_1_sokolov
 
 [animpoint@pri_a15_military_4_1_zulus]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_1_zulus
 
 [animpoint@pri_a15_military_4_1_wanderer]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_1_wanderer
 
 [animpoint@pri_a15_military_4_2_vano_sokolov]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_vano_sokolov
 
 [animpoint@pri_a15_military_4_2_vano_zulus]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_vano_zulus
 
 [animpoint@pri_a15_military_4_2_vano_wanderer]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_vano_wanderer
 
 [animpoint@pri_a15_military_4_2_sokolov_zulus]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_sokolov_zulus
 
 [animpoint@pri_a15_military_4_2_sokolov_wanderer]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_sokolov_wanderer
 
 [animpoint@pri_a15_military_4_2_zulus_wanderer]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_2_zulus_wanderer
 
 [animpoint@pri_a15_military_4_3_wanderer_alive]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_3_wanderer_alive
 
 [animpoint@pri_a15_military_4_3_zulus_alive]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_3_zulus_alive
 
 [animpoint@pri_a15_military_4_3_sokolov_alive]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_3_sokolov_alive
 
 [animpoint@pri_a15_military_4_3_vano_alive]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_3_vano_alive
 
 [animpoint@pri_a15_military_4_all_dead]:animpoint@general_military_4
+$scheme = $animpoint
 avail_animations = pri_a15_military_4_all_dead

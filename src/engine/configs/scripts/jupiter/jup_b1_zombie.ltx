@@ -5,6 +5,7 @@ prior = 70
 on_death = death
 
 [walker@stay]
+$scheme = $walker
 path_walk = zombie_spawn
 path_look = st_4_look_2
 on_info = {=dist_to_actor_le(12)} walker@angry %+jup_b1_zomb_be_fucked%, {+jup_b1_st_1_at_pos +jup_b1_st_2_at_pos} walker@go, {+jup_b1_zomb_2_is_dead} walker@angry, {+jup_b1_zomb_3_is_dead} walker@angry
@@ -16,6 +17,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@go]
+$scheme = $walker
 path_walk = zombie_go
 on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound%
 combat_ignore_cond = true
@@ -25,6 +27,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@angry]
+$scheme = $walker
 path_walk = zombie_go
 on_info = {=npc_in_zone(jup_b1_zombie_kill_zone)} %+jup_b1_kill_zombie_sound%
 wounded = wounded
@@ -33,6 +36,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -40,6 +44,7 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [death]
+$scheme = $death
 on_info = %+jup_b1_zomb_is_dead%
 
 [logic@jup_b1_zombie_2]
@@ -49,6 +54,7 @@ prior = 70
 on_death = death@1
 
 [walker@stay_2]
+$scheme = $walker
 path_walk = zombie_stay_1
 on_info = {=dist_to_actor_le(12)} walker@angry_2, {+jup_b1_zomb_is_dead} walker@angry_2, {+jup_b1_zomb_3_is_dead} walker@angry_2
 combat_ignore_cond = true
@@ -58,6 +64,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@angry_2]
+$scheme = $walker
 path_walk = zombie_walk_2
 in_restr = jup_b1_anomal_place
 gather_items_enabled = false
@@ -65,6 +72,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [death@1]
+$scheme = $death
 on_info = %+jup_b1_zomb_2_is_dead%
 
 [logic@jup_b1_zombie_3]
@@ -74,6 +82,7 @@ prior = 70
 on_death = death@2
 
 [walker@stay_3]
+$scheme = $walker
 path_walk = zombie_stay_2
 on_info = {=dist_to_actor_le(12)} walker@angry_3, {+jup_b1_zomb_is_dead} walker@angry_3, {+jup_b1_zomb_2_is_dead} walker@angry_3
 combat_ignore_cond = true
@@ -83,6 +92,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@angry_3]
+$scheme = $walker
 path_walk = zombie_walk_3
 in_restr = jup_b1_anomal_place
 gather_items_enabled = false
@@ -90,4 +100,5 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [death@2]
+$scheme = $death
 on_info = %+jup_b1_zomb_3_is_dead%

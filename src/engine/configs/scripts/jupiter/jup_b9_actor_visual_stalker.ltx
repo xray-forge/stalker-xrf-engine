@@ -3,6 +3,7 @@ active = animpoint@jup_b9_animpoint_actor
 on_hit = hit
 
 [animpoint@jup_b9_animpoint_actor]
+$scheme = $animpoint
 avail_animations = zat_b100_heli_2_serch
 cover_name = jup_b9_animpoint_actor
 on_info = {+jup_b9_heli_1_searched} %=destroy_object%
@@ -16,4 +17,5 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [hit]
+$scheme = $hit
 on_info = %+jup_b9_actor_hit =destroy_object%

@@ -1,4 +1,5 @@
 [animpoint@presets]
+$scheme = $animpoint
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -16,6 +17,7 @@ prior = 200
 level_spot = mechanic
 
 [animpoint]:animpoint@presets
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_tech_start
 avail_animations = wait_na
 reach_distance = 50
@@ -23,6 +25,7 @@ meet = no_meet
 on_info = {+jup_b217_pp_end_in_scene} animpoint@first_visit_timer
 
 [animpoint@first_visit_timer]:animpoint@presets
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_tech_start
 avail_animations = wait_na
 reach_distance = 50
@@ -30,6 +33,7 @@ meet = no_meet
 on_game_timer = 45 | animpoint@first_visit
 
 [animpoint@first_visit]:animpoint@presets
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_tech_start
 avail_animations = jup_b217_nitro_stand
 reach_distance = 5
@@ -41,6 +45,7 @@ on_info3 = {-jup_b217_stalker_tech_met} %+jup_b217_stalker_tech_met%
 meet = no_meet
 
 [animpoint@sit_tp]:animpoint@presets
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_tech
 avail_animations = animpoint_sit_normal
 meet = no_meet
@@ -48,6 +53,7 @@ on_game_timer = 15 | remark@straight_anim %=teleport_npc(jup_b217_tech_tp_from_c
 ; break start animation
 
 [remark@straight_anim]
+$scheme = $remark
 anim = wait_na
 meet = no_meet
 on_game_timer = 3 | animpoint@sit
@@ -60,6 +66,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@sit]:animpoint@presets
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_tech
 reach_distance = 10
 avail_animations = animpoint_sit_normal
@@ -67,6 +74,7 @@ on_info = {-jup_a6_stalker_tech_info -jup_b9_blackbox_decrypted +jup_b9_blackbox
 meet = meet@default
 
 [meet@default]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil

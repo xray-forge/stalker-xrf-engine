@@ -1,4 +1,5 @@
 [walker@generic]
+$scheme = $walker
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
@@ -14,6 +15,7 @@ post_combat_time = 0, 0
 known_info = known_info
 
 [walker@icefirstmeet]:walker@generic
+$scheme = $walker
 path_walk = ice_stay
 path_look = ice_look
 def_state_standing = guard
@@ -22,6 +24,7 @@ on_info2 = {+pri_a17_ice_is_fucked} %=kill_npc%
 meet = no_meet
 
 [animpoint@ice_get_to_climb]:walker@generic
+$scheme = $animpoint
 cover_name = pri_a17_sc_ice_climb
 avail_animations = pri_a17_ice_climb
 on_info = {=animpoint_reached} animpoint@ice_climb, {+pri_a17_ice_is_fucked} %=kill_npc%
@@ -29,6 +32,7 @@ meet = no_meet
 out_restr = pri_a17_roofwalkers_stop
 
 [animpoint@ice_climb]:walker@generic
+$scheme = $animpoint
 cover_name = pri_a17_sc_ice_climb
 avail_animations = pri_a17_ice_climb
 on_game_timer = 70 | walker@roofwalker
@@ -39,6 +43,7 @@ combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 
 [walker@roofwalker]:walker@generic
+$scheme = $walker
 def_state_moving = sneak_run
 path_walk = ice_walk_on_roof
 on_signal = path_end | smartcover@ice_snipe_pos
@@ -50,6 +55,7 @@ combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 
 [smartcover@ice_snipe_pos]:walker@generic
+$scheme = $smartcover
 cover_name = pri_a17_ice_snipe_pos
 cover_state = default_behaviour
 combat_ignore_cond = true
@@ -62,6 +68,7 @@ out_restr = pri_a17_roofwalkers_stop
 in_restr = pri_a17_roofwalkers_stop_2
 
 [smartcover@attack]:walker@generic
+$scheme = $smartcover
 cover_name = pri_a17_ice_snipe_pos
 cover_state = default_behaviour
 on_info = {+pri_a17_mon_pat_lead_dead} smartcover@ice_snipe_pos, {+pri_a17_ice_is_fucked} %=kill_npc%
@@ -72,6 +79,7 @@ out_restr = pri_a17_roofwalkers_stop
 in_restr = pri_a17_roofwalkers_stop_2
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -79,9 +87,11 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [combat]
+$scheme = $combat
 on_info = {=actor_enemy} %+pri_a17_actor_attack_military%
 
 [death]
+$scheme = $death
 on_info = %+pri_a17_ice_dead%
 
 [known_info]
@@ -97,6 +107,7 @@ post_combat_time = 0, 0
 known_info = known_info
 
 [walker@ice_dead]:walker@generic
+$scheme = $walker
 path_walk = ice_takin_pos
 on_info = walker@ice_dead_2 %=teleport_npc(pri_a17_ice_takin_pos)%
 meet = no_meet
@@ -105,12 +116,14 @@ in_restr = pri_a17_roofwalkers_stop_2
 corpse_detection_enabled = false
 
 [walker@ice_dead_2]:walker@generic
+$scheme = $walker
 path_walk = ice_takin_pos
 out_restr = pri_a17_roofwalkers_stop
 in_restr = pri_a17_roofwalkers_stop_2
 on_game_timer = 20 | walker@ice_dead_3 %=hit_npc(self:pri_a17_taras_dead:bip01_head:1:13)%
 
 [walker@ice_dead_3]:walker@generic
+$scheme = $walker
 path_walk = ice_takin_pos
 out_restr = pri_a17_roofwalkers_stop
 in_restr = pri_a17_roofwalkers_stop_2

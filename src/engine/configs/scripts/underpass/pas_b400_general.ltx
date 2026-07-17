@@ -1,6 +1,7 @@
 ; Meets default
 
 [meet@def]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 close_distance = 0
@@ -10,19 +11,24 @@ use = false
 abuse = false
 
 [meet@zulus_def]:meet@def
+$scheme = $meet
 snd_on_use = pas_b400_zulus_no_meet
 
 [meet@vano_def]:meet@def
+$scheme = $meet
 snd_on_use = pas_b400_vano_no_meet
 
 [meet@sokolov_def]:meet@def
+$scheme = $meet
 snd_on_use = pas_b400_sokolov_no_meet
 
 [meet@wanderer_def]:meet@def
+$scheme = $meet
 snd_on_use = pas_b400_wanderer_no_meet
 ; Hits
 
 [hit@zulus]
+$scheme = $hit
 on_info = {-pas_b400_zulus_dead !is_playing_sound =is_alive !hit_by_actor} %=play_sound(pas_b400_zulus_on_enemy_hit)%
 on_info2 = {-pas_b400_zulus_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_zulus_hit:2) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_zulus_on_actor_hit_3) =inc_counter(pas_b400_actor_zulus_hit) =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 on_info3 = {-pas_b400_zulus_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_zulus_hit:1) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_zulus_on_actor_hit_2) =inc_counter(pas_b400_actor_zulus_hit)%
@@ -30,6 +36,7 @@ on_info4 = {-pas_b400_zulus_dead !is_playing_sound =is_alive !has_enemy =hit_by_
 on_info5 = {=deadly_hit} %+pas_b400_zulus_dead%
 
 [hit@vano]
+$scheme = $hit
 on_info = {-pas_b400_vano_dead !is_playing_sound =is_alive !hit_by_actor} %=play_sound(pas_b400_vano_on_enemy_hit)%
 on_info2 = {-pas_b400_vano_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_vano_hit:2) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_vano_on_actor_hit_3) =inc_counter(pas_b400_actor_vano_hit) =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 on_info3 = {-pas_b400_vano_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_vano_hit:1) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_vano_on_actor_hit_2) =inc_counter(pas_b400_actor_vano_hit)%
@@ -37,6 +44,7 @@ on_info4 = {-pas_b400_vano_dead !is_playing_sound =is_alive !has_enemy =hit_by_a
 on_info5 = {=deadly_hit} %+pas_b400_vano_dead%
 
 [hit@sokolov]
+$scheme = $hit
 on_info = {-pas_b400_sokolov_dead !is_playing_sound =is_alive !hit_by_actor} %=play_sound(pas_b400_sokolov_on_enemy_hit)%
 on_info2 = {-pas_b400_sokolov_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_sokolov_hit:2) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_sokolov_on_actor_hit_3) =inc_counter(pas_b400_actor_sokolov_hit) =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 on_info3 = {-pas_b400_sokolov_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_sokolov_hit:1) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_sokolov_on_actor_hit_2) =inc_counter(pas_b400_actor_sokolov_hit)%
@@ -44,6 +52,7 @@ on_info4 = {-pas_b400_sokolov_dead !is_playing_sound =is_alive !has_enemy =hit_b
 on_info5 = {=deadly_hit} %+pas_b400_sokolov_dead%
 
 [hit@wanderer]
+$scheme = $hit
 on_info = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !hit_by_actor} %=play_sound(pas_b400_wanderer_on_enemy_hit)%
 on_info2 = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_wanderer_hit:2) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_wanderer_on_actor_hit_3) =inc_counter(pas_b400_actor_wanderer_hit) =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 on_info3 = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_wanderer_hit:1) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_wanderer_on_actor_hit_2) =inc_counter(pas_b400_actor_wanderer_hit)%
@@ -52,23 +61,28 @@ on_info5 = {=deadly_hit} %+pas_b400_wanderer_dead%
 ; Death
 
 [death@zulus]
+$scheme = $death
 on_info = %=stop_sound +pas_b400_zulus_dead +pri_a15_zulus_out%
 on_info2 = {!killed_by_actor} %+pas_b400_zulus_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_zulus_dead_sound +pas_b400_zulus_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 
 [death@vano]
+$scheme = $death
 on_info = %=stop_sound +pas_b400_vano_dead +pri_a15_vano_out%
 on_info2 = {!killed_by_actor} %+pas_b400_vano_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_vano_dead_sound +pas_b400_vano_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 
 [death@sokolov]
+$scheme = $death
 on_info = %=stop_sound +pas_b400_sokolov_dead +pri_a15_sokolov_out%
 on_info2 = {!killed_by_actor} %+pas_b400_sokolov_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_sokolov_dead_sound +pas_b400_sokolov_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 
 [death@wanderer]
+$scheme = $death
 on_info = %=stop_sound +pas_b400_wanderer_dead +pri_a15_wanderer_out%
 on_info2 = {!killed_by_actor} %+pas_b400_wanderer_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_wanderer_dead_sound +pas_b400_wanderer_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
 ; Sounds
 
 [walker@zulus_def]
+$scheme = $walker
 meet = meet@zulus_def
 wounded = wounded@no_wound
 def_state_standing = threat_na
@@ -86,6 +100,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@vano_def]
+$scheme = $walker
 meet = meet@vano_def
 wounded = wounded@no_wound
 def_state_standing = threat_na
@@ -103,6 +118,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@sokolov_def]
+$scheme = $walker
 meet = meet@sokolov_def
 wounded = wounded@no_wound
 def_state_standing = threat_na
@@ -120,6 +136,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@wanderer_def]
+$scheme = $walker
 meet = meet@wanderer_def
 wounded = wounded@no_wound
 def_state_standing = hide_na
@@ -138,6 +155,7 @@ corpse_detection_enabled = false
 ; Wounded - no wounds
 
 [wounded@no_wound]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil

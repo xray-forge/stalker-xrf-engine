@@ -4,6 +4,7 @@ active = walker@base
 prior = 200
 
 [walker@base]
+$scheme = $walker
 path_walk = zulus_2_walk_1
 path_look = zulus_2_look_1
 meet = no_meet
@@ -15,6 +16,7 @@ corpse_detection_enabled = false
 use_camp = false
 
 [walker@base_stand]
+$scheme = $walker
 path_walk = zulus_2_walk_1
 path_look = zulus_2_look_1
 on_info = {+jup_b15_zulus_b301_reward_dialog_end} animpoint@pri_a16_zulus %=give_items(wpn_wincheaster1300:ammo_12x70_buck)%
@@ -26,6 +28,7 @@ corpse_detection_enabled = false
 use_camp = false
 
 [animpoint@pri_a16_zulus]
+$scheme = $animpoint
 cover_name = pri_a16_animp_wanderer
 use_camp = false
 combat_ignore_cond = true
@@ -39,6 +42,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [meet]
+$scheme = $meet
 close_snd_hello = nil
 close_snd_bye = nil
 use = {!actor_enemy =dist_to_actor_le(2)} self, {!actor_enemy} true

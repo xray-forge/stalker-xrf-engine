@@ -4,6 +4,7 @@ on_hit = hit
 ; ************************* 3 *****************************
 
 [animpoint@search]
+$scheme = $animpoint
 cover_name = pri_b305_sc_cam_3
 avail_animations = pri_b305_actor
 on_info = {+pri_b305_third_cam_end} %=destroy_object -pri_b305_3_cam_actor%
@@ -19,6 +20,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@search2]
+$scheme = $animpoint
 cover_name = pri_b305_sc_cam_3
 avail_animations = pri_b305_actor
 on_info = {+pri_b305_third_cam_end} %=destroy_object -pri_b305_3_cam_actor%
@@ -34,6 +36,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [animpoint@search_timer]
+$scheme = $animpoint
 cover_name = pri_b305_sc_cam_3
 avail_animations = pri_b305_actor
 on_info = {+pri_b305_third_cam_end} %=destroy_object -pri_b305_3_cam_actor%
@@ -48,4 +51,5 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [hit]
+$scheme = $hit
 on_info = %+pri_b305_cut_3_actor_hit =destroy_object -pri_b305_3_cam_actor%

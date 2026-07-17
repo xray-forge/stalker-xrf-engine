@@ -3,6 +3,7 @@ active = walker@strelok_operation_start
 ; ************************* 4 *****************************
 
 [walker@strelok_operation_start]
+$scheme = $walker
 path_walk = pri_a16_pri_b305_actor_strelok_operation_walk
 path_look = pri_a16_pri_b305_strelok_operation_look
 out_restr = pri_a16_sr_noweap
@@ -20,6 +21,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@strelok_operation_start]
+$scheme = $remark
 target = path | pri_a16_pri_b305_strelok_operation_walk, 0
 anim = threat
 out_restr = pri_a16_sr_noweap
@@ -35,6 +37,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@meet_strelok]
+$scheme = $walker
 path_walk = pri_a16_pri_b305_actor_meet_strelok_walk
 path_look = pri_a16_pri_b305_strelok_operation_walk
 out_restr = pri_a16_sr_noweap
@@ -52,6 +55,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [remark@wait]
+$scheme = $remark
 target = story | pri_b305_strelok
 anim = guard
 out_restr = pri_a16_sr_noweap
@@ -69,6 +73,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 
 [walker@time]
+$scheme = $walker
 path_walk = pri_a16_pri_b305_actor_meet_strelok_walk
 path_look = pri_a16_pri_b305_strelok_operation_walk
 out_restr = pri_a16_sr_noweap

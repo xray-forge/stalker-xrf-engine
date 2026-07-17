@@ -6,6 +6,7 @@ post_combat_time = 5,5
 on_death = death
 
 [animpoint@start]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_yar
 use_camp = false
 on_info = {+jup_b19_yar_switch_smart_terrain} animpoint@back
@@ -20,6 +21,7 @@ corpse_detection_enabled = false
 wounded = wounded
 
 [animpoint@back]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_yar
 use_camp = false
 on_info = {=npc_in_zone(jup_a6_sr_light)} animpoint@back_done
@@ -32,6 +34,7 @@ corpse_detection_enabled = false
 wounded = wounded
 
 [animpoint@back_done]
+$scheme = $animpoint
 cover_name = jup_a6_animpoint_yar
 use_camp = false
 meet = meet
@@ -45,6 +48,7 @@ corpse_detection_enabled = false
 wounded = wounded
 
 [wounded]
+$scheme = $wounded
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -52,6 +56,7 @@ hp_fight = 0|false
 hp_cover = 0|false
 
 [meet]
+$scheme = $meet
 close_anim = nil
 close_victim = nil
 far_anim = nil
@@ -64,7 +69,9 @@ trade_enable = false
 meet_on_talking = false
 
 [danger]
+$scheme = $danger
 ignore_distance = 0
 
 [death]
+$scheme = $death
 on_info = %+jup_b19_yar_enemy_or_dead%

@@ -6,6 +6,7 @@ on_hit = hit
 on_death = death
 
 [walker@bandit_guard_stand]
+$scheme = $walker
 path_walk = bandit_guard_stand_walk
 path_look = bandit_guard_stand_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner) -jup_a12_actor_enemy_to_bandits} true, {+jup_a12_bandit_guard_can_be_easily_killed -jup_a12_merc_attack_started} true, {-jup_a12_merc_attack_started =check_enemy_smart(jup_a12_merc)} true, false
@@ -16,6 +17,7 @@ on_info3 = {-jup_a12_actor_has_pass_to_containers -jup_a12_actor_enemy_to_bandit
 on_info4 = {-jup_a12_actor_has_pass_to_containers -jup_a12_bandits_warning_actor =dist_to_actor_le(22)} %+jup_a12_bandits_warning_actor =play_sound(jup_a12_bandits_warning_actor)%
 
 [meet@guard_base]
+$scheme = $meet
 close_distance = 15
 close_anim = {+jup_a12_actor_has_pass_to_containers} guard_na, threat_na
 close_victim = actor
@@ -31,7 +33,9 @@ meet_dialog = {+jup_a12_actor_has_pass_to_containers} jup_a12_bandit_guard_visit
 trade_enable = false
 
 [hit]
+$scheme = $hit
 on_info = {+jup_a12_bandit_guard_can_be_easily_killed =is_alive -jup_a12_merc_attack_started -jup_a12_bandit_guard_killed} %+jup_a12_bandit_guard_killed%
 
 [death]
+$scheme = $death
 on_info = %+jup_a12_bandit_guard_killed%
