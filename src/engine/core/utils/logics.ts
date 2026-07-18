@@ -2,7 +2,13 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
 import { EActionId } from "@/engine/core/ai/planner/types/motivator_actions";
-import { IBaseSchemeState, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getActiveSchemeStateOptimistic,
+  hasActiveScheme,
+  ILogicsOverrides,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { ISchemeCombatState, SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
@@ -17,7 +23,7 @@ export function updateStalkerLogic(object: GameObject, state: IRegistryObjectSta
   const actor: GameObject = registry.actor;
   const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
 
-  if (state.activeScheme && object.alive()) {
+  if (hasActiveScheme(state) && object.alive()) {
     const manager: ActionPlanner = object.motivation_action_manager();
 
     let switched: boolean = false;
@@ -43,7 +49,7 @@ export function updateStalkerLogic(object: GameObject, state: IRegistryObjectSta
     }
 
     if (!switched) {
-      trySwitchToAnotherSection(object, state[state.activeScheme] as IBaseSchemeState);
+      trySwitchToAnotherSection(object, getActiveSchemeStateOptimistic(state));
     }
   } else {
     SchemeCombat.setCombatType(object, actor, combatState);

@@ -1,11 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { LuaArray, Nillable, TCount, TName, TNumberId } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { type CampManager } from "@/engine/core/ai/camp/CampManager";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState, hasActiveScheme, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 
@@ -62,9 +62,7 @@ export function canPlayCampGuitar(manager: CampManager): boolean {
 
   for (const [objectId, objectInfo] of manager.objects) {
     const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId);
-    const schemeState: Nillable<ISchemeAnimpointState> = state?.activeScheme
-      ? (state[state.activeScheme] as ISchemeAnimpointState)
-      : null;
+    const schemeState: Nillable<ISchemeAnimpointState> = $isNotNil(state) ? getActiveSchemeState(state) : null;
     const object: Nillable<GameObject> = state?.object;
 
     if (
@@ -93,9 +91,7 @@ export function canPlayCampHarmonica(manager: CampManager): boolean {
 
   for (const [id, info] of manager.objects) {
     const state: Nillable<IRegistryObjectState> = registry.objects.get(id);
-    const schemeState: Nillable<ISchemeAnimpointState> = state?.activeScheme
-      ? (state[state.activeScheme!] as ISchemeAnimpointState)
-      : null;
+    const schemeState: Nillable<ISchemeAnimpointState> = $isNotNil(state) ? getActiveSchemeState(state) : null;
     const object: Nillable<GameObject> = state?.object;
 
     if (
@@ -151,9 +147,8 @@ export function canTellCampStory(manager: CampManager): boolean {
  * @returns Whether object animpoint state is correct and what role can be used for it.
  */
 export function getObjectCampActivityRole(objectId: TNumberId, activity: EObjectCampActivity): EObjectCampRole {
-  const schemeState: Nillable<ISchemeAnimpointState> = registry.objects.get(objectId)[
-    registry.objects.get(objectId).activeScheme!
-  ] as ISchemeAnimpointState;
+  const state: IRegistryObjectState = registry.objects.get(objectId);
+  const schemeState: Nillable<ISchemeAnimpointState> = getActiveSchemeState(state);
 
   // Object is not captured in animation state scheme (sitting / laying / telling etc).
   if (!schemeState) {

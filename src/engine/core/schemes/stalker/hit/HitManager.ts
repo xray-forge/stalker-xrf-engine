@@ -2,7 +2,7 @@ import { GameObject, Vector } from "xray16/alias";
 import { Nillable, TCount, TIndex } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { EScheme } from "@/engine/lib/types";
@@ -19,7 +19,7 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
     boneIndex: TIndex
   ): void {
     // todo: Probably play around with this and avoid this external refs. this.state?
-    const state: ISchemeHitState = registry.objects.get(this.object.id())[EScheme.HIT] as ISchemeHitState;
+    const state: ISchemeHitState = getSchemeStateOptimistic(registry.objects.get(this.object.id()), EScheme.HIT);
 
     state.boneIndex = boneIndex;
 

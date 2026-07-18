@@ -6,10 +6,17 @@ import { $filename, $isNotNil } from "xray16/macros";
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
-import { getManager, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getActiveSchemeState,
+  getActiveSchemeStateOptimistic,
+  getManager,
+  getSchemeState,
+  hasActiveScheme,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -123,13 +130,13 @@ export class CampManager {
       for (const [id] of this.objects) {
         const state: Nillable<IRegistryObjectState> = registry.objects.get(id) as Nillable<IRegistryObjectState>;
 
-        if (state) {
-          // Emit scheme logic update.
-          emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.UPDATE);
+        if ($isNotNil(state) && hasActiveScheme(state)) {
+          emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE);
         }
 
-        const meetManager: Nillable<MeetManager> = (state?.[EScheme.MEET] as ISchemeMeetState)
-          ?.meetManager as Nillable<MeetManager>;
+        const meetManager: Nillable<MeetManager> = $isNotNil(state)
+          ? getSchemeState(state, EScheme.MEET)?.meetManager
+          : null;
 
         // Mark as director to prevent object from speaking with actor.
         if (meetManager) {
@@ -218,8 +225,8 @@ export class CampManager {
 
       const state: Nillable<IRegistryObjectState> = registry.objects.get(id);
 
-      if (state && state.activeScheme) {
-        const schemeState: Nillable<ISchemeAnimpointState> = state[state.activeScheme] as ISchemeAnimpointState;
+      if ($isNotNil(state) && hasActiveScheme(state)) {
+        const schemeState: Nillable<ISchemeAnimpointState> = getActiveSchemeState(state);
         const object: Nillable<GameObject> = state.object;
 
         if (
@@ -277,7 +284,7 @@ export class CampManager {
 
     this.storyManager.registerObject(objectId);
 
-    emitSchemeEvent(state[state.activeScheme!]!, ESchemeEvent.UPDATE, -1);
+    emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE, -1);
   }
 
   /**

@@ -11,10 +11,11 @@ import {
   writeTimeToPacket,
 } from "xray16/lib";
 
-import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
+import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/database/scheme";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { ESchemeEvent } from "@/engine/lib/types";
 
@@ -38,8 +39,8 @@ export function saveObjectLogic(object: GameObject, packet: NetPacket): void {
   packet.w_s32((state.activationTime || 0) - time_global());
   writeTimeToPacket(packet, state.activationGameTime);
 
-  if (state.activeScheme) {
-    emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
+  if (hasActiveScheme(state)) {
+    emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.SAVE);
   }
 
   savePortableStore(object.id(), packet);

@@ -1,9 +1,11 @@
-import type { GameObject } from "xray16/alias";
-import type { AnyArgs, AnyContextualCallable, Nillable, TName } from "xray16/lib";
+import { GameObject } from "xray16/alias";
+import { AnyArgs, AnyContextualCallable, Nillable, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
-import type { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/database_types";
+import { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import type { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { getActiveSchemeState } from "@/engine/core/database/scheme";
+import { ESchemeEvent } from "@/engine/lib/types";
 
 /**
  * Emit scheme event for active `actions` list in scheme state.
@@ -32,7 +34,7 @@ export function emitSchemeEvent(state: IBaseSchemeState, event: ESchemeEvent, ..
  */
 export function setObjectActiveSchemeSignal(object: GameObject, signal: TName): void {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
-  const signals: Nillable<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Nillable<TSchemeSignals>;
+  const signals: Nillable<TSchemeSignals> = $isNotNil(state) ? getActiveSchemeState(state)?.signals : null;
 
   if (signals) {
     signals.set(signal, true);

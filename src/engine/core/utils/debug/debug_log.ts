@@ -5,13 +5,12 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { toJSON } from "@/engine/core/utils/transform";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
-import { ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -216,7 +215,7 @@ export function logObjectState(object: GameObject): void {
 
   logger.pushSeparator();
 
-  logger.info("State of scheme: %s", toJSON(state.activeScheme ? state[state.activeScheme] : null, "\n", 0, 4));
+  logger.info("State of scheme: %s", toJSON(getActiveSchemeState(state), "\n", 0, 4));
 
   logger.pushSeparator();
 }

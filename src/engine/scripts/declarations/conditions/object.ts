@@ -26,6 +26,7 @@ import {
   getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
+  getSchemeState,
   getServerObjectByStoryId,
   isStoryObjectExisting,
   registry,
@@ -343,7 +344,7 @@ extern("xr_conditions.heli_see_npc", (_: GameObject, object: GameObject, [storyI
  * - parameters - variadic list of story IDs to check.
  */
 extern("xr_conditions.hitted_by", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
-  const state: Nillable<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
+  const state: Nillable<ISchemeHitState> = getSchemeState(registry.objects.get(object.id()), EScheme.HIT);
 
   if (!state) {
     return false;
@@ -368,7 +369,7 @@ extern("xr_conditions.hitted_by", (_: GameObject, object: GameObject, parameters
  * - parameters - variadic list of bone IDs to match against.
  */
 extern("xr_conditions.hitted_on_bone", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
-  const state: Nillable<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
+  const state: Nillable<ISchemeHitState> = getSchemeState(registry.objects.get(object.id()), EScheme.HIT);
 
   if (!state) {
     return false;
@@ -394,7 +395,7 @@ extern("xr_conditions.best_pistol", (_: GameObject, object: GameObject): boolean
  * Check if deadly hit is set in object hit scheme.
  */
 extern("xr_conditions.deadly_hit", (_: GameObject, object: GameObject): boolean => {
-  return (registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState)?.isDeadlyHit === true;
+  return getSchemeState(registry.objects.get(object.id()), EScheme.HIT)?.isDeadlyHit === true;
 });
 
 /**
@@ -404,7 +405,7 @@ extern("xr_conditions.deadly_hit", (_: GameObject, object: GameObject): boolean 
  * - parameters - variadic list of story IDs to check.
  */
 extern("xr_conditions.killed_by", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
-  const state: Nillable<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
+  const state: Nillable<ISchemeDeathState> = getSchemeState(registry.objects.get(object.id()), EScheme.DEATH);
 
   if (!state) {
     return false;

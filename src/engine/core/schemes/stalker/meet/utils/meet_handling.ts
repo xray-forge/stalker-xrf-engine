@@ -2,7 +2,7 @@ import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TCount, TName, TRUE } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, getSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
@@ -23,7 +23,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
  * @param state - Registry state containing the object's wounded and meet scheme state.
  */
 export function updateObjectMeetAvailability(object: GameObject, state: IRegistryObjectState): void {
-  const woundedState: Nillable<ISchemeWoundedState> = state[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>;
+  const woundedState: Nillable<ISchemeWoundedState> = getSchemeState(state, EScheme.WOUNDED);
 
   if (woundedState && tostring(woundedState.woundManager.woundState) !== NIL) {
     if (object.relation(registry.actor) === EGameObjectRelation.ENEMY) {
@@ -37,7 +37,7 @@ export function updateObjectMeetAvailability(object: GameObject, state: IRegistr
     return;
   }
 
-  const use: Nillable<string> = (state[EScheme.MEET] as ISchemeMeetState).meetManager.use;
+  const use: Nillable<string> = getSchemeState(state, EScheme.MEET)?.meetManager.use;
 
   if (use === TRUE) {
     if (isObjectSearchingCorpse(object) || isObjectHelpingWounded(object)) {
@@ -64,7 +64,7 @@ export function activateMeetWithObject(object: GameObject): void {
     return;
   }
 
-  const state: Nillable<ISchemeMeetState> = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
+  const state: Nillable<ISchemeMeetState> = getSchemeState(registry.objects.get(object.id()), EScheme.MEET);
 
   if (!state) {
     return;
@@ -98,7 +98,7 @@ export function activateMeetWithObject(object: GameObject): void {
  * @param value - Count of abuse to add.
  */
 export function addObjectAbuse(object: GameObject, value: TCount): void {
-  const abuseState: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const abuseState: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
   abuseState?.abuseManager.addAbuse(value);
 }
@@ -109,7 +109,7 @@ export function addObjectAbuse(object: GameObject, value: TCount): void {
  * @param object - Game object.
  */
 export function clearObjectAbuse(object: GameObject): void {
-  const state: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const state: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
   state?.abuseManager.clearAbuse();
 }
@@ -121,7 +121,7 @@ export function clearObjectAbuse(object: GameObject): void {
  * @param isEnabled - Whether object abuse state should be enabled.
  */
 export function setObjectAbuseState(object: GameObject, isEnabled: boolean): void {
-  const state: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const state: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
   if (isEnabled) {
     state?.abuseManager.enableAbuse();

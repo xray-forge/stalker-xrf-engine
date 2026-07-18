@@ -1,7 +1,7 @@
 import { GameObject } from "xray16/alias";
 import { TName, TRate } from "xray16/lib";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { EScheme } from "@/engine/lib/types";
 
@@ -20,7 +20,7 @@ export function isDeimosPhaseActive(object: GameObject, bounds: TName, isIncreas
     return false;
   }
 
-  const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
+  const deimosState: ISchemeDeimosState = getSchemeStateOptimistic(state, EScheme.SR_DEIMOS);
 
   // todo: Probably should be separate rate for increase and decrease variants.
   const intensityDelta: TRate =

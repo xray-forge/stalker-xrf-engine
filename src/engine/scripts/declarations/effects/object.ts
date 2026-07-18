@@ -33,11 +33,14 @@ import {
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
+  getActiveSchemeStateOptimistic,
   getObjectByStoryId,
   getObjectIdByStoryId,
+  getSchemeStateOptimistic,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
-  IBaseSchemeState,
+  hasActiveScheme,
+  hasSchemeState,
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
@@ -52,9 +55,6 @@ import {
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { switchTerrainObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
 import type { Squad } from "@/engine/core/objects/squad";
-import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
 import {
@@ -243,12 +243,12 @@ extern("xr_effects.clear_abuse", (_: GameObject, object: GameObject): void => {
 extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (state[EScheme.COMBAT]) {
-    (state[EScheme.COMBAT] as ISchemeCombatState).enabled = false;
+  if (hasSchemeState(state, EScheme.COMBAT)) {
+    getSchemeStateOptimistic(state, EScheme.COMBAT).enabled = false;
   }
 
-  if (state[EScheme.MOB_COMBAT]) {
-    (state[EScheme.MOB_COMBAT] as ISchemeMobCombatState).enabled = false;
+  if (hasSchemeState(state, EScheme.MOB_COMBAT)) {
+    getSchemeStateOptimistic(state, EScheme.MOB_COMBAT).enabled = false;
   }
 });
 
@@ -261,8 +261,8 @@ extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject):
 extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (state[EScheme.COMBAT_IGNORE]) {
-    (state[EScheme.COMBAT_IGNORE] as ISchemeCombatIgnoreState).enabled = false;
+  if (hasSchemeState(state, EScheme.COMBAT_IGNORE)) {
+    getSchemeStateOptimistic(state, EScheme.COMBAT_IGNORE).enabled = false;
   }
 });
 
@@ -626,7 +626,9 @@ extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: Lu
 
       const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
-      trySwitchToAnotherSection(storyObject, state[state.activeScheme as EScheme] as IBaseSchemeState);
+      if (hasActiveScheme(state)) {
+        trySwitchToAnotherSection(storyObject, getActiveSchemeStateOptimistic(state));
+      }
     }
   }
 });

@@ -4,7 +4,7 @@ import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
 import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detection/actions";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
@@ -69,7 +69,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).isCorpseDetectionEnabled = readIniBoolean(
+    getSchemeStateOptimistic(state, EScheme.CORPSE_DETECTION).isCorpseDetectionEnabled = readIniBoolean(
       state.ini,
       section,
       "corpse_detection_enabled",

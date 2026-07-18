@@ -5,9 +5,10 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   CUSTOM_DATA,
+  getActiveSchemeStateOptimistic,
   getManager,
   getObjectLogicIniConfig,
-  IBaseSchemeState,
+  hasActiveScheme,
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
@@ -28,7 +29,7 @@ import {
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
+import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
@@ -54,8 +55,9 @@ export function configureObjectSchemes(
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   // Deactivate previous scheme section.
-  if (state.activeSection) {
-    emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
+  // todo: Is one check enough?
+  if (state.activeSection && hasActiveScheme(state)) {
+    emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.DEACTIVATE, object);
   }
 
   let actualIni: IniFile;

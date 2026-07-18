@@ -1,9 +1,9 @@
 import { device, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TName, TNumberId, TRate, TRUE, TStringifiedBoolean } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
+import { getActiveSchemeState, IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -82,11 +82,13 @@ extern("xr_effects.cam_effector_callback", (): void => {
 
   const state: IRegistryObjectState = registry.objects.get(camEffectorPlayingObjectId);
 
-  if (!state || !state.activeScheme || !state[state.activeScheme]!.signals) {
+  const activeSchemeState = $isNotNil(state) ? getActiveSchemeState(state) : null;
+
+  if (!activeSchemeState?.signals) {
     return;
   }
 
-  state[state.activeScheme!]!.signals!.set("cameff_end", true);
+  activeSchemeState.signals.set("cameff_end", true);
 
   // todo: probably reset playing object ID global and move it out.
 });

@@ -5,7 +5,7 @@ import { $fromArray, $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
@@ -82,10 +82,10 @@ export class SchemeWounded extends AbstractScheme {
       object,
       state.ini,
       woundedSection,
-      state[EScheme.WOUNDED] as ISchemeWoundedState
+      getSchemeStateOptimistic(state, EScheme.WOUNDED)
     );
 
-    (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.onHit();
+    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit();
   }
 
   /**

@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { abort, ACTOR_ID, extern, Nillable, TCount, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState, getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { isBlackScreen } from "@/engine/core/utils/game";
 
 /**
@@ -14,7 +14,7 @@ import { isBlackScreen } from "@/engine/core/utils/game";
  */
 extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TName]): boolean => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const signals: Nillable<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
+  const signals: Nillable<LuaTable<TName, boolean>> = getActiveSchemeState(state)?.signals;
 
   return $isNotNil(signals) && signals.get(name) === true;
 });

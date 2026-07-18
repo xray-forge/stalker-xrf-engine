@@ -17,13 +17,20 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
-import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getActiveSchemeStateOptimistic,
+  hasActiveScheme,
+  IBaseSchemeLogic,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
-import { EScheme, ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";
+import { ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
@@ -144,8 +151,9 @@ export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, se
   logger.info("Switch section: '%s', '%s' -> '%s'", object.name(), activeSection, section);
 
   // Notify schemes about deactivation.
-  if (activeSection) {
-    emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
+  // todo: Is one check enough?
+  if (activeSection && hasActiveScheme(state)) {
+    emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.DEACTIVATE, object);
   }
 
   state.activeSection = null;

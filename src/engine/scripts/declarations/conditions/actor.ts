@@ -15,11 +15,9 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
-import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
-import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import {
   hasAchievedFriendOfStalkers,
   hasAchievedInformationDealer,
@@ -178,7 +176,7 @@ extern(
 extern("xr_conditions.hit_by_actor", (_: GameObject, object: GameObject): boolean => {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  return (state?.[EScheme.HIT] as ISchemeHitState)?.who === ACTOR_ID;
+  return $isNotNil(state) ? getSchemeState(state, EScheme.HIT)?.who === ACTOR_ID : false;
 });
 
 /**
@@ -187,7 +185,7 @@ extern("xr_conditions.hit_by_actor", (_: GameObject, object: GameObject): boolea
 extern("xr_conditions.killed_by_actor", (_: GameObject, object: GameObject): boolean => {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  return (state?.[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
+  return $isNotNil(state) ? getSchemeState(state, EScheme.DEATH)?.killerId === ACTOR_ID : false;
 });
 
 /**

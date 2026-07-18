@@ -4,7 +4,7 @@ import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
@@ -74,7 +74,7 @@ export class SchemeHelpWounded extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled = readIniBoolean(
+    getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED).isHelpingWoundedEnabled = readIniBoolean(
       state.ini,
       section,
       "help_wounded_enabled",

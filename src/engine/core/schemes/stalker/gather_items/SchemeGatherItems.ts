@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { readIniBoolean } from "@/engine/core/utils/ini";
@@ -44,7 +44,7 @@ export class SchemeGatherItems extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState).canLootItems = readIniBoolean(
+    getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS).canLootItems = readIniBoolean(
       state.ini,
       section,
       "gather_items_enabled",

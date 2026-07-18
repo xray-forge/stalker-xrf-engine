@@ -2,7 +2,7 @@ import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
@@ -19,7 +19,7 @@ export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
    * @param killer - Game object of stalker killer.
    */
   public override onDeath(victim: GameObject, killer: Nillable<GameObject>): void {
-    (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killerId = killer ? killer.id() : -1;
+    getSchemeStateOptimistic(registry.objects.get(victim.id()), EScheme.DEATH).killerId = killer ? killer.id() : -1;
 
     if (this.state.info) {
       pickSectionFromCondList(registry.actor, this.object, this.state.info);

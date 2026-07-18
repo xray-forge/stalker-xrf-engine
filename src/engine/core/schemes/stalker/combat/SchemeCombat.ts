@@ -5,7 +5,7 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { EScriptCombatType, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
@@ -67,7 +67,7 @@ export class SchemeCombat extends AbstractScheme {
       return state;
     }
 
-    return registry.objects.get(object.id())[EScheme.COMBAT] as ISchemeCombatState;
+    return getSchemeStateOptimistic(registry.objects.get(object.id()), EScheme.COMBAT);
   }
 
   public static override add(

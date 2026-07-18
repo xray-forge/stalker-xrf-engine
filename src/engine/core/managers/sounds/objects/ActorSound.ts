@@ -18,8 +18,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { getActiveSchemeState, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
@@ -160,18 +159,18 @@ export class ActorSound extends AbstractPlayableSound {
 
     const objectState: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (!objectState.activeScheme || $isNil(objectState[objectState.activeScheme!]!.signals)) {
+    const schemeState: Nillable<IBaseSchemeState> = getActiveSchemeState(objectState);
+
+    if ($isNil(schemeState?.signals)) {
       return;
     }
 
-    const schemeState: IBaseSchemeState = objectState[objectState.activeScheme] as IBaseSchemeState;
-
     if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== "rnd") {
       logger.info("Emit sound end signal: %s", objectState.object.name());
-      schemeState.signals!.set("theme_end", true);
-      schemeState.signals!.set("sound_end", true);
+      schemeState.signals.set("theme_end", true);
+      schemeState.signals.set("sound_end", true);
     } else {
-      schemeState.signals!.set("sound_end", true);
+      schemeState.signals.set("sound_end", true);
     }
   }
 

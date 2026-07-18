@@ -18,7 +18,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
@@ -337,11 +337,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if ($isNil(state.activeScheme)) {
-      return;
-    }
-
-    const signals: Nillable<LuaTable<TName, boolean>> = state[state.activeScheme]!.signals;
+    const signals: Nillable<LuaTable<TName, boolean>> = getActiveSchemeState(state)?.signals;
 
     if (!signals || !this.objects.get(objectId)) {
       return;

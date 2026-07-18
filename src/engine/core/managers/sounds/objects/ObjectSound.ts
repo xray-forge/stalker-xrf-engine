@@ -18,8 +18,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { getActiveSchemeState, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
@@ -224,13 +223,9 @@ export class ObjectSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if ($isNil(state.activeScheme)) {
-      return;
-    }
+    const schemeState: Nillable<IBaseSchemeState> = getActiveSchemeState(state);
 
-    const schemeState: IBaseSchemeState = state[state.activeScheme] as IBaseSchemeState;
-
-    if (schemeState.signals) {
+    if (schemeState?.signals) {
       if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== ESoundPlaylistType.RANDOM) {
         logger.info("Emit sound end signal: %s", state.object.name());
 

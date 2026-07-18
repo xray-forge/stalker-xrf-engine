@@ -4,8 +4,7 @@ import { $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
-import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { getSchemeStateOptimistic, hasSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -24,11 +23,11 @@ export function isObjectWounded(objectId: TNumberId): boolean {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId);
 
   // Not registered / not correct game object provided.
-  if (!state || !state[EScheme.WOUNDED]) {
+  if (!state || !hasSchemeState(state, EScheme.WOUNDED)) {
     return false;
   }
 
-  return tostring((state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager.woundState) !== NIL;
+  return tostring(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.woundState) !== NIL;
 }
 
 /**

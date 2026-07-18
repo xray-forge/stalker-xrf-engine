@@ -3,7 +3,12 @@ import { EGameObjectRelation, GameObject, Hit, Vector } from "xray16/alias";
 import { MZ_VECTOR, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getPortableStoreValue,
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -113,7 +118,7 @@ export function getNearestWoundedToHelp(
       // Not enemies.
       woundedObject.relation(object) !== EGameObjectRelation.ENEMY &&
       // Is not marked as excluded.
-      (woundedObjectState[EScheme.WOUNDED] as ISchemeWoundedState).isNotForHelp !== true
+      getSchemeStateOptimistic(woundedObjectState, EScheme.WOUNDED).isNotForHelp !== true
     ) {
       const visibleObjectPosition: Vector = woundedObject.position();
       const distanceBetweenObjects: TDistance = currentObjectPosition.distance_to_sqr(visibleObjectPosition);

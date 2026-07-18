@@ -3,7 +3,7 @@ import { LuaArray, Nillable, TCount, TDistance, TName, TNumberId, TRate, TSectio
 import { $isNotNil } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeState, getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -66,7 +66,7 @@ export class SchemeHear extends AbstractScheme {
     soundPower: TRate
   ): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
-    const dangerState: Nillable<ISchemeDangerState> = state[EScheme.DANGER] as Nillable<ISchemeDangerState>;
+    const dangerState: Nillable<ISchemeDangerState> = getSchemeState(state, EScheme.DANGER);
 
     if (dangerState) {
       dangerState.dangerManager.onHear(object, whoId, soundType, soundPosition, soundPower);

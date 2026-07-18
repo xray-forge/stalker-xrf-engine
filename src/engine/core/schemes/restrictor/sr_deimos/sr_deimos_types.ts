@@ -1,6 +1,7 @@
 import type { TCount, TRate, TStringId } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of the deimos scheme.
@@ -20,4 +21,10 @@ export interface ISchemeDeimosState extends IBaseSchemeState {
   switchLowerBound: number;
   switchUpperBound: number;
   intensity: number;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_DEIMOS]: ISchemeDeimosState;
+  }
 }

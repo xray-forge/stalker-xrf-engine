@@ -1,12 +1,15 @@
 import { GameObject } from "xray16/alias";
 import { chance, LuaArray, Nillable, TNumberId } from "xray16/lib";
 
-import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
-import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import {
-  ISchemeCorpseDetectionState,
-  PS_LOOTING_DEAD_OBJECT,
-} from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
+  getManager,
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registry,
+  setPortableStoreValue,
+} from "@/engine/core/database";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { EScheme } from "@/engine/lib/types";
 
@@ -17,8 +20,10 @@ import { EScheme } from "@/engine/lib/types";
  */
 export function finishCorpseLooting(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const corpseObjectId: Nillable<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
-    .selectedCorpseId;
+  const corpseObjectId: Nillable<TNumberId> = getSchemeStateOptimistic(
+    state,
+    EScheme.CORPSE_DETECTION
+  ).selectedCorpseId;
   const corpseObject: Nillable<GameObject> = corpseObjectId ? registry.objects.get(corpseObjectId)?.object : null;
 
   // If corpse exists online:

@@ -29,9 +29,11 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
+  getActiveSchemeState,
   getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
+  IBaseSchemeState,
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
@@ -629,8 +631,9 @@ extern(
  */
 extern("xr_effects.stop_sr_cutscene", (_: GameObject, object: GameObject): void => {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
+  const activeSchemeState: Nillable<IBaseSchemeState> = $isNotNil(state) ? getActiveSchemeState(state) : null;
 
-  if (state?.activeScheme) {
-    state[state.activeScheme]!.signals!.set("cam_effector_stop", true);
+  if (activeSchemeState?.signals) {
+    activeSchemeState.signals.set("cam_effector_stop", true);
   }
 });

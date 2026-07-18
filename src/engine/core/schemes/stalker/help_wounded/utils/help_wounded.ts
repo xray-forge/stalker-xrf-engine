@@ -2,10 +2,14 @@ import { GameObject } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded";
+import {
+  getSchemeState,
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registry,
+  setPortableStoreValue,
+} from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { EScheme } from "@/engine/lib/types";
 
@@ -18,7 +22,7 @@ import { EScheme } from "@/engine/lib/types";
 export function finishObjectHelpWounded(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState)
+  const selectedObjectId: TNumberId = getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED)
     .selectedWoundedId as TNumberId;
   const selectedObjectState: Nillable<IRegistryObjectState> = registry.objects.get(
     selectedObjectId
@@ -26,7 +30,7 @@ export function finishObjectHelpWounded(object: GameObject): void {
 
   if (selectedObjectState) {
     giveWoundedObjectMedkit(selectedObjectState.object);
-    (selectedObjectState[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+    getSchemeState(selectedObjectState, EScheme.WOUNDED)?.woundManager.unlockMedkit();
   }
 }
 

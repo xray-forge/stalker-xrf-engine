@@ -3,7 +3,7 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { registry, setSchemeState } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
@@ -38,7 +38,7 @@ export class SchemePostCombatIdle extends AbstractScheme {
       lastBestEnemyName: null,
     } as ISchemePostCombatIdleState;
 
-    registry.objects.get(object.id())[EScheme.POST_COMBAT_IDLE] = state;
+    setSchemeState(registry.objects.get(object.id()), EScheme.POST_COMBAT_IDLE, state);
 
     planner.remove_evaluator(EEvaluatorId.ENEMY);
     planner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
