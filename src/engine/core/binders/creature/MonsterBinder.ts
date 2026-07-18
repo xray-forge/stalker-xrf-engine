@@ -6,8 +6,11 @@ import { $filename } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getActiveSchemeStateOptimistic,
   getManager,
-  IBaseSchemeState,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -90,8 +93,8 @@ export class MonsterBinder extends object_binder {
 
     registry.actorCombat.delete(objectId);
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineConditionList: Nillable<TConditionList> = state.overrides?.onOffline as Nillable<TConditionList>;
@@ -131,8 +134,8 @@ export class MonsterBinder extends object_binder {
 
     object.set_tip_text("");
 
-    if (state.activeScheme) {
-      trySwitchToAnotherSection(object, state[state.activeScheme] as IBaseSchemeState);
+    if (hasActiveScheme(state)) {
+      trySwitchToAnotherSection(object, getActiveSchemeStateOptimistic(state));
     }
 
     if (isSquadCommander) {
@@ -153,8 +156,8 @@ export class MonsterBinder extends object_binder {
       updateMonsterSquadAction(object, squad);
     }
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -206,14 +209,8 @@ export class MonsterBinder extends object_binder {
    * On waypoint callback.
    */
   public onWaypoint(object: GameObject, actionType: number, index: TIndex): void {
-    if (this.state.activeScheme) {
-      emitSchemeEvent(
-        this.state[this.state.activeScheme] as IBaseSchemeState,
-        ESchemeEvent.WAYPOINT,
-        object,
-        actionType,
-        index
-      );
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.WAYPOINT, object, actionType, index);
     }
   }
 
@@ -232,12 +229,12 @@ export class MonsterBinder extends object_binder {
 
     this.onHit(object, 1, ZERO_VECTOR, killer, -1);
 
-    if (state[EScheme.MOB_DEATH]) {
-      emitSchemeEvent(state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
+    if (hasSchemeState(state, EScheme.MOB_DEATH)) {
+      emitSchemeEvent(getSchemeStateOptimistic(state, EScheme.MOB_DEATH), ESchemeEvent.DEATH, object, killer);
     }
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, killer);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.DEATH, object, killer);
     }
 
     const hitObject: Hit = new hit();
@@ -275,8 +272,16 @@ export class MonsterBinder extends object_binder {
     who: GameObject,
     boneIndex: TLabel | TIndex
   ): void {
-    if (this.state[EScheme.HIT]) {
-      emitSchemeEvent(this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (hasSchemeState(this.state, EScheme.HIT)) {
+      emitSchemeEvent(
+        getSchemeStateOptimistic(this.state, EScheme.HIT),
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, object, amount, direction, who, boneIndex);

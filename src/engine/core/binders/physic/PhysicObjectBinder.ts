@@ -6,8 +6,11 @@ import { $filename, $isNotNil } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getActiveSchemeStateOptimistic,
   getManager,
-  IBaseSchemeState,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -77,8 +80,8 @@ export class PhysicObjectBinder extends object_binder {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineCondlist: Nillable<TConditionList> = state?.overrides?.onOffline as Nillable<TConditionList>;
@@ -100,8 +103,8 @@ export class PhysicObjectBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.OBJECT);
     }
 
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.UPDATE, delta);
     }
 
     getManager(SoundManager).update(this.object.id());
@@ -158,8 +161,8 @@ export class PhysicObjectBinder extends object_binder {
   public onUse(object: GameObject, who: Nillable<GameObject>): void {
     logger.info("Object used: %s (%s) by %s", object.name(), object.section(), who?.name());
 
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.USE, object, who);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.USE, object, who);
     }
   }
 
@@ -176,9 +179,9 @@ export class PhysicObjectBinder extends object_binder {
   public onHit(object: GameObject, amount: TCount, direction: Vector, who: GameObject, boneIndex: TIndex): void {
     // logger.format("Object hit: %s by %s", object.name(), object.section(), who.name());
 
-    if (this.state[EScheme.HIT]) {
+    if (hasSchemeState(this.state, EScheme.HIT)) {
       emitSchemeEvent(
-        this.state[EScheme.HIT] as IBaseSchemeState,
+        getSchemeStateOptimistic(this.state, EScheme.HIT),
         ESchemeEvent.HIT,
         object,
         amount,
@@ -188,9 +191,9 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.state.activeScheme) {
+    if (hasActiveScheme(this.state)) {
       emitSchemeEvent(
-        this.state[this.state.activeScheme] as IBaseSchemeState,
+        getActiveSchemeStateOptimistic(this.state),
         ESchemeEvent.HIT,
         object,
         amount,
@@ -210,8 +213,8 @@ export class PhysicObjectBinder extends object_binder {
   public onDeath(object: GameObject, who: GameObject): void {
     logger.info("Object destroyed: %s (%s) by %s", object.name(), object.section(), who.name());
 
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, who);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.DEATH, object, who);
     }
 
     if (this.object.spawn_ini()?.section_exist("drop_box") || isBoxObject(this.object)) {

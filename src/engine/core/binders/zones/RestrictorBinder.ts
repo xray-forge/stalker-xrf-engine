@@ -6,8 +6,9 @@ import { $filename } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getActiveSchemeStateOptimistic,
   getManager,
-  IBaseSchemeState,
+  hasActiveScheme,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -78,8 +79,8 @@ export class RestrictorBinder extends object_binder {
 
     getManager(SoundManager).stop(objectId);
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     unregisterZone(object);
@@ -116,8 +117,8 @@ export class RestrictorBinder extends object_binder {
       }
     }
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE, delta);
     }
 
     if (soundsConfig.playing.has(objectId)) {

@@ -6,7 +6,9 @@ import { $isNotNil } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getActiveSchemeStateOptimistic,
   getManager,
+  hasActiveScheme,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -69,8 +71,8 @@ export class HelicopterBinder extends object_binder {
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.HELICOPTER);
     }
 
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.UPDATE, delta);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.UPDATE, delta);
     }
 
     // Check helicopter health and state.
@@ -160,8 +162,8 @@ export class HelicopterBinder extends object_binder {
    * @param index - Patrol point index.
    */
   public onWaypoint(distance: TDistance, position: Vector, index: TIndex): void {
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.WAYPOINT, this.object, null, index);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.WAYPOINT, this.object, null, index);
     }
   }
 }
