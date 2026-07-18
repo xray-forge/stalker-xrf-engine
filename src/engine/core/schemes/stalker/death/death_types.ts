@@ -2,6 +2,7 @@ import type { Nillable, TNumberId } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TConditionList } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Store information about death of an object.
@@ -16,4 +17,10 @@ export interface ISchemeDeathState extends IBaseSchemeState {
    */
   info2: Nillable<TConditionList>;
   killerId: Nillable<TNumberId>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.DEATH]: ISchemeDeathState;
+  }
 }

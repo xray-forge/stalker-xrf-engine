@@ -3,6 +3,7 @@ import type { LuaArray, Nillable, StringNillable, TName, TNumberId, TStringId } 
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IConfigSwitchCondition } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Remark scheme state.
@@ -17,4 +18,10 @@ export interface ISchemeRemarkState extends IBaseSchemeState {
   targetId: Nillable<TNumberId>;
   targetPosition: Nillable<Vector>;
   targetInit: Nillable<boolean>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.REMARK]: ISchemeRemarkState;
+  }
 }

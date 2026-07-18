@@ -3,6 +3,7 @@ import type { Nillable, TDistance, TSection } from "xray16/lib";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Approximate meet distance to simplify logical checks.
@@ -42,4 +43,10 @@ export interface ISchemeMeetState extends IBaseSchemeState {
   farSoundDistance: TConditionList;
   farSound: TConditionList;
   farVictim: TConditionList;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.MEET]: ISchemeMeetState;
+  }
 }

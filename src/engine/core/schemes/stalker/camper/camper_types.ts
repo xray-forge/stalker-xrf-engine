@@ -3,6 +3,7 @@ import type { LuaArray, Nillable, TCount, TDistance, TDuration, TIndex, TName, T
 
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Single look point used when scanning, pairing a waypoint key with its world position.
@@ -39,4 +40,10 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   scanBegin: Nillable<TTimestamp>;
   memEnemy: Nillable<TTimestamp>;
   waypointFlag: Nillable<number>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.CAMPER]: ISchemeCamperState;
+  }
 }

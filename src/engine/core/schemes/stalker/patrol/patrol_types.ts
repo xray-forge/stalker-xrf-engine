@@ -6,6 +6,7 @@ import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import type { IWaypointData } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Descriptor of patrol captured object state.
@@ -41,4 +42,10 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   patrolKey: TStringId;
   patrolManager: PatrolManager;
   commander: boolean;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.PATROL]: ISchemePatrolState;
+  }
 }

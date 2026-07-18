@@ -73,10 +73,10 @@ export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean)
 }
 
 /**
- * Register dynamic state for game object.
+ * Register dynamic state for an object.
  *
- * @param objectId - Game object ID.
- * @returns New initialized dynamic state.
+ * @param objectId - Object identifier.
+ * @returns Newly initialized dynamic state.
  */
 export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectState {
   const state: IDynamicObjectState = {} as IDynamicObjectState;
@@ -87,9 +87,9 @@ export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectS
 }
 
 /**
- * Unregister dynamic state for the object.
+ * Unregister dynamic state for an object.
  *
- * @param objectId - Game object ID.
+ * @param objectId - Object identifier.
  */
 export function unregisterObjectDynamicState(objectId: TNumberId): void {
   registry.dynamicData.objects.delete(objectId);

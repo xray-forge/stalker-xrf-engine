@@ -2,6 +2,7 @@ import type { LuaArray, Nillable, TName } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 export interface ISchemeSleeperState extends IBaseSchemeState {
   pathMain: TName;
@@ -18,4 +19,10 @@ export interface ISchemeSleeperState extends IBaseSchemeState {
 export const enum ESleeperState {
   WALKING = 0,
   SLEEPING = 1,
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SLEEPER]: ISchemeSleeperState;
+  }
 }

@@ -3,6 +3,7 @@ import type { LuaArray, Nillable, TName } from "xray16/lib";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of mob walker scheme state.
@@ -22,4 +23,10 @@ export interface ISchemeMobWalkerState extends IBaseSchemeState {
 export const enum EMobWalkerState {
   MOVING = 0,
   STANDING = 1,
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.MOB_WALKER]: ISchemeMobWalkerState;
+  }
 }

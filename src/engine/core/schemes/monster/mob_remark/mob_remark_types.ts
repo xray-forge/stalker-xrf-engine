@@ -2,6 +2,7 @@ import type { Nillable } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of remark scheme.
@@ -16,4 +17,10 @@ export interface ISchemeMobRemarkState extends IBaseSchemeState {
   tip: Nillable<string>;
   snd: Nillable<string>;
   time: Nillable<string>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.MOB_REMARK]: ISchemeMobRemarkState;
+  }
 }

@@ -3,6 +3,7 @@ import { NIL, Nillable, StringNillable, TDuration, TName, TStringId } from "xray
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Mapping of smart cover substates to the stalker animation state used for each of them.
@@ -35,4 +36,10 @@ export interface ISchemeSmartCoverState extends IBaseSchemeState {
   moving: string;
   soundIdle: Nillable<string>;
   targetPosition: Nillable<Vector>; // todo: Probably unused and not needed, commented logic originally.
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SMARTCOVER]: ISchemeSmartCoverState;
+  }
 }

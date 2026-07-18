@@ -3,6 +3,7 @@ import { Nillable } from "xray16/lib";
 
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { TConditionList } from "@/engine/core/utils/ini";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Type of combat used by game object.
@@ -34,4 +35,12 @@ export interface ISchemeCombatState extends IBaseSchemeState {
   lastSeenEnemyAtPosition: Nillable<Vector>;
   scriptCombatType: Nillable<EScriptCombatType>;
   currentAction: Nillable<EZombieCombatAction>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.COMBAT]: ISchemeCombatState;
+    [EScheme.COMBAT_CAMPER]: ISchemeCombatState;
+    [EScheme.COMBAT_ZOMBIED]: ISchemeCombatState;
+  }
 }

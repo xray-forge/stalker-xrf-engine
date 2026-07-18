@@ -3,6 +3,7 @@ import type { LuaArray, Nillable, TDistance, TSection, TStringId } from "xray16/
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 export const PS_BEGIN_WOUNDED: TStringId = "begin_wounded";
 
@@ -52,4 +53,10 @@ export interface ISchemeWoundedState extends IBaseSchemeState {
   hpFight: LuaArray<IWoundedStateDescriptor>;
   // States and sounds for wound handling.
   psyState: LuaArray<IWoundedStateDescriptor>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.WOUNDED]: ISchemeWoundedState;
+  }
 }

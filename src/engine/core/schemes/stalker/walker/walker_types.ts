@@ -20,3 +20,9 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   description: Nillable<EStalkerState>;
   approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    walker: ISchemeWalkerState;
+  }
+}

@@ -1,7 +1,8 @@
 import { Vector } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * State of helping wounded scheme.
@@ -15,4 +16,10 @@ export interface ISchemeHelpWoundedState extends IBaseSchemeState {
   selectedWoundedVertexPosition: Nillable<Vector>;
   // Selected wounded stalker ID to help.
   selectedWoundedId: Nillable<TNumberId>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.HELP_WOUNDED]: ISchemeHelpWoundedState;
+  }
 }

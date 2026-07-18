@@ -227,6 +227,19 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
 }
 
 /**
+ * Type-only extension point that associates stateful schemes with their concrete registry state.
+ *
+ * Each state-owning scheme augments this interface beside its state declaration. Schemes without an
+ * entry do not own a value in the per-object scheme-state registry.
+ */
+export interface ISchemeStateMap {}
+
+/**
+ * Scheme keys that have registered a concrete state type.
+ */
+export type TStatefulScheme = keyof ISchemeStateMap & EScheme;
+
+/**
  * Dynamic state stored with lua marshal lib.
  */
 export interface IDynamicObjectState {

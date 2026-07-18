@@ -28,7 +28,11 @@ import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getActiveSchemeStateOptimistic,
   getManager,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -55,7 +59,6 @@ import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
@@ -179,12 +182,12 @@ export class StalkerBinder extends object_binder {
 
     registry.actorCombat.delete(objectId);
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    if (state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, object);
+    if (hasSchemeState(state, EScheme.REACH_TASK)) {
+      emitSchemeEvent(getSchemeStateOptimistic(state, EScheme.REACH_TASK), ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     // Call logics on offline.
@@ -446,16 +449,16 @@ export class StalkerBinder extends object_binder {
 
     this.updateLightState(object);
 
-    if (state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
+    if (hasSchemeState(state, EScheme.REACH_TASK)) {
+      emitSchemeEvent(getSchemeStateOptimistic(state, EScheme.REACH_TASK), ESchemeEvent.DEATH, victim, who);
     }
 
-    if (state[EScheme.DEATH]) {
-      emitSchemeEvent(state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
+    if (hasSchemeState(state, EScheme.DEATH)) {
+      emitSchemeEvent(getSchemeStateOptimistic(state, EScheme.DEATH), ESchemeEvent.DEATH, victim, who);
     }
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.DEATH, victim, who);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_DEATH, object, who);
@@ -534,20 +537,52 @@ export class StalkerBinder extends object_binder {
       syncObjectHitSmartTerrainAlert(object);
     }
 
-    if (state.activeScheme) {
-      emitSchemeEvent(state[state.activeScheme!]!, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (hasActiveScheme(state)) {
+      emitSchemeEvent(
+        getActiveSchemeStateOptimistic(state),
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
-    if (state[EScheme.COMBAT_IGNORE]) {
-      emitSchemeEvent(state[EScheme.COMBAT_IGNORE], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (hasSchemeState(state, EScheme.COMBAT_IGNORE)) {
+      emitSchemeEvent(
+        getSchemeStateOptimistic(state, EScheme.COMBAT_IGNORE),
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
-    if (state[EScheme.COMBAT]) {
-      emitSchemeEvent(state[EScheme.COMBAT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (hasSchemeState(state, EScheme.COMBAT)) {
+      emitSchemeEvent(
+        getSchemeStateOptimistic(state, EScheme.COMBAT),
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
-    if (state[EScheme.HIT]) {
-      emitSchemeEvent(state[EScheme.HIT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    if (hasSchemeState(state, EScheme.HIT)) {
+      emitSchemeEvent(
+        getSchemeStateOptimistic(state, EScheme.HIT),
+        ESchemeEvent.HIT,
+        object,
+        amount,
+        direction,
+        who,
+        boneIndex
+      );
     }
 
     if (boneIndex !== 15 && amount > object.health * 100) {
@@ -555,7 +590,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      (state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit();
+      getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit();
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, object, amount, direction, who, boneIndex);

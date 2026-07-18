@@ -1,7 +1,8 @@
 import { Vector } from "xray16/alias";
 import { Nillable, TNumberId, TStringId } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Key in portable store indicating who is looting corpse.
@@ -20,4 +21,10 @@ export interface ISchemeCorpseDetectionState extends IBaseSchemeState {
   selectedCorpseVertexPosition: Nillable<Vector>;
   // Selected corpse ID to loot.
   selectedCorpseId: Nillable<TNumberId>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.CORPSE_DETECTION]: ISchemeCorpseDetectionState;
+  }
 }

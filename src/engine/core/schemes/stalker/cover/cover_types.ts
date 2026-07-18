@@ -1,7 +1,8 @@
 import { TDistance, TName } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { TConditionList } from "@/engine/core/utils/ini";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * State describing smart cover scheme configuration.
@@ -14,4 +15,10 @@ export interface ISchemeCoverState extends IBaseSchemeState {
   useAttackDirection: boolean;
   radiusMin: TDistance;
   radiusMax: TDistance;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.COVER]: ISchemeCoverState;
+  }
 }
