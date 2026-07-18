@@ -138,7 +138,7 @@ async function verifyGamedataLink(): Promise<void> {
     } else {
       log.warn("Gamedata link points to unexpected place:", yellowBright(linkPath));
     }
-  } catch (error) {
+  } catch {
     log.info("Gamedata link:", yellow("FAIL"));
   }
 }
@@ -156,7 +156,7 @@ async function verifyLogsLink(): Promise<void> {
     } else {
       log.warn("Logs link points to unexpected place:", yellow(linkPath), yellowBright(logs));
     }
-  } catch (error) {
+  } catch {
     log.info("Logs link:", yellow("FAIL"));
   }
 }

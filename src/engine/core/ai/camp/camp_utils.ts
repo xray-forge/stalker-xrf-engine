@@ -5,7 +5,7 @@ import { $isNil, $isNotNil } from "xray16/macros";
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { type CampManager } from "@/engine/core/ai/camp/CampManager";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
-import { getActiveSchemeState, hasActiveScheme, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 

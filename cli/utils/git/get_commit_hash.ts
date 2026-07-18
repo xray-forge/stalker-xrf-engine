@@ -19,7 +19,7 @@ export function getCommitHash(): Optional<string> {
         .toString()
         .trim();
     }
-  } catch (error) {
+  } catch {
     return null;
   }
 }

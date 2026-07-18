@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, fit, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, time_global } from "xray16";
 import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
 import { createTime, TRUE } from "xray16/lib";

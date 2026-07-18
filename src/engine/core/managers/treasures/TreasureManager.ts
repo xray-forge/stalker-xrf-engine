@@ -13,7 +13,7 @@ import {
   TStringId,
   TTimestamp,
 } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

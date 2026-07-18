@@ -36,7 +36,7 @@ export async function verifyGamedata(parameters: IVerifyGamedataParameters = {})
   try {
     cp.execSync(command, { stdio: "inherit" });
     log.info("Successfully executed verify command, took:", timeTracker.end().getDuration() / 1000, "sec");
-  } catch (error) {
+  } catch {
     log.error("Gamedata verification command failed in:", timeTracker.end().getDuration() / 1000, "sec");
   }
 }

@@ -24,7 +24,6 @@ import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terr
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import {
   setupObjectInfoPortions,

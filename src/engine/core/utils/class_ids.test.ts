@@ -1,11 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
-import { ServerActorObject, ServerHumanObject, ServerObject } from "xray16/alias";
+import { ServerObject } from "xray16/alias";
 import { MAX_ALIFE_ID } from "xray16/lib";
 import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
-import { Squad } from "@/engine/core/objects/squad";
 import {
   isActor,
   isArtefact,
