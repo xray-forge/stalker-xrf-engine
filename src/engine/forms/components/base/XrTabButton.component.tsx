@@ -4,7 +4,7 @@ import { TName } from "xray16/lib";
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { IBaseXmlNode } from "@/engine/lib/types";
+import { IBaseXmlNode } from "@/engine/forms/types";
 
 export interface IXrTabButtonProps extends IBaseXmlNode {
   id: string;

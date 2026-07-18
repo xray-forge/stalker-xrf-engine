@@ -2,7 +2,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
-import { IBaseXmlNode } from "@/engine/lib/types";
+import { IBaseXmlNode } from "@/engine/forms/types";
 
 export interface IXrScrollViewProps extends IBaseXmlNode {
   rightIndent: number;

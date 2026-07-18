@@ -5,8 +5,9 @@ import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
+import { IBaseXmlNode, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/forms/types";
+import { IRgbColor } from "@/engine/lib/constants/colors";
 import { TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;

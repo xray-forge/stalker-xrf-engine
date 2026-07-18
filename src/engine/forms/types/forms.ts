@@ -1,5 +1,8 @@
-import { JSXNode } from "jsx-xml";
+import type { JSXNode } from "jsx-xml";
 
+/**
+ * Common XML attributes accepted by generated form components.
+ */
 export interface IBaseXmlNode {
   x?: number;
   y?: number;
@@ -10,12 +13,12 @@ export interface IBaseXmlNode {
   children?: JSXNode;
 }
 
-export interface IRgbColor {
-  r: number;
-  g: number;
-  b: number;
-}
-
+/**
+ * Horizontal alignment used by text form components.
+ */
 export type THorizontalTextAlign = "c" | "l" | "r";
 
+/**
+ * Vertical alignment used by text form components.
+ */
 export type TVerticalTextAlign = "c" | "t" | "b";

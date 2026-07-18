@@ -5,9 +5,8 @@ import { XrComponent } from "@/engine/forms/components/base/XrComponent.componen
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
-import { WHITE } from "@/engine/lib/constants/colors";
+import { IRgbColor, WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
-import { IRgbColor } from "@/engine/lib/types";
 
 const BASE_WIDTH: number = screenConfig.BASE_WIDTH;
 const BASE_HEIGHT: number = screenConfig.BASE_HEIGHT;

@@ -2,8 +2,8 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { IBaseXmlNode } from "@/engine/forms/types";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrListComponentProps extends IBaseXmlNode {
   font?: TFontId;

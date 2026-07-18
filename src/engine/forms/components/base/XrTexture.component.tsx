@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { IBaseXmlNode } from "@/engine/lib/types";
+import { IBaseXmlNode } from "@/engine/forms/types";
 
 export interface IXrTextureProps extends IBaseXmlNode {
   tag?: never;

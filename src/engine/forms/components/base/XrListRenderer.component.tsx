@@ -2,8 +2,8 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { IBaseXmlNode } from "@/engine/forms/types";
 import { fonts } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode } from "@/engine/lib/types";
 
 export interface IXrComboBoxProps extends IBaseXmlNode {}
 
