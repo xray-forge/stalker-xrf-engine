@@ -3,13 +3,14 @@ import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import {
   addObjectAbuse,
   clearObjectAbuse,
   setObjectAbuseState,
 } from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 

@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
 import {

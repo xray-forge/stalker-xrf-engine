@@ -4,11 +4,9 @@ import { MockGameObject } from "xray16/mocks";
 
 import {
   getPortableStoreValue,
-  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerObject,
   setPortableStoreValue,
-  setSchemeState,
 } from "@/engine/core/database";
 import {
   finishObjectHelpWounded,
@@ -18,6 +16,7 @@ import {
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";

@@ -2,11 +2,11 @@ import { color, hit, noise, time_global } from "xray16";
 import { Color, GameObject, Hit, Noise } from "xray16/alias";
 import { abort, TDuration, TTimestamp, ZERO_VECTOR } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { PostProcessEffector } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessEffector";
 import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 
 /**
  * Manager handling post-process scheme behaviour for a restrictor zone.

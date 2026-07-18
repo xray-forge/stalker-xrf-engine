@@ -1,6 +1,6 @@
 import type { TName, TRate } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -13,7 +13,7 @@ export interface ISchemePhysicalHitState extends IBaseSchemeState {
   dirPath: TName;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.PH_HIT]: ISchemePhysicalHitState;
   }

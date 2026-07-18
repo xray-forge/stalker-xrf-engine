@@ -1,7 +1,7 @@
 import { Nillable, TDuration, TName, TNumberId } from "xray16/lib";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
-import { IBaseSchemeState } from "@/engine/core/database";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -25,7 +25,7 @@ export interface IPartialAnimationManager {
   };
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.POST_COMBAT_IDLE]: ISchemePostCombatIdleState;
   }

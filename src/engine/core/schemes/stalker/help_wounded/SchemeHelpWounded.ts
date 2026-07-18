@@ -3,12 +3,13 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 

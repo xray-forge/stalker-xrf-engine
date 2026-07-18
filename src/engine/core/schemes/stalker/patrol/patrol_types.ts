@@ -3,8 +3,8 @@ import type { LuaArray, Nillable, TDistance, TName, TStringId } from "xray16/lib
 
 import type { EPatrolFormation } from "@/engine/core/ai/patrol";
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { IWaypointData } from "@/engine/core/utils/ini";
 import type { EScheme } from "@/engine/lib/types";
 
@@ -44,7 +44,7 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   commander: boolean;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.PATROL]: ISchemePatrolState;
   }

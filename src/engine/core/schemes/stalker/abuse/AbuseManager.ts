@@ -2,7 +2,7 @@ import { time_global } from "xray16";
 import { Nillable, TCount, TRate, TTimestamp } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 
 /**

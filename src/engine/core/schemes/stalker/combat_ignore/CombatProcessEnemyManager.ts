@@ -1,12 +1,13 @@
 import { GameObject, ServerCreatureObject, Vector } from "xray16/alias";
 import { ACTOR_ID, MAX_ALIFE_ID, Nillable, TCount, TNumberId } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { ILogicsOverrides, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/index";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { ILogicsOverrides } from "@/engine/core/schemes/state";
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 
 /**

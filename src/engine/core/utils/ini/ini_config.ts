@@ -18,10 +18,11 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engine/core/database/database_types";
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
+import { IBaseSchemeLogic, ILogicsOverrides } from "@/engine/core/schemes/state";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {

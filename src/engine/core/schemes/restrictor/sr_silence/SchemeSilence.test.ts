@@ -6,8 +6,8 @@ import { registerObject, registry } from "@/engine/core/database";
 import { SchemeSilence } from "@/engine/core/schemes/restrictor/sr_silence/SchemeSilence";
 import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

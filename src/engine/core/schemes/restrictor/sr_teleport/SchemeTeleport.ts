@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { assert, TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";

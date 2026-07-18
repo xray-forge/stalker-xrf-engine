@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";

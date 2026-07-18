@@ -3,14 +3,10 @@ import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject, TSection } from "xray16/lib";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
-import {
-  getSchemeStateOptimistic,
-  IBaseSchemeState,
-  IRegistryObjectState,
-  registerObject,
-} from "@/engine/core/database";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { getSchemeStateOptimistic, IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

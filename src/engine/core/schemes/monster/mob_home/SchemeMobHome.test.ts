@@ -6,7 +6,7 @@ import { registerObject } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { SchemeMobHome } from "@/engine/core/schemes/monster/mob_home/SchemeMobHome";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

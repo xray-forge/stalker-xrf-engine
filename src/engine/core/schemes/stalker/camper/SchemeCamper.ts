@@ -3,8 +3,8 @@ import { ActionBase, ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { abort, FALSE, Nillable, TName, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";

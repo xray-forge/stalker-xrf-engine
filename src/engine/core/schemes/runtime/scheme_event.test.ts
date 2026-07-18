@@ -2,16 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import {
-  getSchemeStateOptimistic,
-  IBaseSchemeState,
-  IRegistryObjectState,
-  registerObject,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/schemes/runtime/scheme_event";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
-import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
+import { getSchemeStateOptimistic, IBaseSchemeState, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 

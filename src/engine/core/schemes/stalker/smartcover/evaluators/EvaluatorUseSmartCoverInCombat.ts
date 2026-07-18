@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { isActiveSection } from "@/engine/core/schemes/runtime";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { isActiveSection } from "@/engine/core/utils/scheme";
 
 /**
  * Check if smart cover can be used in combat.

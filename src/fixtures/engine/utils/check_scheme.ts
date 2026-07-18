@@ -1,7 +1,7 @@
 import { expect } from "@jest/globals";
-import type { AnyObject, IConstructor } from "xray16/lib";
+import { AnyObject, IConstructor } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { type IBaseSchemeState } from "@/engine/core/schemes/state";
 
 /**
  * Check if scheme manager is subscribed in scheme base state.

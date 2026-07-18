@@ -4,10 +4,11 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, resetRegistry } from "@/fixtures/engine";
 

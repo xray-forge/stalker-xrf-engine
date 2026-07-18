@@ -8,10 +8,10 @@ import { registerSimulationObject, registerSimulator } from "@/engine/core/datab
 import { Squad } from "@/engine/core/objects/squad";
 import { SquadReachTargetAction } from "@/engine/core/objects/squad/action";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update/squad_update";
-import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
+import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/schemes/runtime";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/schemes/runtime");
 
 describe("updateMonsterSquadAction util", () => {
   beforeEach(() => {

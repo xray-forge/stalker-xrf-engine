@@ -5,8 +5,8 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 describe("SchemeTimer functionality", () => {

@@ -4,13 +4,14 @@ import { LuaArray, NIL, TName, TSection } from "xray16/lib";
 import { $fromArray, $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";

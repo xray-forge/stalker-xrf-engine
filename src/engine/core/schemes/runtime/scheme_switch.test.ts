@@ -6,24 +6,21 @@ import { $fromArray } from "xray16/macros";
 import { MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import {
-  getSchemeStateOptimistic,
-  IBaseSchemeLogic,
-  IBaseSchemeState,
-  IRegistryObjectState,
-  registerActor,
-  registerObject,
-  registerZone,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerActor, registerObject, registerZone } from "@/engine/core/database";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
+import {
+  getSchemeStateOptimistic,
+  IBaseSchemeLogic,
+  IBaseSchemeState,
+  setSchemeState,
+} from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { addConditionToList, parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 

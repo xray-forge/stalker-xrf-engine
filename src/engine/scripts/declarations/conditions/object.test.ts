@@ -18,7 +18,6 @@ import {
   registerSimulator,
   registerStoryLink,
   registerZone,
-  setSchemeState,
 } from "@/engine/core/database";
 import {
   EJobPathType,
@@ -34,6 +33,7 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import { EScheme, ESchemeType } from "@/engine/lib/types";

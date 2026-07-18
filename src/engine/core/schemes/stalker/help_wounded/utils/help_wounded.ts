@@ -2,14 +2,9 @@ import { GameObject } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import {
-  getSchemeState,
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registry,
-  setPortableStoreValue,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
+import { getSchemeState, getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { EScheme } from "@/engine/lib/types";
 

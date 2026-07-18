@@ -6,15 +6,16 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event");
+jest.mock("@/engine/core/schemes/runtime/scheme_event");
 
 describe("CampManager", () => {
   beforeEach(() => {

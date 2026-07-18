@@ -4,13 +4,13 @@ import { LuaArray, NIL, TIndex } from "xray16/lib";
 import { MockAlifeObject, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import {
-  IBaseSchemeLogic,
   IRegistryObjectState,
   registerActor,
   registerObject,
   registerSimulator,
   registerStoryLink,
 } from "@/engine/core/database";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   addConditionToList,

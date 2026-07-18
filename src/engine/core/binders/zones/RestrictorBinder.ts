@@ -6,9 +6,7 @@ import { $filename } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getActiveSchemeStateOptimistic,
   getManager,
-  hasActiveScheme,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -22,9 +20,10 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { ESchemeEvent } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 

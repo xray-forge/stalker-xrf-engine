@@ -3,16 +3,16 @@ import { ESoundObjectType, GameObject, ServerMonsterAbstractObject, SoundObject,
 import { copyVector, Nillable, subVectors, TCount, TIndex, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import {
   scriptCaptureMonster,
   scriptCommandMonster,
   scriptReleaseMonster,
   trySwitchToAnotherSection,
-} from "@/engine/core/utils/scheme";
+} from "@/engine/core/schemes/runtime";
 
 /**
  * Manager handling monster scheme behaviour for a restrictor zone.

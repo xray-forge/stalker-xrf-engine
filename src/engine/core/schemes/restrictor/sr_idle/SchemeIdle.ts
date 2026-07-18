@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

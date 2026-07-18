@@ -5,10 +5,8 @@ import { $fromArray } from "xray16/macros";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
   CUSTOM_DATA,
-  IBaseSchemeState,
   IRegistryObjectState,
   registerActor,
   registerObject,
@@ -17,7 +15,14 @@ import {
 } from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
+import {
+  configureObjectSchemes,
+  initializeObjectSchemeLogic,
+  initializeObjectSectionItems,
+} from "@/engine/core/schemes/runtime/scheme_initialization";
+import { loadSchemeImplementations } from "@/engine/core/schemes/runtime/scheme_setup";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
@@ -31,12 +36,7 @@ import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
-import {
-  configureObjectSchemes,
-  initializeObjectSchemeLogic,
-  initializeObjectSectionItems,
-} from "@/engine/core/utils/scheme/scheme_initialization";
-import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 

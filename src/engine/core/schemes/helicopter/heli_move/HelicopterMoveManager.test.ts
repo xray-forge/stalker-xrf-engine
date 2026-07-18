@@ -10,8 +10,8 @@ import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
 import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

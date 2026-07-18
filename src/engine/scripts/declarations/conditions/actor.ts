@@ -15,9 +15,10 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { getSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
+import { getSchemeState } from "@/engine/core/schemes/state";
 import {
   hasAchievedFriendOfStalkers,
   hasAchievedInformationDealer,

@@ -7,9 +7,10 @@ import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import {
   isObjectAsleep,
   isObjectHelpingWounded,

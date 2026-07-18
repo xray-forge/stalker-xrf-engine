@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { SchemeMobRemark } from "@/engine/core/schemes/monster/mob_remark/SchemeMobRemark";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

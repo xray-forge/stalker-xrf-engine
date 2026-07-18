@@ -5,8 +5,9 @@ import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { IRegistryObjectState, registerObject, setPortableStoreValue, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { EScheme } from "@/engine/lib/types";
 import {

@@ -7,7 +7,6 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  getSchemeStateOptimistic,
   initializePortableStore,
   IRegistryObjectState,
   loadPortableStore,
@@ -25,6 +24,7 @@ import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme } from "@/engine/lib/types";

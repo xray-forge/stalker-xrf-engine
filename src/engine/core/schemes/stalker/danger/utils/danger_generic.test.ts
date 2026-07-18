@@ -5,14 +5,7 @@ import { FALSE, TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import {
-  ILogicsOverrides,
-  IRegistryObjectState,
-  registerObject,
-  registerSimulator,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
@@ -23,6 +16,7 @@ import {
 } from "@/engine/core/schemes/stalker/danger/utils/danger_generic";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { ILogicsOverrides, setSchemeState } from "@/engine/core/schemes/state";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";

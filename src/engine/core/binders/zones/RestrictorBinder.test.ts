@@ -6,25 +6,19 @@ import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor,
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
-import {
-  getManager,
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registerObject,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event");
-jest.mock("@/engine/core/utils/scheme/scheme_initialization");
+jest.mock("@/engine/core/schemes/runtime/scheme_event");
+jest.mock("@/engine/core/schemes/runtime/scheme_initialization");
 
 describe("RestrictorBinder", () => {
   beforeEach(() => {

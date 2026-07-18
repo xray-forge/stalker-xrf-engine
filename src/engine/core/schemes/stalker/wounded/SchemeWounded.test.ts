@@ -4,14 +4,15 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded/SchemeWounded";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

@@ -6,38 +6,31 @@ import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProc
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
-import {
-  getManager,
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registerObject,
-  registerSimulator,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { invalidateObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
+import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/schemes/runtime";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import {
   setupObjectInfoPortions,
   setupObjectStalkerVisual,
   setupSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
-import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/sounds/utils");
 jest.mock("@/engine/core/objects/smart_terrain/utils");
 jest.mock("@/engine/core/utils/object");
-jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/schemes/runtime");
 
 describe("StalkerBinder", () => {
   beforeEach(() => {

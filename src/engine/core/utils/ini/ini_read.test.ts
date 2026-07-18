@@ -3,7 +3,7 @@ import { IniFile } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
 
-import { IBaseSchemeLogic } from "@/engine/core/database";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
   readIniBoolean,

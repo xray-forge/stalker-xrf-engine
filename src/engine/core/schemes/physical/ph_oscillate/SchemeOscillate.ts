@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TName, TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";

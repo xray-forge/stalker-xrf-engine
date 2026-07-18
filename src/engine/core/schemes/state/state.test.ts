@@ -1,8 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { MockGameObject } from "xray16/mocks";
 
-import { IRegistryObjectState, TStatefulScheme } from "@/engine/core/database/database_types";
+import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject } from "@/engine/core/database/objects";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import {
   getActiveSchemeState,
   getActiveSchemeStateOptimistic,
@@ -14,8 +15,8 @@ import {
   hasSchemeState,
   setSchemeState,
   setSchemeStateByKey,
-} from "@/engine/core/database/scheme";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+} from "@/engine/core/schemes/state";
+import type { TStatefulScheme } from "@/engine/core/schemes/state/types";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 

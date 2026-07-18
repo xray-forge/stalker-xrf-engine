@@ -2,9 +2,9 @@ import { time_global } from "xray16";
 import { Vector } from "xray16/alias";
 import { $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 
 /**
  * Manager handling physical force scheme behaviour for an object.

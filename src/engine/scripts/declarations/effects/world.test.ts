@@ -8,18 +8,17 @@ import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   getManager,
-  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerAnomalyZone,
   registerObject,
   registerSignalLight,
   registerStoryLink,
-  setSchemeState,
 } from "@/engine/core/database";
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import {
   callXrEffect,

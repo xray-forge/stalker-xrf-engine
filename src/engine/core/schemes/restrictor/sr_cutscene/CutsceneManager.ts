@@ -3,9 +3,9 @@ import { GameObject } from "xray16/alias";
 import { AnyCallablesModule, getExtern, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager, EActorControlHandle } from "@/engine/core/managers/actor";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { effectorSets } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/camera_effector_sets";
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
@@ -15,8 +15,8 @@ import {
   ICameraEffectorSetDescriptorItem,
   ISchemeCutsceneState,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
 
 const logger: LuaLogger = new LuaLogger($filename);

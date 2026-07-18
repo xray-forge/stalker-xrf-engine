@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import {

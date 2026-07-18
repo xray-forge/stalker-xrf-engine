@@ -2,12 +2,13 @@ import { GameObject, IniFile, TSoundType, Vector } from "xray16/alias";
 import { LuaArray, Nillable, TCount, TDistance, TName, TNumberId, TRate, TSection, TStringId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeState, getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
+import { getSchemeState } from "@/engine/core/schemes/state";
 import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { EScheme, ESchemeType } from "@/engine/lib/types";

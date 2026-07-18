@@ -2,9 +2,9 @@ import { GameObject } from "xray16/alias";
 import { AnyArgs, AnyContextualCallable, Nillable, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/database_types";
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { getActiveSchemeState } from "@/engine/core/database/scheme";
+import { getActiveSchemeState, IBaseSchemeState, TSchemeSignals } from "@/engine/core/schemes/state";
 import { ESchemeEvent } from "@/engine/lib/types";
 
 /**

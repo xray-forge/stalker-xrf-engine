@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

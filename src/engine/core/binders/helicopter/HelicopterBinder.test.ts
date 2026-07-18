@@ -6,16 +6,17 @@ import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor,
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
-import { IRegistryObjectState, registerObject, registry, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/schemes/runtime");
 
 describe("HelicopterBinder", () => {
   beforeEach(() => {

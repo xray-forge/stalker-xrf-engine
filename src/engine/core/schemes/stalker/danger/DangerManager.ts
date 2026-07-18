@@ -2,8 +2,8 @@ import { snd_type, time_global } from "xray16";
 import { EGameObjectRelation, GameObject, TSoundType, Vector } from "xray16/alias";
 import { Nillable, TNumberId, TRate } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";

@@ -4,18 +4,13 @@ import { Nillable, TSection } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import {
-  getSchemeStateByKey,
-  getSchemeStateOptimistic,
-  ILogicsOverrides,
-  IRegistryObjectState,
-  registry,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EScriptCombatType, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/SchemeCombatZombied";
+import { getSchemeStateByKey, getSchemeStateOptimistic, ILogicsOverrides } from "@/engine/core/schemes/state";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import {
   getConfigSwitchConditions,

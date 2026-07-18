@@ -4,15 +4,10 @@ import { GameObject, Hit } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import {
-  IRegistryObjectState,
-  registerObject,
-  registerSimulator,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import {
   enableObjectWoundedHealing,
   giveWoundedObjectMedkit,

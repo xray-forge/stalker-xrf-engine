@@ -3,7 +3,8 @@ import { GameObject } from "xray16/alias";
 import { abort, ACTOR_ID, extern, Nillable, TCount, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { getActiveSchemeState, getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState } from "@/engine/core/schemes/state";
 import { isBlackScreen } from "@/engine/core/utils/game";
 
 /**

@@ -3,11 +3,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit/SchemeHit";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

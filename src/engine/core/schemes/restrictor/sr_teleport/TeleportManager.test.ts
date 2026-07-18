@@ -4,21 +4,16 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import {
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registerActor,
-  registerObject,
-  registry,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import {
   ETeleportState,
   ISchemeTeleportState,
   SchemeTeleport,
   TeleportManager,
 } from "@/engine/core/schemes/restrictor/sr_teleport";
+import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction, patrols } from "@/fixtures/engine";
 

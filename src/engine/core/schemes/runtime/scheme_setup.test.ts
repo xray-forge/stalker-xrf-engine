@@ -4,19 +4,19 @@ import { $fromArray } from "xray16/macros";
 import { MockActionBase, MockGameObject } from "xray16/mocks";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
-import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
-import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
-import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import {
   addCommonActionPreconditions,
   disableObjectBaseSchemes,
   loadSchemeImplementation,
   loadSchemeImplementations,
-} from "@/engine/core/utils/scheme/scheme_setup";
+} from "@/engine/core/schemes/runtime/scheme_setup";
+import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
+import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
+import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 

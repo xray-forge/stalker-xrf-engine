@@ -5,7 +5,7 @@ import { Nillable, TNumberId } from "xray16/lib";
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
-import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
+import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/schemes/runtime";
 import { isSquadAction } from "@/engine/core/utils/squad";
 
 /**

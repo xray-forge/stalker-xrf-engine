@@ -4,14 +4,15 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet/SchemeMeet";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

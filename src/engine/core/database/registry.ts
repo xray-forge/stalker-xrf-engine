@@ -3,7 +3,6 @@ import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStr
 import { $fromObject } from "xray16/macros";
 
 import type { CampManager } from "@/engine/core/ai/camp";
-import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import type {
@@ -18,6 +17,7 @@ import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
 import type { Actor } from "@/engine/core/objects/creature/Actor";
 import type { SmartCover } from "@/engine/core/objects/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini";

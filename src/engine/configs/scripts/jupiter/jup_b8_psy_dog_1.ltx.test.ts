@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import { IBaseSchemeLogic, registerActor } from "@/engine/core/database";
+import { registerActor } from "@/engine/core/database";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList, readIniConditionList } from "@/engine/core/utils/ini";
 import { loadInGameTestIniFromTest, resetRegistry } from "@/fixtures/engine";

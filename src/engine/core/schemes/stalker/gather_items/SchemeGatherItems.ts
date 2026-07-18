@@ -2,10 +2,11 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 

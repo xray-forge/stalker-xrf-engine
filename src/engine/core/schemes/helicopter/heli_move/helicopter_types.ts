@@ -1,6 +1,6 @@
 import { Nillable, TCount, TDistance, TName, TRate } from "xray16/lib";
 
-import { IBaseSchemeState } from "@/engine/core/database";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -43,7 +43,7 @@ export const enum EHelicopterFlyByState {
   TO_ENEMY = 1,
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.HELI_MOVE]: ISchemeHelicopterMoveState;
   }

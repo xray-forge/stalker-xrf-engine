@@ -2,10 +2,11 @@ import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile, mockStalkerIds } from "xray16/mocks";
 
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 describe("SchemeGatherItems", () => {

@@ -2,7 +2,7 @@ import { Vector } from "xray16/alias";
 import { NIL, Nillable, StringNillable, TDuration, TName, TStringId } from "xray16/lib";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
-import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -38,7 +38,7 @@ export interface ISchemeSmartCoverState extends IBaseSchemeState {
   targetPosition: Nillable<Vector>; // todo: Probably unused and not needed, commented logic originally.
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.SMARTCOVER]: ISchemeSmartCoverState;
   }

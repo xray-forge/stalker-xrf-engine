@@ -1,8 +1,8 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

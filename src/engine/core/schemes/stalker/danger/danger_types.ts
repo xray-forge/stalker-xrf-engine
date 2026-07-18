@@ -1,7 +1,7 @@
 import { Nillable, TTimestamp } from "xray16/lib";
 
-import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -12,7 +12,7 @@ export interface ISchemeDangerState extends IBaseSchemeState {
   dangerManager: DangerManager;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.DANGER]: ISchemeDangerState;
   }

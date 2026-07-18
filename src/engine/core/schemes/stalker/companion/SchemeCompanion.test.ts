@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
 import { SchemeCompanion } from "@/engine/core/schemes/stalker/companion/SchemeCompanion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

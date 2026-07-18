@@ -14,7 +14,7 @@ export interface ISchemeHitState extends ISchemeAbuseState {
   boneIndex: TIndex;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.HIT]: ISchemeHitState;
   }

@@ -1,9 +1,10 @@
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 

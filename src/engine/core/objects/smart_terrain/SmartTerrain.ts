@@ -96,6 +96,7 @@ import {
   respawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import type { Squad } from "@/engine/core/objects/squad";
+import { initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
@@ -107,7 +108,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
-import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   turnOffSmartTerrainCampfires,
   turnOnTerrainCampfires,

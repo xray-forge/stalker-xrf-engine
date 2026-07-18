@@ -5,11 +5,11 @@ import { MockGameObject } from "xray16/mocks";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
 describe("MobCombatManager", () => {
   it("should correctly handle combat scheme event", () => {

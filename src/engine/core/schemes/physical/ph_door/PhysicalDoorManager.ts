@@ -2,13 +2,13 @@ import { GameObject, PhysicObject, PhysicsElement, PhysicsJoint, PhysicsShell, V
 import { abort, Nillable, TCount, TIndex, TRate, TSection } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

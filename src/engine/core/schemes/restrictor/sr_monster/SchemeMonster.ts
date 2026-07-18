@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import { getConfigSwitchConditions, readIniNumber, readIniString, readIniStringList } from "@/engine/core/utils/ini";

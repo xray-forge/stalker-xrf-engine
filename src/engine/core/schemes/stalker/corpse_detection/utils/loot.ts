@@ -1,15 +1,10 @@
 import { GameObject } from "xray16/alias";
 import { chance, LuaArray, Nillable, TNumberId } from "xray16/lib";
 
-import {
-  getManager,
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registry,
-  setPortableStoreValue,
-} from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { EScheme } from "@/engine/lib/types";
 

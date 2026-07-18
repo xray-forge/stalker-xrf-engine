@@ -4,11 +4,11 @@ import { MockGameObject } from "xray16/mocks";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
+jest.mock("@/engine/core/schemes/runtime/scheme_event", () => ({
   emitSchemeEvent: jest.fn(),
 }));
 

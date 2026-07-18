@@ -11,9 +11,9 @@ import {
   EActorZoneState,
   ISchemeNoWeaponState,
 } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

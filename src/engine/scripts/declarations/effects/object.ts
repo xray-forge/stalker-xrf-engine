@@ -33,14 +33,10 @@ import {
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
-  getActiveSchemeStateOptimistic,
   getObjectByStoryId,
   getObjectIdByStoryId,
-  getSchemeStateOptimistic,
   getServerObjectByStoryId,
   getStoryIdByObjectId,
-  hasActiveScheme,
-  hasSchemeState,
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
@@ -55,8 +51,15 @@ import {
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { switchTerrainObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
 import type { Squad } from "@/engine/core/objects/squad";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
+} from "@/engine/core/schemes/state";
 import {
   IConfigSwitchCondition,
   parseConditionsList,
@@ -66,7 +69,6 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { getObjectTerrain } from "@/engine/core/utils/position";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   releaseObject,
   spawnItemsForObject,

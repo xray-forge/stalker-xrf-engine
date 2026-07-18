@@ -1,7 +1,7 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";

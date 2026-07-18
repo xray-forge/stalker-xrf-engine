@@ -17,19 +17,18 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
+import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
+import { activateSchemeBySection } from "@/engine/core/schemes/runtime/scheme_logic";
 import {
   getActiveSchemeStateOptimistic,
   hasActiveScheme,
   IBaseSchemeLogic,
   IBaseSchemeState,
-  IRegistryObjectState,
-  registry,
-} from "@/engine/core/database";
+} from "@/engine/core/schemes/state";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
-import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
 import { ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });

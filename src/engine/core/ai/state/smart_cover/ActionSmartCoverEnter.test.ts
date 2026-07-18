@@ -5,8 +5,9 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionSmartCoverEnter } from "@/engine/core/ai/state/smart_cover/ActionSmartCoverEnter";
-import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

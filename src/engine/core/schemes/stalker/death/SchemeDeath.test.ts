@@ -3,11 +3,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { SchemeDeath } from "@/engine/core/schemes/stalker/death/SchemeDeath";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 

@@ -2,7 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { abort, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
 import {
   EParticleBehaviour,

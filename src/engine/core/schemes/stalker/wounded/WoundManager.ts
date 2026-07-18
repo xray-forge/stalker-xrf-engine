@@ -3,10 +3,10 @@ import { AlifeSimulator, GameObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TCount, TNumberId, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import {
   processFight,
   processHPWound,

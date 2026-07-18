@@ -3,8 +3,8 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions/ActionAbuseHit";

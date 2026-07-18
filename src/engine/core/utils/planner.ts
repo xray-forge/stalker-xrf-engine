@@ -4,7 +4,8 @@ import { $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
-import { getSchemeStateOptimistic, hasSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, hasSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**

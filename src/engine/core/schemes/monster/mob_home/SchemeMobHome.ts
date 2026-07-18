@@ -2,8 +2,8 @@ import { GameObject, IniFile } from "xray16/alias";
 import { TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { getMonsterState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";

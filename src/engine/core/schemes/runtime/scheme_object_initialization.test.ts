@@ -10,7 +10,7 @@ import {
   initializeObjectInfo,
   initializeObjectInvulnerability,
   initializeObjectTakeItemsEnabledState,
-} from "@/engine/core/utils/scheme/scheme_object_initialization";
+} from "@/engine/core/schemes/runtime/scheme_object_initialization";
 import { EScheme } from "@/engine/lib/types";
 
 describe("initializeObjectInvulnerability util", () => {

@@ -3,11 +3,12 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detection/actions";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 

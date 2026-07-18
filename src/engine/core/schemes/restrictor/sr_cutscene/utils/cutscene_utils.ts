@@ -1,6 +1,6 @@
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ESchemeEvent } from "@/engine/lib/types";
 
 /**

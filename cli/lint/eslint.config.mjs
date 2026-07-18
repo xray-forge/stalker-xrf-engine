@@ -154,5 +154,21 @@ export default [
       "react/react-in-jsx-scope": "off",
     },
   },
+  {
+    files: ["src/engine/core/schemes/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              message: "Import a scheme facet or a concrete scheme module from within core/schemes.",
+              name: "@/engine/core/schemes",
+            },
+          ],
+        },
+      ],
+    },
+  },
   eslintConfigPrettier,
 ];

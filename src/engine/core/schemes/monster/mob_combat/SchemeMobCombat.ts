@@ -2,10 +2,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateByKey, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
+import { getSchemeStateByKey } from "@/engine/core/schemes/state";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 

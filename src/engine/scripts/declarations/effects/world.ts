@@ -29,11 +29,9 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
-  getActiveSchemeState,
   getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
-  IBaseSchemeState,
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
@@ -45,6 +43,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { getActiveSchemeState, IBaseSchemeState } from "@/engine/core/schemes/state";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";

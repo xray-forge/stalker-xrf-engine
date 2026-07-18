@@ -4,14 +4,9 @@ import { EGameObjectRelation, GameObject, ServerHumanObject, TRelationType } fro
 import { ACTOR_ID } from "xray16/lib";
 import { MockAlifeHumanStalker, mockCharactersGoodwill, MockGameObject } from "xray16/mocks";
 
-import {
-  IRegistryObjectState,
-  registerObject,
-  registerSimulator,
-  registerStoryLink,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { communities } from "@/engine/lib/constants/communities";
 import { EScheme } from "@/engine/lib/types";
 import {

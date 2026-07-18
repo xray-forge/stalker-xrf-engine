@@ -2,11 +2,11 @@ import { level, patrol, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import { Nillable, TProbability, TTimestamp } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
 
 /**

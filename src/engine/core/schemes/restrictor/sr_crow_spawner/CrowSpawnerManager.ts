@@ -2,11 +2,11 @@ import { patrol, time_global } from "xray16";
 import { AlifeSimulator, Patrol, Vector } from "xray16/alias";
 import { LuaArray, TIndex, TName, TTimestamp } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerConfig";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { copyTable } from "@/engine/core/utils/table";
 
 /**

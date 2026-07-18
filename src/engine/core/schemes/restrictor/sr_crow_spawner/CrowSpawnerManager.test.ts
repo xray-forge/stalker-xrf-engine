@@ -8,11 +8,11 @@ import { MockGameObject, MockVector } from "xray16/mocks";
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
 describe("CrowSpawnerManager", () => {
   beforeEach(() => registerSimulator());

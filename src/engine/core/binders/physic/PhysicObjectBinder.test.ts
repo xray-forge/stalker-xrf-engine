@@ -13,25 +13,22 @@ import {
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
-import {
-  getActiveSchemeStateOptimistic,
-  getManager,
-  getSchemeStateOptimistic,
-  ILogicsOverrides,
-  IRegistryObjectState,
-  registerObject,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { BoxManager } from "@/engine/core/managers/box";
 import { SoundManager } from "@/engine/core/managers/sounds";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  ILogicsOverrides,
+  setSchemeState,
+} from "@/engine/core/schemes/state";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/schemes/runtime");
 
 describe("PhysicObjectBinder", () => {
   beforeEach(() => {

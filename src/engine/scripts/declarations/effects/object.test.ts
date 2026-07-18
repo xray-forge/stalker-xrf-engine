@@ -5,18 +5,17 @@ import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mock
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import {
-  getSchemeState,
   IRegistryObjectState,
   registerObject,
   registerSimulator,
   registerStoryLink,
   registry,
-  setSchemeState,
 } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
+import { getSchemeState, setSchemeState } from "@/engine/core/schemes/state";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { EScheme } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";

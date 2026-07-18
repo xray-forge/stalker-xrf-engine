@@ -7,9 +7,7 @@ import { MockAlifeHumanStalker, MockAlifeSimulator, MockCTime, MockGameObject, M
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
-import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
-  getSchemeStateOptimistic,
   IRegistryObjectState,
   IRegistryOfflineState,
   registerActor,
@@ -21,11 +19,20 @@ import {
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
+import {
+  activateSchemeBySection,
+  enableObjectBaseSchemes,
+  getSectionToActivate,
+  isActiveSection,
+  resetObjectGenericSchemesOnSectionSwitch,
+} from "@/engine/core/schemes/runtime/scheme_logic";
+import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/schemes/runtime/scheme_setup";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
@@ -41,15 +48,8 @@ import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
-import {
-  activateSchemeBySection,
-  enableObjectBaseSchemes,
-  getSectionToActivate,
-  isActiveSection,
-  resetObjectGenericSchemesOnSectionSwitch,
-} from "@/engine/core/utils/scheme/scheme_logic";
-import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 

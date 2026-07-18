@@ -1,67 +1,13 @@
 import { GameObject, IniFile, Time } from "xray16/alias";
-import {
-  AnyObject,
-  LuaArray,
-  Nillable,
-  TDuration,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TStringifiedNil,
-  TTimestamp,
-} from "xray16/lib";
+import { AnyObject, Nillable, TName, TNumberId, TRate, TSection, TTimestamp } from "xray16/lib";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
+import { IBaseSchemeState, ILogicsOverrides } from "@/engine/core/schemes/state";
 import { TConditionList } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeCondition, ESchemeType } from "@/engine/lib/types";
-
-/**
- * Descriptor of a single parsed scheme logic entry with its condition list and parameters.
- */
-export interface IBaseSchemeLogic {
-  /**
-   * Internal field, not for direct access.
-   * Scheme condition type memoized on first switch evaluation, `name` field without numeric suffix.
-   */
-  $condition?: Nillable<ESchemeCondition | TStringifiedNil>;
-  name: TName;
-  condlist: TConditionList;
-  objectId: Nillable<TNumberId>;
-  p1: Nillable<string | number>;
-  p2: Nillable<string | number>;
-}
-
-/**
- * List of scheme logics signal.
- * Used to set / check in some script scenarios.
- */
-export type TSchemeSignals = LuaTable<TName, boolean>;
-
-/**
- * Generic state of scheme logics stored in object state.
- * For each scheme separate table is allocated where information about its state and handlers is stored.
- */
-export interface IBaseSchemeState {
-  ini: IniFile;
-  /**
-   * List of switch conditions.
-   * Based on logic check one scheme section can be switched to another if condlists provide next section.
-   */
-  logic: Nillable<LuaArray<IBaseSchemeLogic>>;
-  /**
-   * List of signals in active scheme state.
-   * Signals are flags indicating whether some action/thing happened.
-   */
-  signals: Nillable<TSchemeSignals>;
-  scheme: EScheme;
-  section: Nillable<TSection>;
-  actions?: LuaTable<AnyObject, boolean>;
-  overrides: Nillable<ILogicsOverrides>;
-}
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Client objects registry state logics descriptor.
@@ -130,22 +76,6 @@ export interface IRegistryObjectStateLogic {
    * Describes last active smart terrain name when game was saved.
    */
   loadedSmartTerrainName: Nillable<TName>;
-}
-
-/**
- * State logics overrides descriptor.
- */
-export interface ILogicsOverrides {
-  heliHunter: Nillable<TConditionList>;
-  combatIgnore: Nillable<IBaseSchemeLogic>;
-  combatIgnoreKeepWhenAttacked: Nillable<boolean>;
-  combatType: Nillable<IBaseSchemeLogic>;
-  scriptCombatType: Nillable<TName>;
-  minPostCombatTime: TDuration;
-  maxPostCombatTime: TDuration;
-  onCombat: Nillable<IBaseSchemeLogic>;
-  onOffline: Nillable<TConditionList>;
-  soundgroup: Nillable<TName>;
 }
 
 /**
@@ -225,19 +155,6 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    */
   camp: Nillable<TNumberId>;
 }
-
-/**
- * Type-only extension point that associates stateful schemes with their concrete registry state.
- *
- * Each state-owning scheme augments this interface beside its state declaration. Schemes without an
- * entry do not own a value in the per-object scheme-state registry.
- */
-export interface ISchemeStateMap {}
-
-/**
- * Scheme keys that have registered a concrete state type.
- */
-export type TStatefulScheme = keyof ISchemeStateMap & EScheme;
 
 /**
  * Dynamic state stored with lua marshal lib.

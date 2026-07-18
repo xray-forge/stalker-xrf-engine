@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat/SchemeMobCombat";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

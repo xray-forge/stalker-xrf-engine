@@ -13,35 +13,37 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
-  getActiveSchemeStateOptimistic,
   getManager,
-  getSchemeStateOptimistic,
-  ILogicsOverrides,
   IRegistryObjectState,
   registerObject,
   registerOfflineObject,
   registerSimulator,
   registry,
-  setSchemeState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { Squad } from "@/engine/core/objects/squad";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
-import { SchemeHear } from "@/engine/core/schemes/shared/hear";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
-import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
   setupObjectLogicsOnSpawn,
   trySwitchToAnotherSection,
-} from "@/engine/core/utils/scheme";
+} from "@/engine/core/schemes/runtime";
+import { SchemeHear } from "@/engine/core/schemes/shared/hear";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  ILogicsOverrides,
+  setSchemeState,
+} from "@/engine/core/schemes/state";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { parseConditionsList } from "@/engine/core/utils/ini";
+import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/schemes/runtime");
 jest.mock("@/engine/core/objects/squad/update");
 jest.mock("@/engine/core/utils/object");
 

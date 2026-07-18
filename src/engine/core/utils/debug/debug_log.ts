@@ -5,7 +5,8 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { getActiveSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getActiveSchemeState } from "@/engine/core/schemes/state";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
 import { toJSON } from "@/engine/core/utils/transform";

@@ -1,7 +1,7 @@
 import { Vector } from "xray16/alias";
 import { Nillable, TNumberId, TStringId } from "xray16/lib";
 
-import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -23,7 +23,7 @@ export interface ISchemeCorpseDetectionState extends IBaseSchemeState {
   selectedCorpseId: Nillable<TNumberId>;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.CORPSE_DETECTION]: ISchemeCorpseDetectionState;
   }

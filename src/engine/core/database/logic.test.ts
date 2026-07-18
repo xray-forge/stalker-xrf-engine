@@ -9,8 +9,8 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
-import { setSchemeState } from "@/engine/core/database/scheme";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 

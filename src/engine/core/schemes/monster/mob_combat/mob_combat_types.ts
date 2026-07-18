@@ -1,5 +1,5 @@
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -10,7 +10,7 @@ export interface ISchemeMobCombatState extends IBaseSchemeState {
   action: MobCombatManager;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.MOB_COMBAT]: ISchemeMobCombatState;
   }

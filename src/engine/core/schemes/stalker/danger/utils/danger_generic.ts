@@ -3,12 +3,13 @@ import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TD
 import { ACTOR_ID, isObjectInZone, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
+import { ILogicsOverrides } from "@/engine/core/schemes/state";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";

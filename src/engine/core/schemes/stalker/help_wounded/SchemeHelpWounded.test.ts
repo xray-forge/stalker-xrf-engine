@@ -3,11 +3,12 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockActionBase, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/SchemeHelpWounded";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

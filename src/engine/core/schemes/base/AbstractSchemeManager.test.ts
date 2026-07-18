@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme/AbstractSchemeManager";
-import { IBaseSchemeState } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base/AbstractSchemeManager";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 

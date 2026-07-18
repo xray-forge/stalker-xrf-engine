@@ -3,7 +3,7 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { assert, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionLookAround, ActionShoot } from "@/engine/core/schemes/stalker/combat_camper/actions";
 import {

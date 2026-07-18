@@ -11,9 +11,9 @@ import { selectTerrainJob } from "@/engine/core/objects/smart_terrain/job/job_pi
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isObjectArrivedToTerrain } from "@/engine/core/objects/smart_terrain/object";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
+import { setupSmartTerrainObjectJobLogic } from "@/engine/core/schemes/runtime/scheme_job";
+import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
-import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { resetTable } from "@/engine/core/utils/table";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });

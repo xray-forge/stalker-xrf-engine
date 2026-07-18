@@ -1,7 +1,7 @@
 import { Vector } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
-import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 
@@ -37,7 +37,7 @@ export interface ISchemeCombatState extends IBaseSchemeState {
   currentAction: Nillable<EZombieCombatAction>;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.COMBAT]: ISchemeCombatState;
     [EScheme.COMBAT_CAMPER]: ISchemeCombatState;

@@ -2,12 +2,13 @@ import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TCount, TName, TRUE } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { getManager, getSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { getSchemeState } from "@/engine/core/schemes/state";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectHelpingWounded, isObjectSearchingCorpse } from "@/engine/core/utils/planner";

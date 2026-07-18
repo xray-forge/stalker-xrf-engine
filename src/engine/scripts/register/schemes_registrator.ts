@@ -1,6 +1,6 @@
 import { $filename, $fromArray } from "xray16/macros";
 
-import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
@@ -31,6 +31,7 @@ import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenn
 import { SchemeSilence } from "@/engine/core/schemes/restrictor/sr_silence";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
+import { loadSchemeImplementations } from "@/engine/core/schemes/runtime/scheme_setup";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
 import { SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
@@ -57,7 +58,6 @@ import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover";
 import { SchemeWalker } from "@/engine/core/schemes/stalker/walker";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

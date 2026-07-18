@@ -15,8 +15,8 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
-import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/database/scheme";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
+import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
 import { ESchemeEvent } from "@/engine/lib/types";
 
 /**

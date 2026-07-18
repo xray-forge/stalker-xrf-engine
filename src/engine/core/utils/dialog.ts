@@ -2,8 +2,9 @@ import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { getSchemeStateOptimistic, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { EScheme } from "@/engine/lib/types";
 

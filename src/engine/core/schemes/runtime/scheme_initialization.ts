@@ -5,10 +5,8 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   CUSTOM_DATA,
-  getActiveSchemeStateOptimistic,
   getManager,
   getObjectLogicIniConfig,
-  hasActiveScheme,
   IRegistryObjectState,
   registry,
 } from "@/engine/core/database";
@@ -16,17 +14,18 @@ import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectTerrain } from "@/engine/core/utils/position";
-import { ERelation } from "@/engine/core/utils/relation";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
   getSectionToActivate,
-} from "@/engine/core/utils/scheme/scheme_logic";
-import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
+} from "@/engine/core/schemes/runtime/scheme_logic";
+import { disableObjectBaseSchemes } from "@/engine/core/schemes/runtime/scheme_setup";
+import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
+import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { getObjectTerrain } from "@/engine/core/utils/position";
+import { ERelation } from "@/engine/core/utils/relation";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";

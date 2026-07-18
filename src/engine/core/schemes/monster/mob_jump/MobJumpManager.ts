@@ -2,9 +2,9 @@ import { cond, look, patrol } from "xray16";
 import { Patrol, Vector } from "xray16/alias";
 import { abort, addVectors, Nillable } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
-import { scriptCaptureMonster, scriptCommandMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
+import { scriptCaptureMonster, scriptCommandMonster, scriptReleaseMonster } from "@/engine/core/schemes/runtime";
 
 /**
  * Manager of jump logics.

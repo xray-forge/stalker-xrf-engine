@@ -3,7 +3,8 @@ import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TName, TNumberId, TRate, TRUE, TStringifiedBoolean } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
-import { getActiveSchemeState, IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
+import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
+import { getActiveSchemeState } from "@/engine/core/schemes/state";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

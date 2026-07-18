@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions";
 import { SchemeSleeper } from "@/engine/core/schemes/stalker/sleeper/SchemeSleeper";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 

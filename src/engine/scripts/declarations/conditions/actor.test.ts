@@ -5,15 +5,10 @@ import { isObjectInZone } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import {
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registerObject,
-  registerZone,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
 import { detectors } from "@/engine/lib/constants/items/detectors";

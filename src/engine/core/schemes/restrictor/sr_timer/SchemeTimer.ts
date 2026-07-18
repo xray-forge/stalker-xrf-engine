@@ -2,7 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { assert, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import {

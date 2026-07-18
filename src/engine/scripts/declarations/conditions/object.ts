@@ -26,7 +26,6 @@ import {
   getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
-  getSchemeState,
   getServerObjectByStoryId,
   isStoryObjectExisting,
   registry,
@@ -43,6 +42,7 @@ import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos"
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
+import { getSchemeState } from "@/engine/core/schemes/state";
 import {
   isBoar,
   isBurer,

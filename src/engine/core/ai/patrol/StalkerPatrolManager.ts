@@ -25,10 +25,10 @@ import {
   IPatrolSuggestedState,
 } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
+import { setObjectActiveSchemeSignal } from "@/engine/core/schemes/runtime";
 import { IWaypointData, parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
-import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 

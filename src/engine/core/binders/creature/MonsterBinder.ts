@@ -6,11 +6,7 @@ import { $filename } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getActiveSchemeStateOptimistic,
   getManager,
-  getSchemeStateOptimistic,
-  hasActiveScheme,
-  hasSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -26,16 +22,22 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
-import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
-import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
   setupObjectLogicsOnSpawn,
   trySwitchToAnotherSection,
-} from "@/engine/core/utils/scheme";
+} from "@/engine/core/schemes/runtime";
+import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
+} from "@/engine/core/schemes/state";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 

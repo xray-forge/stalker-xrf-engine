@@ -13,10 +13,10 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { setObjectAbuseState } from "@/engine/core/schemes/stalker/meet/utils";
 import { isBlackScreen } from "@/engine/core/utils/game";

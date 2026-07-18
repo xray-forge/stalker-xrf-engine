@@ -21,8 +21,8 @@ import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTer
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 // Scheme setup requires real logic ini sections - out of scope for maintenance mechanism tests.
-jest.mock("@/engine/core/utils/scheme/scheme_job");
-jest.mock("@/engine/core/utils/scheme/scheme_switch");
+jest.mock("@/engine/core/schemes/runtime/scheme_job");
+jest.mock("@/engine/core/schemes/runtime/scheme_switch");
 
 /**
  * Mechanism suite for incremental job maintenance (plan 02 stage B):

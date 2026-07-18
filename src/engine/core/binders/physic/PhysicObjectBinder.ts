@@ -6,11 +6,7 @@ import { $filename, $isNotNil } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getActiveSchemeStateOptimistic,
   getManager,
-  getSchemeStateOptimistic,
-  hasActiveScheme,
-  hasSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -22,9 +18,15 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { BoxManager, isBoxObject } from "@/engine/core/managers/box";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
+} from "@/engine/core/schemes/state";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { SchemeCode } from "@/engine/core/schemes/physical/ph_code/SchemeCode";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

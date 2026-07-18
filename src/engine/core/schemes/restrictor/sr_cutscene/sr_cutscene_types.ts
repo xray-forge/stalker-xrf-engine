@@ -1,6 +1,6 @@
 import type { LuaArray, StringNillable, TPath, TRate } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -52,7 +52,7 @@ export interface ICameraEffectorSetDescriptorItem {
  */
 export type TCamEffectorSetDescriptor = Record<EEffectorState, LuaArray<ICameraEffectorSetDescriptorItem>>;
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.SR_CUTSCENE]: ISchemeCutsceneState;
   }

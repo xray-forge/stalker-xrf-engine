@@ -6,22 +6,20 @@ import { $filename, $isNotNil } from "xray16/macros";
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
+import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
+import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
+import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import {
   getActiveSchemeState,
   getActiveSchemeStateOptimistic,
-  getManager,
   getSchemeState,
   hasActiveScheme,
-  IRegistryObjectState,
-  registry,
-} from "@/engine/core/database";
-import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
-import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+} from "@/engine/core/schemes/state";
 import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

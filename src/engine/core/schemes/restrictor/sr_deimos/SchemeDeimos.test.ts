@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 

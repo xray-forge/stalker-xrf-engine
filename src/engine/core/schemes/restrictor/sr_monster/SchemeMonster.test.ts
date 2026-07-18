@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
 import { SchemeMonster } from "@/engine/core/schemes/restrictor/sr_monster/SchemeMonster";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

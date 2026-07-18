@@ -2,11 +2,11 @@ import { GameObject, Vector } from "xray16/alias";
 import { Nillable, TCount, TIndex } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -4,9 +4,12 @@ import { assert, MAX_ALIFE_ID, Nillable, TName, TSection } from "xray16/lib";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
+import {
+  configureObjectSchemes,
+  initializeObjectSchemeLogic,
+} from "@/engine/core/schemes/runtime/scheme_initialization";
+import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/schemes/runtime/scheme_logic";
 import { getSchemeFromSection } from "@/engine/core/utils/ini";
-import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/scheme_initialization";
-import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
 import { ESchemeType } from "@/engine/lib/types";
 
 /**

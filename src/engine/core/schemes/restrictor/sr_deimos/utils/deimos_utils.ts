@@ -1,8 +1,9 @@
 import { GameObject } from "xray16/alias";
 import { TName, TRate } from "xray16/lib";
 
-import { getSchemeStateOptimistic, IRegistryObjectState, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**

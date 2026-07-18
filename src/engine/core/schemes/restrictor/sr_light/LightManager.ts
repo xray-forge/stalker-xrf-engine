@@ -1,9 +1,9 @@
 import { GameObject } from "xray16/alias";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 
 /**
  * Manager handling light scheme behaviour for a restrictor zone, registering it as a light zone for stalker checks.

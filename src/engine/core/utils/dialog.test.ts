@@ -2,16 +2,11 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import {
-  IRegistryObjectState,
-  registerObject,
-  registerSimulator,
-  registry,
-  setSchemeState,
-} from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { breakObjectDialog, getNpcSpeaker, isObjectName, updateObjectDialog } from "@/engine/core/utils/dialog";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { EScheme } from "@/engine/lib/types";

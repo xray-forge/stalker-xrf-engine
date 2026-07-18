@@ -3,14 +3,10 @@ import { EGameObjectRelation, GameObject, Hit, Vector } from "xray16/alias";
 import { MZ_VECTOR, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import {
-  getPortableStoreValue,
-  getSchemeStateOptimistic,
-  IRegistryObjectState,
-  registry,
-} from "@/engine/core/database";
+import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { EScheme } from "@/engine/lib/types";
 

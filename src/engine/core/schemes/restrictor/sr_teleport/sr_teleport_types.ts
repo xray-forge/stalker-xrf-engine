@@ -1,6 +1,6 @@
 import type { LuaArray, TDuration, TName, TProbability } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -30,7 +30,7 @@ export interface ISchemeTeleportState extends IBaseSchemeState {
   maxTotalProbability: TProbability; // Sum of all points probability.
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.SR_TELEPORT]: ISchemeTeleportState;
   }

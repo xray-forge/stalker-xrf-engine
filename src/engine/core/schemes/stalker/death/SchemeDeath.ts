@@ -2,10 +2,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { abort, Nillable, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
+import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType } from "@/engine/lib/types";

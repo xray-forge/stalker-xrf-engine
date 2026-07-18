@@ -15,8 +15,8 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/database";
+import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
 import {
   EMinigunCannonState,
@@ -24,15 +24,16 @@ import {
   EMinigunState,
   ISchemeMinigunState,
 } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { isObjectWounded } from "@/engine/core/utils/planner";
 import {
   isActiveSection,
   isMonsterScriptCaptured,
   scriptReleaseMonster,
   switchObjectSchemeToSection,
   trySwitchToAnotherSection,
-} from "@/engine/core/utils/scheme";
+} from "@/engine/core/schemes/runtime";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 
 /**
  * Manager handling minigun scheme behaviour for an object.

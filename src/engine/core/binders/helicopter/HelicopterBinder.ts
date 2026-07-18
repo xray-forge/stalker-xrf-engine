@@ -6,9 +6,7 @@ import { $isNotNil } from "xray16/macros";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getActiveSchemeStateOptimistic,
   getManager,
-  hasActiveScheme,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -24,9 +22,10 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
 import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 /**

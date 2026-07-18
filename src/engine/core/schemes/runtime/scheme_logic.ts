@@ -4,17 +4,22 @@ import { assert, assertDefined, NIL, Nillable, TName, TSection } from "xray16/li
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
-import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
-import {
-  getSchemeStateByKeyOptimistic,
-  IBaseSchemeLogic,
-  IRegistryObjectState,
-  IRegistryOfflineState,
-  registry,
-} from "@/engine/core/database";
+import { IRegistryObjectState, IRegistryOfflineState, registry } from "@/engine/core/database";
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
+import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
+import { scriptReleaseMonster } from "@/engine/core/schemes/runtime/scheme_monster";
+import {
+  initializeObjectCanSelectWeaponState,
+  initializeObjectGroup,
+  initializeObjectIgnoreThreshold,
+  initializeObjectInfo,
+  initializeObjectInvulnerability,
+  initializeObjectTakeItemsEnabledState,
+} from "@/engine/core/schemes/runtime/scheme_object_initialization";
+import { getSchemeStateByKeyOptimistic, IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import {
   getObjectConfigOverrides,
   getSchemeFromSection,
@@ -24,16 +29,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
-import { scriptReleaseMonster } from "@/engine/core/utils/scheme/scheme_monster";
-import {
-  initializeObjectCanSelectWeaponState,
-  initializeObjectGroup,
-  initializeObjectIgnoreThreshold,
-  initializeObjectInfo,
-  initializeObjectInvulnerability,
-  initializeObjectTakeItemsEnabledState,
-} from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });

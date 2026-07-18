@@ -10,7 +10,7 @@ import {
   scriptCaptureMonster,
   scriptCommandMonster,
   scriptReleaseMonster,
-} from "@/engine/core/utils/scheme/scheme_monster";
+} from "@/engine/core/schemes/runtime/scheme_monster";
 
 describe("isMonsterScriptCaptured util", () => {
   it("should correctly check if monster object is captured", () => {

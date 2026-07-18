@@ -4,8 +4,8 @@ import { NIL, Nillable, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";

@@ -4,7 +4,8 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 

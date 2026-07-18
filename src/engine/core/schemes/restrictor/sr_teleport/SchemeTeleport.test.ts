@@ -5,7 +5,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
 import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 describe("SchemeTeleport functionality", () => {

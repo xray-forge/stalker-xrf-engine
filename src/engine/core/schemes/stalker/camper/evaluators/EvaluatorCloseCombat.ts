@@ -4,8 +4,8 @@ import { Nillable, TTimestamp } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
+import { isActiveSection } from "@/engine/core/schemes/runtime";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
-import { isActiveSection } from "@/engine/core/utils/scheme";
 
 /**
  * Evaluator checking whether the camper object should engage in close combat instead of campering.

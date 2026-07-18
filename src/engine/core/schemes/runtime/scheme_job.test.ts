@@ -6,14 +6,17 @@ import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
 import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/scheme_initialization";
-import { setupObjectLogicsOnSpawn, setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
-import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
+import {
+  configureObjectSchemes,
+  initializeObjectSchemeLogic,
+} from "@/engine/core/schemes/runtime/scheme_initialization";
+import { setupObjectLogicsOnSpawn, setupSmartTerrainObjectJobLogic } from "@/engine/core/schemes/runtime/scheme_job";
+import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/schemes/runtime/scheme_logic";
 import { ESchemeType } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_initialization");
-jest.mock("@/engine/core/utils/scheme/scheme_logic");
+jest.mock("@/engine/core/schemes/runtime/scheme_initialization");
+jest.mock("@/engine/core/schemes/runtime/scheme_logic");
 
 describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
   beforeEach(() => {

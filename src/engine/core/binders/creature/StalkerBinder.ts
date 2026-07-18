@@ -28,11 +28,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getActiveSchemeStateOptimistic,
   getManager,
-  getSchemeStateOptimistic,
-  hasActiveScheme,
-  hasSchemeState,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -55,10 +51,21 @@ import { invalidateObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
 import { Squad } from "@/engine/core/objects/squad";
+import {
+  emitSchemeEvent,
+  initializeObjectInvulnerability,
+  setupObjectLogicsOnSpawn,
+} from "@/engine/core/schemes/runtime";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
+import {
+  getActiveSchemeStateOptimistic,
+  getSchemeStateOptimistic,
+  hasActiveScheme,
+  hasSchemeState,
+} from "@/engine/core/schemes/state";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
@@ -71,7 +78,6 @@ import {
   setupSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import { emitSchemeEvent, initializeObjectInvulnerability, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { misc } from "@/engine/lib/constants/items/misc";

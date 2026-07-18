@@ -1,6 +1,6 @@
 import type { Nillable, TDistance } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
 import type { EScheme } from "@/engine/lib/types";
 
@@ -17,7 +17,7 @@ export interface ISchemeMobHomeState extends IBaseSchemeState {
   isAggressive: boolean;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.MOB_HOME]: ISchemeMobHomeState;
   }

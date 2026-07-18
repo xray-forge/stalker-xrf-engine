@@ -15,7 +15,6 @@ export * from "@/engine/core/database/offline";
 export * from "@/engine/core/database/portable_store";
 export * from "@/engine/core/database/registry";
 export * from "@/engine/core/database/save_markers";
-export * from "@/engine/core/database/scheme";
 export * from "@/engine/core/database/signal_light";
 export * from "@/engine/core/database/simulation";
 export * from "@/engine/core/database/smart";

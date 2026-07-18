@@ -5,12 +5,12 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { parseBoneStateDescriptors, parseConditionsList } from "@/engine/core/utils/ini";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),
   switchObjectSchemeToSection: jest.fn(),
 }));

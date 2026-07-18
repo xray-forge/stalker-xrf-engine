@@ -1,5 +1,5 @@
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -9,7 +9,7 @@ export interface ISchemeAbuseState extends IBaseSchemeState {
   abuseManager: AbuseManager;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.ABUSE]: ISchemeAbuseState;
   }

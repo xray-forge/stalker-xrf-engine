@@ -8,12 +8,12 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
+import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { IBoneStateDescriptor, parseConditionsList } from "@/engine/core/utils/ini";
-import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),
   switchObjectSchemeToSection: jest.fn(),
 }));

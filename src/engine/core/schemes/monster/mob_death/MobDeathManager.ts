@@ -1,10 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { getSchemeStateByKey, IRegistryObjectState, registry, setSchemeStateByKey } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
+import { getSchemeStateByKey, setSchemeStateByKey } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**

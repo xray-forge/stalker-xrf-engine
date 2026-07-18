@@ -1,6 +1,6 @@
 import { TDistance, TName } from "xray16/lib";
 
-import { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { TConditionList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 
@@ -17,7 +17,7 @@ export interface ISchemeCoverState extends IBaseSchemeState {
   radiusMax: TDistance;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.COVER]: ISchemeCoverState;
   }

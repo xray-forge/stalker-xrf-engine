@@ -3,14 +3,15 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
-import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch");
+jest.mock("@/engine/core/schemes/runtime/scheme_switch");
 
 describe("MobDeathManager", () => {
   beforeEach(() => {

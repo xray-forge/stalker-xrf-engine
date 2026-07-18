@@ -4,7 +4,7 @@ import { assert, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";

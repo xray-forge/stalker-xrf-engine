@@ -3,10 +3,11 @@ import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TDistance, TTimestamp } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { ILogicsOverrides, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { ILogicsOverrides } from "@/engine/core/schemes/state";
 
 /**
  * Evaluator to check whether any enemy exists.

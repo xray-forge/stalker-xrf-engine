@@ -6,19 +6,19 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 import {
   getManager,
   getPortableStoreValue,
-  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerObject,
   setPortableStoreValue,
 } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import {
   finishCorpseLooting,
   freeSelectedLootedObjectSpot,
   PS_LOOTING_DEAD_OBJECT,
   SchemeCorpseDetection,
 } from "@/engine/core/schemes/stalker/corpse_detection";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
+import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { EScheme } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";

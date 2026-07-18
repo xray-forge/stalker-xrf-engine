@@ -3,7 +3,7 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";

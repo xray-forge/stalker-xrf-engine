@@ -6,8 +6,8 @@ import { registerObject } from "@/engine/core/database";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
 import { SchemeMobWalker } from "@/engine/core/schemes/monster/mob_walker/SchemeMobWalker";
+import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 

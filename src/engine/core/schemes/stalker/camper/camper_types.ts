@@ -2,7 +2,7 @@ import type { Vector } from "xray16/alias";
 import type { LuaArray, Nillable, TCount, TDistance, TDuration, TIndex, TName, TRate, TTimestamp } from "xray16/lib";
 
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -42,7 +42,7 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   waypointFlag: Nillable<number>;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.CAMPER]: ISchemeCamperState;
   }

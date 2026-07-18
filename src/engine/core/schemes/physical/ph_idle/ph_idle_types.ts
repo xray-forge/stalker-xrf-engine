@@ -1,6 +1,6 @@
 import type { LuaArray, Nillable, TLabel } from "xray16/lib";
 
-import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
+import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { IBoneStateDescriptor } from "@/engine/core/utils/ini";
 import type { EScheme } from "@/engine/lib/types";
 
@@ -18,7 +18,7 @@ export interface ISchemePhysicalIdleState extends IBaseSchemeState {
   tip: TLabel;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.PH_IDLE]: ISchemePhysicalIdleState;
   }

@@ -5,7 +5,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionEnded";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 

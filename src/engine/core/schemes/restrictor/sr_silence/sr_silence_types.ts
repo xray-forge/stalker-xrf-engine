@@ -1,4 +1,4 @@
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/lib/types";
 
 /**
@@ -6,7 +6,7 @@ import type { EScheme } from "@/engine/lib/types";
  */
 export interface ISchemeSilenceState extends IBaseSchemeState {}
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.SR_SILENCE]: ISchemeSilenceState;
   }

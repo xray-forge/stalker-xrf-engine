@@ -5,13 +5,13 @@ import { $filename } from "xray16/macros";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

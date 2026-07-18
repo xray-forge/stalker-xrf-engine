@@ -1,12 +1,8 @@
 import { Nillable } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import {
-  IBaseSchemeState,
-  IRegistryObjectState,
-  ISchemeStateMap,
-  TStatefulScheme,
-} from "@/engine/core/database/database_types";
+import type { IRegistryObjectState } from "@/engine/core/database/database_types";
+import type { IBaseSchemeState, ISchemeStateMap, TStatefulScheme } from "@/engine/core/schemes/state/types";
 import { EScheme } from "@/engine/lib/types";
 
 /**
@@ -40,7 +36,7 @@ export function setSchemeState<S extends TStatefulScheme>(
   scheme: S,
   schemeState: ISchemeStateMap[S]
 ): void {
-  state[scheme] = schemeState;
+  state[scheme] = schemeState as IRegistryObjectState[S];
 }
 
 /**

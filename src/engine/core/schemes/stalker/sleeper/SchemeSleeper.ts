@@ -4,11 +4,11 @@ import { TName, TSection } from "xray16/lib";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions/ActionSleeperActivity";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**

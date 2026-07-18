@@ -1,7 +1,7 @@
 import type { Nillable, TDistance, TSection } from "xray16/lib";
 
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { TConditionList } from "@/engine/core/utils/ini";
 import type { EScheme } from "@/engine/lib/types";
 
@@ -45,7 +45,7 @@ export interface ISchemeMeetState extends IBaseSchemeState {
   farVictim: TConditionList;
 }
 
-declare module "@/engine/core/database/database_types" {
+declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {
     [EScheme.MEET]: ISchemeMeetState;
   }

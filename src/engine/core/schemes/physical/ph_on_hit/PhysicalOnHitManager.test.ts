@@ -6,11 +6,11 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(),
 }));
 

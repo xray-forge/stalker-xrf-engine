@@ -14,7 +14,6 @@ import {
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
-import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
@@ -23,6 +22,7 @@ import { states } from "@/engine/core/animation/states";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { getCampZoneForPosition, registry } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
+import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import {
   IAnimpointActionDescriptor,
   ISchemeAnimpointState,

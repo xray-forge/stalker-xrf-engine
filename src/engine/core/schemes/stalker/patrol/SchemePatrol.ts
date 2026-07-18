@@ -6,8 +6,9 @@ import { $filename } from "xray16/macros";
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { Squad } from "@/engine/core/objects/squad/Squad";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime";
 import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
@@ -15,7 +16,6 @@ import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig"
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { addCommonActionPreconditions } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
