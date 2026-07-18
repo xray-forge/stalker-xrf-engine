@@ -21,6 +21,7 @@ import {
   registerZone,
   registry,
   setPortableStoreValue,
+  setSchemeState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save";
@@ -210,9 +211,11 @@ describe("ActorBinder", () => {
     const secondState: IRegistryObjectState = registry.objects.get(secondZone.id());
 
     secondState.activeSection = SchemeDeimos.SCHEME_SECTION;
-    secondState[SchemeDeimos.SCHEME_SECTION] = mockSchemeState<ISchemeDeimosState>(EScheme.SR_DEIMOS, {
-      intensity: 11.5,
-    });
+    setSchemeState(
+      secondState,
+      EScheme.SR_DEIMOS,
+      mockSchemeState<ISchemeDeimosState>(EScheme.SR_DEIMOS, { intensity: 11.5 })
+    );
 
     jest.spyOn(saveManager, "clientSave").mockImplementation(jest.fn());
     jest.spyOn(saveManager, "clientLoad").mockImplementation(jest.fn());

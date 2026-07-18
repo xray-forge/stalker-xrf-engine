@@ -3,10 +3,9 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockActionBase, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
-import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/SchemeHelpWounded";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
@@ -98,7 +97,7 @@ describe("SchemeHelpWounded", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    state[EScheme.HELP_WOUNDED] = mockSchemeState(EScheme.HELP_WOUNDED);
+    setSchemeState(state, EScheme.HELP_WOUNDED, mockSchemeState(EScheme.HELP_WOUNDED));
 
     state.ini = MockIniFile.mock("test.ltx", {
       "help_wounded@test-1": {
@@ -111,15 +110,15 @@ describe("SchemeHelpWounded", () => {
     });
 
     SchemeHelpWounded.reset(object, EScheme.HELP_WOUNDED, state, "help_wounded@test-1");
-    expect((state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled).toBe(true);
+    expect(getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED).isHelpingWoundedEnabled).toBe(true);
 
     SchemeHelpWounded.reset(object, EScheme.HELP_WOUNDED, state, "help_wounded@test-2");
-    expect((state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled).toBe(false);
+    expect(getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED).isHelpingWoundedEnabled).toBe(false);
 
     SchemeHelpWounded.reset(object, EScheme.HELP_WOUNDED, state, "help_wounded@test-3");
-    expect((state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled).toBe(true);
+    expect(getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED).isHelpingWoundedEnabled).toBe(true);
 
     SchemeHelpWounded.reset(object, EScheme.HELP_WOUNDED, state, "help_wounded@test-4");
-    expect((state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled).toBe(true);
+    expect(getSchemeStateOptimistic(state, EScheme.HELP_WOUNDED).isHelpingWoundedEnabled).toBe(true);
   });
 });

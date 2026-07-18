@@ -4,7 +4,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
@@ -96,7 +96,7 @@ describe("SchemeMeet", () => {
     const schemeState: ISchemeMeetState = mockSchemeState(EScheme.MEET);
 
     state.sectionLogic = "meet@first";
-    state[EScheme.MEET] = schemeState;
+    setSchemeState(state, EScheme.MEET, schemeState);
 
     state.ini = MockIniFile.mock("test.ltx", {
       "meet@first": {

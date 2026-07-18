@@ -2,7 +2,15 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import { IBaseSchemeState, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import {
+  getSchemeStateOptimistic,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registerObject,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme/scheme_event";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
@@ -90,19 +98,21 @@ describe("setObjectActiveSchemeSignal util", () => {
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(registry.objects.get(object.id())).toBeNull();
 
-    const mockMeetState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { signals: new LuaTable() });
+    const mockMeetState: ISchemeMeetState = mockSchemeState<ISchemeMeetState>(EScheme.MEET, {
+      signals: new LuaTable(),
+    });
     const state: IRegistryObjectState = registerObject(object);
 
     expect(() => setObjectActiveSchemeSignal(object, "test")).not.toThrow();
     expect(state).toEqual({ object });
 
-    state[EScheme.MEET] = mockMeetState;
+    setSchemeState(state, EScheme.MEET, mockMeetState);
     setObjectActiveSchemeSignal(object, "test");
-    expect(state[EScheme.MEET]?.signals).toEqualLuaTables({});
+    expect(getSchemeStateOptimistic(state, EScheme.MEET).signals).toEqualLuaTables({});
 
     state.activeScheme = EScheme.MEET;
     setObjectActiveSchemeSignal(object, "test");
     setObjectActiveSchemeSignal(object, "another");
-    expect(state[EScheme.MEET]?.signals).toEqualLuaTables({ test: true, another: true });
+    expect(getSchemeStateOptimistic(state, EScheme.MEET).signals).toEqualLuaTables({ test: true, another: true });
   });
 });

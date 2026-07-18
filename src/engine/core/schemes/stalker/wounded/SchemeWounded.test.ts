@@ -4,7 +4,7 @@ import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded/SchemeWounded";
@@ -91,7 +91,7 @@ describe("SchemeWounded", () => {
 
     state.ini = ini;
     state.sectionLogic = "logic";
-    state[EScheme.WOUNDED] = schemeState;
+    setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     jest.spyOn(SchemeWounded, "initializeWoundedState").mockImplementationOnce(() => {});
 

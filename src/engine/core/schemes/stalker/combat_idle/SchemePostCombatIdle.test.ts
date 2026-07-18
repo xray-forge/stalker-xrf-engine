@@ -4,7 +4,7 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
@@ -39,7 +39,7 @@ describe("SchemePostCombatIdle", () => {
 
     SchemePostCombatIdle.setup(object);
 
-    expect(state[EScheme.POST_COMBAT_IDLE]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.POST_COMBAT_IDLE)).toEqual({
       timer: 5_000,
       animation: null,
       lastBestEnemyId: null,

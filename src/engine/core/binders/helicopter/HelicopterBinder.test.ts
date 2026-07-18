@@ -6,10 +6,11 @@ import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor,
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registry, setSchemeState } from "@/engine/core/database";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -151,10 +152,10 @@ describe("HelicopterBinder", () => {
     const enemy: GameObject = MockGameObject.mockStalker();
     const binder: HelicopterBinder = new HelicopterBinder(object);
     const state: IRegistryObjectState = registerObject(object);
-    const schemeState: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HIT);
+    const schemeState: ISchemeHitState = mockSchemeState<ISchemeHitState>(EScheme.HIT);
 
     state.activeScheme = EScheme.HIT;
-    state[EScheme.HIT] = schemeState;
+    setSchemeState(state, EScheme.HIT, schemeState);
     binder.state = state;
 
     jest.spyOn(binder.helicopterFireManager, "onHit").mockImplementation(jest.fn());
@@ -175,7 +176,7 @@ describe("HelicopterBinder", () => {
     const schemeState: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HELI_MOVE);
 
     state.activeScheme = EScheme.HELI_MOVE;
-    state[EScheme.HELI_MOVE] = schemeState;
+    setSchemeState(state, EScheme.HELI_MOVE, schemeState);
 
     binder.state = state;
     binder.onWaypoint(10, ZERO_VECTOR, 4);

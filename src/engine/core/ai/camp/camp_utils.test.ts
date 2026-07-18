@@ -14,7 +14,14 @@ import {
 import { CampManager, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerCampZone, registerObject, registry } from "@/engine/core/database";
+import {
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registerCampZone,
+  registerObject,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -99,18 +106,26 @@ describe("canTellCampStory util", () => {
     const secondState: IRegistryObjectState = registerObject(second);
 
     firstState.activeScheme = EScheme.ANIMPOINT;
-    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      firstState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+        ]),
+      })
+    );
 
     secondState.activeScheme = EScheme.ANIMPOINT;
-    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      secondState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+        ]),
+      })
+    );
 
     manager.registerObject(first.id());
     expect(canTellCampStory(manager)).toBe(false);
@@ -150,20 +165,28 @@ describe("canPlayCampGuitar util", () => {
     const secondState: IRegistryObjectState = registerObject(second);
 
     firstState.activeScheme = EScheme.ANIMPOINT;
-    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      firstState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+        ]),
+      })
+    );
 
     secondState.activeScheme = EScheme.ANIMPOINT;
-    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      description: EStalkerState.ANIMPOINT_SIT_ASS,
-      actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      secondState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        description: EStalkerState.ANIMPOINT_SIT_ASS,
+        actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
+        ]),
+      })
+    );
 
     manager.registerObject(first.id());
     expect(canPlayCampGuitar(manager)).toBe(false);
@@ -203,20 +226,28 @@ describe("canPlayCampHarmonica util", () => {
     const secondState: IRegistryObjectState = registerObject(second);
 
     firstState.activeScheme = EScheme.ANIMPOINT;
-    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      firstState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+        ]),
+      })
+    );
 
     secondState.activeScheme = EScheme.ANIMPOINT;
-    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      description: EStalkerState.ANIMPOINT_SIT_ASS,
-      actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      secondState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        description: EStalkerState.ANIMPOINT_SIT_ASS,
+        actionNameBase: EStalkerState.ANIMPOINT_SIT_ASS,
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
+        ]),
+      })
+    );
 
     manager.registerObject(first.id());
     expect(canPlayCampHarmonica(manager)).toBe(false);
@@ -254,7 +285,7 @@ describe("getObjectCampActivityRole util", () => {
       EObjectCampRole.NONE
     );
 
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.IDLE)).toBe(EObjectCampRole.LISTENER);
     expect(getObjectCampActivityRole(object.id(), "unexpected" as unknown as EObjectCampActivity)).toBe(
@@ -271,13 +302,17 @@ describe("getObjectCampActivityRole util", () => {
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.NONE);
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.NONE);
 
-    state[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      description: EStalkerState.ANIMPOINT_SIT_ASS,
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
-        { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      state,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        description: EStalkerState.ANIMPOINT_SIT_ASS,
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_SIT_ASS_GUITAR, predicate: () => true },
+          { name: EStalkerState.ANIMPOINT_SIT_ASS_HARMONICA, predicate: () => true },
+        ]),
+      })
+    );
 
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.DIRECTOR);
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.DIRECTOR);
@@ -292,20 +327,24 @@ describe("getObjectCampActivityRole util", () => {
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.NONE);
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.GUITAR)).toBe(EObjectCampRole.NONE);
 
-    state[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
-        { name: EStalkerState.ANIMPOINT_STAY_TABLE, predicate: () => true },
-      ]),
-    });
+    setSchemeState(
+      state,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON, predicate: () => true },
+          { name: EStalkerState.ANIMPOINT_STAY_TABLE, predicate: () => true },
+        ]),
+      })
+    );
 
-    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.STOOP_NO_WEAP;
+    getSchemeStateOptimistic(state, EScheme.ANIMPOINT).description = EStalkerState.STOOP_NO_WEAP;
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.LISTENER);
 
-    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.ANIMPOINT_STAY_TABLE;
+    getSchemeStateOptimistic(state, EScheme.ANIMPOINT).description = EStalkerState.ANIMPOINT_STAY_TABLE;
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.DIRECTOR);
 
-    (state[EScheme.ANIMPOINT] as ISchemeAnimpointState).description = EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON;
+    getSchemeStateOptimistic(state, EScheme.ANIMPOINT).description = EStalkerState.ANIMPOINT_STAY_TABLE_WEAPON;
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.STORY)).toBe(EObjectCampRole.DIRECTOR);
   });
 });

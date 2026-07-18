@@ -13,14 +13,16 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
+  getActiveSchemeStateOptimistic,
   getManager,
-  IBaseSchemeState,
+  getSchemeStateOptimistic,
   ILogicsOverrides,
   IRegistryObjectState,
   registerObject,
   registerOfflineObject,
   registerSimulator,
   registry,
+  setSchemeState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -145,7 +147,7 @@ describe("MonsterBinder", () => {
 
     registry.actorCombat.set(object.id(), true);
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     expect(setupSpawnedObjectPosition).toHaveBeenCalledTimes(1);
     expect(setupSpawnedObjectPosition).toHaveBeenCalledWith(object, serverObject.m_smart_terrain_id);
@@ -164,7 +166,7 @@ describe("MonsterBinder", () => {
     expect(manager.stop).toHaveBeenCalledWith(object.id());
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[state.activeScheme] as IBaseSchemeState,
+      getActiveSchemeStateOptimistic(state),
       ESchemeEvent.SWITCH_OFFLINE,
       object
     );
@@ -205,7 +207,7 @@ describe("MonsterBinder", () => {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.update(100);
 
@@ -227,7 +229,7 @@ describe("MonsterBinder", () => {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.update(100);
 
@@ -280,18 +282,14 @@ describe("MonsterBinder", () => {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.update(100);
 
     expect(registry.actorCombat.get(object.id())).toBe(true);
     expect(object.set_tip_text).toHaveBeenCalledWith("");
-    expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, state[state.activeScheme] as IBaseSchemeState);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[state.activeScheme] as IBaseSchemeState,
-      ESchemeEvent.UPDATE,
-      100
-    );
+    expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, getActiveSchemeStateOptimistic(state));
+    expect(emitSchemeEvent).toHaveBeenCalledWith(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE, 100);
 
     jest.spyOn(object, "best_enemy").mockImplementation(() => null);
 
@@ -389,12 +387,18 @@ describe("MonsterBinder", () => {
 
     binder.state.activeScheme = EScheme.PATROL;
     binder.state.activeSection = `${EScheme.PATROL}@test`;
-    binder.state[EScheme.PATROL] = mockSchemeState(EScheme.PATROL);
+    setSchemeState(binder.state, EScheme.PATROL, mockSchemeState(EScheme.PATROL));
 
     binder.onWaypoint(object, 1, 5);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.PATROL], ESchemeEvent.WAYPOINT, object, 1, 5);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(binder.state, EScheme.PATROL),
+      ESchemeEvent.WAYPOINT,
+      object,
+      1,
+      5
+    );
   });
 
   it("should handle death event", () => {
@@ -419,8 +423,8 @@ describe("MonsterBinder", () => {
 
     state.activeScheme = EScheme.ANIMPOINT;
 
-    state[EScheme.MOB_DEATH] = mockSchemeState(EScheme.MOB_DEATH);
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.MOB_DEATH, mockSchemeState(EScheme.MOB_DEATH));
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.onDeath(object, killer);
 
@@ -430,8 +434,18 @@ describe("MonsterBinder", () => {
     expect(binder.resetCallbacks).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(2);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(state[state.activeScheme], ESchemeEvent.DEATH, object, killer);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(state, EScheme.MOB_DEATH),
+      ESchemeEvent.DEATH,
+      object,
+      killer
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getActiveSchemeStateOptimistic(state),
+      ESchemeEvent.DEATH,
+      object,
+      killer
+    );
 
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
     expect(manager.emitEvent).toHaveBeenCalledWith(EGameEvent.MONSTER_DEATH, object, killer);
@@ -474,13 +488,13 @@ describe("MonsterBinder", () => {
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
     expect(manager.emitEvent).toHaveBeenCalledWith(EGameEvent.MONSTER_HIT, object, 1, X_VECTOR, hitting, "1");
 
-    binder.state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
+    setSchemeState(binder.state, EScheme.HIT, mockSchemeState(EScheme.HIT));
 
     binder.onHit(object, 1, X_VECTOR, hitting, "1");
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.state[EScheme.HIT],
+      getSchemeStateOptimistic(binder.state, EScheme.HIT),
       ESchemeEvent.HIT,
       object,
       1,

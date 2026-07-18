@@ -6,7 +6,14 @@ import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor,
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
-import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import {
+  getManager,
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registerObject,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
@@ -64,7 +71,7 @@ describe("RestrictorBinder", () => {
     const objectState: IRegistryObjectState = registry.objects.get(serverObject.id);
 
     objectState.activeScheme = EScheme.ANIMPOINT;
-    objectState[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(objectState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     expect(registry.zones.length()).toBe(1);
     expect(registry.objects.length()).toBe(1);
@@ -77,7 +84,7 @@ describe("RestrictorBinder", () => {
     expect(soundManager.stop).toHaveBeenCalledWith(serverObject.id);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      objectState[EScheme.ANIMPOINT],
+      getSchemeStateOptimistic(objectState, EScheme.ANIMPOINT),
       ESchemeEvent.SWITCH_OFFLINE,
       binder.object
     );
@@ -124,7 +131,7 @@ describe("RestrictorBinder", () => {
     const playingSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
     objectState.activeScheme = EScheme.ANIMPOINT;
-    objectState[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(objectState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
     soundsConfig.playing.set(serverObject.id, playingSound);
 
     binder.update(100);
@@ -137,7 +144,11 @@ describe("RestrictorBinder", () => {
     expect(soundManager.update).toHaveBeenCalledWith(serverObject.id);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(objectState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 100);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(objectState, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE,
+      100
+    );
 
     expect(onVisit).not.toHaveBeenCalled();
     expect(binder.isVisited).toBe(false);

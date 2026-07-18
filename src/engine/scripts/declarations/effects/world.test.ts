@@ -8,15 +8,18 @@ import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   getManager,
+  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerAnomalyZone,
   registerObject,
   registerSignalLight,
   registerStoryLink,
+  setSchemeState,
 } from "@/engine/core/database";
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { EScheme } from "@/engine/lib/types";
 import {
   callXrEffect,
@@ -432,10 +435,14 @@ describe("world effects implementation", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT, { signals: new LuaTable() });
+    setSchemeState(
+      state,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, { signals: new LuaTable() })
+    );
 
     callXrEffect("stop_sr_cutscene", MockGameObject.mockActor(), object);
 
-    expect(state[EScheme.ANIMPOINT]?.signals?.get("cam_effector_stop")).toBe(true);
+    expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals?.get("cam_effector_stop")).toBe(true);
   });
 });

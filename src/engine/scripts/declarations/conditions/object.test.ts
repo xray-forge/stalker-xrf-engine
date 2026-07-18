@@ -18,6 +18,7 @@ import {
   registerSimulator,
   registerStoryLink,
   registerZone,
+  setSchemeState,
 } from "@/engine/core/database";
 import {
   EJobPathType,
@@ -536,7 +537,7 @@ describe("object conditions implementation", () => {
 
     const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
 
-    state[EScheme.HIT] = schemeState;
+    setSchemeState(state, EScheme.HIT, schemeState);
 
     expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
 
@@ -554,7 +555,7 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(false);
 
-    state[EScheme.HIT] = schemeState;
+    setSchemeState(state, EScheme.HIT, schemeState);
 
     expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(false);
 
@@ -585,7 +586,7 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(false);
 
-    state[EScheme.HIT] = schemeState;
+    setSchemeState(state, EScheme.HIT, schemeState);
 
     expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(false);
 
@@ -608,7 +609,7 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("killed_by", MockGameObject.mockActor(), object)).toBe(false);
     expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
 
-    state[EScheme.DEATH] = schemeState;
+    setSchemeState(state, EScheme.DEATH, schemeState);
 
     expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
 
@@ -1213,7 +1214,7 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
 
-    state[EScheme.ANIMPOINT] = schemeState;
+    setSchemeState(state, EScheme.ANIMPOINT, schemeState);
     schemeState.animpointManager = new AnimpointManager(object, schemeState);
 
     jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => true);

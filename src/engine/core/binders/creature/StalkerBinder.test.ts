@@ -6,7 +6,15 @@ import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProc
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
-import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import {
+  getManager,
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registerObject,
+  registerSimulator,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -236,12 +244,12 @@ describe("StalkerBinder", () => {
     jest.spyOn(manager, "emitEvent").mockImplementation(jest.fn());
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
-    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
-    state[EScheme.COMBAT] = mockSchemeState(EScheme.COMBAT);
-    state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
-    state[EScheme.WOUNDED] = mockSchemeState(EScheme.WOUNDED);
-    (state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager = {
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
+    setSchemeState(state, EScheme.COMBAT, mockSchemeState(EScheme.COMBAT));
+    setSchemeState(state, EScheme.HIT, mockSchemeState(EScheme.HIT));
+    setSchemeState(state, EScheme.WOUNDED, mockSchemeState(EScheme.WOUNDED));
+    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager = {
       onHit: jest.fn(),
     } as AnyObject as WoundManager;
 
@@ -251,7 +259,7 @@ describe("StalkerBinder", () => {
 
     expect(syncObjectHitSmartTerrainAlert).toHaveBeenCalledWith(object);
 
-    expect((state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit).toHaveBeenCalledTimes(1);
+    expect(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit).toHaveBeenCalledTimes(1);
 
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
     expect(manager.emitEvent).toHaveBeenCalledWith(
@@ -265,7 +273,7 @@ describe("StalkerBinder", () => {
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(4);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[EScheme.ANIMPOINT],
+      getSchemeStateOptimistic(state, EScheme.ANIMPOINT),
       ESchemeEvent.HIT,
       object,
       1000,
@@ -274,7 +282,7 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[EScheme.COMBAT_IGNORE],
+      getSchemeStateOptimistic(state, EScheme.COMBAT_IGNORE),
       ESchemeEvent.HIT,
       object,
       1000,
@@ -283,7 +291,7 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[EScheme.COMBAT],
+      getSchemeStateOptimistic(state, EScheme.COMBAT),
       ESchemeEvent.HIT,
       object,
       1000,
@@ -292,7 +300,7 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      state[EScheme.HIT],
+      getSchemeStateOptimistic(state, EScheme.HIT),
       ESchemeEvent.HIT,
       object,
       1000,

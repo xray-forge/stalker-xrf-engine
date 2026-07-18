@@ -6,6 +6,7 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 import {
   getManager,
   getPortableStoreValue,
+  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerObject,
   setPortableStoreValue,
@@ -14,7 +15,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import {
   finishCorpseLooting,
   freeSelectedLootedObjectSpot,
-  ISchemeCorpseDetectionState,
   PS_LOOTING_DEAD_OBJECT,
   SchemeCorpseDetection,
 } from "@/engine/core/schemes/stalker/corpse_detection";
@@ -62,7 +62,7 @@ describe("loot utils for corpse_detection scheme", () => {
     expect(corpse.object(ak74.section())).toBe(ak74);
     expect(soundManager.play).not.toHaveBeenCalled();
 
-    (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).selectedCorpseId = corpse.id();
+    getSchemeStateOptimistic(state, EScheme.CORPSE_DETECTION).selectedCorpseId = corpse.id();
 
     registerObject(corpse);
     finishCorpseLooting(object);

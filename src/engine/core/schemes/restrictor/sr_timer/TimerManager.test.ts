@@ -3,7 +3,7 @@ import { CUIGameCustom, get_hud } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
-import { IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
@@ -72,7 +72,7 @@ describe("TimerManager", () => {
     loadSchemeImplementation(SchemeTimer);
     activateSchemeBySection(object, ini, "sr_timer@test", null, false);
 
-    const schemeState: ISchemeTimerState = state[EScheme.SR_TIMER] as ISchemeTimerState;
+    const schemeState: ISchemeTimerState = getSchemeStateOptimistic(state, EScheme.SR_TIMER);
     const timerManager: TimerManager = getSchemeAction(schemeState);
 
     jest.spyOn(timerManager, "deactivate");

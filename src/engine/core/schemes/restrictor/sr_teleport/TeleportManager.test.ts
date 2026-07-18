@@ -4,7 +4,13 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
+import {
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registerActor,
+  registerObject,
+  registry,
+} from "@/engine/core/database";
 import {
   ETeleportState,
   ISchemeTeleportState,
@@ -38,7 +44,7 @@ describe("TeleportManager", () => {
     loadSchemeImplementation(SchemeTeleport);
     activateSchemeBySection(object, ini, "sr_teleport@test", null, false);
 
-    const schemeState: ISchemeTeleportState = state[EScheme.SR_TELEPORT] as ISchemeTeleportState;
+    const schemeState: ISchemeTeleportState = getSchemeStateOptimistic(state, EScheme.SR_TELEPORT);
     const teleportManager: TeleportManager = getSchemeAction(schemeState);
 
     expect(state.activeSection).toBe("sr_teleport@test");

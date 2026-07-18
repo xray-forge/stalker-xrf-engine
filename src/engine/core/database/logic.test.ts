@@ -5,11 +5,14 @@ import { createTime } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
+import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
+import { setSchemeState } from "@/engine/core/database/scheme";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { EScheme } from "@/engine/lib/types";
+import { mockSchemeState } from "@/fixtures/engine";
 
 describe("saveObjectLogic and loadObjectLogic", () => {
   beforeAll(() => {
@@ -27,9 +30,10 @@ describe("saveObjectLogic and loadObjectLogic", () => {
 
     actions.set({ save: cb }, true);
 
-    state[EScheme.COMBAT] = {
-      actions,
-    } as IBaseSchemeState;
+    const schemeState: ISchemeCombatState = mockSchemeState<ISchemeCombatState>(EScheme.COMBAT);
+
+    schemeState.actions = actions;
+    setSchemeState(state, EScheme.COMBAT, schemeState);
 
     state.jobIni = "test.ltx";
     state.iniFilename = "test2.ltx";

@@ -13,7 +13,16 @@ import {
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
-import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import {
+  getActiveSchemeStateOptimistic,
+  getManager,
+  getSchemeStateOptimistic,
+  ILogicsOverrides,
+  IRegistryObjectState,
+  registerObject,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
 import { BoxManager } from "@/engine/core/managers/box";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -98,7 +107,7 @@ describe("PhysicObjectBinder", () => {
 
     state.activeScheme = EScheme.ANIMPOINT;
     state.overrides = { onOffline: parseConditionsList("%+test_info_pb% test") } as ILogicsOverrides;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.net_destroy();
 
@@ -106,7 +115,11 @@ describe("PhysicObjectBinder", () => {
     expect(soundManager.stop).toHaveBeenCalledWith(binder.object.id());
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(binder.object.id(), "ui_pda2_actor_box_location");
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(state[EScheme.ANIMPOINT], ESchemeEvent.SWITCH_OFFLINE, binder.object);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(state, EScheme.ANIMPOINT),
+      ESchemeEvent.SWITCH_OFFLINE,
+      binder.object
+    );
     expect(hasInfoPortion("test_info_pb")).toBe(true);
   });
 
@@ -124,7 +137,7 @@ describe("PhysicObjectBinder", () => {
     binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
 
     binder.state.activeScheme = EScheme.ANIMPOINT;
-    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(binder.state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     expect(object.set_callback).toHaveBeenCalledTimes(3);
     expect(object.set_callback).toHaveBeenCalledWith(callback.hit, binder.onHit, binder);
@@ -137,7 +150,11 @@ describe("PhysicObjectBinder", () => {
 
     expect(binder.isInitialized).toBe(true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.OBJECT);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(binder.state, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE,
+      150
+    );
     expect(getManager(SoundManager).update).toHaveBeenCalledWith(object.id());
 
     binder.update(150);
@@ -236,11 +253,16 @@ describe("PhysicObjectBinder", () => {
     binder.reinit();
 
     binder.state.activeScheme = EScheme.ANIMPOINT;
-    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(binder.state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.onUse(object, who);
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.ANIMPOINT], ESchemeEvent.USE, object, who);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(binder.state, EScheme.ANIMPOINT),
+      ESchemeEvent.USE,
+      object,
+      who
+    );
   });
 
   it("should handle hit events", () => {
@@ -251,13 +273,13 @@ describe("PhysicObjectBinder", () => {
     binder.reinit();
 
     binder.state.activeScheme = EScheme.ANIMPOINT;
-    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
-    binder.state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
+    setSchemeState(binder.state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    setSchemeState(binder.state, EScheme.HIT, mockSchemeState(EScheme.HIT));
 
     binder.onHit(object, 0.5, ZERO_VECTOR, who, 10);
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.state[EScheme.HIT],
+      getSchemeStateOptimistic(binder.state, EScheme.HIT),
       ESchemeEvent.HIT,
       object,
       0.5,
@@ -266,7 +288,7 @@ describe("PhysicObjectBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.state[binder.state.activeScheme],
+      getActiveSchemeStateOptimistic(binder.state),
       ESchemeEvent.HIT,
       object,
       0.5,
@@ -295,12 +317,12 @@ describe("PhysicObjectBinder", () => {
     binder.reinit();
 
     binder.state.activeScheme = EScheme.ANIMPOINT;
-    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(binder.state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     binder.onDeath(object, killer);
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.state[binder.state.activeScheme],
+      getActiveSchemeStateOptimistic(binder.state),
       ESchemeEvent.DEATH,
       object,
       killer

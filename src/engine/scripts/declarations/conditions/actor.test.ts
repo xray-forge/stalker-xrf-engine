@@ -5,11 +5,15 @@ import { isObjectInZone } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
+import {
+  getSchemeStateOptimistic,
+  IRegistryObjectState,
+  registerObject,
+  registerZone,
+  setSchemeState,
+} from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
-import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
-import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -300,15 +304,15 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
+    setSchemeState(state, EScheme.HIT, mockSchemeState(EScheme.HIT));
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    (state[EScheme.HIT] as ISchemeHitState).who = 1;
+    getSchemeStateOptimistic(state, EScheme.HIT).who = 1;
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    (state[EScheme.HIT] as ISchemeHitState).who = 0;
+    getSchemeStateOptimistic(state, EScheme.HIT).who = 0;
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(true);
   });
@@ -322,15 +326,15 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    state[EScheme.DEATH] = mockSchemeState(EScheme.DEATH);
+    setSchemeState(state, EScheme.DEATH, mockSchemeState(EScheme.DEATH));
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    (state[EScheme.DEATH] as ISchemeDeathState).killerId = 1;
+    getSchemeStateOptimistic(state, EScheme.DEATH).killerId = 1;
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(false);
 
-    (state[EScheme.DEATH] as ISchemeDeathState).killerId = 0;
+    getSchemeStateOptimistic(state, EScheme.DEATH).killerId = 0;
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(true);
   });

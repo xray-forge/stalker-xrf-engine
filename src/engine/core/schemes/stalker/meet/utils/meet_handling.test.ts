@@ -3,7 +3,8 @@ import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
+import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import {
   addObjectAbuse,
   clearObjectAbuse,
@@ -18,9 +19,11 @@ describe("addObjectAbuse util", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { addAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
-      abuseManager: manager,
-    } as AnyObject);
+    setSchemeState(
+      state,
+      EScheme.ABUSE,
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+    );
 
     addObjectAbuse(object, 10);
     expect(manager.addAbuse).toHaveBeenCalledWith(10);
@@ -36,9 +39,11 @@ describe("clearObjectAbuse util", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { clearAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
-      abuseManager: manager,
-    } as AnyObject);
+    setSchemeState(
+      state,
+      EScheme.ABUSE,
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+    );
 
     clearObjectAbuse(object);
     expect(manager.clearAbuse).toHaveBeenCalled();
@@ -54,9 +59,11 @@ describe("setObjectAbuseState util", () => {
     const state: IRegistryObjectState = registerObject(object);
     const manager = { enableAbuse: jest.fn(), disableAbuse: jest.fn() };
 
-    state[EScheme.ABUSE] = mockSchemeState(EScheme.ABUSE, {
-      abuseManager: manager,
-    } as AnyObject);
+    setSchemeState(
+      state,
+      EScheme.ABUSE,
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+    );
 
     setObjectAbuseState(object, true);
     expect(manager.enableAbuse).toHaveBeenCalledTimes(1);

@@ -2,9 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile, mockStalkerIds } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
-import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme } from "@/engine/lib/types";
@@ -28,7 +27,7 @@ describe("SchemeGatherItems", () => {
     loadSchemeImplementation(SchemeGatherItems);
     SchemeGatherItems.activate(object, ini, EScheme.GATHER_ITEMS, "gather_items_default@test");
 
-    expect(state[EScheme.GATHER_ITEMS]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS)).toEqual({
       ini,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
@@ -48,7 +47,7 @@ describe("SchemeGatherItems", () => {
       ini,
       EScheme.GATHER_ITEMS,
       "gather_items_default@test",
-      state[EScheme.GATHER_ITEMS] as ISchemeGatherItemsState
+      getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS)
     );
 
     const actionPlanner: ActionPlanner = object.motivation_action_manager();
@@ -77,7 +76,7 @@ describe("SchemeGatherItems", () => {
     SchemeGatherItems.activate(object, ini, EScheme.GATHER_ITEMS, "gather_items_default@test");
 
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_default@test");
-    expect(state[EScheme.GATHER_ITEMS]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS)).toEqual({
       ini,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
@@ -85,7 +84,7 @@ describe("SchemeGatherItems", () => {
     });
 
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_true@test");
-    expect(state[EScheme.GATHER_ITEMS]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS)).toEqual({
       ini,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",
@@ -93,7 +92,7 @@ describe("SchemeGatherItems", () => {
     });
 
     SchemeGatherItems.reset(object, EScheme.GATHER_ITEMS, state, "gather_items_false@test");
-    expect(state[EScheme.GATHER_ITEMS]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.GATHER_ITEMS)).toEqual({
       ini,
       scheme: EScheme.GATHER_ITEMS,
       section: "gather_items_default@test",

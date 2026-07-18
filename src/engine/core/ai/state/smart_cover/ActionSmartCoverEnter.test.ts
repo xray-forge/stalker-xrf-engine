@@ -5,7 +5,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionSmartCoverEnter } from "@/engine/core/ai/state/smart_cover/ActionSmartCoverEnter";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -21,10 +21,14 @@ describe("ActionSmartCoverEnter", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const action: ActionSmartCoverEnter = new ActionSmartCoverEnter(stateManager);
 
-    state[EScheme.SMARTCOVER] = mockSchemeState<ISchemeSmartCoverState>(EScheme.SMARTCOVER, {
-      coverName: "test-cover-name",
-      loopholeName: "test-loophole-name",
-    });
+    setSchemeState(
+      state,
+      EScheme.SMARTCOVER,
+      mockSchemeState<ISchemeSmartCoverState>(EScheme.SMARTCOVER, {
+        coverName: "test-cover-name",
+        loopholeName: "test-loophole-name",
+      })
+    );
 
     action.setup(object, MockPropertyStorage.mock());
     action.initialize();
@@ -41,9 +45,13 @@ describe("ActionSmartCoverEnter", () => {
     const stateManager: StalkerStateManager = new StalkerStateManager(object);
     const action: ActionSmartCoverEnter = new ActionSmartCoverEnter(stateManager);
 
-    state[EScheme.SMARTCOVER] = mockSchemeState<ISchemeSmartCoverState>(EScheme.SMARTCOVER, {
-      coverName: "test-cover-name",
-    });
+    setSchemeState(
+      state,
+      EScheme.SMARTCOVER,
+      mockSchemeState<ISchemeSmartCoverState>(EScheme.SMARTCOVER, {
+        coverName: "test-cover-name",
+      })
+    );
 
     action.setup(object, MockPropertyStorage.mock());
     action.initialize();

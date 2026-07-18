@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { ISchemeDeimosState, isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -27,9 +27,9 @@ describe("isDeimosPhase util", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeScheme = EScheme.SR_DEIMOS;
-    state[EScheme.SR_DEIMOS] = mockSchemeState(EScheme.SR_DEIMOS);
+    setSchemeState(state, EScheme.SR_DEIMOS, mockSchemeState(EScheme.SR_DEIMOS));
 
-    const deimosState: ISchemeDeimosState = state[EScheme.SR_DEIMOS] as ISchemeDeimosState;
+    const deimosState: ISchemeDeimosState = getSchemeStateOptimistic(state, EScheme.SR_DEIMOS);
 
     deimosState.growingRate = 1;
 
@@ -80,9 +80,9 @@ describe("isDeimosPhase util", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeScheme = EScheme.SR_DEIMOS;
-    state[EScheme.SR_DEIMOS] = mockSchemeState(EScheme.SR_DEIMOS);
+    setSchemeState(state, EScheme.SR_DEIMOS, mockSchemeState(EScheme.SR_DEIMOS));
 
-    const deimosState: ISchemeDeimosState = state[EScheme.SR_DEIMOS] as ISchemeDeimosState;
+    const deimosState: ISchemeDeimosState = getSchemeStateOptimistic(state, EScheme.SR_DEIMOS);
 
     deimosState.growingRate = 1;
 

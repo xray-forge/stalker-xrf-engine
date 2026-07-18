@@ -5,7 +5,8 @@ import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { IBaseSchemeState, IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, setPortableStoreValue, setSchemeState } from "@/engine/core/database";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { EScheme } from "@/engine/lib/types";
 import {
@@ -42,10 +43,12 @@ describe("game conditions implementation", () => {
   it("signal should check if signal is active", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.WOUNDED, { signals: new LuaTable() });
+    const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
+      signals: new LuaTable(),
+    });
 
     state.activeScheme = EScheme.WOUNDED;
-    state[EScheme.WOUNDED] = schemeState;
+    setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     expect(callXrCondition("signal", MockGameObject.mockActor(), object, "some_signal")).toBe(false);
 

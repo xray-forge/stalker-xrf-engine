@@ -1,13 +1,14 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { Nillable } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import {
   getPortableStoreValue,
+  getSchemeStateOptimistic,
   IRegistryObjectState,
   registerObject,
   setPortableStoreValue,
+  setSchemeState,
 } from "@/engine/core/database";
 import {
   finishObjectHelpWounded,
@@ -30,19 +31,25 @@ describe("finishObjectHelpWounded", () => {
     const firstState: IRegistryObjectState = registerObject(first);
     const secondState: IRegistryObjectState = registerObject(second);
 
-    firstState[EScheme.HELP_WOUNDED] = mockSchemeState<ISchemeHelpWoundedState>(EScheme.HELP_WOUNDED, {
-      selectedWoundedId: second.id(),
-    });
-    secondState[EScheme.WOUNDED] = mockSchemeState<ISchemeWoundedState>(EScheme.HELP_WOUNDED, {
-      woundManager: { unlockMedkit: jest.fn() } as unknown as WoundManager,
-    });
+    setSchemeState(
+      firstState,
+      EScheme.HELP_WOUNDED,
+      mockSchemeState<ISchemeHelpWoundedState>(EScheme.HELP_WOUNDED, {
+        selectedWoundedId: second.id(),
+      })
+    );
+    setSchemeState(
+      secondState,
+      EScheme.WOUNDED,
+      mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
+        woundManager: { unlockMedkit: jest.fn() } as unknown as WoundManager,
+      })
+    );
 
     finishObjectHelpWounded(first);
 
     expect(giveWoundedObjectMedkit).toHaveBeenCalledWith(second);
-    expect(
-      (secondState[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit
-    ).toHaveBeenCalled();
+    expect(getSchemeStateOptimistic(secondState, EScheme.WOUNDED).woundManager.unlockMedkit).toHaveBeenCalled();
   });
 });
 

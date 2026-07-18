@@ -9,7 +9,7 @@ import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
-  IBaseSchemeState,
+  getSchemeStateOptimistic,
   IRegistryObjectState,
   IRegistryOfflineState,
   registerActor,
@@ -246,7 +246,10 @@ describe("activateSchemeBySection util", () => {
     expect(state.activeSection).toBe("sr_idle@test");
     expect(state.activeScheme).toBe(EScheme.SR_IDLE);
     expect(SchemeIdle.activate).toHaveBeenCalledWith(object, ini, EScheme.SR_IDLE, "sr_idle@test", null);
-    expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).activate).toHaveBeenCalledWith(object, false);
+    expect(getSchemeAction(getSchemeStateOptimistic(state, EScheme.SR_IDLE)).activate).toHaveBeenCalledWith(
+      object,
+      false
+    );
   });
 
   it("should correctly change generic sections", () => {
@@ -272,7 +275,7 @@ describe("activateSchemeBySection util", () => {
     expect(state.activeScheme).toBe(EScheme.HIT);
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@test", null);
     expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(255);
-    expect(getSchemeAction(state[EScheme.HIT] as IBaseSchemeState).activate).toHaveBeenCalledWith(object, false);
+    expect(getSchemeAction(getSchemeStateOptimistic(state, EScheme.HIT)).activate).toHaveBeenCalledWith(object, false);
 
     expect(state.overrides).toEqualLuaTables({
       combatIgnore: null,

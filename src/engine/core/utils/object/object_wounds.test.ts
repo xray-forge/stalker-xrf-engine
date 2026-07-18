@@ -4,7 +4,13 @@ import { GameObject, Hit } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import {
+  IRegistryObjectState,
+  registerObject,
+  registerSimulator,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import {
@@ -75,7 +81,7 @@ describe("enableObjectWoundedHealing util", () => {
       } as unknown as WoundManager,
     });
 
-    state[EScheme.WOUNDED] = schemeState;
+    setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     enableObjectWoundedHealing(object);
 
@@ -97,7 +103,7 @@ describe("isObjectPsyWounded util", () => {
       } as unknown as WoundManager,
     });
 
-    state[EScheme.WOUNDED] = schemeState;
+    setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     expect(isObjectPsyWounded(object)).toBe(false);
 

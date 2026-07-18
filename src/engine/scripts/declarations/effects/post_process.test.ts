@@ -4,7 +4,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { EScheme } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -123,22 +123,22 @@ describe("post process effects implementation", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.activeScheme = EScheme.ANIMPOINT;
-    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    setSchemeState(state, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
 
     callXrEffect("run_cam_effector", MockGameObject.mockActor(), object, "test-effector");
 
     expect(() => {
       callXrEffect("cam_effector_callback", MockGameObject.mockActor(), MockGameObject.mock());
     }).not.toThrow();
-    expect(state[EScheme.ANIMPOINT]?.signals).toBeNull();
+    expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals).toBeNull();
 
-    state[EScheme.ANIMPOINT]!.signals = new LuaTable();
+    getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals = new LuaTable();
 
     expect(() => {
       callXrEffect("cam_effector_callback", MockGameObject.mockActor(), MockGameObject.mock());
     }).not.toThrow();
-    expect(state[EScheme.ANIMPOINT]?.signals?.length()).toBe(1);
-    expect(state[EScheme.ANIMPOINT]?.signals?.get("cameff_end")).toBe(true);
+    expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals?.length()).toBe(1);
+    expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals?.get("cameff_end")).toBe(true);
   });
 
   it("run_postprocess should correctly add complex effectors", () => {

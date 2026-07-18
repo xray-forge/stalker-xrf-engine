@@ -4,7 +4,12 @@ import { AnyObject, TSection } from "xray16/lib";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
-import { IBaseSchemeState, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import {
+  getSchemeStateOptimistic,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registerObject,
+} from "@/engine/core/database";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -74,7 +79,7 @@ describe("AbstractScheme", () => {
     expect(ExampleScheme.add).toHaveBeenCalledTimes(1);
     expect(ExampleScheme.add).toHaveBeenCalledWith(object, ini, EScheme.PH_CODE, "ph_code@example", schemeState);
 
-    expect(state[EScheme.PH_CODE]).toBe(schemeState);
+    expect(getSchemeStateOptimistic(state, EScheme.PH_CODE)).toBe(schemeState);
     expect(schemeState).toEqual({ ini, scheme: EScheme.PH_CODE, section: "ph_code@example" });
   });
 

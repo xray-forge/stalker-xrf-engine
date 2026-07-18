@@ -6,7 +6,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject, setSchemeState } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
@@ -91,9 +91,11 @@ describe("CampManager", () => {
     const participantState: IRegistryObjectState = registerObject(participant);
 
     participantState.activeScheme = EScheme.ANIMPOINT;
-    participantState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: new LuaTable(),
-    });
+    setSchemeState(
+      participantState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, { approvedActions: new LuaTable() })
+    );
 
     manager.registerObject(participant.id());
 
@@ -125,19 +127,27 @@ describe("CampManager", () => {
     );
 
     firstState.activeScheme = EScheme.ANIMPOINT;
-    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: new LuaTable(),
-    });
-    secondState.activeScheme = EScheme.PATROL;
-    secondState[EScheme.PATROL] = mockSchemeState<ISchemeAnimpointState>(EScheme.PATROL, {
-      approvedActions: new LuaTable(),
-    });
+    setSchemeState(
+      firstState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, { approvedActions: new LuaTable() })
+    );
+    secondState.activeScheme = EScheme.ANIMPOINT;
+    setSchemeState(
+      secondState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, { approvedActions: new LuaTable() })
+    );
 
     expect(manager.activity).toBe(EObjectCampActivity.IDLE);
 
     manager.registerObject(firstParticipant.id());
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(firstState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, -1);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(firstState, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE,
+      -1
+    );
     expect(manager.objects).toEqualLuaTables({
       [firstParticipant.id()]: {
         state: "idle",
@@ -169,7 +179,11 @@ describe("CampManager", () => {
         idle: EObjectCampRole.LISTENER,
       },
     });
-    expect(emitSchemeEvent).toHaveBeenCalledWith(firstState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, -1);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(firstState, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE,
+      -1
+    );
     expect(firstState.camp).toBe(object.id());
     expect(secondState.camp).toBe(object.id());
     expect(manager.storyManager.registerObject).toHaveBeenCalledWith(secondParticipant.id());
@@ -202,14 +216,22 @@ describe("CampManager", () => {
     );
 
     firstState.activeScheme = EScheme.ANIMPOINT;
-    firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: new LuaTable(),
-    });
+    setSchemeState(
+      firstState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, { approvedActions: new LuaTable() })
+    );
     secondState.activeScheme = EScheme.ANIMPOINT;
-    secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      description: EStalkerState.SIT_ASS,
-      approvedActions: $fromArray<IAnimpointActionDescriptor>([{ name: EStalkerState.SIT_ASS, predicate: () => true }]),
-    });
+    setSchemeState(
+      secondState,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        description: EStalkerState.SIT_ASS,
+        approvedActions: $fromArray<IAnimpointActionDescriptor>([
+          { name: EStalkerState.SIT_ASS, predicate: () => true },
+        ]),
+      })
+    );
 
     expect(manager.activity).toBe(EObjectCampActivity.GUITAR);
 

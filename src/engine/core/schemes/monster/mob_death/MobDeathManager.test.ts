@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
@@ -26,7 +26,7 @@ describe("MobDeathManager", () => {
 
     manager.onDeath(object, null);
 
-    expect(state[EScheme.DEATH]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.DEATH)).toEqual({
       killerId: -1,
     });
 
@@ -43,7 +43,7 @@ describe("MobDeathManager", () => {
 
     manager.onDeath(object, killer);
 
-    expect(state[EScheme.DEATH]).toEqual({
+    expect(getSchemeStateOptimistic(state, EScheme.DEATH)).toEqual({
       killerId: killer.id(),
     });
 

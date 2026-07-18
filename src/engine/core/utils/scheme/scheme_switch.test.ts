@@ -7,14 +7,17 @@ import { MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import {
+  getSchemeStateOptimistic,
   IBaseSchemeLogic,
   IBaseSchemeState,
   IRegistryObjectState,
   registerActor,
   registerObject,
   registerZone,
+  setSchemeState,
 } from "@/engine/core/database";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
+import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
@@ -69,7 +72,7 @@ describe("trySwitchToAnotherSection", () => {
       name: "on_info2",
       condlist: parseConditionsList("{+expected_info} sr_idle@next, sr_idle@default"),
     });
-    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
+    const schemeState: ISchemeIdleState = mockSchemeState<ISchemeIdleState>(EScheme.SR_IDLE, {
       ini,
       logic: $fromArray([condition]),
     });
@@ -747,7 +750,7 @@ describe("switchObjectSchemeToSection", () => {
 
     state.activeScheme = EScheme.SR_IDLE;
     state.activeSection = "sr_idle@active";
-    state[EScheme.SR_IDLE] = schemeState;
+    setSchemeState(state, EScheme.SR_IDLE, schemeState);
 
     const handler = {
       deactivate: jest.fn(),
@@ -766,7 +769,7 @@ describe("switchObjectSchemeToSection", () => {
     expect(handler.deactivate).toHaveBeenCalledTimes(1);
     expect(state.activeScheme).toBe(EScheme.SR_TIMER);
     expect(state.activeSection).toBe("sr_timer@next");
-    expect(state[EScheme.SR_TIMER]).toBeDefined();
-    expect(getSchemeAction(state[EScheme.SR_TIMER] as IBaseSchemeState).activate).toHaveBeenCalledTimes(1);
+    expect(getSchemeStateOptimistic(state, EScheme.SR_TIMER)).toBeDefined();
+    expect(getSchemeAction(getSchemeStateOptimistic(state, EScheme.SR_TIMER)).activate).toHaveBeenCalledTimes(1);
   });
 });

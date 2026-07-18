@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { MockGameObject } from "xray16/mocks";
 
-import { IRegistryObjectState } from "@/engine/core/database/database_types";
+import { IRegistryObjectState, TStatefulScheme } from "@/engine/core/database/database_types";
 import { registerObject } from "@/engine/core/database/objects";
 import {
   getActiveSchemeState,
@@ -22,6 +22,16 @@ import { mockSchemeState } from "@/fixtures/engine";
 function createCombatState(): ISchemeCombatState {
   return mockSchemeState<ISchemeCombatState>(EScheme.COMBAT, { enabled: true });
 }
+
+describe("ISchemeStateMap", () => {
+  it("should cover every stateful scheme", () => {
+    const isEveryStatefulSchemeMapped: Exclude<EScheme, EScheme.HEAR | EScheme.NIL> extends TStatefulScheme
+      ? true
+      : never = true;
+
+    expect(isEveryStatefulSchemeMapped).toBe(true);
+  });
+});
 
 describe("hasSchemeState", () => {
   it("should report whether a registered scheme state exists", () => {

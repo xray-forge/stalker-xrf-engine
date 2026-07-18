@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registry, setSchemeState } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -24,7 +24,7 @@ describe("DeathManager", () => {
 
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState[EScheme.DEATH] = state;
+    setSchemeState(objectState, EScheme.DEATH, state);
 
     manager.onDeath(object, null);
 
@@ -40,7 +40,7 @@ describe("DeathManager", () => {
 
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState[EScheme.DEATH] = state;
+    setSchemeState(objectState, EScheme.DEATH, state);
     state.info = parseConditionsList("test-1");
     state.info2 = parseConditionsList("test-2");
     manager.onDeath(object, killer);
