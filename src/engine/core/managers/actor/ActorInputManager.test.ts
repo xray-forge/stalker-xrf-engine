@@ -6,11 +6,11 @@ import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mo
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
+import { EActiveItemSlot } from "@/engine/core/managers/actor";
 import { EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor/actor_input_types";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { EActiveItemSlot } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("ActorInputManager", () => {

@@ -23,6 +23,7 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import {
+  EActiveItemSlot,
   EActorControlHandle,
   EActorControlPolicy,
   IActorControlDescriptor,
@@ -41,7 +42,6 @@ import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EActiveItemSlot } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

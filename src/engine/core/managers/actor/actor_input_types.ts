@@ -1,6 +1,16 @@
 import { TName } from "xray16/lib";
 
 /**
+ * Actor inventory slots accepted by the engine's active-slot API.
+ */
+export const enum EActiveItemSlot {
+  NONE = 0,
+  KNIFE = 1,
+  SECONDARY = 2,
+  PRIMARY = 3,
+}
+
+/**
  * Stable identifiers for actor control lock owners.
  *
  * @inline

@@ -17,7 +17,7 @@ import {
 import { $filename } from "xray16/macros";
 
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActiveItemSlot } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
 import { sleepConfig } from "@/engine/core/managers/sleep";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
@@ -28,7 +28,6 @@ import { objectPunchActor } from "@/engine/core/utils/action";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
-import { EActiveItemSlot } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

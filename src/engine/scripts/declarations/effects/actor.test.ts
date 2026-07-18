@@ -13,7 +13,7 @@ import {
   registerZone,
   registry,
 } from "@/engine/core/database";
-import { ActorInputManager } from "@/engine/core/managers/actor";
+import { ActorInputManager, EActiveItemSlot } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { TaskManager } from "@/engine/core/managers/tasks";
@@ -23,7 +23,6 @@ import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { EActiveItemSlot } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/action");
