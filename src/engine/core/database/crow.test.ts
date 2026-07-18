@@ -6,7 +6,7 @@ import { registerCrow, unregisterCrow } from "@/engine/core/database/crow";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 
-describe("database crow objects utilities", () => {
+describe("registerCrow and unregisterCrow", () => {
   it("should correctly register and unregister crow objects", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

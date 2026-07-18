@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/database/anomalies";
 import { registry } from "@/engine/core/database/registry";
 
-describe("anomaly zones module of the database", () => {
+describe("registerAnomalyZone and unregisterAnomalyZone", () => {
   it("should correctly register anomaly zones", () => {
     const object: GameObject = MockGameObject.mock();
     const anomalyZone: AnomalyZoneBinder = new AnomalyZoneBinder(object);
@@ -34,7 +34,7 @@ describe("anomaly zones module of the database", () => {
   });
 });
 
-describe("anomaly fields module of the database", () => {
+describe("registerAnomalyField and unregisterAnomalyField", () => {
   it("should correctly register anomaly fields", () => {
     const object: GameObject = MockGameObject.mock();
     const anomalyField: AnomalyFieldBinder = new AnomalyFieldBinder(object);

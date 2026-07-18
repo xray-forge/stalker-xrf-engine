@@ -7,7 +7,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 
-describe("monster database module", () => {
+describe("getMonsterState", () => {
   it("should correctly read monster state from ini", () => {
     expect(getMonsterState(MockIniFile.mock("test.ltx", { a: { state: EMonsterState.INVISIBLE } }), "a")).toBe(
       EMonsterState.INVISIBLE
@@ -18,7 +18,9 @@ describe("monster database module", () => {
     expect(getMonsterState(MockIniFile.mock("test.ltx", { c: { state: EMonsterState.NONE } }), "c")).toBeNull();
     expect(getMonsterState(MockIniFile.mock("test.ltx"), "test")).toBeNull();
   });
+});
 
+describe("setMonsterState", () => {
   it("should correctly set monster state", () => {
     const monster: GameObject = MockGameObject.mock();
 

@@ -15,7 +15,7 @@ import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
-describe("smart module of the database", () => {
+describe("registerSmartTerrain", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -39,6 +39,12 @@ describe("smart module of the database", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });
+});
+
+describe("registerSmartCover", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
 
   it("should correctly register smart cover", () => {
     const cover: SmartCover = new SmartCover("test");
@@ -51,6 +57,12 @@ describe("smart module of the database", () => {
     unregisterSmartCover(cover);
 
     expect(table.size(registry.smartCovers)).toBe(0);
+  });
+});
+
+describe("registerSmartTerrainCampfire", () => {
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it("should correctly register smart terrains campfires", () => {

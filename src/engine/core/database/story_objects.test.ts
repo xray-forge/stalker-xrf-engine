@@ -20,7 +20,7 @@ import {
 } from "@/engine/core/database/story_objects";
 import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 
-describe("story_objects module of the database", () => {
+describe("registerObjectStoryLinks", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -69,6 +69,13 @@ describe("story_objects module of the database", () => {
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
   });
+});
+
+describe("registerObjectStoryLinks", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly register object story links from system ini", () => {
     const object: ServerObject = MockAlifeObject.mock({
@@ -88,8 +95,15 @@ describe("story_objects module of the database", () => {
     expect(registry.storyLink.sidById.get(object.id)).toBe("test_sid_system_ini");
     expect(registry.storyLink.idBySid.get("test_sid_system_ini")).toBe(object.id);
   });
+});
 
-  it("should correctly handle lifecycle and get links with util", () => {
+describe("story-link lookup utilities", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly handle lifecycle and get links", () => {
     const firstObject: ServerObject = MockAlifeObject.mock({ id: 12 });
     const object: GameObject = MockGameObject.mock({ id: 12 });
 
@@ -108,16 +122,30 @@ describe("story_objects module of the database", () => {
     unregisterObject(object);
     unregisterStoryLinkByStoryId("test-sid");
   });
+});
 
-  it("getObjectByStoryId should correctly fallback to level check", () => {
+describe("getObjectByStoryId", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly fallback to level check", () => {
     const object: GameObject = MockGameObject.mock({ id: 12 });
 
     registerStoryLink(object.id(), "test-level-check");
 
     expect(getObjectByStoryId("test-level-check")).toBe(object);
   });
+});
 
-  it("isStoryObjectExisting should correctly check if object is existing", () => {
+describe("isStoryObjectExisting", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object is existing", () => {
     expect(isStoryObjectExisting("test-sid")).toBe(false);
 
     const serverObject: ServerObject = MockAlifeObject.mock();
@@ -126,8 +154,15 @@ describe("story_objects module of the database", () => {
 
     expect(isStoryObjectExisting("test-sid")).toBe(true);
   });
+});
 
-  it("isStoryObject should correctly check if object is existing", () => {
+describe("isStoryObject", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object is existing", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
     const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
 
@@ -139,23 +174,44 @@ describe("story_objects module of the database", () => {
     expect(isStoryObject(serverObject)).toBe(true);
     expect(isStoryObject(gameObject)).toBe(true);
   });
+});
 
-  it("registerStoryLink should correctly handle register duplicates", () => {
+describe("registerStoryLink", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should reject duplicate story IDs", () => {
     const first: ServerObject = MockAlifeObject.mock();
     const second: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(first.id, "register-test-duplicate");
     expect(() => registerStoryLink(second.id, "register-test-duplicate")).toThrow();
   });
+});
 
-  it("registerStoryLink should correctly handle register twice as different", () => {
+describe("registerStoryLink", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should reject assigning a second story ID to an object", () => {
     const first: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(first.id, "register-test-twice-first");
     expect(() => registerStoryLink(first.id, "register-test-twice-second")).toThrow();
   });
+});
 
-  it("getIdBySid should correctly get objects by SID", () => {
+describe("getIdBySid", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly get objects by SID", () => {
     const object: ServerObject = MockAlifeObject.mock({ storyId: 400 });
 
     expect(getIdBySid(500)).toBeNull();

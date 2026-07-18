@@ -17,7 +17,7 @@ import {
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 
-describe("portable_store functionality", () => {
+describe("isValidPortableStoreValue", () => {
   it("should correctly validate value type", () => {
     expect(isValidPortableStoreValue(1)).toBeTruthy();
     expect(isValidPortableStoreValue(0)).toBeTruthy();
@@ -33,7 +33,9 @@ describe("portable_store functionality", () => {
     expect(isValidPortableStoreValue({})).toBeFalsy();
     expect(isValidPortableStoreValue(new LuaTable())).toBeFalsy();
   });
+});
 
+describe("portable store lifecycle utilities", () => {
   it("should correctly initialize portable store", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -60,7 +62,9 @@ describe("portable_store functionality", () => {
     expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
     expect(registry.objects.get(object.id()).portableStore).not.toBe(previous);
   });
+});
 
+describe("setPortableStoreValue and getPortableStoreValue", () => {
   it("should correctly set and get values by key", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -101,7 +105,9 @@ describe("portable_store functionality", () => {
       "Portable store received not registered type to set: 'key' - 'table'."
     );
   });
+});
 
+describe("savePortableStore and loadPortableStore", () => {
   it("should correctly save and load values", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -153,8 +159,10 @@ describe("portable_store functionality", () => {
     expect(getPortableStoreValue(object.id(), "boolean_test")).toBe(true);
     expect(getPortableStoreValue(object.id(), "string_test")).toBe("example");
   });
+});
 
-  it("should correctly save and load with invalid data", () => {
+describe("savePortableStore and loadPortableStore", () => {
+  it("should correctly handle invalid data", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerObject(object);

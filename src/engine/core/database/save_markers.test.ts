@@ -5,7 +5,7 @@ import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
 
-describe("save_markers database module", () => {
+describe("openSaveMarker and closeSaveMarker", () => {
   it("should correctly create save markers", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
 
@@ -32,7 +32,9 @@ describe("save_markers database module", () => {
 
     expect(() => closeSaveMarker(processor.asNetPacket(), "test-3")).toThrow();
   });
+});
 
+describe("openLoadMarker and closeLoadMarker", () => {
   it("should correctly create load markers", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
 
@@ -58,7 +60,9 @@ describe("save_markers database module", () => {
     expect(processor.readDataOrder).toEqual([EMockPacketDataType.U16, EMockPacketDataType.U16]);
     expect(processor.dataList).toEqual([]);
   });
+});
 
+describe("closeSaveMarker", () => {
   it("should correctly warn when size limits are reached", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
 

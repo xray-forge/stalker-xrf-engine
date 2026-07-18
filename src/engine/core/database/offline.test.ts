@@ -11,8 +11,8 @@ import {
 } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
 
-describe("offline database module", () => {
-  it("should correctly register and unregister offline objects state", () => {
+describe("offline object lifecycle utilities", () => {
+  it("should correctly manage offline object state", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(registerOfflineObject(object.id(), { activeSection: "test", levelVertexId: 1 })).toEqual({

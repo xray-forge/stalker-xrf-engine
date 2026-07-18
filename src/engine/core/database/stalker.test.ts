@@ -15,8 +15,8 @@ import {
   unregisterStalker,
 } from "@/engine/core/database/stalker";
 
-describe("stalker module of the database", () => {
-  it("should correctly register actor", () => {
+describe("registerStalker", () => {
+  it("should correctly register stalker", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
@@ -36,8 +36,10 @@ describe("stalker module of the database", () => {
     expect(registry.stalkers.get(stalker.object.id())).toBeNull();
     expect(registry.objects.get(stalker.object.id())).toEqual({ object: stalker.object });
   });
+});
 
-  it("should correctly get and set state", () => {
+describe("setStalkerState", () => {
+  it("should correctly set state", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
@@ -91,7 +93,9 @@ describe("stalker module of the database", () => {
 
     unregisterStalker(stalker);
   });
+});
 
+describe("resetStalkerState", () => {
   it("should correctly reset state", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
@@ -123,8 +127,10 @@ describe("stalker module of the database", () => {
 
     unregisterStalker(stalker);
   });
+});
 
-  it("should correctly reset state when state manager does not exist", () => {
+describe("resetStalkerState", () => {
+  it("should not throw when state manager does not exist", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);

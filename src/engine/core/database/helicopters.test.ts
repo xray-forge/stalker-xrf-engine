@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
 
-describe("helicopters module of the database", () => {
+describe("registerHelicopter and unregisterHelicopter", () => {
   it("should correctly register helicopter binders", () => {
     const helicopter: HelicopterBinder = new HelicopterBinder(MockGameObject.mock());
 
@@ -28,7 +28,9 @@ describe("helicopters module of the database", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.helicopter.storage.length()).toBe(0);
   });
+});
 
+describe("registerHelicopterEnemy and unregisterHelicopterEnemy", () => {
   it("should correctly register helicopter enemies", () => {
     const first: GameObject = MockGameObject.mock();
     const firstIndex: TIndex = registerHelicopterEnemy(first);

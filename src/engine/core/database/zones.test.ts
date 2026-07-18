@@ -13,7 +13,7 @@ import {
   unregisterZone,
 } from "@/engine/core/database/zones";
 
-describe("zones module of the database", () => {
+describe("registerZone and unregisterZone", () => {
   it("should correctly register zones", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
@@ -53,7 +53,9 @@ describe("zones module of the database", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
   });
+});
 
+describe("registerCampZone and unregisterCampZone", () => {
   it("should correctly register camp zones", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
@@ -100,7 +102,9 @@ describe("zones module of the database", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.camps.length()).toBe(0);
   });
+});
 
+describe("getCampZoneForPosition", () => {
   it("should correctly get camp zones for specific locations", () => {
     const position: Vector = MockVector.mock();
 
@@ -137,7 +141,9 @@ describe("zones module of the database", () => {
 
     unregisterCampZone(firstZone);
   });
+});
 
+describe("resetCampZone", () => {
   it("should correctly reset camp zones", () => {
     const firstZone: GameObject = MockGameObject.mock({
       id: 10,

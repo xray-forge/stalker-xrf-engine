@@ -8,7 +8,7 @@ import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 
-describe("ini module of database", () => {
+describe("loadDynamicIniFile", () => {
   beforeEach(() => {
     registry.ini = new LuaTable();
   });
@@ -41,6 +41,12 @@ describe("ini module of database", () => {
 
     expect(table.size(registry.ini)).toBe(1);
   });
+});
+
+describe("loadIniFile", () => {
+  beforeEach(() => {
+    registry.ini = new LuaTable();
+  });
 
   it("should correctly open static ini files", () => {
     expect(table.size(registry.ini)).toBe(0);
@@ -59,6 +65,12 @@ describe("ini module of database", () => {
     expect(iniFile.fname()).toBe("test3.ltx");
 
     expect(table.size(registry.ini)).toBe(3);
+  });
+});
+
+describe("getObjectLogicIniConfig", () => {
+  beforeEach(() => {
+    registry.ini = new LuaTable();
   });
 
   it("should correctly load object logic ini file", () => {

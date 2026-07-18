@@ -13,20 +13,26 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("simulation module of the database", () => {
+describe("registerSimulator", () => {
   beforeEach(() => {
     resetRegistry();
   });
 
-  it("registerSimulator should correctly register simulator", () => {
+  it("should correctly register simulator", () => {
     expect(registry.simulator).toBeNull();
 
     registerSimulator();
 
     expect(registry.simulator).toBe(MockAlifeSimulator.getInstance());
   });
+});
 
-  it("updateSimulationObjectAvailability should update availability", () => {
+describe("updateSimulationObjectAvailability", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should update availability", () => {
     const objectMock: TSimulationObject = { id: 400, isSimulationAvailable: () => true } as TSimulationObject;
 
     updateSimulationObjectAvailability(objectMock);
@@ -39,6 +45,12 @@ describe("simulation module of the database", () => {
 
     expect(table.size(registry.simulationObjects)).toBe(0);
     expect(registry.simulationObjects.get(400)).toBeNull();
+  });
+});
+
+describe("registerSimulationObject", () => {
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it("should correctly register simulation objects", () => {
@@ -58,6 +70,12 @@ describe("simulation module of the database", () => {
       parseConditionsList("{+test_squad} true, false")
     );
   });
+});
+
+describe("unregisterSimulationObject", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
 
   it("should correctly unregister simulation objects", () => {
     const simulationObject: TSimulationObject = MockAlifeOnlineOfflineGroup.mock() as TSimulationObject;
@@ -69,6 +87,12 @@ describe("simulation module of the database", () => {
 
     unregisterSimulationObject(simulationObject);
     expect(table.size(registry.simulationObjects)).toBe(0);
+  });
+});
+
+describe("initializeSimulationObjectProperties", () => {
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it("should correctly initialize simulation objects properties", () => {

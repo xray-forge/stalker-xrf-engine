@@ -5,7 +5,7 @@ import { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { registry } from "@/engine/core/database/registry";
 
-describe("doors module of the database", () => {
+describe("registerDoor and unregisterDoor", () => {
   it("should correctly register doors", () => {
     const door: DoorBinder = new DoorBinder(MockGameObject.mock());
 

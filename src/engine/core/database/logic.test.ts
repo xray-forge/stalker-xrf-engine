@@ -11,7 +11,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { EScheme } from "@/engine/lib/types";
 
-describe("logic database module", () => {
+describe("saveObjectLogic and loadObjectLogic", () => {
   beforeAll(() => {
     replaceFunctionMock(time_global, () => 5_000);
   });

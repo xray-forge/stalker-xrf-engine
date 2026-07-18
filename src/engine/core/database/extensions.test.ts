@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database/registry";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("extensions module of the database", () => {
+describe("registerExtension", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -27,6 +27,12 @@ describe("extensions module of the database", () => {
 
     expect(registry.extensions.has("first")).toBe(true);
     expect(registry.extensions.has("second")).toBe(true);
+  });
+});
+
+describe("haveExtensions", () => {
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it("should correctly check if have extensions", () => {

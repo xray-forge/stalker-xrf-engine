@@ -4,7 +4,8 @@ import { MAX_ALIFE_RANK } from "xray16/lib";
 import { IRankDescriptor } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
-describe("ranks", () => {
+
+describe("registerRanks", () => {
   beforeEach(() => {
     registry.ranks.isInitialized = false;
     registry.ranks.monster = new LuaTable();
@@ -13,7 +14,7 @@ describe("ranks", () => {
     registry.ranks.maxStalkerRank = null as unknown as IRankDescriptor;
   });
 
-  it("registerRanks should correctly initialize data", () => {
+  it("should correctly initialize data", () => {
     expect(registry.ranks.isInitialized).toBe(false);
 
     registerRanks();

@@ -7,7 +7,7 @@ import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 
-describe("database objects utilities", () => {
+describe("registerWoundedObject and unRegisterWoundedObject", () => {
   it("should correctly register and unregister wounded objects", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
