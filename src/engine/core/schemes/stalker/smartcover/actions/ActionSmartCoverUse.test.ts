@@ -11,6 +11,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions/ActionSmartCoverUse";
+import { giveInfoPortion, invalidateInfoPortionsCache } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -271,7 +272,7 @@ describe("ActionSmartCoverUse", () => {
     expect(action.firePosition).toEqual(MockVector.mock(1, 1, 1));
     expect(action.object.set_smart_cover_target).toHaveBeenCalledWith(action.firePosition);
 
-    actorGameObject.give_info_portion("a");
+    giveInfoPortion("a");
 
     expect(() => action.updateSmartCoverTarget()).toThrow("There is no patrol path 'not-existing'.");
   });

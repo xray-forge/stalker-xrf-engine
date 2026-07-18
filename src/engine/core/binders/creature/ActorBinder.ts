@@ -1,6 +1,6 @@
 import { callback, level, LuabindClass, object_binder, time_global } from "xray16";
 import { GameObject, GameTask, NetPacket, NetReader, ServerActorObject, TTaskState } from "xray16/alias";
-import { ACTOR_ID, Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
+import { ACTOR_ID, AnyObject, Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -26,6 +26,7 @@ import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
+import { updateInfoPortionCache } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme } from "@/engine/lib/types";
 
@@ -226,9 +227,19 @@ export class ActorBinder extends object_binder {
     const object: GameObject = this.object;
     const eventsManager: EventsManager = this.eventsManager;
 
+    // Covers engine-side grants (dialog XML, tasks, info chains) invisible to lua utils.
     object.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
+      updateInfoPortionCache(info, true);
+      eventsManager.emitEvent(EGameEvent.ACTOR_INFO_ADDED, object, info);
     });
+    // Todo: add `inventory_info_removed` to xray16 package typings.
+    object.set_callback(
+      (callback as unknown as AnyObject).inventory_info_removed as typeof callback.inventory_info,
+      (object: GameObject, info: string) => {
+        updateInfoPortionCache(info, false);
+        eventsManager.emitEvent(EGameEvent.ACTOR_INFO_REMOVED, object, info);
+      }
+    );
     object.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
       eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
     });
@@ -264,6 +275,11 @@ export class ActorBinder extends object_binder {
     const object: GameObject = this.object;
 
     object.set_callback(callback.inventory_info, null);
+    // todo: Simplify type casting after OpenXray update.
+    object.set_callback(
+      (callback as unknown as AnyObject).inventory_info_removed as typeof callback.inventory_info,
+      null
+    );
     object.set_callback(callback.article_info, null);
     object.set_callback(callback.on_item_take, null);
     object.set_callback(callback.on_item_drop, null);
