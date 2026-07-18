@@ -5,7 +5,13 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { getSchemeStateOptimistic, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getSchemeStateByKey,
+  getSchemeStateOptimistic,
+  ILogicsOverrides,
+  IRegistryObjectState,
+  registry,
+} from "@/engine/core/database";
 import { EScriptCombatType, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
@@ -32,7 +38,7 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Nillable<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
+    const state: Nillable<ISchemeCombatState> = getSchemeStateByKey(registry.objects.get(object.id()), scheme);
 
     if ($isNotNil(state)) {
       state.enabled = false;

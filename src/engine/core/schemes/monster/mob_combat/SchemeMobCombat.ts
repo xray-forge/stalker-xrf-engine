@@ -3,7 +3,7 @@ import { Nillable, TSection } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getSchemeStateByKey, registry } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
@@ -45,7 +45,7 @@ export class SchemeMobCombat extends AbstractScheme {
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Nillable<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
+    const state: Nillable<ISchemeMobCombatState> = getSchemeStateByKey(registry.objects.get(object.id()), scheme);
 
     // No guarantee that it was activated before so should be checked additionally.
     if ($isNotNil(state)) {

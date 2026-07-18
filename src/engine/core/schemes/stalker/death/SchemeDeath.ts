@@ -3,7 +3,7 @@ import { abort, Nillable, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
@@ -53,7 +53,7 @@ export class SchemeDeath extends AbstractScheme {
         abort("There is no section '%s' for object '%s'.", deathSection, object.name());
       }
 
-      const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
+      const state: ISchemeDeathState = getSchemeStateOptimistic(objectState, EScheme.DEATH);
       const onInfo: Nillable<string> = readIniString(objectState.ini, deathSection, "on_info");
 
       if (onInfo) {

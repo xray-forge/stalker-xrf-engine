@@ -2,7 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeStateOptimistic, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
@@ -47,7 +47,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    const schemeState: ISchemeCombatIgnoreState = state[SchemeCombatIgnore.SCHEME_SECTION] as ISchemeCombatIgnoreState;
+    const schemeState: ISchemeCombatIgnoreState = getSchemeStateOptimistic(state, EScheme.COMBAT_IGNORE);
 
     object.set_enemy_callback(schemeState.action.onObjectEnemy, schemeState.action);
 

@@ -1,4 +1,4 @@
-import { callback, clsid, game, time_global } from "xray16";
+import { clsid, game, time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { assert, assertDefined, NIL, Nillable, TName, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
@@ -6,8 +6,8 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
+  getSchemeStateByKeyOptimistic,
   IBaseSchemeLogic,
-  IBaseSchemeState,
   IRegistryObjectState,
   IRegistryOfflineState,
   registry,
@@ -167,7 +167,7 @@ export function activateSchemeBySection(
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
   }
 
-  emitSchemeEvent(state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE, object, isLoading);
+  emitSchemeEvent(getSchemeStateByKeyOptimistic(state, scheme), ESchemeEvent.ACTIVATE, object, isLoading);
 }
 
 /**

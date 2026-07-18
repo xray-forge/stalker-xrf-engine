@@ -2,7 +2,7 @@ import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { registry } from "@/engine/core/database";
+import { getSchemeStateByKey, IRegistryObjectState, registry, setSchemeStateByKey } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { EScheme } from "@/engine/lib/types";
@@ -19,14 +19,14 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
    * @param killer - Target who killed the monster.
    */
   public override onDeath(victim: GameObject, killer: Nillable<GameObject>): void {
-    let deathState: Nillable<ISchemeMobDeathState> = registry.objects.get(victim.id())[
-      EScheme.DEATH
-    ] as Nillable<ISchemeMobDeathState>;
+    const state: IRegistryObjectState = registry.objects.get(victim.id());
+
+    let deathState: Nillable<ISchemeMobDeathState> = getSchemeStateByKey(state, EScheme.DEATH);
 
     // todo: Probably always true for monsters since we init different state in this scheme.
     if (!deathState) {
       deathState = {} as ISchemeMobDeathState;
-      registry.objects.get(victim.id())[EScheme.DEATH] = deathState;
+      setSchemeStateByKey(state, EScheme.DEATH, deathState);
     }
 
     deathState.killerId = killer ? killer.id() : -1;

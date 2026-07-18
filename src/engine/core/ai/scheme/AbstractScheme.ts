@@ -1,7 +1,13 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { abort, AnyObject, Nillable, TName, TSection } from "xray16/lib";
 
-import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getSchemeStateByKey,
+  IBaseSchemeState,
+  IRegistryObjectState,
+  registry,
+  setSchemeStateByKey,
+} from "@/engine/core/database";
 import { ISchemeEventHandler } from "@/engine/lib/types";
 import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
@@ -56,11 +62,11 @@ export abstract class AbstractScheme {
     section: Nillable<TSection>
   ): T {
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
-    let state: Nillable<T> = objectState[scheme] as Nillable<T>;
+    let state: Nillable<T> = getSchemeStateByKey<T>(objectState, scheme);
 
     if (!state) {
       state = {} as T;
-      objectState[scheme] = state;
+      setSchemeStateByKey(objectState, scheme, state);
 
       registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, state);
     }

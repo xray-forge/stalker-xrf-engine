@@ -44,6 +44,22 @@ export function setSchemeState<S extends TStatefulScheme>(
 }
 
 /**
+ * Store a scheme state by a runtime scheme key.
+ *
+ * Use only in generic scheme infrastructure where the key cannot be narrowed to `TStatefulScheme` statically.
+ * This performs one indexed assignment and is safe to inline into Lua.
+ *
+ * @inline
+ *
+ * @param state - Object registry state.
+ * @param scheme - Runtime scheme key.
+ * @param schemeState - State to store for the scheme.
+ */
+export function setSchemeStateByKey(state: IRegistryObjectState, scheme: EScheme, schemeState: IBaseSchemeState): void {
+  state[scheme] = schemeState;
+}
+
+/**
  * Get an optional registered scheme state.
  *
  * This is a type-only lookup: it performs no validation, allocation, logging, or assertion and is safe to inline into Lua.
@@ -62,6 +78,25 @@ export function getSchemeState<S extends TStatefulScheme>(
 }
 
 /**
+ * Get an optional scheme state by a runtime scheme key.
+ *
+ * Use only in generic scheme infrastructure where the key cannot be narrowed to `TStatefulScheme` statically.
+ * This performs no validation, allocation, logging, or assertion and is safe to inline into Lua.
+ *
+ * @inline
+ *
+ * @param state - Object registry state.
+ * @param scheme - Runtime scheme key.
+ * @returns Scheme state, if present.
+ */
+export function getSchemeStateByKey<T extends IBaseSchemeState = IBaseSchemeState>(
+  state: IRegistryObjectState,
+  scheme: EScheme
+): Nillable<T> {
+  return state[scheme] as Nillable<T>;
+}
+
+/**
  * Get a registered scheme state known to exist.
  *
  * This intentionally performs no runtime assertion and is safe to inline into Lua.
@@ -77,6 +112,25 @@ export function getSchemeStateOptimistic<S extends TStatefulScheme>(
   scheme: S
 ): ISchemeStateMap[S] {
   return state[scheme] as ISchemeStateMap[S];
+}
+
+/**
+ * Get a scheme state by a runtime scheme key when it is known to exist.
+ *
+ * Use only in generic scheme infrastructure where the key cannot be narrowed to `TStatefulScheme` statically.
+ * This intentionally performs no runtime assertion and is safe to inline into Lua.
+ *
+ * @inline
+ *
+ * @param state - Object registry state.
+ * @param scheme - Runtime scheme key.
+ * @returns Scheme state.
+ */
+export function getSchemeStateByKeyOptimistic<T extends IBaseSchemeState = IBaseSchemeState>(
+  state: IRegistryObjectState,
+  scheme: EScheme
+): T {
+  return state[scheme] as T;
 }
 
 /**

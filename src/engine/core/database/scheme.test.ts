@@ -7,10 +7,13 @@ import {
   getActiveSchemeState,
   getActiveSchemeStateOptimistic,
   getSchemeState,
+  getSchemeStateByKey,
+  getSchemeStateByKeyOptimistic,
   getSchemeStateOptimistic,
   hasActiveScheme,
   hasSchemeState,
   setSchemeState,
+  setSchemeStateByKey,
 } from "@/engine/core/database/scheme";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { EScheme } from "@/engine/lib/types";
@@ -43,6 +46,17 @@ describe("setSchemeState", () => {
   });
 });
 
+describe("setSchemeStateByKey", () => {
+  it("should store state under a runtime scheme key", () => {
+    const state: IRegistryObjectState = registerObject(MockGameObject.mock());
+    const combatState = createCombatState();
+
+    setSchemeStateByKey(state, EScheme.COMBAT, combatState);
+
+    expect(state[EScheme.COMBAT]).toBe(combatState);
+  });
+});
+
 describe("getSchemeState", () => {
   it("should return an optional scheme state", () => {
     const state: IRegistryObjectState = registerObject(MockGameObject.mock());
@@ -57,6 +71,20 @@ describe("getSchemeState", () => {
   });
 });
 
+describe("getSchemeStateByKey", () => {
+  it("should return an optional state for a runtime scheme key", () => {
+    const state: IRegistryObjectState = registerObject(MockGameObject.mock());
+
+    expect(getSchemeStateByKey(state, EScheme.COMBAT)).toBeNil();
+
+    const combatState = createCombatState();
+
+    setSchemeStateByKey(state, EScheme.COMBAT, combatState);
+
+    expect(getSchemeStateByKey(state, EScheme.COMBAT)).toBe(combatState);
+  });
+});
+
 describe("getSchemeStateOptimistic", () => {
   it("should return the indexed state without validation", () => {
     const state: IRegistryObjectState = registerObject(MockGameObject.mock());
@@ -68,6 +96,20 @@ describe("getSchemeStateOptimistic", () => {
     setSchemeState(state, EScheme.COMBAT, combatState);
 
     expect(getSchemeStateOptimistic(state, EScheme.COMBAT)).toBe(combatState);
+  });
+});
+
+describe("getSchemeStateByKeyOptimistic", () => {
+  it("should return the indexed state for a runtime scheme key without validation", () => {
+    const state: IRegistryObjectState = registerObject(MockGameObject.mock());
+
+    expect(getSchemeStateByKeyOptimistic(state, EScheme.COMBAT)).toBeNil();
+
+    const combatState = createCombatState();
+
+    setSchemeStateByKey(state, EScheme.COMBAT, combatState);
+
+    expect(getSchemeStateByKeyOptimistic(state, EScheme.COMBAT)).toBe(combatState);
   });
 });
 

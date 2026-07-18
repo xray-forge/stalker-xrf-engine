@@ -2,7 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { abort, Nillable, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
-import { registry } from "@/engine/core/database";
+import { getSchemeStateByKey, registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
@@ -47,7 +47,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Nillable<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Nillable<ISchemeHitState>;
+    const state: Nillable<ISchemeHitState> = getSchemeStateByKey(registry.objects.get(object.id()), scheme);
 
     if (state) {
       AbstractScheme.unsubscribe(state, state.action);
