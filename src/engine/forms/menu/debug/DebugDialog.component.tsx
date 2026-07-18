@@ -1,18 +1,15 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { SCREEN_BASE_HEIGHT, SCREEN_BASE_WIDTH } from "@/engine/core/ui/screen_layout";
 import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { IRgbColor, WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
-const BASE_WIDTH: number = screenConfig.BASE_WIDTH;
-const BASE_HEIGHT: number = screenConfig.BASE_HEIGHT;
-
-export const SECTION_WIDTH: number = BASE_WIDTH - 132;
-export const SECTION_HEIGHT: number = BASE_HEIGHT - 16;
+export const SECTION_WIDTH: number = SCREEN_BASE_WIDTH - 132;
+export const SECTION_HEIGHT: number = SCREEN_BASE_HEIGHT - 16;
 
 const TEXT_COLOR_DARKER: IRgbColor = { r: 170, g: 170, b: 170 };
 
@@ -24,12 +21,12 @@ const TEXT_COLOR_DARKER: IRgbColor = { r: 170, g: 170, b: 170 };
 export function create(): JSXNode {
   return (
     <XrRoot>
-      <XrBackground x={0} y={0} width={BASE_WIDTH} height={BASE_HEIGHT}>
+      <XrBackground x={0} y={0} width={SCREEN_BASE_WIDTH} height={SCREEN_BASE_HEIGHT}>
         <XrStatic
-          width={BASE_WIDTH}
-          height={BASE_HEIGHT}
-          textureWidth={BASE_WIDTH}
-          textureHeight={BASE_HEIGHT}
+          width={SCREEN_BASE_WIDTH}
+          height={SCREEN_BASE_HEIGHT}
+          textureWidth={SCREEN_BASE_WIDTH}
+          textureHeight={SCREEN_BASE_HEIGHT}
           texture={"ui\\ui_actor_multiplayer_background"}
           stretch
         />
@@ -45,7 +42,7 @@ export function create(): JSXNode {
         stretch
       />
 
-      <XrStatic tag={"frame_menu_background"} x={16} y={8} width={100} height={BASE_HEIGHT - 52}>
+      <XrStatic tag={"frame_menu_background"} x={16} y={8} width={100} height={SCREEN_BASE_HEIGHT - 52}>
         <XrTexture id={"ui_icons_PDA_tooltips"} r={0} g={0} b={0} a={150} />
       </XrStatic>
 
@@ -54,7 +51,7 @@ export function create(): JSXNode {
         x={22}
         y={12}
         width={92}
-        height={BASE_HEIGHT - 56}
+        height={SCREEN_BASE_HEIGHT - 56}
         rightIndent={0}
         leftIndent={0}
         topIndent={0}

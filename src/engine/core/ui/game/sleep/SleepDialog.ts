@@ -16,6 +16,7 @@ import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
+import { SCREEN_WIDE_COEFFICIENT } from "@/engine/core/ui/screen_layout";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { canActorSleep } from "@/engine/core/utils/object";
@@ -27,7 +28,6 @@ import {
   isWideScreen,
   resolveXmlFile,
 } from "@/engine/core/utils/ui";
-import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -121,13 +121,11 @@ export class SleepDialog extends CUIScriptWnd {
     const staticPositionX: number = 591 - delta;
 
     this.uiSleepStatic.SetWndSize(
-      create2dVector(this.isWide ? staticPositionX * screenConfig.BASE_WIDE_COEFFICIENT : staticPositionX, 118)
+      create2dVector(this.isWide ? staticPositionX * SCREEN_WIDE_COEFFICIENT : staticPositionX, 118)
     );
     this.uiSleepStatic2.SetTextureRect(createRectangle(0, 413, delta, 531));
 
-    this.uiSleepStatic2.SetWndSize(
-      create2dVector(this.isWide ? delta * screenConfig.BASE_WIDE_COEFFICIENT : delta, 118)
-    );
+    this.uiSleepStatic2.SetWndSize(create2dVector(this.isWide ? delta * SCREEN_WIDE_COEFFICIENT : delta, 118));
 
     const position: Vector2D = this.uiSleepStatic2.GetWndPos();
 
@@ -177,7 +175,7 @@ export class SleepDialog extends CUIScriptWnd {
       x = 5;
     }
 
-    this.uiMarkerStatic.SetWndPos(create2dVector(this.isWide ? x * screenConfig.BASE_WIDE_COEFFICIENT : x, 0));
+    this.uiMarkerStatic.SetWndPos(create2dVector(this.isWide ? x * SCREEN_WIDE_COEFFICIENT : x, 0));
   }
 
   /**

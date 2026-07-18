@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { CURRENCY_LABEL } from "@/engine/lib/constants/currency";
 
 /**
  * Generation of PDA rankings section UI forms for 16/9.
@@ -40,7 +40,7 @@ export function create(): JSXNode {
       </money_caption>
       <money_value x={"744"} y={"103"} width={"80"} height={"16"}>
         <text align={"l"} font={"letterica18"} r={"170"} g={"170"} b={"170"}>
-          0 {gameConfig.CURRENCY}
+          0 {CURRENCY_LABEL}
         </text>
       </money_value>
 

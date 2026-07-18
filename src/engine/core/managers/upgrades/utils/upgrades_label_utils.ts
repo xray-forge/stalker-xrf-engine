@@ -6,7 +6,7 @@ import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice, getUpgradeCost } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { parseStringsList, readIniBoolean } from "@/engine/core/utils/ini";
-import { gameConfig } from "@/engine/lib/configs/GameConfig";
+import { CURRENCY_LABEL } from "@/engine/lib/constants/currency";
 
 /**
  * @param section - Item section to get upgrade cost.
@@ -43,10 +43,10 @@ export function getRepairItemAskReplicLabel(
       "%s: %s %s\\n%s: %s %s",
       game.translate_string("st_upgr_cost"),
       price,
-      gameConfig.CURRENCY,
+      CURRENCY_LABEL,
       game.translate_string("ui_inv_not_enought_money"),
       price - registry.actor.money(),
-      gameConfig.CURRENCY
+      CURRENCY_LABEL
     );
   }
 
@@ -55,7 +55,7 @@ export function getRepairItemAskReplicLabel(
     "%s %s %s. %s?",
     game.translate_string("st_upgr_cost"),
     price,
-    gameConfig.CURRENCY,
+    CURRENCY_LABEL,
     game.translate_string("ui_inv_repair")
   );
 }
