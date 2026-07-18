@@ -802,7 +802,7 @@ extern("xr_effects.release_force_sleep_animation", (_: GameObject, object: GameO
  * @param p - Tuple containing a value of 0 or 1 to disable or enable visual memory.
  */
 extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObject, p: [number]): void => {
-  if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
+  if (p && $isNotNil(p[0]) && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
     object.set_visual_memory_enabled(tonumber(p[0]) === 1);
   }
 });

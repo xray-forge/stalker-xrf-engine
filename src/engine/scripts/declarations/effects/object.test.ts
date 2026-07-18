@@ -1,11 +1,25 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { FALSE, TRUE } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { AnyCallable, FALSE, TRUE } from "xray16/lib";
+import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { registerStoryLink } from "@/engine/core/database";
+import {
+  getSchemeState,
+  IRegistryObjectState,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registry,
+  setSchemeState,
+} from "@/engine/core/database";
+import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
+import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
+import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
+import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
+import { EScheme } from "@/engine/lib/types";
+import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("object effects declaration", () => {
   beforeAll(() => {
@@ -72,37 +86,198 @@ describe("object effects implementation", () => {
     resetRegistry();
   });
 
-  it.todo("anim_obj_forward should correctly play forward animation");
+  it("anim_obj_forward should correctly play forward animation", () => {
+    const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
+    const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
-  it.todo("anim_obj_backward should correctly play backward animation");
+    registry.doors.set("first-door", firstDoor as never);
+    registry.doors.set("second-door", secondDoor as never);
 
-  it.todo("anim_obj_stop should correctly stop animation");
+    callXrEffect("anim_obj_forward", MockGameObject.mockActor(), MockGameObject.mock(), "first-door", "second-door");
 
-  it.todo("hit_obj should hit object based on parameters");
+    expect(firstDoor.startAnimation).toHaveBeenCalledWith(true);
+    expect(secondDoor.startAnimation).toHaveBeenCalledWith(true);
+  });
 
-  it.todo("hit_npc_from_actor should hit object from actor");
+  it("anim_obj_backward should correctly play backward animation", () => {
+    const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
+    const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
-  it.todo("make_enemy should make object enemy to actor");
+    registry.doors.set("first-door", firstDoor as never);
+    registry.doors.set("second-door", secondDoor as never);
 
-  it.todo("sniper_fire_mode should set object as sniper");
+    callXrEffect("anim_obj_backward", MockGameObject.mockActor(), MockGameObject.mock(), "first-door", "second-door");
 
-  it.todo("kill_npc should kill object");
+    expect(firstDoor.startAnimation).toHaveBeenCalledWith(false);
+    expect(secondDoor.startAnimation).toHaveBeenCalledWith(false);
+  });
 
-  it.todo("remove_npc should remove object");
+  it("anim_obj_stop should correctly stop animation", () => {
+    const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
+    const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
-  it.todo("clear_abuse should clear abuse state");
+    registry.doors.set("first-door", firstDoor as never);
+    registry.doors.set("second-door", secondDoor as never);
 
-  it.todo("disable_combat_handler should stop actor from participating in combat");
+    callXrEffect("anim_obj_stop", MockGameObject.mockActor(), MockGameObject.mock(), "first-door", "second-door");
 
-  it.todo("disable_combat_ignore_handler should disable combat ignore state");
+    expect(firstDoor.stopAnimation).toHaveBeenCalledTimes(1);
+    expect(secondDoor.stopAnimation).toHaveBeenCalledTimes(1);
+  });
+
+  it("hit_obj should hit object based on parameters", () => {
+    const source: GameObject = MockGameObject.mock();
+    const target: GameObject = MockGameObject.mock();
+
+    registerObject(target);
+    registerStoryLink(target.id(), "target");
+
+    callXrEffect("hit_obj", MockGameObject.mockActor(), source, "target", "bone", 0.25, 10, null);
+
+    expect(target.hit).toHaveBeenCalledWith(
+      expect.objectContaining({ boneName: "bone", draftsman: source, impulse: 10, power: 0.25 })
+    );
+  });
+
+  it("hit_npc_from_actor should hit object from actor", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const target: GameObject = MockGameObject.mock();
+
+    callXrEffect("hit_npc_from_actor", actor, target);
+
+    expect(target.hit).toHaveBeenCalledWith(
+      expect.objectContaining({ boneName: "bip01_spine", draftsman: actor, impulse: 0.001, power: 0.001 })
+    );
+  });
+
+  it("make_enemy should make object enemy to actor", () => {
+    const source: GameObject = MockGameObject.mock();
+    const target: GameObject = MockGameObject.mock();
+
+    registerObject(source);
+    registerStoryLink(source.id(), "source");
+
+    callXrEffect("make_enemy", MockGameObject.mockActor(), target, "source");
+
+    expect(target.hit).toHaveBeenCalledWith(
+      expect.objectContaining({ boneName: "bip01_spine", draftsman: source, impulse: 0.03, power: 0.03 })
+    );
+  });
+
+  it("sniper_fire_mode should set object as sniper", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("sniper_fire_mode", MockGameObject.mockActor(), object, TRUE);
+    expect(object.sniper_fire_mode).toHaveBeenCalledWith(true);
+
+    callXrEffect("sniper_fire_mode", MockGameObject.mockActor(), object, FALSE);
+    expect(object.sniper_fire_mode).toHaveBeenCalledWith(false);
+  });
+
+  it("kill_npc should kill an alive object only", () => {
+    const alive: GameObject = MockGameObject.mock({ alive: true });
+    const dead: GameObject = MockGameObject.mock({ alive: false });
+
+    callXrEffect("kill_npc", MockGameObject.mockActor(), alive);
+    callXrEffect("kill_npc", MockGameObject.mockActor(), dead);
+
+    expect(alive.kill).toHaveBeenCalledWith(alive);
+    expect(dead.kill).not.toHaveBeenCalled();
+  });
+
+  it("remove_npc should remove the server object linked by story id", () => {
+    const serverObject = MockAlifeObject.create();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverObject);
+    registerStoryLink(serverObject.id, "target");
+
+    callXrEffect("remove_npc", MockGameObject.mockActor(), MockGameObject.mock(), "target");
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
+  });
+
+  it("clear_abuse should clear abuse state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const abuseManager = { clearAbuse: jest.fn() };
+
+    setSchemeState(state, EScheme.ABUSE, { abuseManager } as unknown as ISchemeAbuseState);
+
+    callXrEffect("clear_abuse", MockGameObject.mockActor(), object);
+
+    expect(abuseManager.clearAbuse).toHaveBeenCalledTimes(1);
+  });
+
+  it("disable_combat_handler should disable every registered combat handler", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state = registerObject(object);
+
+    setSchemeState(state, EScheme.COMBAT, mockSchemeState<ISchemeCombatState>(EScheme.COMBAT, { enabled: true }));
+    setSchemeState(
+      state,
+      EScheme.MOB_COMBAT,
+      mockSchemeState<ISchemeMobCombatState>(EScheme.MOB_COMBAT, { enabled: true })
+    );
+
+    callXrEffect("disable_combat_handler", MockGameObject.mockActor(), object);
+
+    expect(getSchemeState(state, EScheme.COMBAT)?.enabled).toBe(false);
+    expect(getSchemeState(state, EScheme.MOB_COMBAT)?.enabled).toBe(false);
+  });
+
+  it("disable_combat_ignore_handler should disable combat ignore state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+
+    setSchemeState(
+      state,
+      EScheme.COMBAT_IGNORE,
+      mockSchemeState<ISchemeCombatIgnoreState>(EScheme.COMBAT_IGNORE, { enabled: true })
+    );
+
+    callXrEffect("disable_combat_ignore_handler", MockGameObject.mockActor(), object);
+
+    expect(getSchemeState(state, EScheme.COMBAT_IGNORE)?.enabled).toBe(false);
+  });
 
   it.todo("spawn_object should spawn objects");
 
-  it.todo("spawn_object_in should spawn objects in other objects");
+  it("spawn_object_in should spawn objects in the server inventory of the story target", () => {
+    const serverObject = MockAlifeObject.create();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverObject);
+    registerStoryLink(serverObject.id, "target");
+
+    callXrEffect("spawn_object_in", MockGameObject.mockActor(), MockGameObject.mock(), "test-item", "target");
+
+    expect(registry.simulator.create).toHaveBeenCalledWith("test-item", expect.anything(), 0, 0, serverObject.id);
+  });
 
   it.todo("spawn_corpse should spawn corpses");
 
-  it.todo("destroy_object should destroy objects");
+  it("destroy_object should release linked objects and reject incomplete target descriptors", () => {
+    const object: GameObject = MockGameObject.mock();
+    const serverObject = MockAlifeObject.create({ id: object.id() });
+    const targetObject = MockAlifeObject.create();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(targetObject);
+    registerStoryLink(targetObject.id, "target");
+
+    callXrEffect("destroy_object", MockGameObject.mockActor(), object);
+
+    expect(() => callXrEffect("destroy_object", MockGameObject.mockActor(), object, "story")).toThrow(
+      "Wrong parameters in destroy_object function."
+    );
+
+    callXrEffect("destroy_object", MockGameObject.mockActor(), object, "story", "target");
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
+    expect(registry.simulator.release).toHaveBeenCalledWith(targetObject, true);
+  });
 
   it.todo("create_squad should correctly create squads");
 
@@ -120,11 +295,40 @@ describe("object effects implementation", () => {
 
   it.todo("update_obj_logic should correctly update object logics");
 
-  it.todo("hit_npc should correctly hit objects");
+  it("hit_npc should correctly hit objects", () => {
+    const object: GameObject = MockGameObject.mock();
+    const hitter: GameObject = MockGameObject.mock();
 
-  it.todo("restore_health should correctly restore health of object");
+    registerObject(hitter);
+    registerStoryLink(hitter.id(), "hitter");
 
-  it.todo("force_obj should set const force for objects");
+    callXrEffect("hit_npc", MockGameObject.mockActor(), object, "hitter", null, "bone", 0.25, 10, FALSE);
+
+    expect(object.hit).toHaveBeenCalledWith(
+      expect.objectContaining({ boneName: "bone", draftsman: object, impulse: 10, power: 0.25 })
+    );
+  });
+
+  it("restore_health should correctly restore health of object", () => {
+    const object: GameObject = MockGameObject.mock({ health: 0.2 });
+
+    callXrEffect("restore_health", MockGameObject.mockActor(), object);
+
+    expect(object.health).toBe(1);
+  });
+
+  it("force_obj should set supplied and default upward force values for a story object", () => {
+    const target: GameObject = MockGameObject.mock();
+
+    registerObject(target);
+    registerStoryLink(target.id(), "target");
+
+    callXrEffect("force_obj", MockGameObject.mockActor(), MockGameObject.mock(), "target");
+    callXrEffect("force_obj", MockGameObject.mockActor(), MockGameObject.mock(), "target", 42, 500);
+
+    expect(target.set_const_force).toHaveBeenNthCalledWith(1, expect.anything(), 20, 100);
+    expect(target.set_const_force).toHaveBeenNthCalledWith(2, expect.anything(), 42, 500);
+  });
 
   it("burer_force_gravi_attack should force burrer attack", () => {
     const object: GameObject = MockGameObject.mock();
@@ -148,13 +352,73 @@ describe("object effects implementation", () => {
     expect(object.set_force_anti_aim).toHaveBeenCalledWith(true);
   });
 
-  it.todo("give_items should give items for object");
+  it("give_items should spawn every requested item in the linked object inventory", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("give_item should give item for object");
+    registerSimulator();
 
-  it.todo("disable_memory_object should disable memory object");
+    callXrEffect("give_items", MockGameObject.mockActor(), object, "item-a", "item-b");
 
-  it.todo("set_force_sleep_animation should force sleep animation");
+    expect(registry.simulator.create).toHaveBeenCalledTimes(2);
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(
+      1,
+      "item-a",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(
+      2,
+      "item-b",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+  });
+
+  it("give_item should give an item to the linked server object", () => {
+    const object: GameObject = MockGameObject.mock();
+    const serverObject = MockAlifeObject.create({ id: object.id() });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverObject);
+
+    callXrEffect("give_item", MockGameObject.mockActor(), object, "test-item");
+
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "test-item",
+      serverObject.position,
+      serverObject.m_level_vertex_id,
+      serverObject.m_game_vertex_id,
+      serverObject.id
+    );
+  });
+
+  it("disable_memory_object should disable memory for the current best enemy", () => {
+    const object: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "best_enemy").mockReturnValue(enemy);
+
+    callXrEffect("disable_memory_object", MockGameObject.mockActor(), object);
+
+    jest.spyOn(object, "best_enemy").mockReturnValue(null);
+
+    callXrEffect("disable_memory_object", MockGameObject.mockActor(), object);
+
+    expect(object.enable_memory_object).toHaveBeenCalledWith(enemy, false);
+    expect(object.enable_memory_object).toHaveBeenCalledTimes(1);
+  });
+
+  it("set_force_sleep_animation should force sleep animation", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("set_force_sleep_animation", MockGameObject.mockActor(), object, 5000);
+
+    expect(object.force_stand_sleep_animation).toHaveBeenCalledWith(5000);
+  });
 
   it("release_force_sleep_animation should stop forced sleep animation", () => {
     const object: GameObject = MockGameObject.mock();
@@ -166,9 +430,27 @@ describe("object effects implementation", () => {
     expect(object.release_stand_sleep_animation).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("set_visual_memory_enabled should enable visual memory");
+  it("set_visual_memory_enabled should toggle visual memory for valid boolean values", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("set_monster_animation should set animations for monsters");
+    callXrEffect("set_visual_memory_enabled", MockGameObject.mockActor(), object, 1);
+    callXrEffect("set_visual_memory_enabled", MockGameObject.mockActor(), object, 0);
+
+    expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(true);
+    expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(false);
+  });
+
+  it("set_monster_animation should set animations for monsters", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(() => callXrEffect("set_monster_animation", MockGameObject.mockActor(), object)).toThrow(
+      "Wrong parameters in function 'set_monster_animation'"
+    );
+
+    callXrEffect("set_monster_animation", MockGameObject.mockActor(), object, "test-animation");
+
+    expect(object.set_override_animation).toHaveBeenCalledWith("test-animation");
+  });
 
   it("clear_monster_animation should clear animations for monsters", () => {
     const object: GameObject = MockGameObject.mock();
@@ -182,28 +464,114 @@ describe("object effects implementation", () => {
 
   it.todo("switch_to_desired_job should switch objects to desired jobs");
 
-  it.todo("spawn_item_to_npc should spawn items for objects");
+  it("spawn_item_to_npc should spawn an item in the object inventory", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("give_money_to_npc should give money for objects");
+    registerSimulator();
 
-  it.todo("seize_money_to_npc should get money from objects");
+    callXrEffect("spawn_item_to_npc", MockGameObject.mockActor(), object, "test-item");
+    callXrEffect("spawn_item_to_npc", MockGameObject.mockActor(), object);
 
-  it.todo("heli_start_flame should start flame");
+    expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "test-item",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+  });
 
-  it.todo("heli_die should kill heli");
+  it("give_money_to_npc should give money for objects", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("set_bloodsucker_state should switch bloodsuckers");
+    callXrEffect("give_money_to_npc", MockGameObject.mockActor(), object, 500);
+    callXrEffect("give_money_to_npc", MockGameObject.mockActor(), object);
 
-  it.todo("clear_box should clear boxes");
+    expect(object.give_money).toHaveBeenCalledWith(500);
+    expect(object.give_money).toHaveBeenCalledTimes(1);
+  });
+
+  it("seize_money_to_npc should get money from objects", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("seize_money_to_npc", MockGameObject.mockActor(), object, 500);
+    callXrEffect("seize_money_to_npc", MockGameObject.mockActor(), object);
+
+    expect(object.give_money).toHaveBeenCalledWith(-500);
+    expect(object.give_money).toHaveBeenCalledTimes(1);
+  });
+
+  it("heli_start_flame should start flame", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+
+    callXrEffect("heli_start_flame", MockGameObject.mockActor(), object);
+
+    expect(object.get_helicopter().StartFlame).toHaveBeenCalledTimes(1);
+  });
+
+  it("heli_die should kill heli and remove it from the active helicopter list", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+
+    registry.helicopter.storage.set(object.id(), object);
+
+    callXrEffect("heli_die", MockGameObject.mockActor(), object);
+
+    expect(object.get_helicopter().Die).toHaveBeenCalledTimes(1);
+    expect(registry.helicopter.storage.has(object.id())).toBe(false);
+  });
+
+  it("set_bloodsucker_state should switch bloodsuckers", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(() => callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), object)).toThrow(
+      "Wrong parameters in function 'set_bloodsucker_state'"
+    );
+
+    callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), object, "1");
+    callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), object, "default");
+
+    expect(object.force_visibility_state).toHaveBeenNthCalledWith(1, 1);
+    expect(object.force_visibility_state).toHaveBeenNthCalledWith(2, -1);
+  });
+
+  it("clear_box should release every item contained in the story inventory box", () => {
+    const box: GameObject = MockGameObject.mock();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const firstServer = MockAlifeObject.create({ id: first.id() });
+    const secondServer = MockAlifeObject.create({ id: second.id() });
+
+    registerSimulator();
+
+    MockAlifeSimulator.addToRegistry(firstServer);
+    MockAlifeSimulator.addToRegistry(secondServer);
+
+    registerObject(box);
+    registerStoryLink(box.id(), "test-box");
+
+    replaceFunctionMock(box.iterate_inventory_box, (callback: AnyCallable) => {
+      callback(box, first);
+      callback(box, second);
+    });
+
+    callXrEffect("clear_box", MockGameObject.mockActor(), MockGameObject.mock(), "test-box");
+
+    expect(registry.simulator.release).toHaveBeenCalledTimes(2);
+    expect(registry.simulator.release).toHaveBeenNthCalledWith(1, firstServer, true);
+    expect(registry.simulator.release).toHaveBeenNthCalledWith(2, secondServer, true);
+  });
 
   it("polter_actor_ignore should force poltergeist to ignore actor", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("polter_actor_ignore", MockGameObject.mockActor(), object, TRUE);
+
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledTimes(1);
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledWith(true);
 
     callXrEffect("polter_actor_ignore", MockGameObject.mockActor(), object, FALSE);
+
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledTimes(2);
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledWith(false);
   });
@@ -219,10 +587,12 @@ describe("object effects implementation", () => {
     );
 
     callXrEffect("set_torch_state", MockGameObject.mockActor(), object, "test-sid", "on");
+
     expect(torch.enable_attachable_item).toHaveBeenCalledTimes(1);
     expect(torch.enable_attachable_item).toHaveBeenCalledWith(true);
 
     callXrEffect("set_torch_state", MockGameObject.mockActor(), object, "test-sid", "off");
+
     expect(torch.enable_attachable_item).toHaveBeenCalledTimes(2);
     expect(torch.enable_attachable_item).toHaveBeenCalledWith(false);
   });
