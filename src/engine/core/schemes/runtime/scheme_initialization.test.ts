@@ -37,7 +37,7 @@ import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");

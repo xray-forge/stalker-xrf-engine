@@ -12,7 +12,7 @@ import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_event");

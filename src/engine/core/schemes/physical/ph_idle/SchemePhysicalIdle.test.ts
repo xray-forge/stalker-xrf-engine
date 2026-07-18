@@ -7,8 +7,8 @@ import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/physical/ph_idle/SchemePhysicalIdle";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalIdle", () => {

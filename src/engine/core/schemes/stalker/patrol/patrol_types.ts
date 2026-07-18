@@ -5,8 +5,8 @@ import type { EPatrolFormation } from "@/engine/core/ai/patrol";
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Descriptor of patrol captured object state.

@@ -10,7 +10,7 @@ import {
   EvaluatorCombatCamper,
   EvaluatorSeeBestEnemyEnemy,
 } from "@/engine/core/schemes/stalker/combat_camper/evaluator";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme describing combat of camper type.

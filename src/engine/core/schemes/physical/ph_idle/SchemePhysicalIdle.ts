@@ -4,6 +4,7 @@ import { TSection } from "xray16/lib";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   parseBoneStateDescriptors,
@@ -11,7 +12,6 @@ import {
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme to manage idle state of items.

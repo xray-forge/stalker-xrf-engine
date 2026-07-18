@@ -7,8 +7,8 @@ import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager"
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { SchemeCode } from "@/engine/core/schemes/physical/ph_code/SchemeCode";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeCode", () => {

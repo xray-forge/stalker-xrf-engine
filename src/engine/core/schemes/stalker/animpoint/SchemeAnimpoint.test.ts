@@ -12,8 +12,8 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/a
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
 import { SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint/SchemeAnimpoint";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeAnimpoint", () => {

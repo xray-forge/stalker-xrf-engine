@@ -3,8 +3,8 @@ import { Nillable, TCount, TIndex, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

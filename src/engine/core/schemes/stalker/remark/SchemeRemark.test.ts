@@ -9,8 +9,8 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { SchemeRemark } from "@/engine/core/schemes/stalker/remark/SchemeRemark";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeRemark", () => {

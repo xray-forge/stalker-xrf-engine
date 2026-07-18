@@ -11,6 +11,7 @@ import {
   JobPathTypeByScheme,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   getSchemeFromSection,
   parseConditionsList,
@@ -21,7 +22,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 

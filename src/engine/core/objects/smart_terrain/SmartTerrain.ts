@@ -97,6 +97,7 @@ import {
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import type { Squad } from "@/engine/core/objects/squad";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
+import { ESchemeType } from "@/engine/core/schemes/types";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
@@ -116,7 +117,6 @@ import {
 import { resetTable } from "@/engine/core/utils/table";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode: ELuaLoggerMode.DUAL });
 

@@ -3,6 +3,7 @@ import { LuaArray, NIL, Nillable, TDistance, TNumberId, TRUE, TSection } from "x
 import { $isNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   getSectionsFromConditionLists,
   parseConditionsList,
@@ -12,7 +13,6 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Synchronize object invulnerability with the active section's condition list.

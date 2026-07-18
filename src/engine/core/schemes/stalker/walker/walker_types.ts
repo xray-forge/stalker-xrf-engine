@@ -3,8 +3,8 @@ import type { LuaArray, Nillable, TName } from "xray16/lib";
 import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Walker scheme state.

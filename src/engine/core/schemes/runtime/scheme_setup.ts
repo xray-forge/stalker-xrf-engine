@@ -6,8 +6,8 @@ import { $filename } from "xray16/macros";
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";
 import { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

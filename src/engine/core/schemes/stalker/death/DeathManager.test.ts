@@ -6,8 +6,8 @@ import { IRegistryObjectState, registerObject, registry } from "@/engine/core/da
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/ini/ini_config");

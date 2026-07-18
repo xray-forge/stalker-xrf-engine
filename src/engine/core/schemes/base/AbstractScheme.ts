@@ -3,8 +3,7 @@ import { abort, AnyObject, Nillable, TName, TSection } from "xray16/lib";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSchemeStateByKey, IBaseSchemeState, setSchemeStateByKey } from "@/engine/core/schemes/state";
-import { ISchemeEventHandler } from "@/engine/lib/types";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType, ISchemeEventHandler } from "@/engine/core/schemes/types";
 
 /**
  * Type describing abstract scheme implementation static class.

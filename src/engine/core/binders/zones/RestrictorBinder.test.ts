@@ -13,8 +13,8 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_event");

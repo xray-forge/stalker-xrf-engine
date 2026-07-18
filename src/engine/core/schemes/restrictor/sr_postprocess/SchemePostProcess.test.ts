@@ -7,7 +7,7 @@ import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postproc
 import { SchemePostProcess } from "@/engine/core/schemes/restrictor/sr_postprocess/SchemePostProcess";
 import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePostProcess", () => {

@@ -8,7 +8,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme implementing logics of handling / checking danger for stalkers.

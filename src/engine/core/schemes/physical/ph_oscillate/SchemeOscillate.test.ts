@@ -7,8 +7,8 @@ import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/Os
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { SchemeOscillate } from "@/engine/core/schemes/physical/ph_oscillate/SchemeOscillate";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeOscillate", () => {

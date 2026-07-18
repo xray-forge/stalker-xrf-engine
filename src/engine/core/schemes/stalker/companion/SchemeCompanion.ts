@@ -8,8 +8,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of companion follower for stalkers.

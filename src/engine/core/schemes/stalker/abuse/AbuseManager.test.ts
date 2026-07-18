@@ -6,7 +6,7 @@ import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("AbuseManager", () => {

@@ -5,8 +5,8 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme defining logics of handling hits for physical objects.

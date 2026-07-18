@@ -3,7 +3,7 @@ import { $isNotNil } from "xray16/macros";
 
 import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import type { IBaseSchemeState, ISchemeStateMap, TStatefulScheme } from "@/engine/core/schemes/state/types";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Check whether a registered scheme state exists.

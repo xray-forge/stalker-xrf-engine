@@ -11,7 +11,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("saveObjectLogic and loadObjectLogic", () => {

@@ -1,6 +1,6 @@
 import type { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Combat scheme state for monster.

@@ -9,11 +9,11 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectHelpingWounded, isObjectSearchingCorpse } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
-import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 

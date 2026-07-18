@@ -7,7 +7,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({

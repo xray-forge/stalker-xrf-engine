@@ -8,8 +8,8 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
+import { EScheme } from "@/engine/core/schemes/types";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("xray16/lib", () => ({

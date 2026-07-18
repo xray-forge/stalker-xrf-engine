@@ -14,8 +14,8 @@ import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol/SchemePatrol";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import {
   assertSchemeSubscribedToManager,
   checkPlannerAction,

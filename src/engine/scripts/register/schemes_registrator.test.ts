@@ -2,7 +2,7 @@ import { describe, it } from "@jest/globals";
 import { NIL } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
 
 describe("schemes_registrator entry point", () => {

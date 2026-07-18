@@ -8,8 +8,8 @@ import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/typ
 import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.

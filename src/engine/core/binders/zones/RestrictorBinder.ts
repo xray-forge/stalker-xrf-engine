@@ -22,10 +22,9 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
+import { ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ESchemeEvent } from "@/engine/lib/types";
-import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

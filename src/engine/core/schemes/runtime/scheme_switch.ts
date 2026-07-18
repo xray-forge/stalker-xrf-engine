@@ -26,10 +26,10 @@ import {
   IBaseSchemeLogic,
   IBaseSchemeState,
 } from "@/engine/core/schemes/state";
+import { ESchemeCondition, ESchemeEvent } from "@/engine/core/schemes/types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
-import { ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

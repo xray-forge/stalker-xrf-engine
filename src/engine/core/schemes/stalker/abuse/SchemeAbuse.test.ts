@@ -10,7 +10,7 @@ import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { assertSchemeNotToBeSubscribed, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeAbuse", () => {

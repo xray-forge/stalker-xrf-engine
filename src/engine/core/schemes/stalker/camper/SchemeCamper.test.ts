@@ -10,8 +10,8 @@ import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/action
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators";
 import { SchemeCamper } from "@/engine/core/schemes/stalker/camper/SchemeCamper";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeCamper", () => {

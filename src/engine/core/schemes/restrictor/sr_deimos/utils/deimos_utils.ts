@@ -4,7 +4,7 @@ import { TName, TRate } from "xray16/lib";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  *

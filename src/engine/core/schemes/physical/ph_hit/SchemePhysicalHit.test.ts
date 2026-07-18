@@ -7,8 +7,8 @@ import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/p
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
 import { SchemePhysicalHit } from "@/engine/core/schemes/physical/ph_hit/SchemePhysicalHit";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalHit", () => {

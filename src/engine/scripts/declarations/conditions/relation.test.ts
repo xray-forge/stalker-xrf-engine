@@ -7,8 +7,8 @@ import { MockAlifeHumanStalker, mockCharactersGoodwill, MockGameObject } from "x
 import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

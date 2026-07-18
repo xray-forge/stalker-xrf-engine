@@ -6,7 +6,7 @@ import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSchemeStateOptimistic, hasSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * @param objectId - Target object id to check state.

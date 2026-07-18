@@ -5,8 +5,8 @@ import { $isNotNil } from "xray16/macros";
 import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { getSchemeState, getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Finish helping wounded on successful healing animation.

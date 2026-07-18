@@ -23,6 +23,7 @@ import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { IBaseSchemeLogic, ILogicsOverrides } from "@/engine/core/schemes/state";
+import { ESchemeCondition } from "@/engine/core/schemes/types";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import {
@@ -36,7 +37,6 @@ import {
 } from "@/engine/core/utils/ini/ini_read";
 import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { ESchemeCondition } from "@/engine/lib/types";
 
 /**
  * Parse array of `|` separated condition lists.

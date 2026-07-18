@@ -9,7 +9,7 @@ import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/ac
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/SchemeHelpWounded";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 function prepareActionPlanner(object: GameObject): ActionPlanner {

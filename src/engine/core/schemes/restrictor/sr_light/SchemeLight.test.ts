@@ -7,8 +7,8 @@ import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightMan
 import { SchemeLight } from "@/engine/core/schemes/restrictor/sr_light/SchemeLight";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeLight", () => {

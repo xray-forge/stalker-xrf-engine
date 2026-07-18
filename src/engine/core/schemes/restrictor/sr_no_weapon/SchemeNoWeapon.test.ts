@@ -7,8 +7,8 @@ import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/N
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeNoWeapon", () => {

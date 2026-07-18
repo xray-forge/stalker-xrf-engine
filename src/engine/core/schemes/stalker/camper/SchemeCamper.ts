@@ -9,8 +9,8 @@ import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/action
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";
 import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/stalker/camper/evaluators";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme defining how stalker should handle camping enemies and waiting for ambush.

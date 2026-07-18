@@ -5,7 +5,7 @@ import { MockGameObject, MockVector } from "xray16/mocks";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeDeimosState, isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("isDeimosPhase util", () => {

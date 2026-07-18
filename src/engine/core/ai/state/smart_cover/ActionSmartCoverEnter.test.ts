@@ -8,7 +8,7 @@ import { ActionSmartCoverEnter } from "@/engine/core/ai/state/smart_cover/Action
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionSmartCoverEnter", () => {

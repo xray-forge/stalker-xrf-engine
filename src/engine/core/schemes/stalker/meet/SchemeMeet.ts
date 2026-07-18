@@ -11,8 +11,8 @@ import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators"
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing logics of `meet` state.

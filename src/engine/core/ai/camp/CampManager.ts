@@ -17,10 +17,10 @@ import {
   getSchemeState,
   hasActiveScheme,
 } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -4,7 +4,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("WoundManager", () => {

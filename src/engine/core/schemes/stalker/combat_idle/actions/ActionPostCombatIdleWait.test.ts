@@ -10,8 +10,8 @@ import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions/ActionPostCombatIdleWait";
+import { EScheme } from "@/engine/core/schemes/types";
 import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/weapon";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/weapon");

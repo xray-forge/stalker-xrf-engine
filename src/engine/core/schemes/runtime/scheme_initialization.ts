@@ -22,13 +22,13 @@ import {
 } from "@/engine/core/schemes/runtime/scheme_logic";
 import { disableObjectBaseSchemes } from "@/engine/core/schemes/runtime/scheme_setup";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
+import { ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

@@ -9,8 +9,8 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
 import { SchemeCompanion } from "@/engine/core/schemes/stalker/companion/SchemeCompanion";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeCompanion", () => {

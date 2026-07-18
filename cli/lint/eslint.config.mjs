@@ -162,7 +162,7 @@ export default [
         {
           paths: [
             {
-              message: "Import a scheme facet or a concrete scheme module from within core/schemes.",
+              message: "Import a scheme facet, types, or a concrete scheme module from within core/schemes.",
               name: "@/engine/core/schemes",
             },
           ],

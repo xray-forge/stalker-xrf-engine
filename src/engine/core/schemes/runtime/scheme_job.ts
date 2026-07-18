@@ -9,8 +9,8 @@ import {
   initializeObjectSchemeLogic,
 } from "@/engine/core/schemes/runtime/scheme_initialization";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/schemes/runtime/scheme_logic";
+import { ESchemeType } from "@/engine/core/schemes/types";
 import { getSchemeFromSection } from "@/engine/core/utils/ini";
-import { ESchemeType } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to setup logic.

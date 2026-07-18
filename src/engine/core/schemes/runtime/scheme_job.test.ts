@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/schemes/runtime/scheme_initialization";
 import { setupObjectLogicsOnSpawn, setupSmartTerrainObjectJobLogic } from "@/engine/core/schemes/runtime/scheme_job";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/schemes/runtime/scheme_logic";
-import { ESchemeType } from "@/engine/lib/types";
+import { ESchemeType } from "@/engine/core/schemes/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_initialization");

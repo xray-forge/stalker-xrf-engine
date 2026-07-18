@@ -8,7 +8,7 @@ import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mo
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_switch");

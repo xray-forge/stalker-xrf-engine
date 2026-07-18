@@ -1,7 +1,7 @@
 import type { LuaArray, TDuration, TName, TProbability } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Teleport state.

@@ -10,8 +10,8 @@ import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounde
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme describing object logics for helping friendly injured stalkers.

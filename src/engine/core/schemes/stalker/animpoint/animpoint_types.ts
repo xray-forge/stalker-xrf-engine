@@ -4,7 +4,7 @@ import { LuaArray, Nillable, TDistance, TName } from "xray16/lib";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * State of animpoint scheme.

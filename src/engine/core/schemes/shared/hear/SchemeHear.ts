@@ -8,10 +8,10 @@ import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/schem
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { getSchemeState } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 // Todo: move to scheme.
 export class SchemeHear extends AbstractScheme {

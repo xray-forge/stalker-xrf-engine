@@ -8,9 +8,9 @@ import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_i
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Post combat idle scheme manager.

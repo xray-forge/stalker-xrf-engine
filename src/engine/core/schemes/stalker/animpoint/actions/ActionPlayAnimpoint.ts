@@ -4,8 +4,8 @@ import { $filename } from "xray16/macros";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

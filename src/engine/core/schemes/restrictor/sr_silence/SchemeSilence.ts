@@ -5,8 +5,8 @@ import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme to implement zones where playing dynamic music is restricted.

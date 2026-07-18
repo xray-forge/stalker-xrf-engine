@@ -4,9 +4,9 @@ import { TSection } from "xray16/lib";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaManager";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing psy antenna restrictor logics.

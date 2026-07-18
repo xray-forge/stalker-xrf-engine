@@ -34,9 +34,9 @@ import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/Animpo
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

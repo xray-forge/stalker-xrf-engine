@@ -2,8 +2,8 @@ import { MockIniFile } from "xray16/mocks";
 
 import { type AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { type IBaseSchemeLogic, type IBaseSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Mock generic scheme state.

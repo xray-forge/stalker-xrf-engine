@@ -13,7 +13,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet/SchemeMeet";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/stalker/meet/utils");

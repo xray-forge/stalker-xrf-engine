@@ -7,8 +7,8 @@ import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy
 import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenna/SchemePsyAntenna";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePsyAntenna", () => {

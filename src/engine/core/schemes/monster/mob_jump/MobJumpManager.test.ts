@@ -7,7 +7,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("MobJumpManager", () => {

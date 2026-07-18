@@ -9,8 +9,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions/ActionRemarkActivity";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing remark logics of transitions between scenarios.

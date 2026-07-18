@@ -11,8 +11,8 @@ import { getCampZoneForPosition, getManager, registry, setStalkerState } from "@
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * GOAP action implementing walker patrol logics.

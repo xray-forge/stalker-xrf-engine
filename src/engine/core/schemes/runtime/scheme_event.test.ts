@@ -6,7 +6,7 @@ import { IRegistryObjectState, registerObject, registry } from "@/engine/core/da
 import { emitSchemeEvent, setObjectActiveSchemeSignal } from "@/engine/core/schemes/runtime/scheme_event";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { getSchemeStateOptimistic, IBaseSchemeState, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 
 describe("emitSchemeEvent util", () => {

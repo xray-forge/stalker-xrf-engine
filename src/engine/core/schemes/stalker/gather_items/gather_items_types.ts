@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Gather items scheme state.

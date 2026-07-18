@@ -4,8 +4,8 @@ import { assert, TSection } from "xray16/lib";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme logic implementation for teleporting restrictors.

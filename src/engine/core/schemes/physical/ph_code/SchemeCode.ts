@@ -5,6 +5,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   readIniConditionList,
@@ -12,7 +13,6 @@ import {
   readIniString,
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing code input for physical objects.

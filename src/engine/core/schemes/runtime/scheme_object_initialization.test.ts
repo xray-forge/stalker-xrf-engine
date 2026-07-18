@@ -11,7 +11,7 @@ import {
   initializeObjectInvulnerability,
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/schemes/runtime/scheme_object_initialization";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 describe("initializeObjectInvulnerability util", () => {
   it("should correctly initialize", () => {

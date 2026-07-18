@@ -49,8 +49,8 @@ import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 
 function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {

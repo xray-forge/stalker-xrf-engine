@@ -9,8 +9,8 @@ import {
   COVER_SUBSTATE_TABLE,
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Action to handle hiding in smart covers.

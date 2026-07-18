@@ -6,8 +6,8 @@ import { MockAlifeSimulator, MockAlifeSmartZone, MockGameObject, MockServerAlife
 import { registerSimulator } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
+import { EScheme } from "@/engine/core/schemes/types";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 
 describe("MobHomeManager functionality", () => {

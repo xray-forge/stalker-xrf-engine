@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Manager of object hit events.

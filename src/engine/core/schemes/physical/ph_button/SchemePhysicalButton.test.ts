@@ -7,8 +7,8 @@ import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_bu
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import { SchemePhysicalButton } from "@/engine/core/schemes/physical/ph_button/SchemePhysicalButton";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalButton", () => {

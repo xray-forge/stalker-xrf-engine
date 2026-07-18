@@ -5,7 +5,7 @@ import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor,
 
 import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("CrowBinder", () => {

@@ -1,6 +1,6 @@
 import type { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * State descriptor for physical hits handling scheme.

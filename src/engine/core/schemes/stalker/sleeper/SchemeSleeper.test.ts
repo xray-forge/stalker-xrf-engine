@@ -9,8 +9,8 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions";
 import { SchemeSleeper } from "@/engine/core/schemes/stalker/sleeper/SchemeSleeper";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeSleeper", () => {

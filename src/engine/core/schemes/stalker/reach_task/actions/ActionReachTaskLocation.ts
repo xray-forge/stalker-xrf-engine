@@ -12,11 +12,11 @@ import { Squad } from "@/engine/core/objects/squad/Squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

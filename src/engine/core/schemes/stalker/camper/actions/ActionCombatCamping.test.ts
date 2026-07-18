@@ -12,7 +12,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions/ActionCombatCamping";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 function createAction(): [ActionCombatCamping, GameObject, IRegistryObjectState, ISchemeCamperState] {

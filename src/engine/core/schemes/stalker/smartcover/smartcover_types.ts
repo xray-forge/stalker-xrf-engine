@@ -3,7 +3,7 @@ import { NIL, Nillable, StringNillable, TDuration, TName, TStringId } from "xray
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Mapping of smart cover substates to the stalker animation state used for each of them.

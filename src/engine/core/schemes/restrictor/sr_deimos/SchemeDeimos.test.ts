@@ -7,8 +7,8 @@ import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/Deimos
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeDeimos", () => {

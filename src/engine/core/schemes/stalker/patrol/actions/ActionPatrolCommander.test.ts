@@ -9,8 +9,8 @@ import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolCommander } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolCommander";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionPatrolCommander", () => {

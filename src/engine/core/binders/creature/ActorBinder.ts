@@ -25,9 +25,9 @@ import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

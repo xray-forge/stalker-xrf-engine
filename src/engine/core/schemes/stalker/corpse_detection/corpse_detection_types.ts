@@ -2,7 +2,7 @@ import { Vector } from "xray16/alias";
 import { Nillable, TNumberId, TStringId } from "xray16/lib";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Key in portable store indicating who is looting corpse.

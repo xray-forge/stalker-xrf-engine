@@ -1,7 +1,7 @@
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
-import { ESchemeEvent } from "@/engine/lib/types";
+import { ESchemeEvent } from "@/engine/core/schemes/types";
 
 /**
  * Handle ending of cutscene.

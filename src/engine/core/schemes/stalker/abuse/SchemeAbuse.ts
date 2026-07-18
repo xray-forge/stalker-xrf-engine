@@ -9,7 +9,7 @@ import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_typ
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators/EvaluatorAbuse";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Generic scheme to measure abuse when clicking stalkers for many times.

@@ -3,7 +3,7 @@ import type { LuaArray, Nillable, TCount, TDistance, TDuration, TIndex, TName, T
 
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Single look point used when scanning, pairing a waypoint key with its world position.

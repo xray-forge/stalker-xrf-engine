@@ -11,7 +11,7 @@ import {
   ISchemeParticleState,
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));

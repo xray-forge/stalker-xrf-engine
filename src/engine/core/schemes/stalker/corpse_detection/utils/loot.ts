@@ -5,8 +5,8 @@ import { getManager, IRegistryObjectState, registry, setPortableStoreValue } fro
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { transferLoot } from "@/engine/core/utils/loot";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Finish loot corpse action - transfer all the items from corpse and play sound notification about loot quality.

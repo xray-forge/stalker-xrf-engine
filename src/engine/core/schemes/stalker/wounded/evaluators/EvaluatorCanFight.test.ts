@@ -5,7 +5,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("EvaluatorCanFight", () => {

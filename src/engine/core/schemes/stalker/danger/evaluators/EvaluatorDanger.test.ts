@@ -10,8 +10,8 @@ import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators/EvaluatorDanger";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
+import { EScheme } from "@/engine/core/schemes/types";
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/stalker/danger/utils");

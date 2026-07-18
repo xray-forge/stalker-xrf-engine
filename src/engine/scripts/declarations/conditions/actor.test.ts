@@ -9,12 +9,12 @@ import { IRegistryObjectState, registerObject, registerZone } from "@/engine/cor
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

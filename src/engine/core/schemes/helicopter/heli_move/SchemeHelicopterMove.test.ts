@@ -7,8 +7,8 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/hel
 import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeHelicopterMove", () => {

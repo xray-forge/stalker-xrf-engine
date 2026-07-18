@@ -13,8 +13,8 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_cutscene";
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 function mockEffectorDescriptor(

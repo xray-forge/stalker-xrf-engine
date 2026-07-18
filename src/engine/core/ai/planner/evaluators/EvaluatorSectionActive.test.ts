@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("EvaluatorSectionActive", () => {

@@ -1,8 +1,8 @@
 import type { LuaArray, Nillable, TName } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 export interface ISchemeSleeperState extends IBaseSchemeState {
   pathMain: TName;

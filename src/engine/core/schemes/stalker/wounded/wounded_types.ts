@@ -2,8 +2,8 @@ import type { LuaArray, Nillable, TDistance, TSection, TStringId } from "xray16/
 
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { TConditionList } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 export const PS_BEGIN_WOUNDED: TStringId = "begin_wounded";
 

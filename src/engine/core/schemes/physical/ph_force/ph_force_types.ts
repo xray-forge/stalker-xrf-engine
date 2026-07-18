@@ -2,7 +2,7 @@ import type { Vector } from "xray16/alias";
 import type { TDuration, TIndex, TName, TRate } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * State of physical force scheme.

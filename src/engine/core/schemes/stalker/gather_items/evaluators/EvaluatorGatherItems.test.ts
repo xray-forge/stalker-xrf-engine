@@ -4,7 +4,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators/EvaluatorGatherItems";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("EvaluatorGatherItems", () => {

@@ -17,8 +17,8 @@ import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/He
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/object");

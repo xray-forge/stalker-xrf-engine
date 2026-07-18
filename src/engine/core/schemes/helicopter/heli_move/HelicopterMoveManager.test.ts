@@ -11,8 +11,8 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/hel
 import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("HelicopterMoveManager", () => {

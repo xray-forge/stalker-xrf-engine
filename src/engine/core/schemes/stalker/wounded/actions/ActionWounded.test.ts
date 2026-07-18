@@ -25,7 +25,7 @@ import {
 } from "@/engine/core/schemes/stalker/wounded";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionWounded", () => {

@@ -6,8 +6,8 @@ import { $isNil } from "xray16/macros";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
 import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of scripted for usage to physical objects.

@@ -7,8 +7,8 @@ import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManag
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Action to handle sleeping state of stalkers.

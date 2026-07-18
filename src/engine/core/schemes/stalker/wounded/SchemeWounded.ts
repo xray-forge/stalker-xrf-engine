@@ -12,10 +12,10 @@ import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme to capture stalker logic and lay wounded / call for help.

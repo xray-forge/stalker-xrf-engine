@@ -7,8 +7,8 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { SchemeDeath } from "@/engine/core/schemes/stalker/death/SchemeDeath";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeDeath", () => {

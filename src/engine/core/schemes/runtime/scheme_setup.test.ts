@@ -17,7 +17,7 @@ import {
 import { SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("disableObjectGenericSchemes util", () => {

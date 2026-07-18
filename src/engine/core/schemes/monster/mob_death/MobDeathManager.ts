@@ -6,7 +6,7 @@ import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { getSchemeStateByKey, setSchemeStateByKey } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Handler to manage monster death events.

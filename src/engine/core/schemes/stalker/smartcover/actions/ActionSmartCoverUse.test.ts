@@ -11,8 +11,8 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions/ActionSmartCoverUse";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/database/stalker");

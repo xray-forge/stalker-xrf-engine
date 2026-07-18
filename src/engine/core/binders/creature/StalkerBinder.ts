@@ -66,6 +66,7 @@ import {
   hasActiveScheme,
   hasSchemeState,
 } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
@@ -81,8 +82,6 @@ import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/co
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
-import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

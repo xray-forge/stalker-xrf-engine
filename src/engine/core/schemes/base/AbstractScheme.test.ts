@@ -7,7 +7,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getSchemeStateOptimistic, IBaseSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("AbstractScheme", () => {

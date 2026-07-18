@@ -19,6 +19,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { getSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   hasAchievedFriendOfStalkers,
   hasAchievedInformationDealer,
@@ -28,7 +29,6 @@ import { isWeapon } from "@/engine/core/utils/class_ids";
 import { actorHasItemCount } from "@/engine/core/utils/item";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check whether `wealthy` achievement criteria is achieved.

@@ -11,8 +11,8 @@ import { getManager, IRegistryObjectState, registerCampZone, registerObject } fr
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions/ActionWalkerActivity";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionWalkerActivity", () => {

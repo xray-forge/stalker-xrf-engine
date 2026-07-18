@@ -9,7 +9,7 @@ import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_i
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { checkPlannerAction, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemePostCombatIdle", () => {

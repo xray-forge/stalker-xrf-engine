@@ -6,7 +6,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme describing stalker combat ignore state.

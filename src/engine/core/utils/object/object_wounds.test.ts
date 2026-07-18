@@ -8,13 +8,13 @@ import { IRegistryObjectState, registerObject, registerSimulator, registry } fro
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   enableObjectWoundedHealing,
   giveWoundedObjectMedkit,
   isObjectPsyWounded,
   setObjectWounded,
 } from "@/engine/core/utils/object/object_wounds";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("giveWoundedObjectMedkit util", () => {

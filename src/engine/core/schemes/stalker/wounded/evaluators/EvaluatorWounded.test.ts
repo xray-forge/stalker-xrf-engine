@@ -7,7 +7,7 @@ import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT, PS_WOUNDED_STATE } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 function mockEvaluator(hasEnemy: boolean = false): {

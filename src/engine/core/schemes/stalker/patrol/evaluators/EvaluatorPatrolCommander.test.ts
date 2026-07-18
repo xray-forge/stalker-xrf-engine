@@ -6,7 +6,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators/EvaluatorPatrolCommander";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("EvaluatorPatrolCommander", () => {

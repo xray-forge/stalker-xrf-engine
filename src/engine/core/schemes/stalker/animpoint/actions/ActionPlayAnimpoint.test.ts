@@ -9,7 +9,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ActionPlayAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions/ActionPlayAnimpoint";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionPlayAnimpoint", () => {

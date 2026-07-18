@@ -43,6 +43,7 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { getSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   isBoar,
   isBurer,
@@ -63,7 +64,6 @@ import { getObjectTerrain } from "@/engine/core/utils/position";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check if object is snork.

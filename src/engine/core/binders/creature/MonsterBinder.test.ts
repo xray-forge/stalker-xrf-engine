@@ -37,10 +37,10 @@ import {
   ILogicsOverrides,
   setSchemeState,
 } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime");

@@ -25,9 +25,9 @@ import {
   hasActiveScheme,
   hasSchemeState,
 } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

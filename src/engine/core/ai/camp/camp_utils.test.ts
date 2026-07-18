@@ -17,7 +17,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerCampZone, registerObject, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("startPlayingGuitar util", () => {

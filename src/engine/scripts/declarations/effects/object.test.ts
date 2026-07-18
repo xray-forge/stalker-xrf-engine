@@ -16,8 +16,8 @@ import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { getSchemeState, setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EScheme } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("object effects declaration", () => {

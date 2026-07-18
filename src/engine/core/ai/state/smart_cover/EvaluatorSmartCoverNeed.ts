@@ -6,7 +6,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Checks if object needs smart cover.

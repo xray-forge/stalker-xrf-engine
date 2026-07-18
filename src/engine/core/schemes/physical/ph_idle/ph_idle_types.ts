@@ -1,8 +1,8 @@
 import type { LuaArray, Nillable, TLabel } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { IBoneStateDescriptor } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Descriptor to describe idle state scheme.

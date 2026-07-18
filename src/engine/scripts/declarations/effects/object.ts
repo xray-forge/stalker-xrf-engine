@@ -60,6 +60,7 @@ import {
   hasActiveScheme,
   hasSchemeState,
 } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   IConfigSwitchCondition,
   parseConditionsList,
@@ -77,7 +78,6 @@ import {
   spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

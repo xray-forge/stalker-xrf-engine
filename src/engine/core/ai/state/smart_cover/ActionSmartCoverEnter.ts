@@ -5,8 +5,8 @@ import { $filename } from "xray16/macros";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
+import { EScheme } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

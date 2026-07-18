@@ -7,8 +7,8 @@ import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Gives wounds medication for target object to heal up.

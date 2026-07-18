@@ -19,7 +19,7 @@ import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   callXrEffect,
   checkXrEffect,

@@ -2,8 +2,8 @@ import type { Nillable, TDistance, TSection } from "xray16/lib";
 
 import type { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { TConditionList } from "@/engine/core/utils/ini";
-import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Approximate meet distance to simplify logical checks.

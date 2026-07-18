@@ -7,8 +7,8 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit/SchemeHit";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeHit", () => {

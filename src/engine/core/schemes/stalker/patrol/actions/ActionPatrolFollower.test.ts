@@ -8,8 +8,8 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolFollower";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionPatrolFollower", () => {

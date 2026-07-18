@@ -13,7 +13,7 @@ import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators/EvaluatorCloseCombat";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 interface ISetupResult {

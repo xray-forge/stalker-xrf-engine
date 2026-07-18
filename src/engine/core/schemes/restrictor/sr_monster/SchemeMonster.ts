@@ -4,8 +4,8 @@ import { TSection } from "xray16/lib";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniNumber, readIniString, readIniStringList } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing monsters hiding somewhere.

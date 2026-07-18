@@ -2,7 +2,7 @@ import { TIndex, TNumberId } from "xray16/lib";
 
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Hit scheme state.

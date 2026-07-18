@@ -19,9 +19,9 @@ import {
   IBaseSchemeState,
   setSchemeState,
 } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeCondition } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { addConditionToList, parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 
 // todo: Complex logic switch

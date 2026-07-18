@@ -7,7 +7,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme defining logics of stalker when reaching smart terrain task.

@@ -8,8 +8,8 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 import { IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

@@ -20,6 +20,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/schemes/runtime/scheme_object_initialization";
 import { getSchemeStateByKeyOptimistic, IBaseSchemeLogic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getObjectConfigOverrides,
   getSchemeFromSection,
@@ -29,7 +30,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

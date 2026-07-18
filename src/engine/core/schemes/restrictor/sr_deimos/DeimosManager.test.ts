@@ -9,7 +9,7 @@ import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosConfig";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("DeimosManager", () => {

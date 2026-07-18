@@ -13,8 +13,8 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_teleport";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction, patrols } from "@/fixtures/engine";
 
 describe("TeleportManager", () => {

@@ -11,7 +11,7 @@ import {
   setObjectAbuseState,
 } from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 describe("addObjectAbuse util", () => {

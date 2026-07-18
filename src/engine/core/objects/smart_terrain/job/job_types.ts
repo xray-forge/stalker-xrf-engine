@@ -3,7 +3,7 @@ import { AnyObject, LuaArray, Nillable, PartialRecord, TNumberId, TPath, TRate, 
 import { $fromArray } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * List of ini fields describing patrol paths and points used to define smart terrain jobs.

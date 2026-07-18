@@ -1,8 +1,8 @@
 import { TDistance, TName } from "xray16/lib";
 
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { TConditionList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * State describing smart cover scheme configuration.

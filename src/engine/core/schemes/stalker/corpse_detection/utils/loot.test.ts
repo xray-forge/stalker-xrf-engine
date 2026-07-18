@@ -19,8 +19,8 @@ import {
   SchemeCorpseDetection,
 } from "@/engine/core/schemes/stalker/corpse_detection";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { EScheme } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("loot utils for corpse_detection scheme", () => {

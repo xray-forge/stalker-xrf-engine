@@ -17,7 +17,7 @@ import {
   setSchemeStateByKey,
 } from "@/engine/core/schemes/state";
 import type { TStatefulScheme } from "@/engine/core/schemes/state/types";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 function createCombatState(): ISchemeCombatState {

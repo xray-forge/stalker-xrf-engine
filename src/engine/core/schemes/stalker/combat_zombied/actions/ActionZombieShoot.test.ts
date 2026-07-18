@@ -9,7 +9,7 @@ import { getManager, setStalkerState } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieShoot";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/database/stalker", () => ({

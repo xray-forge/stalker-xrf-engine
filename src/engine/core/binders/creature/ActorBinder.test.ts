@@ -26,8 +26,8 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save";
 import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
-import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActorBinder", () => {

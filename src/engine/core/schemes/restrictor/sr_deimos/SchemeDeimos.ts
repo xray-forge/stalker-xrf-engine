@@ -4,8 +4,8 @@ import { TSection } from "xray16/lib";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme controlling the deimos restrictor zone effect (disorienting post-process, camera and sound effects).

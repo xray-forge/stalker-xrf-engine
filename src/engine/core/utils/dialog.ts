@@ -5,8 +5,8 @@ import { $isNotNil } from "xray16/macros";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.

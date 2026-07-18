@@ -1,8 +1,8 @@
 import type { Nillable } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/schemes/state";
+import type { EScheme } from "@/engine/core/schemes/types";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
-import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of remark scheme.

@@ -5,6 +5,7 @@ import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { getSchemeState } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import {
   areCommunitiesEnemies,
@@ -16,7 +17,6 @@ import {
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check whether actor faction is enemy with provided parameter community.

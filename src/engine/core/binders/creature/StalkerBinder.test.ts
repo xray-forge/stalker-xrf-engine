@@ -19,12 +19,12 @@ import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle"
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import {
   setupObjectInfoPortions,
   setupObjectStalkerVisual,
   setupSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
-import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/sounds/utils");

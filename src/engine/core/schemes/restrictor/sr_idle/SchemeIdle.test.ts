@@ -7,8 +7,8 @@ import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManage
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle/SchemeIdle";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeIdle", () => {

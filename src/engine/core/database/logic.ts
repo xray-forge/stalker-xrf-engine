@@ -17,7 +17,7 @@ import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
-import { ESchemeEvent } from "@/engine/lib/types";
+import { ESchemeEvent } from "@/engine/core/schemes/types";
 
 /**
  * Save game object schemes/logic details.

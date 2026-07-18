@@ -17,7 +17,7 @@ import {
   ISchemeAnimpointState,
 } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, MockSmartCover, resetRegistry } from "@/fixtures/engine";
 
 describe("AnimpointManager", () => {

@@ -5,7 +5,7 @@ import { $isNotNil } from "xray16/macros";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getActiveSchemeState, IBaseSchemeState, TSchemeSignals } from "@/engine/core/schemes/state";
-import { ESchemeEvent } from "@/engine/lib/types";
+import { ESchemeEvent } from "@/engine/core/schemes/types";
 
 /**
  * Emit scheme event for active `actions` list in scheme state.

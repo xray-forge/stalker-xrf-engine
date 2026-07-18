@@ -7,6 +7,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover/cover_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   parseConditionsList,
@@ -14,7 +15,6 @@ import {
   readIniNumber,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing stalkers handling smart covers.

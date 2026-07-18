@@ -7,8 +7,8 @@ import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/Mons
 import { SchemeMonster } from "@/engine/core/schemes/restrictor/sr_monster/SchemeMonster";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeMonster", () => {

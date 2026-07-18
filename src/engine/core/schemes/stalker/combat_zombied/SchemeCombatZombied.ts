@@ -8,8 +8,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions";
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

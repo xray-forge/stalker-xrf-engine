@@ -10,11 +10,11 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { ILogicsOverrides } from "@/engine/core/schemes/state";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check whether object is facing any danger.

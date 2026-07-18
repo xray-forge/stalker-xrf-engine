@@ -6,8 +6,8 @@ import { MockGameObject } from "xray16/mocks";
 
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 
 describe("CodeManager", () => {

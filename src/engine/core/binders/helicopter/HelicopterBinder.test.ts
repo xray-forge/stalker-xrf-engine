@@ -13,7 +13,7 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime");

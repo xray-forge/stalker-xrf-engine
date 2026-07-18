@@ -24,9 +24,9 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
+import { ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Binder for helicopter game object events and logics.

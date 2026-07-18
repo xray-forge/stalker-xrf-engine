@@ -13,8 +13,8 @@ import {
   isOnCampPatrolWalkPoint,
 } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
+import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Action implementing camper combat behaviour, patrolling cover points and firing at enemies from them.

@@ -12,7 +12,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators/EvaluatorHasEnemy";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 function mockEvaluator(

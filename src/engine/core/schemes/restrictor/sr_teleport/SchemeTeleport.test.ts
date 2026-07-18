@@ -6,7 +6,7 @@ import { registerObject } from "@/engine/core/database";
 import { SchemeTeleport } from "@/engine/core/schemes/restrictor/sr_teleport/SchemeTeleport";
 import { ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
-import { EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 describe("SchemeTeleport functionality", () => {
   it("should be correctly defined", () => {

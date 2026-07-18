@@ -9,7 +9,7 @@ import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
 
 describe("TimerManager", () => {

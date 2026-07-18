@@ -7,7 +7,7 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_s
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 
 describe("SchemeGatherItems", () => {
   it("should correctly activate schemes", () => {

@@ -5,7 +5,7 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutsce
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
-import { EScheme, ESchemeEvent } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_event", () => ({

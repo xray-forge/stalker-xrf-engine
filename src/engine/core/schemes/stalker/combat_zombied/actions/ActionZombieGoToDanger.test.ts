@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieGoToDanger } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieGoToDanger";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionZombieGoToDanger", () => {

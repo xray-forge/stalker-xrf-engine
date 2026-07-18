@@ -20,6 +20,7 @@ import {
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
+import { EScheme } from "@/engine/core/schemes/types";
 import {
   IBoneStateDescriptor,
   IConfigCondition,
@@ -29,7 +30,6 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini/ini_types";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { EScheme } from "@/engine/lib/types";
 
 /**
  * Parse list of strings separated by commas and whitespaces.

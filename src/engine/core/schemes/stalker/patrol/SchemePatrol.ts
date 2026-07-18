@@ -14,10 +14,10 @@ import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/e
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

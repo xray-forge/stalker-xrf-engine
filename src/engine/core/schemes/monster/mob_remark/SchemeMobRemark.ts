@@ -5,13 +5,13 @@ import { getMonsterState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   readIniBoolean,
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme implementing logics of switching between scripts.

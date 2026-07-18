@@ -7,8 +7,8 @@ import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_o
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { SchemePhysicalOnDeath } from "@/engine/core/schemes/physical/ph_on_death/SchemePhysicalOnDeath";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
+import { EScheme } from "@/engine/core/schemes/types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalOnDeath", () => {

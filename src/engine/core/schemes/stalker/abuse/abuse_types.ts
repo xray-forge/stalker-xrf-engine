@@ -1,6 +1,6 @@
 import type { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
-import type { EScheme } from "@/engine/lib/types";
+import type { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Generic abuse scheme state.

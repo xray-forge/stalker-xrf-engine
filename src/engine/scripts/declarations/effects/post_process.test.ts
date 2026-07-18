@@ -6,7 +6,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("post process effects declaration", () => {
