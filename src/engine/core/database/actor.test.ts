@@ -12,7 +12,9 @@ import { registry } from "@/engine/core/database/registry";
 import { Actor } from "@/engine/core/objects/creature";
 
 describe("registerActor", () => {
-  afterEach(() => unregisterActor());
+  afterEach(() => {
+    unregisterActor();
+  });
 
   it("should register actor", () => {
     expect(registry.actor).toBeNull();
@@ -43,7 +45,9 @@ describe("unregisterActor", () => {
 });
 
 describe("registerActorServer", () => {
-  afterEach(() => unregisterActorServer());
+  afterEach(() => {
+    unregisterActorServer();
+  });
 
   it("should register actor server", () => {
     expect(registry.actorServer).toBeNull();
