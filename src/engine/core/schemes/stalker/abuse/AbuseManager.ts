@@ -10,6 +10,10 @@ import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_typ
  */
 export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   public isEnabled: boolean = true;
+  /**
+   * Todo: Mark this when `ActionAbuseHit` starts so `update` can re-arm abuse after the value decays.
+   * Todo: Not implemented properly in original gamedata.
+   */
   public isHitDone: boolean = false;
 
   public abuseRate: TRate = 2;
