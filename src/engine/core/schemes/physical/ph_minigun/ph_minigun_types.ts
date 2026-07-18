@@ -2,6 +2,7 @@ import type { Nillable, TCount, TDistance, TDuration, TName, TRate } from "xray1
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of the minigun scheme.
@@ -47,4 +48,10 @@ export const enum EMinigunFireTargetState {
   NONE = 0,
   POINTS = 1,
   ENEMY = 2,
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.PH_MINIGUN]: ISchemeMinigunState;
+  }
 }

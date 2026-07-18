@@ -2,6 +2,7 @@ import type { Patrol } from "xray16/alias";
 import type { LuaArray, Nillable, TDuration, TName, TRate, TTimestamp } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of the monster scheme.
@@ -15,4 +16,10 @@ export interface ISchemeMonsterState extends IBaseSchemeState {
   pathTable: LuaArray<TName>;
   monster: Nillable<string>;
   soundSlideVel: TRate;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_MONSTER]: ISchemeMonsterState;
+  }
 }

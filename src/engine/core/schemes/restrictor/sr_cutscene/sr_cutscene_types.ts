@@ -1,6 +1,7 @@
 import type { LuaArray, StringNillable, TPath, TRate } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of effector set run with `level.add_effect` interface.
@@ -50,3 +51,9 @@ export interface ICameraEffectorSetDescriptorItem {
  * Descriptor mapping each effector state to its ordered list of camera effector items.
  */
 export type TCamEffectorSetDescriptor = Record<EEffectorState, LuaArray<ICameraEffectorSetDescriptorItem>>;
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_CUTSCENE]: ISchemeCutsceneState;
+  }
+}

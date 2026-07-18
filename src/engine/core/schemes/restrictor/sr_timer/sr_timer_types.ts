@@ -2,6 +2,7 @@ import type { CUIStatic } from "xray16";
 import type { Nillable, TCount, TLabel, TStringId } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Timer behaviour mode.
@@ -21,4 +22,10 @@ export interface ISchemeTimerState extends IBaseSchemeState {
   timerId: TStringId;
   string: Nillable<TLabel>;
   timer: CUIStatic;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_TIMER]: ISchemeTimerState;
+  }
 }

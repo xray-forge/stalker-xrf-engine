@@ -2,6 +2,7 @@ import type { ParticlesObject, SoundObject } from "xray16/alias";
 import type { Nillable, TDuration, TName, TTimestamp } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State describing particles scheme configuration.
@@ -30,4 +31,10 @@ export interface IParticleDescriptor {
 export const enum EParticleBehaviour {
   SIMPLE = 1, // Single particle based on path.
   COMPLEX = 2, // Scenario based particles, multiple particles on different positions.
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_PARTICLE]: ISchemeParticleState;
+  }
 }

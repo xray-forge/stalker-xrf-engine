@@ -2,6 +2,7 @@ import type { LuaArray, Nillable, TLabel } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of door scheme.
@@ -22,4 +23,10 @@ export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   scriptUsedMoreThanOnce: Nillable<boolean>;
   onUse: Nillable<IConfigSwitchConditionsDescriptor>;
   hitOnBone: LuaArray<IBoneStateDescriptor>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.PH_DOOR]: ISchemePhysicalDoorState;
+  }
 }

@@ -4,6 +4,7 @@ import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animati
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Walker scheme state.
@@ -23,6 +24,6 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
 
 declare module "@/engine/core/database/database_types" {
   interface ISchemeStateMap {
-    walker: ISchemeWalkerState;
+    [EScheme.WALKER]: ISchemeWalkerState;
   }
 }

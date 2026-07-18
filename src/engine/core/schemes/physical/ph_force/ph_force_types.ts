@@ -2,6 +2,7 @@ import type { Vector } from "xray16/alias";
 import type { TDuration, TIndex, TName, TRate } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of physical force scheme.
@@ -13,4 +14,10 @@ export interface ISchemePhysicalForceState extends IBaseSchemeState {
   pathName: TName;
   index: TIndex;
   point: Vector;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.PH_FORCE]: ISchemePhysicalForceState;
+  }
 }

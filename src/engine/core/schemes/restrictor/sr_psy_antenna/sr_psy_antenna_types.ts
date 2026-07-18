@@ -1,6 +1,7 @@
 import type { TName, TProbability, TRate } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * State of psy antenna scheme.
@@ -24,4 +25,10 @@ export const enum EAntennaState {
   OUTSIDE = 0,
   INSIDE = 1,
   VOID = 2,
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_PSY_ANTENNA]: ISchemePsyAntennaState;
+  }
 }

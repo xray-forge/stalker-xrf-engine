@@ -1,6 +1,7 @@
 import type { LuaArray, TCount, TName } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Crow spawner scheme state configured from ini files.
@@ -8,4 +9,10 @@ import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 export interface ISchemeCrowSpawnerState extends IBaseSchemeState {
   maxCrowsOnLevel: TCount;
   pathsList: LuaArray<TName>;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.SR_CROW_SPAWNER]: ISchemeCrowSpawnerState;
+  }
 }

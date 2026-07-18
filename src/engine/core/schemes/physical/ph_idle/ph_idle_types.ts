@@ -2,6 +2,7 @@ import type { LuaArray, Nillable, TLabel } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
 import type { IBoneStateDescriptor } from "@/engine/core/utils/ini";
+import type { EScheme } from "@/engine/lib/types";
 
 /**
  * Descriptor to describe idle state scheme.
@@ -15,4 +16,10 @@ export interface ISchemePhysicalIdleState extends IBaseSchemeState {
   onUse: Nillable<IBaseSchemeLogic>;
   // Tip to disable when hover over object.
   tip: TLabel;
+}
+
+declare module "@/engine/core/database/database_types" {
+  interface ISchemeStateMap {
+    [EScheme.PH_IDLE]: ISchemePhysicalIdleState;
+  }
 }
