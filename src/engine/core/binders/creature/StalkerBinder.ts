@@ -493,8 +493,8 @@ export class StalkerBinder extends object_binder {
 
       activateMeetWithObject(object);
 
-      if (this.state.activeScheme) {
-        emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.USE, object, who);
+      if (hasActiveScheme(this.state)) {
+        emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -506,8 +506,8 @@ export class StalkerBinder extends object_binder {
    * @returns Whether the patrol point has no flags set.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
-    if (this.state.activeScheme) {
-      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
+    if (hasActiveScheme(this.state)) {
+      emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.EXTRAPOLATE, pointIndex);
       (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
     }
 
