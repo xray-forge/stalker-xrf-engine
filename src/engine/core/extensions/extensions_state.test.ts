@@ -8,8 +8,8 @@ import {
   loadExtensionsState,
   saveExtensionsState,
   syncExtensionsState,
-} from "@/engine/core/utils/extensions/extensions_state";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+} from "@/engine/core/extensions/extensions_state";
+import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types";
 
 function mockExtension(name: TName): IExtensionsDescriptor {
   return { name, module: {} } as IExtensionsDescriptor;

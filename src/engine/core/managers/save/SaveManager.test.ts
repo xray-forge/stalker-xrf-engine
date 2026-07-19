@@ -11,6 +11,7 @@ import {
   registerActor,
   registry,
 } from "@/engine/core/database";
+import { IExtensionsDescriptor } from "@/engine/core/extensions";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
@@ -25,7 +26,6 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 
 function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<TAbstractCoreManagerConstructor>] {

@@ -8,7 +8,7 @@ import {
 } from "xray16";
 import { TIndex } from "xray16/lib";
 
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { IExtensionsDescriptor } from "@/engine/core/extensions";
 
 /**
  * List entry of extensions options menu.

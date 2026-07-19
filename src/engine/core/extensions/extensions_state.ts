@@ -3,8 +3,8 @@ import { LuaArray, Nillable, TPath } from "xray16/lib";
 import { $fromArray, $fromLuaArray } from "xray16/macros";
 
 import { roots } from "@/engine/constants/roots";
+import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 
 /**

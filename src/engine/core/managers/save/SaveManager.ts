@@ -3,6 +3,7 @@ import { TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, initializeManager, registry } from "@/engine/core/database";
+import { loadExtension, saveExtension } from "@/engine/core/extensions";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
@@ -16,7 +17,6 @@ import { SurgeManager } from "@/engine/core/managers/surge";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { loadExtension, saveExtension } from "@/engine/core/utils/extensions";
 import { loadDynamicGameSave, saveDynamicGameSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 

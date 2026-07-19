@@ -3,17 +3,17 @@ import { LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
-import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/extensions";
 import {
   loadExtensionsState,
   saveExtensionsState,
   syncExtensionsState,
-} from "@/engine/core/utils/extensions/extensions_state";
+} from "@/engine/core/extensions/extensions_state";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { mockExtension } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/extensions");
-jest.mock("@/engine/core/utils/extensions/extensions_state");
+jest.mock("@/engine/core/extensions");
+jest.mock("@/engine/core/extensions/extensions_state");
 
 describe("extensions registrator", () => {
   it("should correctly register extensions from empty list", () => {

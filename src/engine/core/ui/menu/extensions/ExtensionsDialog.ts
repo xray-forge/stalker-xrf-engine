@@ -12,13 +12,13 @@ import { TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
 import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TIndex, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
-import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/extensions";
 import {
   loadExtensionsState,
   saveExtensionsState,
   syncExtensionsState,
-} from "@/engine/core/utils/extensions/extensions_state";
+} from "@/engine/core/extensions/extensions_state";
+import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";

@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { getFS } from "xray16";
 import { Nullable } from "xray16/lib";
 
-import { getAvailableExtensions } from "@/engine/core/utils/extensions/extensions_list";
+import { getAvailableExtensions } from "@/engine/core/extensions/extensions_list";
 
 jest.mock("extensions.a.main", () => ({ name: "custom name", register: () => {} }), { virtual: true });
 jest.mock("extensions.b.main", () => ({}), { virtual: true });

@@ -3,8 +3,8 @@ import { CUIScriptWnd } from "xray16";
 import { $fromArray } from "xray16/macros";
 import { MockCUIScriptWnd } from "xray16/mocks";
 
+import { IExtensionsDescriptor } from "@/engine/core/extensions";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { mockExtension } from "@/fixtures/engine";
 
 describe("ExtensionsDialog component", () => {

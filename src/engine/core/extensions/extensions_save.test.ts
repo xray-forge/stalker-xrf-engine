@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { loadExtension, saveExtension } from "@/engine/core/utils/extensions/extensions_save";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+import { loadExtension, saveExtension } from "@/engine/core/extensions/extensions_save";
+import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 
 describe("saveExtension util", () => {

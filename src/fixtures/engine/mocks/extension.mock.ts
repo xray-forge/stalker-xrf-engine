@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { TName } from "xray16/lib";
 
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { IExtensionsDescriptor } from "@/engine/core/extensions";
 
 /**
  * @param base - Optional extension configuration.

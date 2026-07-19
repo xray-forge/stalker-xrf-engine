@@ -2,7 +2,7 @@ import { assert } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
+import { IExtensionsDescriptor } from "@/engine/core/extensions";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

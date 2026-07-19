@@ -3,7 +3,7 @@ import { IniFile } from "xray16/alias";
 import { TPath } from "xray16/lib";
 
 import { roots } from "@/engine/constants/roots";
-import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
+import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types";
 
 /**
  * Open ltx file based on extension configuration files.

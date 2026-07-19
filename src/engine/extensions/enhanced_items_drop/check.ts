@@ -1,6 +1,6 @@
 import { game_object } from "xray16";
 
-import { IExtensionCheckResult } from "@/engine/core/utils/extensions";
+import { IExtensionCheckResult } from "@/engine/core/extensions";
 
 /**
  * @returns Whether the current engine exposes the OpenXRay item-upgrade binding.
