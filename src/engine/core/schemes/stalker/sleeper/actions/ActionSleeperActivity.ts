@@ -3,7 +3,7 @@ import { GameObject, Patrol, Vector } from "xray16/alias";
 import { abort, LuaArray, Nillable, TCount, TDuration } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/ini";
@@ -16,7 +16,7 @@ import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 @LuabindClass()
 export class ActionSleeperActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeSleeperState;
-  public readonly patrolManager: StalkerPatrolManager;
+  public readonly patrolController: StalkerPatrolController;
   public wasReset: boolean = false;
   public sleepingState: ESleeperState = ESleeperState.WALKING; // todo: use boolean?
 
@@ -32,7 +32,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     super(null, ActionSleeperActivity.__name);
 
     this.state = state;
-    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolController = registry.objects.get(object.id()).patrolController!;
     this.wasReset = false;
   }
 
@@ -53,7 +53,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     }
 
     if (this.sleepingState === ESleeperState.WALKING) {
-      return this.patrolManager.update();
+      return this.patrolController.update();
     }
 
     /*
@@ -67,7 +67,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
 
   public override finalize(): void {
     // --  GlobalSound:set_sound(this.object, null)
-    this.patrolManager.finalize();
+    this.patrolController.finalize();
     super.finalize();
   }
 
@@ -76,7 +76,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   }
 
   /**
-   * Reset the sleeper state, building walk and look patrols from the main path and starting the patrol manager.
+   * Reset the sleeper state, building walk and look patrols from the main path and starting the patrol controller.
    */
   public reset(): void {
     this.timer = {
@@ -119,7 +119,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
       }
     }
 
-    this.patrolManager.reset(
+    this.patrolController.reset(
       this.state.pathWalk as string,
       this.state.pathWalkInfo as LuaArray<IWaypointData>,
       this.state.pathLook,

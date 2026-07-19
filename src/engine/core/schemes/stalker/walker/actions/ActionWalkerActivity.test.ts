@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile, MockPropertyStorage } from "xray16/mocks";
 
 import { CampController, EObjectCampActivity } from "@/engine/core/ai/camp";
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -25,7 +25,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -33,7 +33,7 @@ describe("ActionWalkerActivity", () => {
 
     expect(action.state).toBe(walkerState);
     expect(action.object).toBe(object);
-    expect(action.patrolManager).toBe(state.patrolManager);
+    expect(action.patrolController).toBe(state.patrolController);
     expect(action.state.description).toBe(EStalkerState.WALKER_CAMP);
     expect(action.state.approvedActions.length()).toBe(0);
   });
@@ -43,7 +43,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     for (const [, animpointAction] of animpoint_predicates.get(EStalkerState.WALKER_CAMP)) {
       jest.spyOn(animpointAction, "predicate").mockImplementationOnce(() => true);
@@ -59,7 +59,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -79,7 +79,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -87,13 +87,13 @@ describe("ActionWalkerActivity", () => {
     action.isInCamp = true;
     action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
-    jest.spyOn(action.patrolManager, "finalize").mockImplementation(jest.fn());
+    jest.spyOn(action.patrolController, "finalize").mockImplementation(jest.fn());
     jest.spyOn(action.campController, "unregisterObject").mockImplementation(jest.fn());
 
     action.finalize();
 
     expect(action.isInCamp).toBe(false);
-    expect(action.patrolManager.finalize).toHaveBeenCalled();
+    expect(action.patrolController.finalize).toHaveBeenCalled();
     expect(action.campController.unregisterObject).toHaveBeenCalledWith(object.id());
   });
 
@@ -102,7 +102,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -121,7 +121,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
     state.stateManager = new StalkerStateManager(object);
 
     jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
@@ -151,7 +151,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -168,14 +168,14 @@ describe("ActionWalkerActivity", () => {
       standing: null,
     };
 
-    jest.spyOn(action.patrolManager, "reset").mockImplementation(jest.fn());
+    jest.spyOn(action.patrolController, "reset").mockImplementation(jest.fn());
 
     action.reset();
 
     expect(action.state.pathWalkInfo).toEqualLuaTables(parseWaypointsData(action.state.pathWalk));
     expect(action.state.pathLookInfo).toEqualLuaTables(parseWaypointsData(action.state.pathLook));
-    expect(action.patrolManager.reset).toHaveBeenCalledTimes(1);
-    expect(action.patrolManager.reset).toHaveBeenCalledWith(
+    expect(action.patrolController.reset).toHaveBeenCalledTimes(1);
+    expect(action.patrolController.reset).toHaveBeenCalledWith(
       walkerState.pathWalk,
       walkerState.pathWalkInfo,
       walkerState.pathLook,
@@ -190,7 +190,7 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -218,18 +218,18 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
     walkerState.soundIdle = "test-idle-sound";
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
-    jest.spyOn(state.patrolManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "update").mockImplementation(jest.fn());
     jest.spyOn(manager, "play").mockImplementation(jest.fn(() => null));
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
 
-    expect(action.patrolManager.update).toHaveBeenCalledTimes(1);
+    expect(action.patrolController.update).toHaveBeenCalledTimes(1);
     expect(manager.play).toHaveBeenCalledTimes(1);
     expect(manager.play).toHaveBeenCalledWith(object.id(), "test-idle-sound");
   });
@@ -239,21 +239,21 @@ describe("ActionWalkerActivity", () => {
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
     action.isInCamp = true;
     action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
-    jest.spyOn(state.patrolManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "update").mockImplementation(jest.fn());
     jest.spyOn(action.campController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
 
     expect(action.isInCamp).toBe(false);
-    expect(action.patrolManager.update).toHaveBeenCalledTimes(1);
+    expect(action.patrolController.update).toHaveBeenCalledTimes(1);
     expect(action.campController?.unregisterObject).toHaveBeenCalledTimes(1);
     expect(action.campController?.unregisterObject).toHaveBeenCalledWith(object.id());
   });
@@ -269,18 +269,18 @@ describe("ActionWalkerActivity", () => {
     jest.spyOn(campController.object, "inside").mockImplementation(() => true);
     jest.spyOn(campController, "registerObject").mockImplementation(jest.fn());
 
-    state.patrolManager = new StalkerPatrolManager(object);
+    state.patrolController = new StalkerPatrolController(object);
     walkerState.useCamp = true;
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
-    jest.spyOn(state.patrolManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "update").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
 
     expect(action.isInCamp).toBe(true);
-    expect(action.patrolManager.update).toHaveBeenCalledTimes(1);
+    expect(action.patrolController.update).toHaveBeenCalledTimes(1);
     expect(action.campController).toBe(campController);
     expect(action.campController?.registerObject).toHaveBeenCalledTimes(1);
     expect(action.campController?.registerObject).toHaveBeenCalledWith(object.id());

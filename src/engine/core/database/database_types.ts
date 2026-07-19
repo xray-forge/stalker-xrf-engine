@@ -1,7 +1,7 @@
 import { GameObject, IniFile, Time } from "xray16/alias";
 import { AnyObject, Nillable, TName, TNumberId, TRate, TSection, TTimestamp } from "xray16/lib";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { TConditionList } from "@/engine/core/ini";
@@ -91,10 +91,10 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    */
   portableStore: Nillable<LuaTable<TName>>;
   /**
-   * Patrol manager for stalker objects.
-   * Handles patrol selection/logics/waypoints etc.
+   * Binder-owned patrol controller for stalker objects.
+   * Handles one object's patrol movement, waypoint callbacks, and team synchronization.
    */
-  patrolManager: Nillable<StalkerPatrolManager>;
+  patrolController: Nillable<StalkerPatrolController>;
   /**
    * State manager class for stalker objects.
    * Handles current animation/animstate logics and adjust stalker object to match required logics.

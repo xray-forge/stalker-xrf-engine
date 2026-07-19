@@ -2,7 +2,7 @@ import { action_base, LuabindClass, time_global } from "xray16";
 import { EGameObjectPath, GameObject } from "xray16/alias";
 import { areSameVectors, copyVector, TTimestamp, ZERO_VECTOR } from "xray16/lib";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
@@ -15,7 +15,7 @@ import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 @LuabindClass()
 export class ActionPatrolFollower extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
-  public readonly patrolManager: StalkerPatrolManager;
+  public readonly patrolController: StalkerPatrolController;
 
   public nextUpdateAt: TTimestamp = time_global() + 1000;
 
@@ -23,7 +23,7 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
     super(null, ActionPatrolFollower.__name);
 
     this.state = state;
-    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolController = registry.objects.get(object.id()).patrolController!;
   }
 
   public override initialize(): void {
@@ -44,7 +44,7 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
       this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
-    this.patrolManager.reset(
+    this.patrolController.reset(
       this.state.pathWalk,
       this.state.pathWalkInfo,
       this.state.pathLook,
@@ -81,7 +81,7 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
 
   public override finalize(): void {
     if (this.object.alive()) {
-      this.patrolManager.finalize();
+      this.patrolController.finalize();
     }
 
     super.finalize();

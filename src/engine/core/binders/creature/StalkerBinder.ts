@@ -24,7 +24,7 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { communities, TCommunity } from "@/engine/constants/communities";
 import { misc } from "@/engine/constants/items/misc";
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
@@ -103,7 +103,7 @@ export class StalkerBinder extends object_binder {
 
     this.state = resetObject(this.object);
     this.state.stateManager = new StalkerStateManager(this.object);
-    this.state.patrolManager = new StalkerPatrolManager(this.object).initialize();
+    this.state.patrolController = new StalkerPatrolController(this.object).initialize();
 
     setupStalkerStatePlanner(this.state.stateManager.planner, this.state.stateManager);
     setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
@@ -505,15 +505,15 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Handle patrol extrapolate event by forwarding it to the active scheme and patrol manager.
+   * Handle patrol extrapolate event by forwarding it to the active scheme and patrol controller.
    *
    * @param pointIndex - Index of the patrol point being extrapolated.
    * @returns Whether the patrol point has no flags set.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
-    if (hasActiveScheme(this.state)) {
+    if (hasActiveScheme(this.state) && $isNotNil(this.state.patrolController)) {
       emitSchemeEvent(getActiveSchemeStateOptimistic(this.state), ESchemeEvent.EXTRAPOLATE, pointIndex);
-      (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
+      this.state.patrolController.onExtrapolate(this.object, pointIndex);
     }
 
     return new patrol(this.object.patrol() as TName).flags(pointIndex).get() === 0;

@@ -5,7 +5,7 @@ import { ZERO_VECTOR } from "xray16/lib";
 import { MockDangerObject, MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -20,7 +20,7 @@ function createAction(): [ActionCombatCamping, GameObject, IRegistryObjectState,
   const state: IRegistryObjectState = registerObject(object);
   const schemeState: ISchemeCamperState = mockSchemeState(EScheme.COMBAT_CAMPER);
 
-  state.patrolManager = new StalkerPatrolManager(object);
+  state.patrolController = new StalkerPatrolController(object);
   state.stateManager = new StalkerStateManager(object);
 
   jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
@@ -43,7 +43,7 @@ describe("ActionCloseCombat", () => {
     const [action, , state, schemeState] = createAction();
 
     expect(action.state).toBe(schemeState);
-    expect(action.patrolManager).toBe(state.patrolManager);
+    expect(action.patrolController).toBe(state.patrolController);
     expect(schemeState.scanTable).toEqualLuaTables({});
   });
 
@@ -64,11 +64,11 @@ describe("ActionCloseCombat", () => {
   it("should correctly destroy", () => {
     const [action] = createAction();
 
-    jest.spyOn(action.patrolManager, "finalize").mockImplementation(jest.fn());
+    jest.spyOn(action.patrolController, "finalize").mockImplementation(jest.fn());
 
     action.finalize();
 
-    expect(action.patrolManager.finalize).toHaveBeenCalledTimes(1);
+    expect(action.patrolController.finalize).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly activate", () => {

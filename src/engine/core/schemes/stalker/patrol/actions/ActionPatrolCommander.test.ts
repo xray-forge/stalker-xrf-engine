@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
-import { EPatrolFormation, StalkerPatrolManager } from "@/engine/core/ai/patrol";
+import { EPatrolFormation, StalkerPatrolController } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -26,7 +26,7 @@ describe("ActionPatrolCommander", () => {
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     jest.spyOn(action, "activate").mockImplementation(jest.fn());
 
@@ -45,7 +45,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -54,7 +54,7 @@ describe("ActionPatrolCommander", () => {
     state.pathLook = "test-wp-2";
     state.patrolManager = new PatrolManager("test-name");
 
-    jest.spyOn(objectState.patrolManager, "reset").mockImplementation(jest.fn());
+    jest.spyOn(objectState.patrolController, "reset").mockImplementation(jest.fn());
     jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
@@ -63,7 +63,7 @@ describe("ActionPatrolCommander", () => {
     expect(state.signals).toEqualLuaTables({});
     expect(state.pathWalkInfo).toEqualLuaTables(parseWaypointsData(state.pathWalk));
     expect(state.pathLookInfo).toEqualLuaTables(parseWaypointsData(state.pathLook));
-    expect(objectState.patrolManager.reset).toHaveBeenCalledWith(
+    expect(objectState.patrolController.reset).toHaveBeenCalledWith(
       state.pathWalk,
       state.pathWalkInfo,
       state.pathLook,
@@ -80,7 +80,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -88,7 +88,7 @@ describe("ActionPatrolCommander", () => {
     state.pathWalk = "test-wp";
     state.patrolManager = new PatrolManager("test-name");
 
-    jest.spyOn(objectState.patrolManager, "finalize").mockImplementation(jest.fn());
+    jest.spyOn(objectState.patrolController, "finalize").mockImplementation(jest.fn());
     jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
@@ -96,13 +96,13 @@ describe("ActionPatrolCommander", () => {
     jest.spyOn(object, "alive").mockImplementation(() => false);
     action.finalize();
 
-    expect(objectState.patrolManager.finalize).toHaveBeenCalledTimes(0);
+    expect(objectState.patrolController.finalize).toHaveBeenCalledTimes(0);
     expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(0);
 
     jest.spyOn(object, "alive").mockImplementation(() => true);
     action.finalize();
 
-    expect(objectState.patrolManager.finalize).toHaveBeenCalledTimes(1);
+    expect(objectState.patrolController.finalize).toHaveBeenCalledTimes(1);
     expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(1);
     expect(state.patrolManager.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.GUARD, state.formation);
   });
@@ -111,7 +111,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -132,7 +132,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -153,7 +153,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -174,7 +174,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -194,7 +194,7 @@ describe("ActionPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
     objectState.stateManager = new StalkerStateManager(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
@@ -202,7 +202,7 @@ describe("ActionPatrolCommander", () => {
 
     state.patrolManager = new PatrolManager("test-patrol");
 
-    jest.spyOn(objectState.patrolManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(objectState.patrolController, "update").mockImplementation(jest.fn());
     jest.spyOn(objectState.stateManager, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK));
     jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
     jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null));
@@ -213,7 +213,7 @@ describe("ActionPatrolCommander", () => {
     action.execute();
 
     expect(action.previousState).toBe(EStalkerState.SNEAK);
-    expect(objectState.patrolManager.update).toHaveBeenCalledTimes(1);
+    expect(objectState.patrolController.update).toHaveBeenCalledTimes(1);
     expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(1);
     expect(state.patrolManager.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.SNEAK, state.formation);
     expect(soundManager.play).toHaveBeenCalledTimes(1);

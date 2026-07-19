@@ -3,7 +3,7 @@ import { DangerObject, GameObject, Patrol, Vector } from "xray16/alias";
 import { abort, createVector, isObjectAtTerminalWaypoint, Nillable, TTimestamp } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
@@ -22,7 +22,7 @@ import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 @LuabindClass()
 export class ActionCombatCamping extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
-  public patrolManager: StalkerPatrolManager;
+  public patrolController: StalkerPatrolController;
 
   public flag: Nillable<number> = null;
   public danger: boolean = false;
@@ -42,7 +42,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
     super(null, ActionCombatCamping.__name);
 
     this.state = state;
-    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolController = registry.objects.get(object.id()).patrolController!;
     this.state.scanTable = new LuaTable();
   }
 
@@ -71,7 +71,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
     this.state.scanTable = new LuaTable();
 
     if (this.state.sniper) {
-      this.patrolManager.reset(
+      this.patrolController.reset(
         this.state.pathWalk,
         parseWaypointsData(this.state.pathWalk)!,
         null,
@@ -101,7 +101,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
         this.object.sniper_update_rate(true);
       }
     } else {
-      this.patrolManager.reset(
+      this.patrolController.reset(
         this.state.pathWalk,
         parseWaypointsData(this.state.pathWalk)!,
         this.state.pathLook,
@@ -122,7 +122,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   public override finalize(): void {
-    this.patrolManager.finalize();
+    this.patrolController.finalize();
     super.finalize();
   }
 
@@ -136,12 +136,12 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
       if ($isNil(this.state.memEnemy) || time_global() - this.state.memEnemy > this.state.idle) {
         this.enemy = null;
         this.state.memEnemy = null;
-        this.patrolManager.setup();
+        this.patrolController.setup();
       }
     } else {
       if ($isNotNil(this.state.memEnemy)) {
         this.state.memEnemy = null;
-        this.patrolManager.setup();
+        this.patrolController.setup();
       }
     }
 
@@ -231,8 +231,8 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
               position
             );
           } else {
-            this.patrolManager.setup();
-            this.patrolManager.update();
+            this.patrolController.setup();
+            this.patrolController.update();
           }
         }
       }
@@ -248,7 +248,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
 
     if (this.danger) {
       this.danger = false;
-      this.patrolManager.setup();
+      this.patrolController.setup();
     }
 
     if (this.state.sniper) {
@@ -260,8 +260,8 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
         this.scan(this.state.waypointFlag as number);
 
         const [isOnWaypoint] = isObjectAtTerminalWaypoint(
-          this.patrolManager.object,
-          this.patrolManager.patrolWalk as Patrol
+          this.patrolController.object,
+          this.patrolController.patrolWalk as Patrol
         );
 
         if (isOnWaypoint) {
@@ -269,14 +269,14 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
         }
 
         if ($isNotNil(this.scantime) && time_global() - this.scantime >= this.state.scantimeFree) {
-          this.patrolManager.setup();
+          this.patrolController.setup();
         }
       } else {
         this.scantime = null;
-        this.patrolManager.update();
+        this.patrolController.update();
       }
     } else {
-      this.patrolManager.update();
+      this.patrolController.update();
     }
   }
 
@@ -295,8 +295,8 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
 
       case "terminal": {
         const [isOnTerminalWaypoint] = isObjectAtTerminalWaypoint(
-          this.patrolManager.object,
-          this.patrolManager.patrolWalk as Patrol
+          this.patrolController.object,
+          this.patrolController.patrolWalk as Patrol
         );
 
         return isOnTerminalWaypoint;

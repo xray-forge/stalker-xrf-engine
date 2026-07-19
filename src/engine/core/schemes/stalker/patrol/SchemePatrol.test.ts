@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
@@ -209,7 +209,7 @@ describe("SchemePatrol", () => {
     const objectState: IRegistryObjectState = registerObject(object);
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
 
-    objectState.patrolManager = new StalkerPatrolManager(object);
+    objectState.patrolController = new StalkerPatrolController(object);
 
     SchemePatrol.add(object, MockIniFile.mock("test.ltx", {}), EScheme.PATROL, "patrol@test", state);
 

@@ -14,7 +14,7 @@ import {
   TNumberId,
   TTimestamp,
 } from "xray16/lib";
-import { $filename, $isNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
@@ -33,12 +33,14 @@ import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
- * Manager handling patrol movement of stalker objects.
- * Responsible for patrolling schemes logic and mainly called from related schemes (walker, sleep, patrol).
+ * Controller handling patrol movement for one stalker object.
+ *
+ * The stalker binder owns this controller for the object's lifetime. Patrol-related schemes reset and reuse it to
+ * control movement, waypoint animations, and team synchronization.
  *
  * See {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}.
  */
-export class StalkerPatrolManager {
+export class StalkerPatrolController {
   public readonly object: GameObject;
   public team: Nillable<TName> = null;
 
@@ -83,12 +85,12 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * Initialize patrol manager, setup state and callbacks.
+   * Initialize the controller and register its binder-lifetime waypoint callback.
    *
-   * @returns Initialized manager reference.
+   * @returns Initialized controller reference.
    */
-  public initialize(): StalkerPatrolManager {
-    logger.info("Initialize patrol manager for: '%s'", this.object.name());
+  public initialize(): StalkerPatrolController {
+    logger.info("Initialize patrol controller for: '%s'", this.object.name());
 
     this.object.set_callback(callback.patrol_path_in_point, this.onWalkWaypoint, this);
 
@@ -96,7 +98,7 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * Reset state for movement manager.
+   * Reset the active patrol state.
    *
    * Re-initializes walk and look patrols, suggested states, team synchronization and callbacks, then re-runs setup.
    *
@@ -118,7 +120,7 @@ export class StalkerPatrolManager {
     patrolCallbackDescriptor: Nillable<IPatrolCallbackDescriptor> = null
   ): void {
     logger.info(
-      "Reset patrol manager for: '%s', walk - '%s' look - '%s', team - '%s'",
+      "Reset patrol controller for: '%s', walk - '%s' look - '%s', team - '%s'",
       this.object.name(),
       walkPathName,
       lookPathName,
@@ -148,21 +150,27 @@ export class StalkerPatrolManager {
 
     this.patrolCallbackDescriptor = patrolCallbackDescriptor;
 
-    // Initialize sync state if it is changed:
-    if (patrolTeam !== this.team) {
-      this.team = patrolTeam;
-
-      if (this.team) {
-        let state: Nillable<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(this.team);
-
-        if (!state) {
-          state = new LuaTable();
-          patrolConfig.PATROL_TEAMS.set(this.team, state);
-        }
-
-        state.set(this.object.id(), false);
-      }
+    // Remove stale synchronization state before joining another team.
+    if (patrolTeam !== this.team && $isNotNil(this.team)) {
+      patrolConfig.PATROL_TEAMS.get(this.team)?.delete(this.object.id());
     }
+
+    this.team = patrolTeam;
+
+    // Every reset starts a new synchronization cycle, including when the team did not change.
+    if ($isNotNil(this.team)) {
+      let state: Nillable<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(this.team);
+
+      if ($isNil(state)) {
+        state = new LuaTable();
+        patrolConfig.PATROL_TEAMS.set(this.team, state);
+      }
+
+      state.set(this.object.id(), false);
+    }
+
+    this.currentStateStanding = pickSectionFromCondList(registry.actor, this.object, this.defaultStateStanding)!;
+    this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
 
     // Reset patrol - use new patrol that should be fully re-initialized:
     if (this.patrolWalkName !== walkPathName || this.patrolLookName !== lookPathName) {
@@ -192,6 +200,7 @@ export class StalkerPatrolManager {
         }
 
         this.patrolLook = new patrol(lookPathName);
+
         if (!this.patrolLook) {
           abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), lookPathName);
         }
@@ -201,9 +210,6 @@ export class StalkerPatrolManager {
 
       this.patrolLookName = lookPathName;
       this.patrolLookWaypoints = lookPathWaypoints;
-
-      this.currentStateStanding = pickSectionFromCondList(registry.actor, this.object, this.defaultStateStanding)!;
-      this.currentStateMoving = pickSectionFromCondList(registry.actor, this.object, this.defaultStateMoving1)!;
 
       this.canUseGetCurrentPointIndex = false;
       this.walkUntil = now + patrolConfig.WALK_STATE_DURATION;
@@ -224,11 +230,13 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * Dispose all related data and manager instance.
+   * Stop the active patrol route and release the controller from team synchronization.
+   *
+   * The waypoint callback remains registered because the binder-owned controller is reused by later patrol schemes.
    */
   public finalize(): void {
     logger.info(
-      "Finalize patrol manager for: '%s', walk '%s' look '%s' , team '%s'",
+      "Finalize patrol controller for: '%s', walk '%s' look '%s' , team '%s'",
       this.object.name(),
       this.patrolWalkName,
       this.patrolLookName,
@@ -240,8 +248,6 @@ export class StalkerPatrolManager {
     }
 
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
-
-    // todo: Should remove callback from init?
   }
 
   /**
@@ -254,7 +260,7 @@ export class StalkerPatrolManager {
     this.object.set_path_type(EGameObjectPath.PATROL_PATH);
     this.object.set_detail_path_type(move.line);
 
-    if (this.currentPointIndex) {
+    if ($isNotNil(this.currentPointIndex)) {
       this.object.set_start_point(this.currentPointIndex);
       this.object.set_patrol_path(this.patrolWalkName as TName, patrol.next, patrol.continue, true);
     } else {
@@ -323,7 +329,7 @@ export class StalkerPatrolManager {
     }
 
     // Animation is finished, currently on terminal waypoint -> notify logics about finally reaching the point.
-    if (this.lastWalkPointIndex && (this.patrolWalk as Patrol).terminal(this.lastWalkPointIndex)) {
+    if ($isNotNil(this.lastWalkPointIndex) && (this.patrolWalk as Patrol).terminal(this.lastWalkPointIndex)) {
       if (isObjectAtWaypoint(this.object, this.patrolWalk!, this.lastWalkPointIndex)) {
         return this.onWalkWaypoint(this.object, null, this.lastWalkPointIndex);
       }
@@ -382,7 +388,7 @@ export class StalkerPatrolManager {
       setObjectActiveSchemeSignal(this.object, waypoint.sig ? waypoint.sig : "turn_end");
     }
 
-    if (this.retvalAfterRotation) {
+    if ($isNotNil(this.retvalAfterRotation)) {
       assert(
         this.patrolCallbackDescriptor,
         "Object '%s': path_look '%s': ret flag is set, but callback function wasn't registered in move_mgr.reset()",

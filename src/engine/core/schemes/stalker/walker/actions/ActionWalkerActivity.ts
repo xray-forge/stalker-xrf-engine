@@ -4,7 +4,7 @@ import { Nillable } from "xray16/lib";
 
 import { campConfig, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { CampController } from "@/engine/core/ai/camp/CampController";
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getCampZoneForPosition, getManager, registry, setStalkerState } from "@/engine/core/database";
@@ -16,12 +16,12 @@ import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 
 /**
  * GOAP action implementing walker patrol logics.
- * Handles patrolling with generic patrol manager and adds idle state talk.
+ * Handles patrolling with the object's patrol controller and adds idle state talk.
  */
 @LuabindClass()
 export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeWalkerState;
-  public readonly patrolManager: StalkerPatrolManager;
+  public readonly patrolController: StalkerPatrolController;
   public readonly availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
   public isInCamp: boolean = false;
@@ -34,7 +34,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     state.description = EStalkerState.WALKER_CAMP;
 
     this.state = state;
-    this.patrolManager = registry.objects.get(object.id()).patrolManager!;
+    this.patrolController = registry.objects.get(object.id()).patrolController!;
     this.availableActions = animpoint_predicates.get(state.description);
 
     for (const [, animpointAction] of this.availableActions) {
@@ -56,7 +56,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public override finalize(): void {
     super.finalize();
 
-    this.patrolManager.finalize();
+    this.patrolController.finalize();
 
     if (this.isInCamp) {
       this.isInCamp = false;
@@ -72,7 +72,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public override execute(): void {
     super.execute();
 
-    this.patrolManager.update();
+    this.patrolController.update();
 
     const campController: Nillable<CampController> = getCampZoneForPosition(this.object.position());
 
@@ -104,7 +104,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
-    this.patrolManager.reset(
+    this.patrolController.reset(
       this.state.pathWalk,
       this.state.pathWalkInfo,
       this.state.pathLook,

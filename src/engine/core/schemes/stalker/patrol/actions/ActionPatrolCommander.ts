@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
@@ -17,7 +17,7 @@ import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 @LuabindClass()
 export class ActionPatrolCommander extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemePatrolState;
-  public readonly patrolManager: StalkerPatrolManager;
+  public readonly patrolController: StalkerPatrolController;
 
   public currentState: EStalkerState = EStalkerState.PATROL;
   public previousState: Nillable<EStalkerState> = null;
@@ -26,7 +26,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
     super(null, ActionPatrolCommander.__name);
 
     this.state = state;
-    this.patrolManager = registry.objects.get(object.id()).patrolManager as StalkerPatrolManager;
+    this.patrolController = registry.objects.get(object.id()).patrolController as StalkerPatrolController;
   }
 
   public override initialize(): void {
@@ -49,7 +49,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
       this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
-    this.patrolManager.reset(
+    this.patrolController.reset(
       this.state.pathWalk,
       this.state.pathWalkInfo,
       this.state.pathLook,
@@ -65,7 +65,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   public override execute(): void {
     super.execute();
 
-    this.patrolManager.update();
+    this.patrolController.update();
 
     const previousState: Nillable<EStalkerState> = this.previousState;
     const state: EStalkerState = getStalkerState(this.object) as EStalkerState;
@@ -104,7 +104,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   public override finalize(): void {
     if (this.object.alive()) {
       this.state.patrolManager.setCommanderState(this.object, EStalkerState.GUARD, this.state.formation);
-      this.patrolManager.finalize();
+      this.patrolController.finalize();
     }
 
     super.finalize();
