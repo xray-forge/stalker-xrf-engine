@@ -3,11 +3,11 @@ import { TLabel, TName } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { IRgbColor } from "@/engine/constants/colors";
+import { TFontId } from "@/engine/constants/fonts";
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { IBaseXmlNode, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/forms/types";
-import { IRgbColor } from "@/engine/lib/constants/colors";
-import { TFontId } from "@/engine/lib/constants/fonts";
 
 export interface IXrCheckBoxProps extends IBaseXmlNode {
   itemTag?: string;

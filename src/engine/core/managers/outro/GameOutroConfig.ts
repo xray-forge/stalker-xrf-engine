@@ -1,5 +1,5 @@
+import { infoPortions } from "@/engine/constants/info_portions";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 export const gameOutroConfig = {
   VOLUME_MAX: 1.0,

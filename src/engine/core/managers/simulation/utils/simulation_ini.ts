@@ -2,10 +2,10 @@ import { IniFile } from "xray16/alias";
 import { assert, LuaArray, MAX_U8, Nillable, TName, TNumberId } from "xray16/lib";
 import { $filename, $fromObject } from "xray16/macros";
 
+import { levels, TLevel } from "@/engine/constants/levels";
 import { readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableKeys } from "@/engine/core/utils/table";
-import { levels, TLevel } from "@/engine/lib/constants/levels";
 
 const log: LuaLogger = new LuaLogger($filename);
 

@@ -5,10 +5,10 @@ import { $isNotNil } from "xray16/macros";
 import { EMockPacketDataType, MockFileSystem, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { roots } from "@/engine/constants/roots";
 import { registerObject } from "@/engine/core/database";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds";
 import { INpcSoundDescriptor, NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
-import { roots } from "@/engine/lib/constants/roots";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 /**

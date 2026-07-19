@@ -5,6 +5,9 @@ import { TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeObject, MockCGameTask, MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { detectors } from "@/engine/constants/items/detectors";
+import { weapons } from "@/engine/constants/items/weapons";
+import { storyNames } from "@/engine/constants/story_names";
 import {
   getManager,
   registerObject,
@@ -20,9 +23,6 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { weapons } from "@/engine/lib/constants/items/weapons";
-import { storyNames } from "@/engine/lib/constants/story_names";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/action");

@@ -2,10 +2,10 @@ import { level } from "xray16";
 import { abort, LuaArray, Nillable, TCount, TName, TRate, TSection } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
+import { TInventoryItem } from "@/engine/constants/items";
 import { boxConfig, PH_BOX_GENERIC_LTX } from "@/engine/core/managers/box/BoxConfig";
 import { parseNumbersList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

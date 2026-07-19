@@ -18,6 +18,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ISoundNotification } from "@/engine/core/managers/notifications/notifications_types";
@@ -26,7 +27,6 @@ import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sound
 import { getActiveSchemeState, IBaseSchemeState } from "@/engine/core/schemes/state";
 import { parseStringsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

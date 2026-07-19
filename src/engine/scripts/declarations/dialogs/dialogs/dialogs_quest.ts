@@ -2,6 +2,7 @@ import { GameObject } from "xray16/alias";
 import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { registry } from "@/engine/core/database";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
@@ -9,7 +10,6 @@ import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portio
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,5 +1,5 @@
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { storyNames } from "@/engine/lib/constants/story_names";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { storyNames } from "@/engine/constants/story_names";
 
 export const mockMapDisplayManager = {
   config: {

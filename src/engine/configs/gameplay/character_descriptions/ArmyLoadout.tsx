@@ -14,14 +14,14 @@ import {
   loadoutSvd,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { communities } from "@/engine/lib/constants/communities";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { communities } from "@/engine/constants/communities";
+import { weapons } from "@/engine/constants/items/weapons";
 import {
   GENERATE_CAPTAIN_NAME,
   GENERATE_LIEUTENANT_NAME,
   GENERATE_PRIVATE_NAME,
   GENERATE_SERGEANT_NAME,
-} from "@/engine/lib/constants/names";
+} from "@/engine/constants/names";
 
 export function ArmyLoadout(): JSXNode {
   return (

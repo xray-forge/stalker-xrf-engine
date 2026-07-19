@@ -2,11 +2,11 @@ import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker, updateObjectDialog } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { communities } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

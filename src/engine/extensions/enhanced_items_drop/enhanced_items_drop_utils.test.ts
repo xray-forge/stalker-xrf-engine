@@ -3,9 +3,9 @@ import { GameObject, ServerObject } from "xray16/alias";
 import { ACTOR_ID, MAX_ALIFE_ID } from "xray16/lib";
 import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
+import { weapons } from "@/engine/constants/items/weapons";
 import { registerSimulator } from "@/engine/core/database";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 describe("onItemGoOnlineFirstTime util", () => {
   beforeEach(() => {

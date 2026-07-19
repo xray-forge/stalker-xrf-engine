@@ -4,6 +4,9 @@ import { ACTOR_ID, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
 
+import { communities } from "@/engine/constants/communities";
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
+import { artefacts } from "@/engine/constants/items/artefacts";
 import { getManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
@@ -34,9 +37,6 @@ import {
 } from "@/engine/core/utils/achievements/achievements_preconditions";
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { communities } from "@/engine/lib/constants/communities";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function mockNotificationListener(caption: string, senderId: string): (notification: ITipNotification) => void {

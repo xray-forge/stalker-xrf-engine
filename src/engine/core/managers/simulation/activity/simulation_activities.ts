@@ -2,6 +2,9 @@ import { ServerObject } from "xray16/alias";
 import { isInTimeInterval, TName } from "xray16/lib";
 import { $fromObject, $isNotNil } from "xray16/macros";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { storyNames } from "@/engine/constants/story_names";
 import { registry } from "@/engine/core/database";
 import {
   simulationPreconditionAlways,
@@ -20,9 +23,6 @@ import { Squad } from "@/engine/core/objects/squad/Squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { storyNames } from "@/engine/lib/constants/story_names";
 
 /**
  * Descriptor of faction activities based on simulation role.

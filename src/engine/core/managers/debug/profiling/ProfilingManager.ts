@@ -3,11 +3,11 @@ import { ProfileTimer } from "xray16/alias";
 import { abort, AnyCallable, executeConsoleCommand, LuaArray, Nillable, TCount, TDuration, TName } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { consoleCommands } from "@/engine/constants/console_commands";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 

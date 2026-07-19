@@ -1,6 +1,6 @@
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weaponAddons, weapons } from "@/engine/lib/constants/items/weapons";
+import { ammo } from "@/engine/constants/items/ammo";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weaponAddons, weapons } from "@/engine/constants/items/weapons";
 
 export const mockWeaponLtx = {
   [questItems.pri_a17_gauss_rifle]: {

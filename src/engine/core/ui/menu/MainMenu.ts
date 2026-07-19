@@ -17,6 +17,8 @@ import { TKeyCode, TUIEvent } from "xray16/alias";
 import { executeConsoleCommand, gameDifficulties, gameTypes, Nillable, TPath } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { consoleCommands } from "@/engine/constants/console_commands";
+import { gameTutorials } from "@/engine/constants/game_tutorials";
 import { registry } from "@/engine/core/database";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
@@ -31,8 +33,6 @@ import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

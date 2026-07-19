@@ -1,8 +1,8 @@
 import type { Nillable, TDistance } from "xray16/lib";
 
+import type { EMonsterState } from "@/engine/constants/monsters";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
-import type { EMonsterState } from "@/engine/lib/constants/monsters";
 
 /**
  * State of home parameters for mob home scheme.

@@ -2,6 +2,7 @@ import type { AlifeSimulator, GameObject, IniFile, ZoneCampfire } from "xray16/a
 import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
+import { storyNames, TStoryName } from "@/engine/constants/story_names";
 import type { CampManager } from "@/engine/core/ai/camp";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -23,7 +24,6 @@ import type { EScheme } from "@/engine/core/schemes/types";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini";
 import type { ERelation } from "@/engine/core/utils/relation";
-import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 
 /**
  * Global-level registry of objects and references.

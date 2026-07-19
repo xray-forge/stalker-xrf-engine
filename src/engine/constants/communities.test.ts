@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { communities } from "@/engine/lib/constants/communities";
+import { communities } from "@/engine/constants/communities";
 
 describe("communities constants integrity", () => {
   it("should match key-value entries", () => {

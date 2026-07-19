@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { weapons } from "@/engine/constants/items/weapons";
 import { SYSTEM_INI } from "@/engine/core/database";
 import { readAllObjectUpgrades, readUpgradeGroup } from "@/engine/core/managers/upgrades";
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 describe("readUpgradeGroup util", () => {
   it("should correctly get all group data", () => {

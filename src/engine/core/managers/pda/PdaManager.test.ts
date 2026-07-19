@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { weapons } from "@/engine/constants/items/weapons";
 import { getManager } from "@/engine/core/database";
 import { EPdaStatSection } from "@/engine/core/managers/pda/pda_types";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 describe("PdaManager", () => {
   it("should correctly get stat by section", () => {

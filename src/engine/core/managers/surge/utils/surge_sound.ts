@@ -2,11 +2,11 @@ import { level } from "xray16";
 import { ACTOR_ID, TName } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { infoPortions } from "@/engine/constants/info_portions";
+import { levels } from "@/engine/constants/levels";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { levels } from "@/engine/lib/constants/levels";
 
 /**
  * Play surge starting sound.

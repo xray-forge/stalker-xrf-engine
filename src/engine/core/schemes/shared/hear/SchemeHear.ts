@@ -2,6 +2,7 @@ import { GameObject, IniFile, TSoundType, Vector } from "xray16/alias";
 import { LuaArray, Nillable, TCount, TDistance, TName, TNumberId, TRate, TSection, TStringId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
+import { ESoundType } from "@/engine/constants/sound";
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/scheme_switch";
@@ -11,7 +12,6 @@ import { getSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
-import { ESoundType } from "@/engine/lib/constants/sound";
 
 // Todo: move to scheme.
 export class SchemeHear extends AbstractScheme {

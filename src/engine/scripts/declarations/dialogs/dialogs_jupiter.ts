@@ -16,6 +16,18 @@ import {
 } from "xray16/lib";
 import { $filename, $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions/info_portions";
+import { ammo } from "@/engine/constants/items/ammo";
+import { artefacts, TArtefact } from "@/engine/constants/items/artefacts";
+import { detectors } from "@/engine/constants/items/detectors";
+import { drugs } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { helmets, THelmet } from "@/engine/constants/items/helmets";
+import { misc } from "@/engine/constants/items/misc";
+import { outfits } from "@/engine/constants/items/outfits";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -32,18 +44,6 @@ import {
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/reward";
-import { communities } from "@/engine/lib/constants/communities";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts, TArtefact } from "@/engine/lib/constants/items/artefacts";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
-import { helmets, THelmet } from "@/engine/lib/constants/items/helmets";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

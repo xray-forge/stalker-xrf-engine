@@ -38,6 +38,8 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
+import { SMART_TERRAIN_SECTION } from "@/engine/constants/sections";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -115,8 +117,6 @@ import {
   updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
 import { resetTable } from "@/engine/core/utils/table";
-import { roots } from "@/engine/lib/constants/roots";
-import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode: ELuaLoggerMode.DUAL });
 

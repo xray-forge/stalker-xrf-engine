@@ -2,13 +2,13 @@ import { FS, getFS, level } from "xray16";
 import { containsSubstring, LuaArray, Nillable, TDuration, TName, TPath, TRate, TTimestamp } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
 import {
   EWeatherPeriodType,
   IAtmosfearLevelWeatherConfig,
   TWeatherGraph,
 } from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { roots } from "@/engine/lib/constants/roots";
 
 /**
  * Get list all possible weather configs to set.

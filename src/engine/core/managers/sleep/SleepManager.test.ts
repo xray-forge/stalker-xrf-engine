@@ -4,6 +4,9 @@ import { Console } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { MockConsole, MockCUITrackBar } from "xray16/mocks";
 
+import { animations, postProcessors } from "@/engine/constants/animation";
+import { consoleCommands } from "@/engine/constants/console_commands";
+import { infoPortions } from "@/engine/constants/info_portions";
 import { disposeManager, getManager, registry } from "@/engine/core/database";
 import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -12,9 +15,6 @@ import { surgeConfig, SurgeManager } from "@/engine/core/managers/surge";
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { SleepDialog } from "@/engine/core/ui/game/sleep";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/ui/game/sleep", () => ({

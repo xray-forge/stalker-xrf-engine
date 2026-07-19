@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { IRgbColor } from "@/engine/lib/constants/colors";
+import { IRgbColor } from "@/engine/constants/colors";
 
 export interface IXrTextColorProps {
   textColor: IRgbColor;

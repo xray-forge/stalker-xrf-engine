@@ -1,8 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-import { jupiterInfoPortions } from "@/engine/lib/constants/info_portions/jupiter_info_portions";
-import { pripyatInfoPortions } from "@/engine/lib/constants/info_portions/pripyat_info_portions";
-import { zatonInfoPortions } from "@/engine/lib/constants/info_portions/zaton_info_portions";
+import { jupiterInfoPortions } from "@/engine/constants/info_portions/jupiter_info_portions";
+import { pripyatInfoPortions } from "@/engine/constants/info_portions/pripyat_info_portions";
+import { zatonInfoPortions } from "@/engine/constants/info_portions/zaton_info_portions";
 
 // todo: Probably separate for quests and generic collections.
 // todo: Probably do nested objects to store quest infos in one pack.

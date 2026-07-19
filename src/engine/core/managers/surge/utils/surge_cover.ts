@@ -3,6 +3,7 @@ import { GameObject } from "xray16/alias";
 import { LuaArray, MAX_U32, Nillable, TDistance, TRUE } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { TLevel } from "@/engine/constants/levels";
 import { registry } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
@@ -11,7 +12,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

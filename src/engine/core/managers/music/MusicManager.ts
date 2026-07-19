@@ -17,6 +17,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { consoleCommands } from "@/engine/constants/console_commands";
 import { getManager, getManagerByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
@@ -29,7 +30,6 @@ import { type SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { setMusicVolume } from "@/engine/core/utils/sound";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

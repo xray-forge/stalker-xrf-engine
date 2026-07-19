@@ -19,6 +19,8 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { postProcessors } from "@/engine/constants/animation";
+import { communities, TCommunity } from "@/engine/constants/communities";
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
@@ -48,8 +50,6 @@ import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { postProcessors } from "@/engine/lib/constants/animation";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaLoggerMode.DUAL });
 

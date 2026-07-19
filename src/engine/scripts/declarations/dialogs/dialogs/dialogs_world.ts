@@ -2,9 +2,9 @@ import { level } from "xray16";
 import { extern } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { levels } from "@/engine/constants/levels";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { levels } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

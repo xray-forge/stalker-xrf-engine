@@ -16,6 +16,7 @@ import {
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { detectorsOrder } from "@/engine/constants/items/detectors";
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { ActorInputManager, EActiveItemSlot } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager, TNotificationIcon } from "@/engine/core/managers/notifications";
@@ -27,7 +28,6 @@ import { type Squad } from "@/engine/core/objects/squad";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
-import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -4,11 +4,11 @@ import { EGameObjectRelation, GameObject, ServerHumanObject, TRelationType } fro
 import { ACTOR_ID } from "xray16/lib";
 import { MockAlifeHumanStalker, mockCharactersGoodwill, MockGameObject } from "xray16/mocks";
 
+import { communities } from "@/engine/constants/communities";
 import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { communities } from "@/engine/lib/constants/communities";
 import {
   callXrCondition,
   checkXrCondition,

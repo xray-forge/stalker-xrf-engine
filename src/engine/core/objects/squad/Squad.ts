@@ -19,6 +19,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { TCommunity } from "@/engine/constants/communities";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -72,7 +73,6 @@ import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getSquadHelpActorTargetId, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
-import { TCommunity } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

@@ -5,13 +5,13 @@ import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
 
+import { EMonsterState } from "@/engine/constants/monsters";
 import { getManager } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("MobRemarkManager", () => {

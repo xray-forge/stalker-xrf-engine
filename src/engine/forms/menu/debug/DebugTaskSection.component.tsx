@@ -1,9 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { WHITE } from "@/engine/constants/colors";
+import { fonts } from "@/engine/constants/fonts";
 import { Xr3tButton, XrCheckBox, XrStatic, XrText } from "@/engine/forms/components/base";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
-import { WHITE } from "@/engine/lib/constants/colors";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
  * Create the debug task section UI for giving and inspecting tasks.

@@ -3,6 +3,7 @@ import { ESoundObjectType, SoundObject } from "xray16/alias";
 import { AnyCallablesModule, AnyObject, getExtern, Nillable } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { gameTutorials } from "@/engine/constants/game_tutorials";
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
@@ -11,7 +12,6 @@ import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

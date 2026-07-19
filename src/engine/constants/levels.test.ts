@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { levels } from "@/engine/lib/constants/levels";
+import { levels } from "@/engine/constants/levels";
 
 describe("levels constants integrity", () => {
   it("should match key-value entries", () => {

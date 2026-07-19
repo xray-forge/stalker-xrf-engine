@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("GameOutroConfig game end conditions", () => {

@@ -22,6 +22,8 @@ import {
 } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
+import { misc } from "@/engine/constants/items/misc";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -80,8 +82,6 @@ import {
 } from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

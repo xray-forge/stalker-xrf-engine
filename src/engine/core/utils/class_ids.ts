@@ -13,9 +13,9 @@ import type {
 import { type Nillable } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { classIds } from "@/engine/constants/class_ids";
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { type Stalker } from "@/engine/core/objects/creature";
-import { classIds } from "@/engine/lib/constants/class_ids";
 
 /**
  * Check whether object class id matches monster.

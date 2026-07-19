@@ -19,6 +19,9 @@ import {
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { animations, postProcessors } from "@/engine/constants/animation";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { TLevel } from "@/engine/constants/levels";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   closeLoadMarker,
@@ -51,9 +54,6 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

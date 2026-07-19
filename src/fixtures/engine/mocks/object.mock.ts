@@ -1,9 +1,9 @@
 import { GameObject, ServerObject } from "xray16/alias";
 import { IMockGameObjectConfig, MockAlifeObject, MockGameObject } from "xray16/mocks";
 
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { medkits } from "@/engine/lib/constants/items/drugs";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { ammo } from "@/engine/constants/items/ammo";
+import { medkits } from "@/engine/constants/items/drugs";
+import { weapons } from "@/engine/constants/items/weapons";
 
 /**
  * @returns Generic object with some items in inventory.

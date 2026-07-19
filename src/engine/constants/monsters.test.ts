@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { monsters } from "@/engine/lib/constants/monsters";
+import { monsters } from "@/engine/constants/monsters";
 
 describe("monsters constants integrity", () => {
   it("should match key-value entries", () => {

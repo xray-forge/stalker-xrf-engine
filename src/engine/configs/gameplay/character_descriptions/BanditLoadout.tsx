@@ -29,8 +29,8 @@ import {
   loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { communities } from "@/engine/lib/constants/communities";
-import { GENERATE_BANDIT_NAME } from "@/engine/lib/constants/names";
+import { communities } from "@/engine/constants/communities";
+import { GENERATE_BANDIT_NAME } from "@/engine/constants/names";
 
 export function BanditLoadout(): JSXNode {
   return (

@@ -1,5 +1,5 @@
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils";
-import { food } from "@/engine/lib/constants/items/food";
+import { food } from "@/engine/constants/items/food";
 
 /**
  * Generic character food.

@@ -14,6 +14,7 @@ import { GameObject, Vector2D } from "xray16/alias";
 import { create2dVector, TDuration, TNumberId, TPath, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { infoPortions } from "@/engine/constants/info_portions/info_portions";
 import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { SCREEN_WIDE_COEFFICIENT } from "@/engine/core/ui/screen_layout";
@@ -28,7 +29,6 @@ import {
   isWideScreen,
   resolveXmlFile,
 } from "@/engine/core/utils/ui";
-import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "interaction\\SleepDialog.component";

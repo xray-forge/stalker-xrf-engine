@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { fonts } from "@/engine/lib/constants/fonts";
+import { fonts } from "@/engine/constants/fonts";
 
 /**
  * Create the main menu screen UI with its button sets for each game state.

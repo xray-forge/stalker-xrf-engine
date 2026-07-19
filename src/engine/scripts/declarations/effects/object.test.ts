@@ -4,6 +4,7 @@ import { AnyCallable, FALSE, TRUE } from "xray16/lib";
 import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { misc } from "@/engine/constants/items/misc";
 import {
   IRegistryObjectState,
   registerObject,
@@ -17,7 +18,6 @@ import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { getSchemeState, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("object effects declaration", () => {

@@ -3,15 +3,15 @@ import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
+import { ammo } from "@/engine/constants/items/ammo";
+import { artefacts } from "@/engine/constants/items/artefacts";
+import { drugs, medkits } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { misc } from "@/engine/constants/items/misc";
+import { weapons } from "@/engine/constants/items/weapons";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { filterObjectDeathLoot, shouldFilterLootItem } from "@/engine/core/managers/drop/utils/drop_filter";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
-import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { mockInSimulator, resetRegistry } from "@/fixtures/engine";
 
 describe("filterObjectDeathLoot", () => {

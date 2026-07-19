@@ -3,7 +3,7 @@ import { MockFileSystem, MockIniFile, MockPatrol } from "xray16/mocks";
 
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
 
-import { roots } from "@/engine/lib/constants/roots";
+import { roots } from "@/engine/constants/roots";
 import { INI_FILES_MOCKS } from "@/fixtures/engine/mocks/ini_files.mock";
 import { MockLuaLogger } from "@/fixtures/engine/mocks/LuaLogger.mock";
 import { patrols } from "@/fixtures/engine/mocks/patrols.mock";

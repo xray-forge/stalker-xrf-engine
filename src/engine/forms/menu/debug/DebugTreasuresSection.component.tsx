@@ -1,11 +1,11 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { WHITE } from "@/engine/constants/colors";
+import { fonts } from "@/engine/constants/fonts";
 import { Xr3tButton, XrEditBox, XrRoot, XrStatic, XrText } from "@/engine/forms/components/base";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { WHITE } from "@/engine/lib/constants/colors";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
  * Create debug section with treasures information/debug context.

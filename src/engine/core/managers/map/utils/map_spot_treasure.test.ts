@@ -2,13 +2,13 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import {
   getTreasureMapSpot,
   removeTreasureMapSpot,
   showTreasureMapSpot,
 } from "@/engine/core/managers/map/utils/map_spot_treasure";
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
-import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("getTreasureMapSpot util", () => {

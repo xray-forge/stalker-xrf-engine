@@ -13,10 +13,10 @@ import {
 } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { weapons } from "@/engine/constants/items/weapons";
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("StatisticsManager", () => {

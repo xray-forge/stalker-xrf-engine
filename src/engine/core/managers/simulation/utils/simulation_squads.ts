@@ -3,6 +3,8 @@ import { Patrol, ServerCreatureObject, ServerObject, Vector } from "xray16/alias
 import { abort, LuaArray, NIL, Nillable, TName, TNumberId, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { TLevel } from "@/engine/constants/levels";
+import { SMART_TERRAIN_SECTION } from "@/engine/constants/sections";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { removeSquadMapSpot, updateSquadMapSpot } from "@/engine/core/managers/map/utils/map_spot_squad";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils/map_spot_terrain";
@@ -25,8 +27,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
-import { TLevel } from "@/engine/lib/constants/levels";
-import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

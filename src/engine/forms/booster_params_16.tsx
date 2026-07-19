@@ -1,8 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { fonts } from "@/engine/constants/fonts";
 import { XrComponent, XrText } from "@/engine/forms/components/base";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
  * Generate UI components related to game food/boosters parameters (16/9).

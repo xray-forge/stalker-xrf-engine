@@ -33,14 +33,14 @@ import {
   loadoutWalther,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { communities } from "@/engine/lib/constants/communities";
+import { communities } from "@/engine/constants/communities";
 import {
   GENERATE_CAPTAIN_NAME,
   GENERATE_LIEUTENANT_NAME,
   GENERATE_PRIVATE_NAME,
   GENERATE_SERGEANT_NAME,
   GENERATE_STALKER_NAME,
-} from "@/engine/lib/constants/names";
+} from "@/engine/constants/names";
 
 export function DutyLoadout(): JSXNode {
   return (

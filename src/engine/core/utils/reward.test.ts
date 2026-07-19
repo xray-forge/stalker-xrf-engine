@@ -3,6 +3,9 @@ import { GameObject } from "xray16/alias";
 import { TCount, TSection } from "xray16/lib";
 import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
+import { ammo } from "@/engine/constants/items/ammo";
+import { medkits } from "@/engine/constants/items/drugs";
+import { weapons } from "@/engine/constants/items/weapons";
 import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -19,9 +22,6 @@ import {
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/reward";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { medkits } from "@/engine/lib/constants/items/drugs";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 
 function getItemsCount(object: GameObject, section: TSection): TCount {

@@ -2,10 +2,10 @@ import { CConsole, CUICheckButton, CUIScrollView, CUIStatic, get_console, Luabin
 import { executeConsoleCommand, Nillable, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/constants/console_commands";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugCommandsSection.component";

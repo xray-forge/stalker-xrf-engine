@@ -1,4 +1,4 @@
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { weapons } from "@/engine/constants/items/weapons";
 
 export const mockStalkerUpgradeInfo = {
   test_mechanic: {

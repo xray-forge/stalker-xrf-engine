@@ -22,6 +22,7 @@ import {
 } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import {
   getManager,
   getObjectByStoryId,
@@ -63,7 +64,6 @@ import { isObjectWounded } from "@/engine/core/utils/planner";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 /**
  * Check if object is snork.

@@ -53,19 +53,19 @@ import {
   loadoutWincheaster1300,
 } from "@/engine/configs/gameplay/loadouts";
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
-import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { food } from "@/engine/lib/constants/items/food";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { communities } from "@/engine/constants/communities";
+import { ammo } from "@/engine/constants/items/ammo";
+import { food } from "@/engine/constants/items/food";
+import { misc } from "@/engine/constants/items/misc";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import {
   GENERATE_BANDIT_NAME,
   GENERATE_CAPTAIN_NAME,
   GENERATE_LIEUTENANT_NAME,
   GENERATE_SERGEANT_NAME,
   GENERATE_STALKER_NAME,
-} from "@/engine/lib/constants/names";
+} from "@/engine/constants/names";
 
 export function create(): JSXNode {
   return (

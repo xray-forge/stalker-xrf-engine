@@ -1,6 +1,8 @@
 import { AlifeSimulator, AnyGameObject, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
+import { infoPortions } from "@/engine/constants/info_portions";
 import { registry } from "@/engine/core/database";
 import type { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { getSquadCommunity } from "@/engine/core/utils/community";
@@ -9,8 +11,6 @@ import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { areCommunitiesEnemies } from "@/engine/core/utils/relation";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { isEmpty } from "@/engine/core/utils/table";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 /**
  * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.

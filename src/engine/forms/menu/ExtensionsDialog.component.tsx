@@ -1,9 +1,9 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { WHITE } from "@/engine/constants/colors";
 import { Xr3tButton, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
-import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
  * Create extensions dialog form.

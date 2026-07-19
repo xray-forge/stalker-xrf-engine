@@ -2,6 +2,9 @@ import { level } from "xray16";
 import { AnyObject, executeConsoleCommand, getConsoleFloatCommand, TDuration } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { animations, postProcessors } from "@/engine/constants/animation";
+import { consoleCommands } from "@/engine/constants/console_commands";
+import { infoPortions } from "@/engine/constants/info_portions";
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager, EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor";
@@ -13,9 +16,6 @@ import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SleepDialog } from "@/engine/core/ui/game/sleep";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

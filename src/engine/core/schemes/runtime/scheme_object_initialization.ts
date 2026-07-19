@@ -2,6 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { LuaArray, NIL, Nillable, TDistance, TNumberId, TRUE, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { TInfoPortion } from "@/engine/constants/info_portions";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EScheme } from "@/engine/core/schemes/types";
 import {
@@ -12,7 +13,6 @@ import {
   readIniNumber,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 
 /**
  * Synchronize object invulnerability with the active section's condition list.

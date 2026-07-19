@@ -1,5 +1,5 @@
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils";
-import { drugs } from "@/engine/lib/constants/items/drugs";
+import { drugs } from "@/engine/constants/items/drugs";
 
 export function loadoutCharacterDrugsBase(): Array<ISpawnItemDescriptor> {
   return [

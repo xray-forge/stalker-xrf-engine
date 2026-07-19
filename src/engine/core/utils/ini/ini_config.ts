@@ -18,6 +18,7 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
+import { TInfoPortion } from "@/engine/constants/info_portions";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
@@ -36,7 +37,6 @@ import {
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
 import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
-import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 
 /**
  * Parse array of `|` separated condition lists.

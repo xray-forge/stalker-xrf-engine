@@ -14,6 +14,7 @@ import {
 } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { EMonsterState } from "@/engine/constants/monsters";
 import { IRegistryObjectState, registry, setMonsterState } from "@/engine/core/database";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
@@ -22,7 +23,6 @@ import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } f
 import { getActiveSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
 
 /**
  * Manager handling monster walker scheme behaviour for an object.

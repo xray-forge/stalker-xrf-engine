@@ -3,6 +3,7 @@ import { EGameObjectRelation, GameObject, IniFile } from "xray16/alias";
 import { assert, Nillable, TCount, TName, TPath, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { TInventoryItem } from "@/engine/constants/items";
 import {
   CUSTOM_DATA,
   getManager,
@@ -28,7 +29,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

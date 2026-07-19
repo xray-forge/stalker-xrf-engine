@@ -18,6 +18,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { TLevel } from "@/engine/constants/levels";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -43,7 +44,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getGameLevelName, getGameVertexLevelId } from "@/engine/core/utils/position";
-import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

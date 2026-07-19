@@ -32,6 +32,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { misc } from "@/engine/constants/items/misc";
 import {
   getObjectByStoryId,
   getObjectIdByStoryId,
@@ -77,7 +78,6 @@ import {
   spawnObjectInObject,
   spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -3,14 +3,14 @@ import { GameObject } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
+import { ACTOR_VISUAL_STALKER } from "@/engine/constants/sections";
 import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 
 /**
  * Check if any wounded stalker to help exists nearby.

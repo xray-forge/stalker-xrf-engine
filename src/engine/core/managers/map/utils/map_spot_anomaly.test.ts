@@ -5,11 +5,11 @@ import { $fromArray } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, replaceFunctionMockOnce } from "xray16/testing/utils";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { registerStoryLink } from "@/engine/core/database";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_anomaly";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/anomaly");

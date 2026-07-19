@@ -12,9 +12,9 @@ import {
   MockVector,
 } from "xray16/mocks";
 
+import { communities } from "@/engine/constants/communities";
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
-import { communities } from "@/engine/lib/constants/communities";
 
 interface IMockSquadConfig extends IMockAlifeObjectConfig {
   behaviour?: LuaTable<string, string>;

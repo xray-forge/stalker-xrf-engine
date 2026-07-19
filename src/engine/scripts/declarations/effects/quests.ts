@@ -28,6 +28,15 @@ import {
 } from "xray16/lib";
 import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
+import { TInventoryItem } from "@/engine/constants/items";
+import { ammo } from "@/engine/constants/items/ammo";
+import { artefacts } from "@/engine/constants/items/artefacts";
+import { drugs } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { helmets } from "@/engine/constants/items/helmets";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
@@ -44,15 +53,6 @@ import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/co
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);

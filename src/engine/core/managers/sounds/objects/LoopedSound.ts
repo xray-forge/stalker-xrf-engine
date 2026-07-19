@@ -3,10 +3,10 @@ import { GameObject, IniFile, TSoundObjectType } from "xray16/alias";
 import { assert, Nillable, TNumberId, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
-import { roots } from "@/engine/lib/constants/roots";
 
 /**
  * Playable sound that loops continuously at the position of a game object.

@@ -3,6 +3,7 @@ import { ServerObject, Vector2D } from "xray16/alias";
 import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TPath, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { TInventoryItem } from "@/engine/constants/items";
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
@@ -13,7 +14,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/registry";
 import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugSpawnSection.component";

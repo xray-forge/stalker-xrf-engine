@@ -15,6 +15,7 @@ import {
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { SECRET_SECTION } from "@/engine/constants/sections";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -31,7 +32,6 @@ import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig"
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { SECRET_SECTION } from "@/engine/lib/constants/sections";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

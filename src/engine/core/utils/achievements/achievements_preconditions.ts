@@ -1,5 +1,7 @@
 import { ACTOR_ID } from "xray16/lib";
 
+import { communities } from "@/engine/constants/communities";
+import { infoPortions } from "@/engine/constants/info_portions";
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
@@ -8,8 +10,6 @@ import { achievementsIcons } from "@/engine/core/utils/achievements/achievements
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 import { giveInfoPortion, hasFewInfoPortions, hasInfoPortion, hasInfoPortions } from "@/engine/core/utils/info_portion";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
-import { communities } from "@/engine/lib/constants/communities";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 /**
  * @returns Whether actor has pioneer achievement.

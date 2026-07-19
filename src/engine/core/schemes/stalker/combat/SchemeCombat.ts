@@ -3,6 +3,7 @@ import { ActionBase, ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -21,7 +22,6 @@ import {
   readIniConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { communities } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -2,13 +2,13 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { IRgbColor } from "@/engine/constants/colors";
+import { TFontId } from "@/engine/constants/fonts";
 import { XrStatic } from "@/engine/forms/components/base/XrStatic.component";
 import { XrTabButton } from "@/engine/forms/components/base/XrTabButton.component";
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.component";
 import { IBaseXmlNode } from "@/engine/forms/types";
-import { IRgbColor } from "@/engine/lib/constants/colors";
-import { TFontId } from "@/engine/lib/constants/fonts";
 
 export interface IXrTabProps extends IBaseXmlNode {
   id?: string;

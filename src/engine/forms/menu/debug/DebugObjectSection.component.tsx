@@ -1,8 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { WHITE } from "@/engine/constants/colors";
+import { fonts } from "@/engine/constants/fonts";
 import { Xr3tButton, XrCheckBox, XrRoot, XrStatic, XrText } from "@/engine/forms/components/base";
-import { WHITE } from "@/engine/lib/constants/colors";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
  * Create the debug object section UI for inspecting and controlling the targeted stalker.

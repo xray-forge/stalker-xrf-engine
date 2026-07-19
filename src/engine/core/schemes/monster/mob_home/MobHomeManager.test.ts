@@ -3,11 +3,11 @@ import { GameObject, ServerCreatureObject, ServerSmartZoneObject } from "xray16/
 import { TDistance, TName } from "xray16/lib";
 import { MockAlifeSimulator, MockAlifeSmartZone, MockGameObject, MockServerAlifeCreatureAbstract } from "xray16/mocks";
 
+import { EMonsterState } from "@/engine/constants/monsters";
 import { registerSimulator } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { EScheme } from "@/engine/core/schemes/types";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 
 describe("MobHomeManager functionality", () => {

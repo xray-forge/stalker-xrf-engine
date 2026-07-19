@@ -3,11 +3,11 @@ import { GameObject, TRelationType } from "xray16/alias";
 import { assert, Nillable, TCount, TNumberId, TStringId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { getSquadCommunity } from "@/engine/core/utils/community";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
 
 /**
  * Get relation type between objects with safe null check.

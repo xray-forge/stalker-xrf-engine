@@ -1,6 +1,6 @@
 import { PartialRecord, TName } from "xray16/lib";
 
-import { monsters, TMonster } from "@/engine/lib/constants/monsters";
+import { monsters, TMonster } from "@/engine/constants/monsters";
 
 /**
  * Map of icons to display in PDA for monsters.

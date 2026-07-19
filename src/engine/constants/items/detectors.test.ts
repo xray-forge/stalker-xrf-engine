@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { detectors } from "@/engine/lib/constants/items/detectors";
+import { detectors } from "@/engine/constants/items/detectors";
 
 describe("detectors constants integrity", () => {
   it("should match key-value entries", () => {

@@ -12,6 +12,10 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { animations, postProcessors } from "@/engine/constants/animation";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { drugs } from "@/engine/constants/items/drugs";
+import { misc } from "@/engine/constants/items/misc";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -38,10 +42,6 @@ import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_po
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/position";
 import { getEffectsVolume, getMusicVolume, setEffectsVolume, setMusicVolume } from "@/engine/core/utils/sound";
-import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

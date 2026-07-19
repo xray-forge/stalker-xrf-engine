@@ -1,6 +1,7 @@
 import { GameObject } from "xray16/alias";
 import { abort, Nillable, TCount, TProbability, TSection } from "xray16/lib";
 
+import { TInventoryItem } from "@/engine/constants/items";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
@@ -8,7 +9,6 @@ import { filterObjectDeathLoot } from "@/engine/core/managers/drop/utils/drop_fi
 import { Stalker } from "@/engine/core/objects/creature";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 
 /**
  * Spawn death loot items for the object corpse based on its community drop configuration.

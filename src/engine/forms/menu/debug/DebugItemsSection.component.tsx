@@ -1,10 +1,10 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { WHITE } from "@/engine/constants/colors";
 import { Xr3tButton, XrBackground, XrComponent, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrList } from "@/engine/forms/components/base/XrList.component";
 import { XrComboBox } from "@/engine/forms/components/base/XrListRenderer.component";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
-import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
  * Create the debug items section UI for browsing and spawning items by category.

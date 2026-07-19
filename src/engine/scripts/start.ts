@@ -1,12 +1,12 @@
 import { extern, updateClassIds } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { classIds } from "@/engine/constants/class_ids";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { classIds } from "@/engine/lib/constants/class_ids";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";

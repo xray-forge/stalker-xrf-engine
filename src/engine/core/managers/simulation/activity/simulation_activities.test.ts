@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { TCommunity } from "@/engine/constants/communities";
 import { simulationActivities } from "@/engine/core/managers/simulation/activity";
 import { TSimulationActivityPrecondition } from "@/engine/core/managers/simulation/types";
 import { Squad } from "@/engine/core/objects/squad";
-import { TCommunity } from "@/engine/lib/constants/communities";
 import { MockSquad } from "@/fixtures/engine";
 
 describe("faction activities preconditions", () => {

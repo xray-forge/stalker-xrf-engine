@@ -3,12 +3,12 @@ import { GameHud, GameObject } from "xray16/alias";
 import { ACTOR_ID, executeConsoleCommand, extern, LuaArray, Nillable, TCount, TLabel, TName, TRate } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { consoleCommands } from "@/engine/constants/console_commands";
 import { getManager, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

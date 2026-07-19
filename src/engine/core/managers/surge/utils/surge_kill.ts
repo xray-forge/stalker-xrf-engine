@@ -3,6 +3,9 @@ import { GameObject, Hit } from "xray16/alias";
 import { LuaArray, Nillable, TRUE, Z_VECTOR } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
+import { animations, postProcessors } from "@/engine/constants/animation";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { TLevel } from "@/engine/constants/levels";
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
 import { EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor/actor_input_types";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
@@ -19,9 +22,6 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectOnLevel } from "@/engine/core/utils/position";
-import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

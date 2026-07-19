@@ -8,16 +8,16 @@ import {
   loadoutCharacterFood,
   loadoutCharacterItems,
 } from "@/engine/configs/gameplay/loadouts";
-import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
+import { communities } from "@/engine/constants/communities";
+import { ammo } from "@/engine/constants/items/ammo";
+import { detectors } from "@/engine/constants/items/detectors";
+import { drugs } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { helmets } from "@/engine/constants/items/helmets";
+import { misc } from "@/engine/constants/items/misc";
+import { outfits } from "@/engine/constants/items/outfits";
+import { weapons } from "@/engine/constants/items/weapons";
+import { GENERATE_STALKER_NAME } from "@/engine/constants/names";
 
 export function ActorLoadout(): JSXNode {
   return (

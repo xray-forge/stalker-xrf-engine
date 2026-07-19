@@ -18,13 +18,13 @@ import { FSFile, FSFileList, FSItem, TKeyCode, TUIEvent, Vector2D } from "xray16
 import { create2dVector, LuaArray, Nillable, TLabel, TName, TPath } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { createGameSave, deleteGameSave, getGameSaves } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\SaveDialog.component";

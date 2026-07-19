@@ -3,6 +3,7 @@ import { GameObject, ServerGroupObject } from "xray16/alias";
 import { ACTOR_ID } from "xray16/lib";
 import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
+import { communities } from "@/engine/constants/communities";
 import {
   registerActor,
   registerActorServer,
@@ -20,7 +21,6 @@ import {
   getSquadRelationToActorById,
 } from "@/engine/core/utils/relation/relation_get";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
-import { communities } from "@/engine/lib/constants/communities";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 
 describe("getObjectsRelationSafe util", () => {

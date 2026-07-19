@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { fonts } from "@/engine/lib/constants/fonts";
+import { fonts } from "@/engine/constants/fonts";
 
 describe("fonts constants integrity", () => {
   it("should match key-value entries", () => {

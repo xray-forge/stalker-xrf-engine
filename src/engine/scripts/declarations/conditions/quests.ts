@@ -17,12 +17,12 @@ import {
 } from "xray16/lib";
 import { $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
+import { storyNames } from "@/engine/constants/story_names";
 import { type AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { storyNames } from "@/engine/lib/constants/story_names";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**

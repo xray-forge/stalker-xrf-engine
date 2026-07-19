@@ -14,12 +14,12 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { consoleCommands } from "@/engine/constants/console_commands";
+import { roots } from "@/engine/constants/roots";
 import { registry } from "@/engine/core/database/registry";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

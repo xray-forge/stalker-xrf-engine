@@ -3,11 +3,11 @@ import { TName } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { BLACK, IRgbColor } from "@/engine/constants/colors";
+import { fonts, TFontId } from "@/engine/constants/fonts";
 import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { IBaseXmlNode, THorizontalTextAlign } from "@/engine/forms/types";
-import { BLACK, IRgbColor } from "@/engine/lib/constants/colors";
-import { fonts, TFontId } from "@/engine/lib/constants/fonts";
 
 export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;

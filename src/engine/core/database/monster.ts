@@ -3,8 +3,8 @@ import { GameObject, IniFile } from "xray16/alias";
 import { abort, Nillable, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { EMonsterState } from "@/engine/constants/monsters";
 import { readIniString } from "@/engine/core/utils/ini";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
 
 /**
  * Read monster state from provided ini file.

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { postProcessors } from "@/engine/lib/constants/animation";
+import { postProcessors } from "@/engine/constants/animation";
 
 describe("post_processors constants integrity", () => {
   it("should match key-value entries", () => {

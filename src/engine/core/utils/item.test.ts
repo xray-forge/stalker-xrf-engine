@@ -4,6 +4,9 @@ import { MAX_ALIFE_ID, TNumberId, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeObject, MockGameObject } from "xray16/mocks";
 
+import { ammo } from "@/engine/constants/items/ammo";
+import { medkits } from "@/engine/constants/items/drugs";
+import { pistols, weapons } from "@/engine/constants/items/weapons";
 import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
   actorHasAtLeastOneItem,
@@ -20,9 +23,6 @@ import {
   objectHasItem,
   setItemCondition,
 } from "@/engine/core/utils/item";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { medkits } from "@/engine/lib/constants/items/drugs";
-import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 
 describe("getItemPrice util", () => {

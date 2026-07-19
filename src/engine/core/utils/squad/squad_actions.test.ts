@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
+import { communities } from "@/engine/constants/communities";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
@@ -13,7 +14,6 @@ import {
   isObjectSquadCommanderById,
   isSquadAction,
 } from "@/engine/core/utils/squad/squad_actions";
-import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("isObjectSquadCommander util", () => {

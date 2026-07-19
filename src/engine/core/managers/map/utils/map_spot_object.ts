@@ -3,13 +3,13 @@ import { AlifeSimulator, GameObject, ServerObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TName, TNumberId, TRUE, TSection, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { EScheme } from "@/engine/core/schemes/types";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { mapMarks } from "@/engine/lib/constants/map_marks";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

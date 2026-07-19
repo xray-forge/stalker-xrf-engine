@@ -1,6 +1,7 @@
 import { AnyGameObject, EGameObjectRelation, GameObject } from "xray16/alias";
 import { abort, ACTOR_ID, extern, Nillable, TStringId } from "xray16/lib";
 
+import { TCommunity } from "@/engine/constants/communities";
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
@@ -16,7 +17,6 @@ import {
   isAnySquadMemberEnemyToActor,
   isAnySquadMemberFriendToActor,
 } from "@/engine/core/utils/relation";
-import { TCommunity } from "@/engine/lib/constants/communities";
 
 /**
  * Check whether actor faction is enemy with provided parameter community.

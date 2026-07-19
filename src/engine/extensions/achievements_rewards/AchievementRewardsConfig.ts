@@ -2,11 +2,11 @@ import { Time } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
+import { TInventoryItem } from "@/engine/constants/items";
+import { ammo } from "@/engine/constants/items/ammo";
+import { drugs } from "@/engine/constants/items/drugs";
+import { storyNames } from "@/engine/constants/story_names";
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { storyNames } from "@/engine/lib/constants/story_names";
 
 export const achievementRewardsConfig = {
   LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT: null as Nillable<Time>,

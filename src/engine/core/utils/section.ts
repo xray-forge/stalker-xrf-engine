@@ -1,8 +1,8 @@
 import { TSection } from "xray16/lib";
 
-import { squadMonsters } from "@/engine/lib/constants/behaviours";
-import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { lootableTable, lootableTableExclude } from "@/engine/lib/constants/items/lootable_table";
+import { squadMonsters } from "@/engine/constants/behaviours";
+import { ammo, TAmmoItem } from "@/engine/constants/items/ammo";
+import { lootableTable, lootableTableExclude } from "@/engine/constants/items/lootable_table";
 
 /**
  * @param section - Section to check if it is ammo.

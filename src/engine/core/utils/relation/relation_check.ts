@@ -2,11 +2,11 @@ import { relation_registry } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TCount, TRate, TStringId } from "xray16/lib";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
 import { registry } from "@/engine/core/database/registry";
 import { Squad } from "@/engine/core/objects/squad";
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
 
 /**
  * Check whether is enemy with faction.

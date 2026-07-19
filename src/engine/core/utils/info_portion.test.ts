@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { registry } from "@/engine/core/database";
 import {
   disableInfoPortion,
@@ -9,7 +10,6 @@ import {
   hasInfoPortion,
   hasInfoPortions,
 } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("giveInfoPortion util", () => {

@@ -3,6 +3,7 @@ import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TD
 import { ACTOR_ID, isObjectInZone, MAX_ALIFE_ID, Nillable, TDistance, TRUE } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -14,7 +15,6 @@ import { EScheme } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { communities } from "@/engine/lib/constants/communities";
 
 /**
  * Check whether object is facing any danger.

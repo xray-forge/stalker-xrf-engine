@@ -1,8 +1,8 @@
 import { getFS } from "xray16";
 import { Nillable, TName, TPath } from "xray16/lib";
 
+import { roots } from "@/engine/constants/roots";
 import { loggingRegistry } from "@/engine/core/utils/logging/logging_registry";
-import { roots } from "@/engine/lib/constants/roots";
 
 /**
  * Open log file and reserve it for writing of logs.

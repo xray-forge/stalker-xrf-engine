@@ -1,12 +1,12 @@
 import { AlifeSimulator, GameObject, IniFile } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
 
+import { misc } from "@/engine/constants/items/misc";
 import { registry } from "@/engine/core/database";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection } from "@/engine/core/utils/section";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 /**
  * Iterate over object inventory and release items.

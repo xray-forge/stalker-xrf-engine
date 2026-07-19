@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { communities } from "@/engine/constants/communities";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { communities } from "@/engine/lib/constants/communities";
 
 /**
  * Checker to verify whether zombied combat style is applied.

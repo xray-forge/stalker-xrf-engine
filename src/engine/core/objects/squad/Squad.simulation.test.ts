@@ -6,6 +6,7 @@ import { $fromObject } from "xray16/macros";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { communities } from "@/engine/constants/communities";
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
@@ -14,7 +15,6 @@ import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine
 import { Squad } from "@/engine/core/objects/squad";
 import { ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("Squad server object", () => {

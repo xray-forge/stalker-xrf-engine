@@ -2,6 +2,16 @@ import { GameObject } from "xray16/alias";
 import { AnyCallable, extern, getExtern, LuaArray, TCount } from "xray16/lib";
 import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions/info_portions";
+import { TInventoryItem } from "@/engine/constants/items";
+import { ammo, TAmmoItem } from "@/engine/constants/items/ammo";
+import { artefacts } from "@/engine/constants/items/artefacts";
+import { drugs } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { helmets } from "@/engine/constants/items/helmets";
+import { outfits } from "@/engine/constants/items/outfits";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import { registry } from "@/engine/core/database";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -12,16 +22,6 @@ import {
   transferItemsToActor,
   transferMoneyFromActor,
 } from "@/engine/core/utils/reward";
-import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

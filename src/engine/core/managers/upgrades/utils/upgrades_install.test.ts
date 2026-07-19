@@ -3,8 +3,8 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { weapons } from "@/engine/constants/items/weapons";
 import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgrades";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 describe("addRandomUpgrade util", () => {
   it(" should correctly add random upgrade", () => {

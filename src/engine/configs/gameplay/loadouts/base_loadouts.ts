@@ -1,8 +1,8 @@
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils";
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { misc } from "@/engine/lib/constants/items/misc";
-import { weapons } from "@/engine/lib/constants/items/weapons";
+import { artefacts } from "@/engine/constants/items/artefacts";
+import { detectors } from "@/engine/constants/items/detectors";
+import { misc } from "@/engine/constants/items/misc";
+import { weapons } from "@/engine/constants/items/weapons";
 
 export function loadoutBinocular(): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_binoc }];

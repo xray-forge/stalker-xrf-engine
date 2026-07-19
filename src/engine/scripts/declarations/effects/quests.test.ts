@@ -4,6 +4,8 @@ import { TRUE } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { infoPortions } from "@/engine/constants/info_portions";
+import { questItems } from "@/engine/constants/items/quest_items";
 import { getManager, registerZone } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
@@ -11,8 +13,6 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject } from "@/engine/core/utils/spawn";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils");

@@ -4,8 +4,8 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { EMonsterState } from "@/engine/constants/monsters";
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
-import { EMonsterState } from "@/engine/lib/constants/monsters";
 
 describe("getMonsterState", () => {
   it("should correctly read monster state from ini", () => {

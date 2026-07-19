@@ -3,6 +3,7 @@ import { IniFile } from "xray16/alias";
 import { assert, Nillable, TCount, TIndex, TPath, TRate, TSection } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
+import { roots } from "@/engine/constants/roots";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import {
@@ -21,7 +22,6 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 

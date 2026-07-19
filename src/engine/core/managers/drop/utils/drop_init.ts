@@ -3,11 +3,11 @@ import type { IniFile } from "xray16/alias";
 import { abort, LuaArray, TCount, TName, TProbability, TSection, TStringId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
+import type { TInventoryItem } from "@/engine/constants/items";
+import type { TLevel } from "@/engine/constants/levels";
 import type { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import type { TInventoryItem } from "@/engine/lib/constants/items";
-import type { TLevel } from "@/engine/lib/constants/levels";
 
 /**
  * @param ini - Target ini file to read data from.

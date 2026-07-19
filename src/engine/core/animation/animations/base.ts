@@ -1,6 +1,7 @@
 import { AnyCallablesModule, getExtern, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
+import { misc } from "@/engine/constants/items/misc";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
@@ -9,7 +10,6 @@ import { finishObjectHelpWounded } from "@/engine/core/schemes/stalker/help_woun
 import { clearObjectAbuse } from "@/engine/core/schemes/stalker/meet/utils";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { createSequence } from "@/engine/core/utils/animation";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 /**
  * List of base animations for usage in stalkers logic.

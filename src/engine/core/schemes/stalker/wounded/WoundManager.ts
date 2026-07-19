@@ -3,6 +3,8 @@ import { AlifeSimulator, GameObject } from "xray16/alias";
 import { FALSE, NIL, Nillable, TCount, TNumberId, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { drugs } from "@/engine/constants/items/drugs";
+import { misc } from "@/engine/constants/items/misc";
 import { getManager, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
@@ -22,8 +24,6 @@ import {
   PS_WOUNDED_VICTIM,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

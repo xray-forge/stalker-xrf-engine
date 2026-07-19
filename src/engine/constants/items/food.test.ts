@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { food } from "@/engine/lib/constants/items/food";
+import { food } from "@/engine/constants/items/food";
 
 describe("food constants integrity", () => {
   it("should match key-value entries", () => {

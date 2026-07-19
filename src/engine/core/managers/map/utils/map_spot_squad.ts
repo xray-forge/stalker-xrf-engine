@@ -2,6 +2,7 @@ import { level } from "xray16";
 import { Nillable, TLabel, TNumberId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { type Squad } from "@/engine/core/objects/squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils";
@@ -11,7 +12,6 @@ import {
   getSquadMembersRelationToActorSafe,
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
-import { mapMarks } from "@/engine/lib/constants/map_marks";
 
 /**
  * Update map spot for squad.

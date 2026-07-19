@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay/freeplay_utils";
 import { FreeplayDialog } from "@/engine/core/ui/game/freeplay/FreeplayDialog";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("showFreeplayDialog", () => {

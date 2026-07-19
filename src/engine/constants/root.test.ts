@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { decamelize } from "xray16/lib";
 
-import { roots } from "@/engine/lib/constants/roots";
+import { roots } from "@/engine/constants/roots";
 
 describe("roots constants integrity", () => {
   it("should match key-value entries", () => {

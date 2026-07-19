@@ -13,6 +13,8 @@ import {
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { postProcessors } from "@/engine/constants/animation";
+import { consoleCommands } from "@/engine/constants/console_commands";
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -22,8 +24,6 @@ import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects } from "@/engine/core/utils/registry";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { postProcessors } from "@/engine/lib/constants/animation";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTeleportSection.component";

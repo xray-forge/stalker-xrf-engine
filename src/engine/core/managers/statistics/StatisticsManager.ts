@@ -23,6 +23,10 @@ import {
 } from "xray16/lib";
 import { $filename, $fromObject, $isNotNil } from "xray16/macros";
 
+import { TInventoryItem } from "@/engine/constants/items";
+import { TArtefact } from "@/engine/constants/items/artefacts";
+import { TWeapon, weapons } from "@/engine/constants/items/weapons";
+import { TMonster } from "@/engine/constants/monsters";
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -31,10 +35,6 @@ import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TInventoryItem } from "@/engine/lib/constants/items";
-import { TArtefact } from "@/engine/lib/constants/items/artefacts";
-import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import { TMonster } from "@/engine/lib/constants/monsters";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

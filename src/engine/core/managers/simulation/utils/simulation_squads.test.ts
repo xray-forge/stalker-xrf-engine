@@ -5,6 +5,7 @@ import { TNumberId } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { communities } from "@/engine/constants/communities";
 import { registerSimulator, SYSTEM_INI } from "@/engine/core/database";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
 import { getSimulationSquads } from "@/engine/core/managers/simulation/utils/simulation_data";
@@ -15,7 +16,6 @@ import {
   unRegisterSimulationSquad,
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { Squad } from "@/engine/core/objects/squad";
-import { communities } from "@/engine/lib/constants/communities";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils/map_spot_squad");

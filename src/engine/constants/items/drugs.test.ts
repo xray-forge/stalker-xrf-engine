@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
+import { drugs, medkits } from "@/engine/constants/items/drugs";
 
 describe("drugs constants integrity", () => {
   it("should match key-value entries", () => {

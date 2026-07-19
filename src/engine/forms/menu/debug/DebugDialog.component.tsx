@@ -1,12 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { IRgbColor, WHITE } from "@/engine/constants/colors";
+import { fonts } from "@/engine/constants/fonts";
 import { SCREEN_BASE_HEIGHT, SCREEN_BASE_WIDTH } from "@/engine/core/ui/screen_layout";
 import { Xr3tButton, XrBackground, XrRoot, XrStatic } from "@/engine/forms/components/base";
 import { XrComponent } from "@/engine/forms/components/base/XrComponent.component";
 import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { IRgbColor, WHITE } from "@/engine/lib/constants/colors";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 export const SECTION_WIDTH: number = SCREEN_BASE_WIDTH - 132;
 export const SECTION_HEIGHT: number = SCREEN_BASE_HEIGHT - 16;

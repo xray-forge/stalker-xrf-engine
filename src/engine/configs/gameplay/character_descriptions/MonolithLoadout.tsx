@@ -36,10 +36,10 @@ import {
   loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
+import { communities } from "@/engine/constants/communities";
+import { ammo } from "@/engine/constants/items/ammo";
+import { weapons } from "@/engine/constants/items/weapons";
+import { GENERATE_STALKER_NAME } from "@/engine/constants/names";
 
 export function MonolithLoadout(): JSXNode {
   return (

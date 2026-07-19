@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { CScriptXmlInit } from "xray16";
 import { MockFileSystem } from "xray16/mocks";
 
+import { roots } from "@/engine/constants/roots";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui/ui_xml";
-import { roots } from "@/engine/lib/constants/roots";
 
 describe("resolveXmlFile util", () => {
   it("should correctly parse provided path", () => {

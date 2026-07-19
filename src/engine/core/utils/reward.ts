@@ -2,6 +2,7 @@ import { GameObject } from "xray16/alias";
 import { abort, assert, Nillable, TCount, TSection } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { ammo, TAmmoItem } from "@/engine/constants/items/ammo";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
@@ -12,7 +13,6 @@ import {
 } from "@/engine/core/managers/notifications/notifications_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

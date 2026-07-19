@@ -1,6 +1,7 @@
 import { cast_planner, world_property } from "xray16";
 import { ActionPlanner, GameObject } from "xray16/alias";
 
+import { communities } from "@/engine/constants/communities";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
@@ -10,7 +11,6 @@ import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/eva
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { communities } from "@/engine/lib/constants/communities";
 
 /**
  * Post combat idle scheme manager.

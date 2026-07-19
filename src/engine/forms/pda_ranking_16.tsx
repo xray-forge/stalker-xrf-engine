@@ -1,6 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { CURRENCY_LABEL } from "@/engine/lib/constants/currency";
+import { CURRENCY_LABEL } from "@/engine/constants/currency";
 
 /**
  * Generation of PDA rankings section UI forms for 16/9.

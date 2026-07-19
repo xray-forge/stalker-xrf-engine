@@ -3,11 +3,11 @@ import { GameObject, ServerCreatureObject } from "xray16/alias";
 import { ACTOR_ID, assert, clamp, Nillable, TCount, TNumberId, TStringId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { communities, TCommunity } from "@/engine/constants/communities";
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

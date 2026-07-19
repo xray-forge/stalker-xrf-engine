@@ -15,6 +15,7 @@ import {
 } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
+import { nimbleWeapons, TWeapon } from "@/engine/constants/items/weapons";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
@@ -28,7 +29,6 @@ import {
 import { isWeapon } from "@/engine/core/utils/class_ids";
 import { actorHasItemCount } from "@/engine/core/utils/item";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
-import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
 
 /**
  * Check whether `wealthy` achievement criteria is achieved.

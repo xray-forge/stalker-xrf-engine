@@ -5,13 +5,13 @@ import { createTime } from "xray16/lib";
 import { MockAlifeObject } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { getManager, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, notificationsIcons } from "@/engine/core/managers/notifications";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { update } from "@/engine/extensions/achievements_rewards/update";
-import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("achievement rewards extension", () => {

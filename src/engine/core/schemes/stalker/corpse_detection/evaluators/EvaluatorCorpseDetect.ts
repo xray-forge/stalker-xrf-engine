@@ -2,6 +2,8 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { communities } from "@/engine/constants/communities";
+import { ACTOR_VISUAL_STALKER } from "@/engine/constants/sections";
 import { setPortableStoreValue } from "@/engine/core/database";
 import {
   ISchemeCorpseDetectionState,
@@ -10,8 +12,6 @@ import {
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 
 /**
  * Evaluator to check whether object can find some corpse to loot and pick items from it.

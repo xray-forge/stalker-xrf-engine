@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { artefacts } from "@/engine/lib/constants/items/artefacts";
+import { artefacts } from "@/engine/constants/items/artefacts";
 
 describe("artefacts constants integrity", () => {
   it("should match key-value entries", () => {

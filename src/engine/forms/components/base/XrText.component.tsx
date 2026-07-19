@@ -3,9 +3,9 @@ import { Nullable } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
+import { IRgbColor } from "@/engine/constants/colors";
+import { fonts, TFontId } from "@/engine/constants/fonts";
 import { IBaseXmlNode, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/forms/types";
-import { IRgbColor } from "@/engine/lib/constants/colors";
-import { fonts, TFontId } from "@/engine/lib/constants/fonts";
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;

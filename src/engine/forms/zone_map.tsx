@@ -1,8 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { fonts } from "@/engine/constants/fonts";
 import { XrText } from "@/engine/forms/components/base";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
  * Create UI forms related to minimap display.

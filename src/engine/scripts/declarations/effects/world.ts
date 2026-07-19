@@ -26,6 +26,9 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
+import { TCommunity } from "@/engine/constants/communities";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
@@ -47,9 +50,6 @@ import { getActiveSchemeState, IBaseSchemeState } from "@/engine/core/schemes/st
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { TCommunity } from "@/engine/lib/constants/communities";
-import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

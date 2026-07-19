@@ -1,12 +1,12 @@
 import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
+import { food } from "@/engine/constants/items/food";
+import { misc } from "@/engine/constants/items/misc";
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
-import { food } from "@/engine/lib/constants/items/food";
-import { misc } from "@/engine/lib/constants/items/misc";
 
 /**
  * List of animpoint animations.
