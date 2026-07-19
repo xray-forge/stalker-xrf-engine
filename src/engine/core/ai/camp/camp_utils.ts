@@ -3,7 +3,7 @@ import { LuaArray, Nillable, TCount, TName, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
-import { type CampManager } from "@/engine/core/ai/camp/CampManager";
+import { type CampController } from "@/engine/core/ai/camp/CampController";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getActiveSchemeState } from "@/engine/core/schemes";
@@ -23,12 +23,12 @@ export function startPlayingGuitar(object: GameObject): void {
     return;
   }
 
-  const manager: CampManager = registry.camps.get(campId);
+  const manager: CampController = registry.camps.get(campId);
 
   manager.isStoryStarted = true;
-  manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveStory(table.random(manager.availableGuitarStories)[1]);
-  manager.storyManager.update();
+  manager.storyPlayback.setStoryTeller(manager.directorId);
+  manager.storyPlayback.setActiveStory(table.random(manager.availableGuitarStories)[1]);
+  manager.storyPlayback.update();
 }
 
 /**
@@ -44,19 +44,19 @@ export function startPlayingHarmonica(object: GameObject): void {
     return;
   }
 
-  const manager: CampManager = registry.camps.get(campId);
+  const manager: CampController = registry.camps.get(campId);
 
   manager.isStoryStarted = true;
-  manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveStory(table.random(manager.availableHarmonicaStories)[1]);
-  manager.storyManager.update();
+  manager.storyPlayback.setStoryTeller(manager.directorId);
+  manager.storyPlayback.setActiveStory(table.random(manager.availableHarmonicaStories)[1]);
+  manager.storyPlayback.update();
 }
 
 /**
  * @param manager - Manager to check.
  * @returns Whether guitar can be played in camp.
  */
-export function canPlayCampGuitar(manager: CampManager): boolean {
+export function canPlayCampGuitar(manager: CampController): boolean {
   if (manager.availableGuitarStories.length() === 0 || table.size(manager.objects) < 2) {
     return false;
   }
@@ -84,7 +84,7 @@ export function canPlayCampGuitar(manager: CampManager): boolean {
  * @param manager - Manager instance to check.
  * @returns Whether harmonica can be played in camp.
  */
-export function canPlayCampHarmonica(manager: CampManager): boolean {
+export function canPlayCampHarmonica(manager: CampController): boolean {
   // Nothing to play here.
   if (manager.availableHarmonicaStories.length() === 0 || table.size(manager.objects) < 2) {
     return false;
@@ -115,7 +115,7 @@ export function canPlayCampHarmonica(manager: CampManager): boolean {
  *
  * @returns Whether story can be told in camp.
  */
-export function canTellCampStory(manager: CampManager): boolean {
+export function canTellCampStory(manager: CampController): boolean {
   // Nothing to tell here.
   if (manager.availableSoundStories.length() === 0) {
     return false;

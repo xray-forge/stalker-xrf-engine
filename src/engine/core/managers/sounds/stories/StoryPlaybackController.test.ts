@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { StoryManager } from "@/engine/core/managers/sounds/stories/StoryManager";
+import { StoryPlaybackController } from "@/engine/core/managers/sounds/stories/StoryPlaybackController";
 
-describe("StoryManager", () => {
+describe("StoryPlaybackController", () => {
   it.todo("should correctly initialize");
 
   it.todo("should correctly add/remove participants");
@@ -10,7 +10,7 @@ describe("StoryManager", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly check finished state", () => {
-    const manager: StoryManager = new StoryManager("test-story");
+    const manager: StoryPlaybackController = new StoryPlaybackController("test-story");
 
     expect(manager.isFinished()).toBe(true);
 

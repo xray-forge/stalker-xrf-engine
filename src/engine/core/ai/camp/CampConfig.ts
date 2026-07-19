@@ -7,7 +7,7 @@ import {
   IStoryAnimationDescriptor,
 } from "@/engine/core/ai/camp/camp_types";
 import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/ai/camp/camp_utils";
-import { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { CampController } from "@/engine/core/ai/camp/CampController";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
 
 export const campConfig = {
@@ -31,7 +31,7 @@ export const campConfig = {
         EObjectCampActivity,
         TProbability
       >),
-      precondition: (it: CampManager) => canPlayCampHarmonica(it),
+      precondition: (it: CampController) => canPlayCampHarmonica(it),
     },
     [EObjectCampActivity.GUITAR]: {
       directorState: "play_guitar",
@@ -45,7 +45,7 @@ export const campConfig = {
         guitar: 0,
         story: 0,
       } as Record<EObjectCampActivity, TProbability>),
-      precondition: (it: CampManager) => canPlayCampGuitar(it),
+      precondition: (it: CampController) => canPlayCampGuitar(it),
     },
     [EObjectCampActivity.STORY]: {
       directorState: "tell",
@@ -57,7 +57,7 @@ export const campConfig = {
         EObjectCampActivity,
         TProbability
       >),
-      precondition: (it: CampManager) => canTellCampStory(it),
+      precondition: (it: CampController) => canTellCampStory(it),
     },
   }),
   CAMP_ACTIVITY_ANIMATION: $fromObject<EObjectCampActivity, IStoryAnimationDescriptor>({

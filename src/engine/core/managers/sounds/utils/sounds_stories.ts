@@ -1,18 +1,19 @@
 import { Nillable, TStringId } from "xray16/lib";
 
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { StoryManager } from "@/engine/core/managers/sounds/stories";
+import { StoryPlaybackController } from "@/engine/core/managers/sounds/stories";
 
 /**
- * @returns Manager singleton for provided identifier (camp, squad, object etc).
+ * @param id - Identifier of the camp, squad, or other story context.
+ * @returns Story playback controller for the provided context identifier.
  */
-export function getStoryManager(id: TStringId): StoryManager {
-  let manager: Nillable<StoryManager> = soundsConfig.managers.get(id);
+export function getStoryPlayback(id: TStringId): StoryPlaybackController {
+  let storyPlayback: Nillable<StoryPlaybackController> = soundsConfig.storyPlaybacks.get(id);
 
-  if (!manager) {
-    manager = new StoryManager(id);
-    soundsConfig.managers.set(id, manager);
+  if (!storyPlayback) {
+    storyPlayback = new StoryPlaybackController(id);
+    soundsConfig.storyPlaybacks.set(id, storyPlayback);
   }
 
-  return manager;
+  return storyPlayback;
 }

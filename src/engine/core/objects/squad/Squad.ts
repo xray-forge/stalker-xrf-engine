@@ -60,8 +60,8 @@ import {
   releaseSimulationSquad,
   unRegisterSimulationSquad,
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
-import { StoryManager } from "@/engine/core/managers/sounds/stories";
-import { getStoryManager } from "@/engine/core/managers/sounds/utils";
+import { StoryPlaybackController } from "@/engine/core/managers/sounds/stories";
+import { getStoryPlayback } from "@/engine/core/managers/sounds/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { SMART_TERRAIN_MASKS_LTX } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
@@ -82,7 +82,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
-  public readonly storyManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
+  public readonly storyPlayback: StoryPlaybackController = getStoryPlayback(`squad_${this.section_name()}`);
 
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMapDisplayHidden: boolean = false;
@@ -172,7 +172,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     super.update();
 
     updateSquadMapSpot(this);
-    this.storyManager.update();
+    this.storyPlayback.update();
 
     updateSimulationObjectAvailability(this);
     updateSquadInvulnerabilityState(this);
@@ -672,7 +672,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const object: ServerCreatureObject = registry.simulator.create(section, position, levelVertexId, gameVertexId);
 
     this.register_member(object.id);
-    this.storyManager.registerObject(object.id);
+    this.storyPlayback.registerObject(object.id);
 
     if (
       areObjectsOnSameLevel(object, registry.actorServer) &&
@@ -713,7 +713,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public onMemberDeath(object: ServerObject): void {
     simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
 
-    this.storyManager.unregisterObject(object.id);
+    this.storyPlayback.unregisterObject(object.id);
     this.unregister_member(object.id);
 
     // Release and finalize squad object.

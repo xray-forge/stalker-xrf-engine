@@ -11,7 +11,7 @@ import {
   startPlayingGuitar,
   startPlayingHarmonica,
 } from "@/engine/core/ai/camp/camp_utils";
-import { CampManager, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
+import { CampController, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerCampZone, registerObject, registry } from "@/engine/core/database";
@@ -33,12 +33,12 @@ describe("startPlayingGuitar util", () => {
   it("should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setActiveStory").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "update").mockImplementation(jest.fn());
 
     state.camp = camp.id();
 
@@ -47,9 +47,9 @@ describe("startPlayingGuitar util", () => {
     registerCampZone(camp, manager);
     startPlayingGuitar(object);
 
-    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
-    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_guitar");
-    expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
+    expect(manager.storyPlayback.setStoryTeller).toHaveBeenCalledWith(450);
+    expect(manager.storyPlayback.setActiveStory).toHaveBeenCalledWith("test_guitar");
+    expect(manager.storyPlayback.update).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -66,12 +66,12 @@ describe("startPlayingHarmonica util", () => {
   it("should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setActiveStory").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "update").mockImplementation(jest.fn());
 
     state.camp = camp.id();
 
@@ -80,16 +80,16 @@ describe("startPlayingHarmonica util", () => {
     registerCampZone(camp, manager);
     startPlayingHarmonica(object);
 
-    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(450);
-    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_harmonica");
-    expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
+    expect(manager.storyPlayback.setStoryTeller).toHaveBeenCalledWith(450);
+    expect(manager.storyPlayback.setActiveStory).toHaveBeenCalledWith("test_harmonica");
+    expect(manager.storyPlayback.update).toHaveBeenCalledTimes(1);
   });
 });
 
 describe("canTellCampStory util", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
 
     expect(canTellCampStory(manager)).toBe(false);
 
@@ -148,7 +148,7 @@ describe("canTellCampStory util", () => {
 describe("canPlayCampGuitar util", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
 
     expect(canPlayCampGuitar(manager)).toBe(false);
 
@@ -209,7 +209,7 @@ describe("canPlayCampGuitar util", () => {
 describe("canPlayCampHarmonica util", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
 
     expect(canPlayCampHarmonica(manager)).toBe(false);
 

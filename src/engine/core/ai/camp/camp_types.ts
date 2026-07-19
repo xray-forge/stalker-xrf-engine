@@ -1,6 +1,6 @@
 import type { LuaArray, Nillable, TDuration, TName, TProbability } from "xray16/lib";
 
-import type { CampManager } from "@/engine/core/ai/camp/CampManager";
+import type { CampController } from "@/engine/core/ai/camp/CampController";
 
 /**
  * Role of object in camp stories.
@@ -32,7 +32,7 @@ export interface ICampTransitionDescriptor {
   maxTime: TDuration;
   timeout: TDuration;
   transitions: LuaTable<EObjectCampActivity, TProbability>;
-  precondition: (this: void, camp: CampManager) => boolean;
+  precondition: (this: void, camp: CampController) => boolean;
 }
 
 /**

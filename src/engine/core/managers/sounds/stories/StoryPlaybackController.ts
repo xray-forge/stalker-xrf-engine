@@ -9,10 +9,9 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { SoundStory } from "@/engine/core/managers/sounds/stories/SoundStory";
 
 /**
- * Manager of object stories telling.
- * Used by objects when they are sitting or walking together.
+ * Controller coordinating playback of a sound story for one camp or squad.
  */
-export class StoryManager {
+export class StoryPlaybackController {
   public readonly id: TStringId;
   public readonly objects: LuaArray<{ objectId: TNumberId }> = new LuaTable();
 

@@ -7,12 +7,12 @@ import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
-import { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { CampController } from "@/engine/core/ai/camp/CampController";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { getStoryManager } from "@/engine/core/managers/sounds/utils";
+import { getStoryPlayback } from "@/engine/core/managers/sounds/utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
@@ -23,10 +23,10 @@ import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_event");
 
-describe("CampManager", () => {
+describe("CampController", () => {
   beforeEach(() => {
     resetRegistry();
-    soundsConfig.managers = new LuaTable();
+    soundsConfig.storyPlaybacks = new LuaTable();
   });
 
   afterEach(() => {
@@ -37,12 +37,12 @@ describe("CampManager", () => {
   it("should correctly initialize with default state", () => {
     const ini: IniFile = MockIniFile.mock("test.ltx", {});
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, ini);
+    const manager: CampController = new CampController(object, ini);
 
     expect(manager.ini).toBe(ini);
     expect(manager.object).toBe(object);
-    expect(manager.storyManager).toBe(getStoryManager(`camp_${object.id()}`));
-    expect(soundsConfig.managers.length()).toBe(1);
+    expect(manager.storyPlayback).toBe(getStoryPlayback(`camp_${object.id()}`));
+    expect(soundsConfig.storyPlaybacks.length()).toBe(1);
     expect(manager.isStoryStarted).toBe(true);
     expect(manager.activity).toBe(EObjectCampActivity.IDLE);
     expect(manager.activitySwitchAt).toBe(-1);
@@ -61,7 +61,7 @@ describe("CampManager", () => {
       },
     });
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, ini);
+    const manager: CampController = new CampController(object, ini);
 
     expect(manager.availableSoundStories).toEqualLuaArrays(["story_a", "story_b"]);
     expect(manager.availableGuitarStories).toEqualLuaArrays(["guitar_a", "guitar_b"]);
@@ -69,7 +69,7 @@ describe("CampManager", () => {
   });
 
   it("should notify every participant when activity changes", () => {
-    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
     const firstState: IRegistryObjectState = registerObject(first);
@@ -102,7 +102,7 @@ describe("CampManager", () => {
   });
 
   it("should mark only the selected director as unavailable for meetings", () => {
-    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
     const director: GameObject = MockGameObject.mock();
     const listener: GameObject = MockGameObject.mock();
     const directorState: IRegistryObjectState = registerObject(director);
@@ -142,7 +142,7 @@ describe("CampManager", () => {
   });
 
   it("should select an eligible director and reset an ineligible activity to idle", () => {
-    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
     const participant: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(participant);
 
@@ -181,7 +181,7 @@ describe("CampManager", () => {
   });
 
   it("should choose the next eligible activity and schedule its state transition", () => {
-    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
     const state: ICampStateDescriptor = { state: EObjectCampActivity.IDLE } as ICampStateDescriptor;
     const storyPrecondition = jest
       .spyOn(campConfig.CAMP_ACTIVITIES.get(EObjectCampActivity.STORY), "precondition")
@@ -201,7 +201,7 @@ describe("CampManager", () => {
   });
 
   it("should remain idle when the selected activity is unavailable", () => {
-    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
     const state: ICampStateDescriptor = { state: EObjectCampActivity.IDLE } as ICampStateDescriptor;
     const storyPrecondition = jest
       .spyOn(campConfig.CAMP_ACTIVITIES.get(EObjectCampActivity.STORY), "precondition")
@@ -222,7 +222,7 @@ describe("CampManager", () => {
 
   for (const activity of [EObjectCampActivity.GUITAR, EObjectCampActivity.HARMONICA]) {
     it(`should stop ${activity} activity after its story finishes`, () => {
-      const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+      const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
 
       manager.activity = activity;
       manager.directorId = 10;
@@ -242,7 +242,7 @@ describe("CampManager", () => {
 
   it("should correctly set story", () => {
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(object, MockIniFile.mock("test.ltx"));
 
     manager.isStoryStarted = false;
 
@@ -251,8 +251,8 @@ describe("CampManager", () => {
 
     expect(manager.isStoryStarted).toBe(true);
 
-    jest.spyOn(manager.storyManager, "setStoryTeller").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "setActiveStory").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setStoryTeller").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "setActiveStory").mockImplementation(jest.fn());
 
     manager.activity = EObjectCampActivity.STORY;
     manager.isStoryStarted = false;
@@ -260,13 +260,13 @@ describe("CampManager", () => {
     manager.updateStory();
 
     expect(manager.isStoryStarted).toBe(true);
-    expect(manager.storyManager.setStoryTeller).toHaveBeenCalledWith(255);
-    expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_story");
+    expect(manager.storyPlayback.setStoryTeller).toHaveBeenCalledWith(255);
+    expect(manager.storyPlayback.setActiveStory).toHaveBeenCalledWith("test_story");
   });
 
   it("should correctly get object activity", () => {
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(object, MockIniFile.mock("test.ltx"));
     const participant: GameObject = MockGameObject.mock();
     const participantState: IRegistryObjectState = registerObject(participant);
 
@@ -288,15 +288,15 @@ describe("CampManager", () => {
 
   it("should correctly register/unregister objects with idle state", () => {
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(object, MockIniFile.mock("test.ltx"));
 
     const firstParticipant: GameObject = MockGameObject.mock();
     const secondParticipant: GameObject = MockGameObject.mock();
     const firstState: IRegistryObjectState = registerObject(firstParticipant);
     const secondState: IRegistryObjectState = registerObject(secondParticipant);
 
-    jest.spyOn(manager.storyManager, "registerObject").mockImplementation(jest.fn());
-    jest.spyOn(manager.storyManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "registerObject").mockImplementation(jest.fn());
+    jest.spyOn(manager.storyPlayback, "unregisterObject").mockImplementation(jest.fn());
 
     expect(manager.objects).toEqualLuaTables([]);
     expect(firstState.camp).toBeUndefined();
@@ -339,7 +339,7 @@ describe("CampManager", () => {
     });
     expect(firstState.camp).toBe(object.id());
     expect(secondState.camp).toBeUndefined();
-    expect(manager.storyManager.registerObject).toHaveBeenCalledWith(firstParticipant.id());
+    expect(manager.storyPlayback.registerObject).toHaveBeenCalledWith(firstParticipant.id());
 
     manager.registerObject(secondParticipant.id());
 
@@ -366,13 +366,13 @@ describe("CampManager", () => {
     );
     expect(firstState.camp).toBe(object.id());
     expect(secondState.camp).toBe(object.id());
-    expect(manager.storyManager.registerObject).toHaveBeenCalledWith(secondParticipant.id());
+    expect(manager.storyPlayback.registerObject).toHaveBeenCalledWith(secondParticipant.id());
 
     manager.unregisterObject(firstParticipant.id());
     manager.unregisterObject(secondParticipant.id());
 
-    expect(manager.storyManager.unregisterObject).toHaveBeenCalledWith(firstParticipant.id());
-    expect(manager.storyManager.unregisterObject).toHaveBeenCalledWith(secondParticipant.id());
+    expect(manager.storyPlayback.unregisterObject).toHaveBeenCalledWith(firstParticipant.id());
+    expect(manager.storyPlayback.unregisterObject).toHaveBeenCalledWith(secondParticipant.id());
     expect(firstState.camp).toBeNull();
     expect(secondState.camp).toBeNull();
     expect(manager.objects).toEqualLuaArrays([]);
@@ -380,7 +380,7 @@ describe("CampManager", () => {
 
   it("should correctly register/unregister objects with guitar activity", () => {
     const object: GameObject = MockGameObject.mock();
-    const manager: CampManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    const manager: CampController = new CampController(object, MockIniFile.mock("test.ltx"));
 
     const firstParticipant: GameObject = MockGameObject.mock();
     const secondParticipant: GameObject = MockGameObject.mock();

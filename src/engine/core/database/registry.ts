@@ -3,7 +3,7 @@ import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStr
 import { $fromObject } from "xray16/macros";
 
 import { storyNames, TStoryName } from "@/engine/constants/story_names";
-import type { CampManager } from "@/engine/core/ai/camp";
+import type { CampController } from "@/engine/core/ai/camp";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import type {
@@ -148,7 +148,7 @@ export const registry = {
   /**
    * Camp managers with logic.
    */
-  camps: new LuaTable<TNumberId, CampManager>(),
+  camps: new LuaTable<TNumberId, CampController>(),
   /**
    * List of current zone crows spawned.
    */

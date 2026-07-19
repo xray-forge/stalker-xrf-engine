@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile, MockPropertyStorage } from "xray16/mocks";
 
-import { CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
+import { CampController, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
@@ -85,16 +85,16 @@ describe("ActionWalkerActivity", () => {
 
     action.setup(object, MockPropertyStorage.mock());
     action.isInCamp = true;
-    action.campStoryManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
     jest.spyOn(action.patrolManager, "finalize").mockImplementation(jest.fn());
-    jest.spyOn(action.campStoryManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(action.campController, "unregisterObject").mockImplementation(jest.fn());
 
     action.finalize();
 
     expect(action.isInCamp).toBe(false);
     expect(action.patrolManager.finalize).toHaveBeenCalled();
-    expect(action.campStoryManager.unregisterObject).toHaveBeenCalledWith(object.id());
+    expect(action.campController.unregisterObject).toHaveBeenCalledWith(object.id());
   });
 
   it("should correctly handle activate method", () => {
@@ -129,16 +129,16 @@ describe("ActionWalkerActivity", () => {
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
     action.setup(object, MockPropertyStorage.mock());
-    action.campStoryManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
-    jest.spyOn(action.campStoryManager, "getObjectActivity").mockImplementation(() => $multi(null, null));
+    jest.spyOn(action.campController, "getObjectActivity").mockImplementation(() => $multi(null, null));
 
     action.update();
 
     expect(state.stateManager.setState).not.toHaveBeenCalled();
 
     jest
-      .spyOn(action.campStoryManager, "getObjectActivity")
+      .spyOn(action.campController, "getObjectActivity")
       .mockImplementation(() => $multi(EObjectCampActivity.GUITAR, true));
 
     action.update();
@@ -194,22 +194,22 @@ describe("ActionWalkerActivity", () => {
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
-    action.campStoryManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
-    jest.spyOn(action.campStoryManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(action.campController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.onSwitchOffline();
 
     expect(action.isInCamp).toBe(false);
-    expect(action.campStoryManager.unregisterObject).not.toHaveBeenCalled();
+    expect(action.campController.unregisterObject).not.toHaveBeenCalled();
 
     action.isInCamp = true;
 
     action.onSwitchOffline();
 
     expect(action.isInCamp).toBe(false);
-    expect(action.campStoryManager.unregisterObject).toHaveBeenCalledWith(object.id());
+    expect(action.campController.unregisterObject).toHaveBeenCalledWith(object.id());
   });
 
   it("should correctly handle execute without camp/not in camp", () => {
@@ -244,30 +244,30 @@ describe("ActionWalkerActivity", () => {
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
     action.isInCamp = true;
-    action.campStoryManager = new CampManager(object, MockIniFile.mock("test.ltx"));
+    action.campController = new CampController(object, MockIniFile.mock("test.ltx"));
 
     jest.spyOn(state.patrolManager, "update").mockImplementation(jest.fn());
-    jest.spyOn(action.campStoryManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(action.campController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
 
     expect(action.isInCamp).toBe(false);
     expect(action.patrolManager.update).toHaveBeenCalledTimes(1);
-    expect(action.campStoryManager?.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(action.campStoryManager?.unregisterObject).toHaveBeenCalledWith(object.id());
+    expect(action.campController?.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(action.campController?.unregisterObject).toHaveBeenCalledWith(object.id());
   });
 
   it("should correctly handle execute with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
-    const campManager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const campController: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
 
-    registerCampZone(campManager.object, campManager);
+    registerCampZone(campController.object, campController);
 
-    jest.spyOn(campManager.object, "inside").mockImplementation(() => true);
-    jest.spyOn(campManager, "registerObject").mockImplementation(jest.fn());
+    jest.spyOn(campController.object, "inside").mockImplementation(() => true);
+    jest.spyOn(campController, "registerObject").mockImplementation(jest.fn());
 
     state.patrolManager = new StalkerPatrolManager(object);
     walkerState.useCamp = true;
@@ -281,8 +281,8 @@ describe("ActionWalkerActivity", () => {
 
     expect(action.isInCamp).toBe(true);
     expect(action.patrolManager.update).toHaveBeenCalledTimes(1);
-    expect(action.campStoryManager).toBe(campManager);
-    expect(action.campStoryManager?.registerObject).toHaveBeenCalledTimes(1);
-    expect(action.campStoryManager?.registerObject).toHaveBeenCalledWith(object.id());
+    expect(action.campController).toBe(campController);
+    expect(action.campController?.registerObject).toHaveBeenCalledTimes(1);
+    expect(action.campController?.registerObject).toHaveBeenCalledWith(object.id());
   });
 });

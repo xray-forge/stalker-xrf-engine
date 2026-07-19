@@ -13,7 +13,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
+import { campConfig, CampController, EObjectCampActivity } from "@/engine/core/ai/camp";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
@@ -41,7 +41,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public currentAction: Nillable<EStalkerState> = null;
   public availableActions: Nillable<LuaArray<IAnimpointActionDescriptor>> = null;
 
-  public campManager: Nillable<CampManager> = null;
+  public campController: Nillable<CampController> = null;
   public coverName: Nillable<TName> = null;
 
   public position: Nillable<Vector> = null;
@@ -111,7 +111,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       return;
     }
 
-    const [campAction, isDirector] = this.campManager!.getObjectActivity(this.object.id());
+    const [campAction, isDirector] = this.campController!.getObjectActivity(this.object.id());
     const campActionsList = isDirector
       ? campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).director
       : campConfig.CAMP_ACTIVITY_ANIMATION.get(campAction as EObjectCampActivity).listener;
@@ -228,7 +228,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * Build the list of approved animation actions for the object from the available animations or actions.
    */
   public fillPossibleAnimationActions(): void {
-    const isInCamp: boolean = $isNotNil(this.campManager);
+    const isInCamp: boolean = $isNotNil(this.campController);
 
     if (this.state.availableAnimations) {
       for (const [, state] of this.state.availableAnimations) {
@@ -262,14 +262,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     logger.info("Start: %s", this.object.name());
 
     if (this.state.useCamp) {
-      this.campManager = getCampZoneForPosition(this.position);
+      this.campController = getCampZoneForPosition(this.position);
     }
 
     this.fillPossibleAnimationActions();
 
     // Capture object in camp if it exists. Handle separate animation otherwise.
-    if (this.campManager) {
-      this.campManager.registerObject(this.object.id());
+    if (this.campController) {
+      this.campController.registerObject(this.object.id());
     } else {
       this.currentAction = table.random(this.state.approvedActions)[1].name;
     }
@@ -286,8 +286,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public stop(): void {
     logger.info("Stop: %s", this.object.name());
 
-    if (this.campManager) {
-      this.campManager.unregisterObject(this.object.id());
+    if (this.campController) {
+      this.campController.unregisterObject(this.object.id());
     }
 
     this.isStarted = false;

@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
 import { campConfig, EObjectCampActivity } from "@/engine/core/ai/camp";
-import { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { CampController } from "@/engine/core/ai/camp/CampController";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -25,7 +25,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public readonly availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
   public isInCamp: boolean = false;
-  public campStoryManager: Nillable<CampManager> = null;
+  public campController: Nillable<CampController> = null;
 
   public constructor(state: ISchemeWalkerState, object: GameObject) {
     super(null, ActionWalkerActivity.__name);
@@ -60,7 +60,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     if (this.isInCamp) {
       this.isInCamp = false;
-      this.campStoryManager!.unregisterObject(this.object.id());
+      this.campController!.unregisterObject(this.object.id());
     }
   }
 
@@ -74,15 +74,15 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.patrolManager.update();
 
-    const campManager: Nillable<CampManager> = getCampZoneForPosition(this.object.position());
+    const campController: Nillable<CampController> = getCampZoneForPosition(this.object.position());
 
-    if (campManager && this.state.useCamp) {
+    if (campController && this.state.useCamp) {
       this.isInCamp = true;
-      this.campStoryManager = campManager;
-      this.campStoryManager.registerObject(this.object.id());
+      this.campController = campController;
+      this.campController.registerObject(this.object.id());
     } else if (this.isInCamp) {
       this.isInCamp = false;
-      this.campStoryManager!.unregisterObject(this.object.id());
+      this.campController!.unregisterObject(this.object.id());
     }
 
     if (!this.isInCamp && this.state.soundIdle) {
@@ -115,11 +115,11 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   }
 
   public update(): void {
-    if (!this.campStoryManager) {
+    if (!this.campController) {
       return;
     }
 
-    const [campAction, isDirector] = this.campStoryManager.getObjectActivity(this.object.id());
+    const [campAction, isDirector] = this.campController.getObjectActivity(this.object.id());
 
     if (isDirector) {
       setStalkerState(this.object, campConfig.CAMP_ACTIVITY_DIRECTOR_STATE.get(campAction as EObjectCampActivity));
@@ -129,7 +129,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public onSwitchOffline(): void {
     if (this.isInCamp) {
       this.isInCamp = false;
-      this.campStoryManager!.unregisterObject(this.object.id());
+      this.campController!.unregisterObject(this.object.id());
     }
   }
 }

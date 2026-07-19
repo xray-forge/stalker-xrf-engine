@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, Vector } from "xray16/alias";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import { CampManager } from "@/engine/core/ai/camp";
+import { CampController } from "@/engine/core/ai/camp";
 import { registry } from "@/engine/core/database/registry";
 import {
   getCampZoneForPosition,
@@ -62,9 +62,9 @@ describe("registerCampZone and unregisterCampZone", () => {
     expect(registry.camps.length()).toBe(0);
 
     const firstZone: GameObject = MockGameObject.mock({ id: 10, section: "test_camp" });
-    const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
+    const firstManager: CampController = new CampController(firstZone, firstZone.spawn_ini() as IniFile);
     const secondZone: GameObject = MockGameObject.mock({ id: 20, section: "test_camp" });
-    const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini() as IniFile);
+    const secondManager: CampController = new CampController(secondZone, secondZone.spawn_ini() as IniFile);
     const thirdZone: GameObject = MockGameObject.mock({ id: 30, section: "test_camp" });
 
     expect(firstZone.id()).toBe(10);
@@ -112,12 +112,12 @@ describe("getCampZoneForPosition", () => {
       id: 10,
       section: "test_camp",
     });
-    const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
+    const firstManager: CampController = new CampController(firstZone, firstZone.spawn_ini() as IniFile);
     const secondZone: GameObject = MockGameObject.mock({
       id: 20,
       section: "test_camp",
     });
-    const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini() as IniFile);
+    const secondManager: CampController = new CampController(secondZone, secondZone.spawn_ini() as IniFile);
 
     jest.spyOn(firstZone, "inside").mockImplementation(() => false);
     jest.spyOn(secondZone, "inside").mockImplementation((it) => it === position);
@@ -149,7 +149,7 @@ describe("resetCampZone", () => {
       id: 10,
       section: "test_camp",
     });
-    const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
+    const firstManager: CampController = new CampController(firstZone, firstZone.spawn_ini() as IniFile);
 
     registerCampZone(firstZone, firstManager);
 

@@ -1,7 +1,7 @@
 import { GameObject, Vector } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
-import { CampManager } from "@/engine/core/ai/camp";
+import { CampController } from "@/engine/core/ai/camp";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -35,7 +35,7 @@ export function unregisterZone(object: GameObject): void {
  * @param position - Current position to get manager for.
  * @returns Instance of manager for NPC position if camp exists.
  */
-export function getCampZoneForPosition(position: Nillable<Vector>): Nillable<CampManager> {
+export function getCampZoneForPosition(position: Nillable<Vector>): Nillable<CampController> {
   if (!position) {
     return null;
   }
@@ -56,7 +56,7 @@ export function getCampZoneForPosition(position: Nillable<Vector>): Nillable<Cam
  * @param object - Target camp game object to register.
  * @param manager - Linked manager to register.
  */
-export function registerCampZone(object: GameObject, manager: Nillable<CampManager>): void {
+export function registerCampZone(object: GameObject, manager: Nillable<CampController>): void {
   registerZone(object);
 
   if (manager) {
@@ -84,7 +84,7 @@ export function resetCampZone(object: GameObject): void {
   resetObject(object);
   registry.zones.set(object.name(), object);
 
-  const manager: Nillable<CampManager> = registry.camps.get(object.id()) as Nillable<CampManager>;
+  const manager: Nillable<CampController> = registry.camps.get(object.id()) as Nillable<CampController>;
 
   if (manager) {
     manager.object = object;

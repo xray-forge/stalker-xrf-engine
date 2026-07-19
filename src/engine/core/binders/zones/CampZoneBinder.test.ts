@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, ServerObject } from "xray16/alias";
 import { MockAlifeObject, MockGameObject, MockIniFile, MockObjectBinder } from "xray16/mocks";
 
-import { CampManager } from "@/engine/core/ai/camp";
+import { CampController } from "@/engine/core/ai/camp";
 import { CampZoneBinder } from "@/engine/core/binders/zones/CampZoneBinder";
 import { registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
@@ -107,7 +107,7 @@ describe("CampZoneBinder", () => {
 
     binder.net_spawn(serverObject);
 
-    const manager: CampManager = registry.camps.get(object.id());
+    const manager: CampController = registry.camps.get(object.id());
 
     jest.spyOn(manager, "update").mockImplementation(jest.fn());
 

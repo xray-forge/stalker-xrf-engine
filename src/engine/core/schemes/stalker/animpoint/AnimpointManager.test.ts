@@ -4,7 +4,7 @@ import { GameObject, Vector } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
-import { CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
+import { CampController, EObjectCampActivity } from "@/engine/core/ai/camp";
 import {
   animpoint_predicates,
   animpointPredicateAlways,
@@ -75,9 +75,9 @@ describe("AnimpointManager", () => {
     state.approvedActions = $fromArray<IAnimpointActionDescriptor>([
       { name: EStalkerState.ANIMPOINT_SIT_NORMAL, predicate: animpointPredicateAlways },
     ]);
-    manager.campManager = {
+    manager.campController = {
       getObjectActivity: jest.fn(() => $multi(EObjectCampActivity.IDLE, false)),
-    } as unknown as CampManager;
+    } as unknown as CampController;
 
     manager.update();
 
@@ -190,25 +190,25 @@ describe("AnimpointManager", () => {
     expect(manager.currentAction).toBeNull();
 
     const campObject: GameObject = MockGameObject.mock();
-    const campManager = {
+    const campController = {
       object: campObject,
       registerObject: jest.fn(),
       unregisterObject: jest.fn(),
-    } as unknown as CampManager;
+    } as unknown as CampController;
 
     state.useCamp = true;
     manager.position = MockVector.mock(1, 2, 3);
 
-    registry.camps.set(campObject.id(), campManager);
+    registry.camps.set(campObject.id(), campController);
     jest.spyOn(campObject, "inside").mockImplementation(() => true);
 
     manager.start();
 
-    expect(manager.campManager).toBe(campManager);
-    expect(campManager.registerObject).toHaveBeenCalledWith(object.id());
+    expect(manager.campController).toBe(campController);
+    expect(campController.registerObject).toHaveBeenCalledWith(object.id());
 
     manager.stop();
 
-    expect(campManager.unregisterObject).toHaveBeenCalledWith(object.id());
+    expect(campController.unregisterObject).toHaveBeenCalledWith(object.id());
   });
 });

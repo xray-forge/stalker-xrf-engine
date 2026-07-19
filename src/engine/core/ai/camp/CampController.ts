@@ -8,7 +8,7 @@ import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
 import { readIniStringList } from "@/engine/core/ini";
-import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
+import { getStoryPlayback, SoundManager, soundsConfig, StoryPlaybackController } from "@/engine/core/managers/sounds";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
@@ -25,18 +25,18 @@ import { isObjectMeeting } from "@/engine/core/utils/planner";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Manager controlling logic of game camp zone.
+ * Controller coordinating activities in one game camp zone.
  * If any camp zone has [camp] section description, stalkers will handle it as place to sit and use.
  * In other cases checks are done with position verification.
  */
-export class CampManager {
+export class CampController {
   public availableSoundStories: LuaArray<TName>;
   public availableGuitarStories: LuaArray<TName>;
   public availableHarmonicaStories: LuaArray<TName>;
 
   public ini: IniFile;
   public object: GameObject;
-  public storyManager: StoryManager;
+  public storyPlayback: StoryPlaybackController;
 
   // List of objects registered in camp.
   public objects: LuaMap<TNumberId, ICampStateDescriptor> = new LuaMap();
@@ -52,7 +52,7 @@ export class CampManager {
   public constructor(object: GameObject, ini: IniFile) {
     this.ini = ini;
     this.object = object;
-    this.storyManager = getStoryManager(`camp_${this.object.id()}`);
+    this.storyPlayback = getStoryPlayback(`camp_${this.object.id()}`);
 
     this.availableSoundStories = readIniStringList(ini, "camp", "stories", false, "test_story");
     this.availableGuitarStories = readIniStringList(ini, "camp", "guitar_themes", false, "test_guitar");
@@ -66,8 +66,8 @@ export class CampManager {
     switch (this.activity) {
       case EObjectCampActivity.STORY:
         this.isStoryStarted = true;
-        this.storyManager.setStoryTeller(this.directorId);
-        this.storyManager.setActiveStory(table.random(this.availableSoundStories)[1]);
+        this.storyPlayback.setStoryTeller(this.directorId);
+        this.storyPlayback.setActiveStory(table.random(this.availableSoundStories)[1]);
 
         return;
 
@@ -99,8 +99,8 @@ export class CampManager {
    */
   public update(delta: TDuration): void {
     // Process story telling if not finished.
-    if (!this.storyManager.isFinished()) {
-      return this.storyManager.update();
+    if (!this.storyPlayback.isFinished()) {
+      return this.storyPlayback.update();
     }
 
     // Nothing to process.
@@ -288,7 +288,7 @@ export class CampManager {
       campState[activity] = role;
     }
 
-    this.storyManager.registerObject(objectId);
+    this.storyPlayback.registerObject(objectId);
 
     emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE, -1);
   }
@@ -315,6 +315,6 @@ export class CampManager {
     registry.objects.get(objectId).camp = null;
 
     this.objects.delete(objectId);
-    this.storyManager.unregisterObject(objectId);
+    this.storyPlayback.unregisterObject(objectId);
   }
 }

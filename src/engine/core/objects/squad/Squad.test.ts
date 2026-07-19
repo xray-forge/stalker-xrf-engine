@@ -59,12 +59,12 @@ describe("Squad object", () => {
     squad.mockAddMember(second);
 
     jest.spyOn(action, "finalize").mockImplementation(jest.fn());
-    jest.spyOn(squad.storyManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(squad.storyPlayback, "unregisterObject").mockImplementation(jest.fn());
 
     squad.onMemberDeath(second);
 
     expect(squad.npc_count()).toBe(1);
-    expect(squad.storyManager.unregisterObject).toHaveBeenCalledWith(second.id);
+    expect(squad.storyPlayback.unregisterObject).toHaveBeenCalledWith(second.id);
     expect(squad.currentAction.finalize).toHaveBeenCalledTimes(0);
     expect(pickSectionFromCondList).toHaveBeenCalledTimes(0);
     expect(releaseSimulationSquad).toHaveBeenCalledTimes(0);
@@ -72,7 +72,7 @@ describe("Squad object", () => {
     squad.onMemberDeath(first);
 
     expect(squad.npc_count()).toBe(0);
-    expect(squad.storyManager.unregisterObject).toHaveBeenCalledWith(first.id);
+    expect(squad.storyPlayback.unregisterObject).toHaveBeenCalledWith(first.id);
     expect(squad.currentAction).toBeNull();
     expect(action.finalize).toHaveBeenCalledTimes(1);
     expect(pickSectionFromCondList).toHaveBeenCalledWith(registry.actor, squad, squad.deathConditionList);
@@ -90,12 +90,12 @@ describe("Squad object", () => {
       .mockImplementationOnce(() => first)
       .mockImplementationOnce(() => second);
 
-    jest.spyOn(squad.storyManager, "registerObject").mockImplementation(jest.fn());
+    jest.spyOn(squad.storyPlayback, "registerObject").mockImplementation(jest.fn());
 
     expect(squad.addMember("test_section", X_VECTOR, 1000, 50)).toBe(first);
     expect(squad.npc_count()).toBe(1);
     expect(registry.simulator.create).toHaveBeenCalledWith("test_section", X_VECTOR, 1000, 50);
-    expect(squad.storyManager.registerObject).toHaveBeenCalledWith(first.id);
+    expect(squad.storyPlayback.registerObject).toHaveBeenCalledWith(first.id);
     expect(registry.spawnedVertexes.length()).toBe(1);
 
     jest.spyOn(Y_VECTOR, "distance_to_sqr").mockImplementationOnce(() => Infinity);
@@ -103,7 +103,7 @@ describe("Squad object", () => {
     expect(squad.addMember("stalker_with_custom_data", Y_VECTOR, 1001, 51)).toBe(second);
     expect(squad.npc_count()).toBe(2);
     expect(registry.simulator.create).toHaveBeenCalledWith("stalker_with_custom_data", Y_VECTOR, 1001, 51);
-    expect(squad.storyManager.registerObject).toHaveBeenCalledWith(second.id);
+    expect(squad.storyPlayback.registerObject).toHaveBeenCalledWith(second.id);
     expect(registry.spawnedVertexes.length()).toBe(1);
   });
 
