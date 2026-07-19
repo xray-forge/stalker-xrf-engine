@@ -101,10 +101,10 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    */
   stateController: Nillable<StalkerStateController>;
   /**
-   * Restrictions manager for game objects.
-   * Handles current restrictions list depending on active logics.
+   * Restrictions controller for game objects.
+   * Synchronizes dynamic restrictors with the active logic section.
    */
-  restrictionsManager: Nillable<ObjectRestrictionsManager>;
+  restrictionsController: Nillable<ObjectRestrictionsManager>;
   /**
    * State of the hear scheme handling object sound reactions.
    */

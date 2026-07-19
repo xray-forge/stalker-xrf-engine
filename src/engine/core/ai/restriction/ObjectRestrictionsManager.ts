@@ -1,5 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
-import { LuaArray, NIL, Nillable, TName, TSection } from "xray16/lib";
+import { LuaArray, NIL, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -9,36 +9,46 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Manager switching game object restrictors based on current logics / active ini section.
+ * Per-object controller synchronizing dynamic restrictors with the active logic section.
  */
 export class ObjectRestrictionsManager {
   /**
-   * Initialize restrictor manager for game object.
+   * Return the cached restrictions controller for a registered object, creating it when absent.
+   *
+   * @param object - Registered game object whose restrictors are controlled.
+   * @returns Cached or newly created restrictions controller.
    */
-  public static initializeForObject(object: GameObject): ObjectRestrictionsManager {
-    const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
+  public static getOrCreateForObject(object: GameObject): ObjectRestrictionsManager {
+    const state: IRegistryObjectState = registry.objects.get(object.id());
 
-    if (!state.restrictionsManager) {
-      state.restrictionsManager = new ObjectRestrictionsManager(object);
+    if (!state.restrictionsController) {
+      state.restrictionsController = new ObjectRestrictionsManager(object);
     }
 
-    return state.restrictionsManager!;
+    return state.restrictionsController!;
   }
 
   /**
-   * Initialize restrictor manager for game object and activate it.
+   * Synchronize an object's dynamic restrictors with an active logic section.
+   *
+   * @param object - Registered game object whose restrictors are controlled.
+   * @param section - Active logic section defining `in_restr` and `out_restr` values.
+   * @returns Restrictions controller used for synchronization.
    */
-  public static activateForObject(object: GameObject, section: TSection): ObjectRestrictionsManager {
-    const manager: ObjectRestrictionsManager = ObjectRestrictionsManager.initializeForObject(object);
+  public static syncForObject(object: GameObject, section: TSection): ObjectRestrictionsManager {
+    const controller: ObjectRestrictionsManager = ObjectRestrictionsManager.getOrCreateForObject(object);
 
-    manager.activate(section);
+    controller.sync(section);
 
-    return manager;
+    return controller;
   }
 
-  public object: GameObject;
-  public baseOutRestrictions: LuaTable<string, boolean> = new LuaTable();
-  public baseInRestrictions: LuaTable<string, boolean> = new LuaTable();
+  /** Registered game object whose restrictors are synchronized. */
+  public readonly object: GameObject;
+  /** Out restrictors captured when this controller was created and never removed by synchronization. */
+  public readonly baseOutRestrictions: LuaTable<string, boolean> = new LuaTable();
+  /** In restrictors captured when this controller was created and never removed by synchronization. */
+  public readonly baseInRestrictions: LuaTable<string, boolean> = new LuaTable();
 
   public constructor(object: GameObject) {
     this.object = object;
@@ -53,9 +63,13 @@ export class ObjectRestrictionsManager {
   }
 
   /**
-   * Activate restrictions and apply missing ones.
+   * Synchronize dynamic restrictors with values from the specified logic section.
+   * Initial restrictors captured when this controller was created are always retained.
+   * A literal `nil` restrictor value is ignored.
+   *
+   * @param section - Active logic section defining `in_restr` and `out_restr` values.
    */
-  public activate(section: TSection): void {
+  public sync(section: TSection): void {
     const objectName: TName = this.object.name();
     const ini: IniFile = registry.objects.get(this.object.id()).ini;
 
@@ -78,7 +92,6 @@ export class ObjectRestrictionsManager {
         }
       }
 
-      // todo: Probably omit second check.
       if (!isExistingRestrictor && !this.baseOutRestrictions.get(name)) {
         table.insert(restrictorsToRemove, name);
       }
@@ -112,41 +125,40 @@ export class ObjectRestrictionsManager {
 
     // Update IN restrictors based on active / ini restrictors.
     const inRestrictorString: string = readIniString(ini, section, "in_restr", false, null, "");
-    const newInRestrictor: LuaArray<TName> = parseStringsList(inRestrictorString);
-    const oldInRestrictor: LuaArray<TName> = parseStringsList(this.object.in_restrictions());
+    const newInRestrictors: LuaArray<TName> = parseStringsList(inRestrictorString);
+    const oldInRestrictors: LuaArray<TName> = parseStringsList(this.object.in_restrictions());
 
     restrictorsToAdd = new LuaTable();
     restrictorsToRemove = new LuaTable();
 
     // Get IN restrictors to remove.
-    for (const [, name] of oldInRestrictor) {
-      let isExisting: boolean = false;
+    for (const [, name] of oldInRestrictors) {
+      let isExistingRestrictor: boolean = false;
 
-      for (const [, newName] of newInRestrictor) {
+      for (const [, newName] of newInRestrictors) {
         if (name === newName) {
-          isExisting = true;
+          isExistingRestrictor = true;
           break;
         }
       }
 
-      // todo: Probably omit second check.
-      if (!isExisting && !this.baseInRestrictions.get(name)) {
+      if (!isExistingRestrictor && !this.baseInRestrictions.get(name)) {
         table.insert(restrictorsToRemove, name);
       }
     }
 
     // Get IN restrictors to add.
-    for (const [, name] of newInRestrictor) {
-      let isExisting: boolean = false;
+    for (const [, name] of newInRestrictors) {
+      let isExistingRestrictor: boolean = false;
 
-      for (const [, oldName] of oldInRestrictor) {
+      for (const [, oldName] of oldInRestrictors) {
         if (name === oldName) {
-          isExisting = true;
+          isExistingRestrictor = true;
           break;
         }
       }
 
-      if (!isExisting && name !== NIL) {
+      if (!isExistingRestrictor && name !== NIL) {
         table.insert(restrictorsToAdd, name);
       }
     }

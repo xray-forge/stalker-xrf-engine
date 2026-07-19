@@ -314,7 +314,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       initializeObjectGroup(object, state.ini, section);
       initializeObjectTakeItemsEnabledState(object, scheme, state, section);
       initializeObjectCanSelectWeaponState(object, scheme, state, section);
-      ObjectRestrictionsManager.activateForObject(object, section);
+      ObjectRestrictionsManager.syncForObject(object, section);
 
       return;
     }
@@ -329,7 +329,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
       initializeObjectInvulnerability(object, state);
-      ObjectRestrictionsManager.activateForObject(object, section);
+      ObjectRestrictionsManager.syncForObject(object, section);
 
       return;
     }

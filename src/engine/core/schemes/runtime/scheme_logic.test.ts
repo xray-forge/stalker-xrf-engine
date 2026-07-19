@@ -519,7 +519,7 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
     const schemes: Array<TAbstractSchemeConstructor> = loadGenericSchemes();
     const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsManager(stalker));
 
-    jest.spyOn(ObjectRestrictionsManager, "activateForObject").mockImplementation(mockRestrictorGetter);
+    jest.spyOn(ObjectRestrictionsManager, "syncForObject").mockImplementation(mockRestrictorGetter);
 
     loadSchemeImplementations($fromArray(schemes));
 
