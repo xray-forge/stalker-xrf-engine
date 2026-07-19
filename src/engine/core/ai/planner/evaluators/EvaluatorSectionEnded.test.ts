@@ -9,8 +9,8 @@ import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-describe("EvaluatorSectionActive", () => {
-  it("should correctly check if section state is active", () => {
+describe("EvaluatorSectionEnded", () => {
+  it("should correctly check if section state has ended", () => {
     const object: GameObject = MockGameObject.mock();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { section: "test@active" });
     const state: IRegistryObjectState = registerObject(object);

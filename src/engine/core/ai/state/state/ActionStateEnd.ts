@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { Nillable, TDuration, TRate, TTimestamp } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
@@ -42,7 +42,7 @@ export class ActionStateEnd extends action_base {
       const now: TTimestamp = time_global();
 
       // Set start of animation timeout.
-      if (!this.stateManager.callback.begin) {
+      if ($isNil(this.stateManager.callback.begin)) {
         this.stateManager.callback.begin = now;
       }
 
