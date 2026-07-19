@@ -13,7 +13,7 @@ import {
   getStalkerSections,
   getWeaponAddonsSections,
   getWeaponSections,
-} from "@/engine/core/utils/ini/ini_sections";
+} from "@/engine/core/ini/ini_sections";
 
 describe("getSectionsWithoutStoryIDs util", () => {
   it("should get list of sections without story IDs", () => {

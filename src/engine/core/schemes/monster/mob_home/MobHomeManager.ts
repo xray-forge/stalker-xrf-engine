@@ -4,11 +4,11 @@ import { assert, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry, setMonsterState } from "@/engine/core/database";
+import { IWaypointData, parseWaypointData } from "@/engine/core/ini";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeConfig";
-import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

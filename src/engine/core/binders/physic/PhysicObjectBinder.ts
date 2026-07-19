@@ -16,6 +16,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/ini";
 import { BoxManager, isBoxObject } from "@/engine/core/managers/box";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
@@ -26,7 +27,6 @@ import {
   hasSchemeState,
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
-import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

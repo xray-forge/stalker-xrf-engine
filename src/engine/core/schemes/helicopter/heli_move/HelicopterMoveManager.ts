@@ -4,13 +4,13 @@ import { ACTOR, assert, LuaArray, Nillable, TCount, TIndex, TName, TNumberId, TR
 import { $isNil } from "xray16/macros";
 
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { IWaypointData, parseWaypointsData } from "@/engine/core/ini";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
 import { getHelicopterFireManager, getHelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
-import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 
 /**
  * Manager of helicopter movement scheme logics.

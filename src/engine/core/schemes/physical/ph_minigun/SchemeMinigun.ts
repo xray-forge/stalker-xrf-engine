@@ -1,18 +1,18 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TName, TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/schemes/base";
-import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
-import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
-import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
-import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   readIniBoolean,
   readIniNumber,
   readIniString,
   readIniStringAndCondList,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
+import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
+import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme for physical objects defining minigun.

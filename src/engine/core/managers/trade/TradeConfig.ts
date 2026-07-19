@@ -1,7 +1,7 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 
-import { readIniNumber } from "@/engine/core/utils/ini";
+import { readIniNumber } from "@/engine/core/ini";
 
 export const TRADE_MANAGER_LTX: IniFile = new ini_file("managers\\trade_manager.ltx");
 

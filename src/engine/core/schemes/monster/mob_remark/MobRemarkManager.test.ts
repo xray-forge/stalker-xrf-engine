@@ -7,11 +7,11 @@ import { MockGameObject } from "xray16/mocks";
 
 import { EMonsterState } from "@/engine/constants/monsters";
 import { getManager } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("MobRemarkManager", () => {

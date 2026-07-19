@@ -5,11 +5,11 @@ import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 
 /**
  * Find cover and hide action.

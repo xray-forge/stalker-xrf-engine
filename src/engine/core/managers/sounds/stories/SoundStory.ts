@@ -1,9 +1,9 @@
 import { abort, LuaArray, TCount, TDuration, TIndex, TPath, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
+import { parseStringsList } from "@/engine/core/ini";
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
 import { SOUND_STORIES_LTX } from "@/engine/core/managers/sounds/SoundsConfig";
-import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

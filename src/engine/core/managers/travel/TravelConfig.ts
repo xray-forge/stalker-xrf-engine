@@ -1,8 +1,8 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 
+import { readIniNumber, readIniSectionAsStringMap } from "@/engine/core/ini";
 import { readIniTravelDialogs } from "@/engine/core/managers/travel/utils";
-import { readIniNumber, readIniSectionAsStringMap } from "@/engine/core/utils/ini";
 
 export const TRAVEL_CONFIG_LTX: IniFile = new ini_file("managers\\travel_manager.ltx");
 const [DESCRIPTORS_BY_NAME, DESCRIPTORS_BY_PHRASE] = readIniTravelDialogs(TRAVEL_CONFIG_LTX);

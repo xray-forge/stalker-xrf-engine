@@ -5,10 +5,10 @@ import { $filename } from "xray16/macros";
 
 import { mapMarks } from "@/engine/constants/map_marks";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/ini";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

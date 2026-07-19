@@ -2,14 +2,14 @@ import { IniFile } from "xray16/alias";
 import { abort, assert, LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import type { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import {
   parseConditionsList,
   parseNumbersList,
   parseParameters,
   parseStringsList,
   parseStringsSet,
-} from "@/engine/core/utils/ini/ini_parse";
+} from "@/engine/core/ini/ini_parse";
+import type { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 
 /**
  * Read string field from provided ini file section.

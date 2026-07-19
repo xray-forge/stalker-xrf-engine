@@ -2,6 +2,7 @@ import { GameObject, IniFile, ServerCreatureObject } from "xray16/alias";
 import { assert, MAX_ALIFE_ID, Nillable, TName, TSection } from "xray16/lib";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getSchemeFromSection } from "@/engine/core/ini";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import {
@@ -10,7 +11,6 @@ import {
 } from "@/engine/core/schemes/runtime/scheme_initialization";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/schemes/runtime/scheme_logic";
 import { ESchemeType } from "@/engine/core/schemes/types";
-import { getSchemeFromSection } from "@/engine/core/utils/ini";
 
 /**
  * @param object - Game object to setup logic.

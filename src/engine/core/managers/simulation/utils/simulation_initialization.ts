@@ -3,6 +3,7 @@ import { assert, LuaArray, Nillable, TCount, TName, TSection } from "xray16/lib"
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
+import { parseStringsList } from "@/engine/core/ini";
 import { SIMULATION_LTX, simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { getSimulationTerrains } from "@/engine/core/managers/simulation/utils/simulation_data";
 import {
@@ -10,7 +11,6 @@ import {
   createSimulationSquad,
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

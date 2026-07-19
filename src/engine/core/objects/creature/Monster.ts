@@ -10,11 +10,11 @@ import {
   unregisterOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
+import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Server object representation of any monster.

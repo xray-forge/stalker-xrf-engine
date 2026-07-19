@@ -3,11 +3,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
 import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
 import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
 import { SchemeMinigun } from "@/engine/core/schemes/physical/ph_minigun/SchemeMinigun";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
-import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
 
 describe("SchemeMinigun", () => {

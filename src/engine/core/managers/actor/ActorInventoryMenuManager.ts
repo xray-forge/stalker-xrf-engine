@@ -4,9 +4,9 @@ import { $filename } from "xray16/macros";
 
 import { consoleCommands } from "@/engine/constants/console_commands";
 import { SYSTEM_INI } from "@/engine/core/database";
+import { readIniString } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
-import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

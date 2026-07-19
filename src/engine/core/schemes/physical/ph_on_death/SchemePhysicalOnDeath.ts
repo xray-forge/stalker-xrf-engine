@@ -1,11 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 
 /**
  * Scheme to handle death event for physical objects as part of scripts/game events.

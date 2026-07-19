@@ -7,6 +7,7 @@ import { animations, postProcessors } from "@/engine/constants/animation";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { TLevel } from "@/engine/constants/levels";
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { EActorControlHandle, EActorControlPolicy } from "@/engine/core/managers/actor/actor_input_types";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -19,7 +20,6 @@ import {
 } from "@/engine/core/managers/surge/utils/surge_cover";
 import { isImmuneToSurgeSquad } from "@/engine/core/managers/surge/utils/surge_generic";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectOnLevel } from "@/engine/core/utils/position";
 

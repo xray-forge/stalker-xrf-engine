@@ -6,6 +6,13 @@ import { $filename, $isNotNil } from "xray16/macros";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
+import {
+  getConfigSwitchConditions,
+  parseStringsList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+} from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions";
@@ -13,13 +20,6 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/a
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import {
-  getConfigSwitchConditions,
-  parseStringsList,
-  readIniBoolean,
-  readIniNumber,
-  readIniString,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

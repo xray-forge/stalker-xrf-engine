@@ -2,12 +2,12 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { FALSE } from "xray16/lib";
 
 import { registerSimulator } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils/squad_generic_utils";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("getSquadMapDisplayHint util", () => {

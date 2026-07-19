@@ -6,6 +6,7 @@ import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameOb
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
@@ -18,7 +19,6 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { ILogicsOverrides, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("isObjectFacingDanger", () => {

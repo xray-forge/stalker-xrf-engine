@@ -7,6 +7,7 @@ import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/en
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
+import { readIniStringList } from "@/engine/core/ini";
 import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
@@ -18,7 +19,6 @@ import {
   hasActiveScheme,
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
-import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 

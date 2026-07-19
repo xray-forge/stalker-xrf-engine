@@ -4,12 +4,12 @@ import { ZERO_VECTOR } from "xray16/lib";
 import { MockGameObject, MockIniFile, MockVector } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJump";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeMobJump", () => {

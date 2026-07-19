@@ -5,8 +5,7 @@ import { EMPTY_LUA_ARRAY, extern, LuaArray, NIL } from "xray16/lib";
 import { MockFlags32, MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
-import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { pickSectionFromCondList } from "@/engine/core/ini/ini_config";
 import {
   getSchemeFromSection,
   parseBoneStateDescriptors,
@@ -23,8 +22,9 @@ import {
   parseWaypointData,
   parseWaypointsData,
   parseWaypointsDataFromList,
-} from "@/engine/core/utils/ini/ini_parse";
-import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
+} from "@/engine/core/ini/ini_parse";
+import { IConfigCondition } from "@/engine/core/ini/ini_types";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 
 describe("parseStringsList", () => {
   it("should correctly parse names array", () => {

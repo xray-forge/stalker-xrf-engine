@@ -54,6 +54,14 @@ import {
   unregisterStoryLinkByObjectId,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
+import {
+  parseConditionsList,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
@@ -101,14 +109,6 @@ import type { Squad } from "@/engine/core/objects/squad";
 import { initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { ESchemeType } from "@/engine/core/schemes/types";
 import { isMonsterSquad, isStalker } from "@/engine/core/utils/class_ids";
-import {
-  parseConditionsList,
-  pickSectionFromCondList,
-  readIniBoolean,
-  readIniNumber,
-  readIniString,
-  TConditionList,
-} from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import {

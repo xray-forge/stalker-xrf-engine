@@ -5,11 +5,11 @@ import { NIL } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState, ETaskStatus } from "@/engine/core/managers/tasks/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 
 describe("TaskObject", () => {
   beforeAll(() => {

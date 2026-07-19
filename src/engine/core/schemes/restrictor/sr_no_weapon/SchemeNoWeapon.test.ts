@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeNoWeapon", () => {

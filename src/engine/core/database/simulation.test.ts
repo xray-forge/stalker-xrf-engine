@@ -9,8 +9,8 @@ import {
   unregisterSimulationObject,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database/simulation";
+import { parseConditionsList } from "@/engine/core/ini";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("registerSimulator", () => {

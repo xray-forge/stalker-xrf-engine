@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/ini";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/physical/ph_idle/SchemePhysicalIdle";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalIdle", () => {

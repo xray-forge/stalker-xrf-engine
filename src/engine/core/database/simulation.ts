@@ -3,10 +3,10 @@ import { IniFile } from "xray16/alias";
 import { ACTOR, DEFAULT, DEFAULT_SQUAD, TCount, TSection } from "xray16/lib";
 
 import { registry } from "@/engine/core/database/registry";
+import { parseConditionsList } from "@/engine/core/ini";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { SIMULATION_OBJECTS_PROPERTIES_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { isSquad } from "@/engine/core/utils/class_ids";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 
 /**
  * Register simulator instance in the registry.

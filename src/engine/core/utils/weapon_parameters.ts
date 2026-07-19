@@ -3,7 +3,7 @@ import { assert, clamp, Nillable, TName, TRate, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import { parseStringsList, readIniNumber } from "@/engine/core/utils/ini";
+import { parseStringsList, readIniNumber } from "@/engine/core/ini";
 
 /**
  * @param section - Section of weapon to read stats.

@@ -5,12 +5,12 @@ import { $isNotNil } from "xray16/macros";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
+import { getConfigSwitchConditions, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions/ActionRemarkActivity";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Scheme implementing remark logics of transitions between scenarios.

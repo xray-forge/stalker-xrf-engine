@@ -10,8 +10,6 @@ import {
   registerSimulator,
   registerStoryLink,
 } from "@/engine/core/database";
-import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
-import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   addConditionToList,
   getConfigObjectAndZone,
@@ -19,7 +17,9 @@ import {
   getObjectConfigOverrides,
   getSectionsFromConditionLists,
   parseConditionsList,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 
 describe("getInfosFromData util", () => {

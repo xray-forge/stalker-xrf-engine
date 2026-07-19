@@ -27,8 +27,6 @@ import {
   resetObject,
   unregisterAnomalyZone,
 } from "@/engine/core/database";
-import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
-import { getAnomalyFreePaths, spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
 import {
   parseConditionsList,
   parseNumbersList,
@@ -38,7 +36,9 @@ import {
   readIniString,
   readIniStringList,
   TConditionList,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
+import { getAnomalyFreePaths, spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

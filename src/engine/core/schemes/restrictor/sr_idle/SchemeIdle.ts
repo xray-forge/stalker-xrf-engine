@@ -1,11 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 
 /**
  * Action scheme to block NPCs from any action until some conditions are met.

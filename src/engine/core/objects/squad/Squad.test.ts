@@ -6,14 +6,14 @@ import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerObject, registerSimulator, registry } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assignSimulationSquadToTerrain, releaseSimulationSquad } from "@/engine/core/managers/simulation/utils";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
-import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/ini/ini_config");
+jest.mock("@/engine/core/ini/ini_config");
 jest.mock("@/engine/core/managers/simulation/utils/simulation_squads");
 
 describe("Squad object", () => {

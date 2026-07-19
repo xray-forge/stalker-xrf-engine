@@ -4,10 +4,10 @@ import { AnyObject, Nillable, TName, TNumberId, TRate, TSection, TTimestamp } fr
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { TConditionList } from "@/engine/core/ini";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
 import { IBaseSchemeState, ILogicsOverrides } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { TConditionList } from "@/engine/core/utils/ini";
 
 /**
  * Client objects registry state logics descriptor.

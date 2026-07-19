@@ -2,12 +2,12 @@ import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
+import { readIniSectionAsNumberMap } from "@/engine/core/ini";
 import {
   readAtmosfearConfig,
   readFogDistances,
   readLevelWeathersConfiguration,
 } from "@/engine/core/managers/weather/utils/weather_config";
-import { readIniSectionAsNumberMap } from "@/engine/core/utils/ini";
 
 export const DYNAMIC_WEATHER_GRAPHS_LTX: IniFile = new ini_file("environment\\dynamic_weather_graphs.ltx");
 export const WEATHER_MANAGER_LTX: IniFile = new ini_file("managers\\weather_manager.ltx");

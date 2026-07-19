@@ -6,11 +6,11 @@ import { $fromObject } from "xray16/macros";
 import { MockGameObject, MockPhysicsJoint, MockPhysicsShell } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { IBoneStateDescriptor, parseConditionsList } from "@/engine/core/ini";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { IBoneStateDescriptor, parseConditionsList } from "@/engine/core/utils/ini";
 import { mockSchemeState } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({

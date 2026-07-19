@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
 import { SchemePhysicalHit } from "@/engine/core/schemes/physical/ph_hit/SchemePhysicalHit";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemePhysicalHit", () => {

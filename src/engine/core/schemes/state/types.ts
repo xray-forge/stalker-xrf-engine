@@ -1,8 +1,8 @@
 import type { IniFile } from "xray16/alias";
 import type { AnyObject, LuaArray, Nillable, TDuration, TName, TNumberId, TSection, TStringifiedNil } from "xray16/lib";
 
+import type { TConditionList } from "@/engine/core/ini";
 import type { EScheme, ESchemeCondition } from "@/engine/core/schemes/types";
-import type { TConditionList } from "@/engine/core/utils/ini";
 
 /**
  * Descriptor of a single parsed scheme logic entry with its condition list and parameters.

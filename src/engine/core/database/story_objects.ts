@@ -5,7 +5,7 @@ import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniString } from "@/engine/core/ini/ini_read";
 
 /**
  * Register story object link based on ini configuration.

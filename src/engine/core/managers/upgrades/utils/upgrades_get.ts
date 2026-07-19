@@ -1,9 +1,9 @@
 import { IniFile } from "xray16/alias";
 import { LuaArray, Nillable, TSection } from "xray16/lib";
 
+import { parseStringsList, readIniString } from "@/engine/core/ini";
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
-import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Read upgrade group information from ini file / specific upgrade group section.

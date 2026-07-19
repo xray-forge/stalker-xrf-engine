@@ -6,6 +6,7 @@ import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { removeTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
@@ -14,7 +15,6 @@ import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManage
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils");

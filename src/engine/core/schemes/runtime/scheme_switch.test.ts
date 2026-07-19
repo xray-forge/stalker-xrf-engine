@@ -7,6 +7,7 @@ import { MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { IRegistryObjectState, registerActor, registerObject, registerZone } from "@/engine/core/database";
+import { addConditionToList, parseConditionsList } from "@/engine/core/ini";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
@@ -21,7 +22,6 @@ import {
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeCondition } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { addConditionToList, parseConditionsList } from "@/engine/core/utils/ini";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 
 // todo: Complex logic switch

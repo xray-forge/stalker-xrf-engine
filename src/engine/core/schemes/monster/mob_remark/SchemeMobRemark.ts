@@ -2,16 +2,11 @@ import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
 import { getMonsterState } from "@/engine/core/database";
+import { getConfigSwitchConditions, readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import {
-  getConfigSwitchConditions,
-  readIniBoolean,
-  readIniConditionList,
-  readIniString,
-} from "@/engine/core/utils/ini";
 
 /**
  * Scheme implementing logics of switching between scripts.

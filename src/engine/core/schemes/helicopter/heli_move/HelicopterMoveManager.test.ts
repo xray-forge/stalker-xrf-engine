@@ -5,6 +5,7 @@ import { createVector } from "xray16/lib";
 import { MockCHelicopter, MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { getPortableStoreValue, registerObject, setPortableStoreValue } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
@@ -12,7 +13,6 @@ import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("HelicopterMoveManager", () => {

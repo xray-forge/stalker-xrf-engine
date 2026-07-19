@@ -2,8 +2,8 @@ import { IniFile } from "xray16/alias";
 import { TCount, TName, TStringId } from "xray16/lib";
 
 import { TLevel } from "@/engine/constants/levels";
+import { parseConditionsList } from "@/engine/core/ini";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 
 /**
  * Read list of travel routes descriptors / phrases configuration.

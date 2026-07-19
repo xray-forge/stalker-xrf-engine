@@ -6,8 +6,8 @@ import { infoPortions } from "@/engine/constants/info_portions";
 import { storyNames } from "@/engine/constants/story_names";
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
+import { parseStringsList } from "@/engine/core/ini";
 import { createSequence } from "@/engine/core/utils/animation";
-import { parseStringsList } from "@/engine/core/utils/ini";
 
 const WEAPONS_TABLE_STRAPPED: LuaArray<TName> = $fromArray([
   "pri_a15_wpn_svu",

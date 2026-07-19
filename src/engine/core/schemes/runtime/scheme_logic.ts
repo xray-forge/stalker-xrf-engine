@@ -5,6 +5,13 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { IRegistryObjectState, IRegistryOfflineState, registry } from "@/engine/core/database";
+import {
+  getObjectConfigOverrides,
+  getSchemeFromSection,
+  pickSectionFromCondList,
+  readIniConditionList,
+  readIniString,
+} from "@/engine/core/ini";
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -21,13 +28,6 @@ import {
 } from "@/engine/core/schemes/runtime/scheme_object_initialization";
 import { getSchemeStateByKeyOptimistic, IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
-import {
-  getObjectConfigOverrides,
-  getSchemeFromSection,
-  pickSectionFromCondList,
-  readIniConditionList,
-  readIniString,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 

@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, updateClassIds } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
+import { unlockSystemIniOverriding } from "@/engine/core/ini";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
@@ -18,7 +18,7 @@ jest.mock("xray16/lib", () => ({
   updateClassIds: jest.fn(),
 }));
 
-jest.mock("@/engine/core/utils/ini/ini_system");
+jest.mock("@/engine/core/ini/ini_system");
 jest.mock("@/engine/scripts/register/extensions_registrator");
 jest.mock("@/engine/scripts/register/managers_registrator");
 jest.mock("@/engine/scripts/register/schemes_registrator");

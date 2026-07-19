@@ -5,13 +5,13 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/SchemeSmartCover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { EScheme } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeSmartCover", () => {

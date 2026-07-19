@@ -7,12 +7,12 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registerSmartCover, registerStoryLink } from "@/engine/core/database";
 import { setStalkerState } from "@/engine/core/database/stalker";
+import { parseConditionsList } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions/ActionSmartCoverUse";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/database/stalker");

@@ -16,6 +16,7 @@ import {
 import { $isNotNil } from "xray16/macros";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
 import {
@@ -32,7 +33,6 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/schemes/runtime";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 
 /**

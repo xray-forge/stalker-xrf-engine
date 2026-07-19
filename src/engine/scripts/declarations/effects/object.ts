@@ -43,6 +43,7 @@ import {
   SYSTEM_INI,
   unregisterHelicopterFromList,
 } from "@/engine/core/database";
+import { IConfigSwitchCondition, parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/ini";
 import {
   getSimulationTerrainByName,
   getSimulationTerrainDescriptorById,
@@ -62,12 +63,6 @@ import {
   hasSchemeState,
 } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import {
-  IConfigSwitchCondition,
-  parseConditionsList,
-  pickSectionFromCondList,
-  readIniString,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { getObjectTerrain } from "@/engine/core/utils/position";

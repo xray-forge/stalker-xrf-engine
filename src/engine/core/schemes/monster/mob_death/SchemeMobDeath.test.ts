@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeMobDeath", () => {

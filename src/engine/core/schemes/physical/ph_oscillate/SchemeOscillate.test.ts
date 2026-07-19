@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { SchemeOscillate } from "@/engine/core/schemes/physical/ph_oscillate/SchemeOscillate";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 
 describe("SchemeOscillate", () => {

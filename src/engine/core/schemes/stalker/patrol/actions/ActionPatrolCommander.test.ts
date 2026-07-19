@@ -6,11 +6,11 @@ import { EPatrolFormation, StalkerPatrolManager } from "@/engine/core/ai/patrol"
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolCommander } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolCommander";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionPatrolCommander", () => {

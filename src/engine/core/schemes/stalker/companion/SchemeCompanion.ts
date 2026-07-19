@@ -4,12 +4,12 @@ import { TSection } from "xray16/lib";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 
 /**
  * Scheme implementing logics of companion follower for stalkers.

@@ -4,6 +4,7 @@ import { FALSE, Nillable, TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockCTime, MockIniFile } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import {
   assignSimulationSquadToTerrain,
   getSimulationTerrainAssignedSquadsCount,
@@ -15,7 +16,6 @@ import {
   respawnSmartTerrainSquad,
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import { Squad } from "@/engine/core/objects/squad";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("smart_terrain_spawn module", () => {

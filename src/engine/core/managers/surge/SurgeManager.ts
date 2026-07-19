@@ -31,6 +31,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
@@ -52,7 +53,6 @@ import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -15,7 +15,7 @@ import {
 
 import { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
-import { parseConditionsList } from "@/engine/core/utils/ini";
+import { parseConditionsList } from "@/engine/core/ini";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("DoorBinder", () => {

@@ -22,11 +22,7 @@ import { TInfoPortion } from "@/engine/constants/info_portions";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";
-import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
-import { IBaseSchemeLogic, ILogicsOverrides } from "@/engine/core/schemes/state";
-import { ESchemeCondition } from "@/engine/core/schemes/types";
-import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { parseConditionsList } from "@/engine/core/ini/ini_parse";
 import {
   readIniBoolean,
   readIniConditionList,
@@ -35,8 +31,12 @@ import {
   readIniStringAndCondList,
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
-} from "@/engine/core/utils/ini/ini_read";
-import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
+} from "@/engine/core/ini/ini_read";
+import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/ini/ini_types";
+import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
+import { IBaseSchemeLogic, ILogicsOverrides } from "@/engine/core/schemes/state";
+import { ESchemeCondition } from "@/engine/core/schemes/types";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 
 /**
  * Parse array of `|` separated condition lists.

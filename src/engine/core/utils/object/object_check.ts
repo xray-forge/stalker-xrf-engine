@@ -3,8 +3,8 @@ import { Nillable, TNumberId, TStringId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { readIniString } from "@/engine/core/ini";
 import { isStalker } from "@/engine/core/utils/class_ids";
-import { readIniString } from "@/engine/core/utils/ini";
 import { getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
 
 /**

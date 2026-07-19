@@ -44,6 +44,7 @@ import {
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
+import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/ini";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { DropManager } from "@/engine/core/managers/drop";
@@ -70,7 +71,6 @@ import {
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";

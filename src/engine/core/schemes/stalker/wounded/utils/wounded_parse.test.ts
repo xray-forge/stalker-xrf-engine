@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 
+import { parseConditionsList } from "@/engine/core/ini";
 import { getStateIndexByHp, parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 
 describe("parseWoundedData util", () => {
   it("should correctly parse data", () => {

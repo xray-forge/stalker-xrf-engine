@@ -5,8 +5,8 @@ import { $fromObject } from "xray16/macros";
 
 import { levels } from "@/engine/constants/levels";
 import { storyNames } from "@/engine/constants/story_names";
+import { readIniSectionsAsSet } from "@/engine/core/ini";
 import type { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
-import { readIniSectionsAsSet } from "@/engine/core/utils/ini";
 
 export const TASK_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\task_manager.ltx");
 

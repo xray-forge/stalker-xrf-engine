@@ -4,13 +4,13 @@ import { $isNotNil } from "xray16/macros";
 
 import { ESoundType } from "@/engine/constants/sound";
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
+import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { getSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { parseConditionsList, parseParameters, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 
 // Todo: move to scheme.

@@ -4,12 +4,12 @@ import { TName, TSection } from "xray16/lib";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
+import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/actions/ActionSleeperActivity";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Scheme implementing sleeping logics at some specific smart terrain places.

@@ -34,6 +34,15 @@ import {
   unregisterStoryLinkByObjectId,
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
+import {
+  parseConditionsList,
+  parseStringsList,
+  pickSectionFromCondList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+  TConditionList,
+} from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
 import { simulationActivities } from "@/engine/core/managers/simulation/activity";
@@ -59,15 +68,6 @@ import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/o
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { SQUAD_BEHAVIOURS_LTX } from "@/engine/core/objects/squad/SquadConfig";
 import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
-import {
-  parseConditionsList,
-  parseStringsList,
-  pickSectionFromCondList,
-  readIniBoolean,
-  readIniNumber,
-  readIniString,
-  TConditionList,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";

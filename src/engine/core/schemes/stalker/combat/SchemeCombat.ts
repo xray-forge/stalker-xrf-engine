@@ -6,6 +6,13 @@ import { $filename, $isNotNil } from "xray16/macros";
 import { communities } from "@/engine/constants/communities";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import {
+  getConfigSwitchConditions,
+  parseConditionsList,
+  parseStringOptional,
+  pickSectionFromCondList,
+  readIniConditionList,
+} from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EScriptCombatType, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { EvaluatorCheckCombat } from "@/engine/core/schemes/stalker/combat/evaluators/EvaluatorCheckCombat";
@@ -14,13 +21,6 @@ import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombie
 import { getSchemeStateByKey, getSchemeStateOptimistic, ILogicsOverrides } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import {
-  getConfigSwitchConditions,
-  parseConditionsList,
-  parseStringOptional,
-  pickSectionFromCondList,
-  readIniConditionList,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

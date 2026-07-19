@@ -4,7 +4,6 @@ import { $isNil } from "xray16/macros";
 
 import { TInfoPortion } from "@/engine/constants/info_portions";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { EScheme } from "@/engine/core/schemes/types";
 import {
   getSectionsFromConditionLists,
   parseConditionsList,
@@ -12,7 +11,8 @@ import {
   readIniBoolean,
   readIniNumber,
   readIniString,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { EScheme } from "@/engine/core/schemes/types";
 
 /**
  * Synchronize object invulnerability with the active section's condition list.

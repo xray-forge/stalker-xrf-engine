@@ -4,6 +4,7 @@ import { $fromArray } from "xray16/macros";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { getManager, registerActor, registerObject, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
@@ -14,7 +15,6 @@ import {
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeCondition } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("NoWeaponManager", () => {

@@ -4,7 +4,7 @@ import { Nillable, TDuration, TName } from "xray16/lib";
 
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { registerCampZone, registry, resetCampZone, unregisterCampZone } from "@/engine/core/database";
-import { readIniString } from "@/engine/core/utils/ini";
+import { readIniString } from "@/engine/core/ini";
 
 /**
  * Camp zone binder for game creatures.

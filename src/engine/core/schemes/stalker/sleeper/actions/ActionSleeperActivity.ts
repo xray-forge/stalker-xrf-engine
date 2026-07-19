@@ -6,9 +6,9 @@ import { $isNil } from "xray16/macros";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
+import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/ini";
 import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/utils/ini";
 
 /**
  * Action to handle sleeping state of stalkers.

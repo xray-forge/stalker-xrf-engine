@@ -18,6 +18,7 @@ import {
   softResetOfflineObject,
   unregisterObject,
 } from "@/engine/core/database";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { Squad } from "@/engine/core/objects/squad/Squad";
@@ -36,7 +37,6 @@ import {
   hasSchemeState,
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
-import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import { getObjectSquad } from "@/engine/core/utils/squad";

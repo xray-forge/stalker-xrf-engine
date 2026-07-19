@@ -1,6 +1,6 @@
 import type { LuaArray, TCount, TName, TSection } from "xray16/lib";
 
-import type { TConditionList } from "@/engine/core/utils/ini";
+import type { TConditionList } from "@/engine/core/ini";
 
 /**
  * Smart terrain active status.

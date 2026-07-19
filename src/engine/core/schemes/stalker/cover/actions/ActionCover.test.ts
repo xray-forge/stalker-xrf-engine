@@ -6,11 +6,11 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager } from "@/engine/core/database";
 import { setStalkerState } from "@/engine/core/database/stalker";
+import { parseConditionsList } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions/ActionCover";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/database/stalker");

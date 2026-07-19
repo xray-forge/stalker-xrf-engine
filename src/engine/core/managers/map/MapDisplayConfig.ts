@@ -1,13 +1,13 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 
+import { readIniBoolean, readIniNumber } from "@/engine/core/ini";
 import {
   readIniMapMarks,
   readIniMapScannerSpots,
   readIniMapSpots,
   readIniSleepSpots,
 } from "@/engine/core/managers/map/utils/map_init";
-import { readIniBoolean, readIniNumber } from "@/engine/core/utils/ini";
 
 export const MAP_DISPLAY_CONFIG_LTX: IniFile = new ini_file("managers\\map_display_manager.ltx");
 

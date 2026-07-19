@@ -3,9 +3,9 @@ import { FALSE, NIL, Nillable, TRUE, TSection } from "xray16/lib";
 
 import { NO_MEET_SECTION } from "@/engine/constants/sections";
 import { registry } from "@/engine/core/database";
+import { parseConditionsList, readIniString } from "@/engine/core/ini";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
-import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 
 /**

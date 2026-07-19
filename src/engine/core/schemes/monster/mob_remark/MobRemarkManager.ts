@@ -4,11 +4,11 @@ import { LuaArray, TDuration, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getManager, registry, setMonsterState } from "@/engine/core/database";
+import { parseStringsList, pickSectionFromCondList } from "@/engine/core/ini";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/schemes/runtime";
-import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 
 /**
  * Manager handling monster remark scheme behaviour for an object.

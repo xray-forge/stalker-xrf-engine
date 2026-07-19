@@ -2,6 +2,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { abort, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
+import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
 import {
@@ -9,7 +10,6 @@ import {
   ISchemeParticleState,
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Scheme controlling restrictor zone particle effect behaviour.

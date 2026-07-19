@@ -3,12 +3,12 @@ import { abort, assert, LuaArray, TCount, TSection, TStringId } from "xray16/lib
 import { $filename, $isNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
+import { ISpawnDescriptor, parseConditionsList, parseSpawnDetails, readIniNumber } from "@/engine/core/ini";
 import {
   ALLOWED_TREASURE_TYPES,
   ETreasureType,
   ITreasureDescriptor,
 } from "@/engine/core/managers/treasures/treasures_types";
-import { ISpawnDescriptor, parseConditionsList, parseSpawnDetails, readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

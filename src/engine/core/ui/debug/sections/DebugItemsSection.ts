@@ -5,10 +5,6 @@ import { $filename } from "xray16/macros";
 
 import { TInventoryItem } from "@/engine/constants/items";
 import { registry } from "@/engine/core/database";
-import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
-import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
-import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
-import { isGameStarted } from "@/engine/core/utils/game";
 import {
   getAmmoSections,
   getArtefactsSections,
@@ -17,7 +13,11 @@ import {
   getHelmetsSections,
   getOutfitSections,
   getWeaponSections,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
+import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
+import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
+import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isAmmoSection } from "@/engine/core/utils/section";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";

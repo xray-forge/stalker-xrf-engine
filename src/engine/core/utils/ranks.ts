@@ -4,7 +4,7 @@ import { abort, LuaArray, MAX_ALIFE_RANK, Nillable, TIndex, TName, TRate, TSecti
 
 import { classIds } from "@/engine/constants/class_ids";
 import { IRankDescriptor, registry } from "@/engine/core/database";
-import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
+import { parseStringsList, readIniString } from "@/engine/core/ini";
 
 /**
  * Parses game ranks and caches list with them.

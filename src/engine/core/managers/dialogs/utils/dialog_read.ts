@@ -2,12 +2,12 @@ import { IniFile } from "xray16/alias";
 import { assert, Nillable, TName, TNumberId, TRUE, TStringifiedBoolean } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
+import { parseInfoPortions, parseStringsList } from "@/engine/core/ini";
 import {
   EGenericPhraseCategory,
   IPhrasesDescriptor,
   TPhrasesAvailableMap,
 } from "@/engine/core/managers/dialogs/dialog_types";
-import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 
 /**
  * @param ini - Target file to read descriptors from.

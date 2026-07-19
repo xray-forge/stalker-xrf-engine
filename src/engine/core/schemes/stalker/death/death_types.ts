@@ -1,8 +1,8 @@
 import type { Nillable, TNumberId } from "xray16/lib";
 
+import type { TConditionList } from "@/engine/core/ini";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
-import type { TConditionList } from "@/engine/core/utils/ini";
 
 /**
  * Store information about death of an object.

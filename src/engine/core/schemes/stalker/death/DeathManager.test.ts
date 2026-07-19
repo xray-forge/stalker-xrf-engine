@@ -3,14 +3,14 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/ini";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-jest.mock("@/engine/core/utils/ini/ini_config");
+jest.mock("@/engine/core/ini/ini_config");
 
 describe("DeathManager", () => {
   beforeEach(() => {

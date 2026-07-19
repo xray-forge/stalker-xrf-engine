@@ -5,12 +5,12 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { TLevel } from "@/engine/constants/levels";
 import { registry } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/ini";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SURGE_MANAGER_CONFIG_LTX, surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

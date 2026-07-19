@@ -3,7 +3,7 @@ import { IniFile } from "xray16/alias";
 import { MockIniFile } from "xray16/mocks";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import { overrideSystemIni, unlockSystemIniOverriding } from "@/engine/core/utils/ini";
+import { overrideSystemIni, unlockSystemIniOverriding } from "@/engine/core/ini";
 
 describe("unlockSystemIniOverriding util", () => {
   it("should allow overriding of system ini", () => {

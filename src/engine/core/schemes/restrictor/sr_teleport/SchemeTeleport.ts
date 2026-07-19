@@ -1,11 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { assert, TSection } from "xray16/lib";
 
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Scheme logic implementation for teleporting restrictors.

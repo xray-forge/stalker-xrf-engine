@@ -8,11 +8,11 @@ import { StalkerStateManager } from "@/engine/core/ai/state";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, IRegistryObjectState, registerCampZone, registerObject } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions/ActionWalkerActivity";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("ActionWalkerActivity", () => {

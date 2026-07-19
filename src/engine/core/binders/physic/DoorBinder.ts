@@ -30,7 +30,7 @@ import {
   readIniNumber,
   readIniString,
   TConditionList,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

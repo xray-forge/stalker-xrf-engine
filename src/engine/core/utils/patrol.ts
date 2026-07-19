@@ -4,7 +4,7 @@ import { LuaArray, Nillable, TCount, TIndex, TName, TRate } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
-import { type IWaypointData } from "@/engine/core/utils/ini";
+import { type IWaypointData } from "@/engine/core/ini";
 
 /**
  * Check if all points of patrol are in restrictor.

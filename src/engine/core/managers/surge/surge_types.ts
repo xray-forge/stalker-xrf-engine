@@ -1,6 +1,6 @@
 import { Nillable, TName } from "xray16/lib";
 
-import { TConditionList } from "@/engine/core/utils/ini";
+import { TConditionList } from "@/engine/core/ini";
 
 /**
  * Surge cover descriptor.

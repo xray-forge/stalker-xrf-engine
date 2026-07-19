@@ -1,12 +1,12 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 
+import { readIniFieldsAsSet } from "@/engine/core/ini";
 import {
   readIniDropByCommunity,
   readIniDropCountByLevel,
   readIniDropDependentItems,
 } from "@/engine/core/managers/drop/utils/drop_init";
-import { readIniFieldsAsSet } from "@/engine/core/utils/ini";
 
 export const DROP_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\drop_manager.ltx");
 

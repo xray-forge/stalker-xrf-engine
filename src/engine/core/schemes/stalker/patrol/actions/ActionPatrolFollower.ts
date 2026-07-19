@@ -4,9 +4,9 @@ import { areSameVectors, copyVector, TTimestamp, ZERO_VECTOR } from "xray16/lib"
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { registry, setStalkerState } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 
 /**

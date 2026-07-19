@@ -1,8 +1,8 @@
 import type { LuaArray, Nillable, TLabel } from "xray16/lib";
 
+import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/ini";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
-import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini";
 
 /**
  * State of door scheme.

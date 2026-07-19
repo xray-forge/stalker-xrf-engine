@@ -4,12 +4,12 @@ import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TPath, TSectio
 import { $filename } from "xray16/macros";
 
 import { TInventoryItem } from "@/engine/constants/items";
+import { getSectionsWithoutStoryIDs, getSimulationGroupSections, getStalkerSections } from "@/engine/core/ini";
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { isGameStarted } from "@/engine/core/utils/game";
-import { getSectionsWithoutStoryIDs, getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/registry";
 import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";

@@ -2,10 +2,10 @@ import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
 import { isActiveSection, switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

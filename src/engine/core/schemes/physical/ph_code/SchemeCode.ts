@@ -1,18 +1,18 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { Nillable, TIndex, TName, TSection } from "xray16/lib";
 
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
-import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
-import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   readIniConditionList,
   readIniNumber,
   readIniString,
   readIniStringAndCondList,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
+import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
  * Scheme implementing code input for physical objects.

@@ -3,7 +3,7 @@ import { Nillable, TCount, TName, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
-import { readIniString } from "@/engine/core/utils/ini";
+import { readIniString } from "@/engine/core/ini";
 
 /**
  * Setup object visuals based on global section description.

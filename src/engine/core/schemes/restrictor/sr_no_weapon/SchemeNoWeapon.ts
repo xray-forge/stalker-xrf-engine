@@ -1,11 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
 import { TSection } from "xray16/lib";
 
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 
 /**
  * Scheme to define logics when actor is in no-weapon zone or not to allow usage of weapons.

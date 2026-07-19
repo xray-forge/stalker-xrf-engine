@@ -1,7 +1,7 @@
 import { TName, TStringId } from "xray16/lib";
 
 import { TLevel } from "@/engine/constants/levels";
-import { TConditionList } from "@/engine/core/utils/ini";
+import { TConditionList } from "@/engine/core/ini";
 
 /**
  * Descriptor of a travel route destination available in the traveler dialog.

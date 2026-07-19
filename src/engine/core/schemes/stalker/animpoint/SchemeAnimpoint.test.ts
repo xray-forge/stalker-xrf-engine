@@ -6,6 +6,7 @@ import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/Eval
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
@@ -13,7 +14,6 @@ import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/Animpo
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
 import { SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint/SchemeAnimpoint";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeAnimpoint", () => {

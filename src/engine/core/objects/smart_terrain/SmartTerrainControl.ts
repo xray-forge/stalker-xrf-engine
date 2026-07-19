@@ -11,13 +11,13 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/ini";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { isWeapon } from "@/engine/core/utils/class_ids";
-import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
 
 /**

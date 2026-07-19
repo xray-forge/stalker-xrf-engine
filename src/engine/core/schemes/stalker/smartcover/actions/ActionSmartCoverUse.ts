@@ -4,13 +4,13 @@ import { assert, NIL, Nillable, StringNillable, TName, TNumberId } from "xray16/
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import {
   COVER_SUBSTATE_TABLE,
   ISchemeSmartCoverState,
 } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 
 /**
  * Action to handle hiding in smart covers.

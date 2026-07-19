@@ -8,11 +8,11 @@ import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManag
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getCampZoneForPosition, getManager, registry, setStalkerState } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 
 /**
  * GOAP action implementing walker patrol logics.

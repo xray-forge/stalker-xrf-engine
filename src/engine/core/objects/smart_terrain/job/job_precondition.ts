@@ -5,9 +5,9 @@ import { $isNil, $isNotNil } from "xray16/macros";
 import { communities } from "@/engine/constants/communities";
 import { detectors } from "@/engine/constants/items/detectors";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { IObjectJobState, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 
 /**

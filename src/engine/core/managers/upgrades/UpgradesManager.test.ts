@@ -3,11 +3,11 @@ import { AnyObject, LuaArray, TLabel, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { disposeManager, getManager } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("UpgradesManager", () => {

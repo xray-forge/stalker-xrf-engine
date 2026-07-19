@@ -3,11 +3,11 @@ import { TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
+import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 

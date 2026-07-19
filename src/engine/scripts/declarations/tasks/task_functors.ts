@@ -3,8 +3,8 @@ import { GameObject } from "xray16/alias";
 import { extern, Nillable, TLabel, TNumberId, TSection, TStringId } from "xray16/lib";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/ini";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
-import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 
 /**
  * Check condlist as part of condition functor.

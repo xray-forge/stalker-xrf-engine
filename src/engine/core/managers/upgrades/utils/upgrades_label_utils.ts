@@ -4,9 +4,9 @@ import { $isNil } from "xray16/macros";
 
 import { CURRENCY_LABEL } from "@/engine/constants/currency";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { parseStringsList, readIniBoolean } from "@/engine/core/ini";
 import { ITEM_UPGRADES } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice, getUpgradeCost } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
-import { parseStringsList, readIniBoolean } from "@/engine/core/utils/ini";
 
 /**
  * @param section - Item section to get upgrade cost.

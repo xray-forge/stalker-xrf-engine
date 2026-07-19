@@ -6,6 +6,7 @@ import { $isNil, $isNotNil } from "xray16/macros";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import {
@@ -14,7 +15,6 @@ import {
 } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 
 /**
  * Action implementing camper combat behaviour, patrolling cover points and firing at enemies from them.

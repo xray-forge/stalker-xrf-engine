@@ -4,7 +4,7 @@ import { abort, Nillable, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { EMonsterState } from "@/engine/constants/monsters";
-import { readIniString } from "@/engine/core/utils/ini";
+import { readIniString } from "@/engine/core/ini";
 
 /**
  * Read monster state from provided ini file.

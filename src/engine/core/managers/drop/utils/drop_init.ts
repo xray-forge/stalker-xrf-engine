@@ -6,8 +6,8 @@ import { $isNil } from "xray16/macros";
 import { communities, TCommunity } from "@/engine/constants/communities";
 import type { TInventoryItem } from "@/engine/constants/items";
 import type { TLevel } from "@/engine/constants/levels";
+import { parseNumbersList, parseStringsList } from "@/engine/core/ini";
 import type { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
-import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 
 /**
  * @param ini - Target ini file to read data from.

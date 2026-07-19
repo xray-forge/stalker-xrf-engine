@@ -2,17 +2,17 @@ import { GameObject, IniFile } from "xray16/alias";
 import { NIL, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/schemes/base";
-import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
-import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
-import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   parseStringsList,
   readIniBoolean,
   readIniNumber,
   readIniString,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { AbstractScheme } from "@/engine/core/schemes/base";
+import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
+import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

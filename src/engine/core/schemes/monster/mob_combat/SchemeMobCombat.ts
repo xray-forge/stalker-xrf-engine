@@ -3,12 +3,12 @@ import { Nillable, TSection } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { getSchemeStateByKey } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 
 /**
  * Scheme describing how monsters should handle combat.

@@ -4,10 +4,10 @@ import { extern, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { MockGameObject } from "xray16/mocks";
 
+import { parseConditionsList, TConditionList } from "@/engine/core/ini";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 
 describe("CodeManager", () => {

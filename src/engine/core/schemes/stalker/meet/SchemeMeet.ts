@@ -5,6 +5,7 @@ import { $isNil } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
@@ -12,7 +13,6 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types"
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Scheme describing logics of `meet` state.

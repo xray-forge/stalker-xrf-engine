@@ -13,6 +13,7 @@ import {
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
+import { readIniString } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
 import {
@@ -25,7 +26,6 @@ import {
 } from "@/engine/core/managers/box/BoxConfig";
 import { initializeDropBoxesLootTables } from "@/engine/core/managers/box/utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 

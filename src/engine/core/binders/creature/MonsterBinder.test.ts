@@ -20,6 +20,7 @@ import {
   registerSimulator,
   registry,
 } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { Squad } from "@/engine/core/objects/squad";
@@ -39,7 +40,6 @@ import {
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { setupSpawnedObjectPosition } from "@/engine/core/utils/object";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 

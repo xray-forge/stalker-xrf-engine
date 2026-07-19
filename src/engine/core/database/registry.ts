@@ -12,6 +12,7 @@ import type {
   IRegistryObjectState,
   IRegistryOfflineState,
 } from "@/engine/core/database/database_types";
+import type { TConditionList } from "@/engine/core/ini";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
@@ -22,7 +23,6 @@ import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
 import type { EScheme } from "@/engine/core/schemes/types";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
-import type { TConditionList } from "@/engine/core/utils/ini";
 import type { ERelation } from "@/engine/core/utils/relation";
 
 /**

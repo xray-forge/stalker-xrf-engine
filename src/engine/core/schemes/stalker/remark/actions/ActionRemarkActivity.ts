@@ -5,13 +5,13 @@ import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { getTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 
 const STATE_INITIAL: number = 0;

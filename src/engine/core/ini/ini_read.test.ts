@@ -3,8 +3,7 @@ import { IniFile } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
 
-import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { parseConditionsList } from "@/engine/core/ini/ini_parse";
 import {
   readIniBoolean,
   readIniConditionList,
@@ -25,7 +24,8 @@ import {
   readIniStringWB,
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
-} from "@/engine/core/utils/ini/ini_read";
+} from "@/engine/core/ini/ini_read";
+import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 
 describe("readIniString util", () => {
   it("utils should correctly get data from ini files", () => {

@@ -14,6 +14,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { BoxManager } from "@/engine/core/managers/box";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
@@ -25,7 +26,6 @@ import {
 } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime");

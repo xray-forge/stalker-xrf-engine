@@ -4,6 +4,7 @@ import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { readIniBoolean } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/actions";
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
@@ -11,7 +12,6 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_woun
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { readIniBoolean } from "@/engine/core/utils/ini";
 
 /**
  * Scheme describing object logics for helping friendly injured stalkers.

@@ -8,7 +8,7 @@ import {
   WEAPON_CONFIG_CLASSES,
 } from "@/engine/constants/class_ids";
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniString } from "@/engine/core/ini/ini_read";
 
 /**
  * @param sections - List of sections to check and filter.

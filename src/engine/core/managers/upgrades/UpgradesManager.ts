@@ -16,18 +16,13 @@ import {
 import { $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
+import { parseConditionsList, parseStringsList, pickSectionFromCondList, TConditionList } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice } from "@/engine/core/managers/upgrades/utils";
-import {
-  parseConditionsList,
-  parseStringsList,
-  pickSectionFromCondList,
-  TConditionList,
-} from "@/engine/core/utils/ini";
 
 /**
  * Manager to handle upgrading of items with mechanics logics.

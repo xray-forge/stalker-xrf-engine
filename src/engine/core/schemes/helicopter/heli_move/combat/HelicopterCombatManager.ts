@@ -22,6 +22,7 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
+import { pickSectionFromCondList, readIniNumber, TConditionList } from "@/engine/core/ini";
 import { updateHelicopterCombatFlyby } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_fly_by";
 import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_retreat";
 import { updateHelicopterCombatRound } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
@@ -33,7 +34,6 @@ import {
 import { calculatePositionInRadius } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
-import { pickSectionFromCondList, readIniNumber, TConditionList } from "@/engine/core/utils/ini";
 
 /**
  * Manager handling helicopter combat behaviour, switching between fly-by, round, search and retreat tactics.

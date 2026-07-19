@@ -4,13 +4,13 @@ import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { readIniBoolean } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detection/actions";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { readIniBoolean } from "@/engine/core/utils/ini";
 
 /**
  * Scheme describing object logics for looting of corpses.

@@ -6,6 +6,13 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 import { TLevel } from "@/engine/constants/levels";
 import { SMART_TERRAIN_SECTION } from "@/engine/constants/sections";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
+import {
+  parseConditionsList,
+  parseStringsList,
+  pickSectionFromCondList,
+  readIniString,
+  readIniTwoNumbers,
+} from "@/engine/core/ini";
 import { removeSquadMapSpot, updateSquadMapSpot } from "@/engine/core/managers/map/utils/map_spot_squad";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils/map_spot_terrain";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -18,13 +25,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { setObjectTeamSquadGroup } from "@/engine/core/utils/community";
-import {
-  parseConditionsList,
-  parseStringsList,
-  pickSectionFromCondList,
-  readIniString,
-  readIniTwoNumbers,
-} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 

@@ -16,12 +16,12 @@ import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EMonsterState } from "@/engine/constants/monsters";
 import { IRegistryObjectState, registry, setMonsterState } from "@/engine/core/database";
+import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractSchemeManager } from "@/engine/core/schemes/base";
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { mobWalkerConfig } from "@/engine/core/schemes/monster/mob_walker/MobWalkerConfig";
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/schemes/runtime";
 import { getActiveSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { IWaypointData, parseWaypointsData, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { choosePatrolWaypointByFlags } from "@/engine/core/utils/patrol";
 
 /**

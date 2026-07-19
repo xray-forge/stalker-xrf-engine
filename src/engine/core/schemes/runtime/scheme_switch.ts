@@ -18,6 +18,7 @@ import {
 import { $filename, $isNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/schemes/runtime/scheme_logic";
 import {
@@ -27,7 +28,6 @@ import {
   IBaseSchemeState,
 } from "@/engine/core/schemes/state";
 import { ESchemeCondition, ESchemeEvent } from "@/engine/core/schemes/types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
 

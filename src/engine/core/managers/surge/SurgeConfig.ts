@@ -2,8 +2,8 @@ import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
 import { FALSE, TIndex, TRUE } from "xray16/lib";
 
+import { parseConditionsList, readIniNumber, readIniSectionAsSet } from "@/engine/core/ini";
 import { ISurgeCoverDescriptor } from "@/engine/core/managers/surge/surge_types";
-import { parseConditionsList, readIniNumber, readIniSectionAsSet } from "@/engine/core/utils/ini";
 
 export const SURGE_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\surge_manager.ltx");
 

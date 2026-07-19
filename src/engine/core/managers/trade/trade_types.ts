@@ -1,7 +1,7 @@
 import { IniFile } from "xray16/alias";
 import { Nillable, TPath, TRate, TSection, TTimestamp } from "xray16/lib";
 
-import { TConditionList } from "@/engine/core/utils/ini";
+import { TConditionList } from "@/engine/core/ini";
 
 /**
  * Descriptor of current trading state of game objects.

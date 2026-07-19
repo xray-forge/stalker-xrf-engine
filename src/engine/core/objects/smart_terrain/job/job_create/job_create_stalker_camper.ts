@@ -4,11 +4,11 @@ import { TDistance, TIndex, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
+import { IWaypointData, parseWaypointData } from "@/engine/core/ini";
 import { jobPreconditionCamper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
-import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 
 /**

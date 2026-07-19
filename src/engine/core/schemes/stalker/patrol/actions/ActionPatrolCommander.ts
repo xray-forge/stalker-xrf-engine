@@ -6,10 +6,10 @@ import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, registry } from "@/engine/core/database";
+import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.

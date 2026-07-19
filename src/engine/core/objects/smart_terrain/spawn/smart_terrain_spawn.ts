@@ -4,6 +4,7 @@ import { abort, LuaArray, Nillable, TCount, TRUE, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
+import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/ini";
 import {
   createSimulationSquad,
   getSimulationTerrainAssignedSquadsCount,
@@ -11,7 +12,6 @@ import {
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { Squad } from "@/engine/core/objects/squad";
-import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 
 /**
  * Apply respawn configuration for provided smart terrain.

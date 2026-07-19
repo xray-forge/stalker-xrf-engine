@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { parseConditionsList } from "@/engine/core/ini/ini_parse";
 
 describe("correct generic condlists parsing", () => {
   it("jup_b8_psy_dog_1/2: only a prefixed function call is a condlist condition", () => {

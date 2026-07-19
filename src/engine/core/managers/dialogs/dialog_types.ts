@@ -1,6 +1,6 @@
 import type { LuaArray, Nillable, TName, TStringId, TStringifiedBoolean } from "xray16/lib";
 
-import type { IConfigCondition } from "@/engine/core/utils/ini";
+import type { IConfigCondition } from "@/engine/core/ini";
 
 /**
  * Descriptor of a single dialog phrase and the conditions controlling when it is available.

@@ -2,8 +2,8 @@ import { describe, expect, it } from "@jest/globals";
 import { TRUE } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
 
+import { parseConditionsList } from "@/engine/core/ini";
 import { readIniTravelDialogs } from "@/engine/core/managers/travel/utils/travel_init";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 
 describe("readIniTravelDialogs util", () => {
   it("should correctly read locations", () => {

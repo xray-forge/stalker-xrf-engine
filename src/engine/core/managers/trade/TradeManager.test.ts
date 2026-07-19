@@ -7,9 +7,9 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { getManager, loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("TradeManager class implementation", () => {

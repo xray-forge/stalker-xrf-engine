@@ -3,12 +3,12 @@ import { TSection } from "xray16/lib";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
+import { readIniBoolean } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { readIniBoolean } from "@/engine/core/utils/ini";
 
 /**
  * Generic scheme to change object state and mark whether object has valuable items and can be looted.

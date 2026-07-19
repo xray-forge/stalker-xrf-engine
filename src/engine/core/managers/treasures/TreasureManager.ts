@@ -24,13 +24,13 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { removeTreasureMapSpot, showTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

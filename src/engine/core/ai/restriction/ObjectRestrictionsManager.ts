@@ -3,7 +3,7 @@ import { LuaArray, NIL, Nillable, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
+import { parseStringsList, readIniString } from "@/engine/core/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

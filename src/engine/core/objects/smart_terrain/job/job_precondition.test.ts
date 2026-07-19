@@ -5,6 +5,7 @@ import { AnyObject, createTime, TNumberId, TSection } from "xray16/lib";
 import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
 import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -30,7 +31,6 @@ import {
   jobPreconditionWalker,
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { MockSmartCover, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 

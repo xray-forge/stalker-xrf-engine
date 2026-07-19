@@ -5,6 +5,7 @@ import { $fromArray } from "xray16/macros";
 import { MockDevice } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { parseConditionsList } from "@/engine/core/ini";
 import {
   EEffectorState,
   ICameraEffectorSetDescriptorItem,
@@ -14,7 +15,6 @@ import {
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { EScheme } from "@/engine/core/schemes/types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 function mockEffectorDescriptor(

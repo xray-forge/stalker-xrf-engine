@@ -11,11 +11,11 @@ import {
   unregisterOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
+import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

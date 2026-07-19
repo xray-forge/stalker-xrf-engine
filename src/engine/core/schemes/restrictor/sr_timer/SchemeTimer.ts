@@ -2,16 +2,16 @@ import { GameObject, IniFile } from "xray16/alias";
 import { assert, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
-import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
-import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
   getConfigSwitchConditions,
   readIniNumber,
   readIniNumberAndConditionList,
   readIniString,
-} from "@/engine/core/utils/ini";
+} from "@/engine/core/ini";
+import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
+import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
+import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
+import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);

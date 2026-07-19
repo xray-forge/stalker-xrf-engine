@@ -18,6 +18,7 @@ import {
   unregisterHelicopterFromList,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { readIniNumber } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
@@ -26,7 +27,6 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/sche
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
 import { ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
-import { readIniNumber } from "@/engine/core/utils/ini";
 
 /**
  * Binder for helicopter game object events and logics.

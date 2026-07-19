@@ -8,13 +8,13 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { communities } from "@/engine/constants/communities";
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { ISquadAction } from "@/engine/core/objects/squad/squad_types";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("Squad server object", () => {

@@ -7,6 +7,7 @@ import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { registerStoryLink } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import {
@@ -21,7 +22,6 @@ import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { parseConditionsList } from "@/engine/core/utils/ini";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("updateTerrainsMapSpotDisplay util", () => {

@@ -6,6 +6,7 @@ import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
+import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { Squad } from "@/engine/core/objects/squad";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions";
@@ -15,7 +16,6 @@ import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig"
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol/SchemePatrol";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import {
   assertSchemeSubscribedToManager,
   checkPlannerAction,

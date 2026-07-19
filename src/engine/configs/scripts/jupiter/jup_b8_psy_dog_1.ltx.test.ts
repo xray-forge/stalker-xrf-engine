@@ -3,9 +3,9 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { registerActor } from "@/engine/core/database";
+import { pickSectionFromCondList, readIniConditionList } from "@/engine/core/ini";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { pickSectionFromCondList, readIniConditionList } from "@/engine/core/utils/ini";
 import { loadInGameTestIniFromTest, resetRegistry } from "@/fixtures/engine";
 
 describe("jup_b8_psy_dog_1 config", () => {
