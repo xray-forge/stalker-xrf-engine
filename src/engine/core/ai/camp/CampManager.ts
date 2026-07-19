@@ -108,6 +108,13 @@ export class CampManager {
       return;
     }
 
+    // Prevent an actor from remaining in a playing animation after its instrumental story has finished.
+    if (this.activity === EObjectCampActivity.GUITAR || this.activity === EObjectCampActivity.HARMONICA) {
+      this.directorId = null;
+      this.activitySwitchAt = 0;
+      this.activityTimeout = 0;
+    }
+
     // Check idle talker and reset if it is not speaking anymore.
     if (this.idleTalkerId) {
       if ($isNotNil(soundsConfig.playing.get(this.idleTalkerId))) {
@@ -171,20 +178,24 @@ export class CampManager {
    *
    * Also schedules the next activity switch and timeout timestamps.
    */
-  public updateNextState(): void {
-    const transitions: LuaTable<EObjectCampActivity, TProbability> = campConfig.CAMP_ACTIVITIES.get(
-      this.activity
-    ).transitions;
-    let probability: TProbability = math.random(100);
+  public updateNextState(forcedActivity: Nillable<EObjectCampActivity> = null): void {
+    if ($isNotNil(forcedActivity)) {
+      this.activity = forcedActivity;
+    } else {
+      const transitions: LuaTable<EObjectCampActivity, TProbability> = campConfig.CAMP_ACTIVITIES.get(
+        this.activity
+      ).transitions;
+      let probability: TProbability = math.random(100);
 
-    for (const [activity, chance] of transitions) {
-      if (probability < chance) {
-        if (campConfig.CAMP_ACTIVITIES.get(activity).precondition(this)) {
-          this.activity = activity;
-          break;
+      for (const [activity, chance] of transitions) {
+        if (probability < chance) {
+          if (campConfig.CAMP_ACTIVITIES.get(activity).precondition(this)) {
+            this.activity = activity;
+            break;
+          }
+        } else {
+          probability -= chance;
         }
-      } else {
-        probability -= chance;
       }
     }
 
@@ -241,11 +252,8 @@ export class CampManager {
     if (objectsCount === 0) {
       this.directorId = null;
     } else if (directors.length() < 1) {
-      this.activity = EObjectCampActivity.IDLE;
-
-      for (const [, it] of this.objects) {
-        it.state = this.activity;
-      }
+      this.directorId = null;
+      this.updateNextState(EObjectCampActivity.IDLE);
     } else {
       this.directorId = directors.length() === 1 ? directors.get(1) : table.random(directors)[1];
     }

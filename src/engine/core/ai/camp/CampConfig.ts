@@ -16,7 +16,7 @@ export const campConfig = {
       directorState: null,
       generalState: "idle",
       minTime: 30_000,
-      maxTime: 60_000,
+      maxTime: 40_000,
       timeout: 0,
       transitions: $fromObject({ harmonica: 30, guitar: 30, story: 40 } as Record<EObjectCampActivity, TProbability>),
       precondition: () => true,

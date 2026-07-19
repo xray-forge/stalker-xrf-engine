@@ -1,16 +1,22 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
+import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
+import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
+import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
+import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
+import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -21,6 +27,11 @@ describe("CampManager", () => {
   beforeEach(() => {
     resetRegistry();
     soundsConfig.managers = new LuaTable();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    resetFunctionMock(time_global);
   });
 
   it("should correctly initialize with default state", () => {
@@ -57,9 +68,177 @@ describe("CampManager", () => {
     expect(manager.availableHarmonicaStories).toEqualLuaArrays(["harmonica_a", "harmonica_b"]);
   });
 
-  it.todo("should correctly handle update event for participant");
+  it("should notify every participant when activity changes", () => {
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const firstState: IRegistryObjectState = registerObject(first);
+    const secondState: IRegistryObjectState = registerObject(second);
 
-  it.todo("should correctly handle update event for director");
+    firstState.activeScheme = EScheme.ANIMPOINT;
+    secondState.activeScheme = EScheme.ANIMPOINT;
+    setSchemeState(firstState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    setSchemeState(secondState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    manager.objects.set(first.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
+    manager.objects.set(second.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "updateNextState").mockImplementation(() => {
+      manager.activity = EObjectCampActivity.STORY;
+    });
+    jest.spyOn(manager, "updateActivityDirector").mockImplementation(jest.fn());
+    jest.clearAllMocks();
+
+    manager.update(0);
+
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(firstState, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      getSchemeStateOptimistic(secondState, EScheme.ANIMPOINT),
+      ESchemeEvent.UPDATE
+    );
+  });
+
+  it("should mark only the selected director as unavailable for meetings", () => {
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const director: GameObject = MockGameObject.mock();
+    const listener: GameObject = MockGameObject.mock();
+    const directorState: IRegistryObjectState = registerObject(director);
+    const listenerState: IRegistryObjectState = registerObject(listener);
+    const directorMeetManager: MeetManager = { isCampStoryDirector: false } as MeetManager;
+    const listenerMeetManager: MeetManager = { isCampStoryDirector: true } as MeetManager;
+
+    directorState.activeScheme = EScheme.ANIMPOINT;
+    listenerState.activeScheme = EScheme.ANIMPOINT;
+    setSchemeState(directorState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    setSchemeState(listenerState, EScheme.ANIMPOINT, mockSchemeState(EScheme.ANIMPOINT));
+    setSchemeState(
+      directorState,
+      EScheme.MEET,
+      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetManager: directorMeetManager })
+    );
+    setSchemeState(
+      listenerState,
+      EScheme.MEET,
+      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetManager: listenerMeetManager })
+    );
+    manager.objects.set(director.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
+    manager.objects.set(listener.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "updateNextState").mockImplementation(() => {
+      manager.activity = EObjectCampActivity.STORY;
+    });
+    jest.spyOn(manager, "updateActivityDirector").mockImplementation(() => {
+      manager.directorId = director.id();
+    });
+
+    manager.update(0);
+
+    expect(directorMeetManager.isCampStoryDirector).toBe(true);
+    expect(listenerMeetManager.isCampStoryDirector).toBe(false);
+  });
+
+  it("should select an eligible director and reset an ineligible activity to idle", () => {
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const participant: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(participant);
+
+    state.activeScheme = EScheme.ANIMPOINT;
+    setSchemeState(
+      state,
+      EScheme.ANIMPOINT,
+      mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+        actionNameBase: EStalkerState.ANIMPOINT_STAY_TABLE,
+        description: EStalkerState.ANIMPOINT_STAY_TABLE,
+      })
+    );
+    manager.activity = EObjectCampActivity.STORY;
+    manager.objects.set(participant.id(), {
+      state: EObjectCampActivity.STORY,
+      [EObjectCampActivity.STORY]: EObjectCampRole.DIRECTOR,
+    } as ICampStateDescriptor);
+
+    manager.updateActivityDirector();
+    expect(manager.directorId).toBe(participant.id());
+
+    jest.spyOn(participant.motivation_action_manager(), "initialized").mockImplementation(() => true);
+    jest
+      .spyOn(participant.motivation_action_manager(), "current_action_id")
+      .mockImplementation(() => EActionId.MEET_WAITING_ACTIVITY);
+    jest.spyOn(math, "random").mockImplementation((min?: number, max?: number) => (max ? min! : 1));
+    replaceFunctionMock(time_global, () => 100);
+
+    manager.updateActivityDirector();
+
+    expect(manager.activity).toBe(EObjectCampActivity.IDLE);
+    expect(manager.directorId).toBeNull();
+    expect(manager.objects.get(participant.id())!.state).toBe(EObjectCampActivity.IDLE);
+    expect(manager.activitySwitchAt).toBe(30_100);
+    expect(manager.activityTimeout).toBe(100);
+  });
+
+  it("should choose the next eligible activity and schedule its state transition", () => {
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const state: ICampStateDescriptor = { state: EObjectCampActivity.IDLE } as ICampStateDescriptor;
+    const storyPrecondition = jest
+      .spyOn(campConfig.CAMP_ACTIVITIES.get(EObjectCampActivity.STORY), "precondition")
+      .mockReturnValue(true);
+
+    manager.objects.set(1, state);
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(math, "random").mockImplementation((min?: number, max?: number) => (max ? min! : 70));
+
+    manager.updateNextState();
+
+    expect(storyPrecondition).toHaveBeenCalledWith(manager);
+    expect(manager.activity).toBe(EObjectCampActivity.STORY);
+    expect(state.state).toBe(EObjectCampActivity.STORY);
+    expect(manager.activitySwitchAt).toBe(10_100);
+    expect(manager.activityTimeout).toBe(100);
+  });
+
+  it("should remain idle when the selected activity is unavailable", () => {
+    const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+    const state: ICampStateDescriptor = { state: EObjectCampActivity.IDLE } as ICampStateDescriptor;
+    const storyPrecondition = jest
+      .spyOn(campConfig.CAMP_ACTIVITIES.get(EObjectCampActivity.STORY), "precondition")
+      .mockReturnValue(false);
+
+    manager.objects.set(1, state);
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(math, "random").mockImplementation((min?: number, max?: number) => (max ? min! : 70));
+
+    manager.updateNextState();
+
+    expect(storyPrecondition).toHaveBeenCalledWith(manager);
+    expect(manager.activity).toBe(EObjectCampActivity.IDLE);
+    expect(state.state).toBe(EObjectCampActivity.IDLE);
+    expect(manager.activitySwitchAt).toBe(30_100);
+    expect(manager.activityTimeout).toBe(100);
+  });
+
+  for (const activity of [EObjectCampActivity.GUITAR, EObjectCampActivity.HARMONICA]) {
+    it(`should stop ${activity} activity after its story finishes`, () => {
+      const manager: CampManager = new CampManager(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+
+      manager.activity = activity;
+      manager.directorId = 10;
+      manager.activitySwitchAt = 10_000;
+      manager.activityTimeout = 5_000;
+
+      replaceFunctionMock(time_global, () => 100);
+      jest.spyOn(math, "random").mockImplementation((min?: number, max?: number) => (max ? min! : 50));
+
+      manager.update(0);
+
+      expect(manager.activity).toBe(EObjectCampActivity.IDLE);
+      expect(manager.directorId).toBeNull();
+      expect(manager.activityTimeout).toBe(0);
+    });
+  }
 
   it("should correctly set story", () => {
     const object: GameObject = MockGameObject.mock();
