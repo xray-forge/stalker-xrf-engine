@@ -1,17 +1,17 @@
 import { anim, LuabindClass, property_evaluator } from "xray16";
 
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Checking current mental state to be panic.
  */
 @LuabindClass()
 export class EvaluatorMentalPanicNow extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorMentalPanicNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

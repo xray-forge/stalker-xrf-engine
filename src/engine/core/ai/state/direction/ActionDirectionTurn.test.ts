@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { ActionDirectionTurn } from "@/engine/core/ai/state/direction/ActionDirectionTurn";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registerObject } from "@/engine/core/database";
@@ -21,8 +21,9 @@ describe("ActionDirectionTurn", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const action: ActionDirectionTurn = new ActionDirectionTurn(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const action: ActionDirectionTurn = new ActionDirectionTurn(controller);
     const lookObject: GameObject = MockGameObject.mock();
 
     registerObject(lookObject);
@@ -53,7 +54,7 @@ describe("ActionDirectionTurn", () => {
       lookPosition: createEmptyVector(),
     });
 
-    manager.lookPosition = createVector(0.25, 0.25, 0.25);
+    controller.lookPosition = createVector(0.25, 0.25, 0.25);
 
     action.setup(stalker.object, new property_storage());
     action.execute();

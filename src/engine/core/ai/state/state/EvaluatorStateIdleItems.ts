@@ -3,7 +3,7 @@ import { ActionPlanner } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 
 import { NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 
@@ -12,12 +12,12 @@ import { EStalkerState } from "@/engine/core/animation/types";
  */
 @LuabindClass()
 export class EvaluatorStateIdleItems extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
   private actionPlanner: Nillable<ActionPlanner> = null;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateIdleItems.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -42,10 +42,10 @@ export class EvaluatorStateIdleItems extends property_evaluator {
       return false;
     }
 
-    const planner: ActionPlanner = this.stateManager.planner;
+    const planner: ActionPlanner = this.controller.planner;
 
     return (
-      this.stateManager.targetState === EStalkerState.IDLE &&
+      this.controller.targetState === EStalkerState.IDLE &&
       !planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
       !planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
       planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&

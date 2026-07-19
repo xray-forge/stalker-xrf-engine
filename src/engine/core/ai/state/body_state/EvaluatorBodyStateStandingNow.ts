@@ -1,17 +1,17 @@
 import { LuabindClass, move, property_evaluator } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Evaluator to check whether standing right now.
  */
 @LuabindClass()
 export class EvaluatorBodyStateStandingNow extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorBodyStateStandingNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

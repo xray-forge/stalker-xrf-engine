@@ -1,5 +1,5 @@
 /**
- * Action IDs of state manager actions.
+ * Action IDs of state controller actions.
  *
  * @virtual
  */

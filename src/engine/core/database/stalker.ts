@@ -2,11 +2,11 @@ import { anim, move } from "xray16";
 import type { GameObject } from "xray16/alias";
 import type { Nillable, TDuration } from "xray16/lib";
 
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import {
   EStalkerState,
   ILookTargetDescriptor,
-  IStateManagerCallbackDescriptor,
+  IStateControllerCallbackDescriptor,
   ITargetStateDescriptorExtras,
 } from "@/engine/core/animation/types";
 import type { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
@@ -53,16 +53,16 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
 export function setStalkerState(
   object: GameObject,
   state: EStalkerState,
-  callback: Nillable<IStateManagerCallbackDescriptor> = null,
+  callback: Nillable<IStateControllerCallbackDescriptor> = null,
   timeout: Nillable<TDuration> = null,
   target: Nillable<ILookTargetDescriptor> = null,
   extra: Nillable<ITargetStateDescriptorExtras> = null
 ): void {
   registry.objects
     .get(object.id())
-    .stateManager?.setState(
+    .stateController?.setState(
       state,
-      callback as Nillable<IStateManagerCallbackDescriptor>,
+      callback as Nillable<IStateControllerCallbackDescriptor>,
       timeout as Nillable<TDuration>,
       target as Nillable<ILookTargetDescriptor>,
       extra as Nillable<ITargetStateDescriptorExtras>
@@ -76,7 +76,7 @@ export function setStalkerState(
  * @returns Target stalker object current state.
  */
 export function getStalkerState(object: GameObject): Nillable<EStalkerState> {
-  return registry.objects.get(object.id()).stateManager?.getState() as Nillable<EStalkerState>;
+  return registry.objects.get(object.id()).stateController?.getState() as Nillable<EStalkerState>;
 }
 
 /**
@@ -85,26 +85,26 @@ export function getStalkerState(object: GameObject): Nillable<EStalkerState> {
  * @param object - Target stalker object to reset state.
  */
 export function resetStalkerState(object: GameObject): void {
-  const stateManager: Nillable<StalkerStateManager> = registry.objects.get(object.id()).stateManager;
+  const controller: Nillable<StalkerStateController> = registry.objects.get(object.id()).stateController;
 
-  if (!stateManager) {
+  if (!controller) {
     return;
   }
 
-  stateManager.animation.setState(null, true);
-  stateManager.animation.setControl();
-  stateManager.animstate.setState(null, true);
-  stateManager.animstate.setControl();
+  controller.animation.setState(null, true);
+  controller.animation.setControl();
+  controller.animstate.setState(null, true);
+  controller.animstate.setControl();
 
-  stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
+  controller.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
 
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
-  stateManager.update();
+  controller.update();
+  controller.update();
+  controller.update();
+  controller.update();
+  controller.update();
+  controller.update();
+  controller.update();
 
   object.set_body_state(move.standing);
   object.set_mental_state(anim.free);

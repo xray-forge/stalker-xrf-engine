@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 import { EGameObjectPath } from "xray16/alias";
 import { TName } from "xray16/lib";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 
@@ -11,12 +11,12 @@ import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
  */
 @LuabindClass()
 export class ActionStateToIdle extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
   public readonly name: TName;
 
-  public constructor(stateManager: StalkerStateManager, name?: TName) {
+  public constructor(controller: StalkerStateController, name?: TName) {
     super(null, name || ActionStateToIdle.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
     this.name = name || ActionStateToIdle.__name;
   }
 
@@ -38,12 +38,12 @@ export class ActionStateToIdle extends action_base {
   public override execute(): void {
     super.execute();
 
-    // If any animation is active in state manager, reset everything for game object.
-    if (this.stateManager.targetState !== EStalkerState.IDLE) {
+    // If any animation is active in state controller, reset everything for game object.
+    if (this.controller.targetState !== EStalkerState.IDLE) {
       this.object.clear_animations();
-      this.stateManager.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-      this.stateManager.animation.setState(null, true);
-      this.stateManager.animation.setControl();
+      this.controller.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
+      this.controller.animation.setState(null, true);
+      this.controller.animation.setControl();
     }
   }
 }

@@ -5,7 +5,7 @@ import { MockActionPlanner, MockGameObject, mockStalkerIds } from "xray16/mocks"
 import { setupStalkerMotivationPlanner } from "@/engine/core/ai/planner/setup/setup_motivation_planner";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
@@ -17,16 +17,16 @@ describe("motivation_planner setup util", () => {
   it("should correctly setup object motivation planner evaluators", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const controller: StalkerStateController = new StalkerStateController(object);
 
-    setupStalkerMotivationPlanner(planner, stateManager);
+    setupStalkerMotivationPlanner(planner, controller);
 
     expect(Object.keys((planner as unknown as MockActionPlanner).evaluators)).toHaveLength(4);
 
-    expect(stateManager.animstate instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(stateManager.animstate.type).toBe(EAnimationType.ANIMSTATE);
-    expect(stateManager.animation.type).toBe(EAnimationType.ANIMATION);
+    expect(controller.animstate instanceof StalkerAnimationManager).toBeTruthy();
+    expect(controller.animation instanceof StalkerAnimationManager).toBeTruthy();
+    expect(controller.animstate.type).toBe(EAnimationType.ANIMSTATE);
+    expect(controller.animation.type).toBe(EAnimationType.ANIMATION);
 
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdleCombat).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE) instanceof EvaluatorStateIdleAlife).toBeTruthy();
@@ -37,9 +37,9 @@ describe("motivation_planner setup util", () => {
   it("should correctly setup motivation planner actions", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const stateController: StalkerStateController = new StalkerStateController(object);
 
-    setupStalkerMotivationPlanner(planner, stateManager);
+    setupStalkerMotivationPlanner(planner, stateController);
 
     checkPlannerAction(
       planner.action(EActionId.STATE_TO_IDLE_COMBAT),
@@ -77,9 +77,9 @@ describe("motivation_planner setup util", () => {
   it("should correctly setup update planner default actions", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
+    const controller: StalkerStateController = new StalkerStateController(object);
 
-    setupStalkerMotivationPlanner(planner, stateManager);
+    setupStalkerMotivationPlanner(planner, controller);
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_STATE_IDLE_ALIFE, true]], []);
 

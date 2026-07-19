@@ -2,7 +2,7 @@ import { action_base, LuabindClass, object } from "xray16";
 import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 
@@ -11,11 +11,11 @@ import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
  */
 @LuabindClass()
 export class ActionWeaponStrap extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionWeaponStrap.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -24,7 +24,7 @@ export class ActionWeaponStrap extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const weapon: Nillable<GameObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
+    const weapon: Nillable<GameObject> = getObjectWeaponForAnimationState(this.object, this.controller.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.strap, weapon);

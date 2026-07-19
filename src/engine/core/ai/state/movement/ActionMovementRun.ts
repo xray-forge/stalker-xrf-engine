@@ -1,17 +1,17 @@
 import { action_base, LuabindClass, move } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Action to set object movement state to run.
  */
 @LuabindClass()
 export class ActionMovementRun extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionMovementRun.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

@@ -4,12 +4,12 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMentalDangerNow } from "@/engine/core/ai/state/mental/EvaluatorMentalDangerNow";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("EvaluatorMentalDangerTarget", () => {
   it("should correctly check if danger state when set", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalDangerNow = new EvaluatorMentalDangerNow({} as StalkerStateManager);
+    const evaluator: EvaluatorMentalDangerNow = new EvaluatorMentalDangerNow({} as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.danger);
 
@@ -20,7 +20,7 @@ describe("EvaluatorMentalDangerTarget", () => {
 
   it("should correctly check if danger state when not set", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalDangerNow = new EvaluatorMentalDangerNow({} as StalkerStateManager);
+    const evaluator: EvaluatorMentalDangerNow = new EvaluatorMentalDangerNow({} as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.free);
 

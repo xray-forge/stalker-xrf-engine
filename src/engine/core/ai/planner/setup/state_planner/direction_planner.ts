@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { ActionDirectionSearch, ActionDirectionTurn } from "@/engine/core/ai/state/direction";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 
@@ -9,12 +9,12 @@ import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types"
  * Setup GOAP logics related to body direction changes of stalkers.
  *
  * @param planner - Action planner to configure.
- * @param stateManager - Target object state manager.
+ * @param controller - Target object state controller.
  */
-export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  const directionTurnAction: ActionDirectionTurn = new ActionDirectionTurn(stateManager);
+export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, controller: StalkerStateController): void {
+  const directionTurnAction: ActionDirectionTurn = new ActionDirectionTurn(controller);
 
-  // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
+  // --action.add_precondition    (new world_property(EStateControllerProperty.locked,                 false))
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
   directionTurnAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
@@ -27,9 +27,9 @@ export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateM
   directionTurnAction.add_effect(new world_property(EStateEvaluatorId.DIRECTION_SET, true));
   planner.add_action(EStateActionId.DIRECTION_TURN, directionTurnAction);
 
-  const directionSearchAction: ActionDirectionSearch = new ActionDirectionSearch(stateManager);
+  const directionSearchAction: ActionDirectionSearch = new ActionDirectionSearch(controller);
 
-  // --action.add_precondition    (new world_property(EStateManagerProperty.locked,                 false))
+  // --action.add_precondition    (new world_property(EStateControllerProperty.locked,                 false))
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));
   directionSearchAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));

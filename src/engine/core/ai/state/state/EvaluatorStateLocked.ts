@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 
 /**
@@ -9,11 +9,11 @@ import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
  */
 @LuabindClass()
 export class EvaluatorStateLocked extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateLocked.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -21,8 +21,8 @@ export class EvaluatorStateLocked extends property_evaluator {
    */
   public override evaluate(): boolean {
     return (
-      this.stateManager.planner.initialized() &&
-      (this.stateManager.planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED).evaluate() || this.object.is_body_turning())
+      this.controller.planner.initialized() &&
+      (this.controller.planner.evaluator(EStateEvaluatorId.WEAPON_LOCKED).evaluate() || this.object.is_body_turning())
     );
   }
 }

@@ -11,7 +11,7 @@ import {
   logObjectPlannerState,
   logObjectRelations,
   logObjectState,
-  logObjectStateManager,
+  logObjectStateController,
 } from "@/engine/core/utils/debug/debug_log";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -45,7 +45,7 @@ export class DebugObjectSection extends AbstractDebugSection {
   public uiLogPlannerStateButton!: CUI3tButton;
   public uiLogInventoryStateButton!: CUI3tButton;
   public uiLogRelationsStateButton!: CUI3tButton;
-  public uiLogStateManagerReportButton!: CUI3tButton;
+  public uiLogStateControllerReportButton!: CUI3tButton;
   public uiLogStateButton!: CUI3tButton;
 
   public uiSetFriendButton!: CUI3tButton;
@@ -69,7 +69,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.uiLogPlannerStateButton = this.xml.Init3tButton("log_planner_state", this);
     this.uiLogInventoryStateButton = this.xml.Init3tButton("log_inventory_state", this);
     this.uiLogRelationsStateButton = this.xml.Init3tButton("log_relations_state", this);
-    this.uiLogStateManagerReportButton = this.xml.Init3tButton("log_state_manager_state", this);
+    this.uiLogStateControllerReportButton = this.xml.Init3tButton("log_state_controller_state", this);
     this.uiLogStateButton = this.xml.Init3tButton("log_state", this);
 
     this.uiSetFriendButton = this.xml.Init3tButton("set_friend_button", this);
@@ -83,7 +83,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.Register(this.uiLogPlannerStateButton, "log_planner_state");
     this.owner.Register(this.uiLogInventoryStateButton, "log_inventory_state");
     this.owner.Register(this.uiLogRelationsStateButton, "log_relations_state");
-    this.owner.Register(this.uiLogStateManagerReportButton, "log_state_manager_state");
+    this.owner.Register(this.uiLogStateControllerReportButton, "log_state_controller_state");
     this.owner.Register(this.uiLogStateButton, "log_state");
 
     this.owner.Register(this.uiSetFriendButton, "set_friend_button");
@@ -99,9 +99,9 @@ export class DebugObjectSection extends AbstractDebugSection {
     this.owner.AddCallback("log_inventory_state", ui_events.BUTTON_CLICKED, () => this.onPrintInventoryState(), this);
     this.owner.AddCallback("log_relations_state", ui_events.BUTTON_CLICKED, () => this.onPrintRelationsState(), this);
     this.owner.AddCallback(
-      "log_state_manager_state",
+      "log_state_controller_state",
       ui_events.BUTTON_CLICKED,
-      () => this.onPrintStateManagerReport(),
+      () => this.onPrintStateControllerReport(),
       this
     );
 
@@ -209,7 +209,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     }
   }
 
-  public onPrintStateManagerReport(): void {
+  public onPrintStateControllerReport(): void {
     if (!isGameStarted()) {
       return logger.info("Cannot print while game is not started");
     }
@@ -217,9 +217,9 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logObjectStateManager(targetObject);
+      logObjectStateController(targetObject);
     } else {
-      logger.info("No object found for state manager report");
+      logger.info("No object found for state controller report");
     }
   }
 

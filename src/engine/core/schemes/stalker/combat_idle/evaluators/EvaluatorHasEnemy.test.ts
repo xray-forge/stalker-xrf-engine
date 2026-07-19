@@ -4,7 +4,7 @@ import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { EAnimationType } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -131,12 +131,12 @@ describe("EvaluatorHasEnemy", () => {
 
     const state: IRegistryObjectState = registerObject(evaluator.object);
 
-    state.stateManager = new StalkerStateManager(evaluator.object);
+    state.stateController = new StalkerStateController(evaluator.object);
 
     evaluator.state.timer = 999;
     evaluator.state.animation = new StalkerAnimationManager(
       evaluator.object,
-      state.stateManager,
+      state.stateController,
       EAnimationType.ANIMATION
     );
 

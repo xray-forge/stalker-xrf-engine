@@ -3,7 +3,7 @@ import { ActionPlanner } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 
 import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 
@@ -12,12 +12,12 @@ import { EStalkerState } from "@/engine/core/animation/types";
  */
 @LuabindClass()
 export class EvaluatorStateIdleCombat extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
   private actionPlanner: Nillable<ActionPlanner> = null;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateIdleCombat.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -37,17 +37,17 @@ export class EvaluatorStateIdleCombat extends property_evaluator {
     const currentActionId: TNumberId = this.actionPlanner.current_action_id();
 
     if (!COMBAT_ACTION_IDS[currentActionId]) {
-      this.stateManager.isCombat = false;
+      this.controller.isCombat = false;
     }
 
-    if (this.stateManager.isCombat) {
+    if (this.controller.isCombat) {
       return true;
     }
 
-    const planner: ActionPlanner = this.stateManager.planner;
+    const planner: ActionPlanner = this.controller.planner;
 
     if (
-      this.stateManager.targetState === EStalkerState.IDLE &&
+      this.controller.targetState === EStalkerState.IDLE &&
       this.actionPlanner.current_action_id() === EActionId.STATE_TO_IDLE_COMBAT &&
       !planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
       !planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
@@ -56,7 +56,7 @@ export class EvaluatorStateIdleCombat extends property_evaluator {
       planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
       planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
     ) {
-      this.stateManager.isCombat = true;
+      this.controller.isCombat = true;
 
       return true;
     }

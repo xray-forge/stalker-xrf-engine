@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/ai/state/smart_cover";
 import { ActionStateLocked } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
@@ -10,10 +10,10 @@ import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types"
  * Setup GOAP logics related to smart cover entering/leaving changes of stalkers.
  *
  * @param planner - Action planner to configure.
- * @param stateManager - Target object state manager.
+ * @param controller - Target object state controller.
  */
-export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  const smartCoverEnterAction: ActionSmartCoverEnter = new ActionSmartCoverEnter(stateManager);
+export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, controller: StalkerStateController): void {
+  const smartCoverEnterAction: ActionSmartCoverEnter = new ActionSmartCoverEnter(controller);
 
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   smartCoverEnterAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));
@@ -24,7 +24,7 @@ export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, state
   smartCoverEnterAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
   planner.add_action(EStateActionId.SMARTCOVER_ENTER, smartCoverEnterAction);
 
-  const smartCoverExitAction: ActionSmartCoverExit = new ActionSmartCoverExit(stateManager);
+  const smartCoverExitAction: ActionSmartCoverExit = new ActionSmartCoverExit(controller);
 
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   smartCoverExitAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));
@@ -33,7 +33,7 @@ export function setupStalkerSmartCoverStatePlanner(planner: ActionPlanner, state
   smartCoverExitAction.add_effect(new world_property(EStateEvaluatorId.SMARTCOVER, true));
   planner.add_action(EStateActionId.SMARTCOVER_EXIT, smartCoverExitAction);
 
-  const lockedSmartCoverAction: ActionStateLocked = new ActionStateLocked(stateManager, "ActionStateLockedSmartCover");
+  const lockedSmartCoverAction: ActionStateLocked = new ActionStateLocked(controller, "ActionStateLockedSmartCover");
 
   lockedSmartCoverAction.add_precondition(new world_property(EStateEvaluatorId.IN_SMARTCOVER, true));
   lockedSmartCoverAction.add_effect(new world_property(EStateEvaluatorId.IN_SMARTCOVER, false));

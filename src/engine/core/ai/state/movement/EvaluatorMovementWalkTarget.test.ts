@@ -4,14 +4,14 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMovementWalkTarget } from "@/engine/core/ai/state/movement/EvaluatorMovementWalkTarget";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("EvaluatorMovementWalkTarget", () => {
   it("should correctly check if run state when needed", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementWalkTarget = new EvaluatorMovementWalkTarget({
       targetState: "walk",
-    } as StalkerStateManager);
+    } as StalkerStateController);
 
     evaluator.setup(object, new property_storage());
 
@@ -22,7 +22,7 @@ describe("EvaluatorMovementWalkTarget", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementWalkTarget = new EvaluatorMovementWalkTarget({
       targetState: "run",
-    } as StalkerStateManager);
+    } as StalkerStateController);
 
     evaluator.setup(object, new property_storage());
 

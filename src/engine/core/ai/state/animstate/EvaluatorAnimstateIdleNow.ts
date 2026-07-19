@@ -1,24 +1,24 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { $isNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Evaluator to check whether animation current state is idle.
  */
 @LuabindClass()
 export class EvaluatorAnimstateIdleNow extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorAnimstateIdleNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
    * Check whether animation current state is idle.
    */
   public override evaluate(): boolean {
-    return $isNil(this.stateManager.animstate.state.currentState);
+    return $isNil(this.controller.animstate.state.currentState);
   }
 }

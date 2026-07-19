@@ -2,7 +2,7 @@ import { action_planner, LuabindClass, property_evaluator } from "xray16";
 import { Nillable, TNumberId } from "xray16/lib";
 
 import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Evaluator to check when state end action is active.
@@ -10,13 +10,13 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
  */
 @LuabindClass()
 export class EvaluatorStateEnd extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
   private actionPlanner: Nillable<action_planner> = null;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateEnd.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -31,11 +31,11 @@ export class EvaluatorStateEnd extends property_evaluator {
       const currentActionId: TNumberId = this.actionPlanner.current_action_id();
 
       if (!COMBAT_ACTION_IDS[currentActionId]) {
-        this.stateManager.isCombat = false;
+        this.controller.isCombat = false;
       }
 
       if (currentActionId !== EActionId.ALIFE) {
-        this.stateManager.isAlife = false;
+        this.controller.isAlife = false;
       }
     }
 

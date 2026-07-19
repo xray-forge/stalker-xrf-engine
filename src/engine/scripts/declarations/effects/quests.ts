@@ -37,7 +37,7 @@ import { food } from "@/engine/constants/items/food";
 import { helmets } from "@/engine/constants/items/helmets";
 import { questItems } from "@/engine/constants/items/quest_items";
 import { weapons } from "@/engine/constants/items/weapons";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
   getObjectByStoryId,
@@ -788,30 +788,30 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
  * Force-reset the object state and animation to the Pripyat a17 fall down state.
  *
  * @param actor - Actor game object initiating the effect.
- * @param object - Game object whose state manager animation is reset.
+ * @param object - Game object whose state controller animation is reset.
  */
 extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
-  const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
+  const controller: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
-  stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
-  stateManager.animation.setState(null, true);
-  stateManager.animation.setState("pri_a17_fall_down" as EStalkerState, null);
-  stateManager.animation.setControl();
+  controller.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
+  controller.animation.setState(null, true);
+  controller.animation.setState("pri_a17_fall_down" as EStalkerState, null);
+  controller.animation.setControl();
 });
 
 /**
  * Force-reset the object state and animation to the Jupiter b217 nitro straight state.
  *
  * @param actor - Actor game object initiating the effect.
- * @param object - Game object whose state manager animation is reset.
+ * @param object - Game object whose state controller animation is reset.
  */
 extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
-  const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
+  const controller: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
-  stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
-  stateManager.animation.setState(null, true);
-  stateManager.animation.setState("jup_b217_nitro_straight" as EStalkerState, null);
-  stateManager.animation.setControl();
+  controller.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
+  controller.animation.setState(null, true);
+  controller.animation.setState("jup_b217_nitro_straight" as EStalkerState, null);
+  controller.animation.setControl();
 });
 
 /**

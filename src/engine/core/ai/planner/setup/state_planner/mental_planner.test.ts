@@ -4,17 +4,17 @@ import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerMentalStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/mental_planner";
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/ai/state/mental";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 describe("mental_planner util", () => {
   it("should correctly setup state planner mental actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerMentalStatePlanner(planner, stateManager);
+    setupStalkerMentalStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.MENTAL_FREE),

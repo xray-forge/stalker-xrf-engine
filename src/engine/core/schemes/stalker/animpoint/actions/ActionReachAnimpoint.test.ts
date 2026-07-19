@@ -3,7 +3,7 @@ import { EGameObjectPath, GameObject } from "xray16/alias";
 import { MY_VECTOR, MZ_VECTOR, X_VECTOR } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
@@ -42,7 +42,7 @@ describe("ActionReachAnimpoint", () => {
     const animpointState: ISchemeAnimpointState = mockSchemeState(EScheme.ANIMPOINT);
     const action: ActionReachAnimpoint = new ActionReachAnimpoint(animpointState);
 
-    state.stateManager = new StalkerStateManager(object);
+    state.stateController = new StalkerStateController(object);
 
     animpointState.animpointManager = new AnimpointManager(object, animpointState);
     animpointState.animpointManager.positionLevelVertexId = 15;
@@ -51,7 +51,7 @@ describe("ActionReachAnimpoint", () => {
     animpointState.reachDistanceSqr = 16;
     animpointState.reachMovement = EStalkerState.SPRINT;
 
-    jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
+    jest.spyOn(state.stateController, "setState").mockImplementation(jest.fn());
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 16);
 
     action.setup(object, MockPropertyStorage.mock());
@@ -61,8 +61,8 @@ describe("ActionReachAnimpoint", () => {
     expect(object.set_desired_direction).toHaveBeenCalledWith(MY_VECTOR);
     expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
 
-    expect(state.stateManager.setState).toHaveBeenCalledTimes(1);
-    expect(state.stateManager.setState).toHaveBeenCalledWith(
+    expect(state.stateController.setState).toHaveBeenCalledTimes(1);
+    expect(state.stateController.setState).toHaveBeenCalledWith(
       EStalkerState.SPRINT,
       null,
       null,
@@ -79,7 +79,7 @@ describe("ActionReachAnimpoint", () => {
     const animpointState: ISchemeAnimpointState = mockSchemeState(EScheme.ANIMPOINT);
     const action: ActionReachAnimpoint = new ActionReachAnimpoint(animpointState);
 
-    state.stateManager = new StalkerStateManager(object);
+    state.stateController = new StalkerStateController(object);
 
     animpointState.animpointManager = new AnimpointManager(object, animpointState);
     animpointState.animpointManager.positionLevelVertexId = 26;
@@ -87,7 +87,7 @@ describe("ActionReachAnimpoint", () => {
     animpointState.reachDistanceSqr = 4;
     animpointState.reachMovement = EStalkerState.PATROL;
 
-    jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
+    jest.spyOn(state.stateController, "setState").mockImplementation(jest.fn());
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 25);
 
     action.setup(object, MockPropertyStorage.mock());
@@ -97,7 +97,7 @@ describe("ActionReachAnimpoint", () => {
     expect(object.set_desired_direction).toHaveBeenCalledWith(X_VECTOR);
     expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
 
-    expect(state.stateManager.setState).toHaveBeenCalledTimes(1);
-    expect(state.stateManager.setState).toHaveBeenCalledWith(EStalkerState.PATROL, null, null, null, null);
+    expect(state.stateController.setState).toHaveBeenCalledTimes(1);
+    expect(state.stateController.setState).toHaveBeenCalledWith(EStalkerState.PATROL, null, null, null, null);
   });
 });

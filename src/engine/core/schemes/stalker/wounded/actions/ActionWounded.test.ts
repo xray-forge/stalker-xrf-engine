@@ -5,7 +5,7 @@ import { TRUE } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import {
   getManager,
   getPortableStoreValue,
@@ -119,7 +119,7 @@ describe("ActionWounded", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const action: ActionWounded = new ActionWounded(schemeState);
 
-    state.stateManager = { setState: jest.fn() } as unknown as StalkerStateManager;
+    state.stateController = { setState: jest.fn() } as unknown as StalkerStateController;
 
     schemeState.canUseMedkit = true;
 
@@ -138,7 +138,7 @@ describe("ActionWounded", () => {
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_snd");
     expect(action.nextSoundPlayAt).toBe(6000);
     expect(schemeState.woundManager.useMedkit).toHaveBeenCalled();
-    expect(state.stateManager.setState).toHaveBeenCalled();
+    expect(state.stateController.setState).toHaveBeenCalled();
   });
 
   it("should correctly execute being wounded and autoheal", () => {

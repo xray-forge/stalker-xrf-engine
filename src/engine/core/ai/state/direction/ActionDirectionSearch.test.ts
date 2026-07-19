@@ -4,7 +4,7 @@ import { TLookType } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { ActionDirectionSearch } from "@/engine/core/ai/state/direction/ActionDirectionSearch";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
@@ -18,8 +18,9 @@ describe("ActionDirectionSearch", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const action: ActionDirectionSearch = new ActionDirectionSearch(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const action: ActionDirectionSearch = new ActionDirectionSearch(controller);
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER);
 
@@ -38,14 +39,15 @@ describe("ActionDirectionSearch", () => {
     registerStalker(stalker);
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const action: ActionDirectionSearch = new ActionDirectionSearch(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const action: ActionDirectionSearch = new ActionDirectionSearch(controller);
 
     setStalkerState(stalker.object, EStalkerState.IDLE);
 
     action.setup(stalker.object, new property_storage());
 
-    const lookType: TLookType = manager.getObjectLookPositionType();
+    const lookType: TLookType = controller.getObjectLookPositionType();
 
     action.initialize();
 

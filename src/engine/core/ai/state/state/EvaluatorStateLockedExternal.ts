@@ -1,26 +1,26 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
- * Check if state manager is locked by current alife or alife activity.
- * It means that state manager cannot control object, another activity fully controls.
+ * Check if state controller is locked by current alife or alife activity.
+ * It means that state controller cannot control object, another activity fully controls.
  */
 @LuabindClass()
 export class EvaluatorStateLockedExternal extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateLockedExternal.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
-   * Evaluate whether the state manager is externally locked by ongoing combat or alife activity.
+   * Evaluate whether the state controller is externally locked by ongoing combat or alife activity.
    *
    * @returns Whether the object state is controlled by an external activity.
    */
   public override evaluate(): boolean {
-    return this.stateManager.isCombat || this.stateManager.isAlife;
+    return this.controller.isCombat || this.controller.isAlife;
   }
 }

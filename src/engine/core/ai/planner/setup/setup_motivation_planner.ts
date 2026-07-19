@@ -2,7 +2,7 @@ import { world_property } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { ActionStateToIdle } from "@/engine/core/ai/state/state/ActionStateToIdle";
 import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
@@ -11,25 +11,25 @@ import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/Evaluato
 
 /**
  * Setup GOAP planner of stalker motivation.
- * Merges existing C++ logic with custom scripted logics and scripted state manager.
+ * Merges existing C++ logic with custom scripted logics and scripted state controller.
  *
  * @param planner - Motivation action planner to modify logics.
- * @param stateManager - State manager controlling animation/state of objects from lua side.
+ * @param controller - State controller controlling animation/state of objects from lua side.
  */
-export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdleCombat(stateManager));
-  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE, new EvaluatorStateIdleAlife(stateManager));
-  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(stateManager));
-  planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(stateManager));
+export function setupStalkerMotivationPlanner(planner: ActionPlanner, controller: StalkerStateController): void {
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdleCombat(controller));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE, new EvaluatorStateIdleAlife(controller));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_ITEMS, new EvaluatorStateIdleItems(controller));
+  planner.add_evaluator(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, new EvaluatorStateLogicActive(controller));
 
-  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleCombat");
+  const actionCombatStateToIdle: ActionStateToIdle = new ActionStateToIdle(controller, "ActionToIdleCombat");
 
   actionCombatStateToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, false));
   actionCombatStateToIdle.add_effect(new world_property(EEvaluatorId.IS_STATE_IDLE_COMBAT, true));
 
   planner.add_action(EActionId.STATE_TO_IDLE_COMBAT, actionCombatStateToIdle);
 
-  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleItems");
+  const actionItemsToIdle: ActionStateToIdle = new ActionStateToIdle(controller, "ActionToIdleItems");
 
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.IS_STATE_IDLE_ITEMS, false));
   actionItemsToIdle.add_precondition(new world_property(EEvaluatorId.ITEMS, true));
@@ -38,7 +38,7 @@ export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManag
 
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, actionItemsToIdle);
 
-  const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(stateManager, "ActionToIdleAlife");
+  const actionAlifeToIdle: ActionStateToIdle = new ActionStateToIdle(controller, "ActionToIdleAlife");
 
   actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
   actionAlifeToIdle.add_precondition(new world_property(EEvaluatorId.ENEMY, false));

@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { Nillable, TName } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
@@ -13,18 +13,18 @@ import { EScheme } from "@/engine/core/schemes/types";
  */
 @LuabindClass()
 export class EvaluatorSmartCover extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorSmartCover.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
    * Verify whether object should be in smart cover and if destination smart cover is desired one.
    */
   public override evaluate(): boolean {
-    if (this.stateManager.targetState !== EStalkerState.SMART_COVER) {
+    if (this.controller.targetState !== EStalkerState.SMART_COVER) {
       return true;
     }
 

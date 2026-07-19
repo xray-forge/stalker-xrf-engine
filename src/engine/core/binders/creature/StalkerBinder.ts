@@ -26,7 +26,7 @@ import { communities, TCommunity } from "@/engine/constants/communities";
 import { misc } from "@/engine/constants/items/misc";
 import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -102,15 +102,15 @@ export class StalkerBinder extends object_binder {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.state.stateManager = new StalkerStateManager(this.object);
+    this.state.stateController = new StalkerStateController(this.object);
     this.state.patrolController = new StalkerPatrolController(this.object).initialize();
 
-    setupStalkerStatePlanner(this.state.stateManager.planner, this.state.stateManager);
-    setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateManager);
+    setupStalkerStatePlanner(this.state.stateController.planner, this.state.stateController);
+    setupStalkerMotivationPlanner(this.object.motivation_action_manager(), this.state.stateController);
 
     // Expose state planner for in-game debugging tools.
     if ($isNotNil(this.object.debug_planner)) {
-      this.object.debug_planner(this.state.stateManager.planner);
+      this.object.debug_planner(this.state.stateController.planner);
     }
   }
 
@@ -226,7 +226,7 @@ export class StalkerBinder extends object_binder {
     const squad: Nillable<Squad> = getObjectSquad(object);
     const isObjectAlive: boolean = object.alive();
     const isSquadCommander: boolean = squad?.commander_id() === objectId;
-    const stateManager: Nillable<StalkerStateManager> = state.stateManager;
+    const stateController: Nillable<StalkerStateController> = state.stateController;
 
     if (registry.actorCombat.get(objectId) && !object.best_enemy()) {
       registry.actorCombat.delete(objectId);
@@ -247,16 +247,16 @@ export class StalkerBinder extends object_binder {
       this.updateLightState(object);
     }
 
-    if (stateManager) {
+    if (stateController) {
       if (isObjectAlive) {
-        stateManager.update();
+        stateController.update();
 
-        if (!stateManager.isCombat && !stateManager.isAlife) {
+        if (!stateController.isCombat && !stateController.isAlife) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           getManager(TradeManager).updateForObject(object);
         }
       } else {
-        state.stateManager = null;
+        state.stateController = null;
       }
     }
 
@@ -448,8 +448,8 @@ export class StalkerBinder extends object_binder {
 
     setupObjectInfoPortions(object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
-    if (state.stateManager) {
-      state.stateManager.animation.setState(null, true);
+    if (state.stateController) {
+      state.stateController.animation.setState(null, true);
     }
 
     this.updateLightState(object);

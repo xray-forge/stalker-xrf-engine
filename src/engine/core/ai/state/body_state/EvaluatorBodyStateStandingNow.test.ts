@@ -4,7 +4,7 @@ import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EvaluatorBodyStateStandingNow } from "@/engine/core/ai/state/body_state/EvaluatorBodyStateStandingNow";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
@@ -17,8 +17,9 @@ describe("EvaluatorBodyStateStandingNow", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorBodyStateStandingNow = new EvaluatorBodyStateStandingNow(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const evaluator: EvaluatorBodyStateStandingNow = new EvaluatorBodyStateStandingNow(controller);
 
     evaluator.setup(stalker.object, new property_storage());
 

@@ -2,20 +2,20 @@ import { action_base, CSightParams, look, LuabindClass } from "xray16";
 import { Vector } from "xray16/alias";
 import { areSameVectors, createVector, subVectors, ZERO_VECTOR } from "xray16/lib";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 import { registry } from "@/engine/core/database";
 
 /**
- * Action to change object direction based on state manager.
+ * Action to change object direction based on state controller.
  */
 @LuabindClass()
 export class ActionDirectionTurn extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionDirectionTurn.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -35,24 +35,24 @@ export class ActionDirectionTurn extends action_base {
   }
 
   /**
-   * Perform directional turn based on state manager parameters.
+   * Perform directional turn based on state controller parameters.
    */
   public turn(): void {
-    this.stateManager.isObjectPointDirectionLook = this.stateManager.isLookObjectType();
+    this.controller.isObjectPointDirectionLook = this.controller.isLookObjectType();
 
-    if (this.stateManager.lookObjectId && registry.objects.get(this.stateManager.lookObjectId)?.object) {
-      this.stateManager.lookAtObject();
-    } else if (this.stateManager.lookPosition) {
-      if (states.get(this.stateManager.targetState).direction) {
+    if (this.controller.lookObjectId && registry.objects.get(this.controller.lookObjectId)?.object) {
+      this.controller.lookAtObject();
+    } else if (this.controller.lookPosition) {
+      if (states.get(this.controller.targetState).direction) {
         this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
 
         return;
       }
 
       const objectPosition: Vector = this.object.position();
-      let direction: Vector = subVectors(this.stateManager.lookPosition, objectPosition);
+      let direction: Vector = subVectors(this.controller.lookPosition, objectPosition);
 
-      if (this.stateManager.isObjectPointDirectionLook) {
+      if (this.controller.isObjectPointDirectionLook) {
         direction.y = 0;
       }
 
@@ -62,7 +62,7 @@ export class ActionDirectionTurn extends action_base {
         const objectDirection: Vector = this.object.direction();
 
         // todo: just sum vectors?
-        this.stateManager.lookPosition = createVector(
+        this.controller.lookPosition = createVector(
           objectPosition.x + objectDirection.x,
           objectPosition.y + objectDirection.y,
           objectPosition.z + objectDirection.z

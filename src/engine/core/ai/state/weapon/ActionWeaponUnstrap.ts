@@ -1,6 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { getObjectWeaponForAnimationState, getWeaponActionForAnimationState } from "@/engine/core/utils/weapon";
 
 /**
@@ -8,11 +8,11 @@ import { getObjectWeaponForAnimationState, getWeaponActionForAnimationState } fr
  */
 @LuabindClass()
 export class ActionWeaponUnstrap extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionWeaponUnstrap.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -22,8 +22,8 @@ export class ActionWeaponUnstrap extends action_base {
     super.initialize();
 
     this.object.set_item(
-      getWeaponActionForAnimationState(this.stateManager.targetState),
-      getObjectWeaponForAnimationState(this.object, this.stateManager.targetState)
+      getWeaponActionForAnimationState(this.controller.targetState),
+      getObjectWeaponForAnimationState(this.object, this.controller.targetState)
     );
   }
 }

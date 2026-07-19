@@ -574,7 +574,7 @@ extern(
 );
 
 /**
- * Force a logic, action planner and state manager update for each stalker referenced by story ID.
+ * Force a logic, action planner and state controller update for each stalker referenced by story ID.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
@@ -596,13 +596,13 @@ extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: Lu
       planner.update();
 
       // todo: Is it ok? Why?
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
-      state.stateManager!.update();
+      state.stateController!.update();
+      state.stateController!.update();
+      state.stateController!.update();
+      state.stateController!.update();
+      state.stateController!.update();
+      state.stateController!.update();
+      state.stateController!.update();
     }
   }
 });

@@ -3,16 +3,16 @@ import { ActionPlanner, GameObject } from "xray16/alias";
 import { MockActionBase, MockActionPlanner, MockGameObject } from "xray16/mocks";
 
 import { setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 
 describe("setupStalkerStatePlanner integration", () => {
   it("installs the complete state graph with every end-state dependency", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerStatePlanner(planner, controller);
 
     const mockPlanner: MockActionPlanner = planner as unknown as MockActionPlanner;
 

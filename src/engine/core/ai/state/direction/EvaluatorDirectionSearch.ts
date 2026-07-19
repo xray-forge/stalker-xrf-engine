@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Evaluator to check whether direction search is needed.
@@ -8,17 +8,17 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
  */
 @LuabindClass()
 export class EvaluatorDirectionSearch extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorDirectionSearch.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
    * Check whether any position for look is set.
    */
   public override evaluate(): boolean {
-    return !this.stateManager.lookPosition && !this.stateManager.lookObjectId;
+    return !this.controller.lookPosition && !this.controller.lookObjectId;
   }
 }

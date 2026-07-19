@@ -6,7 +6,7 @@ import { MockDangerObject, MockGameObject, MockPropertyStorage } from "xray16/mo
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { StalkerPatrolController } from "@/engine/core/ai/patrol";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
@@ -21,9 +21,9 @@ function createAction(): [ActionCombatCamping, GameObject, IRegistryObjectState,
   const schemeState: ISchemeCamperState = mockSchemeState(EScheme.COMBAT_CAMPER);
 
   state.patrolController = new StalkerPatrolController(object);
-  state.stateManager = new StalkerStateManager(object);
+  state.stateController = new StalkerStateController(object);
 
-  jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
+  jest.spyOn(state.stateController, "setState").mockImplementation(jest.fn());
 
   const action: ActionCombatCamping = new ActionCombatCamping(schemeState, object);
 
@@ -102,14 +102,14 @@ describe("ActionCloseCombat", () => {
 
     expect(action.processDanger()).toBe(false);
     expect(object.play_sound).not.toHaveBeenCalled();
-    expect(state.stateManager?.setState).not.toHaveBeenCalled();
+    expect(state.stateController?.setState).not.toHaveBeenCalled();
 
     replaceFunctionMock(isObjectFacingDanger, () => true);
     jest.spyOn(object, "best_danger").mockImplementation(() => danger.asMock());
 
     expect(action.processDanger()).toBe(true);
     expect(object.play_sound).toHaveBeenCalledWith(stalker_ids.sound_alarm, 1, 0, 1, 0);
-    expect(state.stateManager?.setState).toHaveBeenCalledWith(
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
       EStalkerState.HIDE,
       null,
       null,
@@ -121,7 +121,7 @@ describe("ActionCloseCombat", () => {
 
     expect(action.processDanger()).toBe(true);
     expect(object.play_sound).toHaveBeenCalledWith(stalker_ids.sound_alarm, 1, 0, 1, 0);
-    expect(state.stateManager?.setState).toHaveBeenCalledWith(
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
       EStalkerState.HIDE_NA,
       null,
       null,
@@ -133,7 +133,7 @@ describe("ActionCloseCombat", () => {
     schemeState.suggestedState.camperingFire = EStalkerState.ASSAULT;
 
     expect(action.processDanger()).toBe(true);
-    expect(state.stateManager?.setState).toHaveBeenCalledWith(
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
       EStalkerState.HIDE,
       null,
       null,
@@ -144,7 +144,7 @@ describe("ActionCloseCombat", () => {
     jest.spyOn(danger, "time").mockImplementation(() => time_global());
 
     expect(action.processDanger()).toBe(true);
-    expect(state.stateManager?.setState).toHaveBeenCalledWith(
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
       EStalkerState.ASSAULT,
       null,
       null,
@@ -155,7 +155,7 @@ describe("ActionCloseCombat", () => {
     schemeState.suggestedState.camperingFire = null;
 
     expect(action.processDanger()).toBe(true);
-    expect(state.stateManager?.setState).toHaveBeenCalledWith(
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
       EStalkerState.HIDE_FIRE,
       null,
       null,

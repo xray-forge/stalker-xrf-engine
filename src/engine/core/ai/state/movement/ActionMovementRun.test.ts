@@ -4,12 +4,12 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { ActionMovementRun } from "@/engine/core/ai/state/movement/ActionMovementRun";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("ActionMovementRun", () => {
   it("should correctly perform movement state set", () => {
     const object: GameObject = MockGameObject.mock();
-    const action: ActionMovementRun = new ActionMovementRun({} as StalkerStateManager);
+    const action: ActionMovementRun = new ActionMovementRun({} as StalkerStateController);
 
     action.setup(object, new property_storage());
     action.initialize();

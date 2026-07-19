@@ -4,14 +4,14 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { ActionMovementStandSearch } from "@/engine/core/ai/state/movement/ActionMovementStandSearch";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("ActionMovementStandSearch", () => {
   it("should correctly perform movement state set", () => {
     const object: GameObject = MockGameObject.mock();
     const action: ActionMovementStandSearch = new ActionMovementStandSearch({
       getObjectLookPositionType: () => CSightParams.eSightTypeDirection,
-    } as StalkerStateManager);
+    } as StalkerStateController);
 
     action.setup(object, new property_storage());
     action.initialize();

@@ -3,7 +3,7 @@ import { anim, move } from "xray16";
 import { createEmptyVector } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
@@ -46,7 +46,8 @@ describe("setStalkerState", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
+    const manager: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
 
     expect(manager).toBeDefined();
 
@@ -103,7 +104,8 @@ describe("resetStalkerState", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
+    const manager: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
 
     jest.spyOn(manager, "setState");
     jest.spyOn(manager, "update");
@@ -130,7 +132,7 @@ describe("resetStalkerState", () => {
 });
 
 describe("resetStalkerState", () => {
-  it("should not throw when state manager does not exist", () => {
+  it("should not throw when state controller does not exist", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);

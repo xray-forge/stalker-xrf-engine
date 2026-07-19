@@ -21,7 +21,7 @@ import { EAnimationType, EWeaponAnimation } from "@/engine/core/animation/types/
 import {
   EStalkerState,
   ILookTargetDescriptor,
-  IStateManagerCallbackDescriptor,
+  IStateControllerCallbackDescriptor,
   ITargetStateDescriptorExtras,
   LOOK_DIRECTION_STATES,
 } from "@/engine/core/animation/types/state_types";
@@ -32,10 +32,10 @@ import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
- * State manager of any stalker game object.
+ * State controller of any stalker game object.
  * Handles animation, different states and body positioning when stalkers are doing anything.
  */
-export class StalkerStateManager {
+export class StalkerStateController {
   public readonly object: GameObject;
   public readonly planner: ActionPlanner;
 
@@ -55,7 +55,7 @@ export class StalkerStateManager {
   public animationDirection: Nillable<Vector> = null;
 
   public targetState: EStalkerState = EStalkerState.IDLE;
-  public callback: Nillable<IStateManagerCallbackDescriptor> = null;
+  public callback: Nillable<IStateControllerCallbackDescriptor> = null;
 
   public lookPosition: Nillable<Vector> = null;
   public lookObjectId: Nillable<TNumberId> = null;
@@ -69,7 +69,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * Get target state of game object state manager.
+   * Get target state of game object state controller.
    *
    * @returns Target state or null.
    */
@@ -81,14 +81,14 @@ export class StalkerStateManager {
    * Set object animation state.
    *
    * @param state - Target game state to set.
-   * @param callback - State manager callback for call once state is set.
+   * @param callback - State controller callback for call once state is set.
    * @param timeout - Time to wait for callback call once state is set.
    * @param target - Target look/position description for state.
    * @param extra - Additional configuration of state.
    */
   public setState(
     state: EStalkerState,
-    callback: Nillable<IStateManagerCallbackDescriptor>,
+    callback: Nillable<IStateControllerCallbackDescriptor>,
     timeout: Nillable<TDuration>,
     target: Nillable<ILookTargetDescriptor>,
     extra: Nillable<ITargetStateDescriptorExtras>
@@ -174,7 +174,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * State manager update tick.
+   * State controller update tick.
    */
   public update(): void {
     // Notify set state callback if it is provided and desired state is set.

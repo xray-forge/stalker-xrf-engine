@@ -4,12 +4,12 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMovementSet } from "@/engine/core/ai/state/movement/EvaluatorMovementSet";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("EvaluatorMovementSet", () => {
   it("should correctly check if movement state is set when idle/null + walk", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({ targetState: "idle" } as StalkerStateManager);
+    const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({ targetState: "idle" } as StalkerStateController);
 
     jest.spyOn(object, "target_movement_type").mockImplementation(() => move.walk);
 
@@ -20,7 +20,7 @@ describe("EvaluatorMovementSet", () => {
 
   it("should correctly check if movement state is set when idle/null + run", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({ targetState: "idle" } as StalkerStateManager);
+    const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({ targetState: "idle" } as StalkerStateController);
 
     jest.spyOn(object, "target_movement_type").mockImplementation(() => move.run);
 
@@ -33,7 +33,7 @@ describe("EvaluatorMovementSet", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({
       targetState: "raid_fire",
-    } as StalkerStateManager);
+    } as StalkerStateController);
 
     jest.spyOn(object, "target_movement_type").mockImplementation(() => move.walk);
 
@@ -46,7 +46,7 @@ describe("EvaluatorMovementSet", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({
       targetState: "sprint",
-    } as StalkerStateManager);
+    } as StalkerStateController);
 
     jest.spyOn(object, "target_movement_type").mockImplementation(() => move.walk);
 

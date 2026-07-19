@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 import { $filename } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -12,11 +12,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActionAnimstateStop extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionAnimstateStop.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -25,12 +25,12 @@ export class ActionAnimstateStop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Stop animstate for: %s %s", this.object.name(), this.stateManager.animstate.state.currentState);
+    logger.info("Stop animstate for: %s %s", this.object.name(), this.controller.animstate.state.currentState);
 
-    this.stateManager.animstate.setState(
+    this.controller.animstate.setState(
       null,
-      (this.stateManager.isForced || states.get(this.stateManager.targetState).isForced) === true
+      (this.controller.isForced || states.get(this.controller.targetState).isForced) === true
     );
-    this.stateManager.animstate.setControl();
+    this.controller.animstate.setControl();
   }
 }

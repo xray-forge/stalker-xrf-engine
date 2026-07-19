@@ -1,6 +1,6 @@
 import { LuabindClass, move, property_evaluator } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 
 /**
@@ -8,17 +8,17 @@ import { states } from "@/engine/core/animation/states";
  */
 @LuabindClass()
 export class EvaluatorMovementWalkTarget extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorMovementWalkTarget.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
    * Check if state requires `walk` movement type.
    */
   public override evaluate(): boolean {
-    return states.get(this.stateManager.targetState).movement === move.walk;
+    return states.get(this.controller.targetState).movement === move.walk;
   }
 }

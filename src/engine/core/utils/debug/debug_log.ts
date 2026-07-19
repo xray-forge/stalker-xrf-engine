@@ -5,7 +5,7 @@ import { $filename, $isNotNil } from "xray16/macros";
 
 import { stalkerCommunities, TCommunity } from "@/engine/constants/communities";
 import { EActionId } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getActiveSchemeState } from "@/engine/core/schemes/state";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -78,12 +78,12 @@ export function logObjectPlannerState(object: GameObject): void {
 
   logger.pushSeparator();
 
-  // Check state manager planner if it exists for the object.
-  if (registry.objects.get(object.id())?.stateManager) {
+  // Check state controller planner if it exists for the object.
+  if (registry.objects.get(object.id())?.stateController) {
     logger.info("Print object state planner report: %s", object.name());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
-    const actionPlanner: ActionPlanner = state.stateManager!.planner;
+    const actionPlanner: ActionPlanner = state.stateController!.planner;
     const currentActionId: Nillable<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current state planner initialized: %s", actionPlanner.initialized());
@@ -104,36 +104,36 @@ export function logObjectPlannerState(object: GameObject): void {
  *
  * @param object - Game object.
  */
-export function logObjectStateManager(object: GameObject): void {
+export function logObjectStateController(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object state manager report: %s", object.name());
+  logger.info("Print object state controller report: %s", object.name());
 
-  if (registry.objects.get(object.id())?.stateManager) {
-    const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
+  if (registry.objects.get(object.id())?.stateController) {
+    const stateController: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
-    logger.info("State controller: %s", stateManager.controller);
-    logger.info("Target state: %s", stateManager.targetState);
+    logger.info("State controller: %s", stateController.controller);
+    logger.info("Target state: %s", stateController.targetState);
     logger.info(
       "Look object: %s",
-      stateManager.lookObjectId ? registry.simulator.object(stateManager.lookObjectId)?.name() || NIL : NIL
+      stateController.lookObjectId ? registry.simulator.object(stateController.lookObjectId)?.name() || NIL : NIL
     );
-    logger.info("Look type: %s", stateManager.getObjectLookPositionType());
+    logger.info("Look type: %s", stateController.getObjectLookPositionType());
     logger.info("Current animation slot: %s", getObjectActiveWeaponSlot(object));
-    logger.info("Callback object: %s", toJSON(stateManager.callback));
-    logger.info("Is combat: %s", stateManager.isCombat);
-    logger.info("Is alife: %s", stateManager.isAlife);
-    logger.info("Animation states: %s", toJSON(stateManager.animation.state));
+    logger.info("Callback object: %s", toJSON(stateController.callback));
+    logger.info("Is combat: %s", stateController.isCombat);
+    logger.info("Is alife: %s", stateController.isAlife);
+    logger.info("Animation states: %s", toJSON(stateController.animation.state));
     logger.info(
       "Animation controller animation: %s",
-      toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
+      toJSON(stateController.animation.animations.get(stateController.animation.state.currentState as TName))
     );
-    logger.info("Animstate states: %s", toJSON(stateManager.animstate.state));
+    logger.info("Animstate states: %s", toJSON(stateController.animstate.state));
     logger.info(
       "Animstate controller animation: %s",
-      toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
+      toJSON(stateController.animation.animations.get(stateController.animation.state.currentState as TName))
     );
   } else {
-    logger.info("No state manager declared for object");
+    logger.info("No state controller declared for object");
   }
 
   logger.pushSeparator();

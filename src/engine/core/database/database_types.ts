@@ -3,7 +3,7 @@ import { AnyObject, Nillable, TName, TNumberId, TRate, TSection, TTimestamp } fr
 
 import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { TConditionList } from "@/engine/core/ini";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
 import { IBaseSchemeState, ILogicsOverrides } from "@/engine/core/schemes/state";
@@ -96,10 +96,10 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    */
   patrolController: Nillable<StalkerPatrolController>;
   /**
-   * State manager class for stalker objects.
+   * State controller class for stalker objects.
    * Handles current animation/animstate logics and adjust stalker object to match required logics.
    */
-  stateManager: Nillable<StalkerStateManager>;
+  stateController: Nillable<StalkerStateController>;
   /**
    * Restrictions manager for game objects.
    * Handles current restrictions list depending on active logics.

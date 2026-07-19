@@ -3,7 +3,7 @@ import { ActionPlanner } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
 
 import { EActionId, NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
 
@@ -12,12 +12,12 @@ import { EStalkerState } from "@/engine/core/animation/types";
  */
 @LuabindClass()
 export class EvaluatorStateIdleAlife extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
   private actionPlanner: Nillable<ActionPlanner> = null;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateIdleAlife.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -39,21 +39,21 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
     const currentActionId: TNumberId = this.actionPlanner.current_action_id();
 
     if (currentActionId !== EActionId.ALIFE) {
-      this.stateManager.isAlife = false;
+      this.controller.isAlife = false;
     }
 
     if (NO_IDLE_ALIFE_IDS[currentActionId]) {
       return false;
     }
 
-    if (this.stateManager.isAlife) {
+    if (this.controller.isAlife) {
       return true;
     }
 
-    const planner: ActionPlanner = this.stateManager.planner;
+    const planner: ActionPlanner = this.controller.planner;
 
     if (
-      this.stateManager.targetState === EStalkerState.IDLE &&
+      this.controller.targetState === EStalkerState.IDLE &&
       currentActionId === EActionId.STATE_TO_IDLE_ALIFE &&
       // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
       !planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
@@ -63,7 +63,7 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
       planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
     ) {
-      this.stateManager.isAlife = true;
+      this.controller.isAlife = true;
 
       return true;
     }

@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import {
   ActionWeaponDrop,
@@ -14,10 +14,10 @@ import {
  * Setup GOAP logics related to weapon state changes of stalkers.
  *
  * @param planner - Action planner to configure.
- * @param stateManager - Target object state manager.
+ * @param controller - Target object state controller.
  */
-export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  const unstrapAction: ActionWeaponUnstrap = new ActionWeaponUnstrap(stateManager);
+export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, controller: StalkerStateController): void {
+  const unstrapAction: ActionWeaponUnstrap = new ActionWeaponUnstrap(controller);
 
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   unstrapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
@@ -32,7 +32,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   unstrapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   planner.add_action(EStateActionId.WEAPON_UNSTRAPP, unstrapAction);
 
-  const strapAction: ActionWeaponStrap = new ActionWeaponStrap(stateManager);
+  const strapAction: ActionWeaponStrap = new ActionWeaponStrap(controller);
 
   strapAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   strapAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
@@ -47,7 +47,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   strapAction.add_effect(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   planner.add_action(EStateActionId.WEAPON_STRAPP, strapAction);
 
-  const weaponNoneAction: ActionWeaponNone = new ActionWeaponNone(stateManager);
+  const weaponNoneAction: ActionWeaponNone = new ActionWeaponNone(controller);
 
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   weaponNoneAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
@@ -61,7 +61,7 @@ export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateMana
   weaponNoneAction.add_effect(new world_property(EStateEvaluatorId.WEAPON_SET, true));
   planner.add_action(EStateActionId.WEAPON_NONE, weaponNoneAction);
 
-  const weaponDropAction: ActionWeaponDrop = new ActionWeaponDrop(stateManager);
+  const weaponDropAction: ActionWeaponDrop = new ActionWeaponDrop(controller);
 
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   weaponDropAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));

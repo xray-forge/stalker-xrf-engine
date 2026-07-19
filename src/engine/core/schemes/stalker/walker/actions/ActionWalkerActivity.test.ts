@@ -4,7 +4,7 @@ import { MockGameObject, MockIniFile, MockPropertyStorage } from "xray16/mocks";
 
 import { CampController, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { StalkerPatrolController } from "@/engine/core/ai/patrol";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, IRegistryObjectState, registerCampZone, registerObject } from "@/engine/core/database";
@@ -122,9 +122,9 @@ describe("ActionWalkerActivity", () => {
     const walkerState: ISchemeWalkerState = mockSchemeState(EScheme.WALKER);
 
     state.patrolController = new StalkerPatrolController(object);
-    state.stateManager = new StalkerStateManager(object);
+    state.stateController = new StalkerStateController(object);
 
-    jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
+    jest.spyOn(state.stateController, "setState").mockImplementation(jest.fn());
 
     const action: ActionWalkerActivity = new ActionWalkerActivity(walkerState, object);
 
@@ -135,7 +135,7 @@ describe("ActionWalkerActivity", () => {
 
     action.update();
 
-    expect(state.stateManager.setState).not.toHaveBeenCalled();
+    expect(state.stateController.setState).not.toHaveBeenCalled();
 
     jest
       .spyOn(action.campController, "getObjectActivity")
@@ -143,7 +143,7 @@ describe("ActionWalkerActivity", () => {
 
     action.update();
 
-    expect(state.stateManager.setState).toHaveBeenCalledWith("play_guitar", null, null, null, null);
+    expect(state.stateController.setState).toHaveBeenCalledWith("play_guitar", null, null, null, null);
   });
 
   it("should correctly handle reset", () => {

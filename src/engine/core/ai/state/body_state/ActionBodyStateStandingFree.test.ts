@@ -3,7 +3,7 @@ import { anim, move, property_storage } from "xray16";
 import { MockGameObject } from "xray16/mocks";
 
 import { ActionBodyStateStandingFree } from "@/engine/core/ai/state/body_state/ActionBodyStateStandingFree";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
@@ -16,8 +16,9 @@ describe("ActionBodyStateStandingFree", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const action: ActionBodyStateStandingFree = new ActionBodyStateStandingFree(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const action: ActionBodyStateStandingFree = new ActionBodyStateStandingFree(controller);
 
     action.setup(stalker.object, new property_storage());
 

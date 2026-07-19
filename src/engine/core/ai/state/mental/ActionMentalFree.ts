@@ -1,17 +1,17 @@
 import { action_base, anim, LuabindClass } from "xray16";
 
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Action to set mental free state of game objects.
  */
 @LuabindClass()
 export class ActionMentalFree extends action_base {
-  public readonly stateManager: StalkerStateManager;
+  public readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionMentalFree.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

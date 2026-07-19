@@ -13,7 +13,7 @@ import {
 } from "xray16/lib";
 import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { animations } from "@/engine/core/animation/animations";
 import { animstates } from "@/engine/core/animation/animstates";
 import {
@@ -40,7 +40,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 export class StalkerAnimationManager {
   public readonly type: EAnimationType;
   public readonly object: GameObject;
-  public readonly stateManager: StalkerStateManager;
+  public readonly stateController: StalkerStateController;
   public readonly animations: LuaTable<TName, IAnimationDescriptor>;
 
   public readonly state: IAnimationManagerState = {
@@ -52,10 +52,10 @@ export class StalkerAnimationManager {
     sequenceId: 1,
   };
 
-  public constructor(object: GameObject, stateManager: StalkerStateManager, type: EAnimationType) {
+  public constructor(object: GameObject, controller: StalkerStateController, type: EAnimationType) {
     this.type = type;
     this.object = object;
-    this.stateManager = stateManager;
+    this.stateController = controller;
     this.animations = type === EAnimationType.ANIMATION ? animations : animstates;
   }
 
@@ -65,13 +65,13 @@ export class StalkerAnimationManager {
   public setControl(): void {
     logger.info("Set control: '%s' - '%s'", this.object.name(), this.type);
 
-    this.stateManager.controller = this.type;
+    this.stateController.controller = this.type;
 
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     // On animation control also reset animstate.
     if (this.type === EAnimationType.ANIMATION) {
-      this.stateManager.animstate.state.animationMarker = null;
+      this.stateController.animstate.state.animationMarker = null;
     }
 
     if ($isNil(this.state.animationMarker)) {
@@ -151,19 +151,19 @@ export class StalkerAnimationManager {
     const animationProperties: Nillable<IAnimationDescriptorProperties> = animationDescriptor.prop;
 
     if (
-      this.stateManager.animationPosition &&
-      this.stateManager.animationDirection &&
-      !this.stateManager.isAnimationDirectionApplied
+      this.stateController.animationPosition &&
+      this.stateController.animationDirection &&
+      !this.stateController.isAnimationDirectionApplied
     ) {
-      this.stateManager.isAnimationDirectionApplied = true;
+      this.stateController.isAnimationDirectionApplied = true;
 
       const direction: Vector = createVector(
         0,
-        -math.deg(math.atan2(this.stateManager.animationDirection.x, this.stateManager.animationDirection.z)),
+        -math.deg(math.atan2(this.stateController.animationDirection.x, this.stateController.animationDirection.z)),
         0
       );
 
-      object.add_animation(animation, true, this.stateManager.animationPosition, direction, true);
+      object.add_animation(animation, true, this.stateController.animationPosition, direction, true);
     } else {
       object.add_animation(animation, true, animationProperties?.moving === true);
     }
@@ -495,8 +495,8 @@ export class StalkerAnimationManager {
 
         // After out animation set control to animstate.
         // Make sure animstate controller exists (in case of post-combat idle placeholder used, todo: investigate)
-        if (this.type === EAnimationType.ANIMATION && this.stateManager.animstate.setControl) {
-          this.stateManager.animstate.setControl();
+        if (this.type === EAnimationType.ANIMATION && this.stateController.animstate.setControl) {
+          this.stateController.animstate.setControl();
           // --this.mgr.animstate:update_anim()
         }
 

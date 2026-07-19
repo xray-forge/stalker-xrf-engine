@@ -232,9 +232,9 @@ export interface ILookTargetDescriptor {
 }
 
 /**
- * Descriptor of a state manager callback with its context and timing parameters.
+ * Descriptor of a state controller callback with its context and timing parameters.
  */
-export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
+export interface IStateControllerCallbackDescriptor<T extends AnyObject = AnyObject> {
   begin?: Nillable<TTimestamp>;
   timeout?: Nillable<TDuration>;
   context: T;

@@ -1,24 +1,24 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { $isNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Evaluator to check whether no current animation is active.
  */
 @LuabindClass()
 export class EvaluatorAnimationNoneNow extends property_evaluator {
-  public readonly stateManager: StalkerStateManager;
+  public readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorAnimationNoneNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
    * Check whether current animation state is not null.
    */
   public override evaluate(): boolean {
-    return $isNil(this.stateManager.animation.state.currentState);
+    return $isNil(this.controller.animation.state.currentState);
   }
 }

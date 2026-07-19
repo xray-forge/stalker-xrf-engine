@@ -4,7 +4,7 @@ import { MockCSightParams, MockGameObject, MockSightParameters } from "xray16/mo
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EvaluatorDirectionSet } from "@/engine/core/ai/state/direction/EvaluatorDirectionSet";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
@@ -18,8 +18,9 @@ describe("EvaluatorDirectionSet", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(controller);
     const endCallback = jest.fn();
     const lookObject = MockGameObject.mock();
 
@@ -52,12 +53,12 @@ describe("EvaluatorDirectionSet", () => {
 
       return params;
     });
-    manager.isObjectPointDirectionLook = true;
-    expect(manager.callback?.turnEndCallback).not.toBeNull();
+    controller.isObjectPointDirectionLook = true;
+    expect(controller.callback?.turnEndCallback).not.toBeNull();
 
     expect(evaluator.evaluate()).toBeTruthy();
     expect(endCallback).toHaveBeenCalledTimes(1);
-    expect(manager.callback?.turnEndCallback).toBeNull();
+    expect(controller.callback?.turnEndCallback).toBeNull();
 
     unregisterStalker(stalker);
   });
@@ -69,8 +70,9 @@ describe("EvaluatorDirectionSet", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const evaluator: EvaluatorDirectionSet = new EvaluatorDirectionSet(controller);
     const endCallback = jest.fn();
     const lookObject = MockGameObject.mock();
 

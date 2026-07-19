@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MX_VECTOR, X_VECTOR, Y_VECTOR } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
@@ -48,12 +48,12 @@ describe("ActionPlayAnimpoint", () => {
 
     action.setup(object, MockPropertyStorage.mock());
 
-    state.stateManager = new StalkerStateManager(object);
+    state.stateController = new StalkerStateController(object);
     animpointState.animpointManager = new AnimpointManager(object, animpointState);
     animpointState.animpointManager.lookPosition = MX_VECTOR;
     animpointState.animpointManager.currentAction = EStalkerState.SNEAK;
 
-    jest.spyOn(state.stateManager, "setState").mockImplementation(jest.fn());
+    jest.spyOn(state.stateController, "setState").mockImplementation(jest.fn());
     jest.spyOn(animpointState.animpointManager, "start").mockImplementation(jest.fn());
     jest
       .spyOn(animpointState.animpointManager, "getAnimationParameters")
@@ -63,8 +63,8 @@ describe("ActionPlayAnimpoint", () => {
 
     expect(animpointState.animpointManager.start).toHaveBeenCalledTimes(1);
     expect(animpointState.animpointManager.getAnimationParameters).toHaveBeenCalledTimes(1);
-    expect(state.stateManager.setState).toHaveBeenCalledTimes(1);
-    expect(state.stateManager.setState).toHaveBeenCalledWith(
+    expect(state.stateController.setState).toHaveBeenCalledTimes(1);
+    expect(state.stateController.setState).toHaveBeenCalledWith(
       EStalkerState.SNEAK,
       null,
       null,
@@ -78,7 +78,7 @@ describe("ActionPlayAnimpoint", () => {
 
     expect(animpointState.animpointManager.start).toHaveBeenCalledTimes(1);
     expect(animpointState.animpointManager.getAnimationParameters).toHaveBeenCalledTimes(2);
-    expect(state.stateManager.setState).toHaveBeenCalledTimes(2);
+    expect(state.stateController.setState).toHaveBeenCalledTimes(2);
   });
 
   it("should correctly handle switch offline", () => {

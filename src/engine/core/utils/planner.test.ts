@@ -5,7 +5,7 @@ import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -32,16 +32,20 @@ describe("isObjectAsleep util", () => {
 
     expect(isObjectAsleep(object.id())).toBe(false);
 
-    state.stateManager = new StalkerStateManager(object);
+    state.stateController = new StalkerStateController(object);
 
-    state.stateManager.animstate = new StalkerAnimationManager(object, state.stateManager, EAnimationType.ANIMSTATE);
+    state.stateController.animstate = new StalkerAnimationManager(
+      object,
+      state.stateController,
+      EAnimationType.ANIMSTATE
+    );
 
     expect(isObjectAsleep(object.id())).toBe(false);
 
-    state.stateManager.animstate.state.currentState = EStalkerState.SLEEP;
+    state.stateController.animstate.state.currentState = EStalkerState.SLEEP;
     expect(isObjectAsleep(object.id())).toBe(true);
 
-    state.stateManager.animstate.state.currentState = EStalkerState.SALUT;
+    state.stateController.animstate.state.currentState = EStalkerState.SALUT;
     expect(isObjectAsleep(object.id())).toBe(false);
   });
 });

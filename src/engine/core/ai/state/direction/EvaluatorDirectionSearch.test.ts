@@ -4,7 +4,7 @@ import { createEmptyVector } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorDirectionSearch } from "@/engine/core/ai/state/direction/EvaluatorDirectionSearch";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
@@ -18,8 +18,9 @@ describe("EvaluatorDirectionSearch", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorDirectionSearch = new EvaluatorDirectionSearch(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const evaluator: EvaluatorDirectionSearch = new EvaluatorDirectionSearch(controller);
     const lookObject: GameObject = MockGameObject.mock();
 
     expect(evaluator.evaluate()).toBeTruthy();

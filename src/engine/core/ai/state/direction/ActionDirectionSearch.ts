@@ -1,6 +1,6 @@
 import { action_base, CSightParams, LuabindClass } from "xray16";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 
 /**
@@ -8,11 +8,11 @@ import { states } from "@/engine/core/animation/states";
  */
 @LuabindClass()
 export class ActionDirectionSearch extends action_base {
-  public readonly stateManager: StalkerStateManager;
+  public readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionDirectionSearch.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -21,10 +21,10 @@ export class ActionDirectionSearch extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    if (states.get(this.stateManager.targetState).direction === CSightParams.eSightTypeAnimationDirection) {
+    if (states.get(this.controller.targetState).direction === CSightParams.eSightTypeAnimationDirection) {
       this.object.set_sight(CSightParams.eSightTypeAnimationDirection, false, false);
     } else {
-      this.object.set_sight(this.stateManager.getObjectLookPositionType(), null, 0);
+      this.object.set_sight(this.controller.getObjectLookPositionType(), null, 0);
     }
   }
 }

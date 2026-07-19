@@ -4,17 +4,17 @@ import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerAnimationStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/animation_planner";
 import { ActionAnimationStart, ActionAnimationStop } from "@/engine/core/ai/state/animation";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
-describe("setup_state_manager util", () => {
+describe("setup_state_controller", () => {
   it("should correctly setup state planner animation actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerAnimationStatePlanner(planner, stateManager);
+    setupStalkerAnimationStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.ANIMATION_START),

@@ -4,17 +4,17 @@ import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerDirectionStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/direction_planner";
 import { ActionDirectionSearch, ActionDirectionTurn } from "@/engine/core/ai/state/direction";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 describe("direction_planner util", () => {
   it("should correctly setup state planner planner actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerDirectionStatePlanner(planner, stateManager);
+    setupStalkerDirectionStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.DIRECTION_TURN),

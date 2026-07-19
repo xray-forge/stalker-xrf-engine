@@ -9,17 +9,17 @@ import {
   ActionBodyStateStanding,
   ActionBodyStateStandingFree,
 } from "@/engine/core/ai/state/body_state";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 describe("body_state_planner util", () => {
   it("should correctly setup state planner body state actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerBodyStatePlanner(planner, stateManager);
+    setupStalkerBodyStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.BODYSTATE_CROUCH),

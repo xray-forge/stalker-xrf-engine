@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 
@@ -13,11 +13,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActionSmartCoverExit extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionSmartCoverExit.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

@@ -44,7 +44,7 @@ import {
   EvaluatorSmartCover,
   EvaluatorSmartCoverNeed,
 } from "@/engine/core/ai/state/smart_cover";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EvaluatorStateEnd, EvaluatorStateLocked, EvaluatorStateLockedExternal } from "@/engine/core/ai/state/state";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import {
@@ -63,10 +63,10 @@ import {
 describe("state_evaluator util", () => {
   it("should correctly setup state planner evaluators", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerStateEvaluators(planner, stateManager);
+    setupStalkerStateEvaluators(planner, controller);
 
     expect(Object.keys((planner as unknown as MockActionPlanner).evaluators)).toHaveLength(43);
 

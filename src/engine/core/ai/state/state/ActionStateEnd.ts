@@ -3,7 +3,7 @@ import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { Nillable, TDuration, TRate, TTimestamp } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types";
 import { isStalker, isWeapon } from "@/engine/core/utils/class_ids";
@@ -24,11 +24,11 @@ const SNIPER_AIM_TIME: TDuration = 3000;
  */
 @LuabindClass()
 export class ActionStateEnd extends action_base {
-  public readonly stateManager: StalkerStateManager;
+  public readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionStateEnd.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -38,23 +38,23 @@ export class ActionStateEnd extends action_base {
     super.execute();
 
     // Handle callback execution of animation.
-    if (this.stateManager.callback) {
+    if (this.controller.callback) {
       const now: TTimestamp = time_global();
 
       // Set start of animation timeout.
-      if ($isNil(this.stateManager.callback.begin)) {
-        this.stateManager.callback.begin = now;
+      if ($isNil(this.controller.callback.begin)) {
+        this.controller.callback.begin = now;
       }
 
       // Verify duration of timeout.
-      if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
-        if (this.stateManager.callback.callback) {
-          logger.info("Animation ended with callback: %s %s", this.object.name(), this.stateManager.targetState);
-          this.stateManager.callback.callback.call(this.stateManager.callback.context);
+      if (now - (this.controller.callback.begin as TTimestamp) >= (this.controller.callback.timeout as TDuration)) {
+        if (this.controller.callback.callback) {
+          logger.info("Animation ended with callback: %s %s", this.object.name(), this.controller.targetState);
+          this.controller.callback.callback.call(this.controller.callback.context);
         }
 
         // Reset timeout to be executed only once.
-        this.stateManager.callback = null;
+        this.controller.callback = null;
       }
     }
 
@@ -62,16 +62,16 @@ export class ActionStateEnd extends action_base {
       return;
     }
 
-    const targetWeaponState: Nillable<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
+    const targetWeaponState: Nillable<EWeaponAnimation> = states.get(this.controller.targetState).weapon;
 
     if (targetWeaponState === EWeaponAnimation.FIRE || targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
-      if (this.stateManager.lookObjectId) {
-        const lookObject: Nillable<GameObject> = level.object_by_id(this.stateManager.lookObjectId);
+      if (this.controller.lookObjectId) {
+        const lookObject: Nillable<GameObject> = level.object_by_id(this.controller.lookObjectId);
 
         if (!lookObject) {
-          this.stateManager.lookObjectId = null;
+          this.controller.lookObjectId = null;
 
           return;
         }
@@ -91,10 +91,7 @@ export class ActionStateEnd extends action_base {
 
             this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
           } else {
-            const [value] = getObjectSmartCoverStateQueueParams(
-              this.object,
-              states.get(this.stateManager.targetState!)
-            );
+            const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.controller.targetState!));
 
             this.object.set_item(object.fire1, this.object.best_weapon(), value);
           }
@@ -107,11 +104,11 @@ export class ActionStateEnd extends action_base {
         }
       }
 
-      if (this.stateManager.lookPosition && !this.stateManager.lookObjectId) {
+      if (this.controller.lookPosition && !this.controller.lookObjectId) {
         if (targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
           this.object.set_item(object.fire1, this.object.best_weapon(), 1, sniperAimDuration);
         } else {
-          const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.stateManager.targetState!));
+          const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.controller.targetState!));
 
           this.object.set_item(object.fire1, this.object.best_weapon(), value);
         }
@@ -119,14 +116,14 @@ export class ActionStateEnd extends action_base {
         return;
       }
 
-      const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.stateManager.targetState!));
+      const [value] = getObjectSmartCoverStateQueueParams(this.object, states.get(this.controller.targetState!));
 
       this.object.set_item(object.fire1, this.object.best_weapon(), value);
 
       return;
     } else if (targetWeaponState === EWeaponAnimation.UNSTRAPPED) {
       // Unstrap weapon.
-      this.object.set_item(getWeaponActionForAnimationState(this.stateManager.targetState), this.object.best_weapon());
+      this.object.set_item(getWeaponActionForAnimationState(this.controller.targetState), this.object.best_weapon());
     }
   }
 }

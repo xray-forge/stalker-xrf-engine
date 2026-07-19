@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
@@ -51,7 +51,7 @@ export class ActionPostCombatIdleWait extends action_base {
 
     this.state.animation = new StalkerAnimationManager(
       object,
-      this.stateManager as unknown as StalkerStateManager,
+      this.stateManager as unknown as StalkerStateController,
       EAnimationType.ANIMATION
     );
   }

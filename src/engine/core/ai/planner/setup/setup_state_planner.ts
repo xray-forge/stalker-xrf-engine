@@ -13,35 +13,35 @@ import {
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
 } from "@/engine/core/ai/planner/setup/state_planner";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 
 /**
- * Add basic GOAP graphs to state manager planner evaluators / actions.
+ * Add basic GOAP graphs to state controller planner evaluators / actions.
  * Defines how action states should behave for stalker state management / animation.
  * Works in parallel with C++ engine planner and switches control of actions from time to time or works in parallel.
  *
  * End goal is ended state of all animations and body states.
  *
  * @param planner - Target state planner to initialize.
- * @param stateManager - Target state manager to initialize.
+ * @param controller - Target state controller to initialize.
  */
-export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
-  setupStalkerStateEvaluators(planner, stateManager);
+export function setupStalkerStatePlanner(planner: ActionPlanner, controller: StalkerStateController): void {
+  setupStalkerStateEvaluators(planner, controller);
 
-  setupStalkerWeaponStatePlanner(planner, stateManager);
-  setupStalkerMovementStatePlanner(planner, stateManager);
-  setupStalkerDirectionStatePlanner(planner, stateManager);
-  setupStalkerMentalStatePlanner(planner, stateManager);
-  setupStalkerBodyStatePlanner(planner, stateManager);
-  setupStalkerAnimstateStatePlanner(planner, stateManager);
-  setupStalkerAnimationStatePlanner(planner, stateManager);
-  setupStalkerSmartCoverStatePlanner(planner, stateManager);
-  setupStalkerLockedStatePlanner(planner, stateManager);
+  setupStalkerWeaponStatePlanner(planner, controller);
+  setupStalkerMovementStatePlanner(planner, controller);
+  setupStalkerDirectionStatePlanner(planner, controller);
+  setupStalkerMentalStatePlanner(planner, controller);
+  setupStalkerBodyStatePlanner(planner, controller);
+  setupStalkerAnimstateStatePlanner(planner, controller);
+  setupStalkerAnimationStatePlanner(planner, controller);
+  setupStalkerSmartCoverStatePlanner(planner, controller);
+  setupStalkerLockedStatePlanner(planner, controller);
 
   // Final action to execute over time when all state actions are finished.
-  const endStateAction: ActionStateEnd = new ActionStateEnd(stateManager);
+  const endStateAction: ActionStateEnd = new ActionStateEnd(controller);
 
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.END, false));
   endStateAction.add_precondition(new world_property(EStateEvaluatorId.WEAPON_SET, true));

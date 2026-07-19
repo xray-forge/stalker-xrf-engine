@@ -13,7 +13,7 @@ import { EScheme } from "@/engine/core/schemes/types";
  * @returns Whether object is currently asleep.
  */
 export function isObjectAsleep(objectId: TNumberId): boolean {
-  return registry.objects.get(objectId)?.stateManager?.animstate.state.currentState === EStalkerState.SLEEP;
+  return registry.objects.get(objectId)?.stateController?.animstate.state.currentState === EStalkerState.SLEEP;
 }
 
 /**

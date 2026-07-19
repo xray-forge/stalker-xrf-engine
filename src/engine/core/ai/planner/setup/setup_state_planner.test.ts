@@ -15,20 +15,20 @@ import {
   setupStalkerStateEvaluators,
   setupStalkerWeaponStatePlanner,
 } from "@/engine/core/ai/planner/setup/state_planner";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/ai/planner/setup/state_planner");
 
-describe("state_manager util", () => {
+describe("state_controller util", () => {
   it("should correctly setup state planner events", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerStatePlanner(planner, controller);
 
     expect(setupStalkerAnimationStatePlanner).toHaveBeenCalled();
     expect(setupStalkerAnimstateStatePlanner).toHaveBeenCalled();
@@ -44,10 +44,10 @@ describe("state_manager util", () => {
 
   it("should correctly setup state planner target world state", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerStatePlanner(planner, stateManager);
+    setupStalkerStatePlanner(planner, controller);
 
     const targetWorldState: MockWorldState = (planner as unknown as MockActionPlanner)
       .goalWorldState as unknown as MockWorldState;

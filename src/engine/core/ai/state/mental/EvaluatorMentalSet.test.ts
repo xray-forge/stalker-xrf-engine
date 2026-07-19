@@ -4,12 +4,12 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorMentalSet } from "@/engine/core/ai/state/mental/EvaluatorMentalSet";
-import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 describe("EvaluatorMentalSet", () => {
   it("should correctly check if mental state is set when idle/null + free", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "idle" } as StalkerStateManager);
+    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "idle" } as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.free);
 
@@ -20,7 +20,7 @@ describe("EvaluatorMentalSet", () => {
 
   it("should correctly check if mental state is set when idle/null + danger", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "idle" } as StalkerStateManager);
+    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "idle" } as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.danger);
 
@@ -31,7 +31,9 @@ describe("EvaluatorMentalSet", () => {
 
   it("should correctly check if mental state is set when set", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "raid_fire" } as StalkerStateManager);
+    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({
+      targetState: "raid_fire",
+    } as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.danger);
 
@@ -42,7 +44,9 @@ describe("EvaluatorMentalSet", () => {
 
   it("should correctly check if mental state is set when not set", () => {
     const object: GameObject = MockGameObject.mock();
-    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({ targetState: "raid_fire" } as StalkerStateManager);
+    const evaluator: EvaluatorMentalSet = new EvaluatorMentalSet({
+      targetState: "raid_fire",
+    } as StalkerStateController);
 
     jest.spyOn(object, "target_mental_state").mockImplementation(() => anim.free);
 

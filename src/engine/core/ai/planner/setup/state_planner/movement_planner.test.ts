@@ -14,17 +14,17 @@ import {
   ActionMovementWalkSearch,
   ActionMovementWalkTurn,
 } from "@/engine/core/ai/state/movement";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 describe("movement_planner util", () => {
   it("should correctly setup state planner movement actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerMovementStatePlanner(planner, stateManager);
+    setupStalkerMovementStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.MOVEMENT_WALK),

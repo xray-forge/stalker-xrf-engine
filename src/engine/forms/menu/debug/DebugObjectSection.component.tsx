@@ -50,8 +50,8 @@ function renderLoggingButtons(): JSXNode {
       />
 
       <Xr3tButton
-        tag={"log_state_manager_state"}
-        label={"Log state manager"}
+        tag={"log_state_controller_state"}
+        label={"Log state controller"}
         x={12}
         y={92}
         width={72}

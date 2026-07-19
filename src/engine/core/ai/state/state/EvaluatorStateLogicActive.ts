@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { $isNotNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { registry } from "@/engine/core/database";
 
 /**
@@ -9,11 +9,11 @@ import { registry } from "@/engine/core/database";
  */
 @LuabindClass()
 export class EvaluatorStateLogicActive extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(state_manager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorStateLogicActive.__name);
-    this.stateManager = state_manager;
+    this.controller = controller;
   }
 
   /**

@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 import { ActionPlanner } from "xray16/alias";
 
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { ActionAnimationStart, ActionAnimationStop } from "@/engine/core/ai/state/animation";
 import { ActionStateLocked } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
@@ -10,11 +10,11 @@ import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types"
  * Setup GOAP logics related to animation execution of stalkers.
  *
  * @param planner - Action planner to configure.
- * @param stateManager - Target object state manager.
+ * @param controller - Target object state controller.
  */
-export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
+export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, controller: StalkerStateController): void {
   // -- START
-  const animationStartAction: ActionAnimationStart = new ActionAnimationStart(stateManager);
+  const animationStartAction: ActionAnimationStart = new ActionAnimationStart(controller);
 
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   animationStartAction.add_precondition(new world_property(EStateEvaluatorId.ANIMSTATE_LOCKED, false));
@@ -33,19 +33,19 @@ export function setupStalkerAnimationStatePlanner(planner: ActionPlanner, stateM
   planner.add_action(EStateActionId.ANIMATION_START, animationStartAction);
 
   // -- STOP
-  const animationStopAction: ActionAnimationStop = new ActionAnimationStop(stateManager);
+  const animationStopAction: ActionAnimationStop = new ActionAnimationStop(controller);
 
   animationStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED, false));
   animationStopAction.add_precondition(new world_property(EStateEvaluatorId.LOCKED_EXTERNAL, false));
-  // --action.add_precondition    (new world_property(EStateManagerProperty.animstate,              true))
-  // --action.add_precondition    (new world_property(EStateManagerProperty.animation,              false))
+  // --action.add_precondition    (new world_property(EStateControllerProperty.animstate,              true))
+  // --action.add_precondition    (new world_property(EStateControllerProperty.animation,              false))
   animationStopAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, true));
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION, true));
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_PLAY_NOW, false));
   animationStopAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_NONE_NOW, true));
   planner.add_action(EStateActionId.ANIMATION_STOP, animationStopAction);
 
-  const lockedAnimationAction: ActionStateLocked = new ActionStateLocked(stateManager, "ActionStateLockedAnimation");
+  const lockedAnimationAction: ActionStateLocked = new ActionStateLocked(controller, "ActionStateLockedAnimation");
 
   lockedAnimationAction.add_precondition(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, true));
   lockedAnimationAction.add_effect(new world_property(EStateEvaluatorId.ANIMATION_LOCKED, false));

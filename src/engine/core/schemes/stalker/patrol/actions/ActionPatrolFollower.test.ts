@@ -3,7 +3,7 @@ import { EGameObjectPath, GameObject } from "xray16/alias";
 import { MockGameObject, MockPropertyStorage, MockVector } from "xray16/mocks";
 
 import { StalkerPatrolController } from "@/engine/core/ai/patrol";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
@@ -178,7 +178,7 @@ describe("ActionPatrolFollower", () => {
     const objectState: IRegistryObjectState = registerObject(object);
 
     objectState.patrolController = new StalkerPatrolController(object);
-    objectState.stateManager = new StalkerStateManager(object);
+    objectState.stateController = new StalkerStateController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolFollower = new ActionPatrolFollower(state, object);
@@ -193,7 +193,7 @@ describe("ActionPatrolFollower", () => {
     action.setup(object, MockPropertyStorage.mock());
 
     jest.spyOn(Date, "now").mockImplementation(() => 10_000);
-    jest.spyOn(objectState.stateManager, "setState").mockImplementation(() => {});
+    jest.spyOn(objectState.stateController, "setState").mockImplementation(() => {});
 
     action.execute();
 
@@ -209,7 +209,7 @@ describe("ActionPatrolFollower", () => {
 
     expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
     expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(-1);
-    expect(objectState.stateManager.setState).toHaveBeenCalledWith(EStalkerState.RUSH, null, null, null, null);
+    expect(objectState.stateController.setState).toHaveBeenCalledWith(EStalkerState.RUSH, null, null, null, null);
 
     action.execute();
 

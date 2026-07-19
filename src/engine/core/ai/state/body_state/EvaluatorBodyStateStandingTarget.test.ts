@@ -3,7 +3,7 @@ import { property_storage } from "xray16";
 import { MockGameObject } from "xray16/mocks";
 
 import { EvaluatorBodyStateStandingTarget } from "@/engine/core/ai/state/body_state/EvaluatorBodyStateStandingTarget";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
@@ -17,8 +17,9 @@ describe("EvaluatorBodyStateStandingTarget", () => {
 
     stalker.reinit();
 
-    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
-    const evaluator: EvaluatorBodyStateStandingTarget = new EvaluatorBodyStateStandingTarget(manager);
+    const controller: StalkerStateController = registry.objects.get(stalker.object.id())
+      .stateController as StalkerStateController;
+    const evaluator: EvaluatorBodyStateStandingTarget = new EvaluatorBodyStateStandingTarget(controller);
 
     evaluator.setup(stalker.object, new property_storage());
     expect(evaluator.evaluate()).toBeFalsy();

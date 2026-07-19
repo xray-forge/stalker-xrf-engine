@@ -4,17 +4,17 @@ import { MockGameObject } from "xray16/mocks";
 
 import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/smart_cover_planner";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/ai/state/smart_cover";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
 describe("smart_cover_planner util", () => {
   it("should correctly setup state planner smart cover actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const stateManager: StalkerStateManager = new StalkerStateManager(object);
-    const planner: ActionPlanner = stateManager.planner;
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const planner: ActionPlanner = controller.planner;
 
-    setupStalkerSmartCoverStatePlanner(planner, stateManager);
+    setupStalkerSmartCoverStatePlanner(planner, controller);
 
     checkPlannerAction(
       planner.action(EStateActionId.SMARTCOVER_ENTER),

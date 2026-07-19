@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { EPatrolFormation, StalkerPatrolController } from "@/engine/core/ai/patrol";
-import { StalkerStateManager } from "@/engine/core/ai/state";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
@@ -195,7 +195,7 @@ describe("ActionPatrolCommander", () => {
     const objectState: IRegistryObjectState = registerObject(object);
 
     objectState.patrolController = new StalkerPatrolController(object);
-    objectState.stateManager = new StalkerStateManager(object);
+    objectState.stateController = new StalkerStateController(object);
 
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
@@ -203,7 +203,7 @@ describe("ActionPatrolCommander", () => {
     state.patrolManager = new PatrolManager("test-patrol");
 
     jest.spyOn(objectState.patrolController, "update").mockImplementation(jest.fn());
-    jest.spyOn(objectState.stateManager, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK));
+    jest.spyOn(objectState.stateController, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK));
     jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
     jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null));
 
@@ -219,12 +219,12 @@ describe("ActionPatrolCommander", () => {
     expect(soundManager.play).toHaveBeenCalledTimes(1);
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "patrol_sneak");
 
-    jest.spyOn(objectState.stateManager, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK_RUN));
+    jest.spyOn(objectState.stateController, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK_RUN));
     action.execute();
 
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "patrol_run");
 
-    jest.spyOn(objectState.stateManager, "getState").mockImplementation(jest.fn(() => EStalkerState.PATROL));
+    jest.spyOn(objectState.stateController, "getState").mockImplementation(jest.fn(() => EStalkerState.PATROL));
     action.execute();
 
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "patrol_walk");

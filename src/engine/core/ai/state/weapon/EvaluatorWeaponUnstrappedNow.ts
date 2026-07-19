@@ -3,18 +3,18 @@ import { GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Whether weapon is not strapped and in hands right now.
  */
 @LuabindClass()
 export class EvaluatorWeaponUnstrappedNow extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorWeaponUnstrappedNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

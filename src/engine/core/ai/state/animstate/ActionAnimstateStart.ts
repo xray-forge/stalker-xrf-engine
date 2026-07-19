@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 import { Nillable, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -14,11 +14,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ActionAnimstateStart extends action_base {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, ActionAnimstateStart.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
@@ -27,11 +27,11 @@ export class ActionAnimstateStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const targetAnimationState: Nillable<TName> = states.get(this.stateManager.targetState).animstate;
+    const targetAnimationState: Nillable<TName> = states.get(this.controller.targetState).animstate;
 
     logger.info("Start animstate for: %s %s", this.object.name(), targetAnimationState);
 
-    this.stateManager.animstate.setState(targetAnimationState as EStalkerState);
-    this.stateManager.animstate.setControl();
+    this.controller.animstate.setState(targetAnimationState as EStalkerState);
+    this.controller.animstate.setControl();
   }
 }

@@ -3,7 +3,11 @@ import { GameObject, SoundObject, Vector } from "xray16/alias";
 import { abort, NIL, Nillable, TIndex, TNumberId, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
+import {
+  EStalkerState,
+  ILookTargetDescriptor,
+  IStateControllerCallbackDescriptor,
+} from "@/engine/core/animation/types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { pickSectionFromCondList } from "@/engine/core/ini";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
@@ -133,7 +137,10 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
    */
   public update(): void {
     if (this.state === STATE_INITIAL) {
-      const callbackDescriptor: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
+      const callbackDescriptor: IStateControllerCallbackDescriptor = {
+        context: this,
+        callback: this.onAnimationUpdate,
+      };
       const target = this.getTarget();
 
       if (!target) {

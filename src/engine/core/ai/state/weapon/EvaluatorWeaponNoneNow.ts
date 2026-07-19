@@ -1,18 +1,18 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { $isNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 
 /**
  * Whether object has no weapon in hands right now.
  */
 @LuabindClass()
 export class EvaluatorWeaponNoneNow extends property_evaluator {
-  private readonly stateManager: StalkerStateManager;
+  private readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorWeaponNoneNow.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**

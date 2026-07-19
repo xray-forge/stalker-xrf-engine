@@ -1,25 +1,25 @@
 import { describe, expect, it } from "@jest/globals";
 import { MockGameObject } from "xray16/mocks";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EvaluatorStateLockedExternal } from "@/engine/core/ai/state/state/EvaluatorStateLockedExternal";
 
 describe("EvaluatorStateLockedExternal", () => {
   it("reports a lock while combat or alife controls the object", () => {
-    const stateManager: StalkerStateManager = new StalkerStateManager(MockGameObject.mock());
-    const evaluator: EvaluatorStateLockedExternal = new EvaluatorStateLockedExternal(stateManager);
+    const controller: StalkerStateController = new StalkerStateController(MockGameObject.mock());
+    const evaluator: EvaluatorStateLockedExternal = new EvaluatorStateLockedExternal(controller);
 
-    stateManager.isCombat = false;
-    stateManager.isAlife = false;
+    controller.isCombat = false;
+    controller.isAlife = false;
 
     expect(evaluator.evaluate()).toBe(false);
 
-    stateManager.isCombat = true;
+    controller.isCombat = true;
 
     expect(evaluator.evaluate()).toBe(true);
 
-    stateManager.isCombat = false;
-    stateManager.isAlife = true;
+    controller.isCombat = false;
+    controller.isAlife = true;
 
     expect(evaluator.evaluate()).toBe(true);
   });

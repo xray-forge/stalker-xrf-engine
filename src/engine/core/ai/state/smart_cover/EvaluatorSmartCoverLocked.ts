@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { Nillable } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -12,11 +12,11 @@ import { EScheme } from "@/engine/core/schemes/types";
  */
 @LuabindClass()
 export class EvaluatorSmartCoverLocked extends property_evaluator {
-  public readonly stateManager: StalkerStateManager;
+  public readonly controller: StalkerStateController;
 
-  public constructor(stateManager: StalkerStateManager) {
+  public constructor(controller: StalkerStateController) {
     super(null, EvaluatorSmartCoverLocked.__name);
-    this.stateManager = stateManager;
+    this.controller = controller;
   }
 
   /**
