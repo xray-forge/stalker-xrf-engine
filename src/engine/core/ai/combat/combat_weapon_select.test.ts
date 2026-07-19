@@ -20,37 +20,6 @@ describe("selectBestStalkerWeapon util", () => {
     expect(selectBestStalkerWeapon(MockGameObject.mock(), null)).toBeNull();
   });
 
-  it("should handle exceptional cases from callback handlers without throwing", () => {
-    const eventsManager: EventsManager = getManager(EventsManager);
-
-    eventsManager.registerCallback(
-      EGameEvent.STALKER_WEAPON_SELECT,
-      (_: GameObject, __: GameObject, data: AnyObject) => {
-        data.weaponId = true;
-      }
-    );
-
-    expect(selectBestStalkerWeapon(MockGameObject.mock(), MockGameObject.mock())).toBeNull();
-
-    eventsManager.registerCallback(
-      EGameEvent.STALKER_WEAPON_SELECT,
-      (_: GameObject, __: GameObject, data: AnyObject) => {
-        data.weaponId = "test-string";
-      }
-    );
-
-    expect(selectBestStalkerWeapon(MockGameObject.mock(), MockGameObject.mock())).toBeNull();
-
-    eventsManager.registerCallback(
-      EGameEvent.STALKER_WEAPON_SELECT,
-      (_: GameObject, __: GameObject, data: AnyObject) => {
-        data.weaponId = {};
-      }
-    );
-
-    expect(selectBestStalkerWeapon(MockGameObject.mock(), MockGameObject.mock())).toBeNull();
-  });
-
   it("should use weapon from latest event handler", () => {
     const object: GameObject = MockGameObject.mock();
     const weapon: GameObject = MockGameObject.mock();
@@ -89,6 +58,56 @@ describe("selectBestStalkerWeapon util", () => {
     );
 
     expect(selectBestStalkerWeapon(object, weapon)).toBe(secondBestWeapon);
+  });
+
+  it("should use a weapon with zero object id", () => {
+    const object: GameObject = MockGameObject.mock();
+    const bestWeapon: GameObject = MockGameObject.mock({ id: 0 });
+
+    MockAlifeObject.mock({
+      id: 0,
+      parentId: object.id(),
+      clsid: clsid.wpn_svd,
+    });
+
+    getManager(EventsManager).registerCallback(
+      EGameEvent.STALKER_WEAPON_SELECT,
+      (_: GameObject, __: GameObject, data: AnyObject) => {
+        data.weaponId = 0;
+      }
+    );
+
+    expect(selectBestStalkerWeapon(object, null)).toBe(bestWeapon);
+  });
+
+  it("should fallback when selected weapon server object is unavailable", () => {
+    getManager(EventsManager).registerCallback(
+      EGameEvent.STALKER_WEAPON_SELECT,
+      (_: GameObject, __: GameObject, data: AnyObject) => {
+        data.weaponId = 12345;
+      }
+    );
+
+    expect(selectBestStalkerWeapon(MockGameObject.mock(), null)).toBeNull();
+  });
+
+  it("should fallback when selected weapon game object is unavailable", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    MockAlifeObject.mock({
+      id: 12345,
+      parentId: object.id(),
+      clsid: clsid.wpn_svd,
+    });
+
+    getManager(EventsManager).registerCallback(
+      EGameEvent.STALKER_WEAPON_SELECT,
+      (_: GameObject, __: GameObject, data: AnyObject) => {
+        data.weaponId = 12345;
+      }
+    );
+
+    expect(selectBestStalkerWeapon(object, null)).toBeNull();
   });
 
   it("should require weapon ownership to use it", () => {

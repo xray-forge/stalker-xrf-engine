@@ -4,20 +4,22 @@ import { Nillable, TDistance, TDuration, TRate } from "xray16/lib";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 
 /**
- * If value >= visiblity_threshold then object is considered visible.
- * `visibility_threshold` is configured in LTX files for each monster / stalker separately.
+ * Calculate the visibility value contributed by one visual-memory update.
  *
- * @param object - Target object checking visibility.
- * @param target - Target checking visibility for from perspective of object.
- * @param timeDelta - ?.
- * @param timeQuantity - ?.
- * @param luminosity - Level of brightness outside.
- * @param velocityFactor - ?.
- * @param velocity - ?.
- * @param distance - ?.
- * @param objectDistance - ?.
- * @param alwaysVisibleDistance - ?.
- * @returns Visibility rate.
+ * OpenXRay accumulates this value for a target and marks it visible after it reaches the observer's configured
+ * `visibility_threshold`. The engine invokes this callback only after handling the always-visible range.
+ *
+ * @param object - Object evaluating visibility, or null when the engine has no script object for the observer.
+ * @param target - Object being evaluated, or null when the engine has no script object for the target.
+ * @param timeDelta - Elapsed time since the target's previous visibility update.
+ * @param timeQuantity - Configured time quantum used to normalize the visibility contribution.
+ * @param luminosity - Normalized luminosity of the target.
+ * @param velocityFactor - Configured multiplier applied to the target's velocity.
+ * @param velocity - Target velocity calculated by the visual-memory manager.
+ * @param distance - Visibility range calculated from the observer's range and field of view.
+ * @param objectDistance - Actual distance from the observer to the target.
+ * @param alwaysVisibleDistance - Engine threshold handled before this callback; retained for the engine callback contract.
+ * @returns Visibility value to accumulate for this update.
  */
 export function calculateObjectVisibility(
   object: Nillable<GameObject>,
@@ -31,16 +33,15 @@ export function calculateObjectVisibility(
   objectDistance: TDistance,
   alwaysVisibleDistance: TDistance
 ): TRate {
-  luminosity = luminosity <= 0 ? 0.00001 : luminosity;
+  luminosity = luminosity <= 0 ? 0.0001 : luminosity;
   distance = distance <= 0 ? 0.00001 : distance;
 
   if (weatherConfig.IS_UNDERGROUND_WEATHER) {
-    luminosity *= 0.35;
+    luminosity += 0.35;
   }
 
-  // Unaltered formula from engine:
-  // time_delta / time_quant * luminocity * (1 + velocity_factor*velocity) * (distance - object_distance) /
-  //   (distance - always_visible_distance)
+  // CoC visual-memory callback override. The engine handles always-visible targets before invoking this function.
+  // time_delta / time_quant * luminosity * (1 + velocity_factor * velocity) * (distance - object_distance) / distance
 
   return (
     ((timeDelta / timeQuantity) * luminosity * (1 + velocityFactor * velocity) * (distance - objectDistance)) / distance

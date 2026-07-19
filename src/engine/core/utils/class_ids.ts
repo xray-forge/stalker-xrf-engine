@@ -70,7 +70,7 @@ export function isTrader(object: AnyGameObject, classId: TClassId = object.clsid
  * @param object - Any game object to check.
  * @returns Whether object class id is weapon.
  */
-export function isWeapon(object: Nillable<AnyGameObject>): boolean {
+export function isWeapon<T extends AnyGameObject>(object: Nillable<T>): object is T {
   return $isNotNil(object) && classIds.weapon.has(object.clsid());
 }
 
