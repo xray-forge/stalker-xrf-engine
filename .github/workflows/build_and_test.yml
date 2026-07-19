@@ -22,9 +22,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
-          lfs: false
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
@@ -33,7 +30,6 @@ jobs:
           cache: "npm"
 
       - run: npm ci
-      - run: npm run setup
 
       - name: Restore jest cache
         id: cache-jest-restore
