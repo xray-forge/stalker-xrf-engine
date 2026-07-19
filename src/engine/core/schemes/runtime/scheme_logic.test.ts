@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { callback, clsid } from "xray16";
+import { clsid } from "xray16";
 import { GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeHumanStalker, MockAlifeSimulator, MockCTime, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { ObjectRestrictionsController } from "@/engine/core/ai/restriction";
 import {
   IRegistryObjectState,
   IRegistryOfflineState,
@@ -517,9 +517,9 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
     expect(() => resetObjectGenericSchemesOnSectionSwitch(stalker, EScheme.SR_IDLE, "sr_idle@test")).toThrow();
 
     const schemes: Array<TAbstractSchemeConstructor> = loadGenericSchemes();
-    const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsManager(stalker));
+    const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsController(stalker));
 
-    jest.spyOn(ObjectRestrictionsManager, "syncForObject").mockImplementation(mockRestrictorGetter);
+    jest.spyOn(ObjectRestrictionsController, "syncForObject").mockImplementation(mockRestrictorGetter);
 
     loadSchemeImplementations($fromArray(schemes));
 
@@ -547,7 +547,7 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
 
     // Check monsters.
     schemes.forEach((it) => jest.spyOn(it, "reset").mockReset().mockImplementation(jest.fn()));
-    mockRestrictorGetter.mockReset().mockImplementation(() => new ObjectRestrictionsManager(monster));
+    mockRestrictorGetter.mockReset().mockImplementation(() => new ObjectRestrictionsController(monster));
 
     resetObjectGenericSchemesOnSectionSwitch(monster, EScheme.SR_IDLE, "sr_idle@test");
     expect(mockRestrictorGetter).toHaveBeenCalledTimes(1);

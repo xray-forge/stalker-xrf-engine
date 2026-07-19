@@ -2,7 +2,7 @@ import { GameObject, IniFile, Time } from "xray16/alias";
 import { AnyObject, Nillable, TName, TNumberId, TRate, TSection, TTimestamp } from "xray16/lib";
 
 import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
-import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { ObjectRestrictionsController } from "@/engine/core/ai/restriction";
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { TConditionList } from "@/engine/core/ini";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
@@ -104,7 +104,7 @@ export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSche
    * Restrictions controller for game objects.
    * Synchronizes dynamic restrictors with the active logic section.
    */
-  restrictionsController: Nillable<ObjectRestrictionsManager>;
+  restrictionsController: Nillable<ObjectRestrictionsController>;
   /**
    * State of the hear scheme handling object sound reactions.
    */

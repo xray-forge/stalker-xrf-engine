@@ -1,1 +1,1 @@
-export * from "@/engine/core/ai/restriction/ObjectRestrictionsManager";
+export * from "@/engine/core/ai/restriction/ObjectRestrictionsController";

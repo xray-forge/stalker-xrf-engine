@@ -3,7 +3,7 @@ import { GameObject, IniFile } from "xray16/alias";
 import { assert, assertDefined, NIL, Nillable, TName, TSection } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { ObjectRestrictionsController } from "@/engine/core/ai/restriction";
 import { IRegistryObjectState, IRegistryOfflineState, registry } from "@/engine/core/database";
 import {
   getObjectConfigOverrides,
@@ -314,7 +314,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       initializeObjectGroup(object, state.ini, section);
       initializeObjectTakeItemsEnabledState(object, scheme, state, section);
       initializeObjectCanSelectWeaponState(object, scheme, state, section);
-      ObjectRestrictionsManager.syncForObject(object, section);
+      ObjectRestrictionsController.syncForObject(object, section);
 
       return;
     }
@@ -329,7 +329,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
       initializeObjectInvulnerability(object, state);
-      ObjectRestrictionsManager.syncForObject(object, section);
+      ObjectRestrictionsController.syncForObject(object, section);
 
       return;
     }

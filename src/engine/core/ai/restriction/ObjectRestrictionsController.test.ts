@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
-import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { ObjectRestrictionsController } from "@/engine/core/ai/restriction";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 
 describe("ObjectRestrictionsController", () => {
@@ -14,8 +14,8 @@ describe("ObjectRestrictionsController", () => {
 
     registerObject(object);
 
-    const first: ObjectRestrictionsManager = ObjectRestrictionsManager.getOrCreateForObject(object);
-    const second: ObjectRestrictionsManager = ObjectRestrictionsManager.getOrCreateForObject(object);
+    const first: ObjectRestrictionsController = ObjectRestrictionsController.getOrCreateForObject(object);
+    const second: ObjectRestrictionsController = ObjectRestrictionsController.getOrCreateForObject(object);
 
     expect(second).toBe(first);
     expect(registry.objects.get(object.id()).restrictionsController).toBe(first);
@@ -45,7 +45,10 @@ describe("ObjectRestrictionsController", () => {
       },
     });
 
-    const controller: ObjectRestrictionsManager = ObjectRestrictionsManager.syncForObject(object, "restrictor@first");
+    const controller: ObjectRestrictionsController = ObjectRestrictionsController.syncForObject(
+      object,
+      "restrictor@first"
+    );
 
     controller.sync("restrictor@second");
 
@@ -68,7 +71,10 @@ describe("ObjectRestrictionsController", () => {
       "restrictor@empty": {},
     });
 
-    const controller: ObjectRestrictionsManager = ObjectRestrictionsManager.syncForObject(object, "restrictor@active");
+    const controller: ObjectRestrictionsController = ObjectRestrictionsController.syncForObject(
+      object,
+      "restrictor@active"
+    );
 
     controller.sync("restrictor@empty");
 
@@ -87,7 +93,10 @@ describe("ObjectRestrictionsController", () => {
       },
     });
 
-    const controller: ObjectRestrictionsManager = ObjectRestrictionsManager.syncForObject(object, "restrictor@active");
+    const controller: ObjectRestrictionsController = ObjectRestrictionsController.syncForObject(
+      object,
+      "restrictor@active"
+    );
     const addRestrictions = jest.spyOn(object, "add_restrictions");
     const removeRestrictions = jest.spyOn(object, "remove_restrictions");
 
@@ -113,7 +122,7 @@ describe("ObjectRestrictionsController", () => {
       },
     });
 
-    ObjectRestrictionsManager.syncForObject(object, "restrictor@nil");
+    ObjectRestrictionsController.syncForObject(object, "restrictor@nil");
 
     expect(object.in_restrictions()).toBe("base-in");
     expect(object.out_restrictions()).toBe("base-out");

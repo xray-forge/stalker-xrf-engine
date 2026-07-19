@@ -11,18 +11,18 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Per-object controller synchronizing dynamic restrictors with the active logic section.
  */
-export class ObjectRestrictionsManager {
+export class ObjectRestrictionsController {
   /**
    * Return the cached restrictions controller for a registered object, creating it when absent.
    *
    * @param object - Registered game object whose restrictors are controlled.
    * @returns Cached or newly created restrictions controller.
    */
-  public static getOrCreateForObject(object: GameObject): ObjectRestrictionsManager {
+  public static getOrCreateForObject(object: GameObject): ObjectRestrictionsController {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     if (!state.restrictionsController) {
-      state.restrictionsController = new ObjectRestrictionsManager(object);
+      state.restrictionsController = new ObjectRestrictionsController(object);
     }
 
     return state.restrictionsController!;
@@ -35,8 +35,8 @@ export class ObjectRestrictionsManager {
    * @param section - Active logic section defining `in_restr` and `out_restr` values.
    * @returns Restrictions controller used for synchronization.
    */
-  public static syncForObject(object: GameObject, section: TSection): ObjectRestrictionsManager {
-    const controller: ObjectRestrictionsManager = ObjectRestrictionsManager.getOrCreateForObject(object);
+  public static syncForObject(object: GameObject, section: TSection): ObjectRestrictionsController {
+    const controller: ObjectRestrictionsController = ObjectRestrictionsController.getOrCreateForObject(object);
 
     controller.sync(section);
 
