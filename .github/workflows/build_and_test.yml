@@ -107,6 +107,13 @@ jobs:
           path: target/eslint
           key: eslint-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
+      - name: Restore prettier cache
+        id: cache-prettier-restore
+        uses: actions/cache/restore@v5
+        with:
+          path: target/prettier
+          key: prettier-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json', '.prettierrc.json', '.prettierignore') }}
+
       - run: npm ci
       - run: npm run typecheck
       - run: npm run format:check
@@ -120,6 +127,13 @@ jobs:
         with:
           path: target/eslint
           key: ${{ steps.cache-eslint-restore.outputs.cache-primary-key }}
+
+      - name: Save prettier cache
+        id: cache-prettier-save
+        uses: actions/cache/save@v5
+        with:
+          path: target/prettier
+          key: ${{ steps.cache-prettier-restore.outputs.cache-primary-key }}
 
   build:
     runs-on: ubuntu-latest
