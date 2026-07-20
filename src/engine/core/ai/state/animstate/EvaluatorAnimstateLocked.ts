@@ -20,7 +20,7 @@ export class EvaluatorAnimstateLocked extends property_evaluator {
    * Check whether anim state is locked now.
    */
   public override evaluate(): boolean {
-    const animationMarker = this.controller.animstate.state.animationMarker;
+    const animationMarker = this.controller.animstateController.state.animationMarker;
 
     return $isNotNil(animationMarker) && animationMarker !== EAnimationMarker.IDLE;
   }

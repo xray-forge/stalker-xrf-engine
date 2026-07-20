@@ -2,7 +2,7 @@ import { action_base, anim, look, LuabindClass, move } from "xray16";
 import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
@@ -49,7 +49,7 @@ export class ActionPostCombatIdleWait extends action_base {
     this.isAnimationStarted = false;
     this.stateManager = { animstate: { state: { animationMarker: null } } };
 
-    this.state.animation = new StalkerAnimationManager(
+    this.state.animation = new StalkerAnimationController(
       object,
       this.stateManager as unknown as StalkerStateController,
       EAnimationType.ANIMATION
@@ -62,7 +62,7 @@ export class ActionPostCombatIdleWait extends action_base {
     getManager(SoundManager).play(this.object.id(), "post_combat_relax");
 
     if (this.isAnimationStarted) {
-      (this.state.animation as StalkerAnimationManager).setState(null, true);
+      (this.state.animation as StalkerAnimationController).setState(null, true);
     }
 
     this.state.animation = null;
@@ -86,8 +86,8 @@ export class ActionPostCombatIdleWait extends action_base {
 
     this.isAnimationStarted = true;
 
-    (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
-    (this.state.animation as StalkerAnimationManager).setControl();
+    (this.state.animation as StalkerAnimationController).setState(EStalkerState.HIDE);
+    (this.state.animation as StalkerAnimationController).setControl();
 
     getManager(SoundManager).play(this.object.id(), "post_combat_wait");
   }

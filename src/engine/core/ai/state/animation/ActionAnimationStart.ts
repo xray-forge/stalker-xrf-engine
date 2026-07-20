@@ -32,7 +32,7 @@ export class ActionAnimationStart extends action_base {
 
     logger.info("Start for: %s %s", this.object.name(), targetAnimation);
 
-    this.controller.animation.setState(states.get(this.controller.targetState).animation as EStalkerState);
-    this.controller.animation.setControl();
+    this.controller.animationController.setState(states.get(this.controller.targetState).animation as EStalkerState);
+    this.controller.animationController.setControl();
   }
 }

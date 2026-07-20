@@ -449,7 +449,7 @@ export class StalkerBinder extends object_binder {
     setupObjectInfoPortions(object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
     if (state.stateController) {
-      state.stateController.animation.setState(null, true);
+      state.stateController.animationController.setState(null, true);
     }
 
     this.updateLightState(object);

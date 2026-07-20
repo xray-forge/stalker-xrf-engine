@@ -19,6 +19,6 @@ export class EvaluatorAnimstatePlayNow extends property_evaluator {
    * Check whether anim state is playing now.
    */
   public override evaluate(): boolean {
-    return $isNotNil(this.controller.animstate.state.currentState);
+    return $isNotNil(this.controller.animstateController.state.currentState);
   }
 }

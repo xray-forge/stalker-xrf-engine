@@ -20,6 +20,6 @@ export class EvaluatorAnimationLocked extends property_evaluator {
    * Check whether any animation marker is active.
    */
   public override evaluate(): boolean {
-    return $isNotNil(this.controller.animation.state.animationMarker);
+    return $isNotNil(this.controller.animationController.state.animationMarker);
   }
 }

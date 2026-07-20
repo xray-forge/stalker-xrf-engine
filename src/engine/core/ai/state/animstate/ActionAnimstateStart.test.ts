@@ -20,8 +20,8 @@ describe("ActionAnimstateStart", () => {
     const controller: StalkerStateController = registry.objects.get(stalker.object.id())
       .stateController as StalkerStateController;
 
-    jest.spyOn(controller.animstate, "setControl");
-    jest.spyOn(controller.animstate, "setState");
+    jest.spyOn(controller.animstateController, "setControl");
+    jest.spyOn(controller.animstateController, "setState");
 
     setStalkerState(stalker.object, EStalkerState.SIT, null, null, {
       lookPosition: createEmptyVector(),
@@ -33,8 +33,8 @@ describe("ActionAnimstateStart", () => {
     action.setup(stalker.object, MockPropertyStorage.mock());
     action.initialize();
 
-    expect(controller.animstate.setControl).toHaveBeenCalled();
-    expect(controller.animstate.setState).toHaveBeenCalledWith(EStalkerState.SIT);
+    expect(controller.animstateController.setControl).toHaveBeenCalled();
+    expect(controller.animstateController.setState).toHaveBeenCalledWith(EStalkerState.SIT);
 
     unregisterStalker(stalker);
   });

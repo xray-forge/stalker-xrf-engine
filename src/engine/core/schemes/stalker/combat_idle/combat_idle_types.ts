@@ -1,6 +1,6 @@
 import { Nillable, TDuration, TName, TNumberId } from "xray16/lib";
 
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 
@@ -9,7 +9,7 @@ import { EScheme } from "@/engine/core/schemes/types";
  */
 export interface ISchemePostCombatIdleState extends IBaseSchemeState {
   timer: Nillable<TDuration>;
-  animation: Nillable<StalkerAnimationManager>;
+  animation: Nillable<StalkerAnimationController>;
   lastBestEnemyId: Nillable<TNumberId>;
   lastBestEnemyName: Nillable<TName>;
 }

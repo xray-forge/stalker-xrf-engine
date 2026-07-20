@@ -20,6 +20,6 @@ export class EvaluatorAnimation extends property_evaluator {
    * Check whether currently set animation is matching state animation.
    */
   public override evaluate(): boolean {
-    return this.controller.animation.state.currentState === states.get(this.controller.targetState).animation;
+    return this.controller.animationController.state.currentState === states.get(this.controller.targetState).animation;
   }
 }

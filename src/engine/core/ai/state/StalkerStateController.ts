@@ -1,7 +1,6 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 import { ActionPlanner, GameObject, TLookType, Vector } from "xray16/alias";
 import {
-  AnyCallable,
   areSameVectors,
   assert,
   createVector,
@@ -14,7 +13,7 @@ import {
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { states } from "@/engine/core/animation/states";
 import { EAnimationType, EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
@@ -39,7 +38,7 @@ export class StalkerStateController {
   public readonly object: GameObject;
   public readonly planner: ActionPlanner;
 
-  public controller: Nillable<EAnimationType> = null;
+  public activeAnimationType: Nillable<EAnimationType> = null;
 
   public isAlife: boolean = true;
   public isCombat: boolean = false;
@@ -48,8 +47,8 @@ export class StalkerStateController {
   public isObjectPointDirectionLook: boolean = false;
   public isAnimationDirectionApplied: boolean = false;
 
-  public animation: StalkerAnimationManager;
-  public animstate: StalkerAnimationManager;
+  public animationController: StalkerAnimationController;
+  public animstateController: StalkerAnimationController;
 
   public animationPosition: Nillable<Vector> = null;
   public animationDirection: Nillable<Vector> = null;
@@ -64,16 +63,16 @@ export class StalkerStateController {
     this.object = object;
     this.planner = new action_planner();
     this.planner.setup(object);
-    this.animstate = new StalkerAnimationManager(object, this, EAnimationType.ANIMSTATE);
-    this.animation = new StalkerAnimationManager(object, this, EAnimationType.ANIMATION);
+    this.animstateController = new StalkerAnimationController(object, this, EAnimationType.ANIMSTATE);
+    this.animationController = new StalkerAnimationController(object, this, EAnimationType.ANIMATION);
   }
 
   /**
    * Get target state of game object state controller.
    *
-   * @returns Target state or null.
+   * @returns Target state.
    */
-  public getState(): Nillable<EStalkerState> {
+  public getState(): EStalkerState {
     return this.targetState;
   }
 
@@ -93,7 +92,7 @@ export class StalkerStateController {
     target: Nillable<ILookTargetDescriptor>,
     extra: Nillable<ITargetStateDescriptorExtras>
   ): void {
-    assert(states.get(state), "Invalid set state called: '%s' fo '%s'.", state, this.object.name());
+    assert(states.get(state), "Invalid set state called: '%s' for '%s'.", state, this.object.name());
 
     if (target) {
       this.lookPosition = target.lookPosition ?? null;
@@ -181,7 +180,7 @@ export class StalkerStateController {
     if (
       this.callback &&
       this.callback.callback &&
-      this.animation.state.currentState === states.get(this.targetState).animation
+      this.animationController.state.currentState === states.get(this.targetState).animation
     ) {
       const now: TTimestamp = time_global();
 
@@ -191,12 +190,13 @@ export class StalkerStateController {
         if (now - (this.callback.begin as TTimestamp) >= (this.callback.timeout as TDuration)) {
           logger.info("Animation callback called: %s", this.object.name());
 
-          const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
+          const callbackFunction = this.callback.callback;
+          const callbackContext = this.callback.context;
 
           this.callback.begin = null;
           this.callback.callback = null;
 
-          callbackFunction(this.callback.context);
+          callbackFunction.call(callbackContext);
         }
       }
     }

@@ -4,22 +4,22 @@ import { GameObject } from "xray16/alias";
 import { createVector } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 
 describe("StalkerStateController", () => {
-  it("initializes state and animation managers for its object", () => {
+  it("initializes state and animation controllers for its object", () => {
     const object: GameObject = MockGameObject.mock();
     const manager: StalkerStateController = new StalkerStateController(object);
 
     expect(manager.object).toBe(object);
     expect(manager.getState()).toBe(EStalkerState.IDLE);
-    expect(manager.animstate).toBeInstanceOf(StalkerAnimationManager);
-    expect(manager.animstate.type).toBe(EAnimationType.ANIMSTATE);
-    expect(manager.animation).toBeInstanceOf(StalkerAnimationManager);
-    expect(manager.animation.type).toBe(EAnimationType.ANIMATION);
+    expect(manager.animstateController).toBeInstanceOf(StalkerAnimationController);
+    expect(manager.animstateController.type).toBe(EAnimationType.ANIMSTATE);
+    expect(manager.animationController).toBeInstanceOf(StalkerAnimationController);
+    expect(manager.animationController.type).toBe(EAnimationType.ANIMATION);
   });
 
   it("updates its target state and look target", () => {
@@ -47,7 +47,7 @@ describe("StalkerStateController", () => {
       null,
       null
     );
-    manager.animation.state.currentState = states.get(EStalkerState.GUARD).animation as EStalkerState;
+    manager.animationController.state.currentState = states.get(EStalkerState.GUARD).animation as EStalkerState;
 
     jest.spyOn(Date, "now").mockImplementation(() => 0);
     manager.update();
@@ -57,7 +57,8 @@ describe("StalkerStateController", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 100);
     manager.update();
 
-    expect(callback).toHaveBeenCalledWith(manager);
+    expect(callback).toHaveBeenCalledWith();
+    expect(callback.mock.contexts).toEqual([manager]);
     expect(manager.callback?.callback).toBeNull();
   });
 
@@ -73,7 +74,7 @@ describe("StalkerStateController", () => {
       null,
       null
     );
-    manager.animation.state.currentState = null;
+    manager.animationController.state.currentState = null;
 
     manager.update();
 

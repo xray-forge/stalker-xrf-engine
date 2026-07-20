@@ -794,9 +794,9 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: Ga
   const controller: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
   controller.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
-  controller.animation.setState(null, true);
-  controller.animation.setState("pri_a17_fall_down" as EStalkerState, null);
-  controller.animation.setControl();
+  controller.animationController.setState(null, true);
+  controller.animationController.setState("pri_a17_fall_down" as EStalkerState, null);
+  controller.animationController.setControl();
 });
 
 /**
@@ -809,9 +809,9 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: G
   const controller: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
   controller.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
-  controller.animation.setState(null, true);
-  controller.animation.setState("jup_b217_nitro_straight" as EStalkerState, null);
-  controller.animation.setControl();
+  controller.animationController.setState(null, true);
+  controller.animationController.setState("jup_b217_nitro_straight" as EStalkerState, null);
+  controller.animationController.setControl();
 });
 
 /**

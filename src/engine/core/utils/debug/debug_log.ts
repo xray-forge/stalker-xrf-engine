@@ -111,7 +111,7 @@ export function logObjectStateController(object: GameObject): void {
   if (registry.objects.get(object.id())?.stateController) {
     const stateController: StalkerStateController = registry.objects.get(object.id()).stateController!;
 
-    logger.info("State controller: %s", stateController.controller);
+    logger.info("Active animation type: %s", stateController.activeAnimationType);
     logger.info("Target state: %s", stateController.targetState);
     logger.info(
       "Look object: %s",
@@ -122,15 +122,23 @@ export function logObjectStateController(object: GameObject): void {
     logger.info("Callback object: %s", toJSON(stateController.callback));
     logger.info("Is combat: %s", stateController.isCombat);
     logger.info("Is alife: %s", stateController.isAlife);
-    logger.info("Animation states: %s", toJSON(stateController.animation.state));
+    logger.info("Animation states: %s", toJSON(stateController.animationController.state));
     logger.info(
       "Animation controller animation: %s",
-      toJSON(stateController.animation.animations.get(stateController.animation.state.currentState as TName))
+      toJSON(
+        stateController.animationController.animations.get(
+          stateController.animationController.state.currentState as TName
+        )
+      )
     );
-    logger.info("Animstate states: %s", toJSON(stateController.animstate.state));
+    logger.info("Animstate states: %s", toJSON(stateController.animstateController.state));
     logger.info(
       "Animstate controller animation: %s",
-      toJSON(stateController.animation.animations.get(stateController.animation.state.currentState as TName))
+      toJSON(
+        stateController.animstateController.animations.get(
+          stateController.animstateController.state.currentState as TName
+        )
+      )
     );
   } else {
     logger.info("No state controller declared for object");

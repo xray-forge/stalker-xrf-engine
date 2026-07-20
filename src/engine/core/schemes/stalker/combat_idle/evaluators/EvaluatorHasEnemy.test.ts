@@ -5,7 +5,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { StalkerStateController } from "@/engine/core/ai/state";
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { EAnimationType } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
@@ -134,7 +134,7 @@ describe("EvaluatorHasEnemy", () => {
     state.stateController = new StalkerStateController(evaluator.object);
 
     evaluator.state.timer = 999;
-    evaluator.state.animation = new StalkerAnimationManager(
+    evaluator.state.animation = new StalkerAnimationController(
       evaluator.object,
       state.stateController,
       EAnimationType.ANIMATION

@@ -20,13 +20,13 @@ describe("EvaluatorAnimation", () => {
       .stateController as StalkerStateController;
     const evaluator: EvaluatorAnimationNoneNow = new EvaluatorAnimationNoneNow(controller);
 
-    controller.animation.state.currentState = null;
+    controller.animationController.state.currentState = null;
     expect(evaluator.evaluate()).toBeTruthy();
 
-    controller.animation.state.currentState = EStalkerState.BACKOFF;
+    controller.animationController.state.currentState = EStalkerState.BACKOFF;
     expect(evaluator.evaluate()).toBeFalsy();
 
-    controller.animation.state.currentState = null;
+    controller.animationController.state.currentState = null;
     expect(evaluator.evaluate()).toBeTruthy();
 
     unregisterStalker(stalker);

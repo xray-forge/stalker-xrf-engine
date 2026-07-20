@@ -33,11 +33,11 @@ import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 
 /**
- * Manager of stalker object animations.
+ * Per-stalker controller of animation transitions.
  * Handles transitions / active state / animation switching.
  * Ties engine animation callbacks and game logic.
  */
-export class StalkerAnimationManager {
+export class StalkerAnimationController {
   public readonly type: EAnimationType;
   public readonly object: GameObject;
   public readonly stateController: StalkerStateController;
@@ -65,13 +65,13 @@ export class StalkerAnimationManager {
   public setControl(): void {
     logger.info("Set control: '%s' - '%s'", this.object.name(), this.type);
 
-    this.stateController.controller = this.type;
+    this.stateController.activeAnimationType = this.type;
 
     this.object.set_callback(callback.script_animation, this.onAnimationCallback, this);
 
     // On animation control also reset animstate.
     if (this.type === EAnimationType.ANIMATION) {
-      this.stateController.animstate.state.animationMarker = null;
+      this.stateController.animstateController.state.animationMarker = null;
     }
 
     if ($isNil(this.state.animationMarker)) {
@@ -495,8 +495,8 @@ export class StalkerAnimationManager {
 
         // After out animation set control to animstate.
         // Make sure animstate controller exists (in case of post-combat idle placeholder used, todo: investigate)
-        if (this.type === EAnimationType.ANIMATION && this.stateController.animstate.setControl) {
-          this.stateController.animstate.setControl();
+        if (this.type === EAnimationType.ANIMATION && this.stateController.animstateController.setControl) {
+          this.stateController.animstateController.setControl();
           // --this.mgr.animstate:update_anim()
         }
 

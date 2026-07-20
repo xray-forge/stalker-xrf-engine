@@ -25,12 +25,16 @@ export class ActionAnimationStop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Stop animation for: %s %s", this.object.name(), this.controller.animation.state.currentState);
+    logger.info(
+      "Stop animation for: %s %s",
+      this.object.name(),
+      this.controller.animationController.state.currentState
+    );
 
-    this.controller.animation.setState(
+    this.controller.animationController.setState(
       null,
       (this.controller.isForced || states.get(this.controller.targetState).isForced) === true
     );
-    this.controller.animation.setControl();
+    this.controller.animationController.setControl();
   }
 }

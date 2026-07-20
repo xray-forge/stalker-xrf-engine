@@ -42,8 +42,8 @@ export class ActionStateToIdle extends action_base {
     if (this.controller.targetState !== EStalkerState.IDLE) {
       this.object.clear_animations();
       this.controller.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
-      this.controller.animation.setState(null, true);
-      this.controller.animation.setControl();
+      this.controller.animationController.setState(null, true);
+      this.controller.animationController.setControl();
     }
   }
 }

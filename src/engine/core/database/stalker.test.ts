@@ -109,20 +109,20 @@ describe("resetStalkerState", () => {
 
     jest.spyOn(manager, "setState");
     jest.spyOn(manager, "update");
-    jest.spyOn(manager.animation, "setControl");
-    jest.spyOn(manager.animation, "setState");
-    jest.spyOn(manager.animstate, "setControl");
-    jest.spyOn(manager.animstate, "setState");
+    jest.spyOn(manager.animationController, "setControl");
+    jest.spyOn(manager.animationController, "setState");
+    jest.spyOn(manager.animstateController, "setControl");
+    jest.spyOn(manager.animstateController, "setState");
 
     resetStalkerState(stalker.object);
 
     expect(manager.setState).toHaveBeenCalledWith(EStalkerState.IDLE, null, null, null, { isForced: true });
     expect(manager.update).toHaveBeenCalledTimes(7);
 
-    expect(manager.animstate.setControl).toHaveBeenCalled();
-    expect(manager.animstate.setState).toHaveBeenCalledWith(null, true);
-    expect(manager.animation.setControl).toHaveBeenCalled();
-    expect(manager.animation.setState).toHaveBeenCalledWith(null, true);
+    expect(manager.animstateController.setControl).toHaveBeenCalled();
+    expect(manager.animstateController.setState).toHaveBeenCalledWith(null, true);
+    expect(manager.animationController.setControl).toHaveBeenCalled();
+    expect(manager.animationController.setState).toHaveBeenCalledWith(null, true);
 
     expect(stalker.object.set_body_state).toHaveBeenCalledWith(move.standing);
     expect(stalker.object.set_mental_state).toHaveBeenCalledWith(anim.free);

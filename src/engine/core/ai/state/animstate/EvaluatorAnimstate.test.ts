@@ -17,10 +17,10 @@ describe("EvaluatorAnimstate", () => {
       .stateController as StalkerStateController;
     const evaluator: EvaluatorAnimstate = new EvaluatorAnimstate(controller);
 
-    expect(controller.animstate.state.currentState).toBeNull();
+    expect(controller.animstateController.state.currentState).toBeNull();
     expect(evaluator.evaluate()).toBeTruthy();
 
-    controller.animstate.state.currentState = EStalkerState.BACKOFF;
+    controller.animstateController.state.currentState = EStalkerState.BACKOFF;
     expect(evaluator.evaluate()).toBeFalsy();
   });
 });

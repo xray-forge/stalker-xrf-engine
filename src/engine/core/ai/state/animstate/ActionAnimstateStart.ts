@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Evaluator to check animation state.
+ * Planner action that starts the target state's animstate transition.
  */
 @LuabindClass()
 export class ActionAnimstateStart extends action_base {
@@ -22,7 +22,7 @@ export class ActionAnimstateStart extends action_base {
   }
 
   /**
-   * Check whether animation state.
+   * Start the target state's animstate transition.
    */
   public override initialize(): void {
     super.initialize();
@@ -31,7 +31,7 @@ export class ActionAnimstateStart extends action_base {
 
     logger.info("Start animstate for: %s %s", this.object.name(), targetAnimationState);
 
-    this.controller.animstate.setState(targetAnimationState as EStalkerState);
-    this.controller.animstate.setControl();
+    this.controller.animstateController.setState(targetAnimationState as EStalkerState);
+    this.controller.animstateController.setControl();
   }
 }

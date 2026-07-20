@@ -22,7 +22,7 @@ describe("EvaluatorAnimation", () => {
 
     expect(evaluator.evaluate()).toBeFalsy();
 
-    evaluator.controller.animation.state.animationMarker = EAnimationMarker.IN;
+    evaluator.controller.animationController.state.animationMarker = EAnimationMarker.IN;
     expect(evaluator.evaluate()).toBeTruthy();
 
     unregisterStalker(stalker);

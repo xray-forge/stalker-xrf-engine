@@ -4,7 +4,7 @@ import { MockActionPlanner, MockGameObject, mockStalkerIds } from "xray16/mocks"
 
 import { setupStalkerMotivationPlanner } from "@/engine/core/ai/planner/setup/setup_motivation_planner";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
@@ -23,10 +23,10 @@ describe("motivation_planner setup util", () => {
 
     expect(Object.keys((planner as unknown as MockActionPlanner).evaluators)).toHaveLength(4);
 
-    expect(controller.animstate instanceof StalkerAnimationManager).toBeTruthy();
-    expect(controller.animation instanceof StalkerAnimationManager).toBeTruthy();
-    expect(controller.animstate.type).toBe(EAnimationType.ANIMSTATE);
-    expect(controller.animation.type).toBe(EAnimationType.ANIMATION);
+    expect(controller.animstateController instanceof StalkerAnimationController).toBeTruthy();
+    expect(controller.animationController instanceof StalkerAnimationController).toBeTruthy();
+    expect(controller.animstateController.type).toBe(EAnimationType.ANIMSTATE);
+    expect(controller.animationController.type).toBe(EAnimationType.ANIMATION);
 
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT) instanceof EvaluatorStateIdleCombat).toBeTruthy();
     expect(planner.evaluator(EEvaluatorId.IS_STATE_IDLE_ALIFE) instanceof EvaluatorStateIdleAlife).toBeTruthy();

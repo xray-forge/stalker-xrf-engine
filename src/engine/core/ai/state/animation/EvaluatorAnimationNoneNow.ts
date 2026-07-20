@@ -19,6 +19,6 @@ export class EvaluatorAnimationNoneNow extends property_evaluator {
    * Check whether current animation state is not null.
    */
   public override evaluate(): boolean {
-    return $isNil(this.controller.animation.state.currentState);
+    return $isNil(this.controller.animationController.state.currentState);
   }
 }

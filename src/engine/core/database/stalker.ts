@@ -91,10 +91,10 @@ export function resetStalkerState(object: GameObject): void {
     return;
   }
 
-  controller.animation.setState(null, true);
-  controller.animation.setControl();
-  controller.animstate.setState(null, true);
-  controller.animstate.setControl();
+  controller.animationController.setState(null, true);
+  controller.animationController.setControl();
+  controller.animstateController.setState(null, true);
+  controller.animstateController.setControl();
 
   controller.setState(EStalkerState.IDLE, null, null, null, { isForced: true });
 

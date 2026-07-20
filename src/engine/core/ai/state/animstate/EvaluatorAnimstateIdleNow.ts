@@ -19,6 +19,6 @@ export class EvaluatorAnimstateIdleNow extends property_evaluator {
    * Check whether animation current state is idle.
    */
   public override evaluate(): boolean {
-    return $isNil(this.controller.animstate.state.currentState);
+    return $isNil(this.controller.animstateController.state.currentState);
   }
 }

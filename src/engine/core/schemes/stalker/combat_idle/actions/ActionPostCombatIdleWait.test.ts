@@ -4,7 +4,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -44,7 +44,7 @@ describe("ActionPostCombatIdleWait", () => {
 
     expect(action.isAnimationStarted).toBe(false);
     expect(action.stateManager).toEqual({ animstate: { state: { animationMarker: null } } });
-    expect(action.state.animation).toBeInstanceOf(StalkerAnimationManager);
+    expect(action.state.animation).toBeInstanceOf(StalkerAnimationController);
   });
 
   it("should correctly finalize", () => {
@@ -55,7 +55,7 @@ describe("ActionPostCombatIdleWait", () => {
 
     action.initialize();
 
-    const animation: StalkerAnimationManager = action.state.animation as StalkerAnimationManager;
+    const animation: StalkerAnimationController = action.state.animation as StalkerAnimationController;
 
     jest.spyOn(animation, "setState").mockImplementation(jest.fn());
 
@@ -76,7 +76,7 @@ describe("ActionPostCombatIdleWait", () => {
 
     action.initialize();
 
-    const animation: StalkerAnimationManager = action.state.animation as StalkerAnimationManager;
+    const animation: StalkerAnimationController = action.state.animation as StalkerAnimationController;
 
     jest.spyOn(animation, "setState").mockImplementation(jest.fn());
     jest.spyOn(animation, "setControl").mockImplementation(jest.fn());
@@ -97,7 +97,7 @@ describe("ActionPostCombatIdleWait", () => {
 
     action.initialize();
 
-    const animation: StalkerAnimationManager = action.state.animation as StalkerAnimationManager;
+    const animation: StalkerAnimationController = action.state.animation as StalkerAnimationController;
 
     jest.spyOn(animation, "setState").mockImplementation(jest.fn());
     jest.spyOn(animation, "setControl").mockImplementation(jest.fn());

@@ -4,7 +4,7 @@ import { MockActionPlanner, MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
-import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -34,7 +34,7 @@ describe("isObjectAsleep util", () => {
 
     state.stateController = new StalkerStateController(object);
 
-    state.stateController.animstate = new StalkerAnimationManager(
+    state.stateController.animstateController = new StalkerAnimationController(
       object,
       state.stateController,
       EAnimationType.ANIMSTATE
@@ -42,10 +42,10 @@ describe("isObjectAsleep util", () => {
 
     expect(isObjectAsleep(object.id())).toBe(false);
 
-    state.stateController.animstate.state.currentState = EStalkerState.SLEEP;
+    state.stateController.animstateController.state.currentState = EStalkerState.SLEEP;
     expect(isObjectAsleep(object.id())).toBe(true);
 
-    state.stateController.animstate.state.currentState = EStalkerState.SALUT;
+    state.stateController.animstateController.state.currentState = EStalkerState.SALUT;
     expect(isObjectAsleep(object.id())).toBe(false);
   });
 });

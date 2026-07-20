@@ -22,16 +22,16 @@ describe("EvaluatorAnimstateLocked", () => {
 
     expect(evaluator.evaluate()).toBeFalsy();
 
-    controller.animstate.state.animationMarker = EAnimationMarker.IN;
+    controller.animstateController.state.animationMarker = EAnimationMarker.IN;
     expect(evaluator.evaluate()).toBeTruthy();
 
-    controller.animstate.state.animationMarker = EAnimationMarker.OUT;
+    controller.animstateController.state.animationMarker = EAnimationMarker.OUT;
     expect(evaluator.evaluate()).toBeTruthy();
 
-    controller.animstate.state.animationMarker = EAnimationMarker.IDLE;
+    controller.animstateController.state.animationMarker = EAnimationMarker.IDLE;
     expect(evaluator.evaluate()).toBeFalsy();
 
-    controller.animstate.state.animationMarker = null;
+    controller.animstateController.state.animationMarker = null;
     expect(evaluator.evaluate()).toBeFalsy();
 
     unregisterStalker(stalker);
