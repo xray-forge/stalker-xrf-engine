@@ -82,7 +82,7 @@ function animpointPredicateEnergy(object: GameObject): boolean {
  * @returns Whether guitar animation can be used.
  */
 function animpointPredicateGuitar(object: GameObject, isInCamp?: Nillable<boolean>): boolean {
-  if (isInCamp && object.object(misc.guitar_a)) {
+  if (isInCamp === true && object.object(misc.guitar_a)) {
     return true;
   }
 

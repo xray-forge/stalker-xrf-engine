@@ -5,6 +5,7 @@ import { $fromArray } from "xray16/macros";
 import { getCrouchBackLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_back";
 import { getCrouchFrontLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front";
 import { getCrouchFrontLeftLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front_left";
+import { getCrouchFrontRightLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front_right";
 import { getCrouchLeftLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_left";
 import { getCrouchRightLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_right";
 import { getStandBackLoophole } from "@/engine/core/animation/smart_covers/loophole_stand_back";
@@ -19,13 +20,13 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
  *
  * @returns Smart cover descriptor for combat using crouch and stand loopholes.
  */
-function getSmartCoverCombat(): ISmartCoverDescriptor {
+export function getSmartCoverCombat(): ISmartCoverDescriptor {
   return {
     need_weapon: true,
     loopholes: $fromArray([
       getCrouchFrontLeftLoophole("crouch_front_left", createVector(-1, 0, -0.7)),
       getCrouchFrontLoophole("crouch_front", createVector(-1, 0, 0)),
-      getCrouchFrontLeftLoophole("crouch_front_right", createVector(-1, 0, 0.7)),
+      getCrouchFrontRightLoophole("crouch_front_right", createVector(-1, 0, 0.7)),
       getCrouchRightLoophole("crouch_right", createVector(0.2, 0, 1)),
       getCrouchBackLoophole("crouch_back", createVector(1, 0, 0)),
       getCrouchLeftLoophole("crouch_left", createVector(0.2, 0, -1)),

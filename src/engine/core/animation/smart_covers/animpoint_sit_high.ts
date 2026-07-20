@@ -1,5 +1,6 @@
 import { move } from "xray16";
 import { MZ_VECTOR, ZERO_VECTOR } from "xray16/lib";
+import { $fromArray } from "xray16/macros";
 
 import { getAnimpointSitHighLoophole } from "@/engine/core/animation/smart_covers/loophole_animpoint_sit_high";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
@@ -12,7 +13,7 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 export function getSmartCoverAnimpointSitHigh(): ISmartCoverDescriptor {
   return {
     need_weapon: false,
-    loopholes: [getAnimpointSitHighLoophole("animpoint_sit_high", ZERO_VECTOR, MZ_VECTOR, MZ_VECTOR)] as any,
+    loopholes: $fromArray([getAnimpointSitHighLoophole("animpoint_sit_high", ZERO_VECTOR, MZ_VECTOR, MZ_VECTOR)]),
     transitions: [
       {
         vertex0: "",
