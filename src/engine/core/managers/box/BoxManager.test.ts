@@ -66,6 +66,40 @@ describe("BoxManager", () => {
     );
   });
 
+  it("should spawn obligatory items declared by a drop box", () => {
+    const manager: BoxManager = getManager(BoxManager);
+    const object: GameObject = MockGameObject.mock();
+    const spawnIni: IniFile = MockIniFile.mock("test.ltx", {
+      drop_box: {
+        community: BOX_SCIENCE,
+        items: "ammo_9x18_fmj, 2, medkit",
+      },
+    });
+
+    jest.spyOn(object, "spawn_ini").mockImplementation(() => spawnIni);
+    jest.spyOn(manager, "spawnBoxObjectItemsFromList").mockImplementation(jest.fn());
+
+    manager.spawnBoxObjectItems(object);
+
+    expect(spawnItemsAtPosition).toHaveBeenCalledTimes(2);
+    expect(spawnItemsAtPosition).toHaveBeenNthCalledWith(
+      1,
+      "ammo_9x18_fmj",
+      expect.any(Number),
+      expect.any(Number),
+      expect.objectContaining({ y: expect.any(Number) }),
+      2
+    );
+    expect(spawnItemsAtPosition).toHaveBeenNthCalledWith(
+      2,
+      "medkit",
+      expect.any(Number),
+      expect.any(Number),
+      expect.objectContaining({ y: expect.any(Number) }),
+      1
+    );
+  });
+
   it("spawnBoxObjectItems should correctly spawn drop box items when have use one of generic boxes", async () => {
     const manager: BoxManager = getManager(BoxManager);
 

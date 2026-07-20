@@ -88,6 +88,7 @@ export class ActorInputManager extends AbstractManager {
     }
 
     packet.w_u8(registry.actor.active_slot());
+    packet.w_u8(this.memoizedItemSlot);
 
     packet.w_u8(table.size(this.locks));
 
@@ -113,6 +114,7 @@ export class ActorInputManager extends AbstractManager {
     }
 
     this.activeItemSlot = reader.r_u8();
+    this.memoizedItemSlot = reader.r_u8();
 
     this.locks = new LuaTable();
 

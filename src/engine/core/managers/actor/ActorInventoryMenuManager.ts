@@ -77,7 +77,7 @@ export class ActorInventoryMenuManager extends AbstractManager {
         this.onWindowClosed(actorConfig.ACTOR_MENU_MODE);
         break;
 
-      case EActorMenuMode.TALK_DIALOG_HIDE:
+      case EActorMenuMode.TALK_DIALOG:
         this.onWindowClosed(EActorMenuMode.TALK_DIALOG);
         break;
     }

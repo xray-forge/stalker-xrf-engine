@@ -66,6 +66,7 @@ describe("ActorInputManager", () => {
       EMockPacketDataType.U32,
       EMockPacketDataType.U8,
       EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
       EMockPacketDataType.STRING,
       EMockPacketDataType.STRING,
       EMockPacketDataType.U8,
@@ -91,6 +92,7 @@ describe("ActorInputManager", () => {
       0,
       10,
       10,
+      10,
       3,
       "timed",
       "timed",
@@ -104,7 +106,7 @@ describe("ActorInputManager", () => {
       "script-ui",
       EActorControlPolicy.FULL_UI,
       true,
-      23,
+      24,
     ]);
 
     disposeManager(ActorInputManager);
@@ -131,10 +133,12 @@ describe("ActorInputManager", () => {
 
     jest.clearAllMocks();
 
-    newActorInputManager.releaseControl(EActorControlHandle.SCRIPT_UI, false);
+    jest.spyOn(registry.actor, "item_in_slot").mockReturnValue(MockGameObject.mock());
+    newActorInputManager.releaseGameUiControl(EActorControlHandle.SCRIPT_UI, true);
 
     expect(level.disable_input).toHaveBeenCalledTimes(1);
     expect(level.enable_input).not.toHaveBeenCalled();
+    expect(registry.actor.activate_slot).toHaveBeenCalledWith(10);
 
     newActorInputManager.releaseControl(EActorControlHandle.TRAVEL, false);
 

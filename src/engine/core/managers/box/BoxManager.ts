@@ -4,16 +4,17 @@ import {
   chance,
   copyVector,
   getObjectPositioning,
+  LuaArray,
   Nillable,
   TCount,
   TDirection,
   TProbability,
   TSection,
 } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
-import { readIniString } from "@/engine/core/ini";
+import { parseStringsList, readIniString } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
 import {
@@ -56,9 +57,14 @@ export class BoxManager extends AbstractManager {
    */
   public spawnBoxObjectItems(object: GameObject): void {
     const spawnIni: Nillable<IniFile> = object.spawn_ini() as Nillable<IniFile>;
+    const obligatoryItems: Nillable<string> = spawnIni ? readIniString(spawnIni, "drop_box", "items", false) : null;
     const section: Nillable<TSection> = spawnIni
       ? readIniString(spawnIni, "drop_box", "community", false, null, BOX_DEFAULT)
       : null;
+
+    if ($isNotNil(obligatoryItems)) {
+      this.spawnBoxObjectObligatoryItems(object, parseStringsList(obligatoryItems));
+    }
 
     if (section) {
       logger.info("Spawn items for: %s %s", object.name(), section);
@@ -107,6 +113,33 @@ export class BoxManager extends AbstractManager {
       destination.y = baseline + 0.2 + 0.3 * math.random();
 
       spawnItemsAtPosition(section, gvid, lvid, destination, count, probability);
+    }
+  }
+
+  /**
+   * Spawn items explicitly declared by the box `drop_box.items` field.
+   *
+   * The field accepts alternating item section and optional count values, for example
+   * `medkit, 2, bandage`.
+   *
+   * @param object - Target box object.
+   * @param items - Parsed item sections and optional counts.
+   */
+  private spawnBoxObjectObligatoryItems(object: GameObject, items: LuaArray<TSection>): void {
+    const [, gameVertexId, levelVertexId, position] = getObjectPositioning(object);
+    const destination: Vector = copyVector(position);
+
+    destination.y += 0.3;
+
+    let index: number = 1;
+
+    while (index <= items.length()) {
+      const section: TSection = items.get(index);
+      const count: Nillable<TCount> = tonumber(items.get(index + 1)) as Nillable<TCount>;
+
+      spawnItemsAtPosition(section, gameVertexId, levelVertexId, destination, $isNotNil(count) ? count : 1);
+
+      index += $isNotNil(count) ? 2 : 1;
     }
   }
 

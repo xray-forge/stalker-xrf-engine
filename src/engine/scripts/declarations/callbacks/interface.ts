@@ -139,9 +139,7 @@ extern("pda", {
   get_max_member_count: (): TCount => {
     return 10;
   },
-  actor_menu_mode: (mode: TNumberId): void => {
-    logger.info("PDA actor menu mode changed: %s", mode);
-  },
+  actor_menu_mode: (mode: EActorMenuMode): void => getManager(ActorInventoryMenuManager).setActiveMode(mode),
   // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
     logger.info("PDA box property clicked");

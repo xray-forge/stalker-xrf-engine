@@ -84,7 +84,7 @@ describe("ActorInventoryMenuManager", () => {
     expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
     expect(manager.onWindowClosed).toHaveBeenCalledWith(EActorMenuMode.DEAD_BODY_SEARCH);
 
-    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.TALK_DIALOG_HIDE;
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.TALK_DIALOG;
     manager.closeActorMenu();
 
     expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);

@@ -196,8 +196,10 @@ describe("interface external callbacks", () => {
   });
 
   it("pda callbacks", () => {
+    const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
     const pdaManager: PdaManager = getManager(PdaManager);
 
+    jest.spyOn(actorInventoryMenuManager, "setActiveMode").mockImplementation(jest.fn());
     jest.spyOn(pdaManager, "fillFactionState").mockImplementation(jest.fn(() => ({})));
     jest.spyOn(pdaManager, "getMonsterBackground").mockImplementation(jest.fn(() => "test-bg"));
     jest.spyOn(pdaManager, "getFavoriteWeapon").mockImplementation(jest.fn(() => "test-wpn"));
@@ -211,7 +213,8 @@ describe("interface external callbacks", () => {
 
     expect(callPdaBinding("get_max_member_count", [])).toBe(10);
 
-    expect(() => callPdaBinding("actor_menu_mode", [])).not.toThrow();
+    callPdaBinding("actor_menu_mode", [EActorMenuMode.TALK_DIALOG_SHOW]);
+    expect(actorInventoryMenuManager.setActiveMode).toHaveBeenCalledWith(EActorMenuMode.TALK_DIALOG_SHOW);
 
     expect(() => callPdaBinding("property_box_clicked", [])).not.toThrow();
 

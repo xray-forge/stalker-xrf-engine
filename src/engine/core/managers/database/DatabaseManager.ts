@@ -7,7 +7,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain";
 
 /**
- * Manager to handle events related to database/registry storage.
+ * Manager that exports registry state for Lua diagnostic dumps.
  */
 export class DatabaseManager extends AbstractManager {
   public override initialize(): void {
