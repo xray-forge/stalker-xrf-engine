@@ -99,6 +99,18 @@ describe("SmartTerrainBinder", () => {
     expect(onVisit).toHaveBeenCalledTimes(1);
   });
 
+  it("updates the server terrain before the actor is available without marking it visited", () => {
+    const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
+
+    binder.net_spawn(serverObject);
+    binder.update(255);
+
+    expect(serverObject.update).toHaveBeenCalledTimes(1);
+    expect(binder.isVisited).toBe(false);
+    expect(hasInfoPortion(binder.object.name() + "_visited")).toBe(false);
+  });
+
   it("should correctly handle save/load", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());

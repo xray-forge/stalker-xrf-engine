@@ -43,6 +43,8 @@ export class PhysicObjectBinder extends object_binder {
 
   public override reinit(): void {
     super.reinit();
+
+    this.isInitialized = false;
     this.state = resetObject(this.object);
   }
 

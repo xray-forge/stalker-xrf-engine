@@ -63,10 +63,16 @@ export class DoorBinder extends object_binder {
   public constructor(object: GameObject) {
     super(object);
 
-    let ini: IniFile = object.spawn_ini()!;
+    let ini: Nillable<IniFile> = object.spawn_ini();
 
-    if (!ini.section_exist("animated_object")) {
+    if (!ini?.section_exist("animated_object")) {
       logger.info("No animation configuration for bound door '%s'", object.name());
+
+      this.onUseConditionList = parseConditionsList(TRUE);
+      this.onStartConditionList = parseConditionsList(TRUE);
+      this.onStopConditionList = parseConditionsList(TRUE);
+      this.startDelay = 0;
+      this.idleDelay = 0;
 
       return;
     }
@@ -128,7 +134,7 @@ export class DoorBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    this.object.clear_callbacks();
+    this.resetCallbacks();
 
     if (this.idleSound) {
       this.idleSound.stop();
@@ -145,6 +151,14 @@ export class DoorBinder extends object_binder {
     unregisterDoor(this);
 
     super.net_destroy();
+  }
+
+  /**
+   * Clear engine callbacks installed by the binder.
+   */
+  public resetCallbacks(): void {
+    this.object.set_callback(callback.script_animation, null);
+    this.object.set_callback(callback.use_object, null);
   }
 
   public override update(delta: TDuration): void {

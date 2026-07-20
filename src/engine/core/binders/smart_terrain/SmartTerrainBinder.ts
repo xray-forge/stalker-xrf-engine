@@ -1,7 +1,7 @@
 import { LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject } from "xray16/alias";
-import { TDuration } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { Nillable, TDuration } from "xray16/lib";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -60,8 +60,9 @@ export class SmartTerrainBinder extends object_binder {
     this.serverObject.update();
 
     const object: GameObject = this.object;
+    const actor: Nillable<GameObject> = registry.actor;
 
-    if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
+    if (!this.isVisited && actor && object.inside(actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
       logger.info("Visited: %s", object.name());
 
       this.isVisited = true;

@@ -647,8 +647,9 @@ export class AnomalyZoneBinder extends object_binder {
   public onArtefactTaken(artefactId: TNumberId): void {
     logger.info("On artefact take: %s", this.object.name());
 
-    this.spawnedArtefactsCount -= 1;
+    this.spawnedArtefactsCount = math.max(0, this.spawnedArtefactsCount - 1);
 
+    registry.artefacts.parentZones.delete(artefactId);
     registry.artefacts.points.delete(artefactId);
     registry.artefacts.ways.delete(artefactId);
 

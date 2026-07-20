@@ -41,6 +41,10 @@ export class ArenaZoneBinder extends object_binder {
     super.net_destroy();
   }
 
+  public override net_save_relevant(): boolean {
+    return true;
+  }
+
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ArenaZoneBinder.__name);
 

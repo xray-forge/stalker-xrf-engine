@@ -1,12 +1,40 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeObject, MockGameObject, MockObjectBinder } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeObject,
+  MockGameObject,
+  MockIniFile,
+  MockNetProcessor,
+  MockObjectBinder,
+} from "xray16/mocks";
 
+import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { IRegistryObjectState, registerSimulator, registry } from "@/engine/core/database";
 import { spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
 import { resetRegistry } from "@/fixtures/engine";
+
+function mockConfiguredAnomalyZoneBinder(): AnomalyZoneBinder {
+  return new AnomalyZoneBinder(
+    MockGameObject.mock({
+      spawnIni: MockIniFile.mock("test_anomaly_zone.ltx", {
+        anomal_zone: {
+          respawn_tries: 2,
+          max_artefacts: 3,
+          applying_force_xz: 200,
+          applying_force_y: 400,
+          artefacts: "art_a, art_b",
+          start_artefact: "art_initial",
+          artefact_ways: "test-wp-single",
+          coeff: "2, 3",
+        },
+        layer_1: {},
+      }),
+    })
+  );
+}
 
 describe("AnomalyZoneBinder", () => {
   beforeEach(() => {
@@ -15,10 +43,18 @@ describe("AnomalyZoneBinder", () => {
   });
 
   it("should correctly initialize", () => {
-    const object: GameObject = MockGameObject.mock();
-    const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
+    const binder: AnomalyZoneBinder = mockConfiguredAnomalyZoneBinder();
 
-    // todo;
+    expect(binder.isDisabled).toBe(false);
+    expect(binder.currentZoneLayer).toBe("layer_1");
+    expect(binder.respawnTries).toBe(2);
+    expect(binder.maxArtefactsInZone).toBe(3);
+    expect(binder.applyingForceXZ).toBe(200);
+    expect(binder.applyingForceY).toBe(400);
+    expect(binder.artefactsStartList.get("layer_1")).toEqualLuaTables({ 1: "art_initial" });
+    expect(binder.artefactsSpawnList.get("layer_1")).toEqualLuaTables({ 1: "art_a", 2: "art_b" });
+    expect(binder.artefactsSpawnCoefficients.get("layer_1")).toEqualLuaTables({ 1: 2, 2: 3 });
+    expect(binder.artefactsPathsList.get("layer_1")).toEqualLuaTables({ 1: "test-wp-single" });
   });
 
   it("should correctly handle disabled spawn", () => {
@@ -82,13 +118,133 @@ describe("AnomalyZoneBinder", () => {
     expect(binder.net_save_relevant()).toBe(true);
   });
 
-  it.todo("should correctly handle save/load");
+  it("should correctly handle save/load", () => {
+    const processor: MockNetProcessor = new MockNetProcessor();
+    const binder: AnomalyZoneBinder = mockConfiguredAnomalyZoneBinder();
+    const artefact = spawnArtefactInAnomaly(binder, "test-artefact", "test-wp-single");
 
-  it.todo("should correctly handle disabling anomaly fields");
+    binder.shouldRespawnArtefactsIfPossible = false;
+    binder.isForcedToSpawn = false;
+    binder.hasForcedSpawnOverride = true;
+    binder.forcedArtefact = "art_forced";
+    binder.isTurnedOff = true;
 
-  it.todo("should correctly handle respawn artefacts and changing anomalies layouts");
+    binder.save(processor.asNetPacket());
 
-  it("should correctly spawn random artefacts", () => {
+    expect(processor.writeDataOrder).toEqual([
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U16,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U8,
+      EMockPacketDataType.BOOLEAN,
+      EMockPacketDataType.U16,
+    ]);
+    expect(processor.dataList).toEqual([
+      "save_from_AnomalyZoneBinder",
+      1,
+      artefact.id,
+      "test-wp-single",
+      1,
+      artefact.id,
+      binder.artefactPointsByArtefactId.get(artefact.id),
+      1,
+      false,
+      false,
+      true,
+      "art_forced",
+      1,
+      true,
+      14,
+    ]);
+
+    const loadedBinder: AnomalyZoneBinder = mockConfiguredAnomalyZoneBinder();
+
+    loadedBinder.load(processor.asNetReader());
+
+    expect(loadedBinder.artefactPathsByArtefactId.get(artefact.id)).toBe("test-wp-single");
+    expect(loadedBinder.artefactPointsByArtefactId.has(artefact.id)).toBe(true);
+    expect(registry.artefacts.parentZones.get(artefact.id)).toBe(loadedBinder);
+    expect(loadedBinder.spawnedArtefactsCount).toBe(1);
+    expect(loadedBinder.shouldRespawnArtefactsIfPossible).toBe(false);
+    expect(loadedBinder.isForcedToSpawn).toBe(false);
+    expect(loadedBinder.hasForcedSpawnOverride).toBe(true);
+    expect(loadedBinder.forcedArtefact).toBe("art_forced");
+    expect(loadedBinder.isTurnedOff).toBe(true);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
+  });
+
+  it("disables inactive anomaly fields and enables fields in the current layer", () => {
+    const binder: AnomalyZoneBinder = mockConfiguredAnomalyZoneBinder();
+    const currentField: AnomalyFieldBinder = new AnomalyFieldBinder(MockGameObject.mock());
+    const inactiveField: AnomalyFieldBinder = new AnomalyFieldBinder(MockGameObject.mock());
+
+    jest.spyOn(currentField, "setEnabled").mockImplementation(jest.fn());
+    jest.spyOn(inactiveField, "setEnabled").mockImplementation(jest.fn());
+
+    binder.isCustomPlacement = true;
+    binder.currentZoneLayer = "layer_1";
+    binder.layerFieldsTable.set("layer_1", $fromArray(["current_field"]));
+    binder.layerFieldsTable.set("layer_2", $fromArray(["inactive_field"]));
+    binder.layerMinesTable.set("layer_1", new LuaTable());
+    binder.layerMinesTable.set("layer_2", new LuaTable());
+    registry.anomalyFields.set("current_field", currentField);
+    registry.anomalyFields.set("inactive_field", inactiveField);
+
+    binder.switchAnomalyFields();
+
+    expect(currentField.setEnabled).toHaveBeenCalledWith(true);
+    expect(inactiveField.setEnabled).toHaveBeenCalledWith(false);
+    expect(binder.isDisabled).toBe(true);
+  });
+
+  it("changes layers, switches their fields, and refreshes respawn settings", () => {
+    const binder: AnomalyZoneBinder = mockConfiguredAnomalyZoneBinder();
+    const firstField: AnomalyFieldBinder = new AnomalyFieldBinder(MockGameObject.mock());
+    const secondField: AnomalyFieldBinder = new AnomalyFieldBinder(MockGameObject.mock());
+
+    jest.spyOn(firstField, "setEnabled").mockImplementation(jest.fn());
+    jest.spyOn(secondField, "setEnabled").mockImplementation(jest.fn());
+
+    const randomSpy = jest.spyOn(math, "random").mockReturnValue(2);
+
+    binder.isCustomPlacement = true;
+    binder.zoneLayersCount = 2;
+    binder.currentZoneLayer = "layer_1";
+    binder.layerFieldsTable.set("layer_1", $fromArray(["first_field"]));
+    binder.layerFieldsTable.set("layer_2", $fromArray(["second_field"]));
+    binder.layerMinesTable.set("layer_1", new LuaTable());
+    binder.layerMinesTable.set("layer_2", new LuaTable());
+    binder.layersRespawnTriesTable.set("layer_2", 4);
+    binder.layersMaxArtefactsTable.set("layer_2", 5);
+    binder.layersForcesTable.set("layer_2", { xz: 600, y: 700 });
+    registry.anomalyFields.set("first_field", firstField);
+    registry.anomalyFields.set("second_field", secondField);
+
+    binder.respawnArtefactsAndChangeLayers();
+
+    expect(binder.shouldRespawnArtefactsIfPossible).toBe(true);
+    expect(binder.currentZoneLayer).toBe("layer_2");
+    expect(binder.respawnTries).toBe(4);
+    expect(binder.maxArtefactsInZone).toBe(5);
+    expect(binder.applyingForceXZ).toBe(600);
+    expect(binder.applyingForceY).toBe(700);
+    expect(firstField.setEnabled).toHaveBeenCalledWith(false);
+    expect(secondField.setEnabled).toHaveBeenCalledWith(true);
+
+    randomSpy.mockRestore();
+  });
+
+  it("selects random, initial, and forced artefacts to spawn", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 
@@ -111,10 +267,16 @@ describe("AnomalyZoneBinder", () => {
     randomSpy.mockReturnValueOnce(100);
     expect(binder.getArtefactSectionToSpawn()).toBeNull();
 
+    binder.artefactsStartList.set("layer-1", $fromArray(["art_initial"]));
+    binder.isForcedToSpawn = true;
+    expect(binder.getArtefactSectionToSpawn()).toBe("art_initial");
+
+    binder.setForcedSpawnOverride("art_forced");
+    expect(binder.getArtefactSectionToSpawn()).toBe("art_forced");
+    expect(binder.hasForcedSpawnOverride).toBe(false);
+
     randomSpy.mockRestore();
   });
-
-  it.todo("should correctly handle artefact paths");
 
   it("should still switch anomaly fields on update while turned off", () => {
     const object: GameObject = MockGameObject.mock();
@@ -136,10 +298,6 @@ describe("AnomalyZoneBinder", () => {
     expect(binder.shouldRespawnArtefactsIfPossible).toBe(true);
     expect(binder.switchAnomalyFields).toHaveBeenCalledTimes(1);
   });
-
-  it.todo("should correctly handle artefact taking");
-
-  it.todo("should correctly get artefacts lists for section");
 
   it("should correctly handle turn on", () => {
     const object: GameObject = MockGameObject.mock();
@@ -194,7 +352,7 @@ describe("AnomalyZoneBinder", () => {
     expect(registry.artefacts.ways.length()).toBe(0);
   });
 
-  it("should correctly get free patrol to use for new artefacts", () => {
+  it("selects free artefact patrols and falls back when all paths are occupied", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 
@@ -221,24 +379,27 @@ describe("AnomalyZoneBinder", () => {
     expect(binder.forcedArtefact).toBe("test-section");
   });
 
-  it("should handle artefact being taken from anomaly", () => {
+  it("cleans every artefact mapping and does not underflow when an artefact is taken repeatedly", () => {
     const artefact: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 
-    binder.spawnedArtefactsCount = 3;
+    binder.spawnedArtefactsCount = 1;
 
     binder.artefactPathsByArtefactId.set(artefact.id(), "test-way");
     binder.artefactPointsByArtefactId.set(artefact.id(), 15);
 
     registry.artefacts.ways.set(artefact.id(), "test-way");
     registry.artefacts.points.set(artefact.id(), 15);
+    registry.artefacts.parentZones.set(artefact.id(), binder);
 
     binder.onArtefactTaken(artefact.id());
+    binder.onArtefactTaken(artefact.id());
 
-    expect(binder.spawnedArtefactsCount).toBe(2);
+    expect(binder.spawnedArtefactsCount).toBe(0);
     expect(binder.artefactPathsByArtefactId.length()).toBe(0);
     expect(registry.artefacts.ways.length()).toBe(0);
     expect(registry.artefacts.points.length()).toBe(0);
+    expect(registry.artefacts.parentZones.length()).toBe(0);
   });
 });

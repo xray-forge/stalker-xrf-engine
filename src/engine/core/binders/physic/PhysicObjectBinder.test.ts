@@ -162,6 +162,12 @@ describe("PhysicObjectBinder", () => {
     binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
 
     expect(object.set_callback).toHaveBeenCalledTimes(6);
+
+    expect(binder.isInitialized).toBe(false);
+
+    binder.update(150);
+
+    expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(2);
   });
 
   it("should be save relevant", () => {

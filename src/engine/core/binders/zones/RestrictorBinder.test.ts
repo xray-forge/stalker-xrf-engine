@@ -23,6 +23,7 @@ jest.mock("@/engine/core/schemes/runtime/scheme_initialization");
 describe("RestrictorBinder", () => {
   beforeEach(() => {
     resetFunctionMock(emitSchemeEvent);
+    resetFunctionMock(initializeObjectSchemeLogic);
     resetRegistry();
   });
 
@@ -44,9 +45,11 @@ describe("RestrictorBinder", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: RestrictorBinder = new RestrictorBinder(object);
 
+    binder.isInitialized = true;
     binder.reinit();
 
     expect(registry.objects.get(object.id())).toEqual({ object });
+    expect(binder.isInitialized).toBe(false);
   });
 
   it("should correctly handle going online and offline", () => {
@@ -167,6 +170,24 @@ describe("RestrictorBinder", () => {
 
     expect(onVisit).toHaveBeenCalledTimes(1);
     expect(soundManager.update).toHaveBeenCalledTimes(3);
+  });
+
+  it("waits for the actor before initializing schemes and checking the visit distance", () => {
+    const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
+
+    binder.net_spawn(serverObject);
+    binder.update(100);
+
+    expect(binder.isInitialized).toBe(false);
+    expect(initializeObjectSchemeLogic).not.toHaveBeenCalled();
+    expect(binder.isVisited).toBe(false);
+
+    mockRegisteredActor();
+    binder.update(100);
+
+    expect(binder.isInitialized).toBe(true);
+    expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly handle save/load", () => {

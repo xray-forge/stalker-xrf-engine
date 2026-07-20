@@ -27,6 +27,10 @@ describe("CampZoneBinder", () => {
     expect(binder.savedObjects).toEqualLuaTables({});
   });
 
+  it("should be save relevant", () => {
+    expect(new ArenaZoneBinder(MockGameObject.mock()).net_save_relevant()).toBe(true);
+  });
+
   it("should correctly handle going online and offline", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });

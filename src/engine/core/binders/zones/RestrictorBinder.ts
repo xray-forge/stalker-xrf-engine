@@ -1,7 +1,7 @@
 import { LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject } from "xray16/alias";
-import { TDuration, TNumberId } from "xray16/lib";
-import { $filename } from "xray16/macros";
+import { Nillable, TDuration, TNumberId } from "xray16/lib";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -42,6 +42,7 @@ export class RestrictorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
+    this.isInitialized = false;
     resetObject(this.object);
   }
 
@@ -89,28 +90,31 @@ export class RestrictorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
+    const actor: Nillable<GameObject> = registry.actor;
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (!this.isInitialized) {
-      this.isInitialized = true;
+    if ($isNotNil(actor)) {
+      if (!this.isInitialized) {
+        this.isInitialized = true;
 
-      initializeObjectSchemeLogic(object, state, this.isLoaded, ESchemeType.RESTRICTOR);
-    }
+        initializeObjectSchemeLogic(object, state, this.isLoaded, ESchemeType.RESTRICTOR);
+      }
 
-    if (!this.isVisited) {
-      this.visitCheckElapsed += delta;
+      if (!this.isVisited) {
+        this.visitCheckElapsed += delta;
 
-      if (this.visitCheckElapsed >= mapDisplayConfig.DISTANCE_CHECK_INTERVAL) {
-        this.visitCheckElapsed = 0;
+        if (this.visitCheckElapsed >= mapDisplayConfig.DISTANCE_CHECK_INTERVAL) {
+          this.visitCheckElapsed = 0;
 
-        if (object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
-          logger.info("Visited: %s", object.name());
+          if (object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
+            logger.info("Visited: %s", object.name());
 
-          this.isVisited = true;
-          giveInfoPortion(string.format("%s_visited", object.name()));
-          EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_VISITED, object, this);
+            this.isVisited = true;
+            giveInfoPortion(string.format("%s_visited", object.name()));
+            EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_VISITED, object, this);
+          }
         }
       }
     }

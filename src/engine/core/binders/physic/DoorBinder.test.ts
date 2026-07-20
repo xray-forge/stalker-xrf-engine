@@ -36,13 +36,20 @@ describe("DoorBinder", () => {
     expect(binder.startSound).toBeNull();
     expect(binder.stopSound).toBeNull();
 
-    expect(binder.onUseConditionList).toBeUndefined();
-    expect(binder.onStopConditionList).toBeUndefined();
-    expect(binder.onStartConditionList).toBeUndefined();
+    expect(binder.onUseConditionList).toEqualLuaTables(parseConditionsList(TRUE));
+    expect(binder.onStopConditionList).toEqualLuaTables(parseConditionsList(TRUE));
+    expect(binder.onStartConditionList).toEqualLuaTables(parseConditionsList(TRUE));
 
     expect(binder.tipConditionList).toBeNull();
-    expect(binder.startDelay).toBeUndefined();
-    expect(binder.idleDelay).toBeUndefined();
+    expect(binder.startDelay).toBe(0);
+    expect(binder.idleDelay).toBe(0);
+  });
+
+  it("uses inert default condition lists when animation configuration is absent", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: DoorBinder = new DoorBinder(object);
+
+    expect(() => binder.onUse(object)).not.toThrow();
   });
 
   it("should correctly initialize with ini definition and defaults", () => {
@@ -173,7 +180,9 @@ describe("DoorBinder", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.doors.length()).toBe(0);
 
-    expect(object.clear_callbacks).toHaveBeenCalledTimes(1);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.script_animation, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, null);
+    expect(object.clear_callbacks).not.toHaveBeenCalled();
 
     expect(binder.idleSound.stop).toHaveBeenCalledTimes(1);
     expect(binder.startSound.stop).toHaveBeenCalledTimes(1);
