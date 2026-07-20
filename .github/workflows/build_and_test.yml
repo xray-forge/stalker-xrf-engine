@@ -172,9 +172,6 @@ jobs:
       - run: npm ci
       - run: npm run pack:mod -- --se
 
-      - name: Install zip
-        uses: montudor/action-zip@v1
-
       - name: Move build statics
         run: |
           mv target/xrf_build.log target/mod_package/xrf_build.log
