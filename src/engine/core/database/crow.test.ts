@@ -18,6 +18,12 @@ describe("registerCrow and unregisterCrow", () => {
     expect(registry.crows.storage.get(first.id())).toBe(first.id());
     expect(firstState).toBe(registry.objects.get(first.id()));
 
+    const duplicateFirstState: IRegistryObjectState = registerCrow(first);
+
+    expect(registry.crows.count).toBe(1);
+    expect(registry.crows.storage.length()).toBe(1);
+    expect(duplicateFirstState).toBe(firstState);
+
     const secondState: IRegistryObjectState = registerCrow(second);
 
     expect(registry.crows.count).toBe(2);

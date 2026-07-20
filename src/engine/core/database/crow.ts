@@ -14,8 +14,11 @@ import { registry } from "@/engine/core/database/registry";
 export function registerCrow(object: GameObject): IRegistryObjectState {
   const objectId: TNumberId = object.id();
 
+  if (!registry.crows.storage.has(objectId)) {
+    registry.crows.count += 1;
+  }
+
   registry.crows.storage.set(objectId, objectId);
-  registry.crows.count += 1;
 
   return registerObject(object);
 }

@@ -61,6 +61,8 @@ export function registerCampZone(object: GameObject, manager: Nillable<CampContr
 
   if (manager) {
     registry.camps.set(object.id(), manager);
+  } else {
+    registry.camps.delete(object.id());
   }
 }
 

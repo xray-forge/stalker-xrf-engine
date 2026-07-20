@@ -155,9 +155,9 @@ describe("savePortableStore and loadPortableStore", () => {
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toEqual([]);
 
-    expect(getPortableStoreValue(object.id(), "number_test")).toBe(1000);
-    expect(getPortableStoreValue(object.id(), "boolean_test")).toBe(true);
-    expect(getPortableStoreValue(object.id(), "string_test")).toBe("example");
+    expect(getPortableStoreValue(nextObject.id(), "number_test")).toBe(1000);
+    expect(getPortableStoreValue(nextObject.id(), "boolean_test")).toBe(true);
+    expect(getPortableStoreValue(nextObject.id(), "string_test")).toBe("example");
   });
 });
 

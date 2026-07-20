@@ -143,6 +143,27 @@ describe("getCampZoneForPosition", () => {
   });
 });
 
+describe("registerCampZone", () => {
+  it("should remove an existing manager when re-registering without one", () => {
+    const zone: GameObject = MockGameObject.mock({ id: 10, section: "test_camp" });
+    const manager: CampController = new CampController(zone, zone.spawn_ini() as IniFile);
+
+    registerCampZone(zone, manager);
+
+    expect(registry.zones.get(zone.name())).toBe(zone);
+    expect(registry.objects.get(zone.id()).object).toBe(zone);
+    expect(registry.camps.get(zone.id())).toBe(manager);
+
+    registerCampZone(zone, null);
+
+    expect(registry.zones.get(zone.name())).toBe(zone);
+    expect(registry.objects.get(zone.id()).object).toBe(zone);
+    expect(registry.camps.get(zone.id())).toBeNull();
+
+    unregisterCampZone(zone);
+  });
+});
+
 describe("resetCampZone", () => {
   it("should correctly reset camp zones", () => {
     const firstZone: GameObject = MockGameObject.mock({
