@@ -84,8 +84,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          submodules: recursive
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v6
@@ -93,15 +91,23 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
+      - name: Fetch pinned xrf-cli tools
+        shell: bash
+        run: |
+          submodule_commit="$(git rev-parse HEAD:cli/bin)"
+          git clone --depth=1 --filter=blob:none --sparse https://github.com/xray-forge/stalker-xrf-bin.git cli/bin
+          git -C cli/bin sparse-checkout set tools
+          git -C cli/bin fetch --depth=1 origin "$submodule_commit"
+          git -C cli/bin checkout --detach "$submodule_commit"
+
       - name: Restore eslint cache
         id: cache-eslint-restore
         uses: actions/cache/restore@v5
         with:
           path: target/eslint
-          key: eslint-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
+          key: eslint-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
       - run: npm ci
-      - run: npm run setup
       - run: npm run typecheck
       - run: npm run format:check
       - run: npm run lint
@@ -109,7 +115,6 @@ jobs:
       - run: npm run cli verify ltx
 
       - name: Save eslint cache
-        if: ${{ steps.cache-eslint-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}
         id: cache-eslint-save
         uses: actions/cache/save@v5
         with:
