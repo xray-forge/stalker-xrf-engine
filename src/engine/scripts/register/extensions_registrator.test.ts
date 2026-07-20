@@ -9,6 +9,7 @@ import {
   saveExtensionsState,
   syncExtensionsState,
 } from "@/engine/core/extensions/extensions_state";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { mockExtension } from "@/fixtures/engine";
 
@@ -16,6 +17,21 @@ jest.mock("@/engine/core/extensions");
 jest.mock("@/engine/core/extensions/extensions_state");
 
 describe("extensions registrator", () => {
+  it("should skip registration when extensions are disabled globally", () => {
+    const isEnabled: boolean = forgeConfig.EXTENSIONS.ENABLED;
+
+    forgeConfig.EXTENSIONS.ENABLED = false;
+
+    registerExtensions(true);
+
+    expect(getAvailableExtensions).not.toHaveBeenCalled();
+    expect(loadExtensionsState).not.toHaveBeenCalled();
+    expect(syncExtensionsState).not.toHaveBeenCalled();
+    expect(saveExtensionsState).not.toHaveBeenCalled();
+
+    forgeConfig.EXTENSIONS.ENABLED = isEnabled;
+  });
+
   it("should correctly register extensions from empty list", () => {
     replaceFunctionMockOnce(getAvailableExtensions, () => new LuaTable());
 

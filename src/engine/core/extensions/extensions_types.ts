@@ -4,6 +4,7 @@ import { AnyObject, Nillable, TName, TPath } from "xray16/lib";
  * Descriptor of possible extension to work with.
  */
 export interface IExtensionsDescriptor {
+  directory: TName;
   isEnabled: boolean;
   isAvailable: Nillable<boolean>;
   availabilityReason: Nillable<string>;

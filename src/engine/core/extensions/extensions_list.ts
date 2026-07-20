@@ -30,7 +30,10 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
       const extensionCheckPath: TPath = string.format("%s\\check.script", extensionPath);
 
       // If entry exists and has register callback, collect descriptor.
-      if (lfs.attributes(extensionEntryPath)) {
+      if (
+        lfs.attributes(extensionPath)?.get("mode") === "directory" &&
+        lfs.attributes(extensionEntryPath)?.get("mode") === "file"
+      ) {
         let isAvailable: boolean = true;
         let availabilityReason: Nillable<string> = null;
         let metadata: AnyObject = {};
@@ -38,14 +41,19 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
         if (lfs.attributes(extensionCheckPath)?.get("mode") === "file") {
           metadata = require(string.format("extensions.%s.check", directoryItem));
 
-          const result: unknown = (metadata.check as () => unknown)();
-
-          if (type(result) !== "table" || type((result as IExtensionCheckResult).enabled) !== "boolean") {
+          if (type(metadata.check) !== "function") {
             isAvailable = false;
-            availabilityReason = "Compatibility check returned an invalid result.";
+            availabilityReason = "Compatibility check does not export a 'check' function.";
           } else {
-            isAvailable = (result as IExtensionCheckResult).enabled;
-            availabilityReason = (result as IExtensionCheckResult).reason ?? null;
+            const result: unknown = (metadata.check as () => unknown)();
+
+            if (type(result) !== "table" || type((result as IExtensionCheckResult).enabled) !== "boolean") {
+              isAvailable = false;
+              availabilityReason = "Compatibility check returned an invalid result.";
+            } else {
+              isAvailable = (result as IExtensionCheckResult).enabled;
+              availabilityReason = (result as IExtensionCheckResult).reason ?? null;
+            }
           }
         }
 
@@ -57,6 +65,7 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
 
         if (!isAvailable || (module && type(module.register) === "function")) {
           table.insert(list, {
+            directory: directoryItem,
             isEnabled: type(metadata.enabled) === "boolean" ? metadata.enabled : true,
             isAvailable: isAvailable,
             availabilityReason: availabilityReason,

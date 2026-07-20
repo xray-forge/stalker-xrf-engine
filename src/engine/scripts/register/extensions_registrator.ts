@@ -8,6 +8,7 @@ import {
   saveExtensionsState,
   syncExtensionsState,
 } from "@/engine/core/extensions/extensions_state";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -18,6 +19,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Save extension load order and try to persist it every time.
  */
 export function registerExtensions(isNewGame: boolean): void {
+  if (!forgeConfig.EXTENSIONS.ENABLED) {
+    return logger.info("Skip extensions registration, extensions are disabled in config");
+  }
+
   if ($isNil(lfs)) {
     return logger.info("Skip externals registration, no `lfs` lib available");
   }

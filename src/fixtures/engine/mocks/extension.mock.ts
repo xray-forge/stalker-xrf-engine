@@ -13,6 +13,7 @@ export function mockExtension(base: Partial<IExtensionsDescriptor & { name?: TNa
   return {
     availabilityReason: base.availabilityReason ?? null,
     canToggle: base.canToggle ?? true,
+    directory: base.directory ?? name,
     entry: base.entry ?? `$game_data$\\extensions\\${name}\\main`,
     isAvailable: base.isAvailable ?? true,
     isEnabled: base.isEnabled ?? true,

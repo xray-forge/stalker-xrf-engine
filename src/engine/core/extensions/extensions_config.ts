@@ -7,12 +7,12 @@ import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types
 
 /**
  * Open ltx file based on extension configuration files.
- * Hooks up extension FS path and resolves full path based on relative to extension entry.
+ * Resolves the file relative to the extension directory.
  *
  * @param extension - Extension descriptor.
  * @param file - Relative extension path from entry point.
  * @returns Ini file from extension.
  */
 export function openExtensionIni(extension: IExtensionsDescriptor, file: TPath = "main.ltx"): IniFile {
-  return new ini_file(roots.gameData, string.format("extensions\\%s\\%s", extension.name, file));
+  return new ini_file(roots.gameData, string.format("extensions\\%s\\%s", extension.directory, file));
 }

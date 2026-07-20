@@ -8,6 +8,8 @@ jest.mock("extensions.a.main", () => ({ name: "custom name", register: () => {} 
 jest.mock("extensions.b.main", () => ({}), { virtual: true });
 jest.mock("extensions.c.main", () => ({ enabled: false, register: () => {} }), { virtual: true });
 jest.mock("extensions.d.main", () => ({ canToggle: false, register: () => {} }), { virtual: true });
+jest.mock("extensions.e.check", () => ({}), { virtual: true });
+jest.mock("extensions.e.main", () => ({ register: () => {} }), { virtual: true });
 
 describe("getAvailableExtensions util", () => {
   it("should correctly return list of available extensions", () => {
@@ -19,12 +21,12 @@ describe("getAvailableExtensions util", () => {
     jest.spyOn(lfs, "attributes").mockImplementation((path: string) => {
       const attributes: LuaTable<string, string> = new LuaTable();
 
-      attributes.set("mode", path.endsWith("main.script") ? "file" : "directory");
+      attributes.set("mode", path.endsWith("main.script") || path.endsWith("e\\check.script") ? "file" : "directory");
 
       return attributes as unknown as Nullable<LuaTable>;
     });
     jest.spyOn(lfs, "dir").mockImplementation(() => {
-      const items = ["a", "b", "c", "d"];
+      const items = ["a", "b", "c", "d", "e"];
 
       return $multi([] as unknown as LuaIterable<string, unknown>, {
         next: () => {
@@ -35,6 +37,7 @@ describe("getAvailableExtensions util", () => {
 
     expect(getAvailableExtensions()).toEqualLuaArrays([
       {
+        directory: "a",
         entry: "$game_data$\\extensions\\a\\main.script",
         isEnabled: true,
         isAvailable: true,
@@ -48,6 +51,7 @@ describe("getAvailableExtensions util", () => {
         path: "$game_data$\\extensions\\a",
       },
       {
+        directory: "c",
         entry: "$game_data$\\extensions\\c\\main.script",
         isEnabled: false,
         isAvailable: true,
@@ -61,6 +65,7 @@ describe("getAvailableExtensions util", () => {
         path: "$game_data$\\extensions\\c",
       },
       {
+        directory: "d",
         entry: "$game_data$\\extensions\\d\\main.script",
         isEnabled: true,
         isAvailable: true,
@@ -72,6 +77,17 @@ describe("getAvailableExtensions util", () => {
         },
         name: "d",
         path: "$game_data$\\extensions\\d",
+      },
+      {
+        directory: "e",
+        entry: "$game_data$\\extensions\\e\\main.script",
+        isEnabled: true,
+        isAvailable: false,
+        availabilityReason: "Compatibility check does not export a 'check' function.",
+        canToggle: false,
+        module: {},
+        name: "e",
+        path: "$game_data$\\extensions\\e",
       },
     ]);
   });
