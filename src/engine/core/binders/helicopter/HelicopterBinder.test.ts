@@ -1,20 +1,21 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { CHelicopter } from "xray16";
+import { callback, CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
 import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
-import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
-import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
-import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime");
 
@@ -22,22 +23,59 @@ describe("HelicopterBinder", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(emitSchemeEvent);
+    resetFunctionMock(initializeObjectSchemeLogic);
   });
 
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mockHelicopter();
     const binder: HelicopterBinder = new HelicopterBinder(object);
 
-    expect(binder.inInitialized).toBe(false);
+    expect(binder.isInitialized).toBe(false);
     expect(binder.isLoaded).toBe(false);
     expect(binder.flameStartHealth).toBe(0);
     expect(binder.helicopter).toBeInstanceOf(CHelicopter);
     expect(binder.helicopterFireManager).toBeInstanceOf(HelicopterFireManager);
   });
 
-  it.todo("should correctly handle re-init event");
+  it("resets runtime state and registers helicopter callbacks on reinitialization", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const binder: HelicopterBinder = new HelicopterBinder(object);
 
-  it.todo("should correctly handle update event");
+    binder.isInitialized = true;
+    binder.reinit();
+
+    expect(binder.isInitialized).toBe(false);
+    expect(binder.state).toBe(registry.objects.get(object.id()));
+    expect(binder.combatManager).toBeInstanceOf(HelicopterCombatManager);
+    expect(binder.flameStartHealth).toBeGreaterThan(0);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_point, binder.onWaypoint, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_hit, binder.onHit, binder);
+  });
+
+  it("initializes schemes once after the actor exists and updates active logic and sounds", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const binder: HelicopterBinder = new HelicopterBinder(object);
+    const soundManager: SoundManager = getManager(SoundManager);
+    const schemeState: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HELI_MOVE);
+
+    binder.reinit();
+    binder.state.activeScheme = EScheme.HELI_MOVE;
+    setSchemeState(binder.state, EScheme.HELI_MOVE, schemeState);
+    jest.spyOn(soundManager, "update").mockImplementation(jest.fn());
+
+    binder.update(16);
+
+    expect(initializeObjectSchemeLogic).not.toHaveBeenCalled();
+
+    mockRegisteredActor();
+    binder.update(16);
+    binder.update(16);
+
+    expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(1);
+    expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.HELICOPTER);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(schemeState, ESchemeEvent.UPDATE, 16);
+    expect(soundManager.update).toHaveBeenLastCalledWith(object.id());
+  });
 
   it("should correctly handle going online and offline when spawn disabled", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
@@ -66,6 +104,8 @@ describe("HelicopterBinder", () => {
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.helicopter.storage.length()).toBe(0);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_point, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_hit, null);
   });
 
   it("should be net save relevant", () => {
@@ -146,7 +186,40 @@ describe("HelicopterBinder", () => {
     expect(processor.dataList).toHaveLength(0);
   });
 
-  it.todo("should correctly check health and start burning");
+  it("starts burning below the threshold and removes a mortal helicopter after lethal damage", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const binder: HelicopterBinder = new HelicopterBinder(object);
+
+    binder.reinit();
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
+    binder.flameStartHealth = 0.75;
+    jest.spyOn(binder.helicopter, "GetfHealth").mockReturnValue(0.5);
+
+    binder.update(16);
+
+    expect(binder.helicopter.StartFlame).toHaveBeenCalledTimes(1);
+
+    jest.spyOn(binder.helicopter, "GetfHealth").mockReturnValue(0);
+    binder.update(16);
+
+    expect(binder.helicopter.Die).toHaveBeenCalledTimes(1);
+    expect(registry.helicopter.storage.length()).toBe(0);
+  });
+
+  it("keeps an immortal helicopter in the registry at lethal health", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const binder: HelicopterBinder = new HelicopterBinder(object);
+
+    binder.reinit();
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
+    binder.state.immortal = true;
+    jest.spyOn(binder.helicopter, "GetfHealth").mockReturnValue(0);
+
+    binder.update(16);
+
+    expect(binder.helicopter.Die).not.toHaveBeenCalled();
+    expect(registry.helicopter.storage.length()).toBe(1);
+  });
 
   it("should correctly handle hit events", () => {
     const object: GameObject = MockGameObject.mockHelicopter();

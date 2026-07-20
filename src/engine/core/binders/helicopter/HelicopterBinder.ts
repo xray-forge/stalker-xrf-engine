@@ -34,7 +34,7 @@ import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 @LuabindClass()
 export class HelicopterBinder extends object_binder {
   public isLoaded: boolean = false;
-  public inInitialized: boolean = false;
+  public isInitialized: boolean = false;
 
   public state!: IRegistryObjectState;
   public helicopter: CHelicopter;
@@ -53,6 +53,7 @@ export class HelicopterBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
+    this.isInitialized = false;
     this.state = resetObject(this.object);
 
     this.combatManager = new HelicopterCombatManager(this.object);
@@ -65,8 +66,8 @@ export class HelicopterBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.inInitialized && $isNotNil(registry.actor)) {
-      this.inInitialized = true;
+    if (!this.isInitialized && $isNotNil(registry.actor)) {
+      this.isInitialized = true;
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.HELICOPTER);
     }
 
@@ -102,6 +103,8 @@ export class HelicopterBinder extends object_binder {
   }
 
   public override net_destroy(): void {
+    this.resetCallbacks();
+
     unregisterHelicopter(this);
 
     super.net_destroy();
@@ -135,6 +138,14 @@ export class HelicopterBinder extends object_binder {
     closeLoadMarker(reader, HelicopterBinder.__name);
 
     this.combatManager.load(reader);
+  }
+
+  /**
+   * Clear engine callbacks installed by the binder.
+   */
+  public resetCallbacks(): void {
+    this.object.set_callback(callback.helicopter_on_point, null);
+    this.object.set_callback(callback.helicopter_on_hit, null);
   }
 
   /**
