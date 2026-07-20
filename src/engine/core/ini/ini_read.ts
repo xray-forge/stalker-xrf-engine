@@ -251,8 +251,10 @@ export function readIniTwoNumbers(
 ): LuaMultiReturn<[number, number]> {
   if (ini.line_exist(section, field)) {
     const numbersList: LuaArray<number> = parseNumbersList(ini.r_string(section as TName, field));
+    const first: Nillable<number> = numbersList.get(1);
+    const second: Nillable<number> = numbersList.get(2);
 
-    return $multi(numbersList.get(1) || default1, numbersList.get(2) || default2);
+    return $multi($isNotNil(first) ? first : default1, $isNotNil(second) ? second : default2);
   } else {
     return $multi(default1, default2);
   }

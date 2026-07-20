@@ -206,6 +206,7 @@ describe("readIniTwoNumbers util", () => {
         b: "10 -5",
         c: "10",
         d: "",
+        e: "0, 0",
       },
     });
 
@@ -213,7 +214,8 @@ describe("readIniTwoNumbers util", () => {
     expect(readIniTwoNumbers(ini, "section1", "b", 1, 1)).toEqual([10, -5]);
     expect(readIniTwoNumbers(ini, "section1", "c", 1, 1)).toEqual([10, 1]);
     expect(readIniTwoNumbers(ini, "section1", "d", 1, 1)).toEqual([1, 1]);
-    expect(readIniTwoNumbers(ini, "section1", "e", 1, 1)).toEqual([1, 1]);
+    expect(readIniTwoNumbers(ini, "section1", "e", 1, 1)).toEqual([0, 0]);
+    expect(readIniTwoNumbers(ini, "section1", "f", 1, 1)).toEqual([1, 1]);
   });
 });
 

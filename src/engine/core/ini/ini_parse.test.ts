@@ -513,6 +513,7 @@ describe("pickSectionFromCondList", () => {
 
     jest.spyOn(math, "random").mockImplementation(() => 50);
 
+    expect(pickSectionFromCondList(actor, target, parseConditionsList("{~0}a,b"))).toBe("b");
     expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~100}b, c"))).toBe("b");
     expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~10}b, c"))).toBe("c");
     expect(pickSectionFromCondList(actor, target, parseConditionsList("{~10}a,{~1000}b, c"))).toBe("b");

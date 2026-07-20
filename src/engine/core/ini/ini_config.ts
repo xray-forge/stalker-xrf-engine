@@ -88,7 +88,7 @@ export function pickSectionFromCondList<T extends TSection>(
     for (const checkIndex of $range(1, infoPortionsCheckList.length())) {
       const configCondition: IConfigCondition = infoPortionsCheckList.get(checkIndex);
 
-      if (configCondition.prob) {
+      if ($isNotNil(configCondition.prob)) {
         const randomValue: TProbability = math.random(100);
 
         if (configCondition.prob < randomValue) {
@@ -223,7 +223,9 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
   const heliHunter: Nillable<string> = readIniString(ini, section, "heli_hunter", false);
   const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
     ini,
-    ini.line_exist(state.sectionLogic, "post_combat_time") ? state.sectionLogic : section,
+    $isNotNil(state.sectionLogic) && ini.line_exist(state.sectionLogic, "post_combat_time")
+      ? state.sectionLogic
+      : section,
     "post_combat_time",
     combatConfig.POST_COMBAT_IDLE.MIN,
     combatConfig.POST_COMBAT_IDLE.MAX

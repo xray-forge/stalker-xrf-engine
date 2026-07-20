@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { GameObject, ServerObject } from "xray16/alias";
+import { GameObject, IniFile, ServerObject } from "xray16/alias";
 import { LuaArray, NIL, TIndex } from "xray16/lib";
 import { MockAlifeObject, MockGameObject, MockIniFile } from "xray16/mocks";
 
@@ -72,8 +72,9 @@ describe("getObjectConfigOverrides util", () => {
   it("should correctly parse overrides", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = MockIniFile.mock("test.ltx", { empty: {} });
 
-    expect(getObjectConfigOverrides(MockIniFile.mock("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
+    expect(getObjectConfigOverrides(ini, "empty", object)).toEqualLuaTables({
       combatIgnore: null,
       combatIgnoreKeepWhenAttacked: false,
       combatType: null,
@@ -85,6 +86,7 @@ describe("getObjectConfigOverrides util", () => {
       onOffline: parseConditionsList(NIL),
       soundgroup: null,
     });
+    expect(ini.line_exist).not.toHaveBeenCalledWith(state.sectionLogic, "post_combat_time");
 
     expect(
       getObjectConfigOverrides(
