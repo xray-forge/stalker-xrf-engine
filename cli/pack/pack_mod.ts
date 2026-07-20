@@ -6,7 +6,6 @@ import { blue, yellow, yellowBright } from "chalk";
 
 import { build } from "#/build/build";
 import { default as config } from "#/config.json";
-import { isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR, TARGET_GAME_DATA_DIR, TARGET_MOD_PACKAGE_DIR, WARNING_SIGN } from "#/globals";
 import { IPackParameters } from "#/pack/pack";
 import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
@@ -25,21 +24,11 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     log.info("Packaging new mod:", blue(new Date().toLocaleString()));
     log.debug("Running with parameters:", parameters);
 
-    const engine: string = String(parameters.engine || config.package.engine).trim();
-
-    if (parameters.engine) {
-      log.info("Using engine override:", blue(parameters.engine));
-    } else {
-      log.info("Using configured engine:", blue(engine));
-    }
-
     if (parameters.optimize) {
       log.info("Using build with optimizations");
     } else {
       log.info("Using build without optimizations", WARNING_SIGN);
     }
-
-    assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
 
     const timeTracker: TimeTracker = new TimeTracker().start();
     const isBuildRequired: boolean = Boolean(parameters.build);
@@ -74,6 +63,15 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     if (parameters.skipEngine) {
       log.info("Skip engines in mod package");
     } else {
+      const engine: string = String(parameters.engine || config.package.engine).trim();
+
+      if (parameters.engine) {
+        log.info("Using engine override:", blue(parameters.engine));
+      } else {
+        log.info("Using configured engine:", blue(engine));
+      }
+
+      assert(fs.existsSync(path.resolve(OPEN_XRAY_ENGINES_DIR, engine, "bin")), "Expected engine directory to exist.");
       copyGameEngine(engine);
       timeTracker.addMark("PACKAGE_GAME_BIN");
     }
