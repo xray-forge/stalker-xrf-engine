@@ -1,13 +1,23 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level } from "xray16";
+import { callback, level } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerHumanObject } from "xray16/alias";
 import { ACTOR_ID, AnyObject, createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
-import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeHumanStalker,
+  MockGameObject,
+  MockNetProcessor,
+  MockObjectBinder,
+  MockPatrol,
+} from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { StalkerPatrolController } from "@/engine/core/ai/patrol/StalkerPatrolController";
+import { StalkerStateController } from "@/engine/core/ai/state";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
+import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { invalidateObjectThemes } from "@/engine/core/managers/sounds/utils";
@@ -17,6 +27,7 @@ import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/schemes
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
+import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
@@ -42,11 +53,48 @@ describe("StalkerBinder", () => {
     resetFunctionMock(emitSchemeEvent);
   });
 
-  it.todo("should correctly initialize");
+  it("reinitializes registry state, state control, and patrol control", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
 
-  it.todo("should correctly initialize info portions");
+    binder.reinit();
 
-  it.todo("should correctly initialize/reset callbacks");
+    expect(binder.state).toBe(registry.objects.get(object.id()));
+    expect(binder.state.stateController).toBeInstanceOf(StalkerStateController);
+    expect(binder.state.patrolController).toBeInstanceOf(StalkerPatrolController);
+  });
+
+  it("does not reinitialize spawn info portions after loading", () => {
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const binder: StalkerBinder = new StalkerBinder(object);
+
+    binder.isLoaded = true;
+
+    expect(binder.net_spawn(serverObject)).toBe(true);
+    expect(setupObjectInfoPortions).not.toHaveBeenCalled();
+
+    binder.net_destroy();
+  });
+
+  it("registers and clears every binder callback", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+
+    binder.setupCallbacks();
+
+    expect(object.set_callback).toHaveBeenCalledWith(callback.hit, binder.onHit, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.death, binder.onDeath, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, binder.onUse, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.sound, binder.onHearSound, binder);
+
+    binder.resetCallbacks();
+
+    expect(object.set_callback).toHaveBeenCalledWith(callback.hit, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.death, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, null);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.sound, null);
+  });
 
   it("should correctly handle going online/offline", () => {
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -83,12 +131,42 @@ describe("StalkerBinder", () => {
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.stalkers.length()).toBe(0);
+    expect(registry.helicopter.enemies.length()).toBe(0);
+    expect(binder.helicopterEnemyIndex).toBeNull();
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, null);
     expect(invalidateObjectThemes).toHaveBeenCalledWith(object.id());
   });
 
-  it.todo("should correctly handle going online/offline when spawn check is falsy");
+  it("does not register or configure a stalker when the engine rejects its spawn", () => {
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const binder: StalkerBinder = new StalkerBinder(object);
 
-  it.todo("should correctly handle update event");
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    expect(binder.net_spawn(serverObject)).toBe(false);
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.stalkers.length()).toBe(0);
+    expect(registry.helicopter.enemies.length()).toBe(0);
+    expect(object.set_callback).not.toHaveBeenCalled();
+  });
+
+  it("releases corpse items once during the first dead-object update", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const dropManager: DropManager = getManager(DropManager);
+
+    binder.state = registerObject(object);
+    jest.spyOn(object, "alive").mockReturnValue(false);
+    jest.spyOn(dropManager, "forceCorpseReleaseItemsSpawn").mockImplementation(jest.fn());
+    jest.spyOn(Date, "now").mockReturnValue(0);
+
+    binder.update(16);
+    binder.update(16);
+
+    expect(dropManager.forceCorpseReleaseItemsSpawn).toHaveBeenCalledTimes(1);
+    expect(dropManager.forceCorpseReleaseItemsSpawn).toHaveBeenCalledWith(object);
+  });
 
   it("should correctly handle save/load", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
@@ -199,7 +277,23 @@ describe("StalkerBinder", () => {
     expect(torch.enable_attachable_item).toHaveBeenLastCalledWith(true);
   });
 
-  it.todo("should correctly handle death event");
+  it("unregisters a dead stalker and releases all binder callbacks", () => {
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    binder.net_spawn(serverObject);
+    jest.spyOn(binder, "onHit").mockImplementation(jest.fn());
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
+    binder.onDeath(object, null);
+
+    expect(registry.stalkers.length()).toBe(0);
+    expect(registry.helicopter.enemies.length()).toBe(0);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, null);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.STALKER_DEATH, object, null);
+  });
 
   it("should handle hear event", () => {
     const object: GameObject = MockGameObject.mock();
@@ -220,9 +314,45 @@ describe("StalkerBinder", () => {
     expect(SchemeHear.onObjectHearSound).toHaveBeenCalledWith(object, ACTOR_ID, 128, X_VECTOR, 10);
   });
 
-  it.todo("should correctly handle use event");
+  it("emits an interaction event and resets dialog phrases when used alive", () => {
+    const object: GameObject = MockGameObject.mock();
+    const user: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const dialogManager: DialogManager = getManager(DialogManager);
 
-  it.todo("should correctly handle patrol event");
+    binder.state = registerObject(object);
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+    jest.spyOn(dialogManager, "resetObjectPhrases").mockImplementation(jest.fn());
+
+    binder.onUse(object, user);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.STALKER_INTERACTION, object, user);
+    expect(dialogManager.resetObjectPhrases).toHaveBeenCalledWith(object.id());
+  });
+
+  it("forwards patrol extrapolation to the active scheme and patrol controller", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const state: IRegistryObjectState = registerObject(object);
+    const schemeState: ISchemeWalkerState = mockSchemeState<ISchemeWalkerState>(EScheme.WALKER);
+
+    MockPatrol.setup({
+      "binder-patrol": {
+        points: [{ name: "point-0", gvid: 0, lvid: 0, position: object.position() as any, flag: 0 }],
+      },
+    });
+    state.activeScheme = EScheme.WALKER;
+    jest.spyOn(object, "patrol").mockReturnValue("binder-patrol");
+    setSchemeState(state, EScheme.WALKER, schemeState);
+    state.patrolController = new StalkerPatrolController(object).initialize();
+    binder.state = state;
+    jest.spyOn(state.patrolController, "onExtrapolate").mockImplementation(jest.fn());
+
+    expect(binder.onPatrolExtrapolate(0)).toBe(true);
+    expect(state.patrolController.onExtrapolate).toHaveBeenCalledWith(object, 0);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(schemeState, ESchemeEvent.EXTRAPOLATE, 0);
+  });
 
   it("should correctly handle hit event", () => {
     const { actorGameObject } = mockRegisteredActor();

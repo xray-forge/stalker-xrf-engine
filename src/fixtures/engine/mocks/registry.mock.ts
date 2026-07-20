@@ -54,6 +54,8 @@ export function resetRegistry(): void {
   registry.effectsVolume = 0;
   registry.extensions = new LuaTable();
   registry.helicopter.storage = new LuaTable();
+  registry.helicopter.enemies = new LuaTable();
+  registry.helicopter.enemyIndex = 0;
   registry.managers = new LuaTable();
   registry.managersByName = new LuaTable();
   registry.musicVolume = 0;
@@ -68,6 +70,7 @@ export function resetRegistry(): void {
   registry.smartTerrainsCampfires = new LuaTable();
   registry.spawnedVertexes = new LuaTable();
   registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
+  registry.stalkers = new LuaTable();
   registry.trade = new LuaTable();
   registry.zones = new LuaTable();
 

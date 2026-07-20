@@ -155,7 +155,7 @@ export class StalkerBinder extends object_binder {
 
     const sympathy: Nillable<TCount> = registry.goodwill.sympathy.get(objectId) as Nillable<TCount>;
 
-    if (sympathy) {
+    if ($isNotNil(sympathy)) {
       setObjectSympathy(object, sympathy);
     }
 
@@ -207,8 +207,9 @@ export class StalkerBinder extends object_binder {
       activeSection: state.activeSection,
     });
 
-    if (this.helicopterEnemyIndex) {
+    if ($isNotNil(this.helicopterEnemyIndex)) {
       unregisterHelicopterEnemy(this.helicopterEnemyIndex);
+      this.helicopterEnemyIndex = null;
     }
 
     unregisterStalker(this);
@@ -397,6 +398,7 @@ export class StalkerBinder extends object_binder {
     this.object.set_patrol_extrapolate_callback(null);
     this.object.set_callback(callback.hit, null);
     this.object.set_callback(callback.death, null);
+    this.object.set_callback(callback.use_object, null);
     this.object.set_callback(callback.sound, null);
   }
 
