@@ -283,7 +283,13 @@ export class TravelManager extends AbstractManager {
   public canSquadTakeActor(object: GameObject, actor: GameObject, dialogId?: TStringId, phraseId?: TStringId): boolean {
     const squad: Nillable<Squad> = getObjectSquad(object);
 
-    return $isNotNil(squad) && isSmartTerrain(registry.simulator.object(squad.assignedTargetId!) as ServerObject);
+    if ($isNil(squad) || $isNil(squad.assignedTargetId)) {
+      return false;
+    }
+
+    const target: Nillable<ServerObject> = registry.simulator.object(squad.assignedTargetId);
+
+    return $isNotNil(target) && isSmartTerrain(target);
   }
 
   /**

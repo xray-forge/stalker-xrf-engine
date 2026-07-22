@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject, LuaArray, TLabel, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockGameObject } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
+import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -158,6 +160,66 @@ describe("UpgradesManager", () => {
 
     expect(manager.canUpgradeItem("wpn_ak74u", "unknown")).toBe(false);
     expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("unknown");
+  });
+
+  it("should select precondition branches from upgrade availability and actor money", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: UpgradesManager = getManager(UpgradesManager);
+
+    upgradesConfig.CURRENT_MECHANIC_NAME = "test_precondition_mechanic";
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 1_000);
+
+    STALKER_UPGRADE_INFO.w_string("test_precondition_mechanic_upgr", "up_sect_firsta_ak74u", "false");
+    expect(manager.getPreconditionFunctorA("unused", "up_sect_firsta_ak74u")).toBe(1);
+
+    STALKER_UPGRADE_INFO.w_string(
+      "test_precondition_mechanic_upgr",
+      "up_sect_firsta_ak74u",
+      "{+test_precondition_info} true"
+    );
+    expect(manager.getPreconditionFunctorA("unused", "up_sect_firsta_ak74u")).toBe(2);
+
+    giveInfoPortion("test_precondition_info");
+    expect(manager.getPreconditionFunctorA("unused", "up_sect_firsta_ak74u")).toBe(0);
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 0);
+    expect(manager.getPreconditionFunctorA("unused", "up_sect_firsta_ak74u")).toBe(2);
+  });
+
+  it("should describe missing upgrade possibilities and money", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: UpgradesManager = getManager(UpgradesManager);
+
+    dialogConfig.ACTIVE_SPEAKER = MockGameObject.mock();
+    upgradesConfig.CURRENT_MECHANIC_NAME = "test_prerequirements_mechanic";
+    STALKER_UPGRADE_INFO.w_string(
+      "test_prerequirements_mechanic_upgr",
+      "up_sect_firsta_ak74u",
+      "{+test_prerequirements_info} true"
+    );
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 0);
+    jest.spyOn(manager, "getPossibilitiesLabel").mockReturnValue(" - complete test possibility");
+
+    expect(manager.getPreRequirementsFunctorA("unused", "up_sect_firsta_ak74u")).toBe(
+      " - complete test possibility\\n - translated_st_upgr_enough_money"
+    );
+
+    giveInfoPortion("test_prerequirements_info");
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 1_000);
+
+    expect(manager.getPreRequirementsFunctorA("unused", "up_sect_firsta_ak74u")).toBe("");
+  });
+
+  it("should format aggregated upgrade properties", () => {
+    const manager: UpgradesManager = getManager(UpgradesManager);
+
+    ITEM_UPGRADES.w_string("test_property", "name", "test_property_label");
+    ITEM_UPGRADES.w_string("test_property_value", "value", "2");
+
+    expect(manager.getPropertyFunctorA("", "test_property")).toBe("");
+    expect(manager.getPropertyFunctorA("test_property_value", "test_property")).toBe(
+      "translated_test_property_label +2%"
+    );
   });
 
   it("should correctly handle debug dump event", () => {

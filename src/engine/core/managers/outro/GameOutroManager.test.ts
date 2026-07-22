@@ -92,15 +92,21 @@ describe("GameOutroManager", () => {
   it("should release outro input control when stopping the black screen sequence", () => {
     const outro: GameOutroManager = getManager(GameOutroManager);
     const input: ActorInputManager = getManager(ActorInputManager);
+    const credits: jest.Mock = jest.fn();
 
     mockRegisteredActor();
 
-    (_G as AnyObject)["xr_effects"] = { game_credits: jest.fn() };
+    (_G as AnyObject)["xr_effects"] = { game_credits: credits };
     jest.spyOn(input, "releaseControl");
     outro.startBlackScreenAndSound();
+
+    const sound: SoundObject = outro.sound as SoundObject;
+
     outro.stopBlackScreenAndSound();
 
+    expect(sound.stop).toHaveBeenCalledTimes(1);
     expect(input.releaseControl).toHaveBeenCalledWith(EActorControlHandle.OUTRO);
+    expect(credits).toHaveBeenCalledTimes(1);
   });
 
   it("should apply the configured fade-in volume to the outro sound", () => {

@@ -1,18 +1,23 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { clsid, time_global } from "xray16";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "xray16/alias";
 import { AnyObject, TRUE } from "xray16/lib";
 import {
   MockAlifeHumanStalker,
+  MockAlifeObject,
   MockAlifeOnlineOfflineGroup,
   MockAlifeSimulator,
   MockAlifeSmartZone,
   MockGameObject,
+  MockPatrol,
   MockPhraseDialog,
   MockPhraseScript,
+  MockVector,
 } from "xray16/mocks";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
+import { ActorInputManager, EActorControlHandle } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
@@ -20,7 +25,8 @@ import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { getTravelPriceForSquad } from "@/engine/core/managers/travel/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { resetRegistry } from "@/fixtures/engine";
+import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("TravelManager", () => {
   beforeEach(() => {
@@ -432,6 +438,185 @@ describe("TravelManager", () => {
 
     zone.name = <T>() => "random_smart" as T;
     expect(manager.canStartTravelingDialogs(actor, object)).toBe(true);
+  });
+
+  it("should determine whether a squad is moving and can take the actor to a smart terrain", () => {
+    const manager: TravelManager = getManager(TravelManager);
+    const squad: Squad = MockAlifeOnlineOfflineGroup.mock() as Squad;
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock({ groupId: squad.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const actor: GameObject = MockGameObject.mockActor();
+    const terrain: SmartTerrain = MockAlifeObject.mock({ clsid: clsid.smart_terrain }) as SmartTerrain;
+
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(terrain);
+
+    expect(manager.canActorMoveWithSquad(actor, object)).toBe(false);
+    expect(manager.canSquadTakeActor(object, actor)).toBe(false);
+
+    squad.currentAction = { type: ESquadActionType.REACH_TARGET } as Squad["currentAction"];
+    squad.assignedTargetId = terrain.id;
+
+    expect(manager.canActorMoveWithSquad(actor, object)).toBe(true);
+    expect(manager.canSquadTakeActor(object, actor)).toBe(true);
+  });
+
+  it("should describe a squad action and evaluate reachable travel destinations", () => {
+    const manager: TravelManager = getManager(TravelManager);
+    const squad: Squad = MockAlifeOnlineOfflineGroup.mock({ gameVertexId: 100 }) as Squad;
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock({ groupId: squad.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const terrain: SmartTerrain = MockAlifeObject.mock({
+      clsid: clsid.smart_terrain,
+      gameVertexId: 101,
+    }) as SmartTerrain;
+    const descriptor = travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get("zat_stalker_base_smart");
+
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(terrain);
+    squad.currentAction = { type: ESquadActionType.REACH_TARGET } as Squad["currentAction"];
+    squad.assignedTargetId = terrain.id;
+    terrain.name = <T>() => "zat_a1" as T;
+    MockVector.DEFAULT_DISTANCE = 100;
+    simulationConfig.TERRAINS.set("zat_stalker_base_smart", terrain);
+
+    expect(manager.getSquadCurrentActionDescription(MockGameObject.mockActor(), object)).toBe("st_stalker_zat_a1");
+    expect(manager.isSmartAvailableToReach("zat_stalker_base_smart", descriptor, squad)).toBe(true);
+    expect(manager.isSmartAvailableToReach("zat_stalker_base_smart", { ...descriptor, level: "pripyat" }, squad)).toBe(
+      false
+    );
+
+    simulationConfig.TERRAINS.delete("zat_stalker_base_smart");
+  });
+
+  it("should check squad travel and phrase negotiation through the shared route policy", () => {
+    const manager: TravelManager = getManager(TravelManager);
+    const squad: Squad = MockAlifeOnlineOfflineGroup.mock() as Squad;
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock({ groupId: squad.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const actor: GameObject = MockGameObject.mockActor();
+
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    jest.spyOn(manager, "isSmartAvailableToReach").mockReturnValue(true);
+
+    expect(manager.canSquadTravel(object, actor, "12", "121")).toBe(true);
+    expect(manager.canNegotiateTravelToSmart(actor, object, "121", "12", "1000")).toBe(true);
+    expect(manager.canNegotiateTravelToSmart(actor, MockGameObject.mock(), "121", "12", "1000")).toBe(false);
+  });
+
+  it("should build travel cost labels and compare the actor money with the route price", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: TravelManager = getManager(TravelManager);
+
+    jest.spyOn(manager, "getTravelPriceByObjectPhrase").mockReturnValue(500);
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 499);
+
+    expect(manager.getTravelCostLabel(actorGameObject, MockGameObject.mock(), "1000", "1000_1")).toBe(
+      "translated_dm_traveler_travel_cost 500."
+    );
+    expect(manager.isEnoughMoneyToTravel(actorGameObject, MockGameObject.mock(), "1000", "1000_11")).toBe(false);
+
+    jest.spyOn(actorGameObject, "money").mockImplementation(() => 500);
+    expect(manager.isEnoughMoneyToTravel(actorGameObject, MockGameObject.mock(), "1000", "1000_11")).toBe(true);
+  });
+
+  it("should start a paid travel to the selected smart terrain", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: TravelManager = getManager(TravelManager);
+    const squad: Squad = MockAlifeOnlineOfflineGroup.mock({ gameVertexId: 100 }) as Squad;
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock({ groupId: squad.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const terrain: SmartTerrain = MockAlifeObject.mock({
+      clsid: clsid.smart_terrain,
+      gameVertexId: 101,
+    }) as SmartTerrain;
+
+    terrain.travelerActorPointName = "test_actor_path";
+    terrain.travelerSquadPointName = "test_squad_path";
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    simulationConfig.TERRAINS.set("zat_stalker_base_smart", terrain);
+    simulationConfig.TERRAIN_DESCRIPTORS.set(terrain.id, {
+      terrain: terrain,
+      assignedSquads: new LuaTable(),
+      assignedSquadsCount: 0,
+    });
+    MockVector.DEFAULT_DISTANCE = 100;
+
+    manager.onTravelToSpecificSmartWithSquad(actorGameObject, object, "1000", "1000_11");
+
+    expect(object.stop_talk).toHaveBeenCalledTimes(1);
+    expect(actorGameObject.give_money).toHaveBeenCalledWith(-100);
+    expect(manager.isTraveling).toBe(true);
+    expect(manager.isTravelTeleported).toBe(false);
+
+    MockPatrol.setup({
+      test_actor_path: {
+        points: [
+          { name: "actor-start", gvid: 100, lvid: 100, position: MockVector.create(0, 0, 0) },
+          { name: "actor-end", gvid: 101, lvid: 101, position: MockVector.create(1, 0, 0) },
+        ],
+      },
+      test_squad_path: {
+        points: [{ name: "squad-start", gvid: 100, lvid: 100, position: MockVector.create(0, 0, 0) }],
+      },
+    });
+    (time_global as unknown as jest.Mock).mockReturnValue(
+      manager.travelingStartedAt + travelConfig.TRAVEL_TELEPORT_DELAY
+    );
+    manager.update();
+
+    expect(manager.isTravelTeleported).toBe(true);
+
+    simulationConfig.TERRAINS.delete("zat_stalker_base_smart");
+    simulationConfig.TERRAIN_DESCRIPTORS.delete(terrain.id);
+  });
+
+  it("should start a free travel to the squad assigned smart terrain", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: TravelManager = getManager(TravelManager);
+    const squad: Squad = MockAlifeOnlineOfflineGroup.mock({ gameVertexId: 100 }) as Squad;
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock({ groupId: squad.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const terrain: SmartTerrain = MockAlifeObject.mock({
+      clsid: clsid.smart_terrain,
+      gameVertexId: 101,
+    }) as SmartTerrain;
+
+    terrain.travelerActorPointName = "test_actor_path";
+    terrain.travelerSquadPointName = "test_squad_path";
+    squad.assignedTargetId = terrain.id;
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(terrain);
+    MockVector.DEFAULT_DISTANCE = 100;
+
+    manager.onTravelTogetherWithSquad(actorGameObject, object, "111", "1111");
+
+    expect(object.stop_talk).toHaveBeenCalledTimes(1);
+    expect(actorGameObject.give_money).not.toHaveBeenCalled();
+    expect(manager.isTraveling).toBe(true);
+  });
+
+  it("should resolve active travel after the configured delay", () => {
+    mockRegisteredActor();
+
+    const manager: TravelManager = getManager(TravelManager);
+    const input: ActorInputManager = getManager(ActorInputManager);
+
+    manager.isTraveling = true;
+    manager.isTravelTeleported = true;
+    manager.travelingStartedAt = 0;
+    (time_global as unknown as jest.Mock).mockReturnValue(travelConfig.TRAVEL_RESOLVE_DELAY);
+    jest.spyOn(input, "releaseControl");
+
+    manager.update();
+
+    expect(manager.isTraveling).toBe(false);
+    expect(input.releaseControl).toHaveBeenCalledWith(EActorControlHandle.TRAVEL);
   });
 
   it("should calculate dialog price from the same squad travel distance used for charging", () => {

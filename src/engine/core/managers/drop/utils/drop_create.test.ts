@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockGameObject } from "xray16/mocks";
+import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { TInventoryItem } from "@/engine/constants/items";
@@ -43,6 +43,25 @@ describe("createCorpseReleaseItems", () => {
     createCorpseReleaseItems(object);
 
     expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+  });
+
+  it("should filter existing loot but skip configured drops for a no-spawn corpse", () => {
+    const object: GameObject = MockGameObject.mockStalker({
+      spawnIni: MockIniFile.mock("test.ltx", { dont_spawn_loot: {} }),
+    });
+    const stalker: Stalker = { isCorpseLootDropped: false } as Stalker;
+    const items: LuaTable<TInventoryItem, number> = new LuaTable();
+
+    items.set(medkits.medkit, 100);
+    dropConfig.ITEMS_BY_COMMUNITY.set("stalker", items);
+    dropConfig.ITEMS_DROP_COUNT_BY_LEVEL.set(medkits.medkit, { min: 1, max: 1 });
+    replaceFunctionMock(registry.simulator.object, () => stalker);
+
+    createCorpseReleaseItems(object);
+
+    expect(stalker.isCorpseLootDropped).toBe(true);
+    expect(object.iterate_inventory).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 });
 
