@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { CArtefact, clsid } from "xray16";
+import { CArtefact, clsid, game, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, createVector } from "xray16/lib";
 import { EMockPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from "xray16/mocks";
@@ -8,11 +8,18 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { disposeManager, getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
+import {
+  getNearestAvailableSurgeCover,
+  initializeSurgeCovers,
+  isSurgeEnabledOnLevel,
+  killAllSurgeUnhidden,
+} from "@/engine/core/managers/surge/utils";
 import { resetRegistry } from "@/fixtures/engine";
 
+jest.mock("@/engine/core/managers/map/utils");
 jest.mock("@/engine/core/managers/surge/utils");
 
 describe("SurgeManager", () => {
@@ -20,6 +27,13 @@ describe("SurgeManager", () => {
     resetRegistry();
 
     resetFunctionMock(initializeSurgeCovers);
+    resetFunctionMock(getNearestAvailableSurgeCover);
+    resetFunctionMock(isSurgeEnabledOnLevel);
+    resetFunctionMock(killAllSurgeUnhidden);
+    resetFunctionMock(updateAnomalyZonesDisplay);
+
+    surgeConfig.IS_STARTED = false;
+    surgeConfig.IS_TIME_FORWARDED = false;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -189,6 +203,40 @@ describe("SurgeManager", () => {
     surgeConfig.IS_STARTED = false;
   });
 
+  it("should reset stale transient state when loading an inactive surge", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+    const processor: MockNetProcessor = new MockNetProcessor();
+
+    surgeConfig.IS_STARTED = false;
+    manager.save(processor.asNetPacket());
+
+    manager.currentDuration = 123;
+    manager.isTaskGiven = true;
+    manager.isEffectorSet = true;
+    manager.isSecondMessageGiven = true;
+    manager.isUiDisabled = true;
+    manager.isSkipMessageToggled = true;
+    manager.isBlowoutSoundStarted = true;
+    manager.surgeMessage = "stale_message";
+    manager.surgeTaskSection = "stale_task";
+    manager.respawnArtefactsForLevel.set("jupiter", true);
+
+    manager.load(processor.asNetReader());
+
+    expect(manager.currentDuration).toBe(0);
+    expect(manager.isTaskGiven).toBe(false);
+    expect(manager.isEffectorSet).toBe(false);
+    expect(manager.isSecondMessageGiven).toBe(false);
+    expect(manager.isUiDisabled).toBe(false);
+    expect(manager.isSkipMessageToggled).toBe(false);
+    expect(manager.isBlowoutSoundStarted).toBe(false);
+    expect(manager.surgeMessage).toBe("");
+    expect(manager.surgeTaskSection).toBe("");
+    expect(manager.respawnArtefactsForLevel).toEqualLuaTables({});
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
+  });
+
   it("should mark the surge task as given even for an empty task section", () => {
     const manager: SurgeManager = getManager(SurgeManager);
 
@@ -198,29 +246,168 @@ describe("SurgeManager", () => {
     expect(manager.isTaskGiven).toBe(true);
   });
 
-  it.todo("should correctly get nearest available cover");
+  it("should correctly get nearest available cover before forcing a surge", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+    const cover: GameObject = MockGameObject.mock();
 
-  it.todo("should correctly set skip resurrect message");
+    jest.mocked(getNearestAvailableSurgeCover).mockReturnValue(cover);
+    jest.spyOn(manager, "start");
 
-  it.todo("should correctly set surge task");
+    manager.requestSurgeStart();
 
-  it.todo("should correctly set surge message");
+    expect(getNearestAvailableSurgeCover).toHaveBeenCalledWith(registry.actor);
+    expect(manager.start).toHaveBeenCalledWith(true);
+  });
 
-  it.todo("should correctly check if is killing all now");
+  it("should correctly set skip resurrect message", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
 
-  it.todo("should correctly request surge start");
+    manager.isSkipMessageToggled = true;
+    manager.setSkipResurrectMessage();
 
-  it.todo("should correctly request surge stop");
+    expect(manager.isSkipMessageToggled).toBe(false);
+  });
 
-  it.todo("should correctly start");
+  it("should correctly set surge task", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
 
-  it.todo("should correctly skip surges");
+    manager.setSurgeTask("custom_surge_task");
 
-  it.todo("should correctly end surges");
+    expect(manager.surgeTaskSection).toBe("custom_surge_task");
+  });
 
-  it.todo("should correctly handle update event");
+  it("should correctly set surge message", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
 
-  it.todo("should correctly replace anomalies and respawn artefacts");
+    manager.setSurgeMessage("custom_surge_message");
+
+    expect(manager.surgeMessage).toBe("custom_surge_message");
+  });
+
+  it("should correctly check if is killing all now", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    expect(manager.isKillingAll()).toBe(false);
+
+    surgeConfig.IS_STARTED = true;
+    manager.isUiDisabled = true;
+
+    expect(manager.isKillingAll()).toBe(true);
+  });
+
+  it("should correctly request surge start only when a cover is available", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    jest.spyOn(manager, "start");
+
+    manager.requestSurgeStart();
+
+    expect(manager.start).not.toHaveBeenCalled();
+
+    jest.mocked(getNearestAvailableSurgeCover).mockReturnValue(MockGameObject.mock());
+
+    manager.requestSurgeStart();
+
+    expect(manager.start).toHaveBeenCalledTimes(1);
+    expect(manager.start).toHaveBeenCalledWith(true);
+  });
+
+  it("should correctly request surge stop only for an active surge", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    jest.spyOn(manager, "endSurge");
+
+    manager.requestSurgeStop();
+    expect(manager.endSurge).not.toHaveBeenCalled();
+
+    surgeConfig.IS_STARTED = true;
+    manager.requestSurgeStop();
+
+    expect(manager.endSurge).toHaveBeenCalledWith(true);
+  });
+
+  it("should correctly start an enabled forced surge", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    jest.mocked(isSurgeEnabledOnLevel).mockReturnValue(true);
+
+    manager.start(true);
+
+    expect(isSurgeEnabledOnLevel).toHaveBeenCalled();
+    expect(manager.initializedAt.get(0, 0, 0, 0, 0, 0, 0)).toEqual(game.get_game_time().get(0, 0, 0, 0, 0, 0, 0));
+    expect(surgeConfig.IS_STARTED).toBe(true);
+    expect(surgeConfig.IS_FINISHED).toBe(false);
+  });
+
+  it("should correctly skip surges", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    manager.initializedAt = game.get_game_time();
+    manager.isTaskGiven = true;
+    manager.isEffectorSet = true;
+    manager.isSecondMessageGiven = true;
+    manager.isUiDisabled = true;
+    manager.isBlowoutSoundStarted = true;
+
+    manager.skipSurge();
+
+    expect(surgeConfig.IS_STARTED).toBe(false);
+    expect(surgeConfig.IS_FINISHED).toBe(true);
+    expect(manager.isTaskGiven).toBe(false);
+    expect(manager.isEffectorSet).toBe(false);
+    expect(manager.isSecondMessageGiven).toBe(false);
+    expect(manager.isUiDisabled).toBe(false);
+    expect(manager.isBlowoutSoundStarted).toBe(false);
+  });
+
+  it("should correctly end surges", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    surgeConfig.IS_STARTED = true;
+    manager.isAfterGameLoad = true;
+    manager.isEffectorSet = true;
+    manager.isSecondMessageGiven = true;
+    manager.isUiDisabled = true;
+    manager.isBlowoutSoundStarted = true;
+
+    manager.endSurge();
+
+    expect(surgeConfig.IS_STARTED).toBe(false);
+    expect(surgeConfig.IS_FINISHED).toBe(true);
+    expect(manager.isEffectorSet).toBe(false);
+    expect(manager.isSecondMessageGiven).toBe(false);
+    expect(manager.isUiDisabled).toBe(false);
+    expect(manager.isBlowoutSoundStarted).toBe(false);
+    expect(killAllSurgeUnhidden).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly handle update event by starting a due surge", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    manager.nextScheduledSurgeDelay = 0;
+    jest.mocked(getNearestAvailableSurgeCover).mockReturnValue(MockGameObject.mock());
+    jest.spyOn(manager, "start");
+
+    manager.update();
+
+    expect(manager.start).toHaveBeenCalledWith();
+  });
+
+  it("should correctly replace anomalies and respawn artefacts", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+    const anomalyZone: AnomalyZoneBinder = {
+      respawnArtefactsAndChangeLayers: jest.fn(),
+    } as unknown as AnomalyZoneBinder;
+
+    manager.respawnArtefactsForLevel.set(level.name(), true);
+    registry.anomalyZones.set("test_zone", anomalyZone);
+
+    manager.respawnArtefactsAndReplaceAnomalyZones();
+
+    expect(manager.respawnArtefactsForLevel.has(level.name())).toBe(false);
+    expect(anomalyZone.respawnArtefactsAndChangeLayers).toHaveBeenCalledTimes(1);
+    expect(updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+  });
 
   it("should correctly handle actor going online", () => {
     const manager: SurgeManager = getManager(SurgeManager);

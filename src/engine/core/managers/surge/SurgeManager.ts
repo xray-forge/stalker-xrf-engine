@@ -141,6 +141,17 @@ export class SurgeManager extends AbstractManager {
   public override load(reader: NetProcessor): void {
     openLoadMarker(reader, SurgeManager.name);
 
+    this.currentDuration = 0;
+    this.isTaskGiven = false;
+    this.isEffectorSet = false;
+    this.isSecondMessageGiven = false;
+    this.isUiDisabled = false;
+    this.isSkipMessageToggled = false;
+    this.isBlowoutSoundStarted = false;
+    this.surgeMessage = "";
+    this.surgeTaskSection = "";
+    this.respawnArtefactsForLevel = new LuaTable();
+
     surgeConfig.IS_FINISHED = reader.r_bool();
     surgeConfig.IS_STARTED = reader.r_bool();
 
