@@ -100,6 +100,25 @@ describe("TradeManager class implementation", () => {
     expect(registry.trade.get(object.id())).toEqualLuaTables(expected);
   });
 
+  it("should resupply objects again after the resupply period with unchanged supplies section", () => {
+    const tradeManager: TradeManager = getManager(TradeManager);
+    const object: GameObject = MockGameObject.mock();
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
+
+    replaceFunctionMock(time_global, () => 30_000);
+    tradeManager.initializeForObject(object, ini.fname());
+
+    replaceFunctionMock(time_global, () => 40_000);
+    tradeManager.updateForObject(object);
+
+    replaceFunctionMock(time_global, () => 86_440_000);
+    tradeManager.updateForObject(object);
+
+    expect(object.buy_supplies).toHaveBeenCalledTimes(2);
+    expect(object.buy_supplies).toHaveBeenNthCalledWith(2, ini, "tier1");
+    expect(registry.trade.get(object.id()).resupplyAt).toBe(172_840_000);
+  });
+
   it("should correctly get sell discount for objects", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
@@ -186,6 +205,13 @@ describe("TradeManager class implementation", () => {
     expect(registry.trade.get(object.id())).toEqualLuaTables({
       config: ini,
       configPath: ini.fname(),
+      buyCondition: parseConditionsList("generic_buy"),
+      buyItemFactorCondition: parseConditionsList("0.7"),
+      sellCondition: parseConditionsList("generic_sell"),
+      buySupplies: parseConditionsList("{+tier4} tier4, {+tier3} supplies_tier_3, {+tier2} tier2, tier1"),
+      currentBuyCondition: null,
+      currentBuySupplies: null,
+      currentSellCondition: null,
       resupplyAt: -1,
       updateAt: -1,
     });
@@ -239,15 +265,27 @@ describe("TradeManager class implementation", () => {
     expect(object.buy_item_condition_factor).toHaveBeenCalledTimes(1);
     expect(object.buy_item_condition_factor).toHaveBeenCalledTimes(1);
 
+    tradeManager.initializeForObject(object, ini.fname());
+
     expect(registry.trade.get(object.id())).toEqualLuaTables({
       config: ini,
       configPath: ini.fname(),
+      buyCondition: parseConditionsList("generic_buy"),
+      buyItemFactorCondition: parseConditionsList("0.7"),
+      sellCondition: parseConditionsList("generic_sell"),
+      buySupplies: parseConditionsList("{+tier4} tier4, {+tier3} supplies_tier_3, {+tier2} tier2, tier1"),
       currentBuyCondition: "generic_buy",
       currentBuySupplies: "tier1",
       currentSellCondition: "generic_sell",
       resupplyAt: 86420000,
       updateAt: 3620000,
     });
+
+    replaceFunctionMock(time_global, () => 3_620_001);
+    tradeManager.updateForObject(object);
+
+    expect(object.buy_item_condition_factor).toHaveBeenCalledTimes(2);
+    expect(object.buy_item_condition_factor).toHaveBeenLastCalledWith(0.7);
   });
 
   it("should correctly handle debug dump event", () => {

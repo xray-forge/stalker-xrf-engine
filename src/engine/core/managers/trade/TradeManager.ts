@@ -55,6 +55,23 @@ export class TradeManager extends AbstractManager {
   public initializeForObject(object: GameObject, iniFilePath: TPath): void {
     logger.info("Initialize trade for: %s %s", object.name(), iniFilePath);
 
+    const existingDescriptor: Nillable<ITradeManagerDescriptor> = registry.trade.get(object.id());
+
+    if (!$isNil(existingDescriptor) && existingDescriptor.configPath === iniFilePath) {
+      return;
+    }
+
+    registry.trade.set(object.id(), this.createDescriptor(object, iniFilePath));
+  }
+
+  /**
+   * Create a trade descriptor with static configuration and initial runtime state.
+   *
+   * @param object - Game object that owns the trade descriptor.
+   * @param iniFilePath - Path of the trade configuration file.
+   * @returns Trade descriptor initialized from the provided configuration.
+   */
+  private createDescriptor(object: GameObject, iniFilePath: TPath): ITradeManagerDescriptor {
     const iniFile: IniFile = loadIniFile(iniFilePath);
 
     const sellCondlist: Nillable<string> = readIniString(iniFile, "trader", "sell_condition", true);
@@ -73,7 +90,7 @@ export class TradeManager extends AbstractManager {
       abort("Wrong trade manager configuration used for game object: '%s'.", object.name());
     }
 
-    registry.trade.set(object.id(), {
+    return {
       config: iniFile,
       configPath: iniFilePath,
       updateAt: -1,
@@ -85,7 +102,7 @@ export class TradeManager extends AbstractManager {
       currentSellCondition: null,
       currentBuyCondition: null,
       currentBuySupplies: null,
-    } as ITradeManagerDescriptor);
+    } as ITradeManagerDescriptor;
   }
 
   /**
@@ -156,7 +173,7 @@ export class TradeManager extends AbstractManager {
 
     assertNonEmptyString(buySupplies, "Wrong section in buy_condition condlist for object '%s'.", object.name());
 
-    if (tradeDescriptor.currentBuySupplies !== buySupplies) {
+    if (tradeDescriptor.currentBuySupplies !== buySupplies || tradeDescriptor.resupplyAt <= now) {
       logger.info("Change object buy supplies condition: %s %s", object.name(), sellCondition);
       object.buy_supplies(tradeDescriptor.config, buySupplies);
       tradeDescriptor.currentBuySupplies = buySupplies;
@@ -257,12 +274,9 @@ export class TradeManager extends AbstractManager {
     const hasTrade: boolean = reader.r_bool();
 
     if (hasTrade) {
-      const descriptor: ITradeManagerDescriptor = {} as ITradeManagerDescriptor;
+      const descriptor: ITradeManagerDescriptor = this.createDescriptor(object, reader.r_stringZ());
 
       registry.trade.set(object.id(), descriptor);
-
-      descriptor.configPath = reader.r_stringZ();
-      descriptor.config = loadIniFile(descriptor.configPath);
 
       const buyCondition: string = reader.r_stringZ();
 
