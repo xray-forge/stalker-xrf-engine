@@ -6,7 +6,6 @@ import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/mana
 import { DatabaseManager } from "@/engine/core/managers/database";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { DebugManager } from "@/engine/core/managers/debug";
-import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
 import { LoadScreenManager } from "@/engine/core/managers/interface";
@@ -51,7 +50,6 @@ export function registerManagers(): void {
     NotificationManager,
     PdaManager,
     PhantomManager,
-    ProfilingManager,
     ReleaseBodyManager,
     SaveManager,
     SimulationManager,

@@ -22,7 +22,6 @@ export const config = {
   debug: {
     enabled: true,
     log_enabled: true,
-    profiling_enabled: false,
     simulation_enabled: false,
     /**
      * Is resolving debug enabled.

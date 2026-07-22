@@ -52,45 +52,9 @@ export function create(): JSXNode {
       />
 
       <Xr3tButton
-        tag={"profiling_toggle_button"}
-        x={12}
-        y={52}
-        height={16}
-        width={60}
-        label={"Enable profiling"}
-        font={fonts.letterica16}
-        textColor={WHITE}
-        texture={"ui_inGame2_Mp_bigbuttone"}
-      />
-
-      <Xr3tButton
-        tag={"profiling_log_button"}
-        x={84}
-        y={52}
-        height={16}
-        width={72}
-        label={"Log profiling report"}
-        font={fonts.letterica16}
-        textColor={WHITE}
-        texture={"ui_inGame2_Mp_bigbuttone"}
-      />
-
-      <Xr3tButton
-        tag={"portions_log_button"}
-        x={166}
-        y={52}
-        height={16}
-        width={72}
-        label={"Log portions report"}
-        font={fonts.letterica16}
-        textColor={WHITE}
-        texture={"ui_inGame2_Mp_bigbuttone"}
-      />
-
-      <Xr3tButton
         tag={"debug_simulation_toggle_button"}
         x={12}
-        y={72}
+        y={52}
         height={16}
         width={90}
         label={"Enable simulation debug"}
@@ -102,7 +66,7 @@ export function create(): JSXNode {
       <Xr3tButton
         tag={"dump_system_ini_button"}
         x={12}
-        y={92}
+        y={72}
         height={16}
         width={90}
         label={"Dump system.ini"}
@@ -114,7 +78,7 @@ export function create(): JSXNode {
       <Xr3tButton
         tag={"dump_lua_data_button"}
         x={108}
-        y={92}
+        y={72}
         height={16}
         width={90}
         label={"Dump LUA data"}

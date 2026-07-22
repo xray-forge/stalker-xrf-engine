@@ -1,5 +1,5 @@
 import { getFS } from "xray16";
-import { AnyObject, TPath } from "xray16/lib";
+import { AnyObject, TCount, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { roots } from "@/engine/constants/roots";
@@ -16,6 +16,22 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle debugging actions / switching / dumps etc.
  */
 export class DebugManager extends AbstractManager {
+  /**
+   * Force collection of unreachable Lua values.
+   */
+  public collectLuaGarbage(): void {
+    collectgarbage("collect");
+  }
+
+  /**
+   * Get the memory currently allocated by the Lua VM.
+   *
+   * @returns Memory usage in kilobytes.
+   */
+  public getLuaMemoryUsed(): TCount {
+    return collectgarbage("count");
+  }
+
   /**
    * Dump in-memory lua data from various configs / managers.
    */

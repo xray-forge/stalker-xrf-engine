@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AnyObject } from "xray16/lib";
-import { resetFunctionMock } from "xray16/testing/utils";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, SYSTEM_INI } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
@@ -11,11 +11,31 @@ import { resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/fs");
 
-describe("ProfilingManager", () => {
+describe("DebugManager", () => {
   beforeEach(() => {
     resetRegistry();
 
     resetFunctionMock(saveTextToFile);
+    resetFunctionMock(collectgarbage);
+  });
+
+  it("should collect Lua garbage", () => {
+    const manager: DebugManager = getManager(DebugManager);
+
+    manager.collectLuaGarbage();
+
+    expect(collectgarbage).toHaveBeenCalledTimes(1);
+    expect(collectgarbage).toHaveBeenCalledWith("collect");
+  });
+
+  it("should return Lua memory usage", () => {
+    const manager: DebugManager = getManager(DebugManager);
+
+    replaceFunctionMock(collectgarbage, () => 512);
+
+    expect(manager.getLuaMemoryUsed()).toBe(512);
+    expect(collectgarbage).toHaveBeenCalledTimes(1);
+    expect(collectgarbage).toHaveBeenCalledWith("count");
   });
 
   it("should correctly dump lua data without data providers", () => {
