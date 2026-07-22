@@ -64,6 +64,7 @@ export function resetRegistry(): void {
   registry.offlineObjects = new LuaTable();
   registry.schemes = new LuaTable();
   registry.signalLights = new LuaTable();
+  registry.silenceZones = new LuaTable();
   registry.simulationObjects = new LuaTable();
   registry.simulator = null as unknown as AlifeSimulator;
   registry.smartCovers = new LuaTable();

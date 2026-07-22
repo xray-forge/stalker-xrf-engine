@@ -1,16 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { get_console, IsDynamicMusic, level } from "xray16";
-import { Console } from "xray16/alias";
+import { Console, GameObject } from "xray16/alias";
 import { AnyObject, LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { disposeManager, getManager } from "@/engine/core/database";
+import { disposeManager, getManager, registerObject, registerZone, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { musicConfig } from "@/engine/core/managers/music/MusicConfig";
 import { MusicManager } from "@/engine/core/managers/music/MusicManager";
 import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";
+import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("MusicManager", () => {
@@ -217,11 +219,85 @@ describe("MusicManager", () => {
     expect(manager.nextTrackStartAt).toBe(7_000);
   });
 
-  it.todo("should correctly check if actor is in silence zone");
+  it("should fade active music to silence-zone targets", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: MusicManager = getManager(MusicManager);
+    const silenceZone: GameObject = MockGameObject.mock();
 
-  it.todo("should correctly start/stop combat music when needed");
+    manager.theme = new StereoSound();
+    manager.gameAmbientVolume = 0.6;
+    jest.spyOn(silenceZone, "inside").mockReturnValue(true);
+    registerZone(silenceZone);
+    registry.silenceZones.set(silenceZone.id(), silenceZone.name());
 
-  it.todo("should correctly update event");
+    expect(manager.getThemeState()).toBe(EDynamicMusicState.IDLE);
+    expect(manager.wasInSilence).toBe(true);
+    expect(manager.fadeToThemeVolume).toBe(0);
+    expect(manager.fadeToAmbientVolume).toBe(0);
+
+    expect(actorGameObject.alive).toHaveBeenCalled();
+  });
+
+  it("should start combat music for a nearby enemy and finish it after combat ends", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: MusicManager = getManager(MusicManager);
+    const enemy: GameObject = MockGameObject.mock();
+
+    MockVector.DEFAULT_DISTANCE = musicConfig.MIN_DIST - 1;
+    jest.spyOn(enemy, "best_enemy").mockReturnValue(actorGameObject);
+    registerObject(enemy);
+    registry.stalkers.set(enemy.id(), true);
+
+    expect(manager.getThemeState()).toBe(EDynamicMusicState.START);
+    expect(manager.forceFade).toBe(true);
+    expect(manager.fadeToThemeVolume).toBe(manager.gameAmbientVolume);
+    expect(manager.fadeToAmbientVolume).toBe(0);
+
+    registry.stalkers.delete(enemy.id());
+    manager.theme = new StereoSound();
+    manager.dynamicThemeVolume = 0;
+    manager.fadeToThemeVolume = 0;
+    manager.themeAmbientVolume = manager.gameAmbientVolume;
+    manager.fadeToAmbientVolume = manager.gameAmbientVolume;
+
+    expect(manager.getThemeState()).toBe(EDynamicMusicState.FINISH);
+  });
+
+  it("should skip dynamic-music updates when no level themes are available", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: MusicManager = getManager(MusicManager);
+
+    musicConfig.dynamicMusicThemes = $fromArray<IDynamicMusicDescriptor>([
+      { maps: "pripyat", files: $fromArray(["unavailable_theme"]) },
+    ]);
+
+    manager.initializeThemes();
+
+    expect(manager.themes.length()).toBe(0);
+    expect(manager.areThemesInitialized).toBe(false);
+    expect(manager.isThemeInitializationFailed).toBe(true);
+    expect(() => manager.startTheme()).not.toThrow();
+    expect(manager.theme).toBeNull();
+
+    jest.spyOn(manager, "getThemeState");
+    manager.onActorUpdate(musicConfig.LOGIC_UPDATE_STEP + 1);
+
+    expect(manager.getThemeState).not.toHaveBeenCalled();
+    expect(actorGameObject.alive).not.toHaveBeenCalled();
+  });
+
+  it("should dispatch actor updates after the configured logic interval", () => {
+    const manager: MusicManager = getManager(MusicManager);
+
+    jest.spyOn(manager, "getThemeState").mockReturnValue(EDynamicMusicState.START);
+    jest.spyOn(manager, "startTheme").mockImplementation(jest.fn());
+
+    manager.onActorUpdate(musicConfig.LOGIC_UPDATE_STEP);
+    expect(manager.startTheme).not.toHaveBeenCalled();
+
+    manager.onActorUpdate(1);
+    expect(manager.startTheme).toHaveBeenCalledTimes(1);
+  });
 
   it("should correctly handle actor going offline", () => {
     const manager: MusicManager = getManager(MusicManager);

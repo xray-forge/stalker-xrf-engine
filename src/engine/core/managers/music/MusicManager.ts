@@ -55,6 +55,7 @@ export class MusicManager extends AbstractManager {
   public currentTrackIndex: TIndex = 0;
 
   public areThemesInitialized: boolean = false;
+  public isThemeInitializationFailed: boolean = false;
   public forceFade: boolean = false;
   public wasInSilence: boolean = false;
   public nextTrackStartAt: TTimestamp = 0;
@@ -97,7 +98,8 @@ export class MusicManager extends AbstractManager {
    * Initialize list of themes based on current level.
    */
   public initializeThemes(): void {
-    this.areThemesInitialized = true;
+    this.areThemesInitialized = false;
+    this.isThemeInitializationFailed = false;
     this.themes = new LuaTable();
     this.theme = null;
     this.currentThemeIndex = 0;
@@ -120,12 +122,24 @@ export class MusicManager extends AbstractManager {
         table.insert(this.themes, themeDescriptor.files);
       }
     }
+
+    if (this.themes.length() === 0) {
+      this.isThemeInitializationFailed = true;
+
+      return;
+    }
+
+    this.areThemesInitialized = true;
   }
 
   /**
    * Start one of initialized themes tracks randomly.
    */
   public startTheme(): void {
+    if (this.themes.length() === 0) {
+      return;
+    }
+
     this.themeAmbientVolume = 0;
     this.dynamicThemeVolume = this.gameAmbientVolume;
     this.currentThemeIndex = math.random(1, this.themes.length());
@@ -351,6 +365,10 @@ export class MusicManager extends AbstractManager {
     }
 
     if (IsDynamicMusic()) {
+      if (this.isThemeInitializationFailed) {
+        return;
+      }
+
       if (!this.areThemesInitialized) {
         this.initializeThemes();
       }
@@ -432,6 +450,7 @@ export class MusicManager extends AbstractManager {
       currentThemeIndex: this.currentThemeIndex,
       currentTrackIndex: this.currentTrackIndex,
       areThemesInitialized: this.areThemesInitialized,
+      isThemeInitializationFailed: this.isThemeInitializationFailed,
       forceFade: this.forceFade,
       wasInSilence: this.wasInSilence,
       nextTrackStartAt: this.nextTrackStartAt,
