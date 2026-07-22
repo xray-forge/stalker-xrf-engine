@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
@@ -61,16 +62,19 @@ describe("NpcSound", () => {
       zombied: true,
     });
     expect(sound.soundPaths).toEqualLuaTables({});
+    expect(sound.playback).toEqualLuaTables({});
     expect(sound.resolvedSoundPaths).toEqualLuaTables({});
     expect(sound.shuffle).toBe(ESoundPlaylistType.RANDOM);
     expect(sound.faction).toBe("");
     expect(sound.point).toBe("");
     expect(sound.message).toBe("");
     expect(sound.canPlayGroupSound).toBe(true);
-    expect(sound.pdaSoundObject).toBeNull();
-    expect(sound.playedSoundIndex).toBeNull();
-    expect(sound.playingStartedAt).toBeNull();
-    expect(sound.idleTime).toBeNull();
+    expect(sound.groupPlayback).toEqual({
+      idleTime: null,
+      pdaSoundObject: null,
+      playedSoundIndex: null,
+      playingStartedAt: null,
+    });
     expect(sound.minIdle).toBe(3);
     expect(sound.maxIdle).toBe(5);
     expect(sound.random).toBe(100);
@@ -110,16 +114,19 @@ describe("NpcSound", () => {
       dolg: true,
     });
     expect(sound.soundPaths).toEqualLuaTables({});
+    expect(sound.playback).toEqualLuaTables({});
     expect(sound.resolvedSoundPaths).toEqualLuaTables({});
     expect(sound.shuffle).toBe(ESoundPlaylistType.SEQUENCE);
     expect(sound.faction).toBe("army");
     expect(sound.point).toBe("test_point");
     expect(sound.message).toBe("test_message");
     expect(sound.canPlayGroupSound).toBe(true);
-    expect(sound.pdaSoundObject).toBeNull();
-    expect(sound.playedSoundIndex).toBeNull();
-    expect(sound.playingStartedAt).toBeNull();
-    expect(sound.idleTime).toBeNull();
+    expect(sound.groupPlayback).toEqual({
+      idleTime: null,
+      pdaSoundObject: null,
+      playedSoundIndex: null,
+      playingStartedAt: null,
+    });
     expect(sound.minIdle).toBe(0);
     expect(sound.maxIdle).toBe(45);
     expect(sound.random).toBe(525);
@@ -136,11 +143,16 @@ describe("NpcSound", () => {
     const randomSpy = jest.spyOn(math, "random");
 
     // First play (no previous index): uniform over the full inclusive range 0..max.
-    sound.playedSoundIndex = null;
+    sound.playback.set(objectId, {
+      idleTime: null,
+      pdaSoundObject: null,
+      playedSoundIndex: null,
+      playingStartedAt: null,
+    });
     randomSpy.mockReturnValueOnce(4);
     expect(sound.selectNextSound(objectId)).toBe(4);
 
-    sound.playedSoundIndex = 2;
+    sound.playback.get(objectId).playedSoundIndex = 2;
 
     randomSpy.mockReturnValueOnce(0);
     expect(sound.selectNextSound(objectId)).toBe(0); // 0 < 2 -> unchanged
@@ -153,12 +165,78 @@ describe("NpcSound", () => {
     randomSpy.mockReturnValueOnce(4);
     expect(sound.selectNextSound(objectId)).toBe(5);
 
+    const anotherObjectId: TNumberId = 11;
+
+    sound.objects.set(anotherObjectId, { id: anotherObjectId, max: 5 });
+    randomSpy.mockReturnValueOnce(2);
+
+    expect(sound.selectNextSound(anotherObjectId)).toBe(2);
+    expect(sound.playback.get(anotherObjectId).playedSoundIndex).toBeNull();
+
     randomSpy.mockRestore();
   });
 
-  it.todo("should correctly handle sound play end");
+  it("should restore object availability and schedule its idle interval when playback ends", () => {
+    resetRegistry();
 
-  it.todo("should correctly reset");
+    const object: GameObject = MockGameObject.mockStalker();
+    const sound: NpcSound = new NpcSound(
+      MockIniFile.mock("test.ltx", { test_npc_sound: { path: "some/path", idle: "3,3,100" } }),
+      "test_npc_sound"
+    );
+
+    registerObject(object);
+    sound.objects.set(object.id(), { id: 1, max: 0 });
+    sound.canPlaySound.set(object.id(), false);
+    sound.playback.set(object.id(), {
+      idleTime: null,
+      pdaSoundObject: null,
+      playedSoundIndex: 0,
+      playingStartedAt: null,
+    });
+    replaceFunctionMock(time_global, () => 250);
+
+    sound.onSoundPlayEnded(object.id());
+
+    expect(sound.canPlaySound.get(object.id())).toBe(true);
+    expect(sound.playback.get(object.id())).toEqual({
+      idleTime: 3000,
+      pdaSoundObject: null,
+      playedSoundIndex: 0,
+      playingStartedAt: 250,
+    });
+  });
+
+  it("should reset only the target object's playback and sound masks", () => {
+    resetRegistry();
+
+    const object: GameObject = MockGameObject.mockStalker();
+    const sound: NpcSound = new NpcSound(
+      MockIniFile.mock("test.ltx", { test_npc_sound: { path: "some/path" } }),
+      "test_npc_sound"
+    );
+
+    registerObject(object);
+    sound.canPlaySound.set(object.id(), false);
+    sound.playback.set(object.id(), {
+      idleTime: 1000,
+      pdaSoundObject: null,
+      playedSoundIndex: 1,
+      playingStartedAt: 50,
+    });
+
+    sound.reset(object.id());
+
+    expect(sound.canPlaySound.get(object.id())).toBe(true);
+    expect(sound.playback.get(object.id())).toEqual({
+      idleTime: 1000,
+      pdaSoundObject: null,
+      playedSoundIndex: null,
+      playingStartedAt: null,
+    });
+    expect(object.set_sound_mask).toHaveBeenCalledWith(-1);
+    expect(object.set_sound_mask).toHaveBeenCalledWith(0);
+  });
 });
 
 describe("NpcSound lazy initialization", () => {
@@ -314,7 +392,7 @@ describe("NpcSound lazy initialization", () => {
     expect(object.add_sound).toHaveBeenCalledTimes(1);
   });
 
-  it("should invalidate object registration while keeping play availability", () => {
+  it("should invalidate all object playback state before re-registration", () => {
     const ini: IniFile = MockIniFile.mock("test.ltx", { test_invalidate: { path: "test\\invalidate_theme" } });
     const sound: NpcSound = new NpcSound(ini, "test_invalidate");
     const object: GameObject = MockGameObject.mockStalker();
@@ -334,13 +412,13 @@ describe("NpcSound lazy initialization", () => {
 
     expect(sound.objects.has(object.id())).toBe(false);
     expect(sound.soundPaths.has(object.id())).toBe(false);
-    expect(sound.canPlaySound.get(object.id())).toBe(false);
+    expect(sound.canPlaySound.get(object.id())).toBeNull();
 
-    // Next initialization registers again with a new id, availability flag is not clobbered.
+    // Next initialization registers again with a new id and restores normal playback availability.
     sound.initializeObject(object);
 
     expect(sound.objects.get(object.id()).id).toBeGreaterThan(firstId);
-    expect(sound.canPlaySound.get(object.id())).toBe(false);
+    expect(sound.canPlaySound.get(object.id())).toBe(true);
     expect(sound.soundPaths.get(object.id())).toEqualLuaTables({ 1: "characters_voice\\test\\invalidate_theme" });
   });
 

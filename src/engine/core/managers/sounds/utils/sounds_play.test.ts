@@ -16,7 +16,7 @@ describe("invalidateObjectThemes", () => {
     soundsConfig.themes = readIniThemesList(SCRIPT_SOUND_LTX);
   });
 
-  it("should forget NPC theme registrations for the object while keeping play availability", () => {
+  it("should forget all stale NPC theme state for an offline object", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const another: GameObject = MockGameObject.mockStalker();
     const attackBegin: NpcSound = soundsConfig.themes.get("attack_begin") as NpcSound;
@@ -31,7 +31,7 @@ describe("invalidateObjectThemes", () => {
 
     expect(attackBegin.objects.has(object.id())).toBe(false);
     expect(attackBegin.soundPaths.has(object.id())).toBe(false);
-    expect(attackBegin.canPlaySound.get(object.id())).toBe(false);
+    expect(attackBegin.canPlaySound.get(object.id())).toBeNull();
     expect(attackBegin.objects.has(another.id())).toBe(true);
   });
 });

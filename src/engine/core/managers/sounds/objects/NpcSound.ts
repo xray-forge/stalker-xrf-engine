@@ -37,6 +37,13 @@ export interface INpcSoundDescriptor {
   max: TCount;
 }
 
+export interface INpcSoundPlayback {
+  idleTime: Nillable<TDuration>;
+  pdaSoundObject: Nillable<SoundObject>;
+  playedSoundIndex: Nillable<TIndex>;
+  playingStartedAt: Nillable<TTimestamp>;
+}
+
 /**
  * Playable sound voiced by NPC game objects, supporting per-object and group playback.
  */
@@ -77,6 +84,7 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly canPlaySound: LuaTable<TNumberId, boolean> = new LuaTable();
   public readonly objects: LuaTable<TNumberId, INpcSoundDescriptor> = new LuaTable();
   public readonly availableCommunities: LuaTable<TCommunity, boolean> = new LuaTable();
+  public readonly playback: LuaTable<TNumberId, INpcSoundPlayback> = new LuaTable();
   public readonly soundPaths: LuaTable<TNumberId, LuaArray<TPath>> = new LuaTable();
   // Paths resolved once per unique `prefix + path` key and shared by reference across objects, empty lists included.
   public readonly resolvedSoundPaths: LuaMap<TPath, LuaArray<TPath>> = new LuaTable();
@@ -87,10 +95,12 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly message: string;
 
   public canPlayGroupSound: boolean = true;
-  public pdaSoundObject: Nillable<SoundObject> = null;
-  public playedSoundIndex: Nillable<TIndex> = null;
-  public playingStartedAt: Nillable<TTimestamp> = null;
-  public idleTime: Nillable<TDuration> = null;
+  public groupPlayback: INpcSoundPlayback = {
+    idleTime: null,
+    pdaSoundObject: null,
+    playedSoundIndex: null,
+    playingStartedAt: null,
+  };
 
   public readonly minIdle: TDuration;
   public readonly maxIdle: TDuration;
@@ -133,10 +143,15 @@ export class NpcSound extends AbstractPlayableSound {
    */
   public override reset(objectId: TNumberId): void {
     const object: Nillable<GameObject> = registry.objects.get(objectId)?.object as Nillable<GameObject>;
+    const playback: INpcSoundPlayback = this.getPlayback(objectId);
 
-    this.playingStartedAt = null;
-    this.playedSoundIndex = null;
-    this.canPlayGroupSound = true;
+    playback.playingStartedAt = null;
+    playback.playedSoundIndex = null;
+
+    if (this.isGroupSound) {
+      this.canPlayGroupSound = true;
+    }
+
     this.canPlaySound.set(objectId, true);
 
     if (object) {
@@ -144,9 +159,9 @@ export class NpcSound extends AbstractPlayableSound {
       object.set_sound_mask(0);
     }
 
-    if (this.pdaSoundObject) {
-      this.pdaSoundObject.stop();
-      this.pdaSoundObject = null;
+    if (playback.pdaSoundObject) {
+      playback.pdaSoundObject.stop();
+      playback.pdaSoundObject = null;
     }
   }
 
@@ -158,12 +173,13 @@ export class NpcSound extends AbstractPlayableSound {
    */
   public override isPlaying(objectId: TNumberId): boolean {
     const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
+    const playback: Nillable<INpcSoundPlayback> = this.playback.get(objectId);
 
     if ($isNil(object)) {
       return false;
     }
 
-    return object.active_sound_count() !== 0 || this.pdaSoundObject?.playing() === true;
+    return object.active_sound_count() !== 0 || playback?.pdaSoundObject?.playing() === true;
   }
 
   /**
@@ -192,6 +208,8 @@ export class NpcSound extends AbstractPlayableSound {
       this.initializeObject(object);
     }
 
+    const playback: INpcSoundPlayback = this.getPlayback(objectId);
+
     if (this.isGroupSound) {
       if (!this.canPlayGroupSound) {
         return false;
@@ -203,13 +221,13 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     // Wait for previous sound finish
-    if ($isNotNil(this.playingStartedAt) && time_global() - this.playingStartedAt < this.idleTime!) {
+    if ($isNotNil(playback.playingStartedAt) && time_global() - playback.playingStartedAt < playback.idleTime!) {
       return false;
     }
 
     logger.info("Play NPC sound for: '%s', '%s', '%s', '%s'", object.name(), faction, point, message);
 
-    this.playingStartedAt = null;
+    playback.playingStartedAt = null;
 
     const objectDescriptor: Nillable<INpcSoundDescriptor> = this.objects.get(objectId);
 
@@ -217,15 +235,15 @@ export class NpcSound extends AbstractPlayableSound {
       return false;
     }
 
-    this.playedSoundIndex = this.selectNextSound(objectId);
+    playback.playedSoundIndex = this.selectNextSound(objectId);
 
-    if (this.playedSoundIndex === -1) {
+    if (playback.playedSoundIndex === -1) {
       return false;
     }
 
-    object.play_sound(objectDescriptor.id, this.delay + 0.06, this.delay + 0.05, 1, 0, this.playedSoundIndex);
+    object.play_sound(objectDescriptor.id, this.delay + 0.06, this.delay + 0.05, 1, 0, playback.playedSoundIndex);
 
-    const nextIndex: TIndex = this.playedSoundIndex + 1;
+    const nextIndex: TIndex = playback.playedSoundIndex + 1;
     const soundPath: TPath = this.soundPaths.get(objectId).get(nextIndex);
     const fs: FS = getFS();
 
@@ -234,13 +252,13 @@ export class NpcSound extends AbstractPlayableSound {
       fs.exist(roots.gameSounds, soundPath + "_pda.ogg") &&
       object.position().distance_to_sqr(registry.actor.position()) >= 100
     ) {
-      if (this.pdaSoundObject && this.pdaSoundObject.playing()) {
-        this.pdaSoundObject.stop();
+      if (playback.pdaSoundObject && playback.pdaSoundObject.playing()) {
+        playback.pdaSoundObject.stop();
       }
 
-      this.pdaSoundObject = new sound_object(soundPath + "_pda");
-      this.pdaSoundObject.play_at_pos(registry.actor, ZERO_VECTOR, this.delay, sound_object.s2d);
-      this.pdaSoundObject.volume = 0.8;
+      playback.pdaSoundObject = new sound_object(soundPath + "_pda");
+      playback.pdaSoundObject.play_at_pos(registry.actor, ZERO_VECTOR, this.delay, sound_object.s2d);
+      playback.pdaSoundObject.volume = 0.8;
     }
 
     const [soundCaption] = string.gsub(soundPath, "\\", "_");
@@ -294,15 +312,23 @@ export class NpcSound extends AbstractPlayableSound {
    */
   public override stop(objectId: TNumberId): void {
     const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
+    const playback: Nillable<INpcSoundPlayback> = this.playback.get(objectId);
 
     if (object && object.alive()) {
       object.set_sound_mask(-1);
       object.set_sound_mask(0);
     }
 
-    if (this.pdaSoundObject && this.pdaSoundObject.playing()) {
-      this.pdaSoundObject.stop();
-      this.pdaSoundObject = null;
+    if (playback?.pdaSoundObject?.playing()) {
+      playback.pdaSoundObject.stop();
+    }
+
+    this.playback.delete(objectId);
+
+    if (this.isGroupSound) {
+      this.canPlayGroupSound = true;
+    } else {
+      this.canPlaySound.set(objectId, true);
     }
   }
 
@@ -312,15 +338,17 @@ export class NpcSound extends AbstractPlayableSound {
    * @param objectId - Identifier of the object whose sound playback ended.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
+    const playback: INpcSoundPlayback = this.getPlayback(objectId);
+
     logger.info(
       "Sound play ended: %s %s %s",
       objectId,
-      this.playedSoundIndex,
-      this.soundPaths.get(this.playedSoundIndex as TIndex)
+      playback.playedSoundIndex,
+      this.soundPaths.get(objectId)?.get(playback.playedSoundIndex as TIndex)
     );
 
-    this.playingStartedAt = time_global();
-    this.idleTime = math.random(this.minIdle, this.maxIdle) * 1000;
+    playback.playingStartedAt = time_global();
+    playback.idleTime = math.random(this.minIdle, this.maxIdle) * 1000;
 
     get_hud().RemoveCustomStatic("cs_subtitles_npc");
 
@@ -330,7 +358,7 @@ export class NpcSound extends AbstractPlayableSound {
       this.canPlaySound.set(objectId, true);
     }
 
-    const state: IRegistryObjectState = registry.objects.get(objectId);
+    const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId);
 
     const signals: Nillable<LuaTable<TName, boolean>> = getActiveSchemeState(state)?.signals;
 
@@ -339,7 +367,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     // Fire scheme signals.
-    if (this.playedSoundIndex === this.objects.get(objectId).max && this.shuffle !== "rnd") {
+    if (playback.playedSoundIndex === this.objects.get(objectId).max && this.shuffle !== "rnd") {
       logger.info("Emit sound end signal: %s", state.object.name());
       signals.set("theme_end", true);
       signals.set("sound_end", true);
@@ -355,7 +383,7 @@ export class NpcSound extends AbstractPlayableSound {
    * @param packet - Net packet to write the sound state into.
    */
   public override save(packet: NetPacket): void {
-    packet.w_stringZ(tostring(this.playedSoundIndex));
+    packet.w_stringZ(tostring(this.isGroupSound ? this.groupPlayback.playedSoundIndex : NIL));
 
     if (this.isGroupSound) {
       packet.w_bool(this.canPlayGroupSound);
@@ -370,9 +398,8 @@ export class NpcSound extends AbstractPlayableSound {
   public override load(reader: NetProcessor): void {
     const id: string = reader.r_stringZ();
 
-    this.playedSoundIndex = id === NIL ? null : tonumber(id)!;
-
     if (this.isGroupSound) {
+      this.groupPlayback.playedSoundIndex = id === NIL ? null : tonumber(id)!;
       this.canPlayGroupSound = reader.r_bool();
     }
   }
@@ -489,8 +516,16 @@ export class NpcSound extends AbstractPlayableSound {
    * @param objectId - Identifier of the object to invalidate the sound registration for.
    */
   public invalidateObject(objectId: TNumberId): void {
+    const playback: Nillable<INpcSoundPlayback> = this.playback.get(objectId);
+
+    if (playback?.pdaSoundObject?.playing()) {
+      playback.pdaSoundObject.stop();
+    }
+
     this.objects.delete(objectId);
     this.soundPaths.delete(objectId);
+    this.playback.delete(objectId);
+    this.canPlaySound.delete(objectId);
   }
 
   /**
@@ -501,15 +536,16 @@ export class NpcSound extends AbstractPlayableSound {
    */
   public selectNextSound(objectId: TNumberId): TNumberId {
     const objectDescriptor: Nillable<INpcSoundDescriptor> = this.objects.get(objectId);
+    const playback: INpcSoundPlayback = this.getPlayback(objectId);
 
     // Play random
     if (this.shuffle === ESoundPlaylistType.RANDOM) {
       if (objectDescriptor.max === 0) {
         return 0;
-      } else if ($isNotNil(this.playedSoundIndex)) {
+      } else if ($isNotNil(playback.playedSoundIndex)) {
         const nextPlayIndex: TIndex = math.random(0, objectDescriptor.max - 1);
 
-        if (nextPlayIndex >= this.playedSoundIndex) {
+        if (nextPlayIndex >= playback.playedSoundIndex) {
           return nextPlayIndex + 1;
         }
 
@@ -521,12 +557,12 @@ export class NpcSound extends AbstractPlayableSound {
 
     // Play in sequence.
     if (this.shuffle === ESoundPlaylistType.SEQUENCE) {
-      if (this.playedSoundIndex === -1) {
+      if (playback.playedSoundIndex === -1) {
         return -1;
-      } else if ($isNil(this.playedSoundIndex)) {
+      } else if ($isNil(playback.playedSoundIndex)) {
         return 0;
-      } else if (this.playedSoundIndex < objectDescriptor.max) {
-        return this.playedSoundIndex + 1;
+      } else if (playback.playedSoundIndex < objectDescriptor.max) {
+        return playback.playedSoundIndex + 1;
       } else {
         return -1;
       }
@@ -534,15 +570,35 @@ export class NpcSound extends AbstractPlayableSound {
 
     // Play in loop.
     if (this.shuffle === ESoundPlaylistType.LOOP) {
-      if ($isNil(this.playedSoundIndex)) {
+      if ($isNil(playback.playedSoundIndex)) {
         return 0;
-      } else if (this.playedSoundIndex < objectDescriptor.max) {
-        return this.playedSoundIndex + 1;
+      } else if (playback.playedSoundIndex < objectDescriptor.max) {
+        return playback.playedSoundIndex + 1;
       } else {
         return 0;
       }
     }
 
     abort("Unexpected shuffle type provided: '%s'.", this.shuffle);
+  }
+
+  private getPlayback(objectId: TNumberId): INpcSoundPlayback {
+    if (this.isGroupSound) {
+      return this.groupPlayback;
+    }
+
+    let playback: Nillable<INpcSoundPlayback> = this.playback.get(objectId);
+
+    if (!playback) {
+      playback = {
+        idleTime: null,
+        pdaSoundObject: null,
+        playedSoundIndex: null,
+        playingStartedAt: null,
+      };
+      this.playback.set(objectId, playback);
+    }
+
+    return playback;
   }
 }

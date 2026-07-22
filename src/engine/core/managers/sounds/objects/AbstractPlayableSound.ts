@@ -31,6 +31,16 @@ export abstract class AbstractPlayableSound {
   }
 
   /**
+   * Get the sound object currently used for playback by an object.
+   *
+   * @param objectId - Identifier of the object playing the sound.
+   * @returns Active sound object, or null when this sound type does not create one for the object.
+   */
+  public getSoundObject(objectId: TNumberId): Nillable<SoundObject> {
+    return this.soundObject;
+  }
+
+  /**
    * Stop the sound if a sound object currently exists.
    *
    * @param args - Nillable arguments passed by overriding implementations.
@@ -50,6 +60,16 @@ export abstract class AbstractPlayableSound {
     if (this.soundObject) {
       this.soundObject.volume = level;
     }
+  }
+
+  /**
+   * Set the playback volume for an object-specific sound instance.
+   *
+   * @param objectId - Identifier of the object playing the sound.
+   * @param level - Volume level to apply.
+   */
+  public setVolumeForObject(objectId: TNumberId, level: TRate): void {
+    this.setVolume(level);
   }
 
   /**

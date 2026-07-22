@@ -1,5 +1,5 @@
 import { GameObject, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
-import { ACTOR_ID, AnyObject, assert, Nillable, TCount, TName, TNumberId, TRate, TStringId } from "xray16/lib";
+import { ACTOR_ID, AnyObject, assert, Nillable, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
@@ -50,24 +50,6 @@ export class SoundManager extends AbstractManager {
       sound.save(packet);
     }
 
-    packet.w_u16(table.size(soundsConfig.playing));
-
-    for (const [id, sound] of soundsConfig.playing) {
-      packet.w_u16(id);
-      packet.w_stringZ(sound.section);
-    }
-
-    packet.w_u16(table.size(soundsConfig.looped));
-
-    for (const [id, loopedThemes] of soundsConfig.looped) {
-      packet.w_u16(id);
-      packet.w_u16(table.size(loopedThemes));
-
-      for (const [themeId] of loopedThemes) {
-        packet.w_stringZ(themeId);
-      }
-    }
-
     closeSaveMarker(packet, SoundManager.name + "Actor");
   }
 
@@ -78,34 +60,8 @@ export class SoundManager extends AbstractManager {
       theme.load(reader);
     }
 
-    const themesCount: TCount = reader.r_u16();
-
     soundsConfig.playing = new LuaTable();
-
-    for (const _ of $range(1, themesCount)) {
-      const id: TNumberId = reader.r_u16();
-      const theme: TStringId = reader.r_stringZ();
-
-      soundsConfig.playing.set(id, soundsConfig.themes.get(theme));
-    }
-
-    const loopedSoundsCount: TCount = reader.r_u16();
-
     soundsConfig.looped = new LuaTable();
-
-    for (const _ of $range(1, loopedSoundsCount)) {
-      const id = reader.r_u16();
-
-      soundsConfig.looped.set(id, new LuaTable());
-
-      const loopedThemesCount = reader.r_u16();
-
-      for (const _ of $range(1, loopedThemesCount)) {
-        const sound: TStringId = reader.r_stringZ();
-
-        soundsConfig.looped.get(id).set(sound, soundsConfig.themes.get(sound));
-      }
-    }
 
     closeLoadMarker(reader, SoundManager.name + "Actor");
   }
@@ -183,12 +139,12 @@ export class SoundManager extends AbstractManager {
 
         soundsConfig.playing.set(objectId, theme);
 
-        return theme.soundObject;
+        return theme.getSoundObject(objectId);
       }
 
-      return theme?.soundObject;
+      return theme.getSoundObject(objectId);
     } else {
-      return sound.soundObject;
+      return sound.getSoundObject(objectId);
     }
   }
 
@@ -205,6 +161,7 @@ export class SoundManager extends AbstractManager {
     if (sound) {
       logger.info("Stop sound play: %s %s", objectId, sound.section);
       sound.stop(objectId);
+      soundsConfig.playing.delete(objectId);
     }
 
     const looped: Nillable<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(objectId) as Nillable<
@@ -218,6 +175,8 @@ export class SoundManager extends AbstractManager {
           sound.stop(objectId);
         }
       }
+
+      soundsConfig.looped.delete(objectId);
     }
   }
 
@@ -266,12 +225,14 @@ export class SoundManager extends AbstractManager {
     }
 
     if (sound.isPlaying(objectId)) {
-      sound.stop();
+      sound.stop(objectId);
     }
 
     collection.delete(name);
 
-    // todo: Remove collection if it is empty?
+    if (collection.length() === 0) {
+      soundsConfig.looped.delete(objectId);
+    }
   }
 
   /**
@@ -280,11 +241,15 @@ export class SoundManager extends AbstractManager {
    * @param objectId - Target object ID to stop sounds for.
    */
   public stopAllLooped(objectId: TNumberId): void {
-    const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
+    const collection: Nillable<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
+
+    if (!collection) {
+      return;
+    }
 
     for (const [, sound] of collection) {
       if (sound.isPlaying(objectId)) {
-        sound.stop();
+        sound.stop(objectId);
       }
     }
 
@@ -300,7 +265,7 @@ export class SoundManager extends AbstractManager {
     const sound: Nillable<AbstractPlayableSound> = soundsConfig.looped.get(objectId)?.get(name);
 
     if (sound && sound.isPlaying(objectId)) {
-      sound.setVolume(volume);
+      sound.setVolumeForObject(objectId, volume);
     }
   }
 

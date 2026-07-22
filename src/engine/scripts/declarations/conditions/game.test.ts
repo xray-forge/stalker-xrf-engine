@@ -39,7 +39,9 @@ describe("game conditions implementation", () => {
     require("@/engine/scripts/declarations/conditions/game");
   });
 
-  beforeEach(() => resetRegistry());
+  beforeEach(() => {
+    resetRegistry();
+  });
 
   it("signal should check if signal is active", () => {
     const object: GameObject = MockGameObject.mock();

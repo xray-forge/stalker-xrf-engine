@@ -82,7 +82,30 @@ describe("StereoSound", () => {
     expect(stereoSound.soundObject?.volume).toBe(70);
   });
 
-  it.todo("should correctly play at time");
+  it("should append a tail sound at the requested time", () => {
+    const stereoSound: StereoSound = new StereoSound();
 
-  it.todo("should correctly check play state");
+    stereoSound.initialize("test/path/file.ogg", 50);
+
+    expect(stereoSound.playAtTime(250, "test/next.ogg", 70)).toBe(280);
+    expect(stereoSound.soundObject?.attach_tail).toHaveBeenCalledWith("test/next.ogg");
+    expect(stereoSound.soundObject?.volume).toBe(70);
+    expect(stereoSound.soundEndTime).toBe(280);
+  });
+
+  it("should report playback state from its active sound object", () => {
+    const stereoSound: StereoSound = new StereoSound();
+
+    expect(stereoSound.isPlaying()).toBe(false);
+
+    stereoSound.initialize("test/path/file.ogg", 50);
+    registerActor(MockGameObject.mock());
+    stereoSound.play();
+
+    expect(stereoSound.isPlaying()).toBe(true);
+
+    stereoSound.stop();
+
+    expect(stereoSound.isPlaying()).toBe(false);
+  });
 });

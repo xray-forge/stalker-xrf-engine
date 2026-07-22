@@ -85,10 +85,8 @@ describe("SoundManager", () => {
       EMockPacketDataType.STRING,
       EMockPacketDataType.STRING,
       EMockPacketDataType.U16,
-      EMockPacketDataType.U16,
-      EMockPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual([NIL, NIL, NIL, NIL, 0, 0, 6]);
+    expect(processor.dataList).toEqual([NIL, NIL, NIL, NIL, 4]);
 
     disposeManager(SoundManager);
 
@@ -98,6 +96,37 @@ describe("SoundManager", () => {
 
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toEqual([]);
+  });
+
+  it("should not serialize active runtime playback and clear it on load", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const processor: MockNetProcessor = new MockNetProcessor();
+    const playing: AbstractPlayableSound = soundsConfig.themes.get("attack_begin");
+    const looped: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+    const loopedThemes: LuaTable<string, AbstractPlayableSound> = new LuaTable();
+
+    soundsConfig.playing.set(object.id(), playing);
+    loopedThemes.set("looped_example", looped);
+    soundsConfig.looped.set(object.id(), loopedThemes);
+
+    manager.save(processor.asNetPacket());
+
+    expect(processor.writeDataOrder).toEqual([
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.STRING,
+      EMockPacketDataType.U16,
+    ]);
+    expect(processor.dataList).toEqual([NIL, NIL, NIL, NIL, 4]);
+
+    manager.load(processor.asNetProcessor());
+
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
+    expect(soundsConfig.playing.length()).toBe(0);
+    expect(soundsConfig.looped.length()).toBe(0);
   });
 
   it("should correctly save/load data for objects", () => {
@@ -124,8 +153,6 @@ describe("SoundManager", () => {
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toEqual([]);
   });
-
-  it.todo("should correctly save/load with custom state");
 
   it("should correctly play sound for objects once", () => {
     const manager: SoundManager = getManager(SoundManager);
@@ -236,8 +263,7 @@ describe("SoundManager", () => {
     manager.stopLooped(object.id(), "looped_example");
 
     expect(theme.stop).toHaveBeenCalledTimes(0);
-    expect(soundsConfig.looped.length()).toBe(1);
-    expect(soundsConfig.looped.get(object.id()).length()).toBe(0);
+    expect(soundsConfig.looped.length()).toBe(0);
 
     jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
 
@@ -249,8 +275,7 @@ describe("SoundManager", () => {
 
     manager.stopLooped(object.id(), "looped_example");
 
-    expect(soundsConfig.looped.length()).toBe(1);
-    expect(soundsConfig.looped.get(object.id()).length()).toBe(0);
+    expect(soundsConfig.looped.length()).toBe(0);
     expect(theme.stop).toHaveBeenCalledTimes(1);
   });
 
@@ -297,7 +322,7 @@ describe("SoundManager", () => {
 
     jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
     jest.spyOn(theme, "stop").mockImplementation(jest.fn(() => true));
-    jest.spyOn(theme, "setVolume").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "setVolumeForObject").mockImplementation(jest.fn());
 
     expect(() => manager.setLoopedSoundVolume(object.id(), "looped_example", 10)).not.toThrow();
 
@@ -305,18 +330,18 @@ describe("SoundManager", () => {
 
     expect(soundsConfig.looped.length()).toBe(1);
     expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
-    expect(theme.setVolume).toHaveBeenCalledTimes(0);
+    expect(theme.setVolumeForObject).toHaveBeenCalledTimes(0);
 
     manager.setLoopedSoundVolume(object.id(), "looped_example", 10);
 
-    expect(theme.setVolume).toHaveBeenCalledTimes(0);
+    expect(theme.setVolumeForObject).toHaveBeenCalledTimes(0);
 
     jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
 
     manager.setLoopedSoundVolume(object.id(), "looped_example", 10);
 
-    expect(theme.setVolume).toHaveBeenCalledTimes(1);
-    expect(theme.setVolume).toHaveBeenCalledWith(10);
+    expect(theme.setVolumeForObject).toHaveBeenCalledTimes(1);
+    expect(theme.setVolumeForObject).toHaveBeenCalledWith(object.id(), 10);
   });
 
   it("should correctly handle update event for actor", () => {
