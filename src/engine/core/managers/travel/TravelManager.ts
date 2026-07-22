@@ -4,6 +4,7 @@ import {
   abort,
   ACTOR_ID,
   AnyObject,
+  assert,
   Nillable,
   TCount,
   TDirection,
@@ -38,6 +39,7 @@ import {
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
+import { getTravelPriceForSquad } from "@/engine/core/managers/travel/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
@@ -185,7 +187,9 @@ export class TravelManager extends AbstractManager {
     const squad: Nillable<Squad> = getObjectSquad(object);
     const objectCommunity: TCommunity = object.character_community();
 
-    if (squad && squad.commander_id() !== object.id()) {
+    if (!squad) {
+      return false;
+    } else if (squad.commander_id() !== object.id()) {
       return false;
     } else if (objectCommunity === communities.bandit || objectCommunity === communities.army) {
       return false;
@@ -264,7 +268,7 @@ export class TravelManager extends AbstractManager {
     dialogId?: TStringId,
     phraseId?: TStringId
   ): boolean {
-    return getObjectSquad(object)!.currentAction?.type === ESquadActionType.REACH_TARGET;
+    return getObjectSquad(object)?.currentAction?.type === ESquadActionType.REACH_TARGET;
   }
 
   /**
@@ -277,9 +281,9 @@ export class TravelManager extends AbstractManager {
    * @returns Whether the squad target is a smart terrain and can take the actor.
    */
   public canSquadTakeActor(object: GameObject, actor: GameObject, dialogId?: TStringId, phraseId?: TStringId): boolean {
-    const squad: Squad = getObjectSquad(object) as Squad;
+    const squad: Nillable<Squad> = getObjectSquad(object);
 
-    return isSmartTerrain(registry.simulator.object(squad.assignedTargetId!) as ServerObject);
+    return $isNotNil(squad) && isSmartTerrain(registry.simulator.object(squad.assignedTargetId!) as ServerObject);
   }
 
   /**
@@ -321,7 +325,11 @@ export class TravelManager extends AbstractManager {
    * @returns Whether the squad has at least one reachable travel destination.
    */
   public canSquadTravel(object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId): boolean {
-    const squad: Squad = getObjectSquad(object)!;
+    const squad: Nillable<Squad> = getObjectSquad(object);
+
+    if ($isNil(squad)) {
+      return false;
+    }
 
     // todo: Filter all squads to current level, do not check other locations.
     for (const [id, descriptor] of travelConfig.TRAVEL_DESCRIPTORS_BY_NAME) {
@@ -356,21 +364,13 @@ export class TravelManager extends AbstractManager {
       abort("Error in travel manager, not available smart name: '%s'.", tostring(phraseId));
     }
 
-    return this.isSmartAvailableToReach(
-      terrainName,
-      travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get(terrainName),
-      getObjectSquad(object)!
-    );
-  }
+    const squad: Nillable<Squad> = getObjectSquad(object);
 
-  /**
-   * Todo: Move to utils.
-   *
-   * @param distance - Traveling distance from current point to destination.
-   * @returns Travel price based on travel distance.
-   */
-  public getTravelPriceByDistance(distance: TDistance): TCount {
-    return math.ceil(distance / 50) * 50;
+    if ($isNil(squad)) {
+      return false;
+    }
+
+    return this.isSmartAvailableToReach(terrainName, travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get(terrainName), squad);
   }
 
   /**
@@ -385,9 +385,13 @@ export class TravelManager extends AbstractManager {
       string.sub(phraseId, 1, string.len(phraseId) - 2)
     );
 
-    return this.getTravelPriceByDistance(
-      object.position().distance_to(getSimulationTerrainByName(terrainName)!.position)
-    );
+    const squad: Nillable<Squad> = getObjectSquad(object);
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
+
+    assert(squad, "Cannot calculate travel price without squad.");
+    assert(terrain, "Cannot calculate travel price without destination terrain.");
+
+    return getTravelPriceForSquad(squad, terrain);
   }
 
   /**
@@ -544,7 +548,7 @@ export class TravelManager extends AbstractManager {
 
     // todo: Alife distance vs abs distance.
     const distance: TDistance = getServerDistanceBetween(squad!, terrain);
-    const price: TCount = this.getTravelPriceByDistance(distance);
+    const price: TCount = getTravelPriceForSquad(squad, terrain);
 
     logger.info("Actor travel distance and price: '%s' -> '%s'", distance, price);
 

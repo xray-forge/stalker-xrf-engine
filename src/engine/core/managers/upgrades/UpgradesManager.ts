@@ -116,6 +116,8 @@ export class UpgradesManager extends AbstractManager {
    * Setup discount value based on current mechanic.
    */
   public setupDiscounts(): void {
+    upgradesConfig.PRICE_DISCOUNT_RATE = 1;
+
     if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME, "discount_condlist")) {
       const data: string = STALKER_UPGRADE_INFO.r_string(upgradesConfig.CURRENT_MECHANIC_NAME, "discount_condlist");
 

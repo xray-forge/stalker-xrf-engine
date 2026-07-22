@@ -79,6 +79,19 @@ describe("UpgradesManager", () => {
     expect(hasInfoPortion("another_info")).toBe(true);
   });
 
+  it("should reset a previous mechanic discount before evaluating the next mechanic", () => {
+    mockRegisteredActor();
+
+    const manager: UpgradesManager = getManager(UpgradesManager);
+
+    manager.setCurrentPriceDiscount(0.65);
+    upgradesConfig.CURRENT_MECHANIC_NAME = "mechanic_without_discount_conditions";
+
+    manager.setupDiscounts();
+
+    expect(upgradesConfig.PRICE_DISCOUNT_RATE).toBe(1);
+  });
+
   it("should correctly get repair payment", () => {
     const { actorGameObject } = mockRegisteredActor();
     const manager: UpgradesManager = getManager(UpgradesManager);
@@ -146,16 +159,6 @@ describe("UpgradesManager", () => {
     expect(manager.canUpgradeItem("wpn_ak74u", "unknown")).toBe(false);
     expect(upgradesConfig.CURRENT_MECHANIC_NAME).toBe("unknown");
   });
-
-  it.todo("should correctly generate ask repair replics");
-
-  it.todo("should correctly get pre-condition functor A");
-
-  it.todo("should correctly get pre-requirement functor A");
-
-  it.todo("should correctly handle effect A");
-
-  it.todo("should correctly get property functor A");
 
   it("should correctly handle debug dump event", () => {
     const manager: UpgradesManager = getManager(UpgradesManager);

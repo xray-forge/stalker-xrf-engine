@@ -94,6 +94,8 @@ export class GameOutroManager extends AbstractManager {
   public stopBlackScreenAndSound(): void {
     this.stopSound();
 
+    getManager(ActorInputManager).releaseControl(EActorControlHandle.OUTRO);
+
     disconnectFromGame();
     getExtern<AnyCallablesModule>("xr_effects").game_credits(); // todo: Move from effects
   }

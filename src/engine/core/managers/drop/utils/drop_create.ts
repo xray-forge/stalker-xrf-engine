@@ -32,7 +32,7 @@ export function createCorpseReleaseItems(object: GameObject): void {
 
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  if (state.ini?.line_exist(state.sectionLogic, dropConfig.DONT_SPAWN_LOOT_LTX_SECTION)) {
+  if (state?.ini?.line_exist(state.sectionLogic, dropConfig.DONT_SPAWN_LOOT_LTX_SECTION)) {
     return;
   }
 

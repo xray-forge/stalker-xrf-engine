@@ -4,6 +4,7 @@ import { AnyObject, TRUE } from "xray16/lib";
 import {
   MockAlifeHumanStalker,
   MockAlifeOnlineOfflineGroup,
+  MockAlifeSimulator,
   MockAlifeSmartZone,
   MockGameObject,
   MockPhraseDialog,
@@ -13,8 +14,12 @@ import {
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
+import { getTravelPriceForSquad } from "@/engine/core/managers/travel/utils";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("TravelManager", () => {
@@ -401,6 +406,8 @@ describe("TravelManager", () => {
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const actor: GameObject = MockGameObject.mockActor();
 
+    expect(manager.canStartTravelingDialogs(actor, MockGameObject.mock())).toBe(false);
+
     serverObject.group_id = squad.id;
 
     squad.commander_id = () => object.id();
@@ -427,37 +434,24 @@ describe("TravelManager", () => {
     expect(manager.canStartTravelingDialogs(actor, object)).toBe(true);
   });
 
-  it.todo("should correctly check if can use with squad");
-
-  it.todo("should correctly generate current action description for squads");
-
-  it.todo("should correctly check if smart reachable");
-
-  it.todo("should correctly check if squad can travel");
-
-  it.todo("should correctly check if can negotiate traveling");
-
-  it("should correctly calculate travel price", () => {
+  it("should calculate dialog price from the same squad travel distance used for charging", () => {
     const manager: TravelManager = getManager(TravelManager);
+    const squad: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
+    const terrain: ServerSmartZoneObject = MockAlifeSmartZone.mock();
 
-    expect(manager.getTravelPriceByDistance(10)).toBe(50);
-    expect(manager.getTravelPriceByDistance(100)).toBe(100);
-    expect(manager.getTravelPriceByDistance(500)).toBe(500);
-    expect(manager.getTravelPriceByDistance(750)).toBe(750);
-    expect(manager.getTravelPriceByDistance(1500)).toBe(1500);
+    serverObject.group_id = squad.id;
+    MockAlifeSimulator.addToRegistry(serverObject);
+    MockAlifeSimulator.addToRegistry(squad);
+    simulationConfig.TERRAINS.set("zat_stalker_base_smart", terrain as SmartTerrain);
+
+    expect(manager.getTravelPriceByObjectPhrase(object, "1000_1")).toBe(
+      getTravelPriceForSquad(squad as Squad, terrain as SmartTerrain)
+    );
+
+    simulationConfig.TERRAINS.delete("zat_stalker_base_smart");
   });
-
-  it.todo("should correctly calculate travel price for phrases");
-
-  it.todo("should correctly calculate generate travel cost strings");
-
-  it.todo("should correctly check if actor has enough money for traveling");
-
-  it.todo("should correctly handle traveling with squad somewhere");
-
-  it.todo("should correctly handle traveling with squad to specific destination");
-
-  it.todo("should correctly handle updates");
 
   it("should correctly handle debug dump event", () => {
     const manager: TravelManager = getManager(TravelManager);

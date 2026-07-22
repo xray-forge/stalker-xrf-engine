@@ -1,7 +1,7 @@
 import { getFS, sound_object } from "xray16";
 import { GameObject, IniFile, SoundObject, TSoundObjectType } from "xray16/alias";
 import { assert, Nillable, TNumberId, TRate, TSection } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { roots } from "@/engine/constants/roots";
 import { registry } from "@/engine/core/database";
@@ -85,7 +85,7 @@ export class LoopedSound extends AbstractPlayableSound {
   public override setVolumeForObject(objectId: TNumberId, level: TRate): void {
     const sound: Nillable<SoundObject> = this.soundObjects.get(objectId);
 
-    if (sound) {
+    if ($isNotNil(sound)) {
       sound.volume = level;
     }
   }
