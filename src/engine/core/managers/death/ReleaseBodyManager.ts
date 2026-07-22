@@ -14,7 +14,7 @@ import {
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
+import { canReleaseObjectCorpse, getFarthestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { isCreature } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -96,6 +96,12 @@ export class ReleaseBodyManager extends AbstractManager {
       return;
     }
 
+    for (const [, descriptor] of deathConfig.RELEASE_OBJECTS_REGISTRY) {
+      if (descriptor.id === object.id()) {
+        return;
+      }
+    }
+
     logger.info(
       "Register corpse object: %s, %s/%s",
       object.name(),
@@ -120,10 +126,22 @@ export class ReleaseBodyManager extends AbstractManager {
   public releaseCorpses(): void {
     logger.info("Try to release corpses");
 
+    for (let index: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length(); index > 0; index--) {
+      const object: Nillable<ServerObject> = registry.simulator.object(
+        deathConfig.RELEASE_OBJECTS_REGISTRY.get(index).id
+      );
+
+      if (object && isCreature(object)) {
+        continue;
+      }
+
+      table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, index);
+    }
+
     const countToRelease: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length() - deathConfig.MAX_BODY_COUNT;
 
     for (const _ of $range(1, countToRelease)) {
-      const [index, descriptor] = getNearestCorpseToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
+      const [index, descriptor] = getFarthestCorpseToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
 
       // Nothing to release, can skip further checks.
       if ($isNil(index)) {
@@ -134,12 +152,7 @@ export class ReleaseBodyManager extends AbstractManager {
 
       if (object && isCreature(object)) {
         logger.info("Releasing object: %s", object.name());
-
-        if (object.alive()) {
-          logger.info("Detected alive object in release table: %s", object.name());
-        } else {
-          registry.simulator.release(object, true);
-        }
+        registry.simulator.release(object, true);
       }
 
       table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, index);

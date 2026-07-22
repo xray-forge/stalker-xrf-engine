@@ -7,6 +7,7 @@ import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { IReleaseDescriptor } from "@/engine/core/managers/death";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
+import { isCreature } from "@/engine/core/utils/class_ids";
 import { isObjectWithKnownInfo } from "@/engine/core/utils/object";
 
 /**
@@ -35,7 +36,7 @@ export function canReleaseObjectCorpse(object: GameObject): boolean {
  * @param descriptors - List of descriptors to check for release.
  * @returns Multiple values with descriptor and index of release object.
  */
-export function getNearestCorpseToRelease(
+export function getFarthestCorpseToRelease(
   descriptors: LuaArray<IReleaseDescriptor>
 ): LuaMultiReturn<[null, null] | [TIndex, IReleaseDescriptor]> {
   const now: TTimestamp = time_global();
@@ -47,9 +48,10 @@ export function getNearestCorpseToRelease(
 
   for (const [index, descriptor] of descriptors) {
     const object: Nillable<ServerObject> = registry.simulator.object(descriptor.id);
+    const gameObject: Nillable<GameObject> = registry.objects.get(descriptor.id)?.object;
 
     // May also contain objects that are being registered after game load.
-    if (object) {
+    if (object && isCreature(object) && !object.alive() && (!gameObject || canReleaseObjectCorpse(gameObject))) {
       // todo: Check timestamp and only then check distance as small optimization?
       const distanceToCorpseSqr: TDistance = position.distance_to_sqr(object.position);
 

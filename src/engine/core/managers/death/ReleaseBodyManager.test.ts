@@ -1,8 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { GameObject, ServerHumanObject } from "xray16/alias";
+import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { EMockPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "xray16/mocks";
+import {
+  EMockPacketDataType,
+  MockAlifeHumanStalker,
+  MockAlifeObject,
+  MockGameObject,
+  MockNetProcessor,
+} from "xray16/mocks";
 
 import {
   disposeManager,
@@ -72,13 +78,25 @@ describe("ReleaseBodyManager", () => {
 
     const objectWithStoryId: GameObject = MockGameObject.mock();
 
-    registerObject(objectOverLimit);
+    registerObject(objectWithStoryId);
     registerStoryLink(objectWithStoryId.id(), "test_sid");
 
     manager.registerCorpse(objectWithStoryId);
 
     expect(deathConfig.RELEASE_OBJECTS_REGISTRY.length()).toBe(6);
     expect(manager.releaseCorpses).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not register the same corpse more than once", () => {
+    const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
+    const object: GameObject = MockGameObject.mock();
+
+    registerObject(object);
+
+    manager.registerCorpse(object);
+    manager.registerCorpse(object);
+
+    expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([{ id: object.id(), diedAt: 60_000 }]);
   });
 
   it("should correctly try releasing", () => {
@@ -93,6 +111,7 @@ describe("ReleaseBodyManager", () => {
 
     jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation(() => deathConfig.MIN_DISTANCE_SQR + 1);
 
+    deathConfig.MAX_BODY_COUNT = 0;
     deathConfig.RELEASE_OBJECTS_REGISTRY = $fromArray<IReleaseDescriptor>([
       { id: 10, diedAt: 40_000 },
       { id: 11, diedAt: 40_000 },
@@ -109,6 +128,83 @@ describe("ReleaseBodyManager", () => {
     expect(registry.simulator.release).toHaveBeenCalledTimes(2);
     expect(registry.simulator.release).toHaveBeenCalledWith(first, true);
     expect(registry.simulator.release).toHaveBeenCalledWith(second, true);
+  });
+
+  it("should discard stale and non-creature descriptors while retaining alive creatures", () => {
+    mockRegisteredActor();
+
+    const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
+    const alive: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const nonCreature: ServerObject = MockAlifeObject.mock({ alive: false });
+
+    jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation(() => deathConfig.MIN_DISTANCE_SQR + 1);
+
+    deathConfig.MAX_BODY_COUNT = 0;
+    deathConfig.RELEASE_OBJECTS_REGISTRY = $fromArray<IReleaseDescriptor>([
+      { id: 10, diedAt: null },
+      { id: alive.id, diedAt: null },
+      { id: nonCreature.id, diedAt: null },
+    ]);
+
+    manager.releaseCorpses();
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+    expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([{ id: alive.id, diedAt: null }]);
+  });
+
+  it("should preserve a corpse that becomes protected before release", () => {
+    mockRegisteredActor();
+
+    const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
+    const item: GameObject = MockGameObject.mock({ section: "keep_item_section" });
+    const object: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id(), alive: false });
+
+    registerObject(object);
+    manager.registerCorpse(object);
+    MockGameObject.asMock(object).objectInventory.set(item.section(), item);
+
+    deathConfig.MAX_BODY_COUNT = 0;
+    jest.spyOn(Date, "now").mockImplementation(() => 120_000);
+
+    jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation(() => deathConfig.MIN_DISTANCE_SQR + 1);
+
+    manager.releaseCorpses();
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+    expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([{ id: object.id(), diedAt: 60_000 }]);
+  });
+
+  it("should release another eligible corpse when a farther corpse is protected", () => {
+    mockRegisteredActor();
+
+    const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
+    const item: GameObject = MockGameObject.mock({ section: "keep_item_section" });
+    const protectedObject: GameObject = MockGameObject.mock();
+    const protectedServerObject: ServerHumanObject = MockAlifeHumanStalker.mock({
+      id: protectedObject.id(),
+      alive: false,
+    });
+    const releasableServerObject: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
+
+    registerObject(protectedObject);
+    manager.registerCorpse(protectedObject);
+    MockGameObject.asMock(protectedObject).objectInventory.set(item.section(), item);
+    table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, { id: releasableServerObject.id, diedAt: null });
+
+    deathConfig.MAX_BODY_COUNT = 0;
+    jest.spyOn(Date, "now").mockImplementation(() => 120_000);
+    jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation((position) => {
+      return position === protectedServerObject.position
+        ? deathConfig.MIN_DISTANCE_SQR + 2
+        : deathConfig.MIN_DISTANCE_SQR + 1;
+    });
+
+    manager.releaseCorpses();
+
+    expect(registry.simulator.release).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.release).toHaveBeenCalledWith(releasableServerObject, true);
+    expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([{ id: protectedObject.id(), diedAt: 60_000 }]);
   });
 
   it("should correctly save/load", () => {

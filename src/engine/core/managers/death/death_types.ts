@@ -4,9 +4,12 @@ import { Nillable, TNumberId, TTimestamp } from "xray16/lib";
  * Descriptor of object corpse stored for delayed releasing.
  */
 export interface IReleaseDescriptor {
-  // todo: Use CTime here to transfer it after game save/load.
-  // todo: Current variant with game update TS may be not the most reliable one.
-  // todo: Update timer ticks from 0 after game load.
+  /**
+   * TODO: Persist the death time with a save-stable representation if delayed release after loading becomes required.
+   *
+   * Vanilla serialization stores only corpse IDs, so restored descriptors deliberately use `null` and are immediately
+   * eligible for the idle-time check. The current game-update timestamp also restarts after loading.
+   */
   diedAt: Nillable<TTimestamp>;
   id: TNumberId;
 }

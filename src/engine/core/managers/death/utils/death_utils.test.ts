@@ -13,10 +13,10 @@ import {
 } from "@/engine/core/database";
 import { IReleaseDescriptor } from "@/engine/core/managers/death";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
+import { canReleaseObjectCorpse, getFarthestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("canReleaseObjectCorpse util", () => {
+describe("canReleaseObjectCorpse", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -63,7 +63,7 @@ describe("canReleaseObjectCorpse util", () => {
   });
 });
 
-describe("getNearestCorpseToRelease util", () => {
+describe("getFarthestCorpseToRelease", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -73,12 +73,12 @@ describe("getNearestCorpseToRelease util", () => {
   });
 
   it("should check empty lists", () => {
-    expect(getNearestCorpseToRelease(new LuaTable())).toEqual([null, null]);
+    expect(getFarthestCorpseToRelease(new LuaTable())).toEqual([null, null]);
   });
 
   it("should check objects without register in simulator", () => {
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: 1 },
           { diedAt: null, id: 5 },
@@ -87,14 +87,14 @@ describe("getNearestCorpseToRelease util", () => {
     ).toEqual([null, null]);
   });
 
-  it("should check null died at elements", () => {
-    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+  it("selects a corpse without a saved death time when it is far enough", () => {
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
 
     jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation(() => MAX_U32);
 
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: first.id },
           { diedAt: null, id: second.id },
@@ -106,7 +106,7 @@ describe("getNearestCorpseToRelease util", () => {
 
     // Too close.
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: first.id },
           { diedAt: null, id: second.id },
@@ -115,14 +115,14 @@ describe("getNearestCorpseToRelease util", () => {
     ).toEqual([null, null]);
   });
 
-  it("should check null died at elements", () => {
-    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+  it("selects an idle corpse when it is far enough", () => {
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
 
     jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation(() => MAX_U32);
 
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: first.id },
           { diedAt: 15_000, id: second.id },
@@ -134,7 +134,7 @@ describe("getNearestCorpseToRelease util", () => {
 
     // Too soon.
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: first.id },
           { diedAt: 15_000, id: second.id },
@@ -147,12 +147,30 @@ describe("getNearestCorpseToRelease util", () => {
 
     // Too close.
     expect(
-      getNearestCorpseToRelease(
+      getFarthestCorpseToRelease(
         $fromArray<IReleaseDescriptor>([
           { diedAt: 50_000, id: first.id },
           { diedAt: 15_000, id: second.id },
         ])
       )
     ).toEqual([null, null]);
+  });
+
+  it("selects the farthest eligible corpse", () => {
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock({ alive: false });
+
+    jest.spyOn(registry.actor.position(), "distance_to_sqr").mockImplementation((position) => {
+      return position === first.position ? deathConfig.MIN_DISTANCE_SQR + 1 : deathConfig.MIN_DISTANCE_SQR + 2;
+    });
+
+    expect(
+      getFarthestCorpseToRelease(
+        $fromArray<IReleaseDescriptor>([
+          { diedAt: null, id: first.id },
+          { diedAt: null, id: second.id },
+        ])
+      )
+    ).toEqual([2, { diedAt: null, id: second.id }]);
   });
 });
