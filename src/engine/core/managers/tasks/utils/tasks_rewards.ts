@@ -1,13 +1,11 @@
-import { GameObject } from "xray16/alias";
 import { Nillable, TCount, TName } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/ini";
-import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { TaskObject } from "@/engine/core/managers/tasks";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
+import { giveItemsToActor, giveMoneyToActor } from "@/engine/core/utils/reward";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,7 +42,7 @@ export function giveTaskReward(task: TaskObject): void {
     }
 
     for (const [item, count] of rewards) {
-      transferItemsToActor(dialogConfig.ACTIVE_SPEAKER as GameObject, item, count);
+      giveItemsToActor(item, count);
     }
   }
 }
