@@ -1,14 +1,10 @@
-name: build-and-test
+name: coverage-and-nightly
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -38,15 +34,42 @@ jobs:
           path: target/jest_cache
           key: jest-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
 
-      - run: npm test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
+      - run: npm run test:coverage -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
 
       - name: Save jest cache
-        if: ${{ steps.cache-jest-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}
+        if: ${{ steps.cache-jest-restore.outputs.cache-hit != 'true' }}
         id: cache-jest-save
         uses: actions/cache/save@v5
         with:
           path: target/jest_cache
           key: ${{ steps.cache-jest-restore.outputs.cache-primary-key }}
+
+      - run: mv target/coverage_report/coverage-final.json target/coverage_report/${{matrix.shard}}.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-artifacts-${{matrix.shard}}
+          path: target/coverage_report/${{matrix.shard}}.json
+
+  report-coverage:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: coverage-artifacts-*
+          merge-multiple: true
+          path: target/coverage_report
+
+      - name: Merge code coverage
+        run: npx nyc merge target/coverage_report/ target/coverage_report/coverage-final.json
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v6
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          files: ./target/coverage_report/coverage-final.json
 
   check:
     runs-on: ubuntu-latest
@@ -73,20 +96,6 @@ jobs:
           git -C cli/bin fetch --depth=1 origin "$submodule_commit"
           git -C cli/bin checkout --detach "$submodule_commit"
 
-      - name: Restore eslint cache
-        id: cache-eslint-restore
-        uses: actions/cache/restore@v5
-        with:
-          path: target/eslint
-          key: eslint-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Restore prettier cache
-        id: cache-prettier-restore
-        uses: actions/cache/restore@v5
-        with:
-          path: target/prettier
-          key: prettier-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json', '.prettierrc.json', '.prettierignore') }}
-
       - run: npm ci
       - run: npm run typecheck
       - run: npm run format:check
@@ -94,36 +103,21 @@ jobs:
       - run: npm run cli format ltx -- --check
       - run: npm run cli verify ltx
 
-      - name: Save eslint cache
-        id: cache-eslint-save
-        uses: actions/cache/save@v5
-        with:
-          path: target/eslint
-          key: ${{ steps.cache-eslint-restore.outputs.cache-primary-key }}
-
-      - name: Save prettier cache
-        id: cache-prettier-save
-        uses: actions/cache/save@v5
-        with:
-          path: target/prettier
-          key: ${{ steps.cache-prettier-restore.outputs.cache-primary-key }}
-
-  build:
+  build-and-upload-nightly:
+    needs: [test, check]
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [24.x]
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v6
         with:
           lfs: false
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 24.x
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24.x
           cache: "npm"
 
       - name: Fetch pinned xrf-cli tools
@@ -144,3 +138,22 @@ jobs:
 
       - run: npm ci
       - run: npm run pack:mod -- --se
+
+      - name: Archive nightly build
+        working-directory: target/mod_package
+        run: |
+          mv ../xrf_build.log xrf_build.log
+          mv ../README.md README.md
+          zip -qq -r gamedata.release.zip gamedata/ bin/ xrf_build.log README.md
+
+      - name: Update nightly tag
+        uses: EndBug/latest-tag@latest
+        id: update-nightly-tag
+        with:
+          ref: nightly
+
+      - name: Publish nightly gamedata build
+        if: ${{ steps.update-nightly-tag.outcome == 'success' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload --clobber nightly gamedata.release.zip
