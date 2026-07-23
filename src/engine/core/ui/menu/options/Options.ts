@@ -210,7 +210,7 @@ export class Options extends CUIScriptWnd {
   public onDefaultSoundSettingsButtonClicked(): void {
     const optionsManager: COptionsManager = new COptionsManager();
 
-    optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_VIDEO, optionGroupsMessages.set_default_value);
+    optionsManager.SendMessage2Group(EOptionGroup.OPTIONS_SOUND, optionGroupsMessages.set_default_value);
   }
 
   public onAcceptButtonClicked(): void {

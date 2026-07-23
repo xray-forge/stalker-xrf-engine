@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { DIK_keys, game, get_console, IsGameTypeSingle, level, ui_events } from "xray16";
+import { CUIMessageBoxEx, CUIMMShniaga, DIK_keys, game, get_console, IsGameTypeSingle, level, ui_events } from "xray16";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
@@ -9,6 +9,7 @@ import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
+import { Options } from "@/engine/core/ui/menu/options/Options";
 import { getGameSaves, loadLastGameSave } from "@/engine/core/utils/game_save";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
@@ -47,9 +48,46 @@ describe("MainMenu component", () => {
     expect(get_console().execute).toHaveBeenCalledWith("main_menu off");
   });
 
-  it.todo("should correctly initialize");
+  it("should correctly initialize controls and callbacks", () => {
+    const menu: MainMenu = new MainMenu();
 
-  it.todo("should correctly change active modes");
+    expect(menu.SetWndRect).toHaveBeenCalledTimes(1);
+    expect(menu.uiModalBox).toBeInstanceOf(CUIMessageBoxEx);
+    expect(menu.xrMenuPageController).toBeInstanceOf(CUIMMShniaga);
+    expect(menu.Register).toHaveBeenCalledWith(menu.uiModalBox, "msg_box");
+    expect(menu.AddCallback).toHaveBeenCalledTimes(19);
+  });
+
+  it("should lazily open each available menu mode", () => {
+    const menu: MainMenu = new MainMenu();
+
+    jest.spyOn(menu, "HideDialog").mockImplementation(jest.fn());
+    jest.spyOn(menu, "Show").mockImplementation(jest.fn());
+    jest.spyOn(Options.prototype, "initializeState").mockImplementation(jest.fn());
+    replaceFunctionMock(getGameSaves, () => new LuaTable());
+
+    menu.onOptionsButtonClick();
+    menu.onSaveGameButtonClick();
+    menu.onExtensionsButtonClick();
+
+    expect(menu.uiGameOptionsDialog?.ShowDialog).toHaveBeenCalledWith(true);
+    expect(menu.uiGameSavesSaveDialog?.ShowDialog).toHaveBeenCalledWith(true);
+    expect(menu.uiGameExtensionsDialog?.ShowDialog).toHaveBeenCalledWith(true);
+    expect(menu.HideDialog).toHaveBeenCalledTimes(3);
+    expect(menu.Show).toHaveBeenLastCalledWith(false);
+
+    const options = menu.uiGameOptionsDialog;
+    const save = menu.uiGameSavesSaveDialog;
+    const extensions = menu.uiGameExtensionsDialog;
+
+    menu.onOptionsButtonClick();
+    menu.onSaveGameButtonClick();
+    menu.onExtensionsButtonClick();
+
+    expect(menu.uiGameOptionsDialog).toBe(options);
+    expect(menu.uiGameSavesSaveDialog).toBe(save);
+    expect(menu.uiGameExtensionsDialog).toBe(extensions);
+  });
 
   it("should correctly load last save on click", () => {
     const menu: MainMenu = new MainMenu();

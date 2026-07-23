@@ -153,10 +153,10 @@ export class ExtensionsDialog extends CUIScriptWnd {
 
     this.uiToggleButton.Enable(extension?.canToggle === true);
 
-    if (activeIndex === 0) {
+    if (activeIndex <= 0) {
       this.uiUpButton.Enable(false);
-      this.uiDownButton.Enable(true);
-    } else if (activeIndex === this.extensions.length() - 1) {
+      this.uiDownButton.Enable(this.extensions.length() > 1);
+    } else if (activeIndex >= this.extensions.length() - 1) {
       this.uiUpButton.Enable(true);
       this.uiDownButton.Enable(false);
     } else {
@@ -183,7 +183,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.extensions.set(nextIndex, first);
 
     this.fillItemsList();
-    this.uiItemsList.SetSelectedIndex(this.uiItemsList.GetSelectedIndex() + 1);
+    this.uiItemsList.SetSelectedIndex(nextIndex - 1);
     this.onActiveExtensionChange();
   }
 
@@ -205,7 +205,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
     this.extensions.set(nextIndex, first);
 
     this.fillItemsList();
-    this.uiItemsList.SetSelectedIndex(this.uiItemsList.GetSelectedIndex() + 2);
+    this.uiItemsList.SetSelectedIndex(nextIndex - 1);
     this.onActiveExtensionChange();
   }
 
