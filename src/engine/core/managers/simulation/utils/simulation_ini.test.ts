@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { TName, TNumberId } from "xray16/lib";
 import { MockIniFile } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
@@ -145,5 +146,19 @@ describe("initializeLevelSimulationGroupIds util", () => {
     }).toThrow(
       "[$filename] Found duplicate group id '10' usage for level 'agroprom_underground', 'agroprom' already using it"
     );
+  });
+
+  it("should reserve explicit IDs before assigning fallback group IDs", () => {
+    const groupIds: LuaTable<TName, TNumberId> = initializeLevelSimulationGroupIds(
+      MockIniFile.mock("test.ltx", {
+        jupiter: {
+          simulation_group_id: 128,
+        },
+      })
+    );
+
+    expect(groupIds.get("jupiter")).toBe(128);
+    expect(groupIds.get("agroprom")).toBe(129);
+    expect(groupIds.get("agroprom_underground")).toBe(130);
   });
 });

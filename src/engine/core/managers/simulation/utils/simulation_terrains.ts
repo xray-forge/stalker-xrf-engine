@@ -1,9 +1,10 @@
-import { abort } from "xray16/lib";
+import { abort, LuaArray } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { type Squad } from "@/engine/core/objects/squad/Squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
@@ -53,10 +54,12 @@ export function unregisterSimulationTerrain(terrain: SmartTerrain): void {
 export function initializeSimulationTerrain(terrain: SmartTerrain): void {
   // Resolve assigned squads state.
   if (simulationConfig.TEMPORARY_ASSIGNED_SQUADS.has(terrain.id)) {
-    for (const [, squad] of simulationConfig.TEMPORARY_ASSIGNED_SQUADS.get(terrain.id)) {
-      assignSimulationSquadToTerrain(squad, terrain.id);
-    }
+    const assignedSquads: LuaArray<Squad> = simulationConfig.TEMPORARY_ASSIGNED_SQUADS.get(terrain.id);
 
     simulationConfig.TEMPORARY_ASSIGNED_SQUADS.delete(terrain.id);
+
+    for (const [, squad] of assignedSquads) {
+      assignSimulationSquadToTerrain(squad, terrain.id);
+    }
   }
 }

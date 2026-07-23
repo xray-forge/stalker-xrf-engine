@@ -47,6 +47,32 @@ export function registerSimulationSquad(squad: Squad): void {
  */
 export function unRegisterSimulationSquad(squad: Squad): void {
   simulationConfig.SQUADS.delete(squad.id);
+  removeTemporarySimulationSquadAssignments(squad);
+}
+
+/**
+ * Remove a squad from every deferred terrain assignment.
+ *
+ * A squad can be reassigned or released before its terrain registers, so deferred queues must not retain stale entries.
+ *
+ * @param squad - Squad whose deferred assignments should be removed.
+ */
+function removeTemporarySimulationSquadAssignments(squad: Squad): void {
+  for (const [terrainId, assignedSquads] of simulationConfig.TEMPORARY_ASSIGNED_SQUADS) {
+    const retainedSquads: LuaArray<Squad> = new LuaTable();
+
+    for (const [, assignedSquad] of assignedSquads) {
+      if (assignedSquad.id !== squad.id) {
+        table.insert(retainedSquads, assignedSquad);
+      }
+    }
+
+    if (retainedSquads.length() === 0) {
+      simulationConfig.TEMPORARY_ASSIGNED_SQUADS.delete(terrainId);
+    } else {
+      simulationConfig.TEMPORARY_ASSIGNED_SQUADS.set(terrainId, retainedSquads);
+    }
+  }
 }
 
 /**
@@ -243,6 +269,8 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
  */
 export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Nillable<TNumberId>): void {
   simulationLogger.info("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), terrainId);
+
+  removeTemporarySimulationSquadAssignments(squad);
 
   if ($isNotNil(terrainId) && !simulationConfig.TERRAIN_DESCRIPTORS.has(terrainId)) {
     if (!simulationConfig.TEMPORARY_ASSIGNED_SQUADS.has(terrainId)) {

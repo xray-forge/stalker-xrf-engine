@@ -1,26 +1,34 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { patrol } from "xray16";
+import { clsid, patrol } from "xray16";
 import { Patrol, ServerCreatureObject } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { $fromArray } from "xray16/macros";
+import { MockAlifeHumanStalker, MockAlifeSimulator, MockIniFile } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { communities } from "@/engine/constants/communities";
-import { registerSimulator, SYSTEM_INI } from "@/engine/core/database";
+import { registerSimulator, registry, SYSTEM_INI } from "@/engine/core/database";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { getSimulationSquads } from "@/engine/core/managers/simulation/utils/simulation_data";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
 import {
+  assignSimulationSquadToTerrain,
+  createSimulationSquad,
   createSimulationSquadMembers,
   registerSimulationSquad,
+  releaseSimulationSquad,
+  setupSimulationObjectSquadAndGroup,
   unRegisterSimulationSquad,
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
+import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils/simulation_terrains";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils/map_spot_squad");
 
-describe("registerSimulationSquad / unRegisterSimulationSquad util", () => {
+describe("registerSimulationSquad / unRegisterSimulationSquad", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -54,13 +62,74 @@ describe("registerSimulationSquad / unRegisterSimulationSquad util", () => {
     expect(squads.length()).toBe(1);
     expect(squads.get(first.id)).toBe(first);
   });
+
+  it("should remove queued assignments when a squad is reassigned or unregistered", () => {
+    const first: Squad = MockSquad.mock();
+    const second: Squad = MockSquad.mock();
+
+    assignSimulationSquadToTerrain(first, 100);
+    assignSimulationSquadToTerrain(first, 200);
+    simulationConfig.TEMPORARY_ASSIGNED_SQUADS.set(300, $fromArray([first, second]));
+
+    expect(simulationConfig.TEMPORARY_ASSIGNED_SQUADS).toEqualLuaTables({
+      200: [first],
+      300: [first, second],
+    });
+
+    unRegisterSimulationSquad(first);
+
+    expect(simulationConfig.TEMPORARY_ASSIGNED_SQUADS).toEqualLuaTables({
+      300: [second],
+    });
+
+    assignSimulationSquadToTerrain(second, null);
+
+    expect(simulationConfig.TEMPORARY_ASSIGNED_SQUADS).toEqualLuaTables({});
+  });
 });
 
-describe("createSimulationSquad util", () => {
-  it.todo("should correctly create squads for terrains");
+describe("createSimulationSquad", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+    mockRegisteredActor();
+    resetFunctionMock(updateSquadMapSpot);
+  });
+
+  it("should correctly create squads for terrains", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+
+    registerSimulationTerrain(terrain);
+    (SYSTEM_INI as unknown as MockIniFile).data["test_spawn_squad"] = {
+      faction: communities.stalker,
+      npc: "test_stalker",
+    };
+
+    const squad: MockSquad = MockSquad.mock({ section: "test_spawn_squad" });
+
+    jest.spyOn(registry.simulator, "create").mockImplementation(() => squad);
+    jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
+
+    expect(createSimulationSquad(terrain, "test_spawn_squad")).toBe(squad);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "test_spawn_squad",
+      terrain.position,
+      terrain.m_level_vertex_id,
+      terrain.m_game_vertex_id
+    );
+    expect(squad.addMember).toHaveBeenCalledWith(
+      "test_stalker",
+      terrain.position,
+      terrain.m_level_vertex_id,
+      terrain.m_game_vertex_id
+    );
+    expect(squad.assignedTerrainId).toBe(terrain.id);
+    expect(simulationConfig.TERRAIN_DESCRIPTORS.get(terrain.id).assignedSquads.get(squad.id)).toBe(squad);
+  });
 });
 
-describe("createSimulationSquadMembers util", () => {
+describe("createSimulationSquadMembers", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -236,14 +305,94 @@ describe("createSimulationSquadMembers util", () => {
   });
 });
 
-describe("releaseSimulationSquad util", () => {
-  it.todo("should correctly release squads");
+describe("releaseSimulationSquad", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+    mockRegisteredActor();
+  });
+
+  it("should correctly release squads", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const squad: MockSquad = MockSquad.mock();
+    const first: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const second: ServerCreatureObject = MockAlifeHumanStalker.mock();
+
+    registerSimulationTerrain(terrain);
+    MockAlifeSimulator.addToRegistry(first);
+    MockAlifeSimulator.addToRegistry(second);
+    squad.mockAddMember(first);
+    squad.mockAddMember(second);
+    assignSimulationSquadToTerrain(squad, terrain.id);
+
+    releaseSimulationSquad(squad);
+
+    expect(squad.assignedTerrainId).toBeNull();
+    expect(squad.npc_count()).toBe(0);
+    expect(registry.simulator.release).toHaveBeenCalledWith(first, true);
+    expect(registry.simulator.release).toHaveBeenCalledWith(second, true);
+  });
 });
 
-describe("setupSimulationObjectSquadAndGroup util", () => {
-  it.todo("should correctly setup objects");
+describe("setupSimulationObjectSquadAndGroup", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+    mockRegisteredActor();
+  });
+
+  it("should correctly setup objects", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const squad: MockSquad = MockSquad.mock();
+    const object: ServerCreatureObject = MockAlifeHumanStalker.mock();
+
+    terrain.squadId = 404;
+    squad.assignedTerrainId = terrain.id;
+    object.group_id = squad.id;
+    jest.spyOn(terrain, "clsid").mockImplementation(() => clsid.smart_terrain);
+    simulationConfig.GROUP_ID_BY_LEVEL_NAME.set("zaton", 777);
+    MockAlifeSimulator.addToRegistry(terrain);
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(object);
+
+    setupSimulationObjectSquadAndGroup(object);
+
+    expect(object.squad).toBe(404);
+    expect(object.group).toBe(777);
+  });
 });
 
-describe("assignSimulationSquadToTerrain util", () => {
-  it.todo("should correctly assign terrains for squads");
+describe("assignSimulationSquadToTerrain", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+    mockRegisteredActor();
+  });
+
+  it("should correctly assign terrains for squads", () => {
+    const firstTerrain: SmartTerrain = MockSmartTerrain.mock("first_terrain");
+    const secondTerrain: SmartTerrain = MockSmartTerrain.mock("second_terrain");
+    const squad: MockSquad = MockSquad.mock();
+
+    registerSimulationTerrain(firstTerrain);
+    registerSimulationTerrain(secondTerrain);
+
+    assignSimulationSquadToTerrain(squad, firstTerrain.id);
+
+    expect(squad.assignedTerrainId).toBe(firstTerrain.id);
+    expect(simulationConfig.TERRAIN_DESCRIPTORS.get(firstTerrain.id).assignedSquads.get(squad.id)).toBe(squad);
+
+    assignSimulationSquadToTerrain(squad, secondTerrain.id);
+
+    expect(simulationConfig.TERRAIN_DESCRIPTORS.get(firstTerrain.id).assignedSquads.has(squad.id)).toBe(false);
+    expect(simulationConfig.TERRAIN_DESCRIPTORS.get(secondTerrain.id).assignedSquads.get(squad.id)).toBe(squad);
+
+    assignSimulationSquadToTerrain(squad, null);
+
+    expect(squad.assignedTerrainId).toBeNull();
+    expect(simulationConfig.TERRAIN_DESCRIPTORS.get(secondTerrain.id).assignedSquads.has(squad.id)).toBe(false);
+  });
 });
