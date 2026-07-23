@@ -1,10 +1,11 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { task } from "xray16";
 import { AnyObject, NIL, TSection } from "xray16/lib";
-import { EMockPacketDataType, MockIniFile, MockNetProcessor } from "xray16/mocks";
+import { EMockPacketDataType, MockCGameTask, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
+import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
@@ -114,7 +115,14 @@ describe("TaskManager", () => {
     expect(table.size(taskConfig.ACTIVE_TASKS)).toBe(1);
   });
 
-  it.todo("should correctly give tasks");
+  it("should give configured tasks and activate them", () => {
+    const manager: TaskManager = getManager(TaskManager);
+
+    manager.giveTask("hide_from_surge");
+
+    expect(manager.isTaskActive("hide_from_surge")).toBe(true);
+    expect(taskConfig.ACTIVE_TASKS.get("hide_from_surge")?.task?.get_id()).toBe("hide_from_surge");
+  });
 
   it("should correctly check if tasks are active", () => {
     const taskManager: TaskManager = getManager(TaskManager);
@@ -177,7 +185,23 @@ describe("TaskManager", () => {
     expect(taskManager.isTaskCompleted("test_task")).toBeTruthy();
   });
 
-  it.todo("should correctly handle task updates");
+  it("should notify and deactivate completed tasks on task state updates", () => {
+    const manager: TaskManager = getManager(TaskManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
+    const gameTask = MockCGameTask.create();
+
+    gameTask.id = "hide_from_surge";
+
+    taskObject.state = ETaskState.COMPLETED;
+    taskConfig.ACTIVE_TASKS.set("hide_from_surge", taskObject);
+    jest.spyOn(taskObject, "onDeactivate");
+
+    eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, gameTask, task.completed);
+
+    expect(taskObject.onDeactivate).toHaveBeenCalledWith(gameTask);
+    expect(manager.isTaskActive("hide_from_surge")).toBe(false);
+  });
 
   it("should correctly handle debug dump event", () => {
     const manager: TaskManager = getManager(TaskManager);

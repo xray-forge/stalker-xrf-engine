@@ -5,10 +5,10 @@ import { AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "xray16/mocks";
 
-import { disposeManager, getManager, registerActor } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { removeTreasureMapSpot } from "@/engine/core/managers/map/utils";
+import { removeTreasureMapSpot, showTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { TREASURE_MANAGER_CONFIG_LTX, treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
@@ -250,13 +250,82 @@ describe("TreasureManager", () => {
     expect(manager["spawnTreasure"]).toHaveBeenNthCalledWith(3, "jup_b3_secret");
   });
 
-  it.todo("should correctly register items");
+  it("should register items declared in a treasure spawn ini", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+    const item: ServerObject = MockAlifeObject.mock();
 
-  it.todo("should correctly spawn treasure");
+    (item as AnyObject).id = 100;
+    jest.spyOn(item, "spawn_ini").mockReturnValue(MockIniFile.mock("spawn.ini", { secret: { name: "jup_b1_secret" } }));
+    jest.spyOn(item, "section_name").mockReturnValue("wpn_abakan");
 
-  it.todo("should correctly give actor coordinates");
+    expect(manager.onRegisterItem(item)).toBe(true);
+    expect(treasureConfig.TREASURES.get("jup_b1_secret").items.get("wpn_abakan").get(1).itemsIds).toEqualLuaTables({
+      1: 100,
+    });
+  });
 
-  it.todo("should correctly give actor random coordinates");
+  it("should spawn registered treasure items and track their restrictor", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+    const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b1_secret");
+    const source: AnyObject = {
+      angle: "angle",
+      m_game_vertex_id: 2,
+      m_level_vertex_id: 1,
+      position: "position",
+      used_ai_locations: jest.fn(() => true),
+    };
+    const created: AnyObject = { id: 500, use_ai_locations: jest.fn() };
+
+    const itemIds: LuaTable<number, number> = new LuaTable();
+
+    itemIds.set(1, 100);
+    descriptor.items.get("wpn_abakan").get(1).itemsIds = itemIds;
+    descriptor.items.get("wpn_addon_scope").get(1).itemsIds = null;
+    manager.treasuresRestrictorByName.set("jup_b1_secret", 50);
+
+    registry.simulator = {
+      create: jest.fn(() => created),
+      object: jest.fn(() => source),
+    } as never;
+
+    jest.spyOn(math, "random").mockReturnValue(0);
+
+    manager["spawnTreasure"]("jup_b1_secret");
+
+    expect(registry.simulator.create).toHaveBeenCalledWith("wpn_abakan", "position", 1, 2);
+    expect(manager.treasuresRestrictorByItem.get(500)).toBe(50);
+    expect(descriptor.itemsToFindRemain).toBe(1);
+  });
+
+  it("should reveal treasure coordinates and notify the actor", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+    const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b1_secret");
+    const notificationManager: NotificationManager = getManager(NotificationManager);
+
+    manager.treasuresRestrictorByName.set("jup_b1_secret", 50);
+    jest.spyOn(notificationManager, "sendTreasureNotification").mockImplementation(jest.fn());
+
+    manager.giveActorTreasureCoordinates("jup_b1_secret");
+
+    expect(descriptor.given).toBe(true);
+    expect(showTreasureMapSpot).toHaveBeenCalledWith(50, descriptor);
+    expect(notificationManager.sendTreasureNotification).toHaveBeenCalledWith(ETreasureState.NEW_TREASURE_COORDINATES);
+  });
+
+  it("should reveal one remaining treasure when choosing random coordinates", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+
+    treasureConfig.TREASURES.get("jup_b1_secret").given = false;
+    treasureConfig.TREASURES.get("jup_b2_secret").given = true;
+    treasureConfig.TREASURES.get("jup_b3_secret").given = true;
+
+    jest.spyOn(manager, "giveActorTreasureCoordinates").mockImplementation(jest.fn());
+    jest.spyOn(math, "random").mockReturnValue(1);
+
+    manager.giveActorRandomTreasureCoordinates();
+
+    expect(manager.giveActorTreasureCoordinates).toHaveBeenCalledWith("jup_b1_secret");
+  });
 
   it("should correctly handle actor taking item", () => {
     const eventsManager: EventsManager = getManager(EventsManager);

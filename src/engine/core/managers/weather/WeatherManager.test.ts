@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level } from "xray16";
+import { game, level } from "xray16";
 import { AnyObject, NIL, TName, TProbability } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
 import { getFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { SurgeManager } from "@/engine/core/managers/surge";
 import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
@@ -17,6 +19,9 @@ describe("WeatherManager", () => {
     resetRegistry();
 
     weatherConfig.IS_UNDERGROUND_WEATHER = false;
+
+    // todo: Replace after SDK update.
+    (level as unknown as AnyObject).is_wfx_playing = jest.fn(() => false);
   });
 
   it("should correctly initialize and destroy", () => {
@@ -123,11 +128,51 @@ describe("WeatherManager", () => {
     expect(manager.weatherFx).toEqual(newManager.weatherFx);
   });
 
-  it.todo("should correctly handle period changes");
+  it("should change weather periods when the scheduled hour is reached", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+    const surgeManager: SurgeManager = getManager(SurgeManager);
 
-  it.todo("should correctly force weather change");
+    jest.spyOn(level, "get_time_hours").mockReturnValue(12);
+    surgeManager.lastSurgeAt = game.get_game_time();
+    surgeManager.nextScheduledSurgeDelay = 10_000;
+    manager.weatherPeriod = EWeatherPeriodType.GOOD;
+    manager.weatherNextPeriodChangeHour = 12;
 
-  it.todo("should correctly update weather");
+    manager.changePeriod();
+
+    expect(manager.weatherPeriod).toBe(EWeatherPeriodType.BAD);
+    expect(manager.weatherLastPeriodChangeHour).toBe(12);
+    expect(manager.weatherNextPeriodChangeHour).not.toBe(12);
+    expect(manager.isWeatherPeriodTransition).toBe(true);
+  });
+
+  it("should force the next weather update to apply immediately", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+
+    manager.weatherConditionList = parseConditionsList("test_weather");
+
+    manager.forceWeatherChange();
+    manager.updateWeather();
+
+    expect(manager.shouldForceWeatherChangeOnTimeChange).toBe(false);
+    expect(level.set_weather).toHaveBeenCalledWith(expect.any(String), true);
+  });
+
+  it("should advance hourly state and update weather", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+
+    manager.initializedAt = game.get_game_time();
+    manager.lastUpdatedAtHour = 5;
+    jest.spyOn(level, "get_time_hours").mockReturnValue(6);
+    jest.spyOn(manager, "changePeriod").mockImplementation(jest.fn());
+    jest.spyOn(manager, "updateWeather").mockImplementation(jest.fn());
+
+    manager.update();
+
+    expect(manager.lastUpdatedAtHour).toBe(6);
+    expect(manager.changePeriod).toHaveBeenCalledTimes(1);
+    expect(manager.updateWeather).toHaveBeenCalledTimes(1);
+  });
 
   it("should correctly handle debug dump event", () => {
     const manager: WeatherManager = getManager(WeatherManager);

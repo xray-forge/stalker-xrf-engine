@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { CTime, time_global } from "xray16";
+import { CTime, level, time_global } from "xray16";
 import { GameTask } from "xray16/alias";
 import { NIL } from "xray16/lib";
 import { EMockPacketDataType, MockGameObject, MockNetProcessor } from "xray16/mocks";
@@ -10,6 +10,7 @@ import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/task
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState, ETaskStatus } from "@/engine/core/managers/tasks/types";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 
 describe("TaskObject", () => {
   beforeAll(() => {
@@ -172,15 +173,64 @@ describe("TaskObject", () => {
     expect(taskObject.nextUpdateAt).toBeLessThanOrEqual(now + taskConfig.UPDATE_CHECK_PERIOD_MAX);
   });
 
-  it.todo("should correctly give tasks");
+  it("should give a configured task to the actor on activation", () => {
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
 
-  it.todo("should correctly calculate task states");
+    taskObject.onActivate();
 
-  it.todo("should correctly calculate task level direction");
+    expect(taskObject.task?.get_id()).toBe("hide_from_surge");
+    expect(taskObject.status).toBe(ETaskStatus.SELECTED);
+    expect(registry.actor.give_task).toHaveBeenCalledWith(taskObject.task, 0, false, 0);
+  });
 
-  it.todo("should correctly give task rewards");
+  it("should calculate a completed state from the configured condition list", () => {
+    const taskObject: TaskObject = new TaskObject("zat_b28_heli_3_crash", TASK_MANAGER_CONFIG_LTX);
 
-  it.todo("should correctly deactivate tasks");
+    taskObject.onActivate();
+    giveInfoPortion("zat_b28_heli_3_searched");
+    taskObject.nextUpdateAt = 0;
 
-  it.todo("should correctly handle guider spots");
+    expect(taskObject.update()).toBe(ETaskState.COMPLETED);
+  });
+
+  it("should leave guider spots unchanged when the task has no target", () => {
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
+    const removeMapSpot = jest.spyOn(level, "map_remove_object_spot");
+
+    taskObject.updateLevelDirection(null);
+
+    expect(removeMapSpot).not.toHaveBeenCalled();
+  });
+
+  it("should reset completed task state after deactivation", () => {
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+    taskObject.state = ETaskState.COMPLETED;
+    taskObject.onDeactivate(taskObject.task!);
+
+    expect(taskObject.state).toBeNull();
+    expect(taskObject.status).toBe(ETaskStatus.NORMAL);
+    expect(taskObject.nextUpdateAt).toBe(0);
+  });
+
+  it("should reset failed task state after deactivation", () => {
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+    taskObject.state = ETaskState.FAIL;
+    taskObject.onDeactivate(taskObject.task!);
+
+    expect(taskObject.state).toBeNull();
+    expect(taskObject.status).toBe(ETaskStatus.NORMAL);
+  });
+
+  it("should preserve task state when checking level direction without an active task", () => {
+    const taskObject: TaskObject = new TaskObject("hide_from_surge", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.state = ETaskState.NEW;
+    taskObject.updateLevelDirection(1);
+
+    expect(taskObject.state).toBe(ETaskState.NEW);
+  });
 });
