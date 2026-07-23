@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { device, IsImportantSave } from "xray16";
+import { device, FS, IsImportantSave } from "xray16";
 import { AlifeSimulator, Console } from "xray16/alias";
 import { gameDifficulties } from "xray16/lib";
 import { MockConsole, MockFileSystem, MockFileSystemList, MockIoFile } from "xray16/mocks";
@@ -11,6 +11,7 @@ import {
   createGameSave,
   deleteGameSave,
   getFileDataForGameSave,
+  getGameSaves,
   isGameSaveFileExist,
   loadDynamicGameSave,
   loadGameSave,
@@ -20,7 +21,7 @@ import {
 } from "@/engine/core/utils/game_save";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getFileDataForGameSave util", () => {
+describe("getFileDataForGameSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -41,7 +42,7 @@ describe("getFileDataForGameSave util", () => {
   });
 });
 
-describe("isGameSaveFileExist util", () => {
+describe("isGameSaveFileExist", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -61,7 +62,7 @@ describe("isGameSaveFileExist util", () => {
   });
 });
 
-describe("deleteGameSave util", () => {
+describe("deleteGameSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -86,7 +87,7 @@ describe("deleteGameSave util", () => {
   });
 });
 
-describe("createSave util", () => {
+describe("createSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -113,7 +114,7 @@ describe("createSave util", () => {
   });
 });
 
-describe("createAutoSave util", () => {
+describe("createAutoSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -154,7 +155,7 @@ describe("createAutoSave util", () => {
   });
 });
 
-describe("saveDynamicGameSave util", () => {
+describe("saveDynamicGameSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -212,7 +213,7 @@ describe("saveDynamicGameSave util", () => {
   });
 });
 
-describe("loadLastGameSave util", () => {
+describe("loadLastGameSave", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -230,7 +231,7 @@ describe("loadLastGameSave util", () => {
   });
 });
 
-describe("startNewGame util", () => {
+describe("startNewGame", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -266,7 +267,7 @@ describe("startNewGame util", () => {
   });
 });
 
-describe("loadGameSave util", () => {
+describe("loadGameSave", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -302,10 +303,18 @@ describe("loadGameSave util", () => {
   });
 });
 
-describe("getGameSavesList util", () => {
+describe("getGameSavesList", () => {
   beforeEach(() => {
     resetRegistry();
   });
 
-  it.todo("should correctly get list of save files in proper order");
+  it("should return only save files after the file system orders them by modification time", () => {
+    const files: MockFileSystemList = new MockFileSystemList(["newest.scop", "preview.dds", "older.scop"]);
+
+    jest.spyOn(MockFileSystem.getInstance(), "file_list_open_ex").mockReturnValue(files);
+    jest.spyOn(files, "Sort");
+
+    expect(getGameSaves()).toEqualLuaArrays([files.GetAt(0), files.GetAt(2)]);
+    expect(files.Sort).toHaveBeenCalledWith(FS.FS_sort_by_modif_down);
+  });
 });

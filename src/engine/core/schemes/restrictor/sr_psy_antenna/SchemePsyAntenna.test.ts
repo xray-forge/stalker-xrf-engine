@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import { AnyObject } from "xray16/lib";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
@@ -93,8 +93,8 @@ describe("SchemePsyAntenna", () => {
 describe("PsyAntennaSchemaManager post-process allocation", () => {
   beforeEach(() => {
     resetRegistry();
-    (level as unknown as AnyObject).set_pp_effector_factor = jest.fn();
-    (level as unknown as AnyObject).remove_pp_effector = jest.fn();
+    resetFunctionMock(level.set_pp_effector_factor);
+    resetFunctionMock(level.remove_pp_effector);
   });
 
   function createState(postprocess: string): ISchemePsyAntennaState {

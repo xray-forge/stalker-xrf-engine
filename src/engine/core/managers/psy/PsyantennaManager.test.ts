@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { hit, level, time_global } from "xray16";
 import { ESoundObjectType } from "xray16/alias";
-import { AnyObject } from "xray16/lib";
 import { MockNetProcessor } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -14,10 +14,9 @@ describe("PsyAntennaManager", () => {
   beforeEach(() => {
     resetRegistry();
 
-    // todo: Replace with SDK methods once it is updated.
-    (level as unknown as AnyObject).set_pp_effector_factor = jest.fn();
-    (level as unknown as AnyObject).remove_pp_effector = jest.fn();
-    (level as unknown as AnyObject).spawn_phantom = jest.fn();
+    resetFunctionMock(level.set_pp_effector_factor);
+    resetFunctionMock(level.remove_pp_effector);
+    resetFunctionMock(level.spawn_phantom);
   });
 
   it("should register and unregister event callbacks during its lifecycle", () => {

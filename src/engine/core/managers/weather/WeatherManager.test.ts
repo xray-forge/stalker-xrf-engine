@@ -3,7 +3,7 @@ import { game, level } from "xray16";
 import { AnyObject, NIL, TName, TProbability } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
-import { getFunctionMock } from "xray16/testing/utils";
+import { getFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
@@ -20,8 +20,8 @@ describe("WeatherManager", () => {
 
     weatherConfig.IS_UNDERGROUND_WEATHER = false;
 
-    // todo: Replace after SDK update.
-    (level as unknown as AnyObject).is_wfx_playing = jest.fn(() => false);
+    resetFunctionMock(level.is_wfx_playing);
+    getFunctionMock(level.is_wfx_playing).mockReturnValue(false);
   });
 
   it("should correctly initialize and destroy", () => {

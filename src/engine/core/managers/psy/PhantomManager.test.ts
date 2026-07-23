@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
-import { AnyObject } from "xray16/lib";
 import { MockVector } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
 import { disposeManager, getManager, isManagerInitialized } from "@/engine/core/database";
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
@@ -11,8 +11,7 @@ describe("PhantomManager", () => {
   beforeEach(() => {
     resetRegistry();
 
-    // todo: Replace with SDK methods once it is updated.
-    (level as unknown as AnyObject).spawn_phantom = jest.fn();
+    resetFunctionMock(level.spawn_phantom);
   });
 
   it("should initialize and destroy", () => {
