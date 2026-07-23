@@ -97,10 +97,11 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
 
     if (!this.antennaManager.postprocess.has(this.state.postprocess)) {
       this.antennaManager.postprocessCount += 1;
+      this.antennaManager.postprocessNextId += 1;
       this.antennaManager.postprocess.set(this.state.postprocess, {
         intensityBase: 0,
         intensity: 0,
-        idx: 1500 + this.antennaManager.postprocessCount,
+        idx: this.antennaManager.postprocessNextId,
       });
 
       level.add_pp_effector(

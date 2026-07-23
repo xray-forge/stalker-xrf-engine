@@ -110,6 +110,10 @@ export class PsyAntennaManager extends AbstractManager {
   public soundIntensityBase: TRate = 0;
 
   public postprocessCount: TCount = 0;
+  /**
+   * Last allocated post-process effector ID, retained independently from the active effect count.
+   */
+  public postprocessNextId: number = 1500;
   public postprocess: LuaTable<string, IPsyPostProcessDescriptor> = new LuaTable();
 
   public soundInitialized: boolean = false;
@@ -361,6 +365,7 @@ export class PsyAntennaManager extends AbstractManager {
     this.hitFreq = reader.r_u32();
 
     this.postprocessCount = reader.r_u8();
+    this.postprocessNextId = 1500;
 
     this.postprocess = new LuaTable();
 
@@ -371,6 +376,7 @@ export class PsyAntennaManager extends AbstractManager {
       const idx: number = reader.r_u16();
 
       this.postprocess.set(k, { intensityBase: ib, intensity: ii, idx: idx });
+      this.postprocessNextId = math.max(this.postprocessNextId, idx);
       level.add_pp_effector(k, idx, true);
       level.set_pp_effector_factor(idx, ii);
     }

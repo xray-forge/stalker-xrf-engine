@@ -1,15 +1,18 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { level } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
-import { registerObject } from "@/engine/core/database";
+import { getManager, registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
+import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaManager";
 import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenna/SchemePsyAntenna";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemePsyAntenna", () => {
   it("should correctly initialize with defaults", () => {
@@ -84,5 +87,55 @@ describe("SchemePsyAntenna", () => {
     expect(state.hitFreq).toBe(2000);
 
     assertSchemeSubscribedToManager(state, PsyAntennaSchemaManager);
+  });
+});
+
+describe("PsyAntennaSchemaManager post-process allocation", () => {
+  beforeEach(() => {
+    resetRegistry();
+    (level as unknown as AnyObject).set_pp_effector_factor = jest.fn();
+    (level as unknown as AnyObject).remove_pp_effector = jest.fn();
+  });
+
+  function createState(postprocess: string): ISchemePsyAntennaState {
+    return {
+      intensity: 1,
+      postprocess: postprocess,
+      hitIntensity: 0,
+      phantomProb: 0,
+      muteSoundThreshold: 0,
+      noStatic: false,
+      noMumble: false,
+      hitType: "wound",
+      hitFreq: 5000,
+    } as ISchemePsyAntennaState;
+  }
+
+  it("should not reuse an active effector ID after another effect expires", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: PsyAntennaManager = getManager(PsyAntennaManager);
+
+    const first: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("first.ppe"));
+    const second: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("second.ppe"));
+
+    first.onZoneEnter();
+    second.onZoneEnter();
+
+    const firstEffect = manager.postprocess.get("first.ppe");
+    const secondEffect = manager.postprocess.get("second.ppe");
+
+    expect(firstEffect.idx).toBe(1501);
+    expect(secondEffect.idx).toBe(1502);
+
+    firstEffect.intensity = 0;
+    expect(manager.updatePostprocess(firstEffect)).toBe(false);
+    manager.postprocess.delete("first.ppe");
+
+    const third: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("third.ppe"));
+
+    third.onZoneEnter();
+
+    expect(manager.postprocess.get("third.ppe").idx).toBe(1503);
+    expect(manager.postprocess.get("third.ppe").idx).not.toBe(secondEffect.idx);
   });
 });
