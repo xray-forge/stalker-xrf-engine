@@ -20,20 +20,28 @@ import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import {
+  assignSimulationSquadToTerrain,
   getSimulationTerrainByName,
   getSimulationTerrainDescriptorById,
+  setupSimulationObjectSquadAndGroup,
 } from "@/engine/core/managers/simulation/utils";
 import { Actor } from "@/engine/core/objects/creature";
 import { IObjectJobState, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain/index";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
-import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+
+jest.mock("@/engine/core/managers/simulation/utils/simulation_squads", () => ({
+  assignSimulationSquadToTerrain: jest.fn(),
+  setupSimulationObjectSquadAndGroup: jest.fn(),
+}));
 
 describe("SmartTerrain generic logic", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
     registerActorServer(MockAlifeCreatureActor.mock() as Actor);
+    mockRegisteredActor();
   });
 
   it("should correctly init default fields", () => {
@@ -476,9 +484,56 @@ describe("SmartTerrain generic logic", () => {
     );
   });
 
-  it.todo("register_npc should correctly count and assign objects after registration");
+  it("register_npc should count arrived objects and assign a job after terrain registration", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const object: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock();
 
-  it.todo("should handle simulation callbacks");
+    jest.spyOn(object.position, "distance_to_sqr").mockReturnValue(0);
 
-  it.todo("should correctly check simulation availability");
+    terrain.register_npc(object);
+
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(object.m_smart_terrain_id).toBe(terrain.id);
+    expect(terrain.arrivingObjects.get(object.id)).toBeNull();
+    expect(terrain.objectJobDescriptors.get(object.id)?.object).toBe(object);
+  });
+
+  it("should synchronize squad state when simulation selects or deselects the terrain", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const squad = MockSquad.mock();
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    squad.mockAddMember(first);
+    squad.mockAddMember(second);
+    jest.spyOn(squad, "setLocationTypes").mockImplementation(jest.fn());
+    registry.offlineObjects.set(first.id, { levelVertexId: 10, activeSection: "first" });
+    registry.offlineObjects.set(second.id, { levelVertexId: 20, activeSection: "second" });
+
+    terrain.onSimulationTargetSelected(squad);
+
+    expect(squad.setLocationTypes).toHaveBeenCalledWith(terrain.name());
+    expect(assignSimulationSquadToTerrain).toHaveBeenCalledWith(squad, terrain.id);
+    expect(registry.offlineObjects.get(first.id)).toEqual({ levelVertexId: null, activeSection: null });
+    expect(registry.offlineObjects.get(second.id)).toEqual({ levelVertexId: null, activeSection: null });
+
+    terrain.onSimulationTargetDeselected(squad);
+
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(first);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(second);
+    expect(squad.currentTargetId).toBe(terrain.id);
+  });
+
+  it("should reject simulation while its conditions fail or terrain control is not normal", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+
+    terrain.isSimulationAvailableConditionList = parseConditionsList("false");
+    expect(terrain.isSimulationAvailable()).toBe(false);
+
+    terrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    expect(terrain.isSimulationAvailable()).toBe(true);
+
+    terrain.terrainControl = { status: ESmartTerrainStatus.ALARM } as SmartTerrainControl;
+    expect(terrain.isSimulationAvailable()).toBe(false);
+  });
 });

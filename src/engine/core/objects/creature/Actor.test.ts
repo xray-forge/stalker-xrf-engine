@@ -1,12 +1,21 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { CALifeSmartTerrainTask } from "xray16";
 import { ServerObject } from "xray16/alias";
+import { FALSE, TRUE } from "xray16/lib";
 import { EMockPacketDataType, MockAlifeHumanStalker, MockNetProcessor } from "xray16/mocks";
 
-import { getManager } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
+import { parseConditionsList } from "@/engine/core/ini";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
+import { simulationActivities } from "@/engine/core/managers/simulation/activity";
+import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { Actor } from "@/engine/core/objects/creature/Actor";
-import { resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
+
+jest.mock("@/engine/core/managers/simulation/utils/simulation_squads", () => ({
+  assignSimulationSquadToTerrain: jest.fn(),
+}));
 
 describe("Actor server object", () => {
   beforeEach(() => {
@@ -69,11 +78,82 @@ describe("Actor server object", () => {
     expect(processor.dataList).toHaveLength(0);
   });
 
-  it.todo("should correctly generate alife task");
+  it("should generate an ALife task for its current graph vertices", () => {
+    const actor: Actor = new Actor("actor");
 
-  it.todo("should correctly check simulation availability");
+    (actor as unknown as { m_game_vertex_id: number }).m_game_vertex_id = 131;
+    (actor as unknown as { m_level_vertex_id: number }).m_level_vertex_id = 313;
 
-  it.todo("should correctly check if available simulation squad target");
+    expect(actor.getSimulationTask()).toEqual(new CALifeSmartTerrainTask(131, 313));
+  });
 
-  it.todo("should correctly handle simulation callbacks");
+  it("should check simulation availability against its configured condition list", () => {
+    mockRegisteredActor();
+
+    const actor: Actor = new Actor("actor");
+
+    expect(actor.isSimulationAvailable()).toBe(true);
+
+    actor.isSimulationAvailableConditionList = parseConditionsList(FALSE);
+    expect(actor.isSimulationAvailable()).toBe(false);
+
+    actor.isSimulationAvailableConditionList = parseConditionsList(TRUE);
+    registry.activeSmartTerrainId = null;
+    expect(actor.isSimulationAvailable()).toBe(true);
+  });
+
+  it("should exclude nearby smart terrains until they participate in simulation", () => {
+    mockRegisteredActor();
+
+    const actor: Actor = new Actor("actor");
+
+    registry.smartTerrainNearest.id = 903;
+    registry.smartTerrainNearest.distanceSqr = 1;
+    expect(actor.isSimulationAvailable()).toBe(false);
+
+    registry.simulationObjects.set(903, actor);
+    expect(actor.isSimulationAvailable()).toBe(true);
+  });
+
+  it("should mark the actor target as reached only after the actor dies", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const actor: Actor = new Actor("actor");
+
+    expect(actor.isReachedBySimulationObject()).toBe(false);
+
+    jest.spyOn(actorGameObject, "alive").mockReturnValue(false);
+    expect(actor.isReachedBySimulationObject()).toBe(true);
+  });
+
+  it("should delegate simulation target availability to the squad faction activity", () => {
+    const actor: Actor = new Actor("actor");
+    const squad = MockSquad.mock();
+
+    jest.spyOn(simulationActivities, "get").mockReturnValue({ actor: () => true } as never);
+    expect(actor.isValidSimulationTarget(squad)).toBe(true);
+
+    jest.spyOn(simulationActivities, "get").mockReturnValue({ actor: () => false } as never);
+    expect(actor.isValidSimulationTarget(squad)).toBe(false);
+  });
+
+  it("should reset selected squad members and clear the terrain assignment", () => {
+    const actor: Actor = new Actor("actor");
+    const squad = MockSquad.mock();
+    const first = MockAlifeHumanStalker.mock();
+    const second = MockAlifeHumanStalker.mock();
+
+    squad.mockAddMember(first);
+    squad.mockAddMember(second);
+    squad.assignedTargetId = actor.id;
+    jest.spyOn(squad, "setLocationTypes").mockImplementation(jest.fn());
+    registry.offlineObjects.set(first.id, { levelVertexId: 100, activeSection: "first" });
+    registry.offlineObjects.set(second.id, { levelVertexId: 200, activeSection: "second" });
+
+    actor.onSimulationTargetSelected(squad);
+
+    expect(squad.setLocationTypes).toHaveBeenCalledWith();
+    expect(registry.offlineObjects.get(first.id)).toEqual({ levelVertexId: null, activeSection: null });
+    expect(registry.offlineObjects.get(second.id)).toEqual({ levelVertexId: null, activeSection: null });
+    expect(assignSimulationSquadToTerrain).toHaveBeenCalledWith(squad, null);
+  });
 });

@@ -177,7 +177,26 @@ describe("Stalker server object", () => {
     expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).not.toThrow("a");
   });
 
-  it.todo("should correctly handle registration events with smart terrains");
+  it("should emit registration lifecycle events while registering with a smart terrain", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const stalker: Stalker = new Stalker("stalker");
+    const onRegistered = jest.fn();
+    const onUnregistered = jest.fn();
+
+    jest
+      .spyOn(stalker, "spawn_ini")
+      .mockReturnValue(MockIniFile.mock("test.ltx", { logic: { smart_terrain: terrain.name() } }));
+    eventsManager.registerCallback(EGameEvent.STALKER_REGISTER, onRegistered);
+    eventsManager.registerCallback(EGameEvent.STALKER_UNREGISTER, onUnregistered);
+    registerSimulationTerrain(terrain);
+
+    stalker.on_register();
+    stalker.on_unregister();
+
+    expect(onRegistered).toHaveBeenCalledWith(stalker);
+    expect(onUnregistered).toHaveBeenCalledWith(stalker);
+  });
 
   it("should correctly save and load data with defaults", () => {
     const stalker: Stalker = new Stalker("stalker");
