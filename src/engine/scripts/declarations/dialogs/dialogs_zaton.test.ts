@@ -1,14 +1,37 @@
-import { beforeAll, describe, it } from "@jest/globals";
-import { TName } from "xray16/lib";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
+import { AnyArgs, AnyObject, TName } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
-import { checkNestedBinding } from "@/fixtures/engine";
+import { infoPortions } from "@/engine/constants/info_portions";
+import { artefacts } from "@/engine/constants/items/artefacts";
+import { detectors } from "@/engine/constants/items/detectors";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { registry } from "@/engine/core/database";
+import { giveMoneyToActor, transferItemsFromActor, transferMoneyFromActor } from "@/engine/core/utils/reward";
+import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function checkDialogsBinding(name: TName): void {
   return checkNestedBinding("dialogs_zaton", name);
 }
 
+function callDialogsBinding<T = boolean>(name: TName, args: AnyArgs = []): T {
+  return callBinding(name, args, (_G as AnyObject)["dialogs_zaton"]);
+}
+
+jest.mock("@/engine/core/utils/reward");
+
 beforeAll(() => {
   require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
+});
+
+beforeEach(() => {
+  resetRegistry();
+  mockRegisteredActor();
+  resetFunctionMock(giveMoneyToActor);
+  resetFunctionMock(transferItemsFromActor);
+  resetFunctionMock(transferMoneyFromActor);
 });
 
 describe("zat_b30_owl_stalker_trader_actor_has_item_to_sell", () => {
@@ -1166,5 +1189,150 @@ describe("zat_b57_actor_hasnt_money", () => {
 describe("zat_b57_transfer_gas_money", () => {
   it("should be registered", () => {
     checkDialogsBinding("zat_b57_transfer_gas_money");
+  });
+});
+
+describe("Owl trader money and item predicates", () => {
+  it("should enforce both Owl payment thresholds", () => {
+    mockRegisteredActor({ money: 199 });
+    expect(callDialogsBinding("zat_b30_actor_has_200")).toBe(false);
+    expect(callDialogsBinding("zat_b30_actor_has_1000")).toBe(false);
+
+    mockRegisteredActor({ money: 1000 });
+    expect(callDialogsBinding("zat_b30_actor_has_200")).toBe(true);
+    expect(callDialogsBinding("zat_b30_actor_has_1000")).toBe(true);
+  });
+
+  it("should expose every direct Owl quest-item predicate", () => {
+    const predicates: Array<[TName, TName]> = [
+      ["zat_b30_actor_has_pri_b36_monolith_hiding_place_pda", questItems.pri_b36_monolith_hiding_place_pda],
+      ["zat_b30_actor_has_pri_b306_envoy_pda", questItems.pri_b306_envoy_pda],
+      ["zat_b30_actor_has_jup_b10_strelok_notes_1", questItems.jup_b10_notes_01],
+      ["zat_b30_actor_has_jup_b10_strelok_notes_2", questItems.jup_b10_notes_02],
+      ["zat_b30_actor_has_jup_b10_strelok_notes_3", questItems.jup_b10_notes_03],
+      ["zat_b30_actor_has_detector_scientific", detectors.detector_scientific],
+      ["zat_b30_actor_has_device_flash_snag", questItems.device_flash_snag],
+      ["zat_b30_actor_has_device_pda_port_bandit_leader", questItems.device_pda_port_bandit_leader],
+      ["zat_b30_actor_has_jup_b10_ufo_memory", questItems.jup_b10_ufo_memory_2],
+      ["zat_b30_actor_has_jup_b202_bandit_pda", questItems.jup_b202_bandit_pda],
+    ];
+
+    for (const [predicate, item] of predicates) {
+      expect(callDialogsBinding(predicate)).toBe(false);
+
+      resetRegistry();
+      mockRegisteredActor({ inventory: [[item, MockGameObject.mock({ section: item })]] });
+      expect(callDialogsBinding(predicate)).toBe(true);
+    }
+  });
+});
+
+describe("Owl trader exchanges", () => {
+  it("should transfer both direct payment amounts to the trader", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    callDialogsBinding("zat_b30_transfer_1000", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 1000);
+    callDialogsBinding("zat_b30_transfer_200", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 200);
+  });
+
+  it("should sell each direct trader item for its matching reward", () => {
+    const npc: GameObject = MockGameObject.mock();
+    const sales: Array<[TName, TName, number, TName | null]> = [
+      ["zat_b30_sell_pri_b36_monolith_hiding_place_pda", questItems.pri_b36_monolith_hiding_place_pda, 5000, null],
+      ["zat_b30_sell_pri_b306_envoy_pda", questItems.pri_b306_envoy_pda, 4000, null],
+      [
+        "zat_b30_sell_jup_b207_merc_pda_with_contract",
+        questItems.jup_b207_merc_pda_with_contract,
+        1000,
+        infoPortions.jup_b207_merc_pda_with_contract_sold,
+      ],
+      ["zat_b30_sell_jup_b10_strelok_notes_1", questItems.jup_b10_notes_01, 500, null],
+      ["zat_b30_sell_jup_b10_strelok_notes_2", questItems.jup_b10_notes_02, 500, null],
+      ["zat_b30_sell_jup_b10_strelok_notes_3", questItems.jup_b10_notes_03, 500, null],
+      [
+        "jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
+        questItems.jup_a9_evacuation_info,
+        750,
+        infoPortions.jup_a9_evacuation_info_sold,
+      ],
+      [
+        "jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
+        questItems.jup_a9_meeting_info,
+        750,
+        infoPortions.jup_a9_meeting_info_sold,
+      ],
+      [
+        "jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
+        questItems.jup_a9_losses_info,
+        750,
+        infoPortions.jup_a9_losses_info_sold,
+      ],
+      [
+        "jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
+        questItems.jup_a9_delivery_info,
+        750,
+        infoPortions.jup_a9_delivery_info_sold,
+      ],
+      [
+        "zat_b30_owl_stalker_trader_sell_device_flash_snag",
+        questItems.device_flash_snag,
+        200,
+        infoPortions.device_flash_snag_sold,
+      ],
+      [
+        "zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader",
+        questItems.device_pda_port_bandit_leader,
+        1000,
+        infoPortions.device_pda_port_bandit_leader_sold,
+      ],
+      [
+        "zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory",
+        questItems.jup_b10_ufo_memory_2,
+        500,
+        infoPortions.jup_b10_ufo_memory_2_sold,
+      ],
+      ["zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda", questItems.jup_b202_bandit_pda, 500, null],
+    ];
+
+    for (const [binding, item, reward, soldInfo] of sales) {
+      resetRegistry();
+      mockRegisteredActor({ inventory: [[item, MockGameObject.mock({ section: item })]] });
+      resetFunctionMock(giveMoneyToActor);
+      resetFunctionMock(transferItemsFromActor);
+
+      callDialogsBinding(binding, [registry.actor, npc]);
+
+      expect(transferItemsFromActor).toHaveBeenCalledWith(npc, item);
+      expect(giveMoneyToActor).toHaveBeenCalledWith(reward);
+
+      if (soldInfo) {
+        expect(registry.actor.has_info(soldInfo)).toBe(true);
+      }
+    }
+  });
+});
+
+describe("Zaton B14 artefact exchange", () => {
+  it("should reward the bar task and transfer the twisted artefact", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    callDialogsBinding("zat_b14_bar_transfer_money", [registry.actor, npc]);
+    expect(giveMoneyToActor).toHaveBeenCalledWith(1000);
+
+    callDialogsBinding("zat_b14_transfer_artefact", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, artefacts.af_quest_b14_twisted);
+  });
+
+  it("should check whether the first speaker has the twisted artefact", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("actor_has_artefact", [registry.actor, npc])).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [[artefacts.af_quest_b14_twisted, MockGameObject.mock({ section: artefacts.af_quest_b14_twisted })]],
+    });
+    expect(callDialogsBinding("actor_has_artefact", [registry.actor, npc])).toBe(true);
   });
 });
