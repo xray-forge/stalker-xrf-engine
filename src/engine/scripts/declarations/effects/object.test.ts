@@ -1,8 +1,15 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { GameObject } from "xray16/alias";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 import { AnyCallable, AnyCallablesModule, FALSE, getExtern, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSimulator, MockGameObject, MockPatrol } from "xray16/mocks";
+import {
+  MockAlifeHumanStalker,
+  MockAlifeObject,
+  MockAlifeSimulator,
+  MockGameObject,
+  MockIniFile,
+  MockPatrol,
+} from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { misc } from "@/engine/constants/items/misc";
@@ -12,20 +19,30 @@ import {
   registerSimulator,
   registerStoryLink,
   registry,
+  SYSTEM_INI,
 } from "@/engine/core/database";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
 import { getSchemeState, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  callXrEffect,
+  checkXrEffect,
+  mockRegisteredActor,
+  mockSchemeState,
+  MockSmartTerrain,
+  MockSquad,
+  resetRegistry,
+} from "@/fixtures/engine";
+
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/object");
+});
 
 describe("object effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/object");
-  });
-
   it("should correctly inject external methods for game", () => {
     checkXrEffect("anim_obj_forward");
     checkXrEffect("anim_obj_backward");
@@ -309,17 +326,161 @@ describe("object effects implementation", () => {
     expect(registry.simulator.release).toHaveBeenCalledWith(targetObject, true);
   });
 
-  it.todo("create_squad should correctly create squads");
+  it("create_squad should create a configured squad in the requested smart terrain", () => {
+    registerSimulator();
+    mockRegisteredActor();
 
-  it.todo("create_squad_member should correctly create squad members");
+    const terrain = MockSmartTerrain.mock("test-terrain");
 
-  it.todo("remove_squad should correctly remove squads");
+    (SYSTEM_INI as unknown as MockIniFile).data.test_spawn_squad = {
+      faction: "stalker",
+      npc: "test_stalker",
+    };
 
-  it.todo("kill_squad should correctly kill squads");
+    const squad: MockSquad = MockSquad.mock({ section: "test_spawn_squad" });
 
-  it.todo("heal_squad should correctly heal squads");
+    terrain.on_before_register();
+    terrain.on_register();
+    jest.spyOn(registry.simulator, "create").mockReturnValue(squad);
+    jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as never));
 
-  it.todo("clear_smart_terrain should correctly clear smart terrains");
+    callXrEffect("create_squad", MockGameObject.mockActor(), MockGameObject.mock(), "test_spawn_squad", "test-terrain");
+
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "test_spawn_squad",
+      terrain.position,
+      terrain.m_level_vertex_id,
+      terrain.m_game_vertex_id
+    );
+    expect(squad.addMember).toHaveBeenCalledWith(
+      "test_stalker",
+      terrain.position,
+      terrain.m_level_vertex_id,
+      terrain.m_game_vertex_id
+    );
+    expect(squad.assignedTerrainId).toBe(terrain.id);
+  });
+
+  it("create_squad_member should add and assign a member at the squad commander position", () => {
+    registerSimulator();
+    mockRegisteredActor();
+
+    const terrain = MockSmartTerrain.mock("test-terrain");
+    const squad: MockSquad = MockSquad.mock();
+    const commander: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    terrain.on_before_register();
+    terrain.on_register();
+    squad.assignedTerrainId = terrain.id;
+    squad.mockAddMember(commander);
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(commander);
+    registerStoryLink(squad.id, "test-squad");
+    jest.spyOn(squad, "commander_id").mockReturnValue(commander.id);
+    jest.spyOn(squad, "addMember").mockReturnValue(member);
+    jest.spyOn(squad, "assignMemberToTerrain");
+    jest.spyOn(squad, "update");
+
+    callXrEffect("create_squad_member", MockGameObject.mockActor(), MockGameObject.mock(), "test_member", "test-squad");
+
+    expect(squad.addMember).toHaveBeenCalledWith(
+      "test_member",
+      commander.position,
+      commander.m_level_vertex_id,
+      commander.m_game_vertex_id
+    );
+    expect(squad.assignMemberToTerrain).toHaveBeenCalledWith(member.id, terrain, null);
+    expect(squad.update).toHaveBeenCalledTimes(1);
+  });
+
+  it("remove_squad should release every squad member from simulation", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(first);
+    MockAlifeSimulator.addToRegistry(second);
+    squad.mockAddMember(first);
+    squad.mockAddMember(second);
+    registerStoryLink(squad.id, "test-squad");
+
+    callXrEffect("remove_squad", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad");
+
+    expect(registry.simulator.release).toHaveBeenNthCalledWith(1, first, true);
+    expect(registry.simulator.release).toHaveBeenNthCalledWith(2, second, true);
+    expect(squad.npc_count()).toBe(0);
+  });
+
+  it("kill_squad should kill both online and offline squad members", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const onlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const offlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const onlineObject: GameObject = MockGameObject.mock({ id: onlineMember.id });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(offlineMember);
+    squad.mockAddMember(onlineMember);
+    squad.mockAddMember(offlineMember);
+    registerObject(onlineObject);
+    registerStoryLink(squad.id, "test-squad");
+    jest.spyOn(offlineMember, "kill");
+
+    callXrEffect("kill_squad", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad");
+
+    expect(onlineObject.kill).toHaveBeenCalledWith(onlineObject);
+    expect(offlineMember.kill).toHaveBeenCalledTimes(1);
+  });
+
+  it("heal_squad should restore health for every online squad member", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const onlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const offlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const onlineObject: GameObject = MockGameObject.mock({ id: onlineMember.id, health: 0.2 });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(squad);
+    squad.mockAddMember(onlineMember);
+    squad.mockAddMember(offlineMember);
+    registerObject(onlineObject);
+    registerStoryLink(squad.id, "test-squad");
+
+    callXrEffect("heal_squad", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad", 100);
+
+    expect(onlineObject.health).toBe(1);
+  });
+
+  it("clear_smart_terrain should retain story-bound squads when requested", () => {
+    registerSimulator();
+    mockRegisteredActor();
+
+    const terrain = MockSmartTerrain.mockRegistered("test-terrain");
+    const removable: MockSquad = MockSquad.mock();
+    const retained: MockSquad = MockSquad.mock();
+    const removableMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const retainedMember: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const descriptor = getSimulationTerrainDescriptorById(terrain.id)!;
+
+    for (const object of [removable, retained, removableMember, retainedMember]) {
+      MockAlifeSimulator.addToRegistry(object);
+    }
+
+    removable.mockAddMember(removableMember);
+    retained.mockAddMember(retainedMember);
+    removable.assignedTerrainId = terrain.id;
+    retained.assignedTerrainId = terrain.id;
+    descriptor.assignedSquads.set(removable.id, removable);
+    descriptor.assignedSquads.set(retained.id, retained);
+    registerStoryLink(retained.id, "story-squad");
+
+    callXrEffect("clear_smart_terrain", MockGameObject.mockActor(), MockGameObject.mock(), "test-terrain", FALSE);
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(removableMember, true);
+    expect(registry.simulator.release).not.toHaveBeenCalledWith(retainedMember, true);
+  });
 
   it("update_npc_logic should update every resolved stalker planner and state controller", () => {
     const object: GameObject = MockGameObject.mock();

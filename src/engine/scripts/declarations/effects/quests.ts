@@ -364,19 +364,19 @@ extern(
  */
 extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]) => {
   // --	const story_object = p && getStoryObject(p[1])
-  const anomalyZonesList = [
+  const anomalyZonesList: Array<TName> = [
     "zat_b55_anomal_zone",
     "zat_b54_anomal_zone",
     "zat_b53_anomal_zone",
     "zat_b39_anomal_zone",
     "zaton_b56_anomal_zone",
-  ] as unknown as LuaArray<TName>;
+  ];
 
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       let anomalyZoneName: Nillable<TName> = null;
 
-      for (const [index, name] of anomalyZonesList) {
+      for (const name of anomalyZonesList) {
         if (hasInfoPortion(name as TInfoPortion)) {
           anomalyZoneName = name;
           disableInfoPortion(anomalyZoneName as TInfoPortion);

@@ -10,9 +10,10 @@ import {
   MockPatrol,
   MockVector,
 } from "xray16/mocks";
-import { resetFunctionMock } from "xray16/testing/utils";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { infoPortions } from "@/engine/constants/info_portions";
+import { artefacts } from "@/engine/constants/items/artefacts";
 import { questItems } from "@/engine/constants/items/quest_items";
 import {
   getManager,
@@ -27,9 +28,9 @@ import { MapDisplayManager } from "@/engine/core/managers/map";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
-import { spawnObject } from "@/engine/core/utils/spawn";
+import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils");
@@ -177,7 +178,19 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.pri_b306_lift_generator_used)).toBe(true);
   });
 
-  it.todo("jup_b206_get_plant should get plant object");
+  it("jup_b206_get_plant should grant the plant and destroy its world object in the quest zone", () => {
+    const actor: GameObject = mockActorInsideZone("jup_b206_sr_quest_line");
+    const object: GameObject = MockGameObject.mock();
+    const destroyObject = jest.fn();
+
+    getExtern<AnyCallablesModule>("xr_effects").destroy_object = destroyObject;
+
+    callXrEffect("jup_b206_get_plant", actor, object);
+
+    expect(hasInfoPortion(infoPortions.jup_b206_anomalous_grove_has_plant)).toBe(true);
+    expect(giveItemsToActor).toHaveBeenCalledWith(questItems.jup_b206_plant);
+    expect(destroyObject).toHaveBeenCalledWith(actor, object, ["story", "jup_b206_plant_ph", null]);
+  });
 
   it("pas_b400_switcher should handle pass switcher", () => {
     mockRegisteredActor();
@@ -268,10 +281,10 @@ describe("quests effects implementation", () => {
 
     MockPatrol.setup({
       jup_b16_teleport_in: {
-        points: [{ flag: 0, gvid: 0, lvid: 0, name: "in", position: MockVector.mock(10, 1, 3) }],
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "in", position: MockVector.create(10, 1, 3) }],
       },
       jup_b16_teleport_out: {
-        points: [{ flag: 0, gvid: 0, lvid: 0, name: "out", position: MockVector.mock(50, 20, 30) }],
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "out", position: MockVector.create(50, 20, 30) }],
       },
     });
 
@@ -325,17 +338,76 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion("test_infop_a") === hasInfoPortion("test_infop_b")).toBe(false);
   });
 
-  it.todo("give_item_b29 should give items");
+  it("give_item_b29 should request the active artefact from the marked anomaly zone", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const pickArtefact = jest.fn();
 
-  it.todo("relocate_item_b29 should relocate items");
+    getExtern<AnyCallablesModule>("xr_effects").pick_artefact_from_anomaly = pickArtefact;
+    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion("zat_b55_anomal_zone");
 
-  it.todo("jup_b202_inventory_box_relocate should relocate items");
+    callXrEffect("give_item_b29", actorGameObject, MockGameObject.mock(), "target-story");
+
+    expect(pickArtefact).toHaveBeenCalledWith(actorGameObject, null, [
+      "target-story",
+      "zat_b55_anomal_zone",
+      artefacts.af_gravi,
+    ]);
+    expect(hasInfoPortion("zat_b55_anomal_zone")).toBe(false);
+  });
+
+  it("relocate_item_b29 should transfer the active artefact between resolved story objects", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const artefact: GameObject = MockGameObject.mock({ section: artefacts.af_gravi });
+    const from: GameObject = MockGameObject.mock({ inventory: [[artefacts.af_gravi, artefact]] });
+    const to: GameObject = MockGameObject.mock();
+
+    giveInfoPortion("zat_b29_bring_af_16");
+    registerStoryLink(from.id(), "from-story");
+    registerStoryLink(to.id(), "to-story");
+
+    callXrEffect("relocate_item_b29", actorGameObject, MockGameObject.mock(), "from-story", "to-story");
+
+    expect(from.transfer_item).toHaveBeenCalledWith(artefact, to);
+  });
+
+  it("jup_b202_inventory_box_relocate should transfer every item from the actor box to Snag's box", () => {
+    const from: GameObject = MockGameObject.mock();
+    const to: GameObject = MockGameObject.mock();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    registerStoryLink(from.id(), "jup_b202_actor_treasure");
+    registerStoryLink(to.id(), "jup_b202_snag_treasure");
+    replaceFunctionMock(from.iterate_inventory_box, (callback) => {
+      callback(from, first);
+      callback(from, second);
+    });
+
+    callXrEffect("jup_b202_inventory_box_relocate", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(from.transfer_item).toHaveBeenNthCalledWith(1, first, to);
+    expect(from.transfer_item).toHaveBeenNthCalledWith(2, second, to);
+  });
 
   it.todo("jup_b10_spawn_drunk_dead_items should spawn dead drunk stalker");
 
   it.todo("zat_b202_spawn_random_loot should spawn random loot");
 
-  it.todo("jup_b221_play_main should play sounds");
+  it("jup_b221_play_main should play the first eligible faction theme and record it", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const playSound = jest.fn();
+
+    getExtern<AnyCallablesModule>("xr_effects").play_sound = playSound;
+    giveInfoPortion(infoPortions.jup_b25_freedom_flint_gone);
+
+    callXrEffect("jup_b221_play_main", actorGameObject, object, "duty");
+
+    expect(playSound).toHaveBeenCalledWith(actorGameObject, object, ["jup_b221_duty_main_1", null, null]);
+    expect(hasInfoPortion("jup_b221_duty_main_1_played")).toBe(true);
+    expect(getPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme")).toBe("1");
+  });
 
   it("zat_a1_tutorial_end_give should give info portions", () => {
     mockRegisteredActor();
@@ -576,11 +648,52 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.pri_a28_talk_ssu_video_end)).toBe(true);
   });
 
-  it.todo("zat_b33_pic_snag_container should pick container");
+  it("zat_b33_pic_snag_container should grant the safe container and notify the actor in the tutor zone", () => {
+    const actor: GameObject = mockActorInsideZone("zat_b33_tutor");
+    const playSound = jest.fn();
 
-  it.todo("zat_b202_spawn_b33_loot should spawn loot");
+    getExtern<AnyCallablesModule>("xr_effects").play_sound = playSound;
 
-  it.todo("pri_a28_check_zones should check zones");
+    callXrEffect("zat_b33_pic_snag_container", actor, MockGameObject.mock());
+
+    expect(giveItemsToActor).toHaveBeenCalledWith(questItems.zat_b33_safe_container);
+    expect(hasInfoPortion(infoPortions.zat_b33_find_package)).toBe(true);
+    expect(playSound).toHaveBeenCalledWith(actor, registry.zones.get("zat_b33_tutor"), ["pda_news", null, null]);
+  });
+
+  it("zat_b202_spawn_b33_loot should create every unclaimed reward in its target containers", () => {
+    const stalkerBox: GameObject = MockGameObject.mock();
+    const treasureBox: GameObject = MockGameObject.mock();
+
+    registerStoryLink(stalkerBox.id(), "jup_b202_stalker_snag");
+    registerStoryLink(treasureBox.id(), "jup_b202_snag_treasure");
+
+    callXrEffect("zat_b202_spawn_b33_loot", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(spawnObjectInObject).toHaveBeenCalledWith("wpn_fort_snag", stalkerBox.id());
+    expect(spawnObjectInObject).toHaveBeenCalledWith("af_soul", treasureBox.id());
+    expect(spawnObjectInObject).toHaveBeenCalledWith("helm_hardhat_snag", treasureBox.id());
+  });
+
+  it("pri_a28_check_zones should choose the farthest monolith zone and spawn its squad", () => {
+    const { actorGameObject } = mockRegisteredActor({ position: MockVector.mock(0, 0, 0) });
+    const first = MockAlifeObject.mock({ id: 101, position: MockVector.mock(1, 0, 0) });
+    const second = MockAlifeObject.mock({ id: 102, position: MockVector.mock(5, 0, 0) });
+    const third = MockAlifeObject.mock({ id: 103, position: MockVector.mock(3, 0, 0) });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(first);
+    MockAlifeSimulator.addToRegistry(second);
+    MockAlifeSimulator.addToRegistry(third);
+    registerStoryLink(first.id, "pri_a28_sr_mono_add_1");
+    registerStoryLink(second.id, "pri_a28_sr_mono_add_2");
+    registerStoryLink(third.id, "pri_a28_sr_mono_add_3");
+
+    callXrEffect("pri_a28_check_zones", actorGameObject, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.pri_a28_wave_2_spawned)).toBe(true);
+    expect(spawnSquadInSmart).toHaveBeenCalledWith("pri_a28_heli_mono_add_2", "pri_a28_heli");
+  });
 
   it("eat_vodka_script should handle vodka", () => {
     const actor: MockGameObject = MockGameObject.createActor();
