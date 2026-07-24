@@ -16,11 +16,11 @@ import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, reset
 
 jest.mock("@/engine/core/ai/combat");
 
-describe("game external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/callbacks/game");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/callbacks/game");
+});
 
+describe("game external callbacks", () => {
   beforeEach(() => {
     resetRegistry();
   });

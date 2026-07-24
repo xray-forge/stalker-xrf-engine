@@ -51,11 +51,11 @@ jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 jest.mock("@/engine/core/utils/planner");
 jest.mock("@/engine/core/utils/sound");
 
-describe("object conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/object");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/object");
+});
 
+describe("object conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("is_monster_snork");
     checkXrCondition("is_monster_dog");
@@ -130,10 +130,6 @@ describe("object conditions declaration", () => {
 });
 
 describe("object conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/object");
-  });
-
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

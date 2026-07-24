@@ -17,11 +17,11 @@ import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_po
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import { callXrCondition, checkXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("quests conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/quests");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/quests");
+});
 
+describe("quests conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("zat_b29_anomaly_has_af");
     checkXrCondition("jup_b221_who_will_start");
@@ -43,10 +43,6 @@ describe("quests conditions declaration", () => {
 });
 
 describe("quests conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/quests");
-  });
-
   beforeEach(() => {
     resetRegistry();
   });

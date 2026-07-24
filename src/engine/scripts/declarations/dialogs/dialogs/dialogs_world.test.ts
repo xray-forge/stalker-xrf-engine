@@ -13,11 +13,11 @@ function callDialogsBinding(name: TName, args: AnyArgs = []): boolean {
   return callBinding(name, args, (_G as AnyObject)["dialogs"]);
 }
 
-describe("dialogs_generic external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_world");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_world");
+});
 
+describe("dialogs_generic external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("level_zaton");
     checkDialogsBinding("level_jupiter");

@@ -9,11 +9,11 @@ import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/
 import { EScheme } from "@/engine/core/schemes/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-describe("post process effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/post_process");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/post_process");
+});
 
+describe("post process effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("run_cam_effector");
     checkXrEffect("stop_cam_effector");
@@ -25,10 +25,6 @@ describe("post process effects declaration", () => {
 });
 
 describe("post process effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/post_process");
-  });
-
   beforeEach(() => {
     resetRegistry();
 

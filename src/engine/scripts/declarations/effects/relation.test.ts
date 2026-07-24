@@ -18,11 +18,11 @@ import { callXrEffect, checkXrEffect, MockSquad, resetRegistry } from "@/fixture
 
 jest.mock("@/engine/core/utils/relation");
 
-describe("relation effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/relation");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/relation");
+});
 
+describe("relation effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("actor_friend");
     checkXrEffect("actor_neutral");
@@ -40,10 +40,6 @@ describe("relation effects declaration", () => {
 });
 
 describe("relation effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/relation");
-  });
-
   beforeEach(() => {
     resetRegistry();
 

@@ -50,11 +50,11 @@ jest.mock("@/engine/core/managers/upgrades/utils/upgrades_label_utils", () => ({
   issueUpgradeProperty: jest.fn(() => "issued_property"),
 }));
 
-describe("interface external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/callbacks/interface");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/callbacks/interface");
+});
 
+describe("interface external callbacks", () => {
   it("should correctly inject external methods for game", () => {
     checkBinding("ui_wpn_params");
     checkNestedBinding("ui_wpn_params", "GetRPM");

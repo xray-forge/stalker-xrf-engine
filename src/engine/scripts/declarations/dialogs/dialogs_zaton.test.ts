@@ -7,11 +7,11 @@ function checkDialogsBinding(name: TName): void {
   return checkNestedBinding("dialogs_zaton", name);
 }
 
-describe("dialogs_zaton external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
+});
 
+describe("dialogs_zaton external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_actor_has_item_to_sell");
     checkDialogsBinding("zat_b30_owl_can_say_about_heli");

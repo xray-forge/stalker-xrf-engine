@@ -20,11 +20,11 @@ import {
 
 jest.mock("@/engine/core/utils/game");
 
-describe("game conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/game");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/game");
+});
 
+describe("game conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("signal");
     checkXrCondition("counter_greater");
@@ -35,10 +35,6 @@ describe("game conditions declaration", () => {
 });
 
 describe("game conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/game");
-  });
-
   beforeEach(() => {
     resetRegistry();
   });

@@ -22,11 +22,11 @@ jest.mock("@/engine/core/managers/surge/utils/surge_cover", () => ({
   getActorTargetSurgeCover: jest.fn(() => null),
 }));
 
-describe("task_functors external callbacks declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks/task_functors");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/tasks/task_functors");
+});
 
+describe("task_functors external callbacks declaration", () => {
   it("should correctly inject task functors", () => {
     checkTaskBinding("condlist");
     checkTaskBinding("surge_task_title");
@@ -37,10 +37,6 @@ describe("task_functors external callbacks declaration", () => {
 });
 
 describe("task_functors external callbacks implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks/task_functors");
-  });
-
   beforeEach(() => {
     resetRegistry();
   });

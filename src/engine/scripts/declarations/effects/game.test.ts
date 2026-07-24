@@ -14,11 +14,11 @@ import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from 
 jest.mock("@/engine/core/utils/game");
 jest.mock("@/engine/core/utils/game_save");
 
-describe("game effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/game");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/game");
+});
 
+describe("game effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("inc_counter");
     checkXrEffect("dec_counter");
@@ -40,10 +40,6 @@ describe("game effects declaration", () => {
 });
 
 describe("game effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/game");
-  });
-
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(disconnectFromGame);

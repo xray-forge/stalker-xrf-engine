@@ -31,11 +31,11 @@ jest.mock("xray16/lib", () => ({
 jest.mock("@/engine/core/managers/surge/utils/surge_cover");
 jest.mock("@/engine/core/utils/position");
 
-describe("actor conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/actor");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/actor");
+});
 
+describe("actor conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("wealthy_functor");
     checkXrCondition("information_dealer_functor");
@@ -65,11 +65,11 @@ describe("actor conditions declaration", () => {
   });
 });
 
-describe("actor conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/actor");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/actor");
+});
 
+describe("actor conditions implementation", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(isActorInSurgeCover);

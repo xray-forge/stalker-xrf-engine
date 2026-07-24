@@ -41,11 +41,11 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 
-describe("world effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/world");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/world");
+});
 
+describe("world effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("play_sound");
     checkXrEffect("stop_sound");
@@ -79,10 +79,6 @@ describe("world effects declaration", () => {
 });
 
 describe("world effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/world");
-  });
-
   beforeEach(() => {
     resetRegistry();
   });

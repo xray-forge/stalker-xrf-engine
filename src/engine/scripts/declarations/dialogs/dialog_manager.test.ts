@@ -26,11 +26,11 @@ jest.mock("@/engine/core/managers/dialogs/utils/dialog_check");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_init");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_priority");
 
-describe("dialogs external callbacks declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialog_manager");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialog_manager");
+});
 
+describe("dialogs external callbacks declaration", () => {
   it("should correctly inject dialog functors", () => {
     checkManagerBinding("init_new_dialog");
     checkManagerBinding("initialize_start_dialogs");
@@ -71,10 +71,6 @@ describe("dialogs external callbacks implementation", () => {
       throw new Error(`Unexpected method provided - '${name}', no matching methods in dialog_manager globals.`);
     }
   }
-
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialog_manager");
-  });
 
   beforeEach(() => {
     resetRegistry();

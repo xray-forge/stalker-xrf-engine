@@ -18,11 +18,11 @@ import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegis
 jest.mock("@/engine/core/database/stalker");
 jest.mock("@/engine/core/objects/squad/utils");
 
-describe("position effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/position");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/position");
+});
 
+describe("position effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("teleport_npc");
     checkXrEffect("teleport_npc_by_story_id");
@@ -33,10 +33,6 @@ describe("position effects declaration", () => {
 });
 
 describe("position effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/position");
-  });
-
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

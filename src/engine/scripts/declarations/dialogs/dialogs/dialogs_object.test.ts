@@ -29,11 +29,11 @@ jest.mock("@/engine/core/utils/dialog", () => ({
   getNpcSpeaker: (first: GameObject, second: GameObject) => (first.id() === ACTOR_ID ? second : first),
 }));
 
-describe("dialogs_generic external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_object");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_object");
+});
 
+describe("dialogs_generic external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("update_npc_dialog");
     checkDialogsBinding("is_wounded");

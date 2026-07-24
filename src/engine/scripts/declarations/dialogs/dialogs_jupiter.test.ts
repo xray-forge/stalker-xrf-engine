@@ -7,11 +7,11 @@ function checkBinding(name: TName): void {
   return checkNestedBinding("dialogs_jupiter", name);
 }
 
-describe("dialogs_jupiter external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
+});
 
+describe("dialogs_jupiter external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkBinding("jup_b208_give_reward");
     checkBinding("jupiter_a9_actor_hasnt_all_mail_items");

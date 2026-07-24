@@ -1,17 +1,34 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { TRUE } from "xray16/lib";
-import { MockGameObject } from "xray16/mocks";
+import { ACTOR_ID, AnyCallablesModule, getExtern, TRUE } from "xray16/lib";
+import { $fromArray } from "xray16/macros";
+import {
+  MockAlifeObject,
+  MockAlifeObjectPhysic,
+  MockAlifeSimulator,
+  MockGameObject,
+  MockPatrol,
+  MockVector,
+} from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
-import { getManager, registerZone } from "@/engine/core/database";
+import {
+  getManager,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registerZone,
+  registry,
+} from "@/engine/core/database";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
+import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { takeItemFromActor } from "@/engine/core/utils/reward";
+import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject } from "@/engine/core/utils/spawn";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
@@ -19,12 +36,23 @@ jest.mock("@/engine/core/managers/map/utils");
 jest.mock("@/engine/core/ui/game/freeplay");
 jest.mock("@/engine/core/utils/reward");
 jest.mock("@/engine/core/utils/spawn");
+jest.mock("@/engine/core/utils/game_save");
+
+function mockActorInsideZone(name: string): GameObject {
+  const { actorGameObject } = mockRegisteredActor();
+  const zone: GameObject = MockGameObject.mock({ name });
+
+  registerZone(zone);
+  jest.spyOn(zone, "inside").mockReturnValue(true);
+
+  return actorGameObject;
+}
+
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/quests");
+});
 
 describe("quests effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/quests");
-  });
-
   it("should correctly inject external methods for game", () => {
     checkXrEffect("show_freeplay_dialog");
     checkXrEffect("jup_b32_place_scanner");
@@ -87,10 +115,6 @@ describe("quests effects declaration", () => {
 });
 
 describe("quests effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/quests");
-  });
-
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(showFreeplayDialog);
@@ -171,31 +195,135 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.pas_b400_switcher_use)).toBe(true);
   });
 
-  it.todo("jup_b209_place_scanner should place scanners");
+  it("jup_b209_place_scanner should save, place, and consume the scanner in the hypotheses zone", () => {
+    const actor: GameObject = mockActorInsideZone("jup_b209_hypotheses");
 
-  it.todo("jup_b9_heli_1_searching should handle heli search");
+    callXrEffect("jup_b209_place_scanner", actor, MockGameObject.mock());
 
-  it.todo("pri_a18_use_idol should handle idol usage");
+    expect(createGameAutoSave).toHaveBeenCalledWith("st_save_jup_b209_placed_mutant_scanner");
+    expect(hasInfoPortion(infoPortions.jup_b209_scanner_placed)).toBe(true);
+    expect(takeItemFromActor).toHaveBeenCalledWith(questItems.jup_b209_monster_scanner);
+    expect(spawnObject).toHaveBeenCalledWith("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
+  });
 
-  it.todo("jup_b8_heli_4_searching should handle heli search");
+  it("jup_b9_heli_1_searching should mark the first Jupiter helicopter as searched in its zone", () => {
+    const actor: GameObject = mockActorInsideZone("jup_b9_heli_1");
 
-  it.todo("jup_b10_ufo_searching should handle ufo search");
+    callXrEffect("jup_b9_heli_1_searching", actor, MockGameObject.mock());
 
-  it.todo("zat_b101_heli_5_searching should handle heli search");
+    expect(hasInfoPortion(infoPortions.jup_b9_heli_1_searching)).toBe(true);
+  });
 
-  it.todo("zat_b28_heli_3_searching should handle heli search");
+  it("pri_a18_use_idol should start the run camera in the idol restrictor", () => {
+    const actor: GameObject = mockActorInsideZone("pri_a18_use_idol_restrictor");
 
-  it.todo("zat_b100_heli_2_searching should handle heli search");
+    callXrEffect("pri_a18_use_idol", actor, MockGameObject.mock());
 
-  it.todo("jup_teleport_actor should handle teleport");
+    expect(hasInfoPortion(infoPortions.pri_a18_run_cam)).toBe(true);
+  });
 
-  it.todo("jup_b219_save_pos should handle saving of position");
+  it("jup_b8_heli_4_searching should mark the fourth Jupiter helicopter as searched in its zone", () => {
+    const actor: GameObject = mockActorInsideZone("jup_b8_heli_4");
 
-  it.todo("jup_b219_restore_gate should restore gate objects");
+    callXrEffect("jup_b8_heli_4_searching", actor, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.jup_b8_heli_4_searching)).toBe(true);
+  });
+
+  it("jup_b10_ufo_searching should start the memory quest and grant its item in the restrictor", () => {
+    const actor: GameObject = mockActorInsideZone("jup_b10_ufo_restrictor");
+
+    callXrEffect("jup_b10_ufo_searching", actor, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.jup_b10_ufo_memory_started)).toBe(true);
+    expect(giveItemsToActor).toHaveBeenCalledWith(questItems.jup_b10_ufo_memory);
+  });
+
+  it("zat_b101_heli_5_searching should mark the fifth Zaton helicopter as searched in its zone", () => {
+    const actor: GameObject = mockActorInsideZone("zat_b101_heli_5");
+
+    callXrEffect("zat_b101_heli_5_searching", actor, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.zat_b101_heli_5_searching)).toBe(true);
+  });
+
+  it("zat_b28_heli_3_searching should mark the third Zaton helicopter as searched in its zone", () => {
+    const actor: GameObject = mockActorInsideZone("zat_b28_heli_3");
+
+    callXrEffect("zat_b28_heli_3_searching", actor, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.zat_b28_heli_3_searching)).toBe(true);
+  });
+
+  it("zat_b100_heli_2_searching should mark the second Zaton helicopter as searched in its zone", () => {
+    const actor: GameObject = mockActorInsideZone("zat_b100_heli_2");
+
+    callXrEffect("zat_b100_heli_2_searching", actor, MockGameObject.mock());
+
+    expect(hasInfoPortion(infoPortions.zat_b100_heli_2_searching)).toBe(true);
+  });
+
+  it("jup_teleport_actor should preserve the actor offset between teleport patrol points", () => {
+    const actor: GameObject = MockGameObject.mockActor({ position: MockVector.mock(12, 5, 8) });
+
+    MockPatrol.setup({
+      jup_b16_teleport_in: {
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "in", position: MockVector.mock(10, 1, 3) }],
+      },
+      jup_b16_teleport_out: {
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "out", position: MockVector.mock(50, 20, 30) }],
+      },
+    });
+
+    callXrEffect("jup_teleport_actor", actor, MockGameObject.mock());
+
+    expect(actor.set_actor_position).toHaveBeenCalledWith(expect.objectContaining({ x: 52, y: 24, z: 35 }));
+  });
+
+  it("jup_b219_save_pos should retain the gate position and release its server object", () => {
+    const gate: GameObject = MockGameObject.mock();
+    const serverGate = MockAlifeObject.mock({ id: gate.id() });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverGate);
+    registerStoryLink(gate.id(), "jup_b219_gate_id");
+
+    callXrEffect("jup_b219_save_pos", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(serverGate, true);
+  });
+
+  it("jup_b219_restore_gate should recreate a saved gate with its original positioning", () => {
+    const gate: GameObject = MockGameObject.mock({ levelVertexId: 25, gameVertexId: 44 });
+    const serverGate = MockAlifeObject.mock({ id: gate.id() });
+    const restoredGate = MockAlifeObjectPhysic.mock();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(serverGate);
+    registerStoryLink(gate.id(), "jup_b219_gate_id");
+    jest.spyOn(restoredGate, "set_yaw");
+    jest.spyOn(registry.simulator, "create").mockReturnValue(restoredGate);
+
+    callXrEffect("jup_b219_save_pos", MockGameObject.mockActor(), MockGameObject.mock());
+    callXrEffect("jup_b219_restore_gate", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(registry.simulator.create).toHaveBeenCalledWith("jup_b219_gate", gate.position(), 25, 44);
+    expect(restoredGate.set_yaw).toHaveBeenCalledWith(0);
+  });
 
   it.todo("jup_b16_play_particle_and_sound should play particles");
 
-  it.todo("zat_b29_create_random_infop should create random info portion");
+  it("zat_b29_create_random_infop should retain exactly the requested number of candidate info portions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    getExtern<AnyCallablesModule>("xr_effects").zat_b29_create_random_infop(
+      actorGameObject,
+      MockGameObject.mock(),
+      $fromArray([1, "test_infop_a", "test_infop_b"])
+    );
+
+    expect(hasInfoPortion("test_infop_a") === hasInfoPortion("test_infop_b")).toBe(false);
+  });
 
   it.todo("give_item_b29 should give items");
 
@@ -252,15 +380,61 @@ describe("quests effects implementation", () => {
     expect(actor.satiety).toBe(0.51);
   });
 
-  it.todo("pas_b400_play_particle should play particles");
+  it("pas_b400_play_particle should start acidic particles on the registered actor", () => {
+    const { actorGameObject } = mockRegisteredActor();
 
-  it.todo("pas_b400_stop_particle should stop particles");
+    callXrEffect("pas_b400_play_particle", actorGameObject, MockGameObject.mock());
 
-  it.todo("damage_pri_a17_gauss should damage gauss weapon");
+    expect(actorGameObject.start_particles).toHaveBeenCalledWith("zones\\zone_acidic_idle", "bip01_head");
+  });
 
-  it.todo("pri_a17_hard_animation_reset should reset animation");
+  it("pas_b400_stop_particle should stop acidic particles on the registered actor", () => {
+    const { actorGameObject } = mockRegisteredActor();
 
-  it.todo("jup_b217_hard_animation_reset should reset animation");
+    callXrEffect("pas_b400_stop_particle", actorGameObject, MockGameObject.mock());
+
+    expect(actorGameObject.stop_particles).toHaveBeenCalledWith("zones\\zone_acidic_idle", "bip01_head");
+  });
+
+  it("damage_pri_a17_gauss should break the registered quest rifle", () => {
+    const gauss: GameObject = MockGameObject.mock();
+
+    registerStoryLink(gauss.id(), questItems.pri_a17_gauss_rifle);
+
+    callXrEffect("damage_pri_a17_gauss", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(gauss.set_condition).toHaveBeenCalledWith(0);
+  });
+
+  it("pri_a17_hard_animation_reset should reset the Pripyat fall-down animation", () => {
+    const object: GameObject = MockGameObject.mock();
+    const animationController = { setControl: jest.fn(), setState: jest.fn() };
+    const stateController = { animationController, setState: jest.fn() };
+
+    registerObject(object).stateController = stateController as never;
+
+    callXrEffect("pri_a17_hard_animation_reset", MockGameObject.mockActor(), object);
+
+    expect(stateController.setState).toHaveBeenCalledWith("pri_a17_fall_down", null, null, null, null);
+    expect(animationController.setState).toHaveBeenNthCalledWith(1, null, true);
+    expect(animationController.setState).toHaveBeenNthCalledWith(2, "pri_a17_fall_down", null);
+    expect(animationController.setControl).toHaveBeenCalledTimes(1);
+  });
+
+  it("jup_b217_hard_animation_reset should reset the Jupiter nitro animation", () => {
+    const object: GameObject = MockGameObject.mock();
+    const animationController = { setControl: jest.fn(), setState: jest.fn() };
+    const stateController = { animationController, setState: jest.fn() };
+
+    registerObject(object).stateController = stateController as never;
+
+    callXrEffect("jup_b217_hard_animation_reset", MockGameObject.mockActor(), object);
+
+    expect(stateController.setState).toHaveBeenCalledWith("jup_b217_nitro_straight", null, null, null, null);
+    expect(animationController.setState).toHaveBeenNthCalledWith(1, null, true);
+    expect(animationController.setState).toHaveBeenNthCalledWith(2, "jup_b217_nitro_straight", null);
+    expect(animationController.setControl).toHaveBeenCalledTimes(1);
+  });
 
   it("pri_a18_radio_start should start radio", () => {
     mockRegisteredActor();
@@ -423,5 +597,19 @@ describe("quests effects implementation", () => {
     expect(actor.eat).toHaveBeenCalledWith(item);
   });
 
-  it.todo("jup_b200_count_found should recalculate count");
+  it("jup_b200_count_found should count carried materials together with the saved counter", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    registerStoryLink(first.id(), "jup_b200_material_1");
+    registerStoryLink(second.id(), "jup_b200_material_2");
+    jest.spyOn(first, "parent").mockReturnValue(actorGameObject);
+    jest.spyOn(second, "parent").mockReturnValue(actorGameObject);
+    setPortableStoreValue(ACTOR_ID, "jup_b200_tech_materials_brought_counter", 3);
+
+    callXrEffect("jup_b200_count_found", actorGameObject, MockGameObject.mock());
+
+    expect(getPortableStoreValue(ACTOR_ID, "jup_b200_tech_materials_found_counter")).toBe(5);
+  });
 });

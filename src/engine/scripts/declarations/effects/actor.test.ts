@@ -31,11 +31,11 @@ jest.mock("@/engine/core/utils/reward", () => ({
   giveItemsToActor: jest.fn(),
 }));
 
-describe("actor effects declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/actor");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/actor");
+});
 
+describe("actor effects declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrEffect("disable_ui");
     checkXrEffect("disable_ui_only");
@@ -67,10 +67,6 @@ describe("actor effects declaration", () => {
 });
 
 describe("actor effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/actor");
-  });
-
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

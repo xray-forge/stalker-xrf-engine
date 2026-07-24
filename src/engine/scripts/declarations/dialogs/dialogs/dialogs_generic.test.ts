@@ -41,11 +41,11 @@ function callDialogsBinding(name: TName, args: AnyArgs = []): boolean {
   return callBinding(name, args, (_G as AnyObject)["dialogs"]);
 }
 
-describe("dialogs_generic external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_generic");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_generic");
+});
 
+describe("dialogs_generic external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("break_dialog");
     checkDialogsBinding("actor_have_medkit");

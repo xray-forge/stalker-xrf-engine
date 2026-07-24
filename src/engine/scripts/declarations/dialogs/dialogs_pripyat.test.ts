@@ -7,11 +7,11 @@ function checkDialogsBinding(name: TName): void {
   return checkNestedBinding("dialogs_pripyat", name);
 }
 
-describe("dialogs_pripyat external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs_pripyat");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs_pripyat");
+});
 
+describe("dialogs_pripyat external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("pri_b301_zulus_reward");
     checkDialogsBinding("pri_a17_reward");

@@ -19,11 +19,11 @@ function callAchievementBinding(name: EAchievement, args: AnyArgs = []): boolean
 
 jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils");
 
-describe("custom external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/callbacks/custom");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/callbacks/custom");
+});
 
+describe("custom external callbacks", () => {
   beforeEach(() => {
     resetRegistry();
   });

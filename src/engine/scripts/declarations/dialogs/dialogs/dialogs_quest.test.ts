@@ -7,11 +7,11 @@ function checkDialogsBinding(name: TName): void {
   return checkNestedBinding("dialogs", name);
 }
 
-describe("dialogs_quest external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_quest");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_quest");
+});
 
+describe("dialogs_quest external callbacks", () => {
   it("should correctly inject dialog functors", () => {
     checkDialogsBinding("quest_dialog_heli_precond");
     checkDialogsBinding("quest_dialog_military_precond");

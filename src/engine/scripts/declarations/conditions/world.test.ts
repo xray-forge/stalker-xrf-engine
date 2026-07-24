@@ -21,11 +21,11 @@ import {
 
 jest.mock("@/engine/core/utils/anomaly");
 
-describe("world conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/world");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/world");
+});
 
+describe("world conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("is_rain");
     checkXrCondition("is_heavy_rain");
@@ -42,10 +42,6 @@ describe("world conditions declaration", () => {
 });
 
 describe("world conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/world");
-  });
-
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(anomalyHasArtefact);

@@ -13,11 +13,11 @@ function callTaskBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject).task_functors);
 }
 
-describe("task_functors external callbacks declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks/task_functors_quest");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/tasks/task_functors_quest");
+});
 
+describe("task_functors external callbacks declaration", () => {
   it("should correctly inject task functors", () => {
     checkTaskBinding("zat_b29_adv_title");
     checkTaskBinding("zat_b29_adv_descr");
@@ -26,10 +26,6 @@ describe("task_functors external callbacks declaration", () => {
 });
 
 describe("task_functors external callbacks implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks/task_functors_quest");
-  });
-
   beforeEach(() => {
     resetRegistry();
   });

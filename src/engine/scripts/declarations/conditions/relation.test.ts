@@ -18,11 +18,11 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 
-describe("relation conditions declaration", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/relation");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/conditions/relation");
+});
 
+describe("relation conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("is_factions_enemies");
     checkXrCondition("is_factions_neutrals");
@@ -41,10 +41,6 @@ describe("relation conditions declaration", () => {
 });
 
 describe("relation conditions implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/conditions/relation");
-  });
-
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

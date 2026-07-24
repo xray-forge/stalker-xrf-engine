@@ -11,11 +11,11 @@ function callTravelBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);
 }
 
-describe("actor external callbacks", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/callbacks/actor");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/callbacks/actor");
+});
 
+describe("actor external callbacks", () => {
   it("should correctly inject external methods for game", () => {
     checkBinding("on_actor_critical_power");
     checkBinding("on_actor_critical_max_power");
