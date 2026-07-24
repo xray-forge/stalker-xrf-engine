@@ -15,11 +15,7 @@ import {
   shouldHidePhraseCategory,
   shouldShowPhrase,
 } from "@/engine/core/managers/dialogs/utils";
-import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-
-function checkManagerBinding(name: TName): void {
-  return checkNestedBinding("dialog_manager", name);
-}
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_action");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_check");
@@ -31,8 +27,14 @@ beforeAll(() => {
 });
 
 describe("action_disable_quest_phrase", () => {
-  it("should be registered", () => {
-    checkManagerBinding("action_disable_quest_phrase");
+  it("should record the phrase under the NPC quest-disabled phrase table", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const npc: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
+
+    callDialogBinding("action_disable_quest_phrase", actorGameObject, npc, "jup_b6_dialog", "3");
+
+    expect(manager.questDisabledPhrases.get(npc.id()).get("3")).toBe(true);
   });
 });
 

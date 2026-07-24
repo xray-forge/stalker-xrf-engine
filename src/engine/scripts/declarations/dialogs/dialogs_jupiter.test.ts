@@ -9,6 +9,7 @@ import { artefacts } from "@/engine/constants/items/artefacts";
 import { detectors } from "@/engine/constants/items/detectors";
 import { drugs } from "@/engine/constants/items/drugs";
 import { food } from "@/engine/constants/items/food";
+import { helmets } from "@/engine/constants/items/helmets";
 import { outfits } from "@/engine/constants/items/outfits";
 import { questItems } from "@/engine/constants/items/quest_items";
 import { weapons } from "@/engine/constants/items/weapons";
@@ -547,204 +548,6 @@ describe("zat_b30_actor_has_transfer_items", () => {
   });
 });
 
-describe("jup_b6_scientist_nuclear_physicist_scan_anomaly_precond", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_scientist_nuclear_physicist_scan_anomaly_precond");
-  });
-});
-
-describe("jup_b32_task_give_dialog_precond", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_task_give_dialog_precond");
-  });
-});
-
-describe("jup_b32_transfer_scanners", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_transfer_scanners");
-  });
-});
-
-describe("jup_b32_transfer_scanners_2", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_transfer_scanners_2");
-  });
-});
-
-describe("jup_b32_give_reward_to_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_give_reward_to_actor");
-  });
-});
-
-describe("jup_b209_get_monster_scanner", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b209_get_monster_scanner");
-  });
-});
-
-describe("jup_b209_return_monster_scanner", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b209_return_monster_scanner");
-  });
-});
-
-describe("jup_b32_anomaly_do_not_has_af", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_anomaly_do_not_has_af");
-  });
-});
-
-describe("jup_b207_generic_decrypt_need_dialog_precond", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_generic_decrypt_need_dialog_precond");
-  });
-});
-
-describe("jup_b207_actor_has_dealers_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_actor_has_dealers_pda");
-  });
-});
-
-describe("jup_b207_sell_dealers_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_sell_dealers_pda");
-  });
-});
-
-describe("jup_b207_give_dealers_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_give_dealers_pda");
-  });
-});
-
-describe("jup_b207_actor_has_merc_pda_with_contract", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_actor_has_merc_pda_with_contract");
-  });
-});
-
-describe("jup_b207_sell_merc_pda_with_contract", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_sell_merc_pda_with_contract");
-  });
-});
-
-describe("jup_b207_transfer_blackmail_reward", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_transfer_blackmail_reward");
-  });
-});
-
-describe("jup_b207_transfer_blackmail_reward_for_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b207_transfer_blackmail_reward_for_pda");
-  });
-});
-
-describe("give_jup_b1_art", () => {
-  it("should be registered", () => {
-    checkBinding("give_jup_b1_art");
-  });
-});
-
-describe("if_actor_has_jup_b1_art", () => {
-  it("should be registered", () => {
-    checkBinding("if_actor_has_jup_b1_art");
-  });
-});
-
-describe("jup_b1_actor_do_not_have_good_suit", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b1_actor_do_not_have_good_suit");
-  });
-});
-
-describe("jup_b1_reward_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b1_reward_actor");
-  });
-});
-
-describe("jup_b6_actor_outfit_cs", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_actor_outfit_cs");
-  });
-});
-
-describe("jup_b6_first_reward_for_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_first_reward_for_actor");
-  });
-});
-
-describe("jup_b6_second_reward_for_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_second_reward_for_actor");
-  });
-});
-
-describe("jup_b6_all_reward_for_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_all_reward_for_actor");
-  });
-});
-
-describe("jup_b6_first_reward_for_actor_extra", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_first_reward_for_actor_extra");
-  });
-});
-
-describe("jup_b6_second_reward_for_actor_extra", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_second_reward_for_actor_extra");
-  });
-});
-
-describe("jup_b6_all_reward_for_actor_extra", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_all_reward_for_actor_extra");
-  });
-});
-
-describe("jup_b6_reward_actor_by_detector", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_reward_actor_by_detector");
-  });
-});
-
-describe("jup_b1_actor_have_good_suit", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b1_actor_have_good_suit");
-  });
-});
-
-describe("jup_b6_actor_can_not_start", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_actor_can_not_start");
-  });
-});
-
-describe("jup_b6_actor_can_start", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b6_actor_can_start");
-  });
-});
-
-describe("jup_b1_stalker_squad_thanks", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b1_stalker_squad_thanks");
-  });
-});
-
-describe("jup_b202_actor_has_medkit", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b202_actor_has_medkit");
-  });
-});
-
 describe("jup_b202_hit_bandit_from_actor", () => {
   it("should be registered", () => {
     checkBinding("jup_b202_hit_bandit_from_actor");
@@ -799,135 +602,15 @@ describe("jupiter_b220_no_one_hunted", () => {
   });
 });
 
-describe("jup_b9_actor_has_money", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b9_actor_has_money");
-  });
-});
-
-describe("jupiter_b9_relocate_money", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_b9_relocate_money");
-  });
-});
-
-describe("give_jup_b9_blackbox", () => {
-  it("should be registered", () => {
-    checkBinding("give_jup_b9_blackbox");
-  });
-});
-
-describe("jup_b9_actor_has_not_money", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b9_actor_has_not_money");
-  });
-});
-
-describe("if_actor_has_jup_b9_blackbox", () => {
-  it("should be registered", () => {
-    checkBinding("if_actor_has_jup_b9_blackbox");
-  });
-});
-
-describe("if_actor_has_af_mincer_meat", () => {
-  it("should be registered", () => {
-    checkBinding("if_actor_has_af_mincer_meat");
-  });
-});
-
-describe("if_actor_has_af_fuzz_kolobok", () => {
-  it("should be registered", () => {
-    checkBinding("if_actor_has_af_fuzz_kolobok");
-  });
-});
-
-describe("actor_has_first_or_second_artefact", () => {
-  it("should be registered", () => {
-    checkBinding("actor_has_first_or_second_artefact");
-  });
-});
-
-describe("transfer_af_mincer_meat", () => {
-  it("should be registered", () => {
-    checkBinding("transfer_af_mincer_meat");
-  });
-});
-
 describe("jup_b15_dec_counter", () => {
   it("should be registered", () => {
     checkBinding("jup_b15_dec_counter");
   });
 });
 
-describe("jup_b46_sell_duty_founder_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b46_sell_duty_founder_pda");
-  });
-});
-
-describe("jup_b46_transfer_duty_founder_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b46_transfer_duty_founder_pda");
-  });
-});
-
-describe("jup_b46_sell_duty_founder_pda_to_owl", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b46_sell_duty_founder_pda_to_owl");
-  });
-});
-
-describe("jup_b46_actor_has_founder_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b46_actor_has_founder_pda");
-  });
-});
-
 describe("jup_b47_jupiter_docs_enabled", () => {
   it("should be registered", () => {
     checkBinding("jup_b47_jupiter_docs_enabled");
-  });
-});
-
-describe("transfer_af_fuzz_kolobok", () => {
-  it("should be registered", () => {
-    checkBinding("transfer_af_fuzz_kolobok");
-  });
-});
-
-describe("pay_cost_to_guide_to_pripyat", () => {
-  it("should be registered", () => {
-    checkBinding("pay_cost_to_guide_to_pripyat");
-  });
-});
-
-describe("jup_b43_actor_has_5000_money", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b43_actor_has_5000_money");
-  });
-});
-
-describe("jup_b43_actor_do_not_has_5000_money", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b43_actor_do_not_has_5000_money");
-  });
-});
-
-describe("jup_b43_reward_for_first_artefact", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b43_reward_for_first_artefact");
-  });
-});
-
-describe("jup_b43_reward_for_second_artefact", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b43_reward_for_second_artefact");
-  });
-});
-
-describe("jup_b43_reward_for_both_artefacts", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b43_reward_for_both_artefacts");
   });
 });
 
@@ -1522,5 +1205,255 @@ describe("Zaton B30 detector handoff", () => {
 
     callDialogsBinding("zat_b30_transfer_detectors", [registry.actor, npc]);
     expect(transferItemsFromActor).toHaveBeenCalledWith(npc, detectors.detector_elite, 3);
+  });
+});
+
+describe("Jupiter B32 and B207 dialog scenarios", () => {
+  it("should gate B32 dialogs, scanners, and rewards", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b6_scientist_nuclear_physicist_scan_anomaly_precond")).toBe(false);
+
+    giveInfoPortion(infoPortions.jup_b6_b32_quest_active);
+
+    expect(callDialogsBinding("jup_b6_scientist_nuclear_physicist_scan_anomaly_precond")).toBe(true);
+    expect(callDialogsBinding("jup_b32_task_give_dialog_precond")).toBe(true);
+
+    giveInfoPortion(infoPortions.jup_b32_task_start);
+    expect(callDialogsBinding("jup_b32_task_give_dialog_precond")).toBe(false);
+
+    callDialogsBinding("jup_b32_transfer_scanners", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, infoPortions.jup_b32_scanner_device, 3);
+
+    callDialogsBinding("jup_b32_transfer_scanners_2", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, infoPortions.jup_b32_scanner_device, 2);
+
+    callDialogsBinding("jup_b32_give_reward_to_actor");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(5000);
+
+    callDialogsBinding("jup_b209_get_monster_scanner", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, "jup_b209_monster_scanner", 1);
+
+    callDialogsBinding("jup_b209_return_monster_scanner", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "jup_b209_monster_scanner", 1);
+  });
+
+  it("should clean stale anomaly state and process both B207 PDAs", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b32_anomaly_do_not_has_af")).toBe(true);
+
+    giveInfoPortion(infoPortions.jup_b32_anomaly_true);
+    expect(callDialogsBinding("jup_b32_anomaly_do_not_has_af")).toBe(false);
+    expect(registry.actor.has_info(infoPortions.jup_b32_anomaly_true)).toBe(false);
+
+    expect(callDialogsBinding("jup_b207_actor_has_dealers_pda")).toBe(false);
+    expect(callDialogsBinding("jup_b207_generic_decrypt_need_dialog_precond", [registry.actor, npc])).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [["device_pda_zat_b5_dealer", MockGameObject.mock({ section: "device_pda_zat_b5_dealer" })]],
+    });
+    expect(callDialogsBinding("jup_b207_actor_has_dealers_pda")).toBe(true);
+
+    callDialogsBinding("jup_b207_sell_dealers_pda", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "device_pda_zat_b5_dealer");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(4000);
+
+    callDialogsBinding("jup_b207_give_dealers_pda", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "device_pda_zat_b5_dealer");
+
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [
+        ["jup_b207_merc_pda_with_contract", MockGameObject.mock({ section: "jup_b207_merc_pda_with_contract" })],
+        [questItems.jup_b9_blackbox, MockGameObject.mock({ section: questItems.jup_b9_blackbox })],
+      ],
+    });
+    expect(callDialogsBinding("jup_b207_generic_decrypt_need_dialog_precond", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("jup_b207_actor_has_merc_pda_with_contract")).toBe(true);
+
+    callDialogsBinding("jup_b207_sell_merc_pda_with_contract", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "jup_b207_merc_pda_with_contract");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(1000);
+
+    callDialogsBinding("jup_b207_transfer_blackmail_reward", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "jup_b207_merc_pda_with_contract");
+
+    callDialogsBinding("jup_b207_transfer_blackmail_reward_for_pda", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, "wpn_abakan");
+  });
+});
+
+describe("Jupiter B1 and B6 rewards", () => {
+  it("should exchange the half artefact and apply every B6 money reward", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("if_actor_has_jup_b1_art")).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [["jup_b1_half_artifact", MockGameObject.mock({ section: "jup_b1_half_artifact" })]],
+    });
+    expect(callDialogsBinding("if_actor_has_jup_b1_art")).toBe(true);
+
+    callDialogsBinding("give_jup_b1_art", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, "jup_b1_half_artifact");
+
+    const rewards: Array<[TName, number]> = [
+      ["jup_b1_reward_actor", 6000],
+      ["jup_b6_first_reward_for_actor", 2500],
+      ["jup_b6_second_reward_for_actor", 2500],
+      ["jup_b6_all_reward_for_actor", 5000],
+      ["jup_b6_first_reward_for_actor_extra", 3500],
+      ["jup_b6_second_reward_for_actor_extra", 3500],
+      ["jup_b6_all_reward_for_actor_extra", 7000],
+    ];
+
+    for (const [binding, amount] of rewards) {
+      callDialogsBinding(binding);
+      expect(giveMoneyToActor).toHaveBeenLastCalledWith(amount);
+    }
+  });
+
+  it("should check B6 outfit and start conditions and grant item rewards", () => {
+    const npc: GameObject = MockGameObject.mock();
+    const actor: GameObject = registry.actor;
+    const csOutfit: GameObject = MockGameObject.mock({ section: outfits.cs_heavy_outfit });
+
+    expect(callDialogsBinding("jup_b6_actor_outfit_cs")).toBe(false);
+    expect(callDialogsBinding("jup_b1_actor_have_good_suit")).toBe(false);
+    expect(callDialogsBinding("jup_b1_actor_do_not_have_good_suit", [actor, npc])).toBe(true);
+
+    MockGameObject.asMock(actor).item_in_slot.mockReturnValue(csOutfit as never);
+    expect(callDialogsBinding("jup_b6_actor_outfit_cs")).toBe(true);
+    expect(callDialogsBinding("jup_b6_actor_can_start")).toBe(true);
+    expect(callDialogsBinding("jup_b6_actor_can_not_start", [actor, npc])).toBe(false);
+
+    giveInfoPortion(infoPortions.jup_b1_squad_is_dead);
+    expect(callDialogsBinding("jup_b6_actor_can_start")).toBe(false);
+    expect(callDialogsBinding("jup_b6_actor_can_not_start", [actor, npc])).toBe(true);
+
+    giveInfoPortion(infoPortions.jup_b6_duty_employed);
+    expect(callDialogsBinding("jup_b6_actor_can_start")).toBe(true);
+
+    callDialogsBinding("jup_b6_reward_actor_by_detector", [actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, detectors.detector_elite);
+
+    callDialogsBinding("jup_b1_stalker_squad_thanks", [actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, helmets.helm_protective);
+  });
+
+  it("should expose the medkit predicate", () => {
+    expect(callDialogsBinding("jup_b202_actor_has_medkit")).toBe(false);
+
+    mockRegisteredActor({ inventory: [[drugs.medkit_army, MockGameObject.mock({ section: drugs.medkit_army })]] });
+
+    expect(callDialogsBinding("jup_b202_actor_has_medkit")).toBe(true);
+  });
+});
+
+describe("Jupiter B9 blackbox and artefacts", () => {
+  it("should calculate the blackbox fee, transfer payment, and hand over the blackbox", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    mockRegisteredActor({ money: 0 });
+    expect(callDialogsBinding("jup_b9_actor_has_money")).toBe(true);
+    expect(callDialogsBinding("jup_b9_actor_has_not_money", [registry.actor, npc])).toBe(false);
+
+    callDialogsBinding("jupiter_b9_relocate_money", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 0);
+
+    resetRegistry();
+    mockRegisteredActor({
+      money: 2999,
+      inventory: [[questItems.jup_b9_blackbox, MockGameObject.mock({ section: questItems.jup_b9_blackbox })]],
+    });
+    giveInfoPortion("jup_b200_tech_materials_brought_counter_1");
+
+    expect(callDialogsBinding("jup_b9_actor_has_money")).toBe(false);
+    expect(callDialogsBinding("jup_b9_actor_has_not_money", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("if_actor_has_jup_b9_blackbox")).toBe(true);
+
+    callDialogsBinding("give_jup_b9_blackbox", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b9_blackbox);
+  });
+
+  it("should detect and transfer the two B9 artefacts", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("if_actor_has_af_mincer_meat", [registry.actor, npc])).toBe(false);
+    expect(callDialogsBinding("if_actor_has_af_fuzz_kolobok", [registry.actor, npc])).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [[artefacts.af_mincer_meat, MockGameObject.mock({ section: artefacts.af_mincer_meat })]],
+    });
+    expect(callDialogsBinding("if_actor_has_af_mincer_meat", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("actor_has_first_or_second_artefact", [registry.actor, npc])).toBe(true);
+
+    callDialogsBinding("transfer_af_mincer_meat", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, artefacts.af_mincer_meat);
+
+    mockRegisteredActor({
+      inventory: [[artefacts.af_fuzz_kolobok, MockGameObject.mock({ section: artefacts.af_fuzz_kolobok })]],
+    });
+    expect(callDialogsBinding("if_actor_has_af_fuzz_kolobok", [registry.actor, npc])).toBe(true);
+  });
+});
+
+describe("Jupiter B46 and B43 exchanges", () => {
+  it("should check, transfer, and sell the Duty founder PDA", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b46_actor_has_founder_pda")).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [
+        [questItems.jup_b46_duty_founder_pda, MockGameObject.mock({ section: questItems.jup_b46_duty_founder_pda })],
+      ],
+    });
+    expect(callDialogsBinding("jup_b46_actor_has_founder_pda")).toBe(true);
+
+    callDialogsBinding("jup_b46_transfer_duty_founder_pda", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b46_duty_founder_pda);
+
+    callDialogsBinding("jup_b46_sell_duty_founder_pda_to_owl", [registry.actor, npc]);
+    expect(giveMoneyToActor).toHaveBeenCalledWith(2500);
+    expect(registry.actor.has_info(infoPortions.jup_b46_duty_founder_pda_sold)).toBe(true);
+  });
+
+  it("should award the faction-specific PDA reward and B43 guide rewards", () => {
+    giveInfoPortion(infoPortions.jup_b46_duty_founder_pda_to_freedom);
+    callDialogsBinding("jup_b46_sell_duty_founder_pda");
+
+    expect(giveMoneyToActor).toHaveBeenCalledWith(4000);
+    expect(giveItemsToActor).toHaveBeenCalledWith(weapons.wpn_sig550, 1);
+
+    mockRegisteredActor({ money: 4999 });
+
+    expect(callDialogsBinding("jup_b43_actor_has_5000_money")).toBe(false);
+    expect(callDialogsBinding("jup_b43_actor_do_not_has_5000_money")).toBe(true);
+
+    mockRegisteredActor({ money: 5000 });
+    expect(callDialogsBinding("jup_b43_actor_has_5000_money")).toBe(true);
+
+    const rewards: Array<[TName, number]> = [
+      ["jup_b43_reward_for_first_artefact", 2500],
+      ["jup_b43_reward_for_second_artefact", 3500],
+      ["jup_b43_reward_for_both_artefacts", 6000],
+    ];
+
+    for (const [binding, amount] of rewards) {
+      callDialogsBinding(binding);
+      expect(giveMoneyToActor).toHaveBeenLastCalledWith(amount);
+    }
+  });
+
+  it("should transfer the remaining artefact and Pripyat guide fee", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    callDialogsBinding("transfer_af_fuzz_kolobok", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, artefacts.af_fuzz_kolobok);
+
+    callDialogsBinding("pay_cost_to_guide_to_pripyat", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 5000);
   });
 });
