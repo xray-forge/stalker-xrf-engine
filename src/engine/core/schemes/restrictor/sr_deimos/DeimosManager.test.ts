@@ -10,7 +10,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosConfig";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { EScheme } from "@/engine/core/schemes/types";
-import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("DeimosManager", () => {
   beforeEach(() => {
@@ -28,7 +28,50 @@ describe("DeimosManager", () => {
     expect(manager.effectorActivatedAt).toBe(0);
   });
 
-  it.todo("should handle phased updates");
+  it("should activate and dispose phased effects as intensity rises and falls", () => {
+    const object: GameObject = MockGameObject.mock();
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: DeimosManager = new DeimosManager(object, mockSchemeState(EScheme.SR_DEIMOS));
+    const soundManager: SoundManager = getManager(SoundManager);
+
+    manager.state.camEffector = "camera";
+    manager.state.camEffectorRepeatingTime = 1_000;
+    manager.state.disableBound = 0.1;
+    manager.state.growingRate = 1;
+    manager.state.healthLost = 0.1;
+    manager.state.heartbeatSound = "heartbeat";
+    manager.state.intensity = 0;
+    manager.state.loweringRate = 1;
+    manager.state.movementSpeed = 0;
+    manager.state.noiseSound = "noise";
+    manager.state.ppEffector = "deimos";
+    manager.state.ppEffector2 = "deimos_secondary";
+    manager.state.switchLowerBound = 0.3;
+    manager.state.switchUpperBound = 0.6;
+    (actorGameObject as unknown as { deimosIntensity: number }).deimosIntensity = 0.5;
+
+    jest.spyOn(soundManager, "playLooped").mockImplementation(() => null);
+    jest.spyOn(soundManager, "setLoopedSoundVolume").mockImplementation(() => null);
+    jest.spyOn(soundManager, "stopLooped").mockImplementation(() => null);
+
+    manager.update();
+
+    expect(manager.phase).toBe(2);
+    expect(manager.state.intensity).toBe(0.5);
+    expect(level.add_pp_effector).toHaveBeenCalledWith("deimos.ppe", deimosConfig.POST_PROCESS_EFFECTOR_ID, true);
+    expect(soundManager.playLooped).toHaveBeenCalledWith(ACTOR_ID, "noise");
+    expect(soundManager.playLooped).toHaveBeenCalledWith(ACTOR_ID, "heartbeat");
+    expect(soundManager.setLoopedSoundVolume).toHaveBeenCalledWith(ACTOR_ID, "noise", 0.5);
+    expect(soundManager.setLoopedSoundVolume).toHaveBeenCalledWith(ACTOR_ID, "heartbeat", 0.5);
+
+    manager.state.movementSpeed = -100;
+    manager.update();
+
+    expect(manager.state.intensity).toBe(0);
+    expect(manager.phase).toBe(0);
+    expect(soundManager.stopLooped).toHaveBeenCalledWith(ACTOR_ID, "noise");
+    expect(level.remove_pp_effector).toHaveBeenCalledWith(deimosConfig.POST_PROCESS_EFFECTOR_ID);
+  });
 
   it("should handle reset", () => {
     const object: GameObject = MockGameObject.mock();

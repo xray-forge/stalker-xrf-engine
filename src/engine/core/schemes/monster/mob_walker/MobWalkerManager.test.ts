@@ -1,16 +1,19 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { clsid, patrol } from "xray16";
+import { anim, clsid, patrol } from "xray16";
 import { GameObject } from "xray16/alias";
 import { isObjectAtWaypoint, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockGameObject } from "xray16/mocks";
+import { MockGameObject, MockPatrol, MockVector } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EMonsterState } from "@/engine/constants/monsters";
+import { registerObject } from "@/engine/core/database";
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
+import { patrols } from "@/fixtures/engine/mocks/patrols.mock";
 
 jest.mock("xray16/lib", () => ({
   ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),
@@ -189,9 +192,73 @@ describe("MobWalkerManager", () => {
     expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should correctly handle waypoints when search signal is set");
+  it("should publish a configured signal before continuing from a waypoint", () => {
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
+      pathWalk: "mob-walker-signal",
+      state: EMonsterState.NONE,
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+    const objectState = registerObject(object);
 
-  it.todo("should correctly handle waypoints when search flags are set");
+    MockPatrol.setup({
+      ...patrols,
+      "mob-walker-signal": {
+        points: [{ flag: 0, gvid: 1, lvid: 1, name: "wp00|sig=arrived", position: MockVector.create(0, 0, 0) }],
+      },
+    });
+    objectState.activeScheme = EScheme.MOB_WALKER;
+    setSchemeState(objectState, EScheme.MOB_WALKER, state);
+    manager.activate();
+    jest.spyOn(manager, "updateMovementState").mockImplementation(() => {});
+
+    manager.onWaypoint(object, null, 0);
+
+    expect(state.signals?.get("arrived")).toBe(true);
+    expect(manager.lastIndex).toBe(0);
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
+  });
+
+  it("should enter a standing search state for a matching look-patrol flag", () => {
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
+    const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
+      pathLook: "mob-walker-look",
+      pathWalk: "mob-walker-search",
+      state: EMonsterState.NONE,
+    });
+    const manager: MobWalkerManager = new MobWalkerManager(object, state);
+
+    MockPatrol.setup({
+      ...patrols,
+      "mob-walker-look": {
+        points: [
+          {
+            flag: 1,
+            gvid: 1,
+            lvid: 1,
+            name: "wp00|a=stand_idle|t=2500",
+            position: MockVector.create(0, 0, 0),
+          },
+        ],
+      },
+      "mob-walker-search": {
+        points: [{ flag: 1, gvid: 1, lvid: 1, name: "wp00", position: MockVector.create(0, 0, 0) }],
+      },
+    });
+    manager.activate();
+    jest.spyOn(manager, "lookAtWaypoint").mockImplementation(() => {});
+    jest.spyOn(manager, "update").mockImplementation(() => {});
+    jest.spyOn(manager, "updateStandingState").mockImplementation(() => {});
+
+    manager.onWaypoint(object, null, 0);
+
+    expect(manager.mobState).toBe(EMobWalkerState.STANDING);
+    expect(manager.ptWaitTime).toBe(2500);
+    expect(manager.curAnimSet).toBe(anim.stand_idle);
+    expect(manager.lookAtWaypoint).toHaveBeenCalledWith(0);
+    expect(manager.updateStandingState).toHaveBeenCalledTimes(1);
+    expect(manager.update).toHaveBeenCalledTimes(1);
+  });
 
   it("should correctly update look state without sound", () => {
     const object: GameObject = MockGameObject.mock();

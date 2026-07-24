@@ -152,9 +152,41 @@ describe("ActionReachTaskLocation", () => {
     baseActionExecute.mockRestore();
   });
 
-  it.todo("should correctly execute for squad participant");
+  it("should delegate updates to the squad participant movement flow", () => {
+    const { action, object, squad } = mockActionData();
 
-  it.todo("should correctly execute for squad commander");
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    jest.spyOn(Date, "now").mockImplementation(() => 6000);
+    jest.spyOn(action, "executeSquadCommander").mockImplementation(() => {});
+    jest.spyOn(action, "executeSquadSoldier").mockImplementation(() => {});
+
+    action.execute();
+
+    expect(action.executeSquadSoldier).toHaveBeenCalledWith(squad, undefined);
+    expect(action.executeSquadCommander).not.toHaveBeenCalled();
+    expect(action.nextUpdateAt).toBe(6000 + reachTaskConfig.PATROL_UPDATE_PERIOD);
+  });
+
+  it("should delegate updates to the squad commander movement flow", () => {
+    const { action, object, squad } = mockActionData();
+
+    jest.spyOn(squad, "commander_id").mockReturnValue(object.id());
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    jest.spyOn(Date, "now").mockImplementation(() => 6000);
+    jest.spyOn(action, "executeSquadCommander").mockImplementation(() => {});
+    jest.spyOn(action, "executeSquadSoldier").mockImplementation(() => {});
+
+    action.execute();
+
+    expect(action.executeSquadCommander).toHaveBeenCalledWith(squad, undefined);
+    expect(action.executeSquadSoldier).not.toHaveBeenCalled();
+    expect(action.nextUpdateAt).toBe(6000 + reachTaskConfig.PATROL_UPDATE_PERIOD);
+  });
 
   it("should correctly switch death", () => {
     const { object, action, squad } = mockActionData();

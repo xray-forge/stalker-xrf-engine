@@ -1,14 +1,16 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { danger_object, stalker_ids, time_global } from "xray16";
 import { GameObject } from "xray16/alias";
-import { ZERO_VECTOR } from "xray16/lib";
+import { createVector, isObjectAtTerminalWaypoint, ZERO_VECTOR } from "xray16/lib";
+import { $fromArray } from "xray16/macros";
 import { MockDangerObject, MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { StalkerPatrolController } from "@/engine/core/ai/patrol";
 import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions/ActionCombatCamping";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
@@ -33,6 +35,11 @@ function createAction(): [ActionCombatCamping, GameObject, IRegistryObjectState,
 }
 
 jest.mock("@/engine/core/schemes/stalker/danger/utils");
+
+jest.mock("xray16/lib", () => ({
+  ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),
+  isObjectAtTerminalWaypoint: jest.fn(),
+}));
 
 describe("ActionCloseCombat", () => {
   beforeEach(() => {
@@ -81,11 +88,73 @@ describe("ActionCloseCombat", () => {
     expect(action.reset).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should correctly reset");
+  it("should reset patrols and sniper scan settings for the selected combat mode", () => {
+    const [action, object, state, schemeState] = createAction();
 
-  it.todo("should correctly handle action execution");
+    schemeState.pathLook = "test-wp-2";
+    schemeState.pathWalk = "test-wp";
+    schemeState.sniper = false;
+    schemeState.suggestedState = {} as IPatrolSuggestedState;
+    jest.spyOn(action.patrolController, "reset").mockImplementation(() => {});
+    replaceFunctionMock(object.sniper_update_rate, () => true);
 
-  it.todo("should correctly check if can shoot");
+    action.reset();
+
+    expect(action.patrolController.reset).toHaveBeenCalledWith(
+      "test-wp",
+      expect.any(LuaTable),
+      "test-wp-2",
+      expect.any(LuaTable),
+      null,
+      schemeState.suggestedState,
+      expect.any(Object)
+    );
+    expect(object.sniper_update_rate).toHaveBeenCalledWith(false);
+    expect(schemeState.signals).toEqualLuaTables({});
+    expect(schemeState.scanTable).toEqualLuaTables({});
+    expect(state.stateController?.setState).toHaveBeenCalledWith(EStalkerState.PATROL, null, null, null, null);
+  });
+
+  it("should fire at a visible enemy when the configured shooting mode permits it", () => {
+    const [action, object, state, schemeState] = createAction();
+    const enemy: GameObject = MockGameObject.mock({ id: 100 });
+
+    schemeState.attackSound = "attack";
+    schemeState.shoot = "always";
+    schemeState.sniper = false;
+    schemeState.suggestedState = {} as IPatrolSuggestedState;
+    jest.spyOn(object, "best_enemy").mockReturnValue(enemy);
+    jest.spyOn(object, "see").mockReturnValue(true);
+    jest.spyOn(state.stateController!, "setState").mockImplementation(() => {});
+    jest.spyOn(getManager(SoundManager), "play").mockImplementation(() => null);
+
+    action.execute();
+
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
+      EStalkerState.HIDE_FIRE,
+      null,
+      null,
+      { lookObjectId: enemy.id(), lookPosition: enemy.position() },
+      { animation: true }
+    );
+  });
+
+  it("should respect always, none, and terminal shooting modes", () => {
+    const [action] = createAction();
+
+    action.state.shoot = "always";
+    expect(action.canShoot()).toBe(true);
+
+    action.state.shoot = "none";
+    expect(action.canShoot()).toBe(false);
+
+    action.state.shoot = "terminal";
+    replaceFunctionMock(isObjectAtTerminalWaypoint, () => [true, 0]);
+    expect(action.canShoot()).toBe(true);
+
+    replaceFunctionMock(isObjectAtTerminalWaypoint, () => [false, 0]);
+    expect(action.canShoot()).toBe(false);
+  });
 
   it("should correctly process danger", () => {
     const [action, object, state, schemeState] = createAction();
@@ -165,5 +234,46 @@ describe("ActionCloseCombat", () => {
     );
   });
 
-  it.todo("should correctly scan");
+  it("should interpolate scan points over the configured scan interval", () => {
+    const [action, , state, schemeState] = createAction();
+
+    schemeState.scandelta = 2;
+    schemeState.suggestedState = {} as IPatrolSuggestedState;
+    schemeState.timeScanDelta = 1_000;
+    schemeState.scanTable.set(
+      1,
+      $fromArray([
+        { key: 0, pos: ZERO_VECTOR },
+        { key: 1, pos: createVector(2, 0, 0) },
+      ])
+    );
+    jest.spyOn(state.stateController!, "setState").mockImplementation(() => {});
+    replaceFunctionMock(time_global, () => 1_000);
+
+    action.scan(1);
+
+    expect(action.flag).toBe(1);
+    expect(schemeState.curLookPoint).toBe(2);
+    expect(schemeState.lastLookPoint).toEqual({ key: 0, pos: ZERO_VECTOR });
+    expect(state.stateController?.setState).toHaveBeenCalledWith(
+      EStalkerState.HIDE_NA,
+      null,
+      null,
+      { lookPosition: ZERO_VECTOR },
+      null
+    );
+
+    replaceFunctionMock(time_global, () => 2_001);
+    action.scan(1);
+
+    expect(schemeState.curLookPoint).toBeNull();
+    expect(schemeState.lastLookPoint).toEqual({ key: 1, pos: createVector(2, 0, 0) });
+    expect(state.stateController?.setState).toHaveBeenLastCalledWith(
+      EStalkerState.HIDE_NA,
+      null,
+      null,
+      { lookPosition: createVector(2, 0, 0) },
+      null
+    );
+  });
 });

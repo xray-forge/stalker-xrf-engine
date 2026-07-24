@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { move, property_storage } from "xray16";
-import { GameObject, Vector } from "xray16/alias";
-import { MX_VECTOR, ONE_VECTOR, ZERO_VECTOR } from "xray16/lib";
+import { move, property_storage, time_global } from "xray16";
+import { EGameObjectPath, GameObject, Vector } from "xray16/alias";
+import { createVector, MX_VECTOR, ONE_VECTOR, ZERO_VECTOR } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
+import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, setStalkerState } from "@/engine/core/database";
@@ -81,7 +82,31 @@ describe("ActionZombieShoot", () => {
     expect(state.currentAction).toBeNull();
   });
 
-  it.todo("should correctly execute");
+  it("should advance while firing at a visible distant enemy", () => {
+    const enemy: GameObject = MockGameObject.mock({ id: 10, position: createVector(20, 0, 0), levelVertexId: 100 });
+    const object: GameObject = MockGameObject.mock({ position: ZERO_VECTOR });
+    const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
+    const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "accessible").mockReturnValue(true);
+    jest.spyOn(object, "best_enemy").mockReturnValue(enemy);
+    jest.spyOn(object, "see").mockReturnValue(true);
+    jest.spyOn(action, "setState").mockImplementation(() => {});
+    replaceFunctionMock(time_global, () => 1_000);
+
+    action.setup(object, new property_storage());
+    action.execute();
+
+    expect(action.enemyLastSeenPosition).toBe(enemy.position());
+    expect(action.enemyLastSeenVertexId).toBe(enemy.level_vertex_id());
+    expect(action.enemyLastAccessibleVertexId).toBe(enemy.level_vertex_id());
+    expect(action.enemyLastAccessiblePosition).toBe(enemy.position());
+    expect(action.isValidPath).toBe(true);
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
+    expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(enemy.level_vertex_id());
+    expect(action.setState).toHaveBeenCalledWith(EStalkerState.RAID_FIRE, enemy, null);
+    expect(action.turnTime).toBe(0);
+  });
 
   it("should correctly set state", () => {
     const enemy: GameObject = MockGameObject.mock();
