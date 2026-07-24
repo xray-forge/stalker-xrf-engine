@@ -32,58 +32,18 @@ import { WeatherManager } from "@/engine/core/managers/weather";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import {
-  callXrEffect,
-  checkXrEffect,
-  mockRegisteredActor,
-  mockSchemeState,
-  MockSmartTerrain,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { callXrEffect, mockRegisteredActor, mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/effects/world");
 });
 
-describe("world effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("play_sound");
-    checkXrEffect("stop_sound");
-    checkXrEffect("play_sound_looped");
-    checkXrEffect("stop_sound_looped");
-    checkXrEffect("play_sound_by_story");
-    checkXrEffect("reset_sound_npc");
-    checkXrEffect("barrel_explode");
-    checkXrEffect("set_game_time");
-    checkXrEffect("forward_game_time");
-    checkXrEffect("pick_artefact_from_anomaly");
-    checkXrEffect("anomaly_turn_off");
-    checkXrEffect("anomaly_turn_on");
-    checkXrEffect("turn_off_underpass_lamps");
-    checkXrEffect("turn_off");
-    checkXrEffect("turn_off_object");
-    checkXrEffect("turn_on_and_force");
-    checkXrEffect("turn_off_and_force");
-    checkXrEffect("turn_on_object");
-    checkXrEffect("turn_on");
-    checkXrEffect("set_weather");
-    checkXrEffect("start_surge");
-    checkXrEffect("stop_surge");
-    checkXrEffect("set_surge_mess_and_task");
-    checkXrEffect("enable_anomaly");
-    checkXrEffect("disable_anomaly");
-    checkXrEffect("launch_signal_rocket");
-    checkXrEffect("create_cutscene_actor_with_weapon");
-    checkXrEffect("stop_sr_cutscene");
-  });
+beforeEach(() => {
+  resetRegistry();
 });
 
-describe("world effects implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
-
-  it("play_sound should force play sounds", () => {
+describe("play_sound", () => {
+  it("should force play sounds", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mockStalker();
     const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
@@ -102,8 +62,10 @@ describe("world effects implementation", () => {
       callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", terrain.name());
     }).toThrow(`Stalker '${object.name()}' is dead while trying to play theme sound 'test_theme'.`);
   });
+});
 
-  it("stop_sound should stop sounds", () => {
+describe("stop_sound", () => {
+  it("should stop sounds", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
@@ -114,8 +76,10 @@ describe("world effects implementation", () => {
     expect(soundManager.stop).toHaveBeenCalledTimes(1);
     expect(soundManager.stop).toHaveBeenCalledWith(object.id());
   });
+});
 
-  it("play_sound_looped should play looped sounds", () => {
+describe("play_sound_looped", () => {
+  it("should play looped sounds", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
@@ -126,8 +90,10 @@ describe("world effects implementation", () => {
     expect(soundManager.playLooped).toHaveBeenCalledTimes(1);
     expect(soundManager.playLooped).toHaveBeenCalledWith(object.id(), "test_sound");
   });
+});
 
-  it("stop_sound_looped should stop looped sounds", () => {
+describe("stop_sound_looped", () => {
+  it("should stop looped sounds", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
@@ -138,8 +104,10 @@ describe("world effects implementation", () => {
     expect(soundManager.stopAllLooped).toHaveBeenCalledTimes(1);
     expect(soundManager.stopAllLooped).toHaveBeenCalledWith(object.id());
   });
+});
 
-  it("play_sound_by_story should play sound by story id", () => {
+describe("play_sound_by_story", () => {
+  it("should play sound by story id", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     const object: GameObject = MockGameObject.mock();
@@ -163,8 +131,10 @@ describe("world effects implementation", () => {
     expect(soundManager.play).toHaveBeenCalledTimes(1);
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", terrain.id);
   });
+});
 
-  it("reset_sound_npc should reset sound", () => {
+describe("reset_sound_npc", () => {
+  it("should reset sound", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("reset_sound_npc", MockGameObject.mockActor(), object);
@@ -186,8 +156,10 @@ describe("world effects implementation", () => {
 
     expect(sound.reset).toHaveBeenCalledWith(object.id());
   });
+});
 
-  it("barrel_explode should explode objects", () => {
+describe("barrel_explode", () => {
+  it("should explode objects", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerStoryLink(object.id(), "test-sid");
@@ -196,8 +168,10 @@ describe("world effects implementation", () => {
 
     expect(object.explode).toHaveBeenCalledWith(0);
   });
+});
 
-  it("set_game_time should advance the clock to the next requested time and force weather refresh", () => {
+describe("set_game_time", () => {
+  it("should advance the clock to the next requested time and force weather refresh", () => {
     const weatherManager: WeatherManager = getManager(WeatherManager);
 
     jest.spyOn(level, "get_time_hours").mockReturnValue(12);
@@ -210,8 +184,10 @@ describe("world effects implementation", () => {
     expect(weatherManager.forceWeatherChange).toHaveBeenCalledTimes(1);
     expect(surgeConfig.IS_TIME_FORWARDED).toBe(true);
   });
+});
 
-  it("forward_game_time should advance the clock by the requested duration and force weather refresh", () => {
+describe("forward_game_time", () => {
+  it("should advance the clock by the requested duration and force weather refresh", () => {
     const weatherManager: WeatherManager = getManager(WeatherManager);
 
     jest.spyOn(weatherManager, "forceWeatherChange").mockImplementation(jest.fn());
@@ -222,8 +198,10 @@ describe("world effects implementation", () => {
     expect(weatherManager.forceWeatherChange).toHaveBeenCalledTimes(1);
     expect(surgeConfig.IS_TIME_FORWARDED).toBe(true);
   });
+});
 
-  it("pick_artefact_from_anomaly should release the matching artefact and spawn it for the target object", () => {
+describe("pick_artefact_from_anomaly", () => {
+  it("should release the matching artefact and spawn it for the target object", () => {
     const object: GameObject = MockGameObject.mock();
     const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
     const artefact = MockAlifeItemArtefact.mock({ id: 101, section: "af_test" });
@@ -254,8 +232,10 @@ describe("world effects implementation", () => {
       object.id()
     );
   });
+});
 
-  it("anomaly_turn_off should turn off anomalies", () => {
+describe("anomaly_turn_off", () => {
+  it("should turn off anomalies", () => {
     const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
     registerAnomalyZone(zone);
@@ -269,8 +249,10 @@ describe("world effects implementation", () => {
     callXrEffect("anomaly_turn_off", MockGameObject.mockActor(), MockGameObject.mock(), zone.object.name());
     expect(zone.turnOff).toHaveBeenCalled();
   });
+});
 
-  it("anomaly_turn_on should turn on anomalies", () => {
+describe("anomaly_turn_on", () => {
+  it("should turn on anomalies", () => {
     const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
     registerAnomalyZone(zone);
@@ -289,8 +271,10 @@ describe("world effects implementation", () => {
     expect(zone.turnOn).toHaveBeenCalledTimes(2);
     expect(zone.turnOn).toHaveBeenCalledWith(true);
   });
+});
 
-  it("turn_off_underpass_lamps should turn off every registered underpass lamp", () => {
+describe("turn_off_underpass_lamps", () => {
+  it("should turn off every registered underpass lamp", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
     const firstLamp: HangingLamp = new hanging_lamp();
@@ -306,8 +290,10 @@ describe("world effects implementation", () => {
     expect(firstLamp.turn_off).toHaveBeenCalledTimes(1);
     expect(secondLamp.turn_off).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("turn_off should turn off lamps", () => {
+describe("turn_off", () => {
+  it("should turn off lamps", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -329,8 +315,10 @@ describe("world effects implementation", () => {
     expect(first.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
     expect(second.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("turn_off_object should turn off lamps", () => {
+describe("turn_off_object", () => {
+  it("should turn off lamps", () => {
     const object: GameObject = MockGameObject.mock();
     const lamp: HangingLamp = new hanging_lamp();
 
@@ -340,8 +328,10 @@ describe("world effects implementation", () => {
 
     expect(object.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("turn_on_and_force should turn on lamps and set force", () => {
+describe("turn_on_and_force", () => {
+  it("should turn on lamps and set force", () => {
     const object: GameObject = MockGameObject.mock();
     const lamp: HangingLamp = new hanging_lamp();
 
@@ -364,8 +354,10 @@ describe("world effects implementation", () => {
     expect(object.set_const_force).toHaveBeenCalledTimes(2);
     expect(object.set_const_force).toHaveBeenCalledWith(Y_VECTOR, 40, 15_000);
   });
+});
 
-  it("turn_off_and_force should turn off lamps and set force", () => {
+describe("turn_off_and_force", () => {
+  it("should turn off lamps and set force", () => {
     const object: GameObject = MockGameObject.mock();
     const lamp: HangingLamp = new hanging_lamp();
 
@@ -382,8 +374,10 @@ describe("world effects implementation", () => {
     expect(object.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
     expect(object.stop_particles).toHaveBeenCalledWith("weapons\\light_signal", "link");
   });
+});
 
-  it("turn_on_object should turn on lamps", () => {
+describe("turn_on_object", () => {
+  it("should turn on lamps", () => {
     const object: GameObject = MockGameObject.mock();
     const lamp: HangingLamp = new hanging_lamp();
 
@@ -393,8 +387,10 @@ describe("world effects implementation", () => {
 
     expect(object.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("turn_on should turn on lamps", () => {
+describe("turn_on", () => {
+  it("should turn on lamps", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -416,8 +412,10 @@ describe("world effects implementation", () => {
     expect(first.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
     expect(second.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("set_weather should change game weather", () => {
+describe("set_weather", () => {
+  it("should change game weather", () => {
     callXrEffect("set_weather", MockGameObject.mockActor(), MockGameObject.mock());
     expect(level.set_weather).not.toHaveBeenCalled();
 
@@ -429,8 +427,10 @@ describe("world effects implementation", () => {
     expect(level.set_weather).toHaveBeenCalledTimes(2);
     expect(level.set_weather).toHaveBeenCalledWith("test-weather-2", true);
   });
+});
 
-  it("start_surge should stop sounds", () => {
+describe("start_surge", () => {
+  it("should stop sounds", () => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
     const object: GameObject = MockGameObject.mock();
 
@@ -440,8 +440,10 @@ describe("world effects implementation", () => {
 
     expect(surgeManager.requestSurgeStart).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("stop_surge should stop sounds", () => {
+describe("stop_surge", () => {
+  it("should stop sounds", () => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
     const object: GameObject = MockGameObject.mock();
 
@@ -451,8 +453,10 @@ describe("world effects implementation", () => {
 
     expect(surgeManager.requestSurgeStop).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("set_surge_mess_and_task should configure the surge message and optional task", () => {
+describe("set_surge_mess_and_task", () => {
+  it("should configure the surge message and optional task", () => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
 
     callXrEffect("set_surge_mess_and_task", MockGameObject.mockActor(), MockGameObject.mock(), "surge_message");
@@ -471,8 +475,10 @@ describe("world effects implementation", () => {
     expect(surgeManager.surgeMessage).toBe("surge_message_with_task");
     expect(surgeManager.surgeTaskSection).toBe("surge_task");
   });
+});
 
-  it("enable_anomaly should enable anomalies", () => {
+describe("enable_anomaly", () => {
+  it("should enable anomalies", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerStoryLink(object.id(), "test-sid");
@@ -488,8 +494,10 @@ describe("world effects implementation", () => {
     callXrEffect("enable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
     expect(object.enable_anomaly).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("disable_anomaly should disable anomalies", () => {
+describe("disable_anomaly", () => {
+  it("should disable anomalies", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerStoryLink(object.id(), "test-sid");
@@ -505,8 +513,10 @@ describe("world effects implementation", () => {
     callXrEffect("disable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
     expect(object.disable_anomaly).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("launch_signal_rocket should launch signal rockets", () => {
+describe("launch_signal_rocket", () => {
+  it("should launch signal rockets", () => {
     expect(() => {
       callXrEffect("launch_signal_rocket", MockGameObject.mockActor(), MockGameObject.mock());
     }).toThrow("No signal rocket with name 'nil' on current level.");
@@ -519,8 +529,10 @@ describe("world effects implementation", () => {
     callXrEffect("launch_signal_rocket", MockGameObject.mockActor(), MockGameObject.mock(), rocket.object.name());
     expect(rocket.startFly).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("create_cutscene_actor_with_weapon should spawn an actor and clone the active weapon at the patrol point", () => {
+describe("create_cutscene_actor_with_weapon", () => {
+  it("should spawn an actor and clone the active weapon at the patrol point", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const weapon: GameObject = MockGameObject.mock({ section: "wpn_ak74" });
     const actorWeapon = MockAlifeItemWeapon.mock({ id: weapon.id(), section: "wpn_ak74" });
@@ -563,8 +575,10 @@ describe("world effects implementation", () => {
     );
     expect(cutsceneWeapon.clone_addons).toHaveBeenCalledWith(actorWeapon);
   });
+});
 
-  it("stop_sr_cutscene should stop cutscenes", () => {
+describe("stop_sr_cutscene", () => {
+  it("should stop cutscenes", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 

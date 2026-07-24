@@ -10,13 +10,7 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import {
-  callXrCondition,
-  checkXrCondition,
-  mockRegisteredActor,
-  mockSchemeState,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { callXrCondition, mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/game");
 
@@ -24,22 +18,12 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/game");
 });
 
-describe("game conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrCondition("signal");
-    checkXrCondition("counter_greater");
-    checkXrCondition("counter_equal");
-    checkXrCondition("has_active_tutorial");
-    checkXrCondition("black_screen");
-  });
+beforeEach(() => {
+  resetRegistry();
 });
 
-describe("game conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
-
-  it("signal should check if signal is active", () => {
+describe("signal", () => {
+  it("should check if signal is active", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
@@ -60,8 +44,10 @@ describe("game conditions implementation", () => {
     schemeState.signals?.delete("some_signal");
     expect(callXrCondition("signal", MockGameObject.mockActor(), object, "some_signal")).toBe(false);
   });
+});
 
-  it("counter_greater should check counter value", () => {
+describe("counter_greater", () => {
+  it("should check counter value", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(() => callXrCondition("counter_greater", actorGameObject, MockGameObject.mock())).toThrow(
@@ -76,8 +62,10 @@ describe("game conditions implementation", () => {
 
     expect(callXrCondition("counter_greater", actorGameObject, MockGameObject.mock(), "test_unknown", 11)).toBe(false);
   });
+});
 
-  it("counter_equal should check counter value", () => {
+describe("counter_equal", () => {
+  it("should check counter value", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(() => callXrCondition("counter_equal", actorGameObject, MockGameObject.mock())).toThrow(
@@ -95,16 +83,20 @@ describe("game conditions implementation", () => {
 
     expect(callXrCondition("counter_equal", actorGameObject, MockGameObject.mock(), "test_three", 10)).toBe(false);
   });
+});
 
-  it("has_active_tutorial should check if any tutorial is active", () => {
+describe("has_active_tutorial", () => {
+  it("should check if any tutorial is active", () => {
     jest.spyOn(game, "has_active_tutorial").mockImplementationOnce(() => false);
     expect(callXrCondition("has_active_tutorial", MockGameObject.mock(), MockGameObject.mock())).toBe(false);
 
     jest.spyOn(game, "has_active_tutorial").mockImplementationOnce(() => true);
     expect(callXrCondition("has_active_tutorial", MockGameObject.mock(), MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("black_screen should check if black screen is active", () => {
+describe("black_screen", () => {
+  it("should check if black screen is active", () => {
     replaceFunctionMock(isBlackScreen, () => false);
     expect(callXrCondition("black_screen", MockGameObject.mock(), MockGameObject.mock())).toBe(false);
 

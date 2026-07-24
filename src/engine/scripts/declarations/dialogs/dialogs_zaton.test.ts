@@ -11,200 +11,1160 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
 });
 
-describe("dialogs_zaton external callbacks", () => {
-  it("should correctly inject dialog functors", () => {
+describe("zat_b30_owl_stalker_trader_actor_has_item_to_sell", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_actor_has_item_to_sell");
+  });
+});
+
+describe("zat_b30_owl_can_say_about_heli", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_can_say_about_heli");
+  });
+});
+
+describe("zat_b30_actor_has_1000", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_1000");
+  });
+});
+
+describe("zat_b30_actor_has_200", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_200");
+  });
+});
+
+describe("zat_b30_actor_has_pri_b36_monolith_hiding_place_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_pri_b36_monolith_hiding_place_pda");
+  });
+});
+
+describe("zat_b30_actor_has_pri_b306_envoy_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_pri_b306_envoy_pda");
+  });
+});
+
+describe("zat_b30_actor_has_jup_b10_strelok_notes_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_jup_b10_strelok_notes_1");
+  });
+});
+
+describe("zat_b30_actor_has_jup_b10_strelok_notes_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_jup_b10_strelok_notes_2");
+  });
+});
+
+describe("zat_b30_actor_has_jup_b10_strelok_notes_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_jup_b10_strelok_notes_3");
+  });
+});
+
+describe("zat_b30_actor_has_detector_scientific", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_detector_scientific");
+  });
+});
+
+describe("zat_b30_actor_has_device_flash_snag", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_device_flash_snag");
+  });
+});
+
+describe("zat_b30_actor_has_device_pda_port_bandit_leader", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_device_pda_port_bandit_leader");
+  });
+});
+
+describe("zat_b30_actor_has_jup_b10_ufo_memory", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_jup_b10_ufo_memory");
+  });
+});
+
+describe("zat_b30_actor_has_jup_b202_bandit_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_jup_b202_bandit_pda");
+  });
+});
+
+describe("zat_b30_transfer_1000", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_transfer_1000");
+  });
+});
+
+describe("zat_b30_transfer_200", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_transfer_200");
+  });
+});
+
+describe("zat_b30_sell_pri_b36_monolith_hiding_place_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_pri_b36_monolith_hiding_place_pda");
+  });
+});
+
+describe("zat_b30_sell_pri_b306_envoy_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_pri_b306_envoy_pda");
+  });
+});
+
+describe("zat_b30_sell_jup_b207_merc_pda_with_contract", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_jup_b207_merc_pda_with_contract");
+  });
+});
+
+describe("zat_b30_sell_jup_b10_strelok_notes_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_jup_b10_strelok_notes_1");
+  });
+});
+
+describe("zat_b30_sell_jup_b10_strelok_notes_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_jup_b10_strelok_notes_2");
+  });
+});
+
+describe("zat_b30_sell_jup_b10_strelok_notes_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_jup_b10_strelok_notes_3");
+  });
+});
+
+describe("jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info", () => {
+  it("should be registered", () => {
     checkDialogsBinding("jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info");
+  });
+});
+
+describe("jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info", () => {
+  it("should be registered", () => {
     checkDialogsBinding("jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info");
+  });
+});
+
+describe("jup_a9_owl_stalker_trader_sell_jup_a9_losses_info", () => {
+  it("should be registered", () => {
     checkDialogsBinding("jup_a9_owl_stalker_trader_sell_jup_a9_losses_info");
+  });
+});
+
+describe("jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info", () => {
+  it("should be registered", () => {
     checkDialogsBinding("jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info");
+  });
+});
+
+describe("zat_b30_owl_stalker_trader_sell_device_flash_snag", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_sell_device_flash_snag");
+  });
+});
+
+describe("zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader");
+  });
+});
+
+describe("zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory");
+  });
+});
+
+describe("zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda");
+  });
+});
+
+describe("zat_b14_bar_transfer_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b14_bar_transfer_money");
+  });
+});
+
+describe("zat_b14_transfer_artefact", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b14_transfer_artefact");
+  });
+});
+
+describe("actor_has_artefact", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_artefact");
+  });
+});
+
+describe("actor_hasnt_artefact", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_hasnt_artefact");
+  });
+});
+
+describe("zat_b7_give_bandit_reward_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_give_bandit_reward_to_actor");
+  });
+});
+
+describe("zat_b7_give_stalker_reward_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_give_stalker_reward_to_actor");
+  });
+});
+
+describe("zat_b7_give_stalker_reward_2_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_give_stalker_reward_2_to_actor");
+  });
+});
+
+describe("zat_b7_rob_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_rob_actor");
+  });
+});
+
+describe("zat_b7_killed_self_precond", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_killed_self_precond");
+  });
+});
+
+describe("zat_b7_squad_alive", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b7_squad_alive");
+  });
+});
+
+describe("zat_b103_transfer_merc_supplies", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b103_transfer_merc_supplies");
+  });
+});
+
+describe("zat_b33_set_counter_10", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_set_counter_10");
+  });
+});
+
+describe("zat_b33_counter_ge_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_ge_2");
+  });
+});
+
+describe("zat_b33_counter_ge_4", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_ge_4");
+  });
+});
+
+describe("zat_b33_counter_ge_8", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_ge_8");
+  });
+});
+
+describe("zat_b33_counter_le_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_le_2");
+  });
+});
+
+describe("zat_b33_counter_le_4", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_le_4");
+  });
+});
+
+describe("zat_b33_counter_le_8", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_le_8");
+  });
+});
+
+describe("zat_b33_counter_de_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_de_2");
+  });
+});
+
+describe("zat_b33_counter_de_4", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_de_4");
+  });
+});
+
+describe("zat_b33_counter_de_8", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_de_8");
+  });
+});
+
+describe("zat_b33_counter_eq_10", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_eq_10");
+  });
+});
+
+describe("zat_b33_counter_ne_10", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_counter_ne_10");
+  });
+});
+
+describe("zat_b103_transfer_mechanic_toolkit_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b103_transfer_mechanic_toolkit_2");
+  });
+});
+
+describe("check_npc_name_mechanics", () => {
+  it("should be registered", () => {
     checkDialogsBinding("check_npc_name_mechanics");
+  });
+});
+
+describe("zat_b33_transfer_first_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_first_item");
+  });
+});
+
+describe("zat_b33_transfer_second_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_second_item");
+  });
+});
+
+describe("zat_b33_transfer_third_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_third_item");
+  });
+});
+
+describe("zat_b33_transfer_fourth_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_fourth_item");
+  });
+});
+
+describe("zat_b33_transfer_fifth_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_fifth_item");
+  });
+});
+
+describe("zat_b33_transfer_safe_container", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_transfer_safe_container");
+  });
+});
+
+describe("zat_b33_aractor_has_habar", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_aractor_has_habar");
+  });
+});
+
+describe("zat_b33_actor_hasnt_habar", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_actor_hasnt_habar");
+  });
+});
+
+describe("zat_b33_actor_has_needed_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_actor_has_needed_money");
+  });
+});
+
+describe("zat_b33_actor_hasnt_needed_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_actor_hasnt_needed_money");
+  });
+});
+
+describe("zat_b33_relocate_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b33_relocate_money");
+  });
+});
+
+describe("zat_b29_create_af_in_anomaly", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_create_af_in_anomaly");
+  });
+});
+
+describe("zat_b29_linker_give_adv_task", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_linker_give_adv_task");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af");
+  });
+});
+
+describe("zat_b29_linker_get_adv_task_af", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_linker_get_adv_task_af");
+  });
+});
+
+describe("zat_b29_actor_has_exchange_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_exchange_item");
+  });
+});
+
+describe("zat_b29_actor_exchange", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_exchange");
+  });
+});
+
+describe("zat_b30_transfer_percent", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_transfer_percent");
+  });
+});
+
+describe("zat_b30_npc_has_detector", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_npc_has_detector");
+  });
+});
+
+describe("zat_b30_actor_second_exchange", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_second_exchange");
+  });
+});
+
+describe("zat_b30_actor_exchange", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_exchange");
+  });
+});
+
+describe("zat_b30_actor_has_two_detectors", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_two_detectors");
+  });
+});
+
+describe("actor_has_nimble_weapon", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_nimble_weapon");
+  });
+});
+
+describe("zat_b51_robbery", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_robbery");
+  });
+});
+
+describe("zat_b51_rob_nimble_weapon", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_rob_nimble_weapon");
+  });
+});
+
+describe("give_compass_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_compass_to_actor");
+  });
+});
+
+describe("zat_b51_randomize_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_randomize_item");
+  });
+});
+
+describe("zat_b51_give_prepay", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_give_prepay");
+  });
+});
+
+describe("zat_b51_has_prepay", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_has_prepay");
+  });
+});
+
+describe("zat_b51_hasnt_prepay", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_hasnt_prepay");
+  });
+});
+
+describe("zat_b51_buy_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_buy_item");
+  });
+});
+
+describe("zat_b51_refuse_item", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_refuse_item");
+  });
+});
+
+describe("zat_b51_has_item_cost", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_has_item_cost");
+  });
+});
+
+describe("zat_b51_hasnt_item_cost", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b51_hasnt_item_cost");
+  });
+});
+
+describe("zat_b12_actor_have_documents", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b12_actor_have_documents");
+  });
+});
+
+describe("zat_b12_actor_transfer_documents", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b12_actor_transfer_documents");
+  });
+});
+
+describe("zat_b3_actor_got_toolkit", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b3_actor_got_toolkit");
+  });
+});
+
+describe("give_toolkit_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_toolkit_3");
+  });
+});
+
+describe("give_toolkit_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_toolkit_1");
+  });
+});
+
+describe("if_actor_has_toolkit_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_toolkit_1");
+  });
+});
+
+describe("give_toolkit_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_toolkit_2");
+  });
+});
+
+describe("if_actor_has_toolkit_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_toolkit_2");
+  });
+});
+
+describe("zat_b215_counter_greater_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_counter_greater_3");
+  });
+});
+
+describe("zat_b40_transfer_notebook", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_transfer_notebook");
+  });
+});
+
+describe("zat_b40_transfer_merc_pda_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_transfer_merc_pda_1");
+  });
+});
+
+describe("zat_b40_transfer_merc_pda_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_transfer_merc_pda_2");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_1");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_2");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_3");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_4", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_4");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_5", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_5");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_6", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_6");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_7", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_7");
+  });
+});
+
+describe("zat_b29_actor_do_not_has_adv_task_af_8", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_do_not_has_adv_task_af_8");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_1");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_2");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_3");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_4", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_4");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_5", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_5");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_6", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_6");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_7", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_7");
+  });
+});
+
+describe("zat_b29_actor_has_adv_task_af_8", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b29_actor_has_adv_task_af_8");
+  });
+});
+
+describe("zat_b30_transfer_detector_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_transfer_detector_to_actor");
+  });
+});
+
+describe("zat_b30_give_owls_share_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_give_owls_share_to_actor");
+  });
+});
+
+describe("zat_b30_actor_has_compass", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_compass");
+  });
+});
+
+describe("zat_b30_transfer_af_from_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_transfer_af_from_actor");
+  });
+});
+
+describe("zat_b30_barmen_has_percent", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_barmen_has_percent");
+  });
+});
+
+describe("zat_b30_barmen_do_not_has_percent", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_barmen_do_not_has_percent");
+  });
+});
+
+describe("zat_b30_actor_has_noah_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_actor_has_noah_pda");
+  });
+});
+
+describe("zat_b30_sell_noah_pda", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b30_sell_noah_pda");
+  });
+});
+
+describe("zat_b40_actor_has_notebook", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_actor_has_notebook");
+  });
+});
+
+describe("zat_b40_actor_has_merc_pda_1", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_actor_has_merc_pda_1");
+  });
+});
+
+describe("zat_b40_actor_has_merc_pda_2", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b40_actor_has_merc_pda_2");
+  });
+});
+
+describe("if_actor_has_toolkit_3", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_toolkit_3");
+  });
+});
+
+describe("give_vodka", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_vodka");
+  });
+});
+
+describe("if_actor_has_vodka", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_vodka");
+  });
+});
+
+describe("actor_has_more_then_need_money_to_buy_battery", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_more_then_need_money_to_buy_battery");
+  });
+});
+
+describe("actor_has_less_then_need_money_to_buy_battery", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_less_then_need_money_to_buy_battery");
+  });
+});
+
+describe("relocate_need_money_to_buy_battery", () => {
+  it("should be registered", () => {
     checkDialogsBinding("relocate_need_money_to_buy_battery");
+  });
+});
+
+describe("give_actor_battery", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_actor_battery");
+  });
+});
+
+describe("give_actor_zat_a23_access_card", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_actor_zat_a23_access_card");
+  });
+});
+
+describe("give_zat_a23_gauss_rifle_docs", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_zat_a23_gauss_rifle_docs");
+  });
+});
+
+describe("return_zat_a23_gauss_rifle_docs", () => {
+  it("should be registered", () => {
     checkDialogsBinding("return_zat_a23_gauss_rifle_docs");
+  });
+});
+
+describe("if_actor_has_zat_a23_gauss_rifle_docs", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_zat_a23_gauss_rifle_docs");
+  });
+});
+
+describe("if_actor_has_gauss_rifle", () => {
+  it("should be registered", () => {
     checkDialogsBinding("if_actor_has_gauss_rifle");
+  });
+});
+
+describe("give_tech_gauss_rifle", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_tech_gauss_rifle");
+  });
+});
+
+describe("give_actor_repaired_gauss_rifle", () => {
+  it("should be registered", () => {
     checkDialogsBinding("give_actor_repaired_gauss_rifle");
+  });
+});
+
+describe("zat_b215_actor_has_money_poor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_money_poor");
+  });
+});
+
+describe("zat_b215_actor_has_no_money_poor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_no_money_poor");
+  });
+});
+
+describe("zat_b215_actor_has_money_poor_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_money_poor_pripyat");
+  });
+});
+
+describe("zat_b215_actor_has_no_money_poor_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_no_money_poor_pripyat");
+  });
+});
+
+describe("zat_b215_actor_has_money_rich", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_money_rich");
+  });
+});
+
+describe("zat_b215_actor_has_no_money_rich", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_no_money_rich");
+  });
+});
+
+describe("zat_b215_actor_has_money_rich_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_money_rich_pripyat");
+  });
+});
+
+describe("zat_b215_actor_has_no_money_rich_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_actor_has_no_money_rich_pripyat");
+  });
+});
+
+describe("zat_b215_relocate_money_poor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_relocate_money_poor");
+  });
+});
+
+describe("zat_b215_relocate_money_poor_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_relocate_money_poor_pripyat");
+  });
+});
+
+describe("zat_b215_relocate_money_rich", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_relocate_money_rich");
+  });
+});
+
+describe("zat_b215_relocate_money_rich_pripyat", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b215_relocate_money_rich_pripyat");
+  });
+});
+
+describe("zat_b44_actor_has_pda_global", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_actor_has_pda_global");
+  });
+});
+
+describe("zat_b44_actor_has_not_pda_global", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_actor_has_not_pda_global");
+  });
+});
+
+describe("zat_b44_actor_has_pda_barge", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_actor_has_pda_barge");
+  });
+});
+
+describe("zat_b44_actor_has_pda_joker", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_actor_has_pda_joker");
+  });
+});
+
+describe("zat_b44_actor_has_pda_both", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_actor_has_pda_both");
+  });
+});
+
+describe("zat_b44_transfer_pda_barge", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_transfer_pda_barge");
+  });
+});
+
+describe("zat_b44_transfer_pda_joker", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_transfer_pda_joker");
+  });
+});
+
+describe("zat_b44_transfer_pda_both", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_transfer_pda_both");
+  });
+});
+
+describe("zat_b44_frends_dialog_enabled", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b44_frends_dialog_enabled");
+  });
+});
+
+describe("zat_b53_if_actor_has_detector_advanced", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_if_actor_has_detector_advanced");
+  });
+});
+
+describe("zat_b53_transfer_medkit_to_npc", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_transfer_medkit_to_npc");
+  });
+});
+
+describe("is_zat_b106_hunting_time", () => {
+  it("should be registered", () => {
     checkDialogsBinding("is_zat_b106_hunting_time");
+  });
+});
+
+describe("is_not_zat_b106_hunting_time", () => {
+  it("should be registered", () => {
     checkDialogsBinding("is_not_zat_b106_hunting_time");
+  });
+});
+
+describe("zat_b53_if_actor_hasnt_detector_advanced", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_if_actor_hasnt_detector_advanced");
+  });
+});
+
+describe("zat_b53_transfer_detector_advanced_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_transfer_detector_advanced_to_actor");
+  });
+});
+
+describe("zat_b53_transfer_fireball_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_transfer_fireball_to_actor");
+  });
+});
+
+describe("zat_b53_transfer_medkit_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b53_transfer_medkit_to_actor");
+  });
+});
+
+describe("zat_b106_soroka_reward", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b106_soroka_reward");
+  });
+});
+
+describe("zat_b103_actor_has_needed_food", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b103_actor_has_needed_food");
+  });
+});
+
+describe("zat_b106_transfer_weap_to_actor", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b106_transfer_weap_to_actor");
+  });
+});
+
+describe("zat_b106_give_reward", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b106_give_reward");
+  });
+});
+
+describe("zat_b3_tech_drinks_precond", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b3_tech_drinks_precond");
+  });
+});
+
+describe("zat_b106_soroka_gone", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b106_soroka_gone");
+  });
+});
+
+describe("zat_b106_soroka_not_gone", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b106_soroka_not_gone");
+  });
+});
+
+describe("zat_b22_actor_has_proof", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b22_actor_has_proof");
+  });
+});
+
+describe("zat_b22_transfer_proof", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b22_transfer_proof");
+  });
+});
+
+describe("zat_b5_stalker_transfer_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b5_stalker_transfer_money");
+  });
+});
+
+describe("zat_b5_dealer_full_revard", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b5_dealer_full_revard");
+  });
+});
+
+describe("zat_b5_dealer_easy_revard", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b5_dealer_easy_revard");
+  });
+});
+
+describe("zat_b5_bandits_revard", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b5_bandits_revard");
+  });
+});
+
+describe("zat_a23_actor_has_access_card", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_a23_actor_has_access_card");
+  });
+});
+
+describe("zat_a23_transfer_access_card_to_tech", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_a23_transfer_access_card_to_tech");
+  });
+});
+
+describe("zat_b57_stalker_reward_to_actor_detector", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b57_stalker_reward_to_actor_detector");
+  });
+});
+
+describe("actor_has_gas", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_gas");
+  });
+});
+
+describe("actor_has_not_gas", () => {
+  it("should be registered", () => {
     checkDialogsBinding("actor_has_not_gas");
+  });
+});
+
+describe("zat_b57_actor_has_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b57_actor_has_money");
+  });
+});
+
+describe("zat_b57_actor_hasnt_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b57_actor_hasnt_money");
+  });
+});
+
+describe("zat_b57_transfer_gas_money", () => {
+  it("should be registered", () => {
     checkDialogsBinding("zat_b57_transfer_gas_money");
   });
 });

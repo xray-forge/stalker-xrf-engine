@@ -9,45 +9,20 @@ import { IRegistryObjectState, registerObject, registerSimulator, registerStoryL
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import {
-  callXrCondition,
-  checkXrCondition,
-  mockRegisteredActor,
-  mockSchemeState,
-  MockSquad,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { callXrCondition, mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/relation");
 });
 
-describe("relation conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrCondition("is_factions_enemies");
-    checkXrCondition("is_factions_neutrals");
-    checkXrCondition("is_factions_friends");
-    checkXrCondition("is_faction_enemy_to_actor");
-    checkXrCondition("is_faction_friend_to_actor");
-    checkXrCondition("is_faction_neutral_to_actor");
-    checkXrCondition("is_squad_friend_to_actor");
-    checkXrCondition("is_squad_enemy_to_actor");
-    checkXrCondition("fighting_actor");
-    checkXrCondition("actor_enemy");
-    checkXrCondition("actor_friend");
-    checkXrCondition("actor_neutral");
-    checkXrCondition("npc_community");
-  });
+beforeEach(() => {
+  resetRegistry();
+  registerSimulator();
+  mockRegisteredActor();
 });
 
-describe("relation conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-    mockRegisteredActor();
-  });
-
-  it("is_factions_enemies should check actor and faction state", () => {
+describe("is_factions_enemies", () => {
+  it("should check actor and faction state", () => {
     expect(
       callXrCondition("is_factions_enemies", MockGameObject.mockActor(), MockGameObject.mock(), communities.bandit)
     ).toBe(false);
@@ -68,8 +43,10 @@ describe("relation conditions implementation", () => {
       callXrCondition("is_factions_enemies", MockGameObject.mockActor(), MockGameObject.mock(), communities.monster)
     ).toBe(true);
   });
+});
 
-  it("is_factions_neutrals should check actor and faction state", () => {
+describe("is_factions_neutrals", () => {
+  it("should check actor and faction state", () => {
     expect(callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
     expect(callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock(), null)).toBe(true);
 
@@ -93,8 +70,10 @@ describe("relation conditions implementation", () => {
       callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock(), communities.monster)
     ).toBe(false);
   });
+});
 
-  it("is_factions_friends should check actor and faction state", () => {
+describe("is_factions_friends", () => {
+  it("should check actor and faction state", () => {
     expect(
       callXrCondition("is_factions_friends", MockGameObject.mockActor(), MockGameObject.mock(), communities.actor)
     ).toBe(true);
@@ -119,8 +98,10 @@ describe("relation conditions implementation", () => {
       callXrCondition("is_factions_friends", MockGameObject.mockActor(), MockGameObject.mock(), communities.monster)
     ).toBe(false);
   });
+});
 
-  it("is_faction_enemy_to_actor should check actor and faction state", () => {
+describe("is_faction_enemy_to_actor", () => {
+  it("should check actor and faction state", () => {
     expect(
       callXrCondition("is_faction_enemy_to_actor", MockGameObject.mockActor(), MockGameObject.mock(), communities.army)
     ).toBe(false);
@@ -152,8 +133,10 @@ describe("relation conditions implementation", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("is_faction_friend_to_actor should check actor and faction state", () => {
+describe("is_faction_friend_to_actor", () => {
+  it("should check actor and faction state", () => {
     expect(
       callXrCondition(
         "is_faction_friend_to_actor",
@@ -194,8 +177,10 @@ describe("relation conditions implementation", () => {
       )
     ).toBe(false);
   });
+});
 
-  it("is_faction_neutral_to_actor should check actor and faction state", () => {
+describe("is_faction_neutral_to_actor", () => {
+  it("should check actor and faction state", () => {
     expect(
       callXrCondition(
         "is_faction_neutral_to_actor",
@@ -232,8 +217,10 @@ describe("relation conditions implementation", () => {
       )
     ).toBe(false);
   });
+});
 
-  it("is_squad_friend_to_actor should check relations", () => {
+describe("is_squad_friend_to_actor", () => {
+  it("should check relations", () => {
     expect(callXrCondition("is_squad_friend_to_actor", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
     expect(
       callXrCondition("is_squad_friend_to_actor", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")
@@ -287,8 +274,10 @@ describe("relation conditions implementation", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("is_squad_enemy_to_actor should check relations", () => {
+describe("is_squad_enemy_to_actor", () => {
+  it("should check relations", () => {
     expect(callXrCondition("is_squad_enemy_to_actor", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
     expect(
       callXrCondition("is_squad_enemy_to_actor", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")
@@ -342,8 +331,10 @@ describe("relation conditions implementation", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("fighting_actor should check combat state of object", () => {
+describe("fighting_actor", () => {
+  it("should check combat state of object", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -353,8 +344,10 @@ describe("relation conditions implementation", () => {
     state.enemyId = null;
     expect(callXrCondition("fighting_actor", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("actor_enemy should check if actor is enemy", () => {
+describe("actor_enemy", () => {
+  it("should check if actor is enemy", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -367,8 +360,10 @@ describe("relation conditions implementation", () => {
     setSchemeState(state, EScheme.DEATH, mockSchemeState<ISchemeDeathState>(EScheme.DEATH, { killerId: ACTOR_ID }));
     expect(callXrCondition("actor_enemy", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("actor_friend should check if actor is friendly", () => {
+describe("actor_friend", () => {
+  it("should check if actor is friendly", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TRelationType);
@@ -377,8 +372,10 @@ describe("relation conditions implementation", () => {
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TRelationType);
     expect(callXrCondition("actor_friend", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("actor_neutral should check if actor is neutral", () => {
+describe("actor_neutral", () => {
+  it("should check if actor is neutral", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.NEUTRAL as TRelationType);
@@ -387,8 +384,10 @@ describe("relation conditions implementation", () => {
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TRelationType);
     expect(callXrCondition("actor_neutral", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("npc_community should check object community", () => {
+describe("npc_community", () => {
+  it("should check object community", () => {
     const stalker: GameObject = MockGameObject.mockStalker({ community: "zombied" });
 
     expect(() => callXrCondition("npc_community", MockGameObject.mockActor(), stalker)).toThrow(

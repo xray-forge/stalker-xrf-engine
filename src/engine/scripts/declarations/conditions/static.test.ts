@@ -7,18 +7,25 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/static");
 });
 
-describe("static conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
+describe("always", () => {
+  it("should be registered", () => {
     checkXrCondition("always");
+  });
+});
+
+describe("never", () => {
+  it("should be registered", () => {
     checkXrCondition("never");
   });
 });
 
-describe("static conditions implementation", () => {
+describe("always return true", () => {
   it("should always return true", () => {
     expect(getExtern<AnyCallablesModule>("xr_conditions").always()).toBe(true);
   });
+});
 
+describe("never return false", () => {
   it("should never return false", () => {
     expect(getExtern<AnyCallablesModule>("xr_conditions").never()).toBe(false);
   });

@@ -32,7 +32,6 @@ import { getSchemeState, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import {
   callXrEffect,
-  checkXrEffect,
   mockRegisteredActor,
   mockSchemeState,
   MockSmartTerrain,
@@ -50,69 +49,17 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/effects/object");
 });
 
-describe("object effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("anim_obj_forward");
-    checkXrEffect("anim_obj_backward");
-    checkXrEffect("anim_obj_stop");
-    checkXrEffect("hit_obj");
-    checkXrEffect("hit_npc_from_actor");
-    checkXrEffect("make_enemy");
-    checkXrEffect("sniper_fire_mode");
-    checkXrEffect("kill_npc");
-    checkXrEffect("remove_npc");
-    checkXrEffect("clear_abuse");
-    checkXrEffect("disable_combat_handler");
-    checkXrEffect("disable_combat_ignore_handler");
-    checkXrEffect("spawn_object");
-    checkXrEffect("spawn_corpse");
-    checkXrEffect("destroy_object");
-    checkXrEffect("create_squad");
-    checkXrEffect("create_squad_member");
-    checkXrEffect("remove_squad");
-    checkXrEffect("kill_squad");
-    checkXrEffect("heal_squad");
-    checkXrEffect("clear_smart_terrain");
-    checkXrEffect("update_npc_logic");
-    checkXrEffect("update_obj_logic");
-    checkXrEffect("hit_npc");
-    checkXrEffect("restore_health");
-    checkXrEffect("force_obj");
-    checkXrEffect("burer_force_gravi_attack");
-    checkXrEffect("burer_force_anti_aim");
-    checkXrEffect("spawn_object_in");
-    checkXrEffect("give_items");
-    checkXrEffect("give_item");
-    checkXrEffect("disable_memory_object");
-    checkXrEffect("set_force_sleep_animation");
-    checkXrEffect("release_force_sleep_animation");
-    checkXrEffect("set_visual_memory_enabled");
-    checkXrEffect("set_monster_animation");
-    checkXrEffect("clear_monster_animation");
-    checkXrEffect("switch_to_desired_job");
-    checkXrEffect("spawn_item_to_npc");
-    checkXrEffect("give_money_to_npc");
-    checkXrEffect("seize_money_to_npc");
-    checkXrEffect("heli_start_flame");
-    checkXrEffect("heli_die");
-    checkXrEffect("set_bloodsucker_state");
-    checkXrEffect("clear_box");
-    checkXrEffect("polter_actor_ignore");
-    checkXrEffect("set_torch_state");
-  });
+beforeAll(() => {
+  require("@/engine/scripts/declarations/effects/object");
 });
 
-describe("object effects implementation", () => {
-  beforeAll(() => {
-    require("@/engine/scripts/declarations/effects/object");
-  });
+beforeEach(() => {
+  resetRegistry();
+  jest.mocked(trySwitchToAnotherSection).mockReset();
+});
 
-  beforeEach(() => {
-    resetRegistry();
-    jest.mocked(trySwitchToAnotherSection).mockReset();
-  });
-
-  it("anim_obj_forward should correctly play forward animation", () => {
+describe("anim_obj_forward", () => {
+  it("should correctly play forward animation", () => {
     const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
     const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
@@ -124,8 +71,10 @@ describe("object effects implementation", () => {
     expect(firstDoor.startAnimation).toHaveBeenCalledWith(true);
     expect(secondDoor.startAnimation).toHaveBeenCalledWith(true);
   });
+});
 
-  it("anim_obj_backward should correctly play backward animation", () => {
+describe("anim_obj_backward", () => {
+  it("should correctly play backward animation", () => {
     const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
     const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
@@ -137,8 +86,10 @@ describe("object effects implementation", () => {
     expect(firstDoor.startAnimation).toHaveBeenCalledWith(false);
     expect(secondDoor.startAnimation).toHaveBeenCalledWith(false);
   });
+});
 
-  it("anim_obj_stop should correctly stop animation", () => {
+describe("anim_obj_stop", () => {
+  it("should correctly stop animation", () => {
     const firstDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
     const secondDoor = { startAnimation: jest.fn(), stopAnimation: jest.fn() };
 
@@ -150,8 +101,10 @@ describe("object effects implementation", () => {
     expect(firstDoor.stopAnimation).toHaveBeenCalledTimes(1);
     expect(secondDoor.stopAnimation).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("hit_obj should hit object based on parameters", () => {
+describe("hit_obj", () => {
+  it("should hit object based on parameters", () => {
     const source: GameObject = MockGameObject.mock();
     const target: GameObject = MockGameObject.mock();
 
@@ -164,8 +117,10 @@ describe("object effects implementation", () => {
       expect.objectContaining({ boneName: "bone", draftsman: source, impulse: 10, power: 0.25 })
     );
   });
+});
 
-  it("hit_npc_from_actor should hit object from actor", () => {
+describe("hit_npc_from_actor", () => {
+  it("should hit object from actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const target: GameObject = MockGameObject.mock();
 
@@ -175,8 +130,10 @@ describe("object effects implementation", () => {
       expect.objectContaining({ boneName: "bip01_spine", draftsman: actor, impulse: 0.001, power: 0.001 })
     );
   });
+});
 
-  it("make_enemy should make object enemy to actor", () => {
+describe("make_enemy", () => {
+  it("should make object enemy to actor", () => {
     const source: GameObject = MockGameObject.mock();
     const target: GameObject = MockGameObject.mock();
 
@@ -189,8 +146,10 @@ describe("object effects implementation", () => {
       expect.objectContaining({ boneName: "bip01_spine", draftsman: source, impulse: 0.03, power: 0.03 })
     );
   });
+});
 
-  it("sniper_fire_mode should set object as sniper", () => {
+describe("sniper_fire_mode", () => {
+  it("should set object as sniper", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("sniper_fire_mode", MockGameObject.mockActor(), object, TRUE);
@@ -199,8 +158,10 @@ describe("object effects implementation", () => {
     callXrEffect("sniper_fire_mode", MockGameObject.mockActor(), object, FALSE);
     expect(object.sniper_fire_mode).toHaveBeenCalledWith(false);
   });
+});
 
-  it("kill_npc should kill an alive object only", () => {
+describe("kill_npc", () => {
+  it("should kill an alive object only", () => {
     const alive: GameObject = MockGameObject.mock({ alive: true });
     const dead: GameObject = MockGameObject.mock({ alive: false });
 
@@ -210,8 +171,10 @@ describe("object effects implementation", () => {
     expect(alive.kill).toHaveBeenCalledWith(alive);
     expect(dead.kill).not.toHaveBeenCalled();
   });
+});
 
-  it("remove_npc should remove the server object linked by story id", () => {
+describe("remove_npc", () => {
+  it("should remove the server object linked by story id", () => {
     const serverObject = MockAlifeObject.create();
 
     registerSimulator();
@@ -222,8 +185,10 @@ describe("object effects implementation", () => {
 
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
   });
+});
 
-  it("clear_abuse should clear abuse state", () => {
+describe("clear_abuse", () => {
+  it("should clear abuse state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const abuseManager = { clearAbuse: jest.fn() };
@@ -234,8 +199,10 @@ describe("object effects implementation", () => {
 
     expect(abuseManager.clearAbuse).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("disable_combat_handler should disable every registered combat handler", () => {
+describe("disable_combat_handler", () => {
+  it("should disable every registered combat handler", () => {
     const object: GameObject = MockGameObject.mock();
     const state = registerObject(object);
 
@@ -251,8 +218,10 @@ describe("object effects implementation", () => {
     expect(getSchemeState(state, EScheme.COMBAT)?.enabled).toBe(false);
     expect(getSchemeState(state, EScheme.MOB_COMBAT)?.enabled).toBe(false);
   });
+});
 
-  it("disable_combat_ignore_handler should disable combat ignore state", () => {
+describe("disable_combat_ignore_handler", () => {
+  it("should disable combat ignore state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -266,8 +235,10 @@ describe("object effects implementation", () => {
 
     expect(getSchemeState(state, EScheme.COMBAT_IGNORE)?.enabled).toBe(false);
   });
+});
 
-  it("spawn_object should create an object at the requested patrol point", () => {
+describe("spawn_object", () => {
+  it("should create an object at the requested patrol point", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerSimulator();
@@ -281,8 +252,10 @@ describe("object effects implementation", () => {
 
     expect(registry.simulator.create).toHaveBeenCalledWith("test-object", object.position(), 25, 44);
   });
+});
 
-  it("spawn_object_in should spawn objects in the server inventory of the story target", () => {
+describe("spawn_object_in", () => {
+  it("should spawn objects in the server inventory of the story target", () => {
     const serverObject = MockAlifeObject.create();
 
     registerSimulator();
@@ -293,8 +266,10 @@ describe("object effects implementation", () => {
 
     expect(registry.simulator.create).toHaveBeenCalledWith("test-item", expect.anything(), 0, 0, serverObject.id);
   });
+});
 
-  it("spawn_corpse should create and immediately kill a creature at the requested patrol point", () => {
+describe("spawn_corpse", () => {
+  it("should create and immediately kill a creature at the requested patrol point", () => {
     const object: GameObject = MockGameObject.mock();
     const corpse = MockAlifeHumanStalker.mock({ id: 501 });
 
@@ -312,8 +287,10 @@ describe("object effects implementation", () => {
     expect(registry.simulator.create).toHaveBeenCalledWith("test_stalker", object.position(), 35, 55);
     expect(corpse.kill).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("destroy_object should release linked objects and reject incomplete target descriptors", () => {
+describe("destroy_object", () => {
+  it("should release linked objects and reject incomplete target descriptors", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject = MockAlifeObject.create({ id: object.id() });
     const targetObject = MockAlifeObject.create();
@@ -334,8 +311,10 @@ describe("object effects implementation", () => {
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
     expect(registry.simulator.release).toHaveBeenCalledWith(targetObject, true);
   });
+});
 
-  it("create_squad should create a configured squad in the requested smart terrain", () => {
+describe("create_squad", () => {
+  it("should create a configured squad in the requested smart terrain", () => {
     registerSimulator();
     mockRegisteredActor();
 
@@ -369,8 +348,10 @@ describe("object effects implementation", () => {
     );
     expect(squad.assignedTerrainId).toBe(terrain.id);
   });
+});
 
-  it("create_squad_member should add and assign a member at the squad commander position", () => {
+describe("create_squad_member", () => {
+  it("should add and assign a member at the squad commander position", () => {
     registerSimulator();
     mockRegisteredActor();
 
@@ -402,8 +383,10 @@ describe("object effects implementation", () => {
     expect(squad.assignMemberToTerrain).toHaveBeenCalledWith(member.id, terrain, null);
     expect(squad.update).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("remove_squad should release every squad member from simulation", () => {
+describe("remove_squad", () => {
+  it("should release every squad member from simulation", () => {
     const squad: MockSquad = MockSquad.mock();
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -422,8 +405,10 @@ describe("object effects implementation", () => {
     expect(registry.simulator.release).toHaveBeenNthCalledWith(2, second, true);
     expect(squad.npc_count()).toBe(0);
   });
+});
 
-  it("kill_squad should kill both online and offline squad members", () => {
+describe("kill_squad", () => {
+  it("should kill both online and offline squad members", () => {
     const squad: MockSquad = MockSquad.mock();
     const onlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
     const offlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -443,8 +428,10 @@ describe("object effects implementation", () => {
     expect(onlineObject.kill).toHaveBeenCalledWith(onlineObject);
     expect(offlineMember.kill).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("heal_squad should restore health for every online squad member", () => {
+describe("heal_squad", () => {
+  it("should restore health for every online squad member", () => {
     const squad: MockSquad = MockSquad.mock();
     const onlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
     const offlineMember: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -461,8 +448,10 @@ describe("object effects implementation", () => {
 
     expect(onlineObject.health).toBe(1);
   });
+});
 
-  it("clear_smart_terrain should retain story-bound squads when requested", () => {
+describe("clear_smart_terrain", () => {
+  it("should retain story-bound squads when requested", () => {
     registerSimulator();
     mockRegisteredActor();
 
@@ -490,8 +479,10 @@ describe("object effects implementation", () => {
     expect(registry.simulator.release).toHaveBeenCalledWith(removableMember, true);
     expect(registry.simulator.release).not.toHaveBeenCalledWith(retainedMember, true);
   });
+});
 
-  it("update_npc_logic should update every resolved stalker planner and state controller", () => {
+describe("update_npc_logic", () => {
+  it("should update every resolved stalker planner and state controller", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const stateController = { update: jest.fn() };
@@ -509,8 +500,10 @@ describe("object effects implementation", () => {
     expect(object.motivation_action_manager().update).toHaveBeenCalledTimes(3);
     expect(stateController.update).toHaveBeenCalledTimes(7);
   });
+});
 
-  it("update_obj_logic should re-evaluate the active scheme of every resolved story object", () => {
+describe("update_obj_logic", () => {
+  it("should re-evaluate the active scheme of every resolved story object", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const activeState = mockSchemeState<ISchemeCombatState>(EScheme.COMBAT);
@@ -528,8 +521,10 @@ describe("object effects implementation", () => {
     expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(1);
     expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, activeState);
   });
+});
 
-  it("hit_npc should correctly hit objects", () => {
+describe("hit_npc", () => {
+  it("should correctly hit objects", () => {
     const object: GameObject = MockGameObject.mock();
     const hitter: GameObject = MockGameObject.mock();
 
@@ -542,16 +537,20 @@ describe("object effects implementation", () => {
       expect.objectContaining({ boneName: "bone", draftsman: object, impulse: 10, power: 0.25 })
     );
   });
+});
 
-  it("restore_health should correctly restore health of object", () => {
+describe("restore_health", () => {
+  it("should correctly restore health of object", () => {
     const object: GameObject = MockGameObject.mock({ health: 0.2 });
 
     callXrEffect("restore_health", MockGameObject.mockActor(), object);
 
     expect(object.health).toBe(1);
   });
+});
 
-  it("force_obj should set supplied and default upward force values for a story object", () => {
+describe("force_obj", () => {
+  it("should set supplied and default upward force values for a story object", () => {
     const target: GameObject = MockGameObject.mock();
 
     registerObject(target);
@@ -563,8 +562,10 @@ describe("object effects implementation", () => {
     expect(target.set_const_force).toHaveBeenNthCalledWith(1, expect.anything(), 20, 100);
     expect(target.set_const_force).toHaveBeenNthCalledWith(2, expect.anything(), 42, 500);
   });
+});
 
-  it("burer_force_gravi_attack should force burrer attack", () => {
+describe("burer_force_gravi_attack", () => {
+  it("should force burrer attack", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "burer_set_force_gravi_attack").mockImplementation(jest.fn());
@@ -574,8 +575,10 @@ describe("object effects implementation", () => {
     expect(object.burer_set_force_gravi_attack).toHaveBeenCalledTimes(1);
     expect(object.burer_set_force_gravi_attack).toHaveBeenCalledWith(true);
   });
+});
 
-  it("burer_force_anti_aim should force attack reset", () => {
+describe("burer_force_anti_aim", () => {
+  it("should force attack reset", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "set_force_anti_aim").mockImplementation(jest.fn());
@@ -585,8 +588,10 @@ describe("object effects implementation", () => {
     expect(object.set_force_anti_aim).toHaveBeenCalledTimes(1);
     expect(object.set_force_anti_aim).toHaveBeenCalledWith(true);
   });
+});
 
-  it("give_items should spawn every requested item in the linked object inventory", () => {
+describe("give_items", () => {
+  it("should spawn every requested item in the linked object inventory", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerSimulator();
@@ -611,8 +616,10 @@ describe("object effects implementation", () => {
       object.id()
     );
   });
+});
 
-  it("give_item should give an item to the linked server object", () => {
+describe("give_item", () => {
+  it("should give an item to the linked server object", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject = MockAlifeObject.create({ id: object.id() });
 
@@ -629,8 +636,10 @@ describe("object effects implementation", () => {
       serverObject.id
     );
   });
+});
 
-  it("disable_memory_object should disable memory for the current best enemy", () => {
+describe("disable_memory_object", () => {
+  it("should disable memory for the current best enemy", () => {
     const object: GameObject = MockGameObject.mock();
     const enemy: GameObject = MockGameObject.mock();
 
@@ -645,16 +654,20 @@ describe("object effects implementation", () => {
     expect(object.enable_memory_object).toHaveBeenCalledWith(enemy, false);
     expect(object.enable_memory_object).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("set_force_sleep_animation should force sleep animation", () => {
+describe("set_force_sleep_animation", () => {
+  it("should force sleep animation", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("set_force_sleep_animation", MockGameObject.mockActor(), object, 5000);
 
     expect(object.force_stand_sleep_animation).toHaveBeenCalledWith(5000);
   });
+});
 
-  it("release_force_sleep_animation should stop forced sleep animation", () => {
+describe("release_force_sleep_animation", () => {
+  it("should stop forced sleep animation", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "release_stand_sleep_animation").mockImplementation(jest.fn());
@@ -663,8 +676,10 @@ describe("object effects implementation", () => {
 
     expect(object.release_stand_sleep_animation).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("set_visual_memory_enabled should toggle visual memory for valid boolean values", () => {
+describe("set_visual_memory_enabled", () => {
+  it("should toggle visual memory for valid boolean values", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("set_visual_memory_enabled", MockGameObject.mockActor(), object, 1);
@@ -673,8 +688,10 @@ describe("object effects implementation", () => {
     expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(true);
     expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(false);
   });
+});
 
-  it("set_monster_animation should set animations for monsters", () => {
+describe("set_monster_animation", () => {
+  it("should set animations for monsters", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(() => callXrEffect("set_monster_animation", MockGameObject.mockActor(), object)).toThrow(
@@ -685,8 +702,10 @@ describe("object effects implementation", () => {
 
     expect(object.set_override_animation).toHaveBeenCalledWith("test-animation");
   });
+});
 
-  it("clear_monster_animation should clear animations for monsters", () => {
+describe("clear_monster_animation", () => {
+  it("should clear animations for monsters", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "clear_override_animation").mockImplementation(jest.fn());
@@ -695,8 +714,10 @@ describe("object effects implementation", () => {
 
     expect(object.clear_override_animation).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("switch_to_desired_job should exchange the object with the holder of its desired smart-terrain job", () => {
+describe("switch_to_desired_job", () => {
+  it("should exchange the object with the holder of its desired smart-terrain job", () => {
     const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -726,8 +747,10 @@ describe("object effects implementation", () => {
     expect(terrain.objectByJobSection.get(secondJob)).toBe(first.id);
     expect(terrain.objectByJobSection.get(firstJob)).toBe(second.id);
   });
+});
 
-  it("spawn_item_to_npc should spawn an item in the object inventory", () => {
+describe("spawn_item_to_npc", () => {
+  it("should spawn an item in the object inventory", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerSimulator();
@@ -744,8 +767,10 @@ describe("object effects implementation", () => {
       object.id()
     );
   });
+});
 
-  it("give_money_to_npc should give money for objects", () => {
+describe("give_money_to_npc", () => {
+  it("should give money for objects", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("give_money_to_npc", MockGameObject.mockActor(), object, 500);
@@ -754,8 +779,10 @@ describe("object effects implementation", () => {
     expect(object.give_money).toHaveBeenCalledWith(500);
     expect(object.give_money).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("seize_money_to_npc should get money from objects", () => {
+describe("seize_money_to_npc", () => {
+  it("should get money from objects", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("seize_money_to_npc", MockGameObject.mockActor(), object, 500);
@@ -764,16 +791,20 @@ describe("object effects implementation", () => {
     expect(object.give_money).toHaveBeenCalledWith(-500);
     expect(object.give_money).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("heli_start_flame should start flame", () => {
+describe("heli_start_flame", () => {
+  it("should start flame", () => {
     const object: GameObject = MockGameObject.mockHelicopter();
 
     callXrEffect("heli_start_flame", MockGameObject.mockActor(), object);
 
     expect(object.get_helicopter().StartFlame).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("heli_die should kill heli and remove it from the active helicopter list", () => {
+describe("heli_die", () => {
+  it("should kill heli and remove it from the active helicopter list", () => {
     const object: GameObject = MockGameObject.mockHelicopter();
 
     registry.helicopter.storage.set(object.id(), object);
@@ -783,8 +814,10 @@ describe("object effects implementation", () => {
     expect(object.get_helicopter().Die).toHaveBeenCalledTimes(1);
     expect(registry.helicopter.storage.has(object.id())).toBe(false);
   });
+});
 
-  it("set_bloodsucker_state should switch bloodsuckers", () => {
+describe("set_bloodsucker_state", () => {
+  it("should switch bloodsuckers", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(() => callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), object)).toThrow(
@@ -797,8 +830,10 @@ describe("object effects implementation", () => {
     expect(object.force_visibility_state).toHaveBeenNthCalledWith(1, 1);
     expect(object.force_visibility_state).toHaveBeenNthCalledWith(2, -1);
   });
+});
 
-  it("clear_box should release every item contained in the story inventory box", () => {
+describe("clear_box", () => {
+  it("should release every item contained in the story inventory box", () => {
     const box: GameObject = MockGameObject.mock();
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
@@ -824,8 +859,10 @@ describe("object effects implementation", () => {
     expect(registry.simulator.release).toHaveBeenNthCalledWith(1, firstServer, true);
     expect(registry.simulator.release).toHaveBeenNthCalledWith(2, secondServer, true);
   });
+});
 
-  it("polter_actor_ignore should force poltergeist to ignore actor", () => {
+describe("polter_actor_ignore", () => {
+  it("should force poltergeist to ignore actor", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("polter_actor_ignore", MockGameObject.mockActor(), object, TRUE);
@@ -838,8 +875,10 @@ describe("object effects implementation", () => {
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledTimes(2);
     expect(object.poltergeist_set_actor_ignore).toHaveBeenCalledWith(false);
   });
+});
 
-  it("set_torch_state should switch actor torch state", () => {
+describe("set_torch_state", () => {
+  it("should switch actor torch state", () => {
     const torch: GameObject = MockGameObject.mock({ section: misc.device_torch });
     const object: GameObject = MockGameObject.mock({ inventory: [[misc.device_torch, torch]] });
 

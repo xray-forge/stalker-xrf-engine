@@ -54,49 +54,7 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/callbacks/interface");
 });
 
-describe("interface external callbacks", () => {
-  it("should correctly inject external methods for game", () => {
-    checkBinding("ui_wpn_params");
-    checkNestedBinding("ui_wpn_params", "GetRPM");
-    checkNestedBinding("ui_wpn_params", "GetDamage");
-    checkNestedBinding("ui_wpn_params", "GetDamageMP");
-    checkNestedBinding("ui_wpn_params", "GetHandling");
-    checkNestedBinding("ui_wpn_params", "GetAccuracy");
-
-    checkBinding("inventory_upgrades");
-    checkNestedBinding("inventory_upgrades", "get_upgrade_cost");
-    checkNestedBinding("inventory_upgrades", "can_repair_item");
-    checkNestedBinding("inventory_upgrades", "can_upgrade_item");
-    checkNestedBinding("inventory_upgrades", "effect_repair_item");
-    checkNestedBinding("inventory_upgrades", "effect_functor_a");
-    checkNestedBinding("inventory_upgrades", "prereq_functor_a");
-    checkNestedBinding("inventory_upgrades", "precondition_functor_a");
-    checkNestedBinding("inventory_upgrades", "property_functor_a");
-    checkNestedBinding("inventory_upgrades", "property_functor_b");
-    checkNestedBinding("inventory_upgrades", "property_functor_c");
-    checkNestedBinding("inventory_upgrades", "question_repair_item");
-
-    checkBinding("pda");
-    checkNestedBinding("pda", "set_active_subdialog");
-    checkNestedBinding("pda", "fill_fraction_state");
-    checkNestedBinding("pda", "get_max_resource");
-    checkNestedBinding("pda", "get_max_power");
-    checkNestedBinding("pda", "get_max_member_count");
-    checkNestedBinding("pda", "actor_menu_mode");
-    checkNestedBinding("pda", "property_box_clicked");
-    checkNestedBinding("pda", "property_box_add_properties");
-    checkNestedBinding("pda", "get_monster_back");
-    checkNestedBinding("pda", "get_monster_icon");
-    checkNestedBinding("pda", "get_favorite_weapon");
-    checkNestedBinding("pda", "get_stat");
-
-    checkBinding("actor_menu_inventory");
-    checkNestedBinding("actor_menu_inventory", "CUIActorMenu_OnItemDropped");
-
-    checkBinding("actor_menu");
-    checkNestedBinding("actor_menu", "actor_menu_mode");
-  });
-
+describe("correctly get tips from manager", () => {
   it("should correctly get tips from manager", () => {
     checkBinding("loadscreen");
     checkNestedBinding("loadscreen", "get_tip_number");
@@ -109,7 +67,9 @@ describe("interface external callbacks", () => {
 
     expect(loadScreenManager.getRandomTipIndex).toHaveBeenCalledTimes(1);
   });
+});
 
+describe("correctly handle inventory upgrades callbacks", () => {
   it("should correctly handle inventory upgrades callbacks", () => {
     const upgradesManager: UpgradesManager = getManager(UpgradesManager);
 
@@ -153,7 +113,9 @@ describe("interface external callbacks", () => {
     expect(callUpgradeBinding("question_repair_item", ["test", 1, true, "test"])).toBe("test_label");
     expect(getRepairItemAskReplicLabel).toHaveBeenCalledWith("test", 1, true, "test");
   });
+});
 
+describe("actor_menu callbacks", () => {
   it("actor_menu callbacks", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
 
@@ -162,7 +124,9 @@ describe("interface external callbacks", () => {
     callBinding("actor_menu_mode", [EActorMenuMode.TALK_DIALOG], (_G as AnyObject)["actor_menu"]);
     expect(actorInventoryMenuManager.setActiveMode).toHaveBeenCalledWith(EActorMenuMode.TALK_DIALOG);
   });
+});
 
+describe("actor_menu_inventory callbacks", () => {
   it("actor_menu_inventory callbacks", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
     const tradeManager: TradeManager = getManager(TradeManager);
@@ -194,7 +158,9 @@ describe("interface external callbacks", () => {
     expect(tradeManager.isItemAvailableForTrade).toHaveBeenCalledWith(owner, item);
     expect(tradeManager.isItemAvailableForTrade).toHaveReturnedWith(false);
   });
+});
 
+describe("pda callbacks", () => {
   it("pda callbacks", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
     const pdaManager: PdaManager = getManager(PdaManager);
@@ -234,7 +200,9 @@ describe("interface external callbacks", () => {
     expect(callPdaBinding("get_stat", [3])).toBe("test-stat");
     expect(pdaManager.getStatisticsLabel).toHaveBeenCalledWith(3);
   });
+});
 
+describe("ui_wpn_params callbacks", () => {
   it("ui_wpn_params callbacks", () => {
     replaceFunctionMock(readWeaponRPM, () => 1);
     replaceFunctionMock(readWeaponDamage, () => 2);

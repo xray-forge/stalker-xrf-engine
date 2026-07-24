@@ -17,39 +17,18 @@ import {
 } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-import { callXrCondition, checkXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { callXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/quests");
 });
 
-describe("quests conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrCondition("zat_b29_anomaly_has_af");
-    checkXrCondition("jup_b221_who_will_start");
-    checkXrCondition("pas_b400_actor_far_forward");
-    checkXrCondition("pas_b400_actor_far_backward");
-    checkXrCondition("pri_a28_actor_is_far");
-    checkXrCondition("jup_b25_senya_spawn_condition");
-    checkXrCondition("jup_b25_flint_gone_condition");
-    checkXrCondition("zat_b103_actor_has_needed_food");
-    checkXrCondition("zat_b29_rivals_dialog_precond");
-    checkXrCondition("jup_b202_actor_treasure_not_in_steal");
-    checkXrCondition("jup_b47_npc_online");
-    checkXrCondition("zat_b7_is_night");
-    checkXrCondition("zat_b7_is_late_attack_time");
-    checkXrCondition("jup_b202_inventory_box_empty");
-    checkXrCondition("jup_b16_is_zone_active");
-    checkXrCondition("is_jup_a12_mercs_time");
-  });
+beforeEach(() => {
+  resetRegistry();
 });
 
-describe("quests conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
-
-  it("zat_b29_anomaly_has_af should check anomaly and artefact", () => {
+describe("zat_b29_anomaly_has_af", () => {
+  it("should check anomaly and artefact", () => {
     expect(callXrCondition("zat_b29_anomaly_has_af", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
     const object: GameObject = MockGameObject.mock();
@@ -104,8 +83,10 @@ describe("quests conditions implementation", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("jup_b221_who_will_start should report and choose available faction themes", () => {
+describe("jup_b221_who_will_start", () => {
+  it("should report and choose available faction themes", () => {
     mockRegisteredActor();
 
     expect(() => callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
@@ -130,8 +111,10 @@ describe("quests conditions implementation", () => {
       callXrCondition("jup_b221_who_will_start", MockGameObject.mockActor(), MockGameObject.mock(), "ability")
     ).toBe(false);
   });
+});
 
-  it("pas_b400_actor_far_forward should require the actor and every squad member to be far from the escort", () => {
+describe("pas_b400_actor_far_forward", () => {
+  it("should require the actor and every squad member to be far from the escort", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
     const objectServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
@@ -160,8 +143,10 @@ describe("quests conditions implementation", () => {
     jest.spyOn(object.position(), "distance_to_sqr").mockReturnValue(70 * 70 - 1);
     expect(callXrCondition("pas_b400_actor_far_forward", actorGameObject, object)).toBe(false);
   });
+});
 
-  it("pas_b400_actor_far_backward should require the actor and every squad member to be far from the escort", () => {
+describe("pas_b400_actor_far_backward", () => {
+  it("should require the actor and every squad member to be far from the escort", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
     const objectServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
@@ -190,8 +175,10 @@ describe("quests conditions implementation", () => {
     jest.spyOn(member.position, "distance_to_sqr").mockReturnValue(70 * 70 - 1);
     expect(callXrCondition("pas_b400_actor_far_backward", actorGameObject, object)).toBe(false);
   });
+});
 
-  it("pri_a28_actor_is_far should check actor state", () => {
+describe("pri_a28_actor_is_far", () => {
+  it("should check actor state", () => {
     expect(() => callXrCondition("pri_a28_actor_is_far", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
       "Unexpected actor distance check - no squad existing."
     );
@@ -218,8 +205,10 @@ describe("quests conditions implementation", () => {
 
     expect(callXrCondition("pri_a28_actor_is_far", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("jup_b25_senya_spawn_condition should require quest progress and the Soroka search", () => {
+describe("jup_b25_senya_spawn_condition", () => {
+  it("should require quest progress and the Soroka search", () => {
     mockRegisteredActor();
 
     expect(callXrCondition("jup_b25_senya_spawn_condition", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
@@ -236,8 +225,10 @@ describe("quests conditions implementation", () => {
       true
     );
   });
+});
 
-  it("jup_b25_flint_gone_condition should check flint gone condition", () => {
+describe("jup_b25_flint_gone_condition", () => {
+  it("should check flint gone condition", () => {
     mockRegisteredActor();
 
     expect(callXrCondition("jup_b25_flint_gone_condition", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
@@ -266,8 +257,10 @@ describe("quests conditions implementation", () => {
       false
     );
   });
+});
 
-  it("zat_b103_actor_has_needed_food should accept delegated inventory checks and completed tasks", () => {
+describe("zat_b103_actor_has_needed_food", () => {
+  it("should accept delegated inventory checks and completed tasks", () => {
     const { actorGameObject: actor } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
     const hasNeededFood = jest.fn<() => boolean>().mockReturnValue(false);
@@ -284,8 +277,10 @@ describe("quests conditions implementation", () => {
     disableInfoPortion(infoPortions.zat_b103_merc_task_done);
     expect(callXrCondition("zat_b103_actor_has_needed_food", actor, object)).toBe(true);
   });
+});
 
-  it("zat_b29_rivals_dialog_precond should require a rival squad inside a target zone", () => {
+describe("zat_b29_rivals_dialog_precond", () => {
+  it("should require a rival squad inside a target zone", () => {
     const object: GameObject = MockGameObject.mock();
     const member: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
     const squad: MockSquad = MockSquad.mock();
@@ -304,8 +299,10 @@ describe("quests conditions implementation", () => {
     jest.spyOn(zone, "inside").mockReturnValue(false);
     expect(callXrCondition("zat_b29_rivals_dialog_precond", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("jup_b202_actor_treasure_not_in_steal should check treasure state", () => {
+describe("jup_b202_actor_treasure_not_in_steal", () => {
+  it("should check treasure state", () => {
     mockRegisteredActor();
 
     expect(
@@ -324,8 +321,10 @@ describe("quests conditions implementation", () => {
       callXrCondition("jup_b202_actor_treasure_not_in_steal", MockGameObject.mockActor(), MockGameObject.mock())
     ).toBe(true);
   });
+});
 
-  it("jup_b47_npc_online should check npc online state", () => {
+describe("jup_b47_npc_online", () => {
+  it("should check npc online state", () => {
     expect(callXrCondition("jup_b47_npc_online", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(
       false
     );
@@ -346,8 +345,10 @@ describe("quests conditions implementation", () => {
       true
     );
   });
+});
 
-  it("zat_b7_is_night should check day state", () => {
+describe("zat_b7_is_night", () => {
+  it("should check day state", () => {
     expect(callXrCondition("zat_b7_is_night", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
     const { actorGameObject } = mockRegisteredActor();
@@ -366,8 +367,10 @@ describe("quests conditions implementation", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 5);
     expect(callXrCondition("zat_b7_is_night", actorGameObject, MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("zat_b7_is_late_attack_time should check day state", () => {
+describe("zat_b7_is_late_attack_time", () => {
+  it("should check day state", () => {
     expect(callXrCondition("zat_b7_is_late_attack_time", MockGameObject.mockActor(), MockGameObject.mock())).toBe(
       false
     );
@@ -386,8 +389,10 @@ describe("quests conditions implementation", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 10);
     expect(callXrCondition("zat_b7_is_late_attack_time", actorGameObject, MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("jup_b202_inventory_box_empty should check box state", () => {
+describe("jup_b202_inventory_box_empty", () => {
+  it("should check box state", () => {
     expect(() => {
       callXrCondition("jup_b202_inventory_box_empty", MockGameObject.mockActor(), MockGameObject.mock());
     }).toThrow();
@@ -407,8 +412,10 @@ describe("quests conditions implementation", () => {
       false
     );
   });
+});
 
-  it("jup_b16_is_zone_active should check zone", () => {
+describe("jup_b16_is_zone_active", () => {
+  it("should check zone", () => {
     expect(callXrCondition("jup_b16_is_zone_active", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
     const zone: GameObject = MockGameObject.mock();
@@ -419,8 +426,10 @@ describe("quests conditions implementation", () => {
     giveInfoPortion(zone.name());
     expect(callXrCondition("jup_b16_is_zone_active", actorGameObject, zone)).toBe(true);
   });
+});
 
-  it("is_jup_a12_mercs_time should check day state", () => {
+describe("is_jup_a12_mercs_time", () => {
+  it("should check day state", () => {
     expect(callXrCondition("is_jup_a12_mercs_time", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
     const { actorGameObject } = mockRegisteredActor();

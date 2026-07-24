@@ -44,7 +44,6 @@ import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import {
   callXrCondition,
-  checkXrCondition,
   mockRegisteredActor,
   mockSchemeState,
   MockSmartTerrain,
@@ -60,88 +59,14 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/object");
 });
 
-describe("object conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrCondition("is_monster_snork");
-    checkXrCondition("is_monster_dog");
-    checkXrCondition("is_monster_psy_dog");
-    checkXrCondition("is_monster_polter");
-    checkXrCondition("is_monster_tushkano");
-    checkXrCondition("is_monster_burer");
-    checkXrCondition("is_monster_controller");
-    checkXrCondition("is_monster_flesh");
-    checkXrCondition("is_monster_boar");
-    checkXrCondition("fighting_dist_ge");
-    checkXrCondition("fighting_dist_le");
-    checkXrCondition("enemy_in_zone");
-    checkXrCondition("check_npc_name");
-    checkXrCondition("check_enemy_name");
-    checkXrCondition("see_npc");
-    checkXrCondition("is_wounded");
-    checkXrCondition("distance_to_obj_on_job_le");
-    checkXrCondition("is_obj_on_job");
-    checkXrCondition("obj_in_zone");
-    checkXrCondition("health_le");
-    checkXrCondition("heli_health_le");
-    checkXrCondition("story_obj_in_zone_by_name");
-    checkXrCondition("npc_in_zone");
-    checkXrCondition("heli_see_npc");
-    checkXrCondition("hitted_by");
-    checkXrCondition("hitted_on_bone");
-    checkXrCondition("best_pistol");
-    checkXrCondition("deadly_hit");
-    checkXrCondition("killed_by");
-    checkXrCondition("is_alive_all");
-    checkXrCondition("is_alive_one");
-    checkXrCondition("is_alive");
-    checkXrCondition("is_dead");
-    checkXrCondition("story_object_exist");
-    checkXrCondition("npc_has_item");
-    checkXrCondition("has_enemy");
-    checkXrCondition("has_actor_enemy");
-    checkXrCondition("see_enemy");
-    checkXrCondition("mob_has_enemy");
-    checkXrCondition("mob_was_hit");
-    checkXrCondition("squad_in_zone");
-    checkXrCondition("squad_has_enemy");
-    checkXrCondition("squad_in_zone_all");
-    checkXrCondition("squads_in_zone_b41");
-    checkXrCondition("target_squad_name");
-    checkXrCondition("squad_exist");
-    checkXrCondition("is_squad_commander");
-    checkXrCondition("squad_npc_count_ge");
-    checkXrCondition("quest_npc_enemy_actor");
-    checkXrCondition("distance_to_obj_ge");
-    checkXrCondition("distance_to_obj_le");
-    checkXrCondition("active_item");
-    checkXrCondition("check_bloodsucker_state");
-    checkXrCondition("in_dest_smart_cover");
-    checkXrCondition("dist_to_story_obj_ge");
-    checkXrCondition("has_enemy_in_current_loopholes_fov");
-    checkXrCondition("npc_talking");
-    checkXrCondition("see_actor");
-    checkXrCondition("object_exist");
-    checkXrCondition("squad_curr_action");
-    checkXrCondition("check_enemy_smart");
-    checkXrCondition("polter_ignore_actor");
-    checkXrCondition("burer_gravi_attack");
-    checkXrCondition("burer_anti_aim");
-    checkXrCondition("is_playing_sound");
-    checkXrCondition("is_door_blocked_by_npc");
-    checkXrCondition("check_deimos_phase");
-    checkXrCondition("animpoint_reached");
-    checkXrCondition("upgrade_hint_kardan");
-  });
+beforeEach(() => {
+  resetRegistry();
+  registerSimulator();
+  resetFunctionMock(isDeimosPhaseActive);
 });
 
-describe("object conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-    resetFunctionMock(isDeimosPhaseActive);
-  });
-
-  it("is_monster_snork should check object", () => {
+describe("is_monster_snork", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_snork", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.snork_s))
     ).toBe(true);
@@ -149,8 +74,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_snork", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_dog should check object", () => {
+describe("is_monster_dog", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.dog_s))
     ).toBe(true);
@@ -158,8 +85,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_psy_dog should check object", () => {
+describe("is_monster_psy_dog", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_psy_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.psy_dog_s))
     ).toBe(true);
@@ -167,8 +96,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_psy_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_polter should check object", () => {
+describe("is_monster_polter", () => {
+  it("should check object", () => {
     expect(
       callXrCondition(
         "is_monster_polter",
@@ -180,8 +111,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_polter", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_tushkano should check object", () => {
+describe("is_monster_tushkano", () => {
+  it("should check object", () => {
     expect(
       callXrCondition(
         "is_monster_tushkano",
@@ -193,8 +126,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_tushkano", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_burer should check object", () => {
+describe("is_monster_burer", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_burer", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.burer_s))
     ).toBe(true);
@@ -202,8 +137,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_burer", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_controller should check object", () => {
+describe("is_monster_controller", () => {
+  it("should check object", () => {
     expect(
       callXrCondition(
         "is_monster_controller",
@@ -219,8 +156,10 @@ describe("object conditions implementation", () => {
       )
     ).toBe(false);
   });
+});
 
-  it("is_monster_flesh should check object", () => {
+describe("is_monster_flesh", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_flesh", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.flesh_s))
     ).toBe(true);
@@ -228,8 +167,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_flesh", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("is_monster_boar should check object", () => {
+describe("is_monster_boar", () => {
+  it("should check object", () => {
     expect(
       callXrCondition("is_monster_boar", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.boar_s))
     ).toBe(true);
@@ -237,8 +178,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_monster_boar", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
     ).toBe(false);
   });
+});
 
-  it("fighting_dist_ge should check distance", () => {
+describe("fighting_dist_ge", () => {
+  it("should check distance", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -251,8 +194,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
     expect(callXrCondition("fighting_dist_ge", actor, object, 10)).toBe(true);
   });
+});
 
-  it("fighting_dist_le should check distance", () => {
+describe("fighting_dist_le", () => {
+  it("should check distance", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -265,8 +210,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
     expect(callXrCondition("fighting_dist_le", actor, object, 10)).toBe(false);
   });
+});
 
-  it("enemy_in_zone should check enemy state", () => {
+describe("enemy_in_zone", () => {
+  it("should check enemy state", () => {
     const { actorGameObject } = mockRegisteredActor();
     const zone: GameObject = MockGameObject.mock();
 
@@ -284,8 +231,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("enemy_in_zone", actorGameObject, MockGameObject.mock(), zone.name())).toBe(false);
   });
+});
 
-  it("check_npc_name should check object name", () => {
+describe("check_npc_name", () => {
+  it("should check object name", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
     const checkNpcName = (_G as AnyObject).xr_conditions.check_npc_name as (
@@ -307,8 +256,10 @@ describe("object conditions implementation", () => {
     expect(checkNpcName(actor, object, $fromArray(["123"]))).toBe(true);
     expect(checkNpcName(actor, object, $fromArray(["abc", "efg", "test"]))).toBe(true);
   });
+});
 
-  it("check_enemy_name should check object name", () => {
+describe("check_enemy_name", () => {
+  it("should check object name", () => {
     const object: GameObject = MockGameObject.mock();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -334,8 +285,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "test")).toBe(false);
   });
+});
 
-  it("see_npc should check if object see another object", () => {
+describe("see_npc", () => {
+  it("should check if object see another object", () => {
     const object: GameObject = MockGameObject.mock();
     const another: GameObject = MockGameObject.mock();
 
@@ -353,8 +306,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "see").mockImplementation(() => false);
     expect(callXrCondition("see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
   });
+});
 
-  it("is_wounded should check if object is wounded", () => {
+describe("is_wounded", () => {
+  it("should check if object is wounded", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMockOnce(isObjectWounded, () => true);
@@ -365,8 +320,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("is_wounded", MockGameObject.mockActor(), object)).toBe(false);
     expect(isObjectWounded).toHaveBeenCalledWith(object.id());
   });
+});
 
-  it("is_obj_on_job should check if object is on job", () => {
+describe("is_obj_on_job", () => {
+  it("should check if object is on job", () => {
     const object: GameObject = MockGameObject.mock();
     const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("test-smart-terrain");
 
@@ -396,8 +353,10 @@ describe("object conditions implementation", () => {
       true
     );
   });
+});
 
-  it("obj_in_zone should check if object is in zone", () => {
+describe("obj_in_zone", () => {
+  it("should check if object is in zone", () => {
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
@@ -413,16 +372,20 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone, "first-sid", "second-sid")).toBe(true);
     expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone, "second-sid")).toBe(true);
   });
+});
 
-  it("health_le should check object health", () => {
+describe("health_le", () => {
+  it("should check object health", () => {
     const object: GameObject = MockGameObject.mock({ health: 0.5 });
 
     expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.49)).toBe(false);
     expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.5)).toBe(false);
     expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.51)).toBe(true);
   });
+});
 
-  it("heli_health_le should check heli health", () => {
+describe("heli_health_le", () => {
+  it("should check heli health", () => {
     const object: GameObject = MockGameObject.mock();
     const helicopter: CHelicopter = MockCHelicopter.mock();
 
@@ -434,8 +397,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("heli_health_le", MockGameObject.mockActor(), object, 0.5)).toBe(false);
     expect(callXrCondition("heli_health_le", MockGameObject.mockActor(), object, 0.51)).toBe(true);
   });
+});
 
-  it("story_obj_in_zone_by_name should check object zone", () => {
+describe("story_obj_in_zone_by_name", () => {
+  it("should check object zone", () => {
     const object: GameObject = MockGameObject.mock();
     const zone: GameObject = MockGameObject.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
@@ -466,8 +431,10 @@ describe("object conditions implementation", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("npc_in_zone should check object zone", () => {
+describe("npc_in_zone", () => {
+  it("should check object zone", () => {
     const object: GameObject = MockGameObject.mock();
     const zone: GameObject = MockGameObject.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
@@ -501,8 +468,10 @@ describe("object conditions implementation", () => {
       callXrCondition("npc_in_zone", MockGameObject.mockActor(), serverOnlyObject as unknown as GameObject, "zone-name")
     ).toBe(true);
   });
+});
 
-  it("heli_see_npc should check if heli see object", () => {
+describe("heli_see_npc", () => {
+  it("should check if heli see object", () => {
     const object: GameObject = MockGameObject.mock();
     const another: GameObject = MockGameObject.mock();
     const helicopter: CHelicopter = MockCHelicopter.mock();
@@ -520,8 +489,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("heli_see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
   });
+});
 
-  it("hitted_by should check object hit state", () => {
+describe("hitted_by", () => {
+  it("should check object hit state", () => {
     const object: GameObject = MockGameObject.mock();
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
@@ -548,8 +519,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "second-sid", "another-sid")).toBe(true);
     expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(true);
   });
+});
 
-  it("hitted_on_bone should check object hit bone", () => {
+describe("hitted_on_bone", () => {
+  it("should check object hit bone", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
@@ -568,8 +541,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-b")).toBe(true);
     expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(true);
   });
+});
 
-  it("best_pistol should check object has pistol", () => {
+describe("best_pistol", () => {
+  it("should check object has pistol", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "item_in_slot").mockImplementation(() => MockGameObject.mock());
@@ -579,8 +554,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "item_in_slot").mockImplementation(() => null);
     expect(callXrCondition("best_pistol", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("deadly_hit should check if hit is deadly", () => {
+describe("deadly_hit", () => {
+  it("should check if hit is deadly", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
@@ -595,8 +572,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("killed_by should check object killed by", () => {
+describe("killed_by", () => {
+  it("should check object killed by", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeDeathState = mockSchemeState(EScheme.DEATH);
@@ -620,8 +599,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "second-sid")).toBe(true);
     expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(true);
   });
+});
 
-  it("is_alive_all should check if objects are alive", () => {
+describe("is_alive_all", () => {
+  it("should check if objects are alive", () => {
     expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
     expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
 
@@ -640,8 +621,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid", "second-sid")
     ).toBe(false);
   });
+});
 
-  it("is_alive_one should check if one of objects is alive", () => {
+describe("is_alive_one", () => {
+  it("should check if one of objects is alive", () => {
     expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
     expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
 
@@ -660,8 +643,10 @@ describe("object conditions implementation", () => {
       callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid", "second-sid")
     ).toBe(true);
   });
+});
 
-  it("is_alive should check if stalker is alive", () => {
+describe("is_alive", () => {
+  it("should check if stalker is alive", () => {
     const first: GameObject = MockGameObject.mock();
     const firstServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: first.id() });
     const second: GameObject = MockGameObject.mock();
@@ -687,8 +672,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("is_alive", MockGameObject.mockActor(), firstServer as unknown as GameObject)).toBe(false);
     expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "first-sid")).toBe(false);
   });
+});
 
-  it("is_dead should check if object is dead", () => {
+describe("is_dead", () => {
+  it("should check if object is dead", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("is_dead", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
@@ -701,8 +688,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("is_dead", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
   });
+});
 
-  it("story_object_exist should check if object exist", () => {
+describe("story_object_exist", () => {
+  it("should check if object exist", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("story_object_exist", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
@@ -711,8 +700,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("story_object_exist", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
   });
+});
 
-  it("npc_has_item should check if object has item", () => {
+describe("npc_has_item", () => {
+  it("should check if object has item", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("npc_has_item", MockGameObject.mockActor(), object, "test-section")).toBe(false);
@@ -722,8 +713,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("npc_has_item", MockGameObject.mockActor(), object, "test-section")).toBe(true);
     expect(object.object).toHaveBeenCalledWith("test-section");
   });
+});
 
-  it("has_enemy should check if object has enemy", () => {
+describe("has_enemy", () => {
+  it("should check if object has enemy", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("has_enemy", MockGameObject.mockActor(), object)).toBe(false);
@@ -733,8 +726,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("has_enemy", MockGameObject.mockActor(), object)).toBe(true);
     expect(object.best_enemy).toHaveBeenCalled();
   });
+});
 
-  it("has_actor_enemy should check if object has actor as enemy", () => {
+describe("has_actor_enemy", () => {
+  it("should check if object has actor as enemy", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("has_actor_enemy", MockGameObject.mockActor(), object)).toBe(false);
@@ -745,8 +740,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mockActor());
     expect(callXrCondition("has_actor_enemy", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("see_enemy should check if object see enemy", () => {
+describe("see_enemy", () => {
+  it("should check if object see enemy", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "see").mockImplementation(() => true);
@@ -758,8 +755,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "see").mockImplementation(() => false);
     expect(callXrCondition("see_enemy", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("mob_has_enemy should check if object has enemy", () => {
+describe("mob_has_enemy", () => {
+  it("should check if object has enemy", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "get_enemy").mockImplementation(() => MockGameObject.mock());
@@ -768,8 +767,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "get_enemy").mockImplementation(() => null);
     expect(callXrCondition("mob_has_enemy", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("mob_was_hit should check if object was hit", () => {
+describe("mob_was_hit", () => {
+  it("should check if object was hit", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "get_monster_hit_info").mockImplementation(() => MockMonsterHitInfo.mock(null, 0, null));
@@ -781,8 +782,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "get_monster_hit_info").mockImplementation(() => MockMonsterHitInfo.mock());
     expect(callXrCondition("mob_was_hit", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("squad_in_zone should check if squad is in zone", () => {
+describe("squad_in_zone", () => {
+  it("should check if squad is in zone", () => {
     const squad: MockSquad = MockSquad.createRegistered();
     const zone: GameObject = MockGameObject.mock();
 
@@ -815,8 +818,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
   });
+});
 
-  it("squad_has_enemy should check if squad has enemy", () => {
+describe("squad_has_enemy", () => {
+  it("should check if squad has enemy", () => {
     const squad: MockSquad = MockSquad.createRegistered();
     const zone: GameObject = MockGameObject.mock();
 
@@ -842,8 +847,10 @@ describe("object conditions implementation", () => {
     squad.mockAddMember(secondServer);
     expect(callXrCondition("squad_has_enemy", MockGameObject.mockActor(), zone, "test-sid")).toBe(true);
   });
+});
 
-  it("squad_in_zone_all should check if squad members are in zone", () => {
+describe("squad_in_zone_all", () => {
+  it("should check if squad members are in zone", () => {
     const squad: MockSquad = MockSquad.createRegistered();
     const zone: GameObject = MockGameObject.mock();
 
@@ -876,8 +883,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
   });
+});
 
-  it("squads_in_zone_b41 should require every assigned squad member to be inside the light zone", () => {
+describe("squads_in_zone_b41", () => {
+  it("should require every assigned squad member to be inside the light zone", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("jup_b41");
     const squad: MockSquad = MockSquad.mock();
     const member: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -893,8 +902,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(zone, "inside").mockReturnValue(false);
     expect(callXrCondition("squads_in_zone_b41", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("squad_exist should check if squad exists", () => {
+describe("squad_exist", () => {
+  it("should check if squad exists", () => {
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     registerStoryLink(object.id, "test-story");
@@ -906,8 +917,10 @@ describe("object conditions implementation", () => {
       "Wrong parameter storyId 'nil' in squad_exist condition."
     );
   });
+});
 
-  it("is_squad_commander should recognize the squad commander and reject other members", () => {
+describe("is_squad_commander", () => {
+  it("should recognize the squad commander and reject other members", () => {
     const squad: MockSquad = MockSquad.mock();
     const commander: ServerHumanObject = MockAlifeHumanStalker.mock();
     const member: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -925,7 +938,9 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("is_squad_commander", MockGameObject.mockActor(), commanderObject)).toBe(true);
     expect(callXrCondition("is_squad_commander", MockGameObject.mockActor(), memberObject)).toBe(false);
   });
+});
 
+describe("squad_npc_count_ge", () => {
   it("squad_npc_count_ge should compare the resolved squad member count with the threshold", () => {
     const squad: MockSquad = MockSquad.mock();
 
@@ -940,8 +955,10 @@ describe("object conditions implementation", () => {
       callXrCondition("squad_npc_count_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad", "2")
     ).toBe(false);
   });
+});
 
-  it("quest_npc_enemy_actor should recognize a hostile story stalker", () => {
+describe("quest_npc_enemy_actor", () => {
+  it("should recognize a hostile story stalker", () => {
     const { actorGameObject } = mockRegisteredActor();
     const stalker: GameObject = MockGameObject.mockStalker();
 
@@ -957,8 +974,10 @@ describe("object conditions implementation", () => {
       false
     );
   });
+});
 
-  it("distance_to_obj_ge should check distance", () => {
+describe("distance_to_obj_ge", () => {
+  it("should check distance", () => {
     expect(
       callXrCondition("distance_to_obj_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
     ).toBe(false);
@@ -978,8 +997,10 @@ describe("object conditions implementation", () => {
       callXrCondition("distance_to_obj_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
     ).toBe(false);
   });
+});
 
-  it("distance_to_obj_le should check distance", () => {
+describe("distance_to_obj_le", () => {
+  it("should check distance", () => {
     expect(
       callXrCondition("distance_to_obj_le", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
     ).toBe(false);
@@ -999,8 +1020,10 @@ describe("object conditions implementation", () => {
       callXrCondition("distance_to_obj_le", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
     ).toBe(true);
   });
+});
 
-  it("distance_to_obj_on_job_le should check object job distance", () => {
+describe("distance_to_obj_on_job_le", () => {
+  it("should check object job distance", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const object: GameObject = MockGameObject.mock();
     const working: ServerCreatureObject = MockAlifeHumanStalker.mock();
@@ -1035,8 +1058,10 @@ describe("object conditions implementation", () => {
       false
     );
   });
+});
 
-  it("active_item should check object active item", () => {
+describe("active_item", () => {
+  it("should check object active item", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     const first: GameObject = MockGameObject.mock({ section: "test-1" });
@@ -1056,8 +1081,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock(), first.section())).toBe(true);
     expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock(), second.section())).toBe(false);
   });
+});
 
-  it("check_bloodsucker_state should compare the resolved object visibility state", () => {
+describe("check_bloodsucker_state", () => {
+  it("should compare the resolved object visibility state", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "get_visibility_state").mockReturnValue(1);
@@ -1065,8 +1092,10 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("check_bloodsucker_state", MockGameObject.mockActor(), object, "1")).toBe(true);
     expect(callXrCondition("check_bloodsucker_state", MockGameObject.mockActor(), object, "0")).toBe(false);
   });
+});
 
-  it("in_dest_smart_cover should check if object is in smart cover", () => {
+describe("in_dest_smart_cover", () => {
+  it("should check if object is in smart cover", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "in_smart_cover").mockImplementation(() => true);
@@ -1075,8 +1104,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "in_smart_cover").mockImplementation(() => false);
     expect(callXrCondition("in_dest_smart_cover", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("dist_to_story_obj_ge should check distance", () => {
+describe("dist_to_story_obj_ge", () => {
+  it("should check distance", () => {
     const { actorGameObject } = mockRegisteredActor();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
 
@@ -1092,8 +1123,10 @@ describe("object conditions implementation", () => {
 
     expect(serverObject.position.distance_to_sqr).toHaveBeenCalledWith(actorGameObject.position());
   });
+});
 
-  it("has_enemy_in_current_loopholes_fov should check enemies in loophole", () => {
+describe("has_enemy_in_current_loopholes_fov", () => {
+  it("should check enemies in loophole", () => {
     const object: GameObject = MockGameObject.mock();
     const enemy: GameObject = MockGameObject.mock();
 
@@ -1108,8 +1141,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "in_current_loophole_fov").mockImplementation((position) => position === enemy.position());
     expect(callXrCondition("has_enemy_in_current_loopholes_fov", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("npc_talking should check if object is talking", () => {
+describe("npc_talking", () => {
+  it("should check if object is talking", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "is_talking").mockImplementation(() => true);
@@ -1118,8 +1153,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "is_talking").mockImplementation(() => false);
     expect(callXrCondition("npc_talking", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("see_actor should check if object is alive and see actor", () => {
+describe("see_actor", () => {
+  it("should check if object is alive and see actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -1140,15 +1177,19 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("see_actor", actor, object)).toBe(false);
   });
+});
 
-  it("object_exist should check if object exists", () => {
+describe("object_exist", () => {
+  it("should check if object exists", () => {
     expect(callXrCondition("object_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
 
     registerStoryLink(MockGameObject.mock().id(), "test-sid");
     expect(callXrCondition("object_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(true);
   });
+});
 
-  it("squad_curr_action should check squad action", () => {
+describe("squad_curr_action", () => {
+  it("should check squad action", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
     const squad: MockSquad = MockSquad.createRegistered();
@@ -1174,8 +1215,10 @@ describe("object conditions implementation", () => {
       callXrCondition("squad_curr_action", MockGameObject.mockActor(), object, ESquadActionType.STAY_ON_TARGET)
     ).toBe(true);
   });
+});
 
-  it("check_enemy_smart should check enemy smart terrain", () => {
+describe("check_enemy_smart", () => {
+  it("should check enemy smart terrain", () => {
     const object: GameObject = MockGameObject.mock();
     const enemy: GameObject = MockGameObject.mock();
     const enemyServerObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: enemy.id() });
@@ -1198,8 +1241,10 @@ describe("object conditions implementation", () => {
 
     expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, terrain.name())).toBe(false);
   });
+});
 
-  it("polter_ignore_actor should check if poltergeist ignores actor", () => {
+describe("polter_ignore_actor", () => {
+  it("should check if poltergeist ignores actor", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "poltergeist_get_actor_ignore").mockImplementation(() => true);
@@ -1208,8 +1253,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "poltergeist_get_actor_ignore").mockImplementation(() => false);
     expect(callXrCondition("polter_ignore_actor", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("burer_gravi_attack should check burer gravi attack", () => {
+describe("burer_gravi_attack", () => {
+  it("should check burer gravi attack", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "burer_get_force_gravi_attack").mockImplementation(() => true);
@@ -1218,8 +1265,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "burer_get_force_gravi_attack").mockImplementation(() => false);
     expect(callXrCondition("burer_gravi_attack", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("burer_anti_aim should check burer anti aim", () => {
+describe("burer_anti_aim", () => {
+  it("should check burer anti aim", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "get_force_anti_aim").mockImplementation(() => true);
@@ -1228,8 +1277,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "get_force_anti_aim").mockImplementation(() => false);
     expect(callXrCondition("burer_anti_aim", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("is_playing_sound should check if object is playing sound", () => {
+describe("is_playing_sound", () => {
+  it("should check if object is playing sound", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMockOnce(isPlayingSound, () => true);
@@ -1238,8 +1289,10 @@ describe("object conditions implementation", () => {
     replaceFunctionMockOnce(isPlayingSound, () => false);
     expect(callXrCondition("is_playing_sound", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("is_door_blocked_by_npc should check if door is blocked by npc", () => {
+describe("is_door_blocked_by_npc", () => {
+  it("should check if door is blocked by npc", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "is_door_blocked_by_npc").mockImplementation(() => true);
@@ -1248,8 +1301,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(object, "is_door_blocked_by_npc").mockImplementation(() => false);
     expect(callXrCondition("is_door_blocked_by_npc", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("check_deimos_phase should check deimos phase", () => {
+describe("check_deimos_phase", () => {
+  it("should check deimos phase", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(isDeimosPhaseActive, () => false);
@@ -1274,8 +1329,10 @@ describe("object conditions implementation", () => {
     expect(isDeimosPhaseActive).toHaveBeenCalledTimes(2);
     expect(isDeimosPhaseActive).toHaveBeenCalledWith(object, "lower_bound", false);
   });
+});
 
-  it("animpoint_reached should check if animpoint is reached", () => {
+describe("animpoint_reached", () => {
+  it("should check if animpoint is reached", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeAnimpointState = mockSchemeState(EScheme.ANIMPOINT);
@@ -1291,8 +1348,10 @@ describe("object conditions implementation", () => {
     jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => false);
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
   });
+});
 
-  it("upgrade_hint_kardan should publish missing requirements and allow upgrades after both requirements are met", () => {
+describe("upgrade_hint_kardan", () => {
+  it("should publish missing requirements and allow upgrades after both requirements are met", () => {
     const manager: UpgradesManager = getManager(UpgradesManager);
     const setCurrentHints = jest.spyOn(manager, "setCurrentHints");
 

@@ -23,7 +23,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
-import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { callXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/action");
 
@@ -35,48 +35,17 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/effects/actor");
 });
 
-describe("actor effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("disable_ui");
-    checkXrEffect("disable_ui_only");
-    checkXrEffect("enable_ui");
-    checkXrEffect("disable_actor_nightvision");
-    checkXrEffect("enable_actor_nightvision");
-    checkXrEffect("disable_actor_torch");
-    checkXrEffect("enable_actor_torch");
-    checkXrEffect("run_tutorial");
-    checkXrEffect("give_actor");
-    checkXrEffect("remove_item");
-    checkXrEffect("drop_object_item_on_point");
-    checkXrEffect("relocate_item");
-    checkXrEffect("activate_weapon_slot");
-    checkXrEffect("restore_actor_position");
-    checkXrEffect("save_actor_position");
-    checkXrEffect("actor_punch");
-    checkXrEffect("send_tip");
-    checkXrEffect("give_task");
-    checkXrEffect("set_active_task");
-    checkXrEffect("kill_actor");
-    checkXrEffect("make_actor_visible_to_squad");
-    checkXrEffect("sleep");
-    checkXrEffect("activate_weapon");
-    checkXrEffect("give_treasure");
-    checkXrEffect("get_best_detector");
-    checkXrEffect("hide_best_detector");
-  });
+beforeEach(() => {
+  resetRegistry();
+  registerSimulator();
+
+  resetFunctionMock(game.start_tutorial);
+  resetFunctionMock(giveItemsToActor);
+  resetFunctionMock(objectPunchActor);
 });
 
-describe("actor effects implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-
-    resetFunctionMock(game.start_tutorial);
-    resetFunctionMock(giveItemsToActor);
-    resetFunctionMock(objectPunchActor);
-  });
-
-  it("disable_ui should correctly call manager methods", () => {
+describe("disable_ui", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "disableGameUi").mockImplementation(jest.fn());
@@ -87,8 +56,10 @@ describe("actor effects implementation", () => {
     callXrEffect("disable_ui", MockGameObject.mockActor(), MockGameObject.mock(), TRUE);
     expect(manager.disableGameUi).toHaveBeenCalledWith(false);
   });
+});
 
-  it("disable_ui_only should correctly call manager methods", () => {
+describe("disable_ui_only", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "disableGameUiOnly").mockImplementation(jest.fn());
@@ -96,8 +67,10 @@ describe("actor effects implementation", () => {
     callXrEffect("disable_ui_only", MockGameObject.mockActor(), MockGameObject.mock());
     expect(manager.disableGameUiOnly).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("enable_ui should correctly call manager methods", () => {
+describe("enable_ui", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "enableGameUi").mockImplementation(jest.fn());
@@ -108,8 +81,10 @@ describe("actor effects implementation", () => {
     callXrEffect("enable_ui", MockGameObject.mockActor(), MockGameObject.mock(), TRUE);
     expect(manager.enableGameUi).toHaveBeenCalledWith(false);
   });
+});
 
-  it("disable_actor_nightvision should correctly call manager methods", () => {
+describe("disable_actor_nightvision", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "disableActorNightVision").mockImplementation(jest.fn());
@@ -117,8 +92,10 @@ describe("actor effects implementation", () => {
     callXrEffect("disable_actor_nightvision", MockGameObject.mockActor(), MockGameObject.mock());
     expect(manager.disableActorNightVision).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("enable_actor_nightvision should correctly call manager methods", () => {
+describe("enable_actor_nightvision", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "enableActorNightVision").mockImplementation(jest.fn());
@@ -126,8 +103,10 @@ describe("actor effects implementation", () => {
     callXrEffect("enable_actor_nightvision", MockGameObject.mockActor(), MockGameObject.mock());
     expect(manager.enableActorNightVision).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("disable_actor_torch should correctly call manager methods", () => {
+describe("disable_actor_torch", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "disableActorTorch").mockImplementation(jest.fn());
@@ -135,8 +114,10 @@ describe("actor effects implementation", () => {
     callXrEffect("disable_actor_torch", MockGameObject.mockActor(), MockGameObject.mock());
     expect(manager.disableActorTorch).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("enable_actor_torch should correctly call manager methods", () => {
+describe("enable_actor_torch", () => {
+  it("should correctly call manager methods", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "enableActorTorch").mockImplementation(jest.fn());
@@ -144,22 +125,28 @@ describe("actor effects implementation", () => {
     callXrEffect("enable_actor_torch", MockGameObject.mockActor(), MockGameObject.mock());
     expect(manager.enableActorTorch).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("run_tutorial should correctly run tutorials", () => {
+describe("run_tutorial", () => {
+  it("should correctly run tutorials", () => {
     callXrEffect("run_tutorial", MockGameObject.mockActor(), MockGameObject.mock(), "custom_tutorial");
     expect(game.start_tutorial).toHaveBeenCalledTimes(1);
     expect(game.start_tutorial).toHaveBeenCalledWith("custom_tutorial");
   });
+});
 
-  it("give_actor should give actor object list of items", () => {
+describe("give_actor", () => {
+  it("should give actor object list of items", () => {
     callXrEffect("give_actor", MockGameObject.mockActor(), MockGameObject.mock(), "first", "second");
 
     expect(giveItemsToActor).toHaveBeenCalledTimes(2);
     expect(giveItemsToActor).toHaveBeenCalledWith("first");
     expect(giveItemsToActor).toHaveBeenCalledWith("second");
   });
+});
 
-  it("remove_item should release items from actor inventory", () => {
+describe("remove_item", () => {
+  it("should release items from actor inventory", () => {
     const notificationManager: NotificationManager = getManager(NotificationManager);
     const item: GameObject = MockGameObject.mock({ section: "test_section" });
     const serverItem: ServerObject = MockAlifeObject.mock({ id: item.id() });
@@ -184,8 +171,10 @@ describe("actor effects implementation", () => {
       "test_section"
     );
   });
+});
 
-  it("drop_object_item_on_point should drop objects on points", () => {
+describe("drop_object_item_on_point", () => {
+  it("should drop objects on points", () => {
     const item: GameObject = MockGameObject.mock({ section: "test_section" });
     const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
 
@@ -198,8 +187,10 @@ describe("actor effects implementation", () => {
     expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledTimes(1);
     expect(actorGameObject.drop_item_and_teleport).toHaveBeenCalledWith(item, new patrol("test-wp").point(0));
   });
+});
 
-  it("relocate_item should correctly relocate items from one object to another", () => {
+describe("relocate_item", () => {
+  it("should correctly relocate items from one object to another", () => {
     registerSimulator();
 
     const item: GameObject = MockGameObject.mock({ section: weapons.wpn_svu });
@@ -238,8 +229,10 @@ describe("actor effects implementation", () => {
     expect(from.transfer_item).toHaveBeenCalledTimes(1);
     expect(from.transfer_item).toHaveBeenCalledWith(item, to);
   });
+});
 
-  it("activate_weapon_slot should activate slots for actor", () => {
+describe("activate_weapon_slot", () => {
+  it("should activate slots for actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     expect(() => callXrEffect("activate_weapon_slot", actor, MockGameObject.mock())).toThrow(
@@ -251,8 +244,10 @@ describe("actor effects implementation", () => {
     expect(actor.activate_slot).toHaveBeenCalledTimes(1);
     expect(actor.activate_slot).toHaveBeenCalledWith(EActiveItemSlot.PRIMARY);
   });
+});
 
-  it("restore_actor_position should restore actor position", () => {
+describe("restore_actor_position", () => {
+  it("should restore actor position", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     const position: Vector = actorGameObject.position();
@@ -267,22 +262,28 @@ describe("actor effects implementation", () => {
     expect(actorGameObject.set_actor_position).toHaveBeenCalledTimes(1);
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(position);
   });
+});
 
-  it("save_actor_position should save actor position", () => {
+describe("save_actor_position", () => {
+  it("should save actor position", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(() => callXrEffect("save_actor_position", actorGameObject, MockGameObject.mock())).not.toThrow();
   });
+});
 
-  it("actor_punch should punch actor by object", () => {
+describe("actor_punch", () => {
+  it("should punch actor by object", () => {
     const object: GameObject = MockGameObject.mock();
 
     callXrEffect("actor_punch", MockGameObject.mockActor(), object);
 
     expect(objectPunchActor).toHaveBeenCalledWith(object);
   });
+});
 
-  it("send_tip should send notifications for actor", () => {
+describe("send_tip", () => {
+  it("should send notifications for actor", () => {
     const manager: NotificationManager = getManager(NotificationManager);
 
     jest.spyOn(manager, "sendTipNotification").mockImplementation(jest.fn());
@@ -303,8 +304,10 @@ describe("actor effects implementation", () => {
     expect(manager.sendTipNotification).toHaveBeenCalledTimes(1);
     expect(manager.sendTipNotification).toHaveBeenCalledWith("test-caption", "test-icon", 0, null, "test-sender");
   });
+});
 
-  it("give_task should give tasks for actor", () => {
+describe("give_task", () => {
+  it("should give tasks for actor", () => {
     const manager: TaskManager = getManager(TaskManager);
 
     jest.spyOn(manager, "giveTask").mockImplementation(jest.fn());
@@ -318,8 +321,10 @@ describe("actor effects implementation", () => {
     expect(manager.giveTask).toHaveBeenCalledTimes(1);
     expect(manager.giveTask).toHaveBeenCalledWith("test-task-id");
   });
+});
 
-  it("set_active_task should set tasks for actor", () => {
+describe("set_active_task", () => {
+  it("should set tasks for actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const task: GameTask = MockCGameTask.mock();
 
@@ -336,8 +341,10 @@ describe("actor effects implementation", () => {
     expect(actor.set_active_task).toHaveBeenCalledTimes(1);
     expect(actor.set_active_task).toHaveBeenCalledWith(task);
   });
+});
 
-  it("kill_actor should kill actor", () => {
+describe("kill_actor", () => {
+  it("should kill actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     callXrEffect("kill_actor", actor, MockGameObject.mock());
@@ -345,8 +352,10 @@ describe("actor effects implementation", () => {
     expect(actor.kill).toHaveBeenCalledTimes(1);
     expect(actor.kill).toHaveBeenCalledWith(actor);
   });
+});
 
-  it("make_actor_visible_to_squad should make actor visible for squad", () => {
+describe("make_actor_visible_to_squad", () => {
+  it("should make actor visible for squad", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const squad: MockSquad = MockSquad.mock();
     const firstServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
@@ -369,8 +378,10 @@ describe("actor effects implementation", () => {
     expect(firstGame.make_object_visible_somewhen).toHaveBeenCalledWith(actor);
     expect(secondGame.make_object_visible_somewhen).toHaveBeenCalledWith(actor);
   });
+});
 
-  it("sleep should show sleep dialog", () => {
+describe("sleep", () => {
+  it("should show sleep dialog", () => {
     mockRegisteredActor();
 
     const manager: SleepManager = getManager(SleepManager);
@@ -394,8 +405,10 @@ describe("actor effects implementation", () => {
 
     expect(manager.showSleepDialog).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("activate_weapon should change active actor item", () => {
+describe("activate_weapon", () => {
+  it("should change active actor item", () => {
     const weapon: GameObject = MockGameObject.mock({ section: weapons.wpn_svu });
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [[weapon.section(), weapon]],
@@ -410,8 +423,10 @@ describe("actor effects implementation", () => {
     expect(actor.make_item_active).toHaveBeenCalledTimes(1);
     expect(actor.make_item_active).toHaveBeenCalledWith(weapon);
   });
+});
 
-  it("give_treasure should give actor treasure coordinates", () => {
+describe("give_treasure", () => {
+  it("should give actor treasure coordinates", () => {
     const treasureManager: TreasureManager = getManager(TreasureManager);
 
     jest.spyOn(treasureManager, "giveActorTreasureCoordinates").mockImplementation(jest.fn());
@@ -423,8 +438,10 @@ describe("actor effects implementation", () => {
     expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("second");
     expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("third");
   });
+});
 
-  it("get_best_detector should force actor to select best detector", () => {
+describe("get_best_detector", () => {
+  it("should force actor to select best detector", () => {
     const advancedDetector: GameObject = MockGameObject.mock({ section: detectors.detector_advanced });
     const scientificDetector: GameObject = MockGameObject.mock({ section: detectors.detector_scientific });
     const actor: GameObject = MockGameObject.mockActor({
@@ -440,8 +457,10 @@ describe("actor effects implementation", () => {
     expect(advancedDetector.enable_attachable_item).toHaveBeenCalledWith(true);
     expect(scientificDetector.enable_attachable_item).toHaveBeenCalledTimes(0);
   });
+});
 
-  it("hide_best_detector should force actor to hide best detector", () => {
+describe("hide_best_detector", () => {
+  it("should force actor to hide best detector", () => {
     const advancedDetector: GameObject = MockGameObject.mock({ section: detectors.detector_advanced });
     const scientificDetector: GameObject = MockGameObject.mock({ section: detectors.detector_scientific });
     const actor: GameObject = MockGameObject.mockActor({

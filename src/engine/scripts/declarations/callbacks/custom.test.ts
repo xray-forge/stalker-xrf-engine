@@ -7,7 +7,7 @@ import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig, TaskObject } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { achievementsPreconditionsMap, EAchievement } from "@/engine/core/utils/achievements";
-import { callBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
+import { callBinding, resetRegistry } from "@/fixtures/engine";
 
 function callEngineBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["engine"]);
@@ -23,25 +23,12 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/callbacks/custom");
 });
 
-describe("custom external callbacks", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
+beforeEach(() => {
+  resetRegistry();
+});
 
-  it("should correctly inject external methods for game", () => {
-    checkNestedBinding("engine", "on_anabiotic_sleep");
-    checkNestedBinding("engine", "on_anabiotic_wake_up");
-    checkNestedBinding("engine", "surge_survive_start");
-    checkNestedBinding("engine", "surge_survive_end");
-    checkNestedBinding("engine", "on_start_sleeping");
-    checkNestedBinding("engine", "on_finish_sleeping");
-    checkNestedBinding("engine", "is_task_completed");
-    checkNestedBinding("engine", "is_task_failed");
-    checkNestedBinding("engine", "effector_callback");
-    checkNestedBinding("engine", "check_achievement");
-  });
-
-  it("engine.on_start_sleeping should correctly handle event", () => {
+describe("engine.on_start_sleeping", () => {
+  it("should correctly handle event", () => {
     const sleepManager: SleepManager = getManager(SleepManager);
 
     jest.spyOn(sleepManager, "onStartSleeping").mockImplementation(jest.fn);
@@ -49,8 +36,10 @@ describe("custom external callbacks", () => {
     callEngineBinding("on_start_sleeping");
     expect(sleepManager.onStartSleeping).toHaveBeenCalled();
   });
+});
 
-  it("engine.on_finish_sleeping should correctly handle event", () => {
+describe("engine.on_finish_sleeping", () => {
+  it("should correctly handle event", () => {
     const sleepManager: SleepManager = getManager(SleepManager);
 
     jest.spyOn(sleepManager, "onFinishSleeping").mockImplementation(jest.fn);
@@ -58,8 +47,10 @@ describe("custom external callbacks", () => {
     callEngineBinding("on_finish_sleeping");
     expect(sleepManager.onFinishSleeping).toHaveBeenCalled();
   });
+});
 
-  it("engine.on_anabiotic_sleep should correctly handle event", () => {
+describe("engine.on_anabiotic_sleep", () => {
+  it("should correctly handle event", () => {
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onAnabioticSleep").mockImplementation(jest.fn);
@@ -67,8 +58,10 @@ describe("custom external callbacks", () => {
     callEngineBinding("on_anabiotic_sleep");
     expect(actorInputManager.onAnabioticSleep).toHaveBeenCalled();
   });
+});
 
-  it("engine.on_anabiotic_wake_up should correctly handle event", () => {
+describe("engine.on_anabiotic_wake_up", () => {
+  it("should correctly handle event", () => {
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onAnabioticWakeUp").mockImplementation(jest.fn);
@@ -76,8 +69,10 @@ describe("custom external callbacks", () => {
     callEngineBinding("on_anabiotic_wake_up");
     expect(actorInputManager.onAnabioticWakeUp).toHaveBeenCalled();
   });
+});
 
-  it("engine.surge_survive_start should correctly handle event", () => {
+describe("engine.surge_survive_start", () => {
+  it("should correctly handle event", () => {
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onSurgeSurviveStart").mockImplementation(jest.fn);
@@ -85,8 +80,10 @@ describe("custom external callbacks", () => {
     callEngineBinding("surge_survive_start");
     expect(actorInputManager.onSurgeSurviveStart).toHaveBeenCalled();
   });
+});
 
-  it("engine.surge_survive_end should correctly handle event", () => {
+describe("engine.surge_survive_end", () => {
+  it("should correctly handle event", () => {
     const actorInputManager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(actorInputManager, "onSurgeSurviveEnd").mockImplementation(jest.fn);
@@ -94,30 +91,35 @@ describe("custom external callbacks", () => {
     callEngineBinding("surge_survive_end");
     expect(actorInputManager.onSurgeSurviveEnd).toHaveBeenCalled();
   });
+});
 
-  it("engine.is_task_completed should correctly check completed state", () => {
+describe("engine.is_task_completed", () => {
+  it("should correctly check completed state", () => {
     taskConfig.ACTIVE_TASKS.set("first", { isCompleted: () => true } as TaskObject);
     taskConfig.ACTIVE_TASKS.set("second", { isCompleted: () => false } as TaskObject);
 
     expect(callEngineBinding("is_task_completed", ["first"])).toBe(true);
     expect(callEngineBinding("is_task_completed", ["second"])).toBe(false);
   });
+});
 
-  it("engine.is_task_failed should correctly check failed state", () => {
+describe("engine.is_task_failed", () => {
+  it("should correctly check failed state", () => {
     taskConfig.ACTIVE_TASKS.set("first", { isFailed: () => true } as TaskObject);
     taskConfig.ACTIVE_TASKS.set("second", { isFailed: () => false } as TaskObject);
 
     expect(callEngineBinding("is_task_failed", ["first"])).toBe(true);
     expect(callEngineBinding("is_task_failed", ["second"])).toBe(false);
   });
+});
 
-  it("engine.effector_callback should correctly handle event", () => {
+describe("engine.effector_callback", () => {
+  it("should correctly handle event", () => {
     callEngineBinding("effector_callback");
 
     expect(emitCutsceneEndedEvent).toHaveBeenCalled();
   });
-
-  it("engine.effector_callback should correctly check achievements", () => {
+  it("should correctly check achievements", () => {
     expect((_G as AnyObject)["engine"]["check_achievement"]).toBe(achievementsPreconditionsMap);
 
     Object.keys((_G as AnyObject)["engine"]["check_achievement"]).forEach(

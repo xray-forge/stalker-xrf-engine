@@ -17,20 +17,24 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/tasks/task_functors_quest");
 });
 
-describe("task_functors external callbacks declaration", () => {
-  it("should correctly inject task functors", () => {
-    checkTaskBinding("zat_b29_adv_title");
+describe("zat_b29_adv_descr", () => {
+  it("should be registered", () => {
     checkTaskBinding("zat_b29_adv_descr");
+  });
+});
+
+describe("zat_b29_adv_target", () => {
+  it("should be registered", () => {
     checkTaskBinding("zat_b29_adv_target");
   });
 });
 
-describe("task_functors external callbacks implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
+beforeEach(() => {
+  resetRegistry();
+});
 
-  it("zat_b29_adv_title should correctly return title", () => {
+describe("zat_b29_adv_title", () => {
+  it("should correctly return title", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
@@ -48,8 +52,7 @@ describe("task_functors external callbacks implementation", () => {
       expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
     }
   });
-
-  it("zat_b29_adv_title should correctly return description", () => {
+  it("should correctly return description", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();

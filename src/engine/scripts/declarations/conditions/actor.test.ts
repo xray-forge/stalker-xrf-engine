@@ -35,33 +35,9 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/actor");
 });
 
-describe("actor conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrCondition("wealthy_functor");
-    checkXrCondition("information_dealer_functor");
-    checkXrCondition("friend_of_stalkers_functor");
-    checkXrCondition("actor_in_surge_cover");
-    checkXrCondition("is_enemy_actor");
-    checkXrCondition("actor_alive");
-    checkXrCondition("actor_see_npc");
+describe("npc_in_actor_frustum", () => {
+  it("should be registered", () => {
     checkXrCondition("npc_in_actor_frustum");
-    checkXrCondition("dist_to_actor_le");
-    checkXrCondition("dist_to_actor_ge");
-    checkXrCondition("actor_health_le");
-    checkXrCondition("actor_in_zone");
-    checkXrCondition("heli_see_actor");
-    checkXrCondition("actor_has_item");
-    checkXrCondition("actor_has_item_count");
-    checkXrCondition("hit_by_actor");
-    checkXrCondition("killed_by_actor");
-    checkXrCondition("actor_has_weapon");
-    checkXrCondition("actor_active_detector");
-    checkXrCondition("actor_on_level");
-    checkXrCondition("talking");
-    checkXrCondition("actor_nomove_nowpn");
-    checkXrCondition("actor_has_nimble_weapon");
-    checkXrCondition("actor_has_active_nimble_weapon");
-    checkXrCondition("dead_body_searching");
   });
 });
 
@@ -69,15 +45,15 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/actor");
 });
 
-describe("actor conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    resetFunctionMock(isActorInSurgeCover);
-    resetFunctionMock(isObjectInZone);
-    resetFunctionMock(isObjectInActorFrustum);
-  });
+beforeEach(() => {
+  resetRegistry();
+  resetFunctionMock(isActorInSurgeCover);
+  resetFunctionMock(isObjectInZone);
+  resetFunctionMock(isObjectInActorFrustum);
+});
 
-  it("wealthy_functor should check wealth of the actor", () => {
+describe("wealthy_functor", () => {
+  it("should check wealth of the actor", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("wealthy_functor", actorGameObject, MockGameObject.mock())).toBe(false);
@@ -86,8 +62,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("wealthy_functor", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("information_dealer_functor should check info dealer achievement", () => {
+describe("information_dealer_functor", () => {
+  it("should check info dealer achievement", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("information_dealer_functor", actorGameObject, MockGameObject.mock())).toBe(false);
@@ -96,8 +74,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("information_dealer_functor", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("friend_of_stalkers_functor should check friend of stalkers achievement", () => {
+describe("friend_of_stalkers_functor", () => {
+  it("should check friend of stalkers achievement", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("friend_of_stalkers_functor", actorGameObject, MockGameObject.mock())).toBe(false);
@@ -106,21 +86,27 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("friend_of_stalkers_functor", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("actor_in_surge_cover should check if actor is in surge cover", () => {
+describe("actor_in_surge_cover", () => {
+  it("should check if actor is in surge cover", () => {
     replaceFunctionMock(isActorInSurgeCover, () => false);
     expect(callXrCondition("actor_in_surge_cover", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
     replaceFunctionMock(isActorInSurgeCover, () => true);
     expect(callXrCondition("actor_in_surge_cover", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("is_enemy_actor should check if actor and object are enemies", () => {
+describe("is_enemy_actor", () => {
+  it("should check if actor and object are enemies", () => {
     expect(callXrCondition("is_enemy_actor", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
     expect(callXrCondition("is_enemy_actor", MockGameObject.mock(), MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("actor_alive should check if actor is alive", () => {
+describe("actor_alive", () => {
+  it("should check if actor is alive", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("actor_alive", actorGameObject, MockGameObject.mock())).toBe(true);
@@ -129,8 +115,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("actor_alive", actorGameObject, MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("actor_see_npc should check if actor sees NPC", () => {
+describe("actor_see_npc", () => {
+  it("should check if actor sees NPC", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -146,7 +134,9 @@ describe("actor conditions implementation", () => {
     expect(actorGameObject.see).toHaveBeenCalledTimes(2);
     expect(actorGameObject.see).toHaveBeenCalledWith(object);
   });
+});
 
+describe("npc_in_actor_frustum check if npc is in actor frustum", () => {
   it("npc_in_actor_frustum check if npc is in actor frustum", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -162,8 +152,10 @@ describe("actor conditions implementation", () => {
     expect(isObjectInActorFrustum).toHaveBeenCalledTimes(2);
     expect(isObjectInActorFrustum).toHaveBeenCalledWith(object);
   });
+});
 
-  it("dist_to_actor_le should check distance between actor and object", () => {
+describe("dist_to_actor_le", () => {
+  it("should check distance between actor and object", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -187,8 +179,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("dist_to_actor_le", actorGameObject, object, 10)).toBe(false);
     expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(3);
   });
+});
 
-  it("dist_to_actor_ge should check distance between actor and object", () => {
+describe("dist_to_actor_ge", () => {
+  it("should check distance between actor and object", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -212,8 +206,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("dist_to_actor_ge", actorGameObject, object, 10)).toBe(true);
     expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(3);
   });
+});
 
-  it("actor_health_le should check actor health", () => {
+describe("actor_health_le", () => {
+  it("should check actor health", () => {
     const { actorGameObject } = mockRegisteredActor({ health: 0.5 });
 
     expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), null)).toBe(false);
@@ -223,8 +219,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0.4)).toBe(false);
     expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0)).toBe(false);
   });
+});
 
-  it("actor_in_zone should check actor in zone", () => {
+describe("actor_in_zone", () => {
+  it("should check actor in zone", () => {
     const { actorGameObject } = mockRegisteredActor();
     const zone: GameObject = MockGameObject.mock();
 
@@ -241,8 +239,10 @@ describe("actor conditions implementation", () => {
     expect(isObjectInZone).toHaveBeenCalledTimes(2);
     expect(isObjectInZone).toHaveBeenCalledWith(actorGameObject, zone);
   });
+});
 
-  it("heli_see_actor should check if heli see actor", () => {
+describe("heli_see_actor", () => {
+  it("should check if heli see actor", () => {
     const { actorGameObject } = mockRegisteredActor();
     const helicopter: GameObject = MockGameObject.mockHelicopter();
 
@@ -258,8 +258,10 @@ describe("actor conditions implementation", () => {
     expect(helicopter.get_helicopter().isVisible).toHaveBeenCalledTimes(2);
     expect(helicopter.get_helicopter().isVisible).toHaveBeenCalledWith(actorGameObject);
   });
+});
 
-  it("actor_has_item should check if actor has item", () => {
+describe("actor_has_item", () => {
+  it("should check if actor has item", () => {
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [
         [0, MockGameObject.mockWithSection(medkits.medkit)],
@@ -272,8 +274,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("actor_has_item", actor, MockGameObject.mock(), weapons.wpn_svd)).toBe(true);
     expect(callXrCondition("actor_has_item", actor, MockGameObject.mock(), weapons.wpn_val)).toBe(false);
   });
+});
 
-  it("actor_has_item_count should check if actor has items", () => {
+describe("actor_has_item_count", () => {
+  it("should check if actor has items", () => {
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [
         [0, MockGameObject.mockWithSection(medkits.medkit)],
@@ -289,8 +293,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("actor_has_item_count", actor, MockGameObject.mock(), weapons.wpn_val, 1)).toBe(false);
     expect(callXrCondition("actor_has_item_count", actor, MockGameObject.mock(), weapons.wpn_svd, 1)).toBe(true);
   });
+});
 
-  it("hit_by_actor should check if object is hit by actor", () => {
+describe("hit_by_actor", () => {
+  it("should check if object is hit by actor", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(false);
@@ -311,8 +317,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("hit_by_actor", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("killed_by_actor should check if object is killed by actor", () => {
+describe("killed_by_actor", () => {
+  it("should check if object is killed by actor", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(false);
@@ -333,8 +341,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("killed_by_actor", MockGameObject.mockActor(), object)).toBe(true);
   });
+});
 
-  it("actor_has_weapon should check if actor active item is weapon", () => {
+describe("actor_has_weapon", () => {
+  it("should check if actor active item is weapon", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     expect(callXrCondition("actor_has_weapon", actor, MockGameObject.mock())).toBe(false);
@@ -353,8 +363,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("actor_has_weapon", actor, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("actor_active_detector should check currently active actor detector", () => {
+describe("actor_active_detector", () => {
+  it("should check currently active actor detector", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     expect(() => callXrCondition("actor_active_detector", actor, MockGameObject.mock())).toThrow(
@@ -387,8 +399,10 @@ describe("actor conditions implementation", () => {
       false
     );
   });
+});
 
-  it("actor_on_level should check if actor is on level", () => {
+describe("actor_on_level", () => {
+  it("should check if actor is on level", () => {
     expect(
       callXrCondition(
         "actor_on_level",
@@ -425,8 +439,10 @@ describe("actor conditions implementation", () => {
       )
     ).toBe(false);
   });
+});
 
-  it("talking should check if actor is talking", () => {
+describe("talking", () => {
+  it("should check if actor is talking", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     jest.spyOn(actor, "is_talking").mockImplementation(() => false);
@@ -435,8 +451,10 @@ describe("actor conditions implementation", () => {
     jest.spyOn(actor, "is_talking").mockImplementation(() => true);
     expect(callXrCondition("talking", actor, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("actor_nomove_nowpn should check if actor is talking without weapon", () => {
+describe("actor_nomove_nowpn", () => {
+  it("should check if actor is talking without weapon", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("actor_nomove_nowpn", actorGameObject, MockGameObject.mock())).toBe(true);
@@ -455,8 +473,10 @@ describe("actor conditions implementation", () => {
       .mockImplementation(() => MockGameObject.mockWithClassId(clsid.device_detector_advanced));
     expect(callXrCondition("actor_nomove_nowpn", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("actor_has_nimble_weapon should check if actor has nimble weapon", () => {
+describe("actor_has_nimble_weapon", () => {
+  it("should check if actor has nimble weapon", () => {
     const first: GameObject = MockGameObject.mockActor({
       inventory: [
         [weapons.wpn_ak74u, MockGameObject.mockWithSection(weapons.wpn_ak74u)],
@@ -479,8 +499,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("actor_has_nimble_weapon", second, MockGameObject.mock())).toBe(true);
     expect(callXrCondition("actor_has_nimble_weapon", third, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("actor_has_active_nimble_weapon should check if actor has active nimble weapon", () => {
+describe("actor_has_active_nimble_weapon", () => {
+  it("should check if actor has active nimble weapon", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(callXrCondition("actor_has_active_nimble_weapon", actorGameObject, MockGameObject.mock())).toBe(false);
@@ -501,8 +523,10 @@ describe("actor conditions implementation", () => {
 
     expect(callXrCondition("actor_has_active_nimble_weapon", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("dead_body_searching should check if actor is searching dead body", () => {
+describe("dead_body_searching", () => {
+  it("should check if actor is searching dead body", () => {
     actorConfig.ACTOR_MENU_MODE = EActorMenuMode.TALK_DIALOG;
     expect(callXrCondition("dead_body_searching", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 

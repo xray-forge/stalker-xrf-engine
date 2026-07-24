@@ -5,7 +5,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
-import { callBinding, checkBinding } from "@/fixtures/engine";
+import { callBinding } from "@/fixtures/engine";
 
 function callTravelBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);
@@ -15,52 +15,56 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/callbacks/actor");
 });
 
-describe("actor external callbacks", () => {
-  it("should correctly inject external methods for game", () => {
-    checkBinding("on_actor_critical_power");
-    checkBinding("on_actor_critical_max_power");
-    checkBinding("on_actor_bleeding");
-    checkBinding("on_actor_satiety");
-    checkBinding("on_actor_radiation");
-    checkBinding("on_actor_weapon_jammed");
-    checkBinding("on_actor_cant_walk_weight");
-    checkBinding("on_actor_psy");
-    checkBinding("travel_callbacks");
-  });
-
-  it("on_actor_critical_power should correctly handle event", () => {
+describe("on_actor_critical_power", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_critical_power", [])).not.toThrow();
   });
+});
 
-  it("on_actor_critical_max_power should correctly handle event", () => {
+describe("on_actor_critical_max_power", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_critical_max_power", [])).not.toThrow();
   });
+});
 
-  it("on_actor_bleeding should correctly handle event", () => {
+describe("on_actor_bleeding", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_bleeding", [])).not.toThrow();
   });
+});
 
-  it("on_actor_satiety should correctly handle event", () => {
+describe("on_actor_satiety", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_satiety", [])).not.toThrow();
   });
+});
 
-  it("on_actor_radiation should correctly handle event", () => {
+describe("on_actor_radiation", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_radiation", [])).not.toThrow();
   });
+});
 
-  it("on_actor_weapon_jammed should correctly handle event", () => {
+describe("on_actor_weapon_jammed", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_weapon_jammed", [])).not.toThrow();
   });
+});
 
-  it("on_actor_cant_walk_weight should correctly handle event", () => {
+describe("on_actor_cant_walk_weight", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_cant_walk_weight", [])).not.toThrow();
   });
+});
 
-  it("on_actor_psy should correctly handle event", () => {
+describe("on_actor_psy", () => {
+  it("should correctly handle event", () => {
     expect(() => callBinding("on_actor_psy", [])).not.toThrow();
   });
+});
 
-  it("travel_callbacks should correctly link travel manager", () => {
+describe("travel_callbacks", () => {
+  it("should correctly link travel manager", () => {
     const travelManager: TravelManager = getManager(TravelManager);
 
     jest.spyOn(travelManager, "initializeTravellerDialog").mockImplementation(jest.fn());

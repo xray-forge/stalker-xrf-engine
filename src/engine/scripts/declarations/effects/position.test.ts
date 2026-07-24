@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
-import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { callXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/database/stalker");
 jest.mock("@/engine/core/objects/squad/utils");
@@ -22,23 +22,13 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/effects/position");
 });
 
-describe("position effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("teleport_npc");
-    checkXrEffect("teleport_npc_by_story_id");
-    checkXrEffect("teleport_squad");
-    checkXrEffect("teleport_actor");
-    checkXrEffect("play_particle_on_path");
-  });
+beforeEach(() => {
+  resetRegistry();
+  registerSimulator();
 });
 
-describe("position effects implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-  });
-
-  it("teleport_npc should teleport objects", () => {
+describe("teleport_npc", () => {
+  it("should teleport objects", () => {
     expect(() => callXrEffect("teleport_npc", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
       "Wrong parameters in 'teleport_npc' function."
     );
@@ -55,8 +45,10 @@ describe("position effects implementation", () => {
     expect(resetStalkerState).toHaveBeenCalledWith(object);
     expect(object.set_npc_position).toHaveBeenCalledWith(new patrol("test-wp").point(1));
   });
+});
 
-  it("teleport_npc_by_story_id should teleport objects by story ids", () => {
+describe("teleport_npc_by_story_id", () => {
+  it("should teleport objects by story ids", () => {
     expect(() => callXrEffect("teleport_npc_by_story_id", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
       "Wrong parameters in 'teleport_npc_by_story_id' function."
     );
@@ -99,8 +91,10 @@ describe("position effects implementation", () => {
 
     expect(second.position).toBe(new patrol("test-wp").point(2));
   });
+});
 
-  it("teleport_squad should teleport squads", () => {
+describe("teleport_squad", () => {
+  it("should teleport squads", () => {
     expect(() => callXrEffect("teleport_squad", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
       "Wrong parameters in 'teleport_squad' effect."
     );
@@ -117,8 +111,10 @@ describe("position effects implementation", () => {
 
     expect(setSquadPosition).toHaveBeenCalledWith(squad, new patrol("test-wp").point(1));
   });
+});
 
-  it("teleport_actor should teleport actors", () => {
+describe("teleport_actor", () => {
+  it("should teleport actors", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(() => callXrEffect("teleport_actor", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
@@ -149,8 +145,10 @@ describe("position effects implementation", () => {
 
     expect(registry.noWeaponZones.get(noWeaponZone.id())).toBe(true);
   });
+});
 
-  it("play_particle_on_path should play particles", () => {
+describe("play_particle_on_path", () => {
+  it("should play particles", () => {
     jest.spyOn(math, "random").mockImplementation(() => 20);
 
     expect(() => {

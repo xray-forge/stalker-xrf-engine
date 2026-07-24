@@ -12,7 +12,7 @@ import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
+import { callBinding, callNestedBinding, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/ai/combat");
 
@@ -20,51 +20,17 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/callbacks/game");
 });
 
-describe("game external callbacks", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
+beforeEach(() => {
+  resetRegistry();
+});
 
-  it("should correctly inject external methods for game", () => {
-    checkBinding("main");
-
-    checkBinding("CSE_ALifeDynamicObject_on_unregister");
-    checkBinding("CALifeUpdateManager__on_before_change_level");
-
-    checkBinding("smart_covers");
-    checkNestedBinding("smart_covers", "descriptions");
-
-    checkBinding("outro");
-    checkNestedBinding("outro", "conditions");
-    checkNestedBinding("outro", "start_bk_sound");
-    checkNestedBinding("outro", "stop_bk_sound");
-    checkNestedBinding("outro", "update_bk_sound_fade_start");
-    checkNestedBinding("outro", "update_bk_sound_fade_stop");
-
-    checkBinding("trade_manager");
-    checkNestedBinding("trade_manager", "get_sell_discount");
-    checkNestedBinding("trade_manager", "get_buy_discount");
-
-    checkBinding("alife_storage_manager");
-    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_load");
-    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_after_load");
-    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_before_save");
-    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_save");
-
-    checkBinding("level_input");
-    checkNestedBinding("level_input", "on_key_press");
-
-    checkBinding("visual_memory_manager");
-    checkNestedBinding("visual_memory_manager", "get_visible_value");
-
-    checkBinding("ai_stalker");
-    checkNestedBinding("ai_stalker", "update_best_weapon");
-  });
-
+describe("main", () => {
   it("main to be defined for custom scripts", () => {
     expect(() => callBinding("main")).not.toThrow();
   });
+});
 
+describe("CSE_ALifeDynamicObject_on_unregister", () => {
   it("CSE_ALifeDynamicObject_on_unregister to be defined and emit events", () => {
     const manager: EventsManager = getManager(EventsManager);
 
@@ -76,7 +42,9 @@ describe("game external callbacks", () => {
     expect(onUnregister).toHaveBeenCalledTimes(1);
     expect(onUnregister).toHaveBeenCalledWith(5_000);
   });
+});
 
+describe("CALifeUpdateManager__on_before_change_level", () => {
   it("CALifeUpdateManager__on_before_change_level to be defined and emit events", () => {
     const manager: EventsManager = getManager(EventsManager);
     const packet: NetPacket = new MockNetProcessor().asNetPacket();
@@ -89,12 +57,16 @@ describe("game external callbacks", () => {
     expect(onBeforeLevelChange).toHaveBeenCalledTimes(1);
     expect(onBeforeLevelChange).toHaveBeenCalledWith(packet);
   });
+});
 
-  it("smart_covers should be defined", () => {
+describe("smart_covers", () => {
+  it("should be defined", () => {
     expect((_G as AnyObject).smart_covers.descriptions).toBe(smartCoversList);
   });
+});
 
-  it("outro callbacks should be defined", () => {
+describe("outro callbacks", () => {
+  it("should be defined", () => {
     const outroManager: GameOutroManager = getManager(GameOutroManager);
 
     jest.spyOn(outroManager, "startBlackScreenAndSound").mockImplementation(jest.fn());
@@ -117,8 +89,10 @@ describe("game external callbacks", () => {
     callNestedBinding("outro", "update_bk_sound_fade_stop", [35]);
     expect(outroManager.updateBlackScreenAndSoundFadeStop).toHaveBeenCalledWith(35);
   });
+});
 
-  it("trade manager callbacks should be defined", () => {
+describe("trade manager callbacks", () => {
+  it("should be defined", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
 
     jest.spyOn(tradeManager, "getSellDiscountForObject").mockImplementation(() => 10);
@@ -130,8 +104,10 @@ describe("game external callbacks", () => {
     expect(callNestedBinding("trade_manager", "get_buy_discount", [40])).toBe(20);
     expect(tradeManager.getBuyDiscountForObject).toHaveBeenCalledWith(40);
   });
+});
 
-  it("alife storage save methods should be defined", () => {
+describe("alife storage save methods", () => {
+  it("should be defined", () => {
     const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onBeforeGameSave");
@@ -151,8 +127,10 @@ describe("game external callbacks", () => {
     callNestedBinding("alife_storage_manager", "CALifeStorageManager_after_load", ["name4"]);
     expect(saveManager.onAfterGameLoad).toHaveBeenCalledWith("name4");
   });
+});
 
-  it("level_input callbacks should be defined", () => {
+describe("level_input callbacks", () => {
+  it("should be defined", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     jest.spyOn(manager, "onKeyPress").mockImplementation(jest.fn(() => false));
@@ -162,8 +140,10 @@ describe("game external callbacks", () => {
     expect(manager.onKeyPress).toHaveBeenCalledTimes(1);
     expect(manager.onKeyPress).toHaveBeenCalledWith(1, 2);
   });
+});
 
-  it("visual_memory_manager callbacks should be defined", () => {
+describe("visual_memory_manager callbacks", () => {
+  it("should be defined", () => {
     const object: GameObject = MockGameObject.mock();
     const target: GameObject = MockGameObject.mock();
 
@@ -172,8 +152,10 @@ describe("game external callbacks", () => {
     expect(calculateObjectVisibility).toHaveBeenCalledTimes(1);
     expect(calculateObjectVisibility).toHaveBeenCalledWith(object, target, 1000, 50, 25, 5, 1, 200, 20, 2);
   });
+});
 
-  it("ai_stalker callbacks should be defined", () => {
+describe("ai_stalker callbacks", () => {
+  it("should be defined", () => {
     const manager: LoadoutManager = getManager(LoadoutManager);
 
     jest.spyOn(manager, "onGenerateServerObjectLoadout").mockImplementation(jest.fn(() => false));

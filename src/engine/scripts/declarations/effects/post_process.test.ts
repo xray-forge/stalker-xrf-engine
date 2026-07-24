@@ -7,35 +7,24 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
-import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { callXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/effects/post_process");
 });
 
-describe("post process effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("run_cam_effector");
-    checkXrEffect("stop_cam_effector");
-    checkXrEffect("run_cam_effector_global");
-    checkXrEffect("cam_effector_callback");
-    checkXrEffect("run_postprocess");
-    checkXrEffect("stop_postprocess");
-  });
+beforeEach(() => {
+  resetRegistry();
+
+  resetFunctionMock(level.add_cam_effector);
+  resetFunctionMock(level.add_cam_effector2);
+  resetFunctionMock(level.remove_cam_effector);
+  resetFunctionMock(level.add_complex_effector);
+  resetFunctionMock(level.remove_complex_effector);
 });
 
-describe("post process effects implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-
-    resetFunctionMock(level.add_cam_effector);
-    resetFunctionMock(level.add_cam_effector2);
-    resetFunctionMock(level.remove_cam_effector);
-    resetFunctionMock(level.add_complex_effector);
-    resetFunctionMock(level.remove_complex_effector);
-  });
-
-  it("run_cam_effector should correctly add level effectors", () => {
+describe("run_cam_effector", () => {
+  it("should correctly add level effectors", () => {
     callXrEffect("run_cam_effector", MockGameObject.mockActor(), MockGameObject.mock());
     expect(level.add_cam_effector).toHaveBeenCalledTimes(0);
 
@@ -64,8 +53,10 @@ describe("post process effects implementation", () => {
       "xr_effects.cam_effector_callback"
     );
   });
+});
 
-  it("run_cam_effector_global should correctly add level effectors", () => {
+describe("run_cam_effector_global", () => {
+  it("should correctly add level effectors", () => {
     callXrEffect("run_cam_effector_global", MockGameObject.mockActor(), MockGameObject.mock(), "test_effect_1");
     expect(level.add_cam_effector2).toHaveBeenCalledTimes(1);
     expect(level.add_cam_effector2).toHaveBeenCalledWith(
@@ -101,8 +92,10 @@ describe("post process effects implementation", () => {
       90
     );
   });
+});
 
-  it("stop_cam_effector should correctly remove level effectors", () => {
+describe("stop_cam_effector", () => {
+  it("should correctly remove level effectors", () => {
     callXrEffect("stop_cam_effector", MockGameObject.mockActor(), MockGameObject.mock());
     expect(level.remove_cam_effector).toHaveBeenCalledTimes(0);
 
@@ -110,8 +103,10 @@ describe("post process effects implementation", () => {
     expect(level.remove_cam_effector).toHaveBeenCalledTimes(1);
     expect(level.remove_cam_effector).toHaveBeenCalledWith(15);
   });
+});
 
-  it("cam_effector_callback should correctly set signal after ending", () => {
+describe("cam_effector_callback", () => {
+  it("should correctly set signal after ending", () => {
     expect(() => {
       callXrEffect("cam_effector_callback", MockGameObject.mockActor(), MockGameObject.mock());
     }).not.toThrow();
@@ -137,8 +132,10 @@ describe("post process effects implementation", () => {
     expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals?.length()).toBe(1);
     expect(getSchemeStateOptimistic(state, EScheme.ANIMPOINT).signals?.get("cameff_end")).toBe(true);
   });
+});
 
-  it("run_postprocess should correctly add complex effectors", () => {
+describe("run_postprocess", () => {
+  it("should correctly add complex effectors", () => {
     callXrEffect("run_postprocess", MockGameObject.mockActor(), MockGameObject.mock());
     expect(level.add_complex_effector).toHaveBeenCalledTimes(0);
 
@@ -155,8 +152,10 @@ describe("post process effects implementation", () => {
     expect(level.add_complex_effector).toHaveBeenCalledTimes(2);
     expect(level.add_complex_effector).toHaveBeenCalledWith("bobbing_effector", 55);
   });
+});
 
-  it("stop_postprocess should correctly remove level effectors", () => {
+describe("stop_postprocess", () => {
+  it("should correctly remove level effectors", () => {
     callXrEffect("stop_postprocess", MockGameObject.mockActor(), MockGameObject.mock());
     expect(level.remove_complex_effector).toHaveBeenCalledTimes(0);
 

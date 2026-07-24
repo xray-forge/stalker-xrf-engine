@@ -32,7 +32,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
-import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { callXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/managers/map/utils");
 jest.mock("@/engine/core/ui/game/freeplay");
@@ -54,75 +54,13 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/effects/quests");
 });
 
-describe("quests effects declaration", () => {
-  it("should correctly inject external methods for game", () => {
-    checkXrEffect("show_freeplay_dialog");
-    checkXrEffect("jup_b32_place_scanner");
-    checkXrEffect("jup_b32_pda_check");
-    checkXrEffect("pri_b306_generator_start");
-    checkXrEffect("jup_b206_get_plant");
-    checkXrEffect("pas_b400_switcher");
-    checkXrEffect("jup_b209_place_scanner");
-    checkXrEffect("jup_b9_heli_1_searching");
-    checkXrEffect("pri_a18_use_idol");
-    checkXrEffect("jup_b8_heli_4_searching");
-    checkXrEffect("jup_b10_ufo_searching");
-    checkXrEffect("zat_b101_heli_5_searching");
-    checkXrEffect("zat_b28_heli_3_searching");
-    checkXrEffect("zat_b100_heli_2_searching");
-    checkXrEffect("jup_teleport_actor");
-    checkXrEffect("jup_b219_save_pos");
-    checkXrEffect("jup_b219_restore_gate");
-    checkXrEffect("jup_b16_play_particle_and_sound");
-    checkXrEffect("zat_b29_create_random_infop");
-    checkXrEffect("give_item_b29");
-    checkXrEffect("relocate_item_b29");
-    checkXrEffect("jup_b202_inventory_box_relocate");
-    checkXrEffect("jup_b10_spawn_drunk_dead_items");
-    checkXrEffect("zat_b202_spawn_random_loot");
-    checkXrEffect("jup_b221_play_main");
-    checkXrEffect("zat_a1_tutorial_end_give");
-    checkXrEffect("oasis_heal");
-    checkXrEffect("pas_b400_play_particle");
-    checkXrEffect("pas_b400_stop_particle");
-    checkXrEffect("damage_pri_a17_gauss");
-    checkXrEffect("pri_a17_hard_animation_reset");
-    checkXrEffect("jup_b217_hard_animation_reset");
-    checkXrEffect("pri_a18_radio_start");
-    checkXrEffect("pri_a17_ice_climb_end");
-    checkXrEffect("jup_b219_opening");
-    checkXrEffect("jup_b219_entering_underpass");
-    checkXrEffect("pri_a17_pray_start");
-    checkXrEffect("zat_b38_open_info");
-    checkXrEffect("zat_b38_switch_info");
-    checkXrEffect("zat_b38_cop_dead");
-    checkXrEffect("jup_b15_zulus_drink_anim_info");
-    checkXrEffect("pri_a17_preacher_death");
-    checkXrEffect("zat_b3_tech_surprise_anim_end");
-    checkXrEffect("zat_b3_tech_waked_up");
-    checkXrEffect("zat_b3_tech_drinked_out");
-    checkXrEffect("pri_a28_kirillov_hq_online");
-    checkXrEffect("pri_a20_radio_start");
-    checkXrEffect("pri_a22_kovalski_speak");
-    checkXrEffect("zat_b38_underground_door_open");
-    checkXrEffect("zat_b38_jump_tonnel_info");
-    checkXrEffect("jup_a9_cam1_actor_anim_end");
-    checkXrEffect("pri_a28_talk_ssu_video_end");
-    checkXrEffect("zat_b33_pic_snag_container");
-    checkXrEffect("zat_b202_spawn_b33_loot");
-    checkXrEffect("pri_a28_check_zones");
-    checkXrEffect("eat_vodka_script");
-    checkXrEffect("jup_b200_count_found");
-  });
+beforeEach(() => {
+  resetRegistry();
+  resetFunctionMock(showFreeplayDialog);
 });
 
-describe("quests effects implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    resetFunctionMock(showFreeplayDialog);
-  });
-
-  it("show_freeplay_dialog should show freeplay dialog", () => {
+describe("show_freeplay_dialog", () => {
+  it("should show freeplay dialog", () => {
     expect(() => {
       callXrEffect("show_freeplay_dialog", MockGameObject.mockActor(), MockGameObject.mock(), "");
     }).toThrow("Expected text message to be provided for 'show_freeplay_dialog' effect.");
@@ -133,8 +71,10 @@ describe("quests effects implementation", () => {
     callXrEffect("show_freeplay_dialog", MockGameObject.mockActor(), MockGameObject.mock(), "test-text-2");
     expect(showFreeplayDialog).toHaveBeenCalledWith("message_box_ok", "test-text-2");
   });
+});
 
-  it("jup_b32_place_scanner should place scanners", () => {
+describe("jup_b32_place_scanner", () => {
+  it("should place scanners", () => {
     mockRegisteredActor();
 
     const object: GameObject = MockGameObject.mock({ name: "jup_b32_sr_scanner_place_5" });
@@ -154,16 +94,20 @@ describe("quests effects implementation", () => {
     expect(takeItemFromActor).toHaveBeenCalledWith(questItems.jup_b32_scanner_device);
     expect(spawnObject).toHaveBeenCalledWith("jup_b32_ph_scanner", "jup_b32_scanner_place_5");
   });
+});
 
-  it("jup_b32_pda_check should check pda", () => {
+describe("jup_b32_pda_check", () => {
+  it("should check pda", () => {
     const manager: MapDisplayManager = getManager(MapDisplayManager);
 
     callXrEffect("jup_b32_pda_check", MockGameObject.mockActor(), MockGameObject.mock());
 
     expect(updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("pri_b306_generator_start should start generators", () => {
+describe("pri_b306_generator_start", () => {
+  it("should start generators", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_b306_generator_start", MockGameObject.mockActor(), MockGameObject.mock());
@@ -178,8 +122,10 @@ describe("quests effects implementation", () => {
     callXrEffect("pri_b306_generator_start", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_b306_lift_generator_used)).toBe(true);
   });
+});
 
-  it("jup_b206_get_plant should grant the plant and destroy its world object in the quest zone", () => {
+describe("jup_b206_get_plant", () => {
+  it("should grant the plant and destroy its world object in the quest zone", () => {
     const actor: GameObject = mockActorInsideZone("jup_b206_sr_quest_line");
     const object: GameObject = MockGameObject.mock();
     const destroyObject = jest.fn();
@@ -192,8 +138,10 @@ describe("quests effects implementation", () => {
     expect(giveItemsToActor).toHaveBeenCalledWith(questItems.jup_b206_plant);
     expect(destroyObject).toHaveBeenCalledWith(actor, object, ["story", "jup_b206_plant_ph", null]);
   });
+});
 
-  it("pas_b400_switcher should handle pass switcher", () => {
+describe("pas_b400_switcher", () => {
+  it("should handle pass switcher", () => {
     mockRegisteredActor();
 
     callXrEffect("pas_b400_switcher", MockGameObject.mockActor(), MockGameObject.mock());
@@ -208,8 +156,10 @@ describe("quests effects implementation", () => {
     callXrEffect("pas_b400_switcher", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pas_b400_switcher_use)).toBe(true);
   });
+});
 
-  it("jup_b209_place_scanner should save, place, and consume the scanner in the hypotheses zone", () => {
+describe("jup_b209_place_scanner", () => {
+  it("should save, place, and consume the scanner in the hypotheses zone", () => {
     const actor: GameObject = mockActorInsideZone("jup_b209_hypotheses");
 
     callXrEffect("jup_b209_place_scanner", actor, MockGameObject.mock());
@@ -219,32 +169,40 @@ describe("quests effects implementation", () => {
     expect(takeItemFromActor).toHaveBeenCalledWith(questItems.jup_b209_monster_scanner);
     expect(spawnObject).toHaveBeenCalledWith("jup_b209_ph_scanner", "jup_b209_scanner_place_point");
   });
+});
 
-  it("jup_b9_heli_1_searching should mark the first Jupiter helicopter as searched in its zone", () => {
+describe("jup_b9_heli_1_searching", () => {
+  it("should mark the first Jupiter helicopter as searched in its zone", () => {
     const actor: GameObject = mockActorInsideZone("jup_b9_heli_1");
 
     callXrEffect("jup_b9_heli_1_searching", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.jup_b9_heli_1_searching)).toBe(true);
   });
+});
 
-  it("pri_a18_use_idol should start the run camera in the idol restrictor", () => {
+describe("pri_a18_use_idol", () => {
+  it("should start the run camera in the idol restrictor", () => {
     const actor: GameObject = mockActorInsideZone("pri_a18_use_idol_restrictor");
 
     callXrEffect("pri_a18_use_idol", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.pri_a18_run_cam)).toBe(true);
   });
+});
 
-  it("jup_b8_heli_4_searching should mark the fourth Jupiter helicopter as searched in its zone", () => {
+describe("jup_b8_heli_4_searching", () => {
+  it("should mark the fourth Jupiter helicopter as searched in its zone", () => {
     const actor: GameObject = mockActorInsideZone("jup_b8_heli_4");
 
     callXrEffect("jup_b8_heli_4_searching", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.jup_b8_heli_4_searching)).toBe(true);
   });
+});
 
-  it("jup_b10_ufo_searching should start the memory quest and grant its item in the restrictor", () => {
+describe("jup_b10_ufo_searching", () => {
+  it("should start the memory quest and grant its item in the restrictor", () => {
     const actor: GameObject = mockActorInsideZone("jup_b10_ufo_restrictor");
 
     callXrEffect("jup_b10_ufo_searching", actor, MockGameObject.mock());
@@ -252,32 +210,40 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.jup_b10_ufo_memory_started)).toBe(true);
     expect(giveItemsToActor).toHaveBeenCalledWith(questItems.jup_b10_ufo_memory);
   });
+});
 
-  it("zat_b101_heli_5_searching should mark the fifth Zaton helicopter as searched in its zone", () => {
+describe("zat_b101_heli_5_searching", () => {
+  it("should mark the fifth Zaton helicopter as searched in its zone", () => {
     const actor: GameObject = mockActorInsideZone("zat_b101_heli_5");
 
     callXrEffect("zat_b101_heli_5_searching", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.zat_b101_heli_5_searching)).toBe(true);
   });
+});
 
-  it("zat_b28_heli_3_searching should mark the third Zaton helicopter as searched in its zone", () => {
+describe("zat_b28_heli_3_searching", () => {
+  it("should mark the third Zaton helicopter as searched in its zone", () => {
     const actor: GameObject = mockActorInsideZone("zat_b28_heli_3");
 
     callXrEffect("zat_b28_heli_3_searching", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.zat_b28_heli_3_searching)).toBe(true);
   });
+});
 
-  it("zat_b100_heli_2_searching should mark the second Zaton helicopter as searched in its zone", () => {
+describe("zat_b100_heli_2_searching", () => {
+  it("should mark the second Zaton helicopter as searched in its zone", () => {
     const actor: GameObject = mockActorInsideZone("zat_b100_heli_2");
 
     callXrEffect("zat_b100_heli_2_searching", actor, MockGameObject.mock());
 
     expect(hasInfoPortion(infoPortions.zat_b100_heli_2_searching)).toBe(true);
   });
+});
 
-  it("jup_teleport_actor should preserve the actor offset between teleport patrol points", () => {
+describe("jup_teleport_actor", () => {
+  it("should preserve the actor offset between teleport patrol points", () => {
     const actor: GameObject = MockGameObject.mockActor({ position: MockVector.mock(12, 5, 8) });
 
     MockPatrol.setup({
@@ -293,8 +259,10 @@ describe("quests effects implementation", () => {
 
     expect(actor.set_actor_position).toHaveBeenCalledWith(expect.objectContaining({ x: 52, y: 24, z: 35 }));
   });
+});
 
-  it("jup_b219_save_pos should retain the gate position and release its server object", () => {
+describe("jup_b219_save_pos", () => {
+  it("should retain the gate position and release its server object", () => {
     const gate: GameObject = MockGameObject.mock();
     const serverGate = MockAlifeObject.mock({ id: gate.id() });
 
@@ -306,8 +274,10 @@ describe("quests effects implementation", () => {
 
     expect(registry.simulator.release).toHaveBeenCalledWith(serverGate, true);
   });
+});
 
-  it("jup_b219_restore_gate should recreate a saved gate with its original positioning", () => {
+describe("jup_b219_restore_gate", () => {
+  it("should recreate a saved gate with its original positioning", () => {
     const gate: GameObject = MockGameObject.mock({ levelVertexId: 25, gameVertexId: 44 });
     const serverGate = MockAlifeObject.mock({ id: gate.id() });
     const restoredGate = MockAlifeObjectPhysic.mock();
@@ -324,8 +294,10 @@ describe("quests effects implementation", () => {
     expect(registry.simulator.create).toHaveBeenCalledWith("jup_b219_gate", gate.position(), 25, 44);
     expect(restoredGate.set_yaw).toHaveBeenCalledWith(0);
   });
+});
 
-  it("jup_b16_play_particle_and_sound should play the requested particle at the patrol point", () => {
+describe("jup_b16_play_particle_and_sound", () => {
+  it("should play the requested particle at the patrol point", () => {
     const object: GameObject = MockGameObject.mock({ name: "jup_b16_teleport" });
 
     MockParticleObject.REGISTRY.clear();
@@ -341,8 +313,10 @@ describe("quests effects implementation", () => {
       MockVector.mock(1, 2, 3)
     );
   });
+});
 
-  it("zat_b29_create_random_infop should retain exactly the requested number of candidate info portions", () => {
+describe("zat_b29_create_random_infop", () => {
+  it("should retain exactly the requested number of candidate info portions", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     getExtern<AnyCallablesModule>("xr_effects").zat_b29_create_random_infop(
@@ -353,8 +327,10 @@ describe("quests effects implementation", () => {
 
     expect(hasInfoPortion("test_infop_a") === hasInfoPortion("test_infop_b")).toBe(false);
   });
+});
 
-  it("give_item_b29 should request the active artefact from the marked anomaly zone", () => {
+describe("give_item_b29", () => {
+  it("should request the active artefact from the marked anomaly zone", () => {
     const { actorGameObject } = mockRegisteredActor();
     const pickArtefact = jest.fn();
 
@@ -371,8 +347,10 @@ describe("quests effects implementation", () => {
     ]);
     expect(hasInfoPortion("zat_b55_anomal_zone")).toBe(false);
   });
+});
 
-  it("relocate_item_b29 should transfer the active artefact between resolved story objects", () => {
+describe("relocate_item_b29", () => {
+  it("should transfer the active artefact between resolved story objects", () => {
     const { actorGameObject } = mockRegisteredActor();
     const artefact: GameObject = MockGameObject.mock({ section: artefacts.af_gravi });
     const from: GameObject = MockGameObject.mock({ inventory: [[artefacts.af_gravi, artefact]] });
@@ -386,8 +364,10 @@ describe("quests effects implementation", () => {
 
     expect(from.transfer_item).toHaveBeenCalledWith(artefact, to);
   });
+});
 
-  it("jup_b202_inventory_box_relocate should transfer every item from the actor box to Snag's box", () => {
+describe("jup_b202_inventory_box_relocate", () => {
+  it("should transfer every item from the actor box to Snag's box", () => {
     const from: GameObject = MockGameObject.mock();
     const to: GameObject = MockGameObject.mock();
     const first: GameObject = MockGameObject.mock();
@@ -405,8 +385,10 @@ describe("quests effects implementation", () => {
     expect(from.transfer_item).toHaveBeenNthCalledWith(1, first, to);
     expect(from.transfer_item).toHaveBeenNthCalledWith(2, second, to);
   });
+});
 
-  it("jup_b10_spawn_drunk_dead_items should spawn the complete loot set or the counter-selected box item", () => {
+describe("jup_b10_spawn_drunk_dead_items", () => {
+  it("should spawn the complete loot set or the counter-selected box item", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
     const box = MockAlifeObject.mock();
@@ -431,8 +413,10 @@ describe("quests effects implementation", () => {
 
     expect(registry.simulator.create).toHaveBeenLastCalledWith("wpn_sig550_luckygun", MockVector.mock(), 0, 0, box.id);
   });
+});
 
-  it("zat_b202_spawn_random_loot should select weighted loot groups without selecting a group twice", () => {
+describe("zat_b202_spawn_random_loot", () => {
+  it("should select weighted loot groups without selecting a group twice", () => {
     const random = jest.spyOn(math, "random");
 
     random
@@ -455,8 +439,10 @@ describe("quests effects implementation", () => {
 
     random.mockRestore();
   });
+});
 
-  it("jup_b221_play_main should play the first eligible faction theme and record it", () => {
+describe("jup_b221_play_main", () => {
+  it("should play the first eligible faction theme and record it", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
     const playSound = jest.fn();
@@ -470,15 +456,19 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion("jup_b221_duty_main_1_played")).toBe(true);
     expect(getPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme")).toBe("1");
   });
+});
 
-  it("zat_a1_tutorial_end_give should give info portions", () => {
+describe("zat_a1_tutorial_end_give", () => {
+  it("should give info portions", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_a1_tutorial_end_give", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_a1_tutorial_end)).toBe(true);
   });
+});
 
-  it("oasis_heal should send vanilla condition deltas to xray actor properties", () => {
+describe("oasis_heal", () => {
+  it("should send vanilla condition deltas to xray actor properties", () => {
     const { actorGameObject: actor } = mockRegisteredActor({
       bleeding: 0.25,
       health: 0.5,
@@ -495,8 +485,7 @@ describe("quests effects implementation", () => {
     expect(actor.bleeding).toBe(0.2);
     expect(actor.satiety).toBe(0.51);
   });
-
-  it("oasis_heal should not send health, power, radiation or bleeding deltas when thresholds are not met", () => {
+  it("should not send health, power, radiation or bleeding deltas when thresholds are not met", () => {
     const { actorGameObject: actor } = mockRegisteredActor({
       bleeding: 0,
       health: 1,
@@ -513,24 +502,30 @@ describe("quests effects implementation", () => {
     expect(actor.bleeding).toBe(0);
     expect(actor.satiety).toBe(0.51);
   });
+});
 
-  it("pas_b400_play_particle should start acidic particles on the registered actor", () => {
+describe("pas_b400_play_particle", () => {
+  it("should start acidic particles on the registered actor", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     callXrEffect("pas_b400_play_particle", actorGameObject, MockGameObject.mock());
 
     expect(actorGameObject.start_particles).toHaveBeenCalledWith("zones\\zone_acidic_idle", "bip01_head");
   });
+});
 
-  it("pas_b400_stop_particle should stop acidic particles on the registered actor", () => {
+describe("pas_b400_stop_particle", () => {
+  it("should stop acidic particles on the registered actor", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     callXrEffect("pas_b400_stop_particle", actorGameObject, MockGameObject.mock());
 
     expect(actorGameObject.stop_particles).toHaveBeenCalledWith("zones\\zone_acidic_idle", "bip01_head");
   });
+});
 
-  it("damage_pri_a17_gauss should break the registered quest rifle", () => {
+describe("damage_pri_a17_gauss", () => {
+  it("should break the registered quest rifle", () => {
     const gauss: GameObject = MockGameObject.mock();
 
     registerStoryLink(gauss.id(), questItems.pri_a17_gauss_rifle);
@@ -539,8 +534,10 @@ describe("quests effects implementation", () => {
 
     expect(gauss.set_condition).toHaveBeenCalledWith(0);
   });
+});
 
-  it("pri_a17_hard_animation_reset should reset the Pripyat fall-down animation", () => {
+describe("pri_a17_hard_animation_reset", () => {
+  it("should reset the Pripyat fall-down animation", () => {
     const object: GameObject = MockGameObject.mock();
     const animationController = { setControl: jest.fn(), setState: jest.fn() };
     const stateController = { animationController, setState: jest.fn() };
@@ -554,8 +551,10 @@ describe("quests effects implementation", () => {
     expect(animationController.setState).toHaveBeenNthCalledWith(2, "pri_a17_fall_down", null);
     expect(animationController.setControl).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("jup_b217_hard_animation_reset should reset the Jupiter nitro animation", () => {
+describe("jup_b217_hard_animation_reset", () => {
+  it("should reset the Jupiter nitro animation", () => {
     const object: GameObject = MockGameObject.mock();
     const animationController = { setControl: jest.fn(), setState: jest.fn() };
     const stateController = { animationController, setState: jest.fn() };
@@ -569,148 +568,190 @@ describe("quests effects implementation", () => {
     expect(animationController.setState).toHaveBeenNthCalledWith(2, "jup_b217_nitro_straight", null);
     expect(animationController.setControl).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("pri_a18_radio_start should start radio", () => {
+describe("pri_a18_radio_start", () => {
+  it("should start radio", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a18_radio_start", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a18_radio_start)).toBe(true);
   });
+});
 
-  it("pri_a17_ice_climb_end should give info portion", () => {
+describe("pri_a17_ice_climb_end", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a17_ice_climb_end", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a17_ice_climb_end)).toBe(true);
   });
+});
 
-  it("jup_b219_opening should give info portion", () => {
+describe("jup_b219_opening", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("jup_b219_opening", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.jup_b219_opening)).toBe(true);
   });
+});
 
-  it("jup_b219_entering_underpass should give info portion", () => {
+describe("jup_b219_entering_underpass", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("jup_b219_entering_underpass", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.jup_b219_entering_underpass)).toBe(true);
   });
+});
 
-  it("pri_a17_pray_start should give info portion", () => {
+describe("pri_a17_pray_start", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a17_pray_start", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a17_pray_start)).toBe(true);
   });
+});
 
-  it("zat_b38_open_info should give info portion", () => {
+describe("zat_b38_open_info", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b38_open_info", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b38_open_info)).toBe(true);
   });
+});
 
-  it("zat_b38_switch_info should give info portion", () => {
+describe("zat_b38_switch_info", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b38_switch_info", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b38_switch_info)).toBe(true);
   });
+});
 
-  it("zat_b38_cop_dead should give info portion", () => {
+describe("zat_b38_cop_dead", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b38_cop_dead", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b38_cop_dead)).toBe(true);
   });
+});
 
-  it("jup_b15_zulus_drink_anim_info should give info portion", () => {
+describe("jup_b15_zulus_drink_anim_info", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("jup_b15_zulus_drink_anim_info", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.jup_b15_zulus_drink_anim_info)).toBe(true);
   });
+});
 
-  it("pri_a17_preacher_death should give info portion", () => {
+describe("pri_a17_preacher_death", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a17_preacher_death", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a17_preacher_death)).toBe(true);
   });
+});
 
-  it("zat_b3_tech_surprise_anim_end should give info portion", () => {
+describe("zat_b3_tech_surprise_anim_end", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b3_tech_surprise_anim_end", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b3_tech_surprise_anim_end)).toBe(true);
   });
+});
 
-  it("zat_b3_tech_waked_up should give info portion", () => {
+describe("zat_b3_tech_waked_up", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b3_tech_waked_up", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b3_tech_waked_up)).toBe(true);
   });
+});
 
-  it("zat_b3_tech_drinked_out should give info portion", () => {
+describe("zat_b3_tech_drinked_out", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b3_tech_drinked_out", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b3_tech_drinked_out)).toBe(true);
   });
+});
 
-  it("pri_a28_kirillov_hq_online should give info portion", () => {
+describe("pri_a28_kirillov_hq_online", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a28_kirillov_hq_online", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a28_kirillov_hq_online)).toBe(true);
   });
+});
 
-  it("pri_a20_radio_start should give info portion", () => {
+describe("pri_a20_radio_start", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a20_radio_start", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a20_radio_start)).toBe(true);
   });
+});
 
-  it("pri_a22_kovalski_speak should give info portion", () => {
+describe("pri_a22_kovalski_speak", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a22_kovalski_speak", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a22_kovalski_speak)).toBe(true);
   });
+});
 
-  it("zat_b38_underground_door_open should give info portion", () => {
+describe("zat_b38_underground_door_open", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b38_underground_door_open", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b38_underground_door_open)).toBe(true);
   });
+});
 
-  it("zat_b38_jump_tonnel_info should give info portion", () => {
+describe("zat_b38_jump_tonnel_info", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("zat_b38_jump_tonnel_info", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.zat_b38_jump_tonnel_info)).toBe(true);
   });
+});
 
-  it("jup_a9_cam1_actor_anim_end should give info portion", () => {
+describe("jup_a9_cam1_actor_anim_end", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("jup_a9_cam1_actor_anim_end", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.jup_a9_cam1_actor_anim_end)).toBe(true);
   });
+});
 
-  it("pri_a28_talk_ssu_video_end should give info portion", () => {
+describe("pri_a28_talk_ssu_video_end", () => {
+  it("should give info portion", () => {
     mockRegisteredActor();
 
     callXrEffect("pri_a28_talk_ssu_video_end", MockGameObject.mockActor(), MockGameObject.mock());
     expect(hasInfoPortion(infoPortions.pri_a28_talk_ssu_video_end)).toBe(true);
   });
+});
 
-  it("zat_b33_pic_snag_container should grant the safe container and notify the actor in the tutor zone", () => {
+describe("zat_b33_pic_snag_container", () => {
+  it("should grant the safe container and notify the actor in the tutor zone", () => {
     const actor: GameObject = mockActorInsideZone("zat_b33_tutor");
     const playSound = jest.fn();
 
@@ -722,8 +763,10 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.zat_b33_find_package)).toBe(true);
     expect(playSound).toHaveBeenCalledWith(actor, registry.zones.get("zat_b33_tutor"), ["pda_news", null, null]);
   });
+});
 
-  it("zat_b202_spawn_b33_loot should create every unclaimed reward in its target containers", () => {
+describe("zat_b202_spawn_b33_loot", () => {
+  it("should create every unclaimed reward in its target containers", () => {
     const stalkerBox: GameObject = MockGameObject.mock();
     const treasureBox: GameObject = MockGameObject.mock();
 
@@ -736,8 +779,10 @@ describe("quests effects implementation", () => {
     expect(spawnObjectInObject).toHaveBeenCalledWith("af_soul", treasureBox.id());
     expect(spawnObjectInObject).toHaveBeenCalledWith("helm_hardhat_snag", treasureBox.id());
   });
+});
 
-  it("pri_a28_check_zones should choose the farthest monolith zone and spawn its squad", () => {
+describe("pri_a28_check_zones", () => {
+  it("should choose the farthest monolith zone and spawn its squad", () => {
     const { actorGameObject } = mockRegisteredActor({ position: MockVector.mock(0, 0, 0) });
     const first = MockAlifeObject.mock({ id: 101, position: MockVector.mock(1, 0, 0) });
     const second = MockAlifeObject.mock({ id: 102, position: MockVector.mock(5, 0, 0) });
@@ -756,8 +801,10 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.pri_a28_wave_2_spawned)).toBe(true);
     expect(spawnSquadInSmart).toHaveBeenCalledWith("pri_a28_heli_mono_add_2", "pri_a28_heli");
   });
+});
 
-  it("eat_vodka_script should handle vodka", () => {
+describe("eat_vodka_script", () => {
+  it("should handle vodka", () => {
     const actor: MockGameObject = MockGameObject.createActor();
     const item: GameObject = MockGameObject.mock({ section: "vodka_script" });
 
@@ -771,8 +818,10 @@ describe("quests effects implementation", () => {
     callXrEffect("eat_vodka_script", actor.asGameObject(), MockGameObject.mock());
     expect(actor.eat).toHaveBeenCalledWith(item);
   });
+});
 
-  it("jup_b200_count_found should count carried materials together with the saved counter", () => {
+describe("jup_b200_count_found", () => {
+  it("should count carried materials together with the saved counter", () => {
     const { actorGameObject } = mockRegisteredActor();
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

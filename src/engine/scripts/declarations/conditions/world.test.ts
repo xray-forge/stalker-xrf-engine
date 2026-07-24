@@ -25,29 +25,19 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/world");
 });
 
-describe("world conditions declaration", () => {
-  it("should correctly inject external methods for game", () => {
+describe("is_rain", () => {
+  it("should be registered", () => {
     checkXrCondition("is_rain");
-    checkXrCondition("is_heavy_rain");
-    checkXrCondition("is_day");
-    checkXrCondition("is_dark_night");
-    checkXrCondition("time_period");
-    checkXrCondition("anomaly_has_artefact");
-    checkXrCondition("surge_complete");
-    checkXrCondition("surge_started");
-    checkXrCondition("surge_kill_all");
-    checkXrCondition("signal_rocket_flying");
-    checkXrCondition("check_smart_alarm_status");
   });
 });
 
-describe("world conditions implementation", () => {
-  beforeEach(() => {
-    resetRegistry();
-    resetFunctionMock(anomalyHasArtefact);
-  });
+beforeEach(() => {
+  resetRegistry();
+  resetFunctionMock(anomalyHasArtefact);
+});
 
-  it("talking should check if actor is talking", () => {
+describe("talking", () => {
+  it("should check if actor is talking", () => {
     jest.spyOn(level, "rain_factor").mockImplementation(() => 1);
     expect(callXrCondition("is_rain", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
@@ -65,8 +55,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(level, "rain_factor").mockImplementation(() => 1);
     expect(callXrCondition("is_rain", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("is_heavy_rain should check weather", () => {
+describe("is_heavy_rain", () => {
+  it("should check weather", () => {
     jest.spyOn(level, "rain_factor").mockImplementation(() => 1);
     expect(callXrCondition("is_heavy_rain", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
@@ -87,8 +79,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(level, "rain_factor").mockImplementation(() => 1);
     expect(callXrCondition("is_heavy_rain", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("is_day should check time", () => {
+describe("is_day", () => {
+  it("should check time", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 12);
     expect(callXrCondition("is_day", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
@@ -112,8 +106,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 24);
     expect(callXrCondition("is_day", actorGameObject, MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("is_dark_night should check weather", () => {
+describe("is_dark_night", () => {
+  it("should check weather", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 12);
     expect(callXrCondition("is_dark_night", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
@@ -137,8 +133,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 23);
     expect(callXrCondition("is_dark_night", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("time_period should check time", () => {
+describe("time_period", () => {
+  it("should check time", () => {
     jest.spyOn(level, "get_time_minutes").mockImplementation(() => 12);
     expect(callXrCondition("time_period", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
@@ -165,8 +163,10 @@ describe("world conditions implementation", () => {
     expect(callXrCondition("time_period", actorGameObject, MockGameObject.mock(), 4, 2)).toBe(false);
     expect(callXrCondition("time_period", actorGameObject, MockGameObject.mock(), 4, 1)).toBe(false);
   });
+});
 
-  it("anomaly_has_artefact should check anomalies", () => {
+describe("anomaly_has_artefact", () => {
+  it("should check anomalies", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -180,8 +180,10 @@ describe("world conditions implementation", () => {
     ).toBe(false);
     expect(anomalyHasArtefact).toHaveBeenCalledWith("anomaly-2", "artefact-2");
   });
+});
 
-  it("surge_complete should check surge state", () => {
+describe("surge_complete", () => {
+  it("should check surge state", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     surgeConfig.IS_FINISHED = false;
@@ -190,8 +192,10 @@ describe("world conditions implementation", () => {
     surgeConfig.IS_FINISHED = true;
     expect(callXrCondition("surge_complete", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("surge_started should check surge state", () => {
+describe("surge_started", () => {
+  it("should check surge state", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     surgeConfig.IS_STARTED = true;
@@ -200,8 +204,10 @@ describe("world conditions implementation", () => {
     surgeConfig.IS_STARTED = false;
     expect(callXrCondition("surge_started", actorGameObject, MockGameObject.mock())).toBe(false);
   });
+});
 
-  it("surge_kill_all should check surge state", () => {
+describe("surge_kill_all", () => {
+  it("should check surge state", () => {
     const { actorGameObject } = mockRegisteredActor();
     const manager: SurgeManager = getManager(SurgeManager);
 
@@ -211,8 +217,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(manager, "isKillingAll").mockImplementation(() => true);
     expect(callXrCondition("surge_kill_all", actorGameObject, MockGameObject.mock())).toBe(true);
   });
+});
 
-  it("signal_rocket_flying should check surge signal rockets", () => {
+describe("signal_rocket_flying", () => {
+  it("should check surge signal rockets", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock();
 
@@ -236,8 +244,10 @@ describe("world conditions implementation", () => {
     jest.spyOn(binder, "isFlying").mockImplementation(() => true);
     expect(callXrCondition("signal_rocket_flying", actorGameObject, MockGameObject.mock(), "test_rocket")).toBe(true);
   });
+});
 
-  it("check_smart_alarm_status should check smart terrain alarm status", () => {
+describe("check_smart_alarm_status", () => {
+  it("should check smart terrain alarm status", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     registerSimulationTerrain(terrain);
