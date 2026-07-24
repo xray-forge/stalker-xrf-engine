@@ -794,7 +794,7 @@ extern("dialogs_jupiter.jup_a10_proverka_wpn", (_: GameObject, __: GameObject): 
 
   const actor: GameObject = registry.actor;
 
-  for (const [, v] of table) {
+  for (const v of table) {
     if (actor.item_in_slot(2)?.section() === v || actor.item_in_slot(3)?.section() === v) {
       return true;
     }
@@ -1632,7 +1632,7 @@ extern("dialogs_jupiter.jup_b1_actor_have_good_suit", (_: GameObject, __: GameOb
 
   const actor: GameObject = registry.actor;
 
-  if ($isNotNil(actor.item_in_slot(7)) && suitsList.get(actor.section())) {
+  if ($isNotNil(actor.item_in_slot(7)) && suitsList.get(actor.item_in_slot(7)!.section())) {
     return true;
   }
 

@@ -58,16 +58,6 @@ export function checkNestedBinding(base: TName, name: TName, container: AnyObjec
 }
 
 /**
- * Expect condition binding to be defined in nested global container.
- *
- * @param name - Name of condition binding.
- * @param container - Container object, defaults to `global`.
- */
-export function checkXrCondition(name: TName, container: AnyObject = _G): void {
-  return checkNestedBinding("xr_conditions", name, container);
-}
-
-/**
  * Call condition similar to game scripts.
  *
  * @param name - Name of condition binding.
@@ -98,16 +88,6 @@ export function callXrCondition(name: TName, actor: GameObject, object: GameObje
   } else {
     throw new Error(`Unexpected condition provided - '${name}', no matching methods in xr_conditions globals.`);
   }
-}
-
-/**
- * Expect effect binding to be defined in nested global container.
- *
- * @param name - Name of effect binding.
- * @param container - Container object, defaults to `global`.
- */
-export function checkXrEffect(name: TName, container: AnyObject = _G): void {
-  return checkNestedBinding("xr_effects", name, container);
 }
 
 /**

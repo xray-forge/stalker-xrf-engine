@@ -12,6 +12,7 @@ import {
   TCount,
   TIndex,
   TName,
+  TNumberId,
   TSection,
   TStringId,
 } from "xray16/lib";
@@ -580,10 +581,7 @@ extern("dialogs_zaton.actor_has_artefact", (firstSpeaker: GameObject, secondSpea
  * @returns Whether the first speaker lacks the twisted quest artefact.
  */
 extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return !getExtern<AnyCallable>("actor_has_artefact", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
-    firstSpeaker,
-    secondSpeaker
-  );
+  return !getExtern<AnyCallable>("actor_has_artefact", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
@@ -768,10 +766,7 @@ extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: GameObject, secondSp
  * @returns Whether the zat_b33 items counter is less than two.
  */
 extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return !getExtern<AnyCallable>("zat_b33_counter_ge_2", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
-    firstSpeaker,
-    secondSpeaker
-  );
+  return !getExtern<AnyCallable>("zat_b33_counter_ge_2", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
@@ -1072,7 +1067,7 @@ export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TI
  *
  */
 extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
-  const anomTbl: LuaArray<string> = {
+  const anomTbl: LuaTable<TIndex, string> = $fromObject<TIndex, string>({
     [16]: "gravi",
     [17]: "thermal",
     [18]: "acid",
@@ -1081,29 +1076,14 @@ extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
     [21]: "thermal",
     [22]: "acid",
     [23]: "electra",
-  } as unknown as LuaArray<string>;
+  });
 
-  const anomaliesNamesTbl = {
-    ["gravi"]: {
-      [1]: "zat_b14_anomal_zone",
-      [2]: "zat_b55_anomal_zone",
-      [3]: "zat_b44_anomal_zone_gravi",
-    },
-    ["thermal"]: {
-      [1]: "zat_b20_anomal_zone",
-      [2]: "zat_b53_anomal_zone",
-      [3]: "zaton_b56_anomal_zone",
-    },
-    ["acid"]: {
-      [1]: "zat_b39_anomal_zone",
-      [2]: "zat_b101_anomal_zone",
-      [3]: "zat_b44_anomal_zone_acid",
-    },
-    ["electra"]: {
-      [1]: "zat_b54_anomal_zone",
-      [2]: "zat_b100_anomal_zone",
-    },
-  } as unknown as LuaTable<string, LuaArray<string>>;
+  const anomaliesNamesTbl: LuaTable<string, LuaArray<string>> = $fromObject<string, LuaArray<string>>({
+    ["gravi"]: $fromArray<string>(["zat_b14_anomal_zone", "zat_b55_anomal_zone", "zat_b44_anomal_zone_gravi"]),
+    ["thermal"]: $fromArray<string>(["zat_b20_anomal_zone", "zat_b53_anomal_zone", "zaton_b56_anomal_zone"]),
+    ["acid"]: $fromArray<string>(["zat_b39_anomal_zone", "zat_b101_anomal_zone", "zat_b44_anomal_zone_acid"]),
+    ["electra"]: $fromArray<string>(["zat_b54_anomal_zone", "zat_b100_anomal_zone"]),
+  });
 
   let zone: TSection = "";
   let key;
@@ -1225,14 +1205,14 @@ extern("dialogs_zaton.zat_b29_linker_get_adv_task_af", (firstSpeaker: GameObject
  */
 export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
   const actorWpnTable: LuaArray<TWeapon> = new LuaTable();
-  const wpnTable = [
+  const wpnTable: LuaArray<TWeapon> = $fromArray<TWeapon>([
     weapons.wpn_sig550,
     weapons.wpn_g36,
     weapons.wpn_val,
     weapons.wpn_groza,
     weapons.wpn_vintorez,
     weapons.wpn_fn2000,
-  ] as unknown as LuaArray<TWeapon>;
+  ]);
 
   object.iterate_inventory((owner: GameObject, item: GameObject): void => {
     const section: TSection = item.section();
@@ -1374,19 +1354,21 @@ extern(
  * @returns Whether the actor carries any of the known nimble weapons.
  */
 extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return actorHasAtLeastOneItem([
-    weapons.wpn_groza_nimble,
-    weapons.wpn_vintorez_nimble,
-    weapons.wpn_desert_eagle_nimble,
-    weapons.wpn_fn2000_nimble,
-    weapons.wpn_g36_nimble,
-    weapons.wpn_protecta_nimble,
-    weapons.wpn_mp5_nimble,
-    weapons.wpn_sig220_nimble,
-    weapons.wpn_spas12_nimble,
-    weapons.wpn_svu_nimble,
-    weapons.wpn_svd_nimble,
-  ]);
+  return actorHasAtLeastOneItem(
+    $fromArray<TSection | TNumberId>([
+      weapons.wpn_groza_nimble,
+      weapons.wpn_vintorez_nimble,
+      weapons.wpn_desert_eagle_nimble,
+      weapons.wpn_fn2000_nimble,
+      weapons.wpn_g36_nimble,
+      weapons.wpn_protecta_nimble,
+      weapons.wpn_mp5_nimble,
+      weapons.wpn_sig220_nimble,
+      weapons.wpn_spas12_nimble,
+      weapons.wpn_svu_nimble,
+      weapons.wpn_svd_nimble,
+    ])
+  );
 });
 
 /**
@@ -1403,7 +1385,7 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker
     amount = actor.money();
   }
 
-  const needItem = {
+  const needItem: LuaTable<TWeapon, boolean> = $fromObject<TWeapon, boolean>({
     [weapons.wpn_usp]: true,
     [weapons.wpn_desert_eagle]: true,
     [weapons.wpn_protecta]: true,
@@ -1432,9 +1414,9 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker
     [weapons.wpn_vintorez_nimble]: true,
     [weapons.wpn_svu_nimble]: true,
     [weapons.wpn_svd_nimble]: true,
-  } as unknown as LuaSet<TWeapon>;
+  } as Record<TWeapon, boolean>);
 
-  for (const k of needItem) {
+  for (const [k] of needItem) {
     if ($isNotNil(actor.object(k))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), k, "all");
     }
@@ -1452,7 +1434,7 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker
 extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
   const actorHasItem: LuaArray<TWeapon> = new LuaTable();
-  const needItem = {
+  const needItem: LuaTable<TWeapon, boolean> = $fromObject<TWeapon, boolean>({
     [weapons.wpn_groza_nimble]: true,
     [weapons.wpn_desert_eagle_nimble]: true,
     [weapons.wpn_fn2000_nimble]: true,
@@ -1465,9 +1447,9 @@ extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, sec
     [weapons.wpn_vintorez_nimble]: true,
     [weapons.wpn_svu_nimble]: true,
     [weapons.wpn_svd_nimble]: true,
-  } as unknown as LuaSet<TWeapon>;
+  } as Record<TWeapon, boolean>);
 
-  for (const k of needItem) {
+  for (const [k] of needItem) {
     if ($isNotNil(actor.object(k))) {
       table.insert(actorHasItem, k);
     }
@@ -1510,19 +1492,35 @@ const zatB51CostsTable: LuaArray<{ prepayAgreed: number; prepayRefused: number; 
   { prepayAgreed: 12000, prepayRefused: 24000, cost: 48000 },
 ]);
 
-const zatB51BuyItemTable = [
-  [
-    { item: [weapons.wpn_desert_eagle_nimble] },
-    { item: [weapons.wpn_sig220_nimble] },
-    { item: [weapons.wpn_usp_nimble] },
-  ],
-  [{ item: [weapons.wpn_mp5_nimble] }, { item: [weapons.wpn_spas12_nimble] }, { item: [weapons.wpn_protecta_nimble] }],
-  [{ item: [weapons.wpn_groza_nimble] }, { item: [weapons.wpn_g36_nimble] }, { item: [weapons.wpn_fn2000_nimble] }],
-  [{ item: [weapons.wpn_vintorez_nimble] }, { item: [weapons.wpn_svu_nimble] }, { item: [weapons.wpn_svd_nimble] }],
-  [{ item: [helmets.helm_tactic, outfits.cs_heavy_outfit] }],
-  [{ item: [outfits.scientific_outfit] }],
-  [{ item: [outfits.exo_outfit] }],
-] as unknown as LuaArray<LuaArray<{ item: LuaArray<TWeapon> }>>;
+const zatB51BuyItemTable: LuaArray<LuaArray<{ item: LuaArray<TSection> }>> = $fromArray<
+  LuaArray<{ item: LuaArray<TSection> }>
+>([
+  $fromArray<{ item: LuaArray<TSection> }>([
+    { item: $fromArray<TSection>([weapons.wpn_desert_eagle_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_sig220_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_usp_nimble]) },
+  ]),
+  $fromArray<{ item: LuaArray<TSection> }>([
+    { item: $fromArray<TSection>([weapons.wpn_mp5_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_spas12_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_protecta_nimble]) },
+  ]),
+  $fromArray<{ item: LuaArray<TSection> }>([
+    { item: $fromArray<TSection>([weapons.wpn_groza_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_g36_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_fn2000_nimble]) },
+  ]),
+  $fromArray<{ item: LuaArray<TSection> }>([
+    { item: $fromArray<TSection>([weapons.wpn_vintorez_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_svu_nimble]) },
+    { item: $fromArray<TSection>([weapons.wpn_svd_nimble]) },
+  ]),
+  $fromArray<{ item: LuaArray<TSection> }>([
+    { item: $fromArray<TSection>([helmets.helm_tactic, outfits.cs_heavy_outfit]) },
+  ]),
+  $fromArray<{ item: LuaArray<TSection> }>([{ item: $fromArray<TSection>([outfits.scientific_outfit]) }]),
+  $fromArray<{ item: LuaArray<TSection> }>([{ item: $fromArray<TSection>([outfits.exo_outfit]) }]),
+]);
 
 /**
  * For each processing category, randomly select one not yet ordered item and mark it as ordered.
@@ -1721,7 +1719,9 @@ extern("dialogs_zaton.zat_b51_hasnt_item_cost", (firstSpeaker: GameObject, secon
  * @returns Whether the actor owns at least one of the zat_b12 documents.
  */
 extern("dialogs_zaton.zat_b12_actor_have_documents", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return actorHasAtLeastOneItem([questItems.zat_b12_documents_1, questItems.zat_b12_documents_2]);
+  return actorHasAtLeastOneItem(
+    $fromArray<TSection | TNumberId>([questItems.zat_b12_documents_1, questItems.zat_b12_documents_2])
+  );
 });
 
 /**

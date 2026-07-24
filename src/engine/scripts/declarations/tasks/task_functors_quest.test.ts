@@ -2,12 +2,9 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { AnyArgs, AnyObject, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
+import { registerStoryLink } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
-import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-
-function checkTaskBinding(name: TName): void {
-  return checkNestedBinding("task_functors", name);
-}
+import { callBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function callTaskBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject).task_functors);
@@ -15,18 +12,6 @@ function callTaskBinding(name: TName, args: AnyArgs = []): unknown {
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/tasks/task_functors_quest");
-});
-
-describe("zat_b29_adv_descr", () => {
-  it("should be registered", () => {
-    checkTaskBinding("zat_b29_adv_descr");
-  });
-});
-
-describe("zat_b29_adv_target", () => {
-  it("should be registered", () => {
-    checkTaskBinding("zat_b29_adv_target");
-  });
 });
 
 beforeEach(() => {
@@ -52,6 +37,9 @@ describe("zat_b29_adv_title", () => {
       expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
     }
   });
+});
+
+describe("zat_b29_adv_descr", () => {
   it("should correctly return description", () => {
     const { actorGameObject } = mockRegisteredActor();
 
@@ -146,5 +134,99 @@ describe("zat_b29_adv_title", () => {
       disableInfoPortion(`zat_b29_bring_af_${it}`);
       expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();
     }
+  });
+});
+
+describe("zat_b29_adv_target", () => {
+  it("should have no target when the actor carries none of the requested artefacts", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBeNull();
+
+    // Requested artefact info portion alone is not enough, it has to be in the inventory.
+    giveInfoPortion("zat_b29_bring_af_16");
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBeNull();
+  });
+
+  it("should target the barmen once one of the requested artefacts is carried", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+    giveInfoPortion("zat_b29_bring_af_16");
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(500);
+  });
+
+  it("should target the first rival while it is not taken out", () => {
+    mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+    registerStoryLink(501, "zat_b29_stalker_rival_1");
+    registerStoryLink(502, "zat_b29_stalker_rival_default_1");
+
+    giveInfoPortion("zat_b29_stalkers_rivals_found_af");
+    giveInfoPortion("zat_b29_stalker_rival_1_found_af");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(502);
+
+    giveInfoPortion("zat_b29_exclusive_conditions");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(501);
+  });
+
+  it("should target the second rival while it is not taken out", () => {
+    mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+    registerStoryLink(503, "zat_b29_stalker_rival_2");
+    registerStoryLink(504, "zat_b29_stalker_rival_default_2");
+
+    giveInfoPortion("zat_b29_stalkers_rivals_found_af");
+    giveInfoPortion("zat_b29_stalker_rival_2_found_af");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(504);
+
+    giveInfoPortion("zat_b29_exclusive_conditions");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(503);
+  });
+
+  it("should keep targeting a taken out rival while the requested artefact is missing", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+    registerStoryLink(502, "zat_b29_stalker_rival_default_1");
+
+    giveInfoPortion("zat_b29_stalkers_rivals_found_af");
+    giveInfoPortion("zat_b29_stalker_rival_1_found_af");
+    giveInfoPortion("zat_b29_first_rival_taken_out");
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(502);
+
+    // Once the artefact is looted the rival is no longer the target, the barmen is.
+    giveInfoPortion("zat_b29_bring_af_16");
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(500);
+  });
+
+  it("should target the barmen once the artefact is taken from a rival", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    registerStoryLink(500, "zat_a2_stalker_barmen");
+    registerStoryLink(502, "zat_b29_stalker_rival_default_1");
+
+    giveInfoPortion("zat_b29_stalkers_rivals_found_af");
+    giveInfoPortion("zat_b29_stalker_rival_1_found_af");
+    giveInfoPortion("zat_b29_linker_take_af_from_rival");
+    giveInfoPortion("zat_b29_bring_af_16");
+    jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
+
+    expect(callTaskBinding("zat_b29_adv_target")).toBe(500);
   });
 });
