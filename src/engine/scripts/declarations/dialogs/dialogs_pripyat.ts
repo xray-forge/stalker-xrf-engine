@@ -1,6 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { AnyCallable, extern, getExtern, LuaArray, TCount } from "xray16/lib";
-import { $filename, $fromArray, $isNil, $isNotNil } from "xray16/macros";
+import { $filename, $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions/info_portions";
 import { TInventoryItem } from "@/engine/constants/items";
@@ -212,26 +212,26 @@ extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: GameObject, s
 /**
  * Descriptor of the medkit supply contents granted for each pri_a25 medic kit tier.
  */
-const medicItemsTable = {
-  ["basic"]: {
+const medicItemsTable = $fromObject({
+  basic: $fromObject({
     [food.conserva]: 2,
     [drugs.medkit_army]: 2,
     [drugs.antirad]: 2,
     [drugs.bandage]: 4,
-  },
-  ["advanced"]: {
+  }),
+  advanced: $fromObject({
     [food.conserva]: 3,
     [drugs.medkit_army]: 3,
     [drugs.antirad]: 3,
     [drugs.bandage]: 5,
-  },
-  ["elite"]: {
+  }),
+  elite: $fromObject({
     [food.conserva]: 4,
     [drugs.medkit_army]: 5,
     [drugs.antirad]: 5,
     [drugs.bandage]: 8,
-  },
-} as unknown as LuaTable<TInfoPortion, LuaTable<TInventoryItem, TCount>>;
+  }),
+}) as unknown as LuaTable<TInfoPortion, LuaTable<TInventoryItem, TCount>>;
 
 /**
  * Transfer the medkit supplies to the actor based on the requested kit tier and disable that request.
@@ -259,20 +259,20 @@ extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: GameObject, seco
   }
 });
 
-const suppliesList = {
-  ["supply_ammo_1"]: { ["ammo_9x18_fmj"]: 2, ["ammo_9x18_pmm"]: 1 },
-  ["supply_ammo_2"]: { ["ammo_9x19_fmj"]: 2, ["ammo_9x19_pbp"]: 1 },
-  ["supply_ammo_3"]: { ["ammo_11.43x23_fmj"]: 2, ["ammo_11.43x23_hydro"]: 1 },
-  ["supply_ammo_4"]: { ["ammo_12x70_buck"]: 10, ["ammo_12x76_zhekan"]: 5 },
-  ["supply_ammo_5"]: { ["ammo_5.45x39_fmj"]: 2, ["ammo_5.45x39_ap"]: 1 },
-  ["supply_ammo_6"]: { ["ammo_5.56x45_ss190"]: 2, ["ammo_5.56x45_ap"]: 1 },
-  ["supply_ammo_7"]: { ["ammo_9x39_pab9"]: 1, ["ammo_9x39_ap"]: 1 },
-  ["supply_ammo_8"]: { ["ammo_7.62x54_7h1"]: 1 },
-  ["supply_ammo_9"]: { ["ammo_pkm_100"]: 1 },
-  ["supply_grenade_1"]: { ["grenade_rgd5"]: 3, ["grenade_f1"]: 2 },
-  ["supply_grenade_2"]: { ["ammo_vog-25"]: 3 },
-  ["supply_grenade_3"]: { ["ammo_m209"]: 3 },
-} as unknown as LuaTable<TInfoPortion, LuaTable<TAmmoItem, TCount>>;
+const suppliesList = $fromObject({
+  ["supply_ammo_1"]: $fromObject({ ["ammo_9x18_fmj"]: 2, ["ammo_9x18_pmm"]: 1 }),
+  ["supply_ammo_2"]: $fromObject({ ["ammo_9x19_fmj"]: 2, ["ammo_9x19_pbp"]: 1 }),
+  ["supply_ammo_3"]: $fromObject({ ["ammo_11.43x23_fmj"]: 2, ["ammo_11.43x23_hydro"]: 1 }),
+  ["supply_ammo_4"]: $fromObject({ ["ammo_12x70_buck"]: 10, ["ammo_12x76_zhekan"]: 5 }),
+  ["supply_ammo_5"]: $fromObject({ ["ammo_5.45x39_fmj"]: 2, ["ammo_5.45x39_ap"]: 1 }),
+  ["supply_ammo_6"]: $fromObject({ ["ammo_5.56x45_ss190"]: 2, ["ammo_5.56x45_ap"]: 1 }),
+  ["supply_ammo_7"]: $fromObject({ ["ammo_9x39_pab9"]: 1, ["ammo_9x39_ap"]: 1 }),
+  ["supply_ammo_8"]: $fromObject({ ["ammo_7.62x54_7h1"]: 1 }),
+  ["supply_ammo_9"]: $fromObject({ ["ammo_pkm_100"]: 1 }),
+  ["supply_grenade_1"]: $fromObject({ ["grenade_rgd5"]: 3, ["grenade_f1"]: 2 }),
+  ["supply_grenade_2"]: $fromObject({ ["ammo_vog-25"]: 3 }),
+  ["supply_grenade_3"]: $fromObject({ ["ammo_m209"]: 3 }),
+}) as unknown as LuaTable<TInfoPortion, LuaTable<TAmmoItem, TCount>>;
 
 extern("dialogs_pripyat.pri_a22_army_signaller_supply", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const [name, itemsList] of suppliesList) {
