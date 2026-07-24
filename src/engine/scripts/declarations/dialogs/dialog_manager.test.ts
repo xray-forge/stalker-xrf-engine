@@ -244,21 +244,129 @@ describe("dialogs external callbacks implementation", () => {
     );
   });
 
-  it.todo("action_anomalies_dialogs should correctly switch");
+  it("action_anomalies_dialogs should process and mark the anomaly category as told", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
 
-  it.todo("action_job_dialogs should correctly switch");
+    manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).set(object.id(), { told: false } as never);
 
-  it.todo("precondition_anomalies_dialogs_no_more should correctly check preconditions");
+    callDialogBinding("action_anomalies_dialogs", object, actorGameObject, "dialog", "phrase");
 
-  it.todo("precondition_information_dialogs_no_more should correctly check preconditions");
+    expect(processPhraseAction).toHaveBeenCalledWith(
+      object.id(),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
+      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
+      "phrase"
+    );
+    expect(manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).told).toBe(true);
+  });
 
-  it.todo("precondition_information_dialogs_do_not_know should correctly check preconditions");
+  it("action_job_dialogs should process and mark the job category as told", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
 
-  it.todo("action_information_dialogs should correctly switch");
+    manager.priorityTable.get(EGenericPhraseCategory.JOB).set(object.id(), { told: false } as never);
 
-  it.todo("precondition_information_dialogs should correctly check preconditions");
+    callDialogBinding("action_job_dialogs", object, actorGameObject, "dialog", "phrase");
 
-  it.todo("precondition_is_phrase_disabled should correctly check preconditions");
+    expect(processPhraseAction).toHaveBeenCalledWith(
+      object.id(),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      manager.priorityTable.get(EGenericPhraseCategory.JOB),
+      "phrase"
+    );
+    expect(manager.priorityTable.get(EGenericPhraseCategory.JOB).get(object.id()).told).toBe(true);
+  });
+
+  it("precondition_anomalies_dialogs_no_more should report the anomaly category completion", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: DialogManager = getManager(DialogManager);
+
+    jest.spyOn(manager, "isObjectPhraseCategoryTold").mockReturnValue(true);
+
+    expect(callDialogBinding("precondition_anomalies_dialogs_no_more", actorGameObject)).toBe(true);
+    expect(manager.isObjectPhraseCategoryTold).toHaveBeenCalledWith(
+      actorGameObject.id(),
+      EGenericPhraseCategory.ANOMALIES
+    );
+  });
+
+  it("precondition_information_dialogs_no_more should report the information category completion", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: DialogManager = getManager(DialogManager);
+
+    jest.spyOn(manager, "isObjectPhraseCategoryTold").mockReturnValue(true);
+
+    expect(callDialogBinding("precondition_information_dialogs_no_more", actorGameObject)).toBe(true);
+    expect(manager.isObjectPhraseCategoryTold).toHaveBeenCalledWith(
+      actorGameObject.id(),
+      EGenericPhraseCategory.INFORMATION
+    );
+  });
+
+  it("precondition_information_dialogs_do_not_know should delegate information visibility checks", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    replaceFunctionMockOnce(shouldHidePhraseCategory, () => true);
+
+    expect(callDialogBinding("precondition_information_dialogs_do_not_know", actorGameObject)).toBe(true);
+    expect(shouldHidePhraseCategory).toHaveBeenCalledWith(actorGameObject, EGenericPhraseCategory.INFORMATION);
+  });
+
+  it("action_information_dialogs should process and mark the information category as told", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
+
+    manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).set(object.id(), { told: false } as never);
+
+    callDialogBinding("action_information_dialogs", object, actorGameObject, "dialog", "phrase");
+
+    expect(processPhraseAction).toHaveBeenCalledWith(
+      object.id(),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      manager.priorityTable.get(EGenericPhraseCategory.INFORMATION),
+      "phrase"
+    );
+    expect(manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(object.id()).told).toBe(true);
+  });
+
+  it("precondition_information_dialogs should delegate information phrase visibility", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    replaceFunctionMockOnce(shouldShowPhrase, () => true);
+
+    expect(
+      callDialogBinding("precondition_information_dialogs", object, actorGameObject, "dialog", "parent", "phrase")
+    ).toBe(true);
+    expect(shouldShowPhrase).toHaveBeenCalledWith(
+      object,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.INFORMATION),
+      "phrase"
+    );
+  });
+
+  it("precondition_is_phrase_disabled should reject phrases disabled for the NPC speaker", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
+    const disabled = new LuaTable<string, boolean>();
+
+    expect(
+      callDialogBinding("precondition_is_phrase_disabled", actorGameObject, object, "dialog", "parent", "phrase")
+    ).toBe(true);
+
+    disabled.set("phrase", true);
+    manager.disabledPhrases.set(object.id(), disabled);
+
+    expect(
+      callDialogBinding("precondition_is_phrase_disabled", actorGameObject, object, "dialog", "parent", "phrase")
+    ).toBe(false);
+  });
 
   it("action_disable_phrase should correctly disable phrases", () => {
     const { actorGameObject } = mockRegisteredActor();
@@ -273,7 +381,13 @@ describe("dialogs external callbacks implementation", () => {
     expect(manager.disableObjectPhrase).toHaveBeenCalledWith(object.id(), "dialog_name");
   });
 
-  it.todo("create_bye_phrase should correctly create bye option");
+  it("create_bye_phrase should return one localized actor farewell", () => {
+    expect([
+      "translated_actor_break_dialog_1",
+      "translated_actor_break_dialog_2",
+      "translated_actor_break_dialog_3",
+    ]).toContain(callDialogBinding<string>("create_bye_phrase"));
+  });
 
   it("uni_dialog_precond should correctly check dialog preconditions", () => {
     const { actorGameObject } = mockRegisteredActor();

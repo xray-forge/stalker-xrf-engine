@@ -6,6 +6,7 @@ import { $fromArray } from "xray16/macros";
 import {
   MockAlifeHumanStalker,
   MockAlifeMonsterBase,
+  MockAlifeSimulator,
   MockCHelicopter,
   MockGameObject,
   MockMonsterHitInfo,
@@ -887,9 +888,39 @@ describe("object conditions implementation", () => {
     );
   });
 
-  it.todo("is_squad_commander should check if object commands squad");
+  it("is_squad_commander should recognize the squad commander and reject other members", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const commander: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const commanderObject: GameObject = MockGameObject.mock({ id: commander.id });
+    const memberObject: GameObject = MockGameObject.mock({ id: member.id });
 
-  it.todo("squad_npc_count_ge should check squad objects count");
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(squad);
+    MockAlifeSimulator.addToRegistry(commander);
+    MockAlifeSimulator.addToRegistry(member);
+    squad.mockAddMember(commander);
+    squad.mockAddMember(member);
+    jest.spyOn(squad, "commander_id").mockReturnValue(commander.id);
+
+    expect(callXrCondition("is_squad_commander", MockGameObject.mockActor(), commanderObject)).toBe(true);
+    expect(callXrCondition("is_squad_commander", MockGameObject.mockActor(), memberObject)).toBe(false);
+  });
+
+  it("squad_npc_count_ge should compare the resolved squad member count with the threshold", () => {
+    const squad: MockSquad = MockSquad.mock();
+
+    squad.mockAddMember(MockAlifeHumanStalker.mock());
+    squad.mockAddMember(MockAlifeHumanStalker.mock());
+    registerStoryLink(squad.id, "test-squad");
+
+    expect(
+      callXrCondition("squad_npc_count_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad", "1")
+    ).toBe(true);
+    expect(
+      callXrCondition("squad_npc_count_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad", "2")
+    ).toBe(false);
+  });
 
   it.todo("quest_npc_enemy_actor should check if object is enemy with actor");
 
@@ -992,7 +1023,14 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock(), second.section())).toBe(false);
   });
 
-  it.todo("check_bloodsucker_state should check bloodsucker state");
+  it("check_bloodsucker_state should compare the resolved object visibility state", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "get_visibility_state").mockReturnValue(1);
+
+    expect(callXrCondition("check_bloodsucker_state", MockGameObject.mockActor(), object, "1")).toBe(true);
+    expect(callXrCondition("check_bloodsucker_state", MockGameObject.mockActor(), object, "0")).toBe(false);
+  });
 
   it("in_dest_smart_cover should check if object is in smart cover", () => {
     const object: GameObject = MockGameObject.mock();
