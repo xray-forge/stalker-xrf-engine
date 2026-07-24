@@ -1,12 +1,27 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { AnyArgs, AnyObject, TName } from "xray16/lib";
+import { EGameObjectRelation, GameObject } from "xray16/alias";
+import { ACTOR_ID, AnyArgs, AnyObject, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { infoPortions } from "@/engine/constants/info_portions";
+import { drugs } from "@/engine/constants/items/drugs";
+import { food } from "@/engine/constants/items/food";
+import { outfits } from "@/engine/constants/items/outfits";
 import { questItems } from "@/engine/constants/items/quest_items";
-import { getManager } from "@/engine/core/database";
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
+import { getManager, registry } from "@/engine/core/database";
+import { setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { giveMoneyToActor } from "@/engine/core/utils/reward";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
+import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
+import {
+  giveItemsToActor,
+  giveMoneyToActor,
+  transferItemsFromActor,
+  transferItemsToActor,
+  transferMoneyFromActor,
+} from "@/engine/core/utils/reward";
 import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function checkBinding(name: TName): void {
@@ -18,6 +33,7 @@ function callDialogsBinding<T = boolean>(name: TName, args: AnyArgs = []): T {
 }
 
 jest.mock("@/engine/core/utils/reward");
+jest.mock("@/engine/core/utils/relation");
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
@@ -26,7 +42,13 @@ beforeAll(() => {
 beforeEach(() => {
   resetRegistry();
   mockRegisteredActor();
+  resetFunctionMock(getObjectsRelationSafe);
+  resetFunctionMock(isActorEnemyWithFaction);
+  resetFunctionMock(giveItemsToActor);
   resetFunctionMock(giveMoneyToActor);
+  resetFunctionMock(transferItemsFromActor);
+  resetFunctionMock(transferItemsToActor);
+  resetFunctionMock(transferMoneyFromActor);
 });
 
 describe("jup_b208_give_reward", () => {
@@ -907,271 +929,273 @@ describe("jup_b43_reward_for_both_artefacts", () => {
 });
 
 describe("jup_b218_counter_not_3", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b218_counter_not_3");
-  });
-});
+  it("should evaluate all squad-size predicates from the actor portable store", () => {
+    expect(callDialogsBinding("jup_b218_counter_not_3")).toBe(true);
+    expect(callDialogsBinding("jup_b218_counter_equal_3")).toBe(false);
+    expect(callDialogsBinding("jup_b218_counter_not_0")).toBe(false);
 
-describe("jup_b218_counter_equal_3", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b218_counter_equal_3");
-  });
-});
+    setPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 3);
 
-describe("jup_b218_counter_not_0", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b218_counter_not_0");
+    expect(callDialogsBinding("jup_b218_counter_not_3")).toBe(false);
+    expect(callDialogsBinding("jup_b218_counter_equal_3")).toBe(true);
+    expect(callDialogsBinding("jup_b218_counter_not_0")).toBe(true);
   });
 });
 
 describe("jup_b25_frase_count_inc", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b25_frase_count_inc");
+  it("should delegate the counter increment to the quest effect", () => {
+    const npc: GameObject = MockGameObject.mock();
+    const incrementCounter = jest.fn(() => true);
+
+    (_G as AnyObject)["xr_effects"] = { inc_counter: incrementCounter };
+
+    expect(callDialogsBinding("jup_b25_frase_count_inc", [registry.actor, npc])).toBe(true);
+    expect(incrementCounter).toHaveBeenCalledWith(registry.actor, npc, ["jup_b25_frase", 1]);
   });
 });
 
 describe("jup_b32_anomaly_has_af", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b32_anomaly_has_af");
+  it("should consume the marked anomaly info only when its zone has an artefact", () => {
+    expect(callDialogsBinding("jup_b32_anomaly_has_af")).toBe(false);
+
+    giveInfoPortion(infoPortions.jup_b32_anomaly_1);
+    expect(callDialogsBinding("jup_b32_anomaly_has_af")).toBe(false);
+
+    registry.anomalyZones.set("jup_b32_anomal_zone", { spawnedArtefactsCount: 0 } as AnomalyZoneBinder);
+    expect(callDialogsBinding("jup_b32_anomaly_has_af")).toBe(false);
+
+    registry.anomalyZones.set("jup_b32_anomal_zone", { spawnedArtefactsCount: 1 } as AnomalyZoneBinder);
+    expect(callDialogsBinding("jup_b32_anomaly_has_af")).toBe(true);
+    expect(registry.actor.has_info(infoPortions.jup_b32_anomaly_1)).toBe(false);
+    expect(registry.actor.has_info(infoPortions.jup_b32_anomaly_true)).toBe(true);
   });
 });
 
-describe("jup_b4_is_actor_not_enemies_to_freedom", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_not_enemies_to_freedom");
+describe("jup_b4 faction relations", () => {
+  it("should evaluate Freedom relation predicates and the complementary enemy check", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    jest.mocked(getObjectsRelationSafe).mockReturnValue(EGameObjectRelation.ENEMY);
+    expect(callDialogsBinding("jup_b4_is_actor_enemies_to_freedom", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("jup_b4_is_actor_not_enemies_to_freedom", [registry.actor, npc])).toBe(false);
+
+    jest.mocked(getObjectsRelationSafe).mockReturnValue(EGameObjectRelation.FRIEND);
+    expect(callDialogsBinding("jup_b4_is_actor_friend_to_freedom", [registry.actor, npc])).toBe(true);
+
+    jest.mocked(getObjectsRelationSafe).mockReturnValue(EGameObjectRelation.NEUTRAL);
+    expect(callDialogsBinding("jup_b4_is_actor_neutral_to_freedom", [registry.actor, npc])).toBe(true);
+  });
+
+  it("should evaluate Duty relation predicates and the complementary enemy check", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    jest.mocked(getObjectsRelationSafe).mockReturnValue(EGameObjectRelation.ENEMY);
+    expect(callDialogsBinding("jup_b4_is_actor_enemies_to_dolg", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("jup_b4_is_actor_not_enemies_to_dolg", [registry.actor, npc])).toBe(false);
+
+    jest.mocked(getObjectsRelationSafe).mockReturnValue(EGameObjectRelation.FRIEND);
+    expect(callDialogsBinding("jup_b4_is_actor_friend_to_dolg", [registry.actor, npc])).toBe(true);
+
+    MockGameObject.asMock(registry.actor).relation.mockReturnValue(EGameObjectRelation.NEUTRAL);
+    expect(callDialogsBinding("jup_b4_is_actor_neutral_to_dolg", [registry.actor, npc])).toBe(true);
   });
 });
 
-describe("jup_b4_is_actor_enemies_to_freedom", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_enemies_to_freedom");
+describe("jup_b47 quest flow", () => {
+  it("should check and trade the products info document for its complete reward", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b47_jupiter_products_info_enabled")).toBe(false);
+    expect(callDialogsBinding("jup_b47_jupiter_products_info_disabled")).toBe(true);
+
+    mockRegisteredActor({
+      inventory: [
+        [
+          questItems.jup_b47_jupiter_products_info,
+          MockGameObject.mock({ section: questItems.jup_b47_jupiter_products_info }),
+        ],
+      ],
+    });
+
+    expect(callDialogsBinding("jup_b47_jupiter_products_info_enabled")).toBe(true);
+    expect(callDialogsBinding("jup_b47_jupiter_products_info_disabled")).toBe(false);
+
+    callDialogsBinding("jup_b47_jupiter_products_info_revard", [registry.actor, npc]);
+
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b47_jupiter_products_info);
+    expect(giveMoneyToActor).toHaveBeenCalledWith(7000);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.medkit_scientic, 3);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.antirad, 5);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_psy_blockade, 2);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_antidot, 2);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_radioprotector, 2);
+  });
+
+  it("should check and trade the mercenary PDA", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b47_actor_has_merc_pda")).toBe(false);
+    expect(callDialogsBinding("jup_b47_actor_has_not_merc_pda")).toBe(true);
+
+    mockRegisteredActor({
+      inventory: [[questItems.jup_b47_merc_pda, MockGameObject.mock({ section: questItems.jup_b47_merc_pda })]],
+    });
+
+    expect(callDialogsBinding("jup_b47_actor_has_merc_pda")).toBe(true);
+    expect(callDialogsBinding("jup_b47_actor_has_not_merc_pda")).toBe(false);
+
+    callDialogsBinding("jup_b47_merc_pda_revard", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b47_merc_pda);
+    expect(giveMoneyToActor).toHaveBeenCalledWith(2500);
+  });
+
+  it("should allow the task for either exclusive B6 outcome and either available squad", () => {
+    expect(callDialogsBinding("jup_b47_actor_can_take_task")).toBe(false);
+    expect(callDialogsBinding("jup_b47_employ_squad")).toBe(false);
+
+    giveInfoPortion(infoPortions.jup_b6_task_done);
+    giveInfoPortion(infoPortions.jup_b47_bunker_guards_started);
+    expect(callDialogsBinding("jup_b47_actor_can_take_task")).toBe(true);
+    expect(callDialogsBinding("jup_b47_employ_squad")).toBe(true);
+
+    resetRegistry();
+    mockRegisteredActor();
+    giveInfoPortion(infoPortions.jup_b6_task_fail);
+    giveInfoPortion(infoPortions.jup_b6_employ_stalker);
+    expect(callDialogsBinding("jup_b47_actor_can_take_task")).toBe(true);
+    expect(callDialogsBinding("jup_b47_employ_squad")).toBe(true);
+  });
+
+  it("should issue all B47 rewards and detect the gauss documents", () => {
+    callDialogsBinding("jup_b47_bunker_guard_revard");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(4000);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_psy_blockade, 2);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_antidot, 3);
+    expect(giveItemsToActor).toHaveBeenCalledWith(drugs.drug_radioprotector, 3);
+
+    callDialogsBinding("jup_b47_gauss_rifle_revard");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(12000);
+    expect(callDialogsBinding("jup_b47_actor_has_hauss_rifle_docs")).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [
+        [questItems.zat_a23_gauss_rifle_docs, MockGameObject.mock({ section: questItems.zat_a23_gauss_rifle_docs })],
+      ],
+    });
+    expect(callDialogsBinding("jup_b47_actor_has_hauss_rifle_docs")).toBe(true);
   });
 });
 
-describe("jup_b4_is_actor_friend_to_freedom", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_friend_to_freedom");
+describe("jup_b10 and related exchanges", () => {
+  it("should transfer both UFO memories in the correct directions and detect the first one", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("jup_b10_ufo_memory_give_to_actor", [registry.actor, npc])).toBe(false);
+    expect(callDialogsBinding("jup_b10_actor_has_ufo_memory")).toBe(false);
+
+    mockRegisteredActor({
+      inventory: [[questItems.jup_b10_ufo_memory, MockGameObject.mock({ section: questItems.jup_b10_ufo_memory })]],
+    });
+    expect(callDialogsBinding("jup_b10_ufo_memory_give_to_actor", [registry.actor, npc])).toBe(true);
+    expect(callDialogsBinding("jup_b10_actor_has_ufo_memory")).toBe(true);
+
+    callDialogsBinding("jup_b10_ufo_memory_give_to_npc", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b10_ufo_memory);
+
+    callDialogsBinding("jup_b10_ufo_memory_2_give_to_actor", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, questItems.jup_b10_ufo_memory_2);
+  });
+
+  it("should enforce the configured UFO fees and invoke their transfers", () => {
+    mockRegisteredActor({ money: 999 });
+    expect(callDialogsBinding("jup_b10_ufo_has_money_1000")).toBe(false);
+    expect(callDialogsBinding("jup_b10_ufo_hasnt_money_1000")).toBe(true);
+
+    mockRegisteredActor({ money: 1000 });
+    expect(callDialogsBinding("jup_b10_ufo_has_money_1000")).toBe(true);
+    expect(callDialogsBinding("jup_b10_ufo_hasnt_money_1000")).toBe(false);
+
+    mockRegisteredActor({ money: 1999 });
+    expect(callDialogsBinding("jup_b10_ufo_has_money_3000")).toBe(false);
+    expect(callDialogsBinding("jup_b10_ufo_hasnt_money_3000")).toBe(true);
+
+    mockRegisteredActor({ money: 2000 });
+    expect(callDialogsBinding("jup_b10_ufo_has_money_3000")).toBe(true);
+    expect(callDialogsBinding("jup_b10_ufo_hasnt_money_3000")).toBe(false);
+
+    const npc: GameObject = MockGameObject.mock();
+
+    callDialogsBinding("jup_b10_ufo_relocate_money_1000", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 1000);
+    callDialogsBinding("jup_b10_ufo_relocate_money_3000", [registry.actor, npc]);
+    expect(transferMoneyFromActor).toHaveBeenCalledWith(npc, 2000);
+  });
+
+  it("should apply the related B211, B19, and B6 rewards", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    callDialogsBinding("jup_b211_kill_bludsuckers_reward");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(3000);
+
+    callDialogsBinding("jup_b19_transfer_conserva_to_actor", [registry.actor, npc]);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, food.conserva);
+
+    callDialogsBinding("jupiter_b6_sell_halfartefact");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(2000);
   });
 });
 
-describe("jup_b4_is_actor_neutral_to_freedom", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_neutral_to_freedom");
+describe("Sokolov note and faction checks", () => {
+  it("should check and exchange the Sokolov note for an army medkit", () => {
+    const npc: GameObject = MockGameObject.mock();
+
+    expect(callDialogsBinding("pri_a15_sokolov_actor_has_note")).toBe(false);
+    expect(callDialogsBinding("pri_a15_sokolov_actor_has_not_note")).toBe(true);
+
+    mockRegisteredActor({
+      inventory: [
+        [questItems.jup_b205_sokolov_note, MockGameObject.mock({ section: questItems.jup_b205_sokolov_note })],
+      ],
+    });
+    expect(callDialogsBinding("pri_a15_sokolov_actor_has_note")).toBe(true);
+    expect(callDialogsBinding("pri_a15_sokolov_actor_has_not_note")).toBe(false);
+
+    callDialogsBinding("pri_a15_sokolov_actor_give_note", [registry.actor, npc]);
+    expect(transferItemsFromActor).toHaveBeenCalledWith(npc, questItems.jup_b205_sokolov_note);
+    expect(transferItemsToActor).toHaveBeenCalledWith(npc, drugs.medkit_army);
+  });
+
+  it("should allow dialog with factions the actor is not hostile to", () => {
+    jest.mocked(isActorEnemyWithFaction).mockReturnValue(false);
+    expect(callDialogsBinding("jup_b47_actor_not_enemy_to_freedom")).toBe(true);
+    expect(callDialogsBinding("jup_b47_actor_not_enemy_to_dolg")).toBe(true);
+
+    jest.mocked(isActorEnemyWithFaction).mockReturnValue(true);
+    expect(callDialogsBinding("jup_b47_actor_not_enemy_to_freedom")).toBe(false);
+    expect(callDialogsBinding("jup_b47_actor_not_enemy_to_dolg")).toBe(false);
   });
 });
 
-describe("jup_b4_is_actor_not_enemies_to_dolg", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_not_enemies_to_dolg");
-  });
-});
+describe("jup_b15 scientific outfit and b19 treasure", () => {
+  it("should expose complementary scientific-outfit predicates", () => {
+    expect(callDialogsBinding("jup_b15_actor_sci_outfit")).toBe(false);
+    expect(callDialogsBinding("jup_b15_no_actor_sci_outfit")).toBe(true);
 
-describe("jup_b4_is_actor_enemies_to_dolg", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_enemies_to_dolg");
+    mockRegisteredActor({
+      inventory: [[outfits.scientific_outfit, MockGameObject.mock({ section: outfits.scientific_outfit })]],
+    });
+    expect(callDialogsBinding("jup_b15_actor_sci_outfit")).toBe(true);
+    expect(callDialogsBinding("jup_b15_no_actor_sci_outfit")).toBe(false);
   });
-});
 
-describe("jup_b4_is_actor_friend_to_dolg", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_friend_to_dolg");
-  });
-});
+  it("should reveal the B19 treasure coordinates", () => {
+    const giveTreasureCoordinates = jest
+      .spyOn(TreasureManager, "giveTreasureCoordinates")
+      .mockImplementation(jest.fn());
 
-describe("jup_b4_is_actor_neutral_to_dolg", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b4_is_actor_neutral_to_dolg");
-  });
-});
+    callDialogsBinding("jup_b19_reward");
 
-describe("jup_b47_jupiter_products_info_enabled", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_jupiter_products_info_enabled");
-  });
-});
-
-describe("jup_b47_jupiter_products_info_disabled", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_jupiter_products_info_disabled");
-  });
-});
-
-describe("jup_b47_jupiter_products_info_revard", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_jupiter_products_info_revard");
-  });
-});
-
-describe("jup_b47_actor_has_merc_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_has_merc_pda");
-  });
-});
-
-describe("jup_b47_actor_has_not_merc_pda", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_has_not_merc_pda");
-  });
-});
-
-describe("jup_b47_merc_pda_revard", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_merc_pda_revard");
-  });
-});
-
-describe("jup_b47_actor_can_take_task", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_can_take_task");
-  });
-});
-
-describe("jup_b47_employ_squad", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_employ_squad");
-  });
-});
-
-describe("jup_b47_bunker_guard_revard", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_bunker_guard_revard");
-  });
-});
-
-describe("jup_b47_gauss_rifle_revard", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_gauss_rifle_revard");
-  });
-});
-
-describe("jup_b47_actor_has_hauss_rifle_docs", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_has_hauss_rifle_docs");
-  });
-});
-
-describe("jup_b10_ufo_memory_give_to_npc", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_memory_give_to_npc");
-  });
-});
-
-describe("jup_b10_ufo_memory_give_to_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_memory_give_to_actor");
-  });
-});
-
-describe("jup_b10_ufo_memory_2_give_to_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_memory_2_give_to_actor");
-  });
-});
-
-describe("jup_b10_ufo_has_money_1000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_has_money_1000");
-  });
-});
-
-describe("jup_b10_ufo_has_money_3000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_has_money_3000");
-  });
-});
-
-describe("jup_b10_ufo_hasnt_money_1000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_hasnt_money_1000");
-  });
-});
-
-describe("jup_b10_ufo_hasnt_money_3000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_hasnt_money_3000");
-  });
-});
-
-describe("jup_b10_ufo_relocate_money_1000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_relocate_money_1000");
-  });
-});
-
-describe("jup_b10_ufo_relocate_money_3000", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_ufo_relocate_money_3000");
-  });
-});
-
-describe("jup_b10_actor_has_ufo_memory", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b10_actor_has_ufo_memory");
-  });
-});
-
-describe("jup_b211_kill_bludsuckers_reward", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b211_kill_bludsuckers_reward");
-  });
-});
-
-describe("jup_b19_transfer_conserva_to_actor", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b19_transfer_conserva_to_actor");
-  });
-});
-
-describe("jupiter_b6_sell_halfartefact", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_b6_sell_halfartefact");
-  });
-});
-
-describe("pri_a15_sokolov_actor_has_note", () => {
-  it("should be registered", () => {
-    checkBinding("pri_a15_sokolov_actor_has_note");
-  });
-});
-
-describe("pri_a15_sokolov_actor_has_not_note", () => {
-  it("should be registered", () => {
-    checkBinding("pri_a15_sokolov_actor_has_not_note");
-  });
-});
-
-describe("pri_a15_sokolov_actor_give_note", () => {
-  it("should be registered", () => {
-    checkBinding("pri_a15_sokolov_actor_give_note");
-  });
-});
-
-describe("jup_b47_actor_not_enemy_to_freedom", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_not_enemy_to_freedom");
-  });
-});
-
-describe("jup_b47_actor_not_enemy_to_dolg", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b47_actor_not_enemy_to_dolg");
-  });
-});
-
-describe("jup_b15_actor_sci_outfit", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b15_actor_sci_outfit");
-  });
-});
-
-describe("jup_b15_no_actor_sci_outfit", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b15_no_actor_sci_outfit");
-  });
-});
-
-describe("jup_b19_reward", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b19_reward");
+    expect(giveTreasureCoordinates).toHaveBeenCalledWith("jup_hiding_place_38");
+    giveTreasureCoordinates.mockRestore();
   });
 });
