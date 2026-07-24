@@ -15,13 +15,7 @@ import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/
 import { EScheme } from "@/engine/core/schemes/types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInActorFrustum } from "@/engine/core/utils/position";
-import {
-  callXrCondition,
-  checkXrCondition,
-  mockRegisteredActor,
-  mockSchemeState,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { callXrCondition, mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("xray16/lib", () => ({
   ...jest.requireActual<typeof import("xray16/lib")>("xray16/lib"),
@@ -30,16 +24,6 @@ jest.mock("xray16/lib", () => ({
 
 jest.mock("@/engine/core/managers/surge/utils/surge_cover");
 jest.mock("@/engine/core/utils/position");
-
-beforeAll(() => {
-  require("@/engine/scripts/declarations/conditions/actor");
-});
-
-describe("npc_in_actor_frustum", () => {
-  it("should be registered", () => {
-    checkXrCondition("npc_in_actor_frustum");
-  });
-});
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/actor");
@@ -136,8 +120,8 @@ describe("actor_see_npc", () => {
   });
 });
 
-describe("npc_in_actor_frustum check if npc is in actor frustum", () => {
-  it("npc_in_actor_frustum check if npc is in actor frustum", () => {
+describe("npc_in_actor_frustum", () => {
+  it("should check whether object is in actor frustum", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(isObjectInActorFrustum, () => true);

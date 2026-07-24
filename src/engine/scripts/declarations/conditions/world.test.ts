@@ -11,13 +11,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
-import {
-  callXrCondition,
-  checkXrCondition,
-  mockRegisteredActor,
-  MockSmartTerrain,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { callXrCondition, mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/anomaly");
 
@@ -25,19 +19,13 @@ beforeAll(() => {
   require("@/engine/scripts/declarations/conditions/world");
 });
 
-describe("is_rain", () => {
-  it("should be registered", () => {
-    checkXrCondition("is_rain");
-  });
-});
-
 beforeEach(() => {
   resetRegistry();
   resetFunctionMock(anomalyHasArtefact);
 });
 
-describe("talking", () => {
-  it("should check if actor is talking", () => {
+describe("is_rain", () => {
+  it("should check whether it is raining and require registered actor", () => {
     jest.spyOn(level, "rain_factor").mockImplementation(() => 1);
     expect(callXrCondition("is_rain", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
 
