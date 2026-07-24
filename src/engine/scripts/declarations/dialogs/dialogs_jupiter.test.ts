@@ -1,103 +1,170 @@
-import { beforeAll, describe, it } from "@jest/globals";
-import { TName } from "xray16/lib";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyArgs, AnyObject, TName } from "xray16/lib";
+import { MockGameObject } from "xray16/mocks";
+import { resetFunctionMock } from "xray16/testing/utils";
 
-import { checkNestedBinding } from "@/fixtures/engine";
+import { questItems } from "@/engine/constants/items/quest_items";
+import { getManager } from "@/engine/core/database";
+import { TreasureManager } from "@/engine/core/managers/treasures";
+import { giveMoneyToActor } from "@/engine/core/utils/reward";
+import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function checkBinding(name: TName): void {
   return checkNestedBinding("dialogs_jupiter", name);
 }
 
+function callDialogsBinding<T = boolean>(name: TName, args: AnyArgs = []): T {
+  return callBinding(name, args, (_G as AnyObject)["dialogs_jupiter"]);
+}
+
+jest.mock("@/engine/core/utils/reward");
+
 beforeAll(() => {
   require("@/engine/scripts/declarations/dialogs/dialogs_jupiter");
 });
 
+beforeEach(() => {
+  resetRegistry();
+  mockRegisteredActor();
+  resetFunctionMock(giveMoneyToActor);
+});
+
 describe("jup_b208_give_reward", () => {
-  it("should be registered", () => {
-    checkBinding("jup_b208_give_reward");
+  it("should grant money and all three treasure coordinates", () => {
+    const treasureManager: TreasureManager = getManager(TreasureManager);
+
+    jest.spyOn(treasureManager, "giveActorTreasureCoordinates").mockImplementation(jest.fn());
+
+    callDialogsBinding("jup_b208_give_reward");
+
+    expect(giveMoneyToActor).toHaveBeenCalledWith(5000);
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("jup_hiding_place_18");
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("jup_hiding_place_35");
+    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalledWith("jup_hiding_place_45");
   });
 });
 
 describe("jupiter_a9_actor_hasnt_all_mail_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_hasnt_all_mail_items");
+  it("should invert the complete mail-items predicate", () => {
+    expect(callDialogsBinding("jupiter_a9_actor_hasnt_all_mail_items")).toBe(true);
   });
 });
 
 describe("jupiter_a9_actor_has_all_mail_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_has_all_mail_items");
+  it("should require every mail document", () => {
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [
+        [questItems.jup_a9_conservation_info, MockGameObject.mock({ section: questItems.jup_a9_conservation_info })],
+        [questItems.jup_a9_power_info, MockGameObject.mock({ section: questItems.jup_a9_power_info })],
+        [questItems.jup_a9_way_info, MockGameObject.mock({ section: questItems.jup_a9_way_info })],
+      ],
+    });
+
+    expect(callDialogsBinding("jupiter_a9_actor_has_all_mail_items")).toBe(true);
+    expect(callDialogsBinding("jupiter_a9_actor_hasnt_all_mail_items")).toBe(false);
   });
 });
 
 describe("jupiter_a9_actor_has_any_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_has_any_items");
+  it("should accept a secondary document", () => {
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [[questItems.jup_a9_delivery_info, MockGameObject.mock({ section: questItems.jup_a9_delivery_info })]],
+    });
+
+    expect(callDialogsBinding("jupiter_a9_actor_has_any_items")).toBe(true);
   });
 });
 
 describe("jupiter_a9_actor_has_any_mail_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_has_any_mail_items");
+  it("should accept an individual mail document", () => {
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [[questItems.jup_a9_power_info, MockGameObject.mock({ section: questItems.jup_a9_power_info })]],
+    });
+
+    expect(callDialogsBinding("jupiter_a9_actor_has_any_mail_items")).toBe(true);
   });
 });
 
 describe("jupiter_a9_actor_has_any_secondary_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_has_any_secondary_items");
+  it("should reject mail-only inventory", () => {
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [[questItems.jup_a9_way_info, MockGameObject.mock({ section: questItems.jup_a9_way_info })]],
+    });
+
+    expect(callDialogsBinding("jupiter_a9_actor_has_any_secondary_items")).toBe(false);
   });
 });
 
 describe("jupiter_a9_actor_hasnt_any_mail_items", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_actor_hasnt_any_mail_items");
+  it("should reject only a partial mail set", () => {
+    resetRegistry();
+    mockRegisteredActor({
+      inventory: [
+        [questItems.jup_a9_conservation_info, MockGameObject.mock({ section: questItems.jup_a9_conservation_info })],
+      ],
+    });
+
+    expect(callDialogsBinding("jupiter_a9_actor_hasnt_any_mail_items")).toBe(true);
   });
 });
 
 describe("jupiter_a9_freedom_leader_jupiter_delivery", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_freedom_leader_jupiter_delivery");
+  it("should pay for delivery info", () => {
+    callDialogsBinding("jupiter_a9_freedom_leader_jupiter_delivery");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_freedom_leader_jupiter_evacuation", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_freedom_leader_jupiter_evacuation");
+  it("should pay for evacuation info", () => {
+    callDialogsBinding("jupiter_a9_freedom_leader_jupiter_evacuation");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_freedom_leader_jupiter_losses", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_freedom_leader_jupiter_losses");
+  it("should pay for losses info", () => {
+    callDialogsBinding("jupiter_a9_freedom_leader_jupiter_losses");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_freedom_leader_jupiter_meeting", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_freedom_leader_jupiter_meeting");
+  it("should pay for meeting info", () => {
+    callDialogsBinding("jupiter_a9_freedom_leader_jupiter_meeting");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_dolg_leader_jupiter_delivery", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_dolg_leader_jupiter_delivery");
+  it("should pay for delivery info", () => {
+    callDialogsBinding("jupiter_a9_dolg_leader_jupiter_delivery");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_dolg_leader_jupiter_evacuation", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_dolg_leader_jupiter_evacuation");
+  it("should pay for evacuation info", () => {
+    callDialogsBinding("jupiter_a9_dolg_leader_jupiter_evacuation");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_dolg_leader_jupiter_losses", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_dolg_leader_jupiter_losses");
+  it("should pay for losses info", () => {
+    callDialogsBinding("jupiter_a9_dolg_leader_jupiter_losses");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
 describe("jupiter_a9_dolg_leader_jupiter_meeting", () => {
-  it("should be registered", () => {
-    checkBinding("jupiter_a9_dolg_leader_jupiter_meeting");
+  it("should pay for meeting info", () => {
+    callDialogsBinding("jupiter_a9_dolg_leader_jupiter_meeting");
+    expect(giveMoneyToActor).toHaveBeenCalledWith(500);
   });
 });
 
