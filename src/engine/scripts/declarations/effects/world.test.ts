@@ -2,7 +2,15 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { hanging_lamp, level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
 import { TRUE, Y_VECTOR } from "xray16/lib";
-import { MockGameObject, MockIniFile } from "xray16/mocks";
+import {
+  MockAlifeItemArtefact,
+  MockAlifeItemWeapon,
+  MockAlifeObject,
+  MockAlifeSimulator,
+  MockGameObject,
+  MockIniFile,
+  MockPatrol,
+} from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -12,11 +20,15 @@ import {
   registerAnomalyZone,
   registerObject,
   registerSignalLight,
+  registerSimulator,
   registerStoryLink,
+  registry,
 } from "@/engine/core/database";
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import { WeatherManager } from "@/engine/core/managers/weather";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -189,11 +201,63 @@ describe("world effects implementation", () => {
     expect(object.explode).toHaveBeenCalledWith(0);
   });
 
-  it.todo("set_game_time should change game time");
+  it("set_game_time should advance the clock to the next requested time and force weather refresh", () => {
+    const weatherManager: WeatherManager = getManager(WeatherManager);
 
-  it.todo("forward_game_time should forward game time");
+    jest.spyOn(level, "get_time_hours").mockReturnValue(12);
+    jest.spyOn(level, "get_time_minutes").mockReturnValue(30);
+    jest.spyOn(weatherManager, "forceWeatherChange").mockImplementation(jest.fn());
 
-  it.todo("pick_artefact_from_anomaly should pick artefacts from anomalies");
+    callXrEffect("set_game_time", MockGameObject.mockActor(), MockGameObject.mock(), "14", "15");
+
+    expect(level.change_game_time).toHaveBeenCalledWith(0, 1, 45);
+    expect(weatherManager.forceWeatherChange).toHaveBeenCalledTimes(1);
+    expect(surgeConfig.IS_TIME_FORWARDED).toBe(true);
+  });
+
+  it("forward_game_time should advance the clock by the requested duration and force weather refresh", () => {
+    const weatherManager: WeatherManager = getManager(WeatherManager);
+
+    jest.spyOn(weatherManager, "forceWeatherChange").mockImplementation(jest.fn());
+
+    callXrEffect("forward_game_time", MockGameObject.mockActor(), MockGameObject.mock(), "2", "15");
+
+    expect(level.change_game_time).toHaveBeenCalledWith(0, 2, 15);
+    expect(weatherManager.forceWeatherChange).toHaveBeenCalledTimes(1);
+    expect(surgeConfig.IS_TIME_FORWARDED).toBe(true);
+  });
+
+  it("pick_artefact_from_anomaly should release the matching artefact and spawn it for the target object", () => {
+    const object: GameObject = MockGameObject.mock();
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+    const artefact = MockAlifeItemArtefact.mock({ id: 101, section: "af_test" });
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+    MockAlifeSimulator.addToRegistry(artefact);
+    zone.spawnedArtefactsCount = 1;
+    zone.artefactPathsByArtefactId.set(artefact.id, "artefact-path");
+    jest.spyOn(zone, "onArtefactTaken");
+
+    callXrEffect(
+      "pick_artefact_from_anomaly",
+      MockGameObject.mockActor(),
+      object,
+      undefined,
+      zone.object.name(),
+      "af_test"
+    );
+
+    expect(zone.onArtefactTaken).toHaveBeenCalledWith(artefact.id);
+    expect(registry.simulator.release).toHaveBeenCalledWith(artefact, true);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "af_test",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+  });
 
   it("anomaly_turn_off should turn off anomalies", () => {
     const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
@@ -230,7 +294,22 @@ describe("world effects implementation", () => {
     expect(zone.turnOn).toHaveBeenCalledWith(true);
   });
 
-  it.todo("turn_off_underpass_lamps should turn off underpass lamps");
+  it("turn_off_underpass_lamps should turn off every registered underpass lamp", () => {
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const firstLamp: HangingLamp = new hanging_lamp();
+    const secondLamp: HangingLamp = new hanging_lamp();
+
+    jest.spyOn(first, "get_hanging_lamp").mockReturnValue(firstLamp);
+    jest.spyOn(second, "get_hanging_lamp").mockReturnValue(secondLamp);
+    registerStoryLink(first.id(), "pas_b400_lamp_start_flash");
+    registerStoryLink(second.id(), "pas_b400_lamp_hall_green");
+
+    callXrEffect("turn_off_underpass_lamps", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(firstLamp.turn_off).toHaveBeenCalledTimes(1);
+    expect(secondLamp.turn_off).toHaveBeenCalledTimes(1);
+  });
 
   it("turn_off should turn off lamps", () => {
     const first: GameObject = MockGameObject.mock();
@@ -377,7 +456,25 @@ describe("world effects implementation", () => {
     expect(surgeManager.requestSurgeStop).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("set_surge_mess_and_task should set surge message and task");
+  it("set_surge_mess_and_task should configure the surge message and optional task", () => {
+    const surgeManager: SurgeManager = getManager(SurgeManager);
+
+    callXrEffect("set_surge_mess_and_task", MockGameObject.mockActor(), MockGameObject.mock(), "surge_message");
+
+    expect(surgeManager.surgeMessage).toBe("surge_message");
+    expect(surgeManager.surgeTaskSection).toBe("");
+
+    callXrEffect(
+      "set_surge_mess_and_task",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      "surge_message_with_task",
+      "surge_task"
+    );
+
+    expect(surgeManager.surgeMessage).toBe("surge_message_with_task");
+    expect(surgeManager.surgeTaskSection).toBe("surge_task");
+  });
 
   it("enable_anomaly should enable anomalies", () => {
     const object: GameObject = MockGameObject.mock();
@@ -427,7 +524,49 @@ describe("world effects implementation", () => {
     expect(rocket.startFly).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("create_cutscene_actor_with_weapon should create cutscenes");
+  it("create_cutscene_actor_with_weapon should spawn an actor and clone the active weapon at the patrol point", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const weapon: GameObject = MockGameObject.mock({ section: "wpn_ak74" });
+    const actorWeapon = MockAlifeItemWeapon.mock({ id: weapon.id(), section: "wpn_ak74" });
+    const cutsceneActor = MockAlifeObject.mock({ id: 501 });
+    const cutsceneWeapon = MockAlifeItemWeapon.mock({ id: 502, section: "wpn_ak74" });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(actorWeapon);
+    MockPatrol.setup({
+      "cutscene-path": {
+        points: [{ flag: 0, gvid: 42, lvid: 24, name: "cutscene-point", position: actor.position() as any }],
+      },
+    });
+    jest.spyOn(actor, "active_slot").mockReturnValue(2);
+    jest.spyOn(actor, "active_item").mockReturnValue(weapon);
+    jest.spyOn(cutsceneWeapon, "clone_addons");
+    jest
+      .spyOn(registry.simulator, "create")
+      .mockImplementationOnce(() => cutsceneActor)
+      .mockImplementationOnce(() => cutsceneWeapon);
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path",
+      0,
+      90
+    );
+
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(1, "cutscene_stalker", actor.position(), 24, 42);
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(
+      2,
+      "wpn_ak74",
+      actor.position(),
+      24,
+      42,
+      cutsceneActor.id
+    );
+    expect(cutsceneWeapon.clone_addons).toHaveBeenCalledWith(actorWeapon);
+  });
 
   it("stop_sr_cutscene should stop cutscenes", () => {
     const object: GameObject = MockGameObject.mock();

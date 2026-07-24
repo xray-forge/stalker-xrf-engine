@@ -1,7 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { AnyCallable, FALSE, TRUE } from "xray16/lib";
-import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
+import { AnyCallable, AnyCallablesModule, FALSE, getExtern, TRUE } from "xray16/lib";
+import { $fromArray } from "xray16/macros";
+import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSimulator, MockGameObject, MockPatrol } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { misc } from "@/engine/constants/items/misc";
@@ -240,7 +241,20 @@ describe("object effects implementation", () => {
     expect(getSchemeState(state, EScheme.COMBAT_IGNORE)?.enabled).toBe(false);
   });
 
-  it.todo("spawn_object should spawn objects");
+  it("spawn_object should create an object at the requested patrol point", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerSimulator();
+    MockPatrol.setup({
+      "spawn-path": {
+        points: [{ flag: 0, gvid: 44, lvid: 25, name: "spawn-point", position: object.position() as any }],
+      },
+    });
+
+    callXrEffect("spawn_object", MockGameObject.mockActor(), object, "test-object", "spawn-path", 0, 90);
+
+    expect(registry.simulator.create).toHaveBeenCalledWith("test-object", object.position(), 25, 44);
+  });
 
   it("spawn_object_in should spawn objects in the server inventory of the story target", () => {
     const serverObject = MockAlifeObject.create();
@@ -254,7 +268,24 @@ describe("object effects implementation", () => {
     expect(registry.simulator.create).toHaveBeenCalledWith("test-item", expect.anything(), 0, 0, serverObject.id);
   });
 
-  it.todo("spawn_corpse should spawn corpses");
+  it("spawn_corpse should create and immediately kill a creature at the requested patrol point", () => {
+    const object: GameObject = MockGameObject.mock();
+    const corpse = MockAlifeHumanStalker.mock({ id: 501 });
+
+    registerSimulator();
+    MockPatrol.setup({
+      "corpse-path": {
+        points: [{ flag: 0, gvid: 55, lvid: 35, name: "corpse-point", position: object.position() as any }],
+      },
+    });
+    jest.spyOn(corpse, "kill");
+    jest.spyOn(registry.simulator, "create").mockImplementationOnce(() => corpse);
+
+    callXrEffect("spawn_corpse", MockGameObject.mockActor(), object, "test_stalker", "corpse-path", 0);
+
+    expect(registry.simulator.create).toHaveBeenCalledWith("test_stalker", object.position(), 35, 55);
+    expect(corpse.kill).toHaveBeenCalledTimes(1);
+  });
 
   it("destroy_object should release linked objects and reject incomplete target descriptors", () => {
     const object: GameObject = MockGameObject.mock();
@@ -290,7 +321,24 @@ describe("object effects implementation", () => {
 
   it.todo("clear_smart_terrain should correctly clear smart terrains");
 
-  it.todo("update_npc_logic should correctly update npc logics");
+  it("update_npc_logic should update every resolved stalker planner and state controller", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const stateController = { update: jest.fn() };
+
+    registerStoryLink(object.id(), "stalker");
+    state.stateController = stateController as never;
+    jest.spyOn(object.motivation_action_manager(), "update");
+
+    getExtern<AnyCallablesModule>("xr_effects").update_npc_logic(
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      $fromArray(["stalker", "unknown"])
+    );
+
+    expect(object.motivation_action_manager().update).toHaveBeenCalledTimes(3);
+    expect(stateController.update).toHaveBeenCalledTimes(7);
+  });
 
   it.todo("update_obj_logic should correctly update object logics");
 

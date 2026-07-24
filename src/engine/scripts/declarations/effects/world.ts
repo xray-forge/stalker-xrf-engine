@@ -318,32 +318,32 @@ extern(
  * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): void => {
-  const lampsList = {
-    ["pas_b400_lamp_start_flash"]: true,
-    ["pas_b400_lamp_start_red"]: true,
-    ["pas_b400_lamp_elevator_green"]: true,
-    ["pas_b400_lamp_elevator_flash"]: true,
-    ["pas_b400_lamp_elevator_green_1"]: true,
-    ["pas_b400_lamp_elevator_flash_1"]: true,
-    ["pas_b400_lamp_track_green"]: true,
-    ["pas_b400_lamp_track_flash"]: true,
-    ["pas_b400_lamp_downstairs_green"]: true,
-    ["pas_b400_lamp_downstairs_flash"]: true,
-    ["pas_b400_lamp_tunnel_green"]: true,
-    ["pas_b400_lamp_tunnel_flash"]: true,
-    ["pas_b400_lamp_tunnel_green_1"]: true,
-    ["pas_b400_lamp_tunnel_flash_1"]: true,
-    ["pas_b400_lamp_control_down_green"]: true,
-    ["pas_b400_lamp_control_down_flash"]: true,
-    ["pas_b400_lamp_control_up_green"]: true,
-    ["pas_b400_lamp_control_up_flash"]: true,
-    ["pas_b400_lamp_hall_green"]: true,
-    ["pas_b400_lamp_hall_flash"]: true,
-    ["pas_b400_lamp_way_green"]: true,
-    ["pas_b400_lamp_way_flash"]: true,
-  } as unknown as LuaTable<string, boolean>;
+  const lampsList: Array<TStringId> = [
+    "pas_b400_lamp_start_flash",
+    "pas_b400_lamp_start_red",
+    "pas_b400_lamp_elevator_green",
+    "pas_b400_lamp_elevator_flash",
+    "pas_b400_lamp_elevator_green_1",
+    "pas_b400_lamp_elevator_flash_1",
+    "pas_b400_lamp_track_green",
+    "pas_b400_lamp_track_flash",
+    "pas_b400_lamp_downstairs_green",
+    "pas_b400_lamp_downstairs_flash",
+    "pas_b400_lamp_tunnel_green",
+    "pas_b400_lamp_tunnel_flash",
+    "pas_b400_lamp_tunnel_green_1",
+    "pas_b400_lamp_tunnel_flash_1",
+    "pas_b400_lamp_control_down_green",
+    "pas_b400_lamp_control_down_flash",
+    "pas_b400_lamp_control_up_green",
+    "pas_b400_lamp_control_up_flash",
+    "pas_b400_lamp_hall_green",
+    "pas_b400_lamp_hall_flash",
+    "pas_b400_lamp_way_green",
+    "pas_b400_lamp_way_flash",
+  ];
 
-  for (const [storyId] of lampsList) {
+  for (const storyId of lampsList) {
     const object: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     if (object) {
