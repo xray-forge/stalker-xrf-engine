@@ -14,12 +14,15 @@ import {
 import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "xray16/testing/utils";
 
 import {
+  getManager,
   IRegistryObjectState,
   registerObject,
   registerSimulator,
   registerStoryLink,
   registerZone,
 } from "@/engine/core/database";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
+import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import {
   EJobPathType,
   EJobType,
@@ -36,6 +39,7 @@ import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
+import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
 import {
@@ -873,7 +877,22 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
   });
 
-  it.todo("squads_in_zone_b41 should check if squad members are in zone b41");
+  it("squads_in_zone_b41 should require every assigned squad member to be inside the light zone", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("jup_b41");
+    const squad: MockSquad = MockSquad.mock();
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const zone: GameObject = MockGameObject.mock({ name: "jup_b41_sr_light" });
+
+    squad.mockAddMember(member);
+    getSimulationTerrainDescriptorById(terrain.id)!.assignedSquads.set(squad.id, squad);
+    registerZone(zone);
+    jest.spyOn(zone, "inside").mockReturnValue(true);
+
+    expect(callXrCondition("squads_in_zone_b41", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
+
+    jest.spyOn(zone, "inside").mockReturnValue(false);
+    expect(callXrCondition("squads_in_zone_b41", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
+  });
 
   it("squad_exist should check if squad exists", () => {
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -922,7 +941,22 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it.todo("quest_npc_enemy_actor should check if object is enemy with actor");
+  it("quest_npc_enemy_actor should recognize a hostile story stalker", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const stalker: GameObject = MockGameObject.mockStalker();
+
+    registerStoryLink(stalker.id(), "test-story-stalker");
+    jest.spyOn(stalker, "general_goodwill").mockReturnValue(-1000);
+
+    expect(callXrCondition("quest_npc_enemy_actor", actorGameObject, MockGameObject.mock(), "test-story-stalker")).toBe(
+      true
+    );
+
+    jest.spyOn(stalker, "general_goodwill").mockReturnValue(-999);
+    expect(callXrCondition("quest_npc_enemy_actor", actorGameObject, MockGameObject.mock(), "test-story-stalker")).toBe(
+      false
+    );
+  });
 
   it("distance_to_obj_ge should check distance", () => {
     expect(
@@ -1258,5 +1292,21 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
   });
 
-  it.todo("upgrade_hint_kardan should check upgrade hints");
+  it("upgrade_hint_kardan should publish missing requirements and allow upgrades after both requirements are met", () => {
+    const manager: UpgradesManager = getManager(UpgradesManager);
+    const setCurrentHints = jest.spyOn(manager, "setCurrentHints");
+
+    mockRegisteredActor();
+
+    expect(callXrCondition("upgrade_hint_kardan", MockGameObject.mockActor(), MockGameObject.mock(), "0")).toBe(false);
+    expect(setCurrentHints).toHaveBeenLastCalledWith(
+      $fromArray(["st_upgr_toolkit_1", "st_upgr_toolkit_2", "st_upgr_toolkit_3", "st_upgr_vodka"])
+    );
+
+    giveInfoPortion("zat_b3_all_instruments_brought");
+    giveInfoPortion("zat_b3_tech_see_produce_62");
+
+    expect(callXrCondition("upgrade_hint_kardan", MockGameObject.mockActor(), MockGameObject.mock(), "0")).toBe(true);
+    expect(setCurrentHints).toHaveBeenLastCalledWith($fromArray([]));
+  });
 });

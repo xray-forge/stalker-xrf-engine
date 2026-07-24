@@ -7,6 +7,7 @@ import {
   MockAlifeObjectPhysic,
   MockAlifeSimulator,
   MockGameObject,
+  MockParticleObject,
   MockPatrol,
   MockVector,
 } from "xray16/mocks";
@@ -324,7 +325,22 @@ describe("quests effects implementation", () => {
     expect(restoredGate.set_yaw).toHaveBeenCalledWith(0);
   });
 
-  it.todo("jup_b16_play_particle_and_sound should play particles");
+  it("jup_b16_play_particle_and_sound should play the requested particle at the patrol point", () => {
+    const object: GameObject = MockGameObject.mock({ name: "jup_b16_teleport" });
+
+    MockParticleObject.REGISTRY.clear();
+    MockPatrol.setup({
+      jup_b16_teleport_particle: {
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "particle-point", position: MockVector.create(1, 2, 3) }],
+      },
+    });
+
+    callXrEffect("jup_b16_play_particle_and_sound", MockGameObject.mockActor(), object, 4);
+
+    expect(MockParticleObject.REGISTRY.get("anomaly2\\teleport_out_00")?.play_at_pos).toHaveBeenCalledWith(
+      MockVector.mock(1, 2, 3)
+    );
+  });
 
   it("zat_b29_create_random_infop should retain exactly the requested number of candidate info portions", () => {
     const { actorGameObject } = mockRegisteredActor();
@@ -390,9 +406,55 @@ describe("quests effects implementation", () => {
     expect(from.transfer_item).toHaveBeenNthCalledWith(2, second, to);
   });
 
-  it.todo("jup_b10_spawn_drunk_dead_items should spawn dead drunk stalker");
+  it("jup_b10_spawn_drunk_dead_items should spawn the complete loot set or the counter-selected box item", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const box = MockAlifeObject.mock();
 
-  it.todo("zat_b202_spawn_random_loot should spawn random loot");
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(box);
+
+    callXrEffect("jup_b10_spawn_drunk_dead_items", actorGameObject, object);
+
+    expect(registry.simulator.create).toHaveBeenCalledTimes(44);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      questItems.jup_b10_ufo_memory_2,
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+
+    registerStoryLink(box.id, "ufo-box");
+    setPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 2);
+    callXrEffect("jup_b10_spawn_drunk_dead_items", actorGameObject, object, "ufo-box");
+
+    expect(registry.simulator.create).toHaveBeenLastCalledWith("wpn_sig550_luckygun", MockVector.mock(), 0, 0, box.id);
+  });
+
+  it("zat_b202_spawn_random_loot should select weighted loot groups without selecting a group twice", () => {
+    const random = jest.spyOn(math, "random");
+
+    random
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(2)
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(3)
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(4)
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(5)
+      .mockReturnValueOnce(1);
+
+    callXrEffect("zat_b202_spawn_random_loot", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(spawnObjectInObject).toHaveBeenCalledTimes(19);
+    expect(spawnObjectInObject).toHaveBeenNthCalledWith(1, "bandage", null);
+    expect(spawnObjectInObject).toHaveBeenNthCalledWith(19, "ammo_9x39_ap", null);
+
+    random.mockRestore();
+  });
 
   it("jup_b221_play_main should play the first eligible faction theme and record it", () => {
     const { actorGameObject } = mockRegisteredActor();

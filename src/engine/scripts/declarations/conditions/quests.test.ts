@@ -1,7 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
-import { MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "xray16/mocks";
+import { AnyCallablesModule, getExtern } from "xray16/lib";
+import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
 import { infoPortions } from "@/engine/constants/info_portions";
 import { storyNames } from "@/engine/constants/story_names";
@@ -11,6 +12,7 @@ import {
   registerObject,
   registerSimulator,
   registerStoryLink,
+  registerZone,
   registry,
 } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
@@ -129,9 +131,65 @@ describe("quests conditions implementation", () => {
     ).toBe(false);
   });
 
-  it.todo("pas_b400_actor_far_forward should check actor state");
+  it("pas_b400_actor_far_forward should require the actor and every squad member to be far from the escort", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const objectServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const memberObject: GameObject = MockGameObject.mock({ id: member.id });
+    const squad: MockSquad = MockSquad.mock();
+    const forward: GameObject = MockGameObject.mock();
 
-  it.todo("pas_b400_actor_far_backward should check actor state");
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(objectServer);
+    MockAlifeSimulator.addToRegistry(member);
+    MockAlifeSimulator.addToRegistry(squad);
+    squad.mockAddMember(objectServer);
+    squad.mockAddMember(member);
+    registerObject(object);
+    registerObject(memberObject);
+    registerStoryLink(forward.id(), "pas_b400_fwd");
+    registerObject(forward);
+    jest.spyOn(forward.position(), "distance_to_sqr").mockReturnValue(1);
+    jest.spyOn(object.position(), "distance_to_sqr").mockReturnValue(70 * 70);
+    jest.spyOn(objectServer.position, "distance_to_sqr").mockReturnValue(70 * 70);
+    jest.spyOn(member.position, "distance_to_sqr").mockReturnValue(70 * 70);
+
+    expect(callXrCondition("pas_b400_actor_far_forward", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockReturnValue(70 * 70 - 1);
+    expect(callXrCondition("pas_b400_actor_far_forward", actorGameObject, object)).toBe(false);
+  });
+
+  it("pas_b400_actor_far_backward should require the actor and every squad member to be far from the escort", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const objectServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const memberObject: GameObject = MockGameObject.mock({ id: member.id });
+    const squad: MockSquad = MockSquad.mock();
+    const backward: GameObject = MockGameObject.mock();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(objectServer);
+    MockAlifeSimulator.addToRegistry(member);
+    MockAlifeSimulator.addToRegistry(squad);
+    squad.mockAddMember(objectServer);
+    squad.mockAddMember(member);
+    registerObject(object);
+    registerObject(memberObject);
+    registerStoryLink(backward.id(), "pas_b400_bwd");
+    registerObject(backward);
+    jest.spyOn(backward.position(), "distance_to_sqr").mockReturnValue(1);
+    jest.spyOn(object.position(), "distance_to_sqr").mockReturnValue(70 * 70);
+    jest.spyOn(objectServer.position, "distance_to_sqr").mockReturnValue(70 * 70);
+    jest.spyOn(member.position, "distance_to_sqr").mockReturnValue(70 * 70);
+
+    expect(callXrCondition("pas_b400_actor_far_backward", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(member.position, "distance_to_sqr").mockReturnValue(70 * 70 - 1);
+    expect(callXrCondition("pas_b400_actor_far_backward", actorGameObject, object)).toBe(false);
+  });
 
   it("pri_a28_actor_is_far should check actor state", () => {
     expect(() => callXrCondition("pri_a28_actor_is_far", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
@@ -209,9 +267,43 @@ describe("quests conditions implementation", () => {
     );
   });
 
-  it.todo("zat_b103_actor_has_needed_food should check actor inventory");
+  it("zat_b103_actor_has_needed_food should accept delegated inventory checks and completed tasks", () => {
+    const { actorGameObject: actor } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const hasNeededFood = jest.fn<() => boolean>().mockReturnValue(false);
 
-  it.todo("zat_b29_rivals_dialog_precond should check dialog condition");
+    getExtern<AnyCallablesModule>("dialogs_zaton").zat_b103_actor_has_needed_food = hasNeededFood;
+
+    expect(callXrCondition("zat_b103_actor_has_needed_food", actor, object)).toBe(false);
+    expect(hasNeededFood).toHaveBeenCalledWith(actor, object);
+
+    giveInfoPortion(infoPortions.zat_b103_merc_task_done);
+    expect(callXrCondition("zat_b103_actor_has_needed_food", actor, object)).toBe(true);
+
+    hasNeededFood.mockReturnValue(true);
+    disableInfoPortion(infoPortions.zat_b103_merc_task_done);
+    expect(callXrCondition("zat_b103_actor_has_needed_food", actor, object)).toBe(true);
+  });
+
+  it("zat_b29_rivals_dialog_precond should require a rival squad inside a target zone", () => {
+    const object: GameObject = MockGameObject.mock();
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+    const squad: MockSquad = MockSquad.mock();
+    const zone: GameObject = MockGameObject.mock({ name: "zat_b29_sr_1" });
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(member);
+    MockAlifeSimulator.addToRegistry(squad);
+    squad.mockAddMember(member);
+    jest.spyOn(squad, "section_name").mockReturnValue("zat_b29_stalker_rival_default_1_squad");
+    registerZone(zone);
+    jest.spyOn(zone, "inside").mockReturnValue(true);
+
+    expect(callXrCondition("zat_b29_rivals_dialog_precond", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(zone, "inside").mockReturnValue(false);
+    expect(callXrCondition("zat_b29_rivals_dialog_precond", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it("jup_b202_actor_treasure_not_in_steal should check treasure state", () => {
     mockRegisteredActor();

@@ -285,7 +285,7 @@ let particlesList: Nillable<LuaArray<{ particle: ParticlesObject; sound: SoundOb
  */
 extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
   if (!particlesList) {
-    particlesList = [
+    particlesList = $fromArray([
       {
         particle: new particles_object("anomaly2\\teleport_out_00"),
         sound: new sound_object("anomaly\\teleport_incoming"),
@@ -302,7 +302,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object:
         particle: new particles_object("anomaly2\\teleport_out_00"),
         sound: new sound_object("anomaly\\teleport_incoming"),
       },
-    ] as unknown as LuaArray<any>;
+    ]);
   }
 
   particlesList.get(p[0]).particle.play_at_pos(new patrol(object.name() + "_particle").point(0));
@@ -463,50 +463,48 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object:
  * @param params - Tuple containing the Nillable target box story ID.
  */
 extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: GameObject, params: [string]): void => {
-  const itemsAll = {
-    [weapons.wpn_ak74]: 1,
-    [weapons.wpn_fort]: 1,
-    [ammo["ammo_5.45x39_fmj"]]: 5,
-    [ammo["ammo_5.45x39_ap"]]: 3,
-    [ammo.ammo_9x18_fmj]: 3,
-    [ammo.ammo_12x70_buck]: 5,
-    [ammo["ammo_11.43x23_hydro"]]: 2,
-    [weapons.grenade_rgd5]: 3,
-    [weapons.grenade_f1]: 2,
-    [drugs.medkit_army]: 2,
-    [drugs.medkit]: 4,
-    [drugs.bandage]: 4,
-    [drugs.antirad]: 2,
-    [food.vodka]: 3,
-    [food.energy_drink]: 2,
-    [food.conserva]: 1,
-    [questItems.jup_b10_ufo_memory_2]: 1,
-  } as unknown as LuaTable<string, number>;
+  const itemsAll: Array<[TInventoryItem, TCount]> = [
+    [weapons.wpn_ak74, 1],
+    [weapons.wpn_fort, 1],
+    [ammo["ammo_5.45x39_fmj"], 5],
+    [ammo["ammo_5.45x39_ap"], 3],
+    [ammo.ammo_9x18_fmj, 3],
+    [ammo.ammo_12x70_buck, 5],
+    [ammo["ammo_11.43x23_hydro"], 2],
+    [weapons.grenade_rgd5, 3],
+    [weapons.grenade_f1, 2],
+    [drugs.medkit_army, 2],
+    [drugs.medkit, 4],
+    [drugs.bandage, 4],
+    [drugs.antirad, 2],
+    [food.vodka, 3],
+    [food.energy_drink, 2],
+    [food.conserva, 1],
+    [questItems.jup_b10_ufo_memory_2, 1],
+  ];
 
-  const items = {
-    [2]: {
-      [weapons.wpn_sig550_luckygun]: 1,
-    },
-    [1]: {
-      [ammo["ammo_5.45x39_fmj"]]: 5,
-      [ammo["ammo_5.45x39_ap"]]: 3,
-      [weapons.wpn_fort]: 1,
-      [ammo.ammo_9x18_fmj]: 3,
-      [ammo.ammo_12x70_buck]: 5,
-      [ammo["ammo_11.43x23_hydro"]]: 2,
-      [weapons.grenade_rgd5]: 3,
-      [weapons.grenade_f1]: 2,
-    },
-    [0]: {
-      [drugs.medkit_army]: 2,
-      [drugs.medkit]: 4,
-      [drugs.bandage]: 4,
-      [drugs.antirad]: 2,
-      [food.vodka]: 3,
-      [food.energy_drink]: 2,
-      [food.conserva]: 1,
-    },
-  } as unknown as LuaArray<LuaTable<string, number>>;
+  const items: Array<Array<[TInventoryItem, TCount]>> = [
+    [
+      [drugs.medkit_army, 2],
+      [drugs.medkit, 4],
+      [drugs.bandage, 4],
+      [drugs.antirad, 2],
+      [food.vodka, 3],
+      [food.energy_drink, 2],
+      [food.conserva, 1],
+    ],
+    [
+      [ammo["ammo_5.45x39_fmj"], 5],
+      [ammo["ammo_5.45x39_ap"], 3],
+      [weapons.wpn_fort, 1],
+      [ammo.ammo_9x18_fmj, 3],
+      [ammo.ammo_12x70_buck, 5],
+      [ammo["ammo_11.43x23_hydro"], 2],
+      [weapons.grenade_rgd5, 3],
+      [weapons.grenade_f1, 2],
+    ],
+    [[weapons.wpn_sig550_luckygun, 1]],
+  ];
 
   if (params && $isNotNil(params[0])) {
     const cnt: TCount = getPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 0);
@@ -515,7 +513,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
       return;
     }
 
-    for (const [k, v] of items.get(cnt)) {
+    for (const [k, v] of items[cnt]) {
       const targetObjectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
 
       if ($isNotNil(targetObjectId)) {
@@ -549,7 +547,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
  * @param p - Unused parameters tuple.
  */
 extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: GameObject, p: []) => {
-  const spawnItemsList = [
+  const spawnItemsList: Array<Array<{ item: Array<TInventoryItem> }>> = [
     [
       {
         item: [
@@ -592,7 +590,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
       { item: ["wpn_l85", "ammo_5.56x45_ss190", "ammo_5.56x45_ss190"] },
     ],
     [{ item: ["specops_outfit"] }, { item: ["stalker_outfit"] }],
-  ] as unknown as LuaArray<LuaArray<{ item: LuaArray<string> }>>;
+  ];
 
   const weightList: LuaArray<TRate> = $fromArray<TRate>([2, 2, 2, 2, 4, 4]);
 
@@ -619,10 +617,10 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
     maxWeight = maxWeight - weightList.get(n);
     table.insert(spawnedItems, n);
 
-    const item = math.random(1, spawnItemsList.get(n).length());
+    const item: TIndex = math.random(1, spawnItemsList[n - 1].length);
 
-    for (const [k, v] of spawnItemsList.get(n).get(item).item) {
-      spawnObjectInObject(tostring(v), getObjectIdByStoryId("jup_b202_snag_treasure"));
+    for (const itemSection of spawnItemsList[n - 1][item - 1].item) {
+      spawnObjectInObject(itemSection, getObjectIdByStoryId("jup_b202_snag_treasure"));
     }
   }
 });

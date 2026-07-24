@@ -22,7 +22,9 @@ import {
   SYSTEM_INI,
 } from "@/engine/core/database";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
+import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
@@ -37,6 +39,12 @@ import {
   MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
+
+jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => {
+  const actual = jest.requireActual<Record<string, unknown>>("@/engine/core/schemes/runtime/scheme_switch");
+
+  return { ...actual, trySwitchToAnotherSection: jest.fn() };
+});
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/effects/object");
@@ -101,6 +109,7 @@ describe("object effects implementation", () => {
 
   beforeEach(() => {
     resetRegistry();
+    jest.mocked(trySwitchToAnotherSection).mockReset();
   });
 
   it("anim_obj_forward should correctly play forward animation", () => {
@@ -501,7 +510,24 @@ describe("object effects implementation", () => {
     expect(stateController.update).toHaveBeenCalledTimes(7);
   });
 
-  it.todo("update_obj_logic should correctly update object logics");
+  it("update_obj_logic should re-evaluate the active scheme of every resolved story object", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const activeState = mockSchemeState<ISchemeCombatState>(EScheme.COMBAT);
+
+    state.activeScheme = EScheme.COMBAT;
+    setSchemeState(state, EScheme.COMBAT, activeState);
+    registerStoryLink(object.id(), "target");
+
+    getExtern<AnyCallablesModule>("xr_effects").update_obj_logic(
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      $fromArray(["target", "missing"])
+    );
+
+    expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(1);
+    expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, activeState);
+  });
 
   it("hit_npc should correctly hit objects", () => {
     const object: GameObject = MockGameObject.mock();
@@ -670,7 +696,36 @@ describe("object effects implementation", () => {
     expect(object.clear_override_animation).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("switch_to_desired_job should switch objects to desired jobs");
+  it("switch_to_desired_job should exchange the object with the holder of its desired smart-terrain job", () => {
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: first.id });
+
+    registerSimulator();
+    mockRegisteredActor();
+    terrain.ini = terrain.spawn_ini() as MockIniFile;
+    jest.spyOn(terrain, "name").mockReturnValue("test_smart");
+    (terrain as unknown as { m_game_vertex_id: number }).m_game_vertex_id = 512;
+    (first as unknown as { m_game_vertex_id: number }).m_game_vertex_id = 512;
+    (second as unknown as { m_game_vertex_id: number }).m_game_vertex_id = 512;
+    MockAlifeSimulator.addToRegistry(terrain);
+    MockAlifeSimulator.addToRegistry(first);
+    MockAlifeSimulator.addToRegistry(second);
+    terrain.on_register();
+    terrain.register_npc(first);
+    terrain.register_npc(second);
+
+    const firstJob = terrain.objectJobDescriptors.get(first.id).job!.section;
+    const secondJob = terrain.objectJobDescriptors.get(second.id).job!.section;
+
+    terrain.objectJobDescriptors.get(first.id).desiredJob = secondJob;
+
+    callXrEffect("switch_to_desired_job", MockGameObject.mockActor(), object);
+
+    expect(terrain.objectByJobSection.get(secondJob)).toBe(first.id);
+    expect(terrain.objectByJobSection.get(firstJob)).toBe(second.id);
+  });
 
   it("spawn_item_to_npc should spawn an item in the object inventory", () => {
     const object: GameObject = MockGameObject.mock();
