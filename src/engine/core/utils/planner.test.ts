@@ -22,7 +22,7 @@ import {
 } from "@/engine/core/utils/planner";
 import { mockSchemeState } from "@/fixtures/engine";
 
-describe("isObjectAsleep util", () => {
+describe("isObjectAsleep", () => {
   it("should check state correctly", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -50,7 +50,7 @@ describe("isObjectAsleep util", () => {
   });
 });
 
-describe("isObjectWounded util", () => {
+describe("isObjectWounded", () => {
   it("should correctly check wounded state", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -79,7 +79,7 @@ describe("isObjectWounded util", () => {
   });
 });
 
-describe("isObjectMeeting util", () => {
+describe("isObjectMeeting", () => {
   it("should correctly check meeting state", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -102,7 +102,7 @@ describe("isObjectMeeting util", () => {
   });
 });
 
-describe("isObjectInCombat util", () => {
+describe("isObjectInCombat", () => {
   it("isObjectInCombat should correctly check object combat state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
@@ -126,7 +126,7 @@ describe("isObjectInCombat util", () => {
   });
 });
 
-describe("isObjectSearchingCorpse util", () => {
+describe("isObjectSearchingCorpse", () => {
   it("should correctly check object searching corpse state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
@@ -150,7 +150,7 @@ describe("isObjectSearchingCorpse util", () => {
   });
 });
 
-describe("isObjectHelpingWounded state util", () => {
+describe("isObjectHelpingWounded state", () => {
   it("should correctly check object helping wounded state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;

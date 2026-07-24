@@ -20,7 +20,7 @@ import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("disableObjectGenericSchemes util", () => {
+describe("disableObjectGenericSchemes", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -78,7 +78,7 @@ describe("disableObjectGenericSchemes util", () => {
   });
 });
 
-describe("loadSchemeImplementation util", () => {
+describe("loadSchemeImplementation", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -106,7 +106,7 @@ describe("loadSchemeImplementation util", () => {
   });
 });
 
-describe("loadSchemeImplementations util", () => {
+describe("loadSchemeImplementations", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -139,7 +139,7 @@ describe("loadSchemeImplementations util", () => {
   });
 });
 
-describe("addCommonActionPreconditions util", () => {
+describe("addCommonActionPreconditions", () => {
   beforeEach(() => {
     resetRegistry();
   });

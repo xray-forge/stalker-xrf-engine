@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { loggingRegistry } from "@/engine/core/utils/logging/logging_registry";
 
-describe("openLogFile util", () => {
+describe("openLogFile", () => {
   beforeEach(() => {
     for (const [key] of loggingRegistry) {
       loggingRegistry.delete(key);

@@ -6,7 +6,7 @@ import { exists } from "#/utils/fs/exists";
 
 jest.mock("node:fs/promises");
 
-describe("exists util", () => {
+describe("exists", () => {
   it("should correctly call exists method to confirm existing", async () => {
     jest.spyOn(fsp, "access").mockImplementation(() => Promise.resolve());
 

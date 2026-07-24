@@ -4,7 +4,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils/smart_terrain_generic_utils";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getSmartTerrainNameCaption util", () => {
+describe("getSmartTerrainNameCaption", () => {
   beforeEach(() => {
     resetRegistry();
   });

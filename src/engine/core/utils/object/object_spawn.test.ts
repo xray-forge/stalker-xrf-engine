@@ -7,7 +7,7 @@ import { registerOfflineObject, registerSimulator, registry } from "@/engine/cor
 import { setupSpawnedObjectPosition } from "@/engine/core/utils/object/object_spawn";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
-describe("setupSpawnedObjectPosition util", () => {
+describe("setupSpawnedObjectPosition", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

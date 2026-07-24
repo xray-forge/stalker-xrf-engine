@@ -23,7 +23,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("getSimulationSquads util", () => {
+describe("getSimulationSquads", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -45,7 +45,7 @@ describe("getSimulationSquads util", () => {
   });
 });
 
-describe("getTerrainAssignedSquadsCount util", () => {
+describe("getTerrainAssignedSquadsCount", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -112,7 +112,7 @@ describe("getTerrainAssignedSquadsCount util", () => {
   });
 });
 
-describe("getSimulationTerrainAssignedSquads util", () => {
+describe("getSimulationTerrainAssignedSquads", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -151,7 +151,7 @@ describe("getSimulationTerrainAssignedSquads util", () => {
   });
 });
 
-describe("getSimulationTerrainDescriptors util", () => {
+describe("getSimulationTerrainDescriptors", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -182,7 +182,7 @@ describe("getSimulationTerrainDescriptors util", () => {
   });
 });
 
-describe("getSimulationTerrains util", () => {
+describe("getSimulationTerrains", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -205,7 +205,7 @@ describe("getSimulationTerrains util", () => {
   });
 });
 
-describe("getSimulationTerrainByName util", () => {
+describe("getSimulationTerrainByName", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -225,7 +225,7 @@ describe("getSimulationTerrainByName util", () => {
   });
 });
 
-describe("getSimulationTerrainDescriptorById util", () => {
+describe("getSimulationTerrainDescriptorById", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

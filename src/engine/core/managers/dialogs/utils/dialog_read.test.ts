@@ -5,7 +5,7 @@ import { MockIniFile } from "xray16/mocks";
 import { DIALOG_MANAGER_CONFIG_LTX } from "@/engine/core/managers/dialogs/DialogConfig";
 import { readIniGenericDialogs } from "@/engine/core/managers/dialogs/utils/dialog_read";
 
-describe("readIniGenericDialogs util", () => {
+describe("readIniGenericDialogs", () => {
   it("should read generic dialogs", () => {
     let id: TNumberId = 1;
 

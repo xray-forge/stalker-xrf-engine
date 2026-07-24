@@ -4,7 +4,7 @@ import { MockIoFile } from "xray16/mocks";
 
 import { loadObjectFromFile, loadTextFromFile, saveObjectToFile, saveTextToFile } from "@/engine/core/utils/fs/fs_io";
 
-describe("saveTextToFile util", () => {
+describe("saveTextToFile", () => {
   it("should correctly save data", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
@@ -30,7 +30,7 @@ describe("saveTextToFile util", () => {
   });
 });
 
-describe("saveObjectToFile util", () => {
+describe("saveObjectToFile", () => {
   it("should correctly save data", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
@@ -59,7 +59,7 @@ describe("saveObjectToFile util", () => {
   });
 });
 
-describe("loadTextFromFile util", () => {
+describe("loadTextFromFile", () => {
   it("should correctly load data from files", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
@@ -85,7 +85,7 @@ describe("loadTextFromFile util", () => {
   });
 });
 
-describe("loadObjectFromFile util", () => {
+describe("loadObjectFromFile", () => {
   it("should correctly load data from files", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 

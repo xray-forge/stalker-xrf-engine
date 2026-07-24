@@ -18,7 +18,7 @@ import {
   stopPlayingObjectSound,
 } from "@/engine/core/utils/sound";
 
-describe("getMusicVolume util", () => {
+describe("getMusicVolume", () => {
   const console: Console = get_console();
 
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe("getMusicVolume util", () => {
   });
 });
 
-describe("getEffectsVolume util", () => {
+describe("getEffectsVolume", () => {
   const console: Console = get_console();
 
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("getEffectsVolume util", () => {
   });
 });
 
-describe("setMusicVolume util", () => {
+describe("setMusicVolume", () => {
   const console: Console = get_console();
 
   beforeEach(() => {
@@ -73,7 +73,7 @@ describe("setMusicVolume util", () => {
   });
 });
 
-describe("setEffectsVolume util", () => {
+describe("setEffectsVolume", () => {
   const console: Console = get_console();
 
   beforeEach(() => {
@@ -92,7 +92,7 @@ describe("setEffectsVolume util", () => {
   });
 });
 
-describe("mapSoundMaskToSoundType util", () => {
+describe("mapSoundMaskToSoundType", () => {
   it("should correctly convert mask to enum", () => {
     expect(mapSoundMaskToSoundType(snd_type.weapon)).toBe(ESoundType.WPN);
     expect(mapSoundMaskToSoundType(snd_type.weapon_shoot)).toBe(ESoundType.WPN_shoot);
@@ -121,7 +121,7 @@ describe("mapSoundMaskToSoundType util", () => {
   });
 });
 
-describe("isSoundType util", () => {
+describe("isSoundType", () => {
   it("should correctly check if sound is matching", () => {
     expect(isSoundType(snd_type.item_drop, snd_type.item_drop)).toBeTruthy();
     expect(isSoundType(snd_type.item_drop, snd_type.item)).toBeTruthy();
@@ -139,7 +139,7 @@ describe("isSoundType util", () => {
   });
 });
 
-describe("stopPlayingObjectSound util", () => {
+describe("stopPlayingObjectSound", () => {
   it("should correctly reset object sound play", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -155,7 +155,7 @@ describe("stopPlayingObjectSound util", () => {
   });
 });
 
-describe("isPlayingSound util", () => {
+describe("isPlayingSound", () => {
   it("should correctly check sound play state", () => {
     const object: GameObject = MockGameObject.mock();
 

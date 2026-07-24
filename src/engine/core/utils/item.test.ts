@@ -25,7 +25,7 @@ import {
 } from "@/engine/core/utils/item";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 
-describe("getItemPrice util", () => {
+describe("getItemPrice", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -38,7 +38,7 @@ describe("getItemPrice util", () => {
   });
 });
 
-describe("getItemOwnerId util", () => {
+describe("getItemOwnerId", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -59,7 +59,7 @@ describe("getItemOwnerId util", () => {
   });
 });
 
-describe("setItemCondition util", () => {
+describe("setItemCondition", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -79,7 +79,7 @@ describe("setItemCondition util", () => {
   });
 });
 
-describe("objectHasItem util", () => {
+describe("objectHasItem", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -105,7 +105,7 @@ describe("objectHasItem util", () => {
   });
 });
 
-describe("actorHasAtLeastOneItem util", () => {
+describe("actorHasAtLeastOneItem", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -136,7 +136,7 @@ describe("actorHasAtLeastOneItem util", () => {
   });
 });
 
-describe("actorHasItems util", () => {
+describe("actorHasItems", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -168,7 +168,7 @@ describe("actorHasItems util", () => {
   });
 });
 
-describe("actorHasItem util", () => {
+describe("actorHasItem", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -200,7 +200,7 @@ describe("actorHasItem util", () => {
   });
 });
 
-describe("actorHasItemCount util", () => {
+describe("actorHasItemCount", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -220,7 +220,7 @@ describe("actorHasItemCount util", () => {
   });
 });
 
-describe("actorHasMedKit util", () => {
+describe("actorHasMedKit", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -240,7 +240,7 @@ describe("actorHasMedKit util", () => {
   });
 });
 
-describe("getItemInstalledUpgradesList util", () => {
+describe("getItemInstalledUpgradesList", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -253,7 +253,7 @@ describe("getItemInstalledUpgradesList util", () => {
   });
 });
 
-describe("getAnyObjectPistol util", () => {
+describe("getAnyObjectPistol", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -293,7 +293,7 @@ describe("getAnyObjectPistol util", () => {
   });
 });
 
-describe("getItemInstalledUpgradesSet util", () => {
+describe("getItemInstalledUpgradesSet", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -309,7 +309,7 @@ describe("getItemInstalledUpgradesSet util", () => {
   });
 });
 
-describe("getActorAvailableMedKit util", () => {
+describe("getActorAvailableMedKit", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -23,7 +23,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("registerTerrain / unregisterTerrain util", () => {
+describe("registerTerrain / unregisterTerrain", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -69,7 +69,7 @@ describe("registerTerrain / unregisterTerrain util", () => {
   });
 });
 
-describe("initializeSimulationTerrain util", () => {
+describe("initializeSimulationTerrain", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -22,7 +22,7 @@ import { checkPlannerAction } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/ai/planner/setup/state_planner");
 
-describe("state_controller util", () => {
+describe("state_controller", () => {
   it("should correctly setup state planner events", () => {
     const object: GameObject = MockGameObject.mock();
     const controller: StalkerStateController = new StalkerStateController(object);

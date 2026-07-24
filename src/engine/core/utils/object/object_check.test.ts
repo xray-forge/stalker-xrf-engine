@@ -22,7 +22,7 @@ import {
 } from "@/engine/core/utils/object/object_check";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("isStalkerAlive util", () => {
+describe("isStalkerAlive", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -55,7 +55,7 @@ describe("isStalkerAlive util", () => {
   });
 });
 
-describe("isObjectInjured util", () => {
+describe("isObjectInjured", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -73,7 +73,7 @@ describe("isObjectInjured util", () => {
   });
 });
 
-describe("isObjectSeenByActor util", () => {
+describe("isObjectSeenByActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -104,7 +104,7 @@ describe("isObjectSeenByActor util", () => {
   });
 });
 
-describe("isActorSeenByObject util", () => {
+describe("isActorSeenByObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -133,7 +133,7 @@ describe("isActorSeenByObject util", () => {
   });
 });
 
-describe("canActorSleep util", () => {
+describe("canActorSleep", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -160,7 +160,7 @@ describe("canActorSleep util", () => {
   });
 });
 
-describe("isObjectWithKnownInfo util", () => {
+describe("isObjectWithKnownInfo", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

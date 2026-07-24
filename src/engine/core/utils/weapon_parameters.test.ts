@@ -13,7 +13,7 @@ import {
   readWeaponRPM,
 } from "@/engine/core/utils/weapon_parameters";
 
-describe("normalizeWeaponParameterInMultiplayer util", () => {
+describe("normalizeWeaponParameterInMultiplayer", () => {
   it("should correctly clamp values", () => {
     expect(normalizeWeaponParameterInMultiplayer(-500)).toBe(1);
     expect(normalizeWeaponParameterInMultiplayer(-50)).toBe(1);
@@ -28,7 +28,7 @@ describe("normalizeWeaponParameterInMultiplayer util", () => {
   });
 });
 
-describe("normalizeWeaponParameter util", () => {
+describe("normalizeWeaponParameter", () => {
   it("should correctly normalize values with sample limit", () => {
     expect(normalizeWeaponParameter(-500, 30, 90)).toBe(0);
     expect(normalizeWeaponParameter(-50, 30, 90)).toBe(0);
@@ -49,7 +49,7 @@ describe("normalizeWeaponParameter util", () => {
   });
 });
 
-describe("readWeaponParameter util", () => {
+describe("readWeaponParameter", () => {
   it("should correctly read values without section", () => {
     expect(() => readWeaponParameter(MockIniFile.mock("test.ltx"), "example_section", null, "not_existing")).toThrow(
       "Unexpected ini file read operation, field 'not_existing' in section 'example_section' does not exist."
@@ -102,7 +102,7 @@ describe("readWeaponParameter util", () => {
   });
 });
 
-describe("readWeaponRPM util", () => {
+describe("readWeaponRPM", () => {
   it("should correctly read values without upgrades", () => {
     const ini: MockIniFile = MockIniFile.create("system.ini");
 
@@ -160,7 +160,7 @@ describe("readWeaponRPM util", () => {
   });
 });
 
-describe("readWeaponHandling util", () => {
+describe("readWeaponHandling", () => {
   it("should correctly read values without upgrades", () => {
     const ini: MockIniFile = MockIniFile.create("system.ini");
 
@@ -220,7 +220,7 @@ describe("readWeaponHandling util", () => {
   });
 });
 
-describe("readWeaponAccuracy util", () => {
+describe("readWeaponAccuracy", () => {
   it("should correctly read values without upgrades", () => {
     const ini: MockIniFile = MockIniFile.create("system.ini");
 
@@ -282,7 +282,7 @@ describe("readWeaponAccuracy util", () => {
   });
 });
 
-describe("readWeaponDamage util", () => {
+describe("readWeaponDamage", () => {
   it("should correctly read values without upgrades", () => {
     const ini: MockIniFile = MockIniFile.create("system.ini");
 
@@ -344,7 +344,7 @@ describe("readWeaponDamage util", () => {
   });
 });
 
-describe("readWeaponDamageMultiplayer util", () => {
+describe("readWeaponDamageMultiplayer", () => {
   it("should correctly read values without upgrades", () => {
     const ini: MockIniFile = MockIniFile.create("system.ini");
 

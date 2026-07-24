@@ -6,7 +6,7 @@ import { deleteDirIfExists } from "#/utils/fs/delete_dir_if_exists";
 
 jest.mock("node:fs");
 
-describe("delete_dir_if_exists util", () => {
+describe("delete_dir_if_exists", () => {
   it("should correctly call fs methods to delete dir if not existing", () => {
     jest.spyOn(fs, "existsSync").mockImplementation(() => false);
 

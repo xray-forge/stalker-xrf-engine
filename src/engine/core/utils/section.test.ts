@@ -7,7 +7,7 @@ import {
   isSquadMonsterCommunity,
 } from "@/engine/core/utils/section";
 
-describe("isAmmoSection util", () => {
+describe("isAmmoSection", () => {
   it("should correctly check ammo section", () => {
     expect(isAmmoSection("another-section")).toBe(false);
     expect(isAmmoSection("ammo_not_existing")).toBe(false);
@@ -18,7 +18,7 @@ describe("isAmmoSection util", () => {
   });
 });
 
-describe("isSquadMonsterCommunity util", () => {
+describe("isSquadMonsterCommunity", () => {
   it("should correctly check if community matches squad monsters", () => {
     expect(isSquadMonsterCommunity("monster_predatory_day")).toBe(true);
     expect(isSquadMonsterCommunity("monster_predatory_night")).toBe(true);
@@ -35,7 +35,7 @@ describe("isSquadMonsterCommunity util", () => {
   });
 });
 
-describe("isLootableItemSection util", () => {
+describe("isLootableItemSection", () => {
   it("should correctly check objects that are lootable", () => {
     expect(isLootableItemSection("")).toBe(false);
     expect(isLootableItemSection("wpn_ak74")).toBe(true);
@@ -49,7 +49,7 @@ describe("isLootableItemSection util", () => {
   });
 });
 
-describe("isExcludedFromLootDropItemSection util", () => {
+describe("isExcludedFromLootDropItemSection", () => {
   it("should correctly check objects that are not lootable", () => {
     expect(isExcludedFromLootDropItemSection("")).toBe(false);
     expect(isExcludedFromLootDropItemSection("wpn_ak74")).toBe(false);

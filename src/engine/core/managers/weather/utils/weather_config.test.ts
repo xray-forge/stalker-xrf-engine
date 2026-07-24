@@ -9,7 +9,7 @@ import {
 } from "@/engine/core/managers/weather/utils/weather_config";
 import { WEATHER_MANAGER_LEVELS_LTX, WEATHER_MANAGER_LTX } from "@/engine/core/managers/weather/WeatherConfig";
 
-describe("readAtmosfearConfig util", () => {
+describe("readAtmosfearConfig", () => {
   it("should correctly read values", () => {
     expect(readAtmosfearConfig(WEATHER_MANAGER_LTX)).toEqual({
       moonPhasePeriod: EWeatherMoonPeriod.DAYS_8,
@@ -37,7 +37,7 @@ describe("readAtmosfearConfig util", () => {
   });
 });
 
-describe("readLevelWeathersConfiguration util", () => {
+describe("readLevelWeathersConfiguration", () => {
   it("should correctly read values", () => {
     expect(readLevelWeathersConfiguration(WEATHER_MANAGER_LEVELS_LTX)).toEqualLuaTables({
       default: {
@@ -103,7 +103,7 @@ describe("readLevelWeathersConfiguration util", () => {
   });
 });
 
-describe("readFogDistances util", () => {
+describe("readFogDistances", () => {
   it("should correctly read values", () => {
     expect(readFogDistances(MockIniFile.mock("test.ltx", {}))).toEqualLuaTables({});
     expect(readFogDistances(MockIniFile.mock("test.ltx", { dof_kernels: {} }))).toEqualLuaTables({});

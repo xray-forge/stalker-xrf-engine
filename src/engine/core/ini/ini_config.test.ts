@@ -22,7 +22,7 @@ import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 
-describe("getInfosFromData util", () => {
+describe("getInfosFromData", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly parse data list of condition lists", () => {
@@ -38,7 +38,7 @@ describe("getInfosFromData util", () => {
   });
 });
 
-describe("getConfigObjectAndZone util", () => {
+describe("getConfigObjectAndZone", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly parse story id and zone pair", () => {
@@ -66,7 +66,7 @@ describe("getConfigObjectAndZone util", () => {
   });
 });
 
-describe("getObjectConfigOverrides util", () => {
+describe("getObjectConfigOverrides", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly parse overrides", () => {
@@ -164,7 +164,7 @@ describe("getObjectConfigOverrides util", () => {
   });
 });
 
-describe("addCondition util", () => {
+describe("addCondition", () => {
   beforeEach(() => registerSimulator());
 
   it("util should fill table and return new index", () => {
@@ -210,7 +210,7 @@ describe("addCondition util", () => {
   });
 });
 
-describe("getConfigSwitchConditions util", () => {
+describe("getConfigSwitchConditions", () => {
   beforeEach(() => registerSimulator());
 
   it("correctly parse empty/other ini files conditions", () => {

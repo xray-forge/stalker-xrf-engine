@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { registerActor, registry } from "@/engine/core/database";
 import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
 
-describe("setUiVisibility util", () => {
+describe("setUiVisibility", () => {
   it("should correctly toggle visibility", () => {
     const hud: GameHud = get_hud();
 

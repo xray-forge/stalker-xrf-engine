@@ -6,7 +6,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
 
-describe("isObjectTrader util", () => {
+describe("isObjectTrader", () => {
   it("should correctly check if object trade config is customized", () => {
     expect(isObjectTrader(-1)).toBe(false);
 

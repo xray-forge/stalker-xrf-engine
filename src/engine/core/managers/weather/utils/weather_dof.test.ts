@@ -8,7 +8,7 @@ import { WeatherManager } from "@/engine/core/managers/weather";
 import { resetDof, updateDof } from "@/engine/core/managers/weather/utils/weather_dof";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("resetDof util", () => {
+describe("resetDof", () => {
   beforeEach(() => {
     resetFunctionMock(get_console().execute);
   });
@@ -24,7 +24,7 @@ describe("resetDof util", () => {
   });
 });
 
-describe("updateDof util", () => {
+describe("updateDof", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(get_console().execute);

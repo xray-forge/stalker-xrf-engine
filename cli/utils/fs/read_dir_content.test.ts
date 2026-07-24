@@ -13,7 +13,7 @@ function mockDirent(base: Partial<fs.Dirent> = {}): fs.Dirent<Buffer<ArrayBuffer
 
 jest.mock("node:fs/promises");
 
-describe("readDirContent util", () => {
+describe("readDirContent", () => {
   it("should handle empty directories", async () => {
     jest.spyOn(fsp, "readdir").mockImplementation(async () => {
       return [];

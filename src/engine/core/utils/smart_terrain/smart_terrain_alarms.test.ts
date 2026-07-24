@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { startTerrainAlarm, updateTerrainAlarmStatus } from "@/engine/core/utils/smart_terrain/smart_terrain_alarms";
 import { MockSmartTerrain } from "@/fixtures/engine";
 
-describe("startSmartTerrainAlarm util", () => {
+describe("startSmartTerrainAlarm", () => {
   it("should correctly start alarm", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const nowTime: CTime = createTime(2015, 6, 14, 13, 25, 30, 500);
@@ -24,7 +24,7 @@ describe("startSmartTerrainAlarm util", () => {
   });
 });
 
-describe("updateSmartTerrainAlarmStatus util", () => {
+describe("updateSmartTerrainAlarmStatus", () => {
   it("should correctly handle alarm", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const startTime: CTime = createTime(2015, 6, 14, 12, 25, 30, 500);

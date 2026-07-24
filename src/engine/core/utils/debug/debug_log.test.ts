@@ -13,19 +13,19 @@ import {
 } from "@/engine/core/utils/debug/debug_log";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("logObjectInventoryItems util", () => {
+describe("logObjectInventoryItems", () => {
   it("should not throw", () => {
     expect(() => logObjectInventoryItems(MockGameObject.mock())).not.toThrow();
   });
 });
 
-describe("logObjectPlannerState util", () => {
+describe("logObjectPlannerState", () => {
   it("should not throw", () => {
     expect(() => logObjectPlannerState(MockGameObject.mock())).not.toThrow();
   });
 });
 
-describe("logObjectStateController util", () => {
+describe("logObjectStateController", () => {
   it("should not throw", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -36,7 +36,7 @@ describe("logObjectStateController util", () => {
   });
 });
 
-describe("logObjectRelations util", () => {
+describe("logObjectRelations", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -47,7 +47,7 @@ describe("logObjectRelations util", () => {
   });
 });
 
-describe("logObjectState util", () => {
+describe("logObjectState", () => {
   it("should not throw", () => {
     const object: GameObject = MockGameObject.mock();
 

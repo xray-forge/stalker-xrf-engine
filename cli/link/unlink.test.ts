@@ -14,7 +14,7 @@ jest.mock("#/globals/paths", () => ({
   TARGET_LOGS_LINK_DIR: "logs-path",
 }));
 
-describe("unlinkFolders util", () => {
+describe("unlinkFolders", () => {
   beforeAll(() => {
     replaceFunctionMock(getGamePaths, async () => ({ gamedata: "gamedata-path" }));
   });

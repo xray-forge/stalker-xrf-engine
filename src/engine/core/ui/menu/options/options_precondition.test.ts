@@ -31,7 +31,7 @@ function checkPrecondition(
   return element;
 }
 
-describe("preconditionOnly1mode util", () => {
+describe("preconditionOnly1mode", () => {
   it("should correctly check r1", () => {
     [EGameRenderer.R1].forEach((it) => {
       checkPrecondition(it, true, preconditionOnly1mode);
@@ -43,7 +43,7 @@ describe("preconditionOnly1mode util", () => {
   });
 });
 
-describe("preconditionOnly2aAndMoreMode util", () => {
+describe("preconditionOnly2aAndMoreMode", () => {
   it("should correctly check 2a", () => {
     [EGameRenderer.R1].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly2aAndMoreMode);
@@ -55,7 +55,7 @@ describe("preconditionOnly2aAndMoreMode util", () => {
   });
 });
 
-describe("preconditionOnly2andMoreMode util", () => {
+describe("preconditionOnly2andMoreMode", () => {
   it("should correctly check 2", () => {
     [EGameRenderer.R1, EGameRenderer.R2A].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly2andMoreMode);
@@ -67,7 +67,7 @@ describe("preconditionOnly2andMoreMode util", () => {
   });
 });
 
-describe("preconditionOnly25andMoreMode util", () => {
+describe("preconditionOnly25andMoreMode", () => {
   it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly25andMoreMode);
@@ -79,7 +79,7 @@ describe("preconditionOnly25andMoreMode util", () => {
   });
 });
 
-describe("preconditionOnly3andMoreMode util", () => {
+describe("preconditionOnly3andMoreMode", () => {
   it("should correctly check 3", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly3andMoreMode);
@@ -91,7 +91,7 @@ describe("preconditionOnly3andMoreMode util", () => {
   });
 });
 
-describe("preconditionOnly3Mode util", () => {
+describe("preconditionOnly3Mode", () => {
   it("should correctly check 3", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25, EGameRenderer.R4].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly3Mode);
@@ -103,7 +103,7 @@ describe("preconditionOnly3Mode util", () => {
   });
 });
 
-describe("preconditionOnly4andMoreMode util", () => {
+describe("preconditionOnly4andMoreMode", () => {
   it("should correctly check 4", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25, EGameRenderer.R3].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly4andMoreMode);
@@ -115,7 +115,7 @@ describe("preconditionOnly4andMoreMode util", () => {
   });
 });
 
-describe("preconditionOnly3andMoreModeVisible util", () => {
+describe("preconditionOnly3andMoreModeVisible", () => {
   it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       const element: CUIWindow = checkPrecondition(it, false, preconditionOnly3andMoreModeVisible);
@@ -131,7 +131,7 @@ describe("preconditionOnly3andMoreModeVisible util", () => {
   });
 });
 
-describe("preconditionOnly25andLessModeVisible util", () => {
+describe("preconditionOnly25andLessModeVisible", () => {
   it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       const element: CUIWindow = checkPrecondition(it, true, preconditionOnly25andLessModeVisible);

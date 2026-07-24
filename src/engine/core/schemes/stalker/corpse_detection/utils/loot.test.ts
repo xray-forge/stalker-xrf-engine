@@ -84,7 +84,7 @@ describe("loot utils for corpse_detection scheme", () => {
   });
 });
 
-describe("freeSelectedLootedObjectSpot util", () => {
+describe("freeSelectedLootedObjectSpot", () => {
   beforeEach(() => {
     resetRegistry();
   });

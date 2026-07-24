@@ -15,7 +15,7 @@ import {
   getWeaponSections,
 } from "@/engine/core/ini/ini_sections";
 
-describe("getSectionsWithoutStoryIDs util", () => {
+describe("getSectionsWithoutStoryIDs", () => {
   it("should get list of sections without story IDs", () => {
     const all: LuaArray<TSection> = getSimulationGroupSections();
 
@@ -48,13 +48,13 @@ describe("getSectionsWithoutStoryIDs util", () => {
   });
 });
 
-describe("getStalkerSections util", () => {
+describe("getStalkerSections", () => {
   it("should get list of sections", () => {
     expect(getStalkerSections()).toEqualLuaArrays(["default_duty", "sim_default_monolith_1", "sim_default_freedom_3"]);
   });
 });
 
-describe("getSimulationGroupSections util", () => {
+describe("getSimulationGroupSections", () => {
   it("should get list of sections", () => {
     expect(getSimulationGroupSections()).toEqualLuaArrays([
       "test_squad",
@@ -76,13 +76,13 @@ describe("getSimulationGroupSections util", () => {
   });
 });
 
-describe("getOutfitSections util", () => {
+describe("getOutfitSections", () => {
   it("should get list of sections", () => {
     expect(getOutfitSections()).toEqualLuaArrays(["specops_outfit", "svoboda_heavy_outfit", "cs_heavy_outfit"]);
   });
 });
 
-describe("getArtefactsSections util", () => {
+describe("getArtefactsSections", () => {
   it("should get list of sections", () => {
     expect(getArtefactsSections()).toEqualLuaArrays([
       "af_electra_sparkler",
@@ -94,7 +94,7 @@ describe("getArtefactsSections util", () => {
   });
 });
 
-describe("getDetectorsSections util", () => {
+describe("getDetectorsSections", () => {
   it("should get list of sections", () => {
     expect(getDetectorsSections()).toEqualLuaArrays([
       "detector_simple",
@@ -105,7 +105,7 @@ describe("getDetectorsSections util", () => {
   });
 });
 
-describe("getAmmoSections util", () => {
+describe("getAmmoSections", () => {
   it("should get list of sections", () => {
     expect(getAmmoSections()).toEqualLuaArrays([
       "ammo_9x18_pmm",
@@ -119,13 +119,13 @@ describe("getAmmoSections util", () => {
   });
 });
 
-describe("getHelmetsSections util", () => {
+describe("getHelmetsSections", () => {
   it("should get list of sections", () => {
     expect(getHelmetsSections()).toEqualLuaArrays(["helm_respirator", "helm_hardhat", "helm_protective"]);
   });
 });
 
-describe("getWeaponSections util", () => {
+describe("getWeaponSections", () => {
   it("should get list of sections", () => {
     expect(getWeaponSections()).toEqualLuaArrays([
       "pri_a17_gauss_rifle",
@@ -138,13 +138,13 @@ describe("getWeaponSections util", () => {
   });
 });
 
-describe("getWeaponAddonsSections util", () => {
+describe("getWeaponAddonsSections", () => {
   it("should get list of sections", () => {
     expect(getWeaponAddonsSections()).toEqualLuaArrays(["wpn_addon_scope"]);
   });
 });
 
-describe("getBoosterSections util", () => {
+describe("getBoosterSections", () => {
   it("should get list of sections", () => {
     expect(getBoosterSections()).toEqualLuaArrays(["bread", "bandage", "kolbasa", "conserva"]);
   });

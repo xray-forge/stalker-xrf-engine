@@ -11,7 +11,7 @@ import {
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getTreasureMapSpot util", () => {
+describe("getTreasureMapSpot", () => {
   it("should correctly get icon from treasure descriptor", () => {
     treasureConfig.ENHANCED_MODE_ENABLED = true;
 
@@ -27,7 +27,7 @@ describe("getTreasureMapSpot util", () => {
   });
 });
 
-describe("showTreasureMapSpot util", () => {
+describe("showTreasureMapSpot", () => {
   beforeEach(() => {
     resetRegistry();
     treasureConfig.ENHANCED_MODE_ENABLED = true;
@@ -47,7 +47,7 @@ describe("showTreasureMapSpot util", () => {
   });
 });
 
-describe("removeTreasureMapSpot util", () => {
+describe("removeTreasureMapSpot", () => {
   beforeEach(() => {
     resetRegistry();
     treasureConfig.ENHANCED_MODE_ENABLED = true;

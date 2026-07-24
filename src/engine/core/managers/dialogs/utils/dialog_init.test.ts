@@ -6,7 +6,7 @@ import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
 
-describe("initializeCategoryDialogs util", () => {
+describe("initializeCategoryDialogs", () => {
   it("should correctly generate phrases and scripts for generic categories", () => {
     const dialog: MockPhraseDialog = MockPhraseDialog.create();
 
@@ -146,7 +146,7 @@ describe("initializeCategoryDialogs util", () => {
   });
 });
 
-describe("initializeNewDialog util", () => {
+describe("initializeNewDialog", () => {
   it("should correctly initialize phrases for new dialog", () => {
     const dialog: MockPhraseDialog = MockPhraseDialog.create();
 

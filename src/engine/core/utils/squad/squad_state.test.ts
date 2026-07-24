@@ -9,7 +9,7 @@ import { parseConditionsList } from "@/engine/core/ini";
 import { updateSquadInvulnerabilityState } from "@/engine/core/utils/squad/squad_state";
 import { MockSquad } from "@/fixtures/engine";
 
-describe("updateSquadInvulnerabilityState util", () => {
+describe("updateSquadInvulnerabilityState", () => {
   it("should correctly update state for squad", () => {
     const squad: MockSquad = MockSquad.mock();
 

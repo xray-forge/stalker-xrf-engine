@@ -8,7 +8,7 @@ import { registerObject, registerStoryLink } from "@/engine/core/database";
 import { updateSleepZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_sleep";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("updateSleepZonesDisplay util", () => {
+describe("updateSleepZonesDisplay", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(level.map_add_object_spot);

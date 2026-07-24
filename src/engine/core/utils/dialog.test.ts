@@ -15,7 +15,7 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 jest.mock("@/engine/core/schemes/stalker/meet/utils");
 jest.mock("@/engine/core/utils/logics");
 
-describe("getNpcSpeaker util", () => {
+describe("getNpcSpeaker", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -34,7 +34,7 @@ describe("getNpcSpeaker util", () => {
   });
 });
 
-describe("isObjectName util", () => {
+describe("isObjectName", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -55,7 +55,7 @@ describe("isObjectName util", () => {
   });
 });
 
-describe("breakObjectDialog util", () => {
+describe("breakObjectDialog", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -73,7 +73,7 @@ describe("breakObjectDialog util", () => {
   });
 });
 
-describe("updateObjectDialog util", () => {
+describe("updateObjectDialog", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();

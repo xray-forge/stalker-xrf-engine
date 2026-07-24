@@ -4,7 +4,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 
 import { disconnectFromGame } from "@/engine/core/utils/game/game_flow";
 
-describe("disconnectFromGame util", () => {
+describe("disconnectFromGame", () => {
   beforeEach(() => {
     resetFunctionMock(get_console().execute);
   });

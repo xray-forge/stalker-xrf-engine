@@ -11,7 +11,7 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { MockSmartTerrain } from "@/fixtures/engine";
 
-describe("areNoStalkersWorkingOnJobs util", () => {
+describe("areNoStalkersWorkingOnJobs", () => {
   it("should correctly check whether no stalkers are working", () => {
     expect(areNoStalkersWorkingOnJobs($fromArray<IObjectJobState>([]))).toBe(true);
     expect(
@@ -41,7 +41,7 @@ describe("areNoStalkersWorkingOnJobs util", () => {
   });
 });
 
-describe("isJobAvailableToObject util", () => {
+describe("isJobAvailableToObject", () => {
   it("should correctly check job accessibility for creatures", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const monster: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();

@@ -15,7 +15,7 @@ function mockExtension(name: TName): IExtensionsDescriptor {
   return { name, module: {} } as IExtensionsDescriptor;
 }
 
-describe("saveDynamicGameSave util", () => {
+describe("saveDynamicGameSave", () => {
   beforeEach(() => {
     resetFunctionMock(io.open);
   });
@@ -41,7 +41,7 @@ describe("saveDynamicGameSave util", () => {
   });
 });
 
-describe("loadDynamicGameSave util", () => {
+describe("loadDynamicGameSave", () => {
   beforeEach(() => {
     resetFunctionMock(io.open);
   });
@@ -70,7 +70,7 @@ describe("loadDynamicGameSave util", () => {
   });
 });
 
-describe("syncExtensionsOrder util", () => {
+describe("syncExtensionsOrder", () => {
   beforeEach(() => {
     resetFunctionMock(io.open);
   });

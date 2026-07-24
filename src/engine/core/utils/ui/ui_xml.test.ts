@@ -5,7 +5,7 @@ import { MockFileSystem } from "xray16/mocks";
 import { roots } from "@/engine/constants/roots";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui/ui_xml";
 
-describe("resolveXmlFile util", () => {
+describe("resolveXmlFile", () => {
   it("should correctly parse provided path", () => {
     expect(resolveXmlFile("test.xml").ParseFile).toHaveBeenCalledWith("test.xml");
 
@@ -31,7 +31,7 @@ describe("resolveXmlFile util", () => {
   });
 });
 
-describe("resolveXmlFormPath util", () => {
+describe("resolveXmlFormPath", () => {
   it("should fail on non-windows paths", () => {
     expect(() => resolveXmlFormPath("a/b/c.xml")).toThrow();
     expect(() => resolveXmlFormPath("a/c.xml")).toThrow();

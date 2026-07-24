@@ -6,7 +6,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { weapons } from "@/engine/constants/items/weapons";
 import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgrades";
 
-describe("addRandomUpgrade util", () => {
+describe("addRandomUpgrade", () => {
   it(" should correctly add random upgrade", () => {
     const first: GameObject = MockGameObject.mock();
 
@@ -35,7 +35,7 @@ describe("addRandomUpgrade util", () => {
   });
 });
 
-describe("addRandomUpgrades util", () => {
+describe("addRandomUpgrades", () => {
   it("should correctly add random upgrades", () => {
     const first: GameObject = MockGameObject.mock();
 

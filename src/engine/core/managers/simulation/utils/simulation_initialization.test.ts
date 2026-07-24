@@ -20,7 +20,7 @@ import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from 
 
 jest.mock("@/engine/core/managers/simulation/utils/simulation_squads");
 
-describe("initializeDefaultSimulationSquads util", () => {
+describe("initializeDefaultSimulationSquads", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -64,7 +64,7 @@ describe("initializeDefaultSimulationSquads util", () => {
   });
 });
 
-describe("destroySimulationData util", () => {
+describe("destroySimulationData", () => {
   beforeEach(() => {
     registerSimulator();
 

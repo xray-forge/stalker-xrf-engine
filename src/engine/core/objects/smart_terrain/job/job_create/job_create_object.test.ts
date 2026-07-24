@@ -6,7 +6,7 @@ import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "xray16/mocks";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { ESchemeType } from "@/engine/core/schemes/types";
 
-describe("createObjectJobDescriptor util", () => {
+describe("createObjectJobDescriptor", () => {
   it("should correctly create descriptor objects for stalkers", () => {
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
 

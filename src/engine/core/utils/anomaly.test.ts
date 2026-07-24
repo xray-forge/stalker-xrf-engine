@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/utils/anomaly";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getAnomalyArtefacts util", () => {
+describe("getAnomalyArtefacts", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -45,7 +45,7 @@ describe("getAnomalyArtefacts util", () => {
   });
 });
 
-describe("anomalyHasArtefact util", () => {
+describe("anomalyHasArtefact", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -78,7 +78,7 @@ describe("anomalyHasArtefact util", () => {
   });
 });
 
-describe("spawnArtefactInAnomaly util", () => {
+describe("spawnArtefactInAnomaly", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -106,7 +106,7 @@ describe("spawnArtefactInAnomaly util", () => {
   });
 });
 
-describe("getAnomalyFreePaths util", () => {
+describe("getAnomalyFreePaths", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

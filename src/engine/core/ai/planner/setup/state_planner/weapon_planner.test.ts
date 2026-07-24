@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/ai/state/weapon";
 import { checkPlannerAction } from "@/fixtures/engine";
 
-describe("weapon_planner util", () => {
+describe("weapon_planner", () => {
   it("should correctly setup state planner planner actions", () => {
     const object: GameObject = MockGameObject.mock();
     const controller: StalkerStateController = new StalkerStateController(object);

@@ -6,7 +6,7 @@ import { expectCallsToEqual } from "xray16/testing/utils";
 import { registerActor } from "@/engine/core/database";
 import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
 
-describe("setupObjectVisual util", () => {
+describe("setupObjectVisual", () => {
   it("should setup visuals", () => {
     const stalkerNone: GameObject = MockGameObject.mock({ section: "stalker_none_1" });
     const stalkerFreedom: GameObject = MockGameObject.mock({ section: "stalker_freedom_1" });
@@ -25,7 +25,7 @@ describe("setupObjectVisual util", () => {
   });
 });
 
-describe("setupObjectInfoPortions util", () => {
+describe("setupObjectInfoPortions", () => {
   it("should setup info portions", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

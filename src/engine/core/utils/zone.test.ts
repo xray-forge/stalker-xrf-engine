@@ -9,7 +9,7 @@ import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("isInNoCombatZone util", () => {
+describe("isInNoCombatZone", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -57,7 +57,7 @@ describe("isInNoCombatZone util", () => {
   });
 });
 
-describe("isInNoWeaponBase util", () => {
+describe("isInNoWeaponBase", () => {
   beforeEach(() => {
     resetRegistry();
   });

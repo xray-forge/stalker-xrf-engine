@@ -6,7 +6,7 @@ import { DUMMY_LTX } from "@/engine/core/database";
 import { getObjectId, getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getObjectSpawnIni util", () => {
+describe("getObjectSpawnIni", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -42,7 +42,7 @@ describe("getObjectSpawnIni util", () => {
   });
 });
 
-describe("getObjectId util", () => {
+describe("getObjectId", () => {
   it("should correctly get ID from game objects", () => {
     const object: GameObject = MockGameObject.mock();
 

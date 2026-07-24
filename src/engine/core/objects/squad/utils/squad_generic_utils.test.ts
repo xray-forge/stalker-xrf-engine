@@ -10,7 +10,7 @@ import { Squad } from "@/engine/core/objects/squad/Squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils/squad_generic_utils";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("getSquadMapDisplayHint util", () => {
+describe("getSquadMapDisplayHint", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

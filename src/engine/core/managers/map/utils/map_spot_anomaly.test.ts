@@ -14,7 +14,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/anomaly");
 
-describe("updateAnomalyZonesDisplay util", () => {
+describe("updateAnomalyZonesDisplay", () => {
   beforeEach(() => {
     resetRegistry();
     replaceFunctionMock(getAnomalyArtefacts, () => $fromArray([]));

@@ -7,7 +7,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
 import { MockSquad } from "@/fixtures/engine";
 
-describe("getObjectSquad util", () => {
+describe("getObjectSquad", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -32,7 +32,7 @@ describe("getObjectSquad util", () => {
   });
 });
 
-describe("getObjectSquadByObjectId util", () => {
+describe("getObjectSquadByObjectId", () => {
   beforeEach(() => {
     registerSimulator();
   });

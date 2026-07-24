@@ -6,7 +6,7 @@ import { registerActorServer, registerSimulator, registry } from "@/engine/core/
 import { Actor } from "@/engine/core/objects/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
 
-describe("isGameStarted util", () => {
+describe("isGameStarted", () => {
   it("should check alife", () => {
     registry.simulator = null as unknown as AlifeSimulator;
     expect(isGameStarted()).toBe(false);
@@ -16,7 +16,7 @@ describe("isGameStarted util", () => {
   });
 });
 
-describe("isBlackScreen util", () => {
+describe("isBlackScreen", () => {
   it("should check whether black screen is visible now", () => {
     expect(isBlackScreen()).toBe(false);
 
@@ -33,7 +33,7 @@ describe("isBlackScreen util", () => {
   });
 });
 
-describe("isGameLevelChanging util", () => {
+describe("isGameLevelChanging", () => {
   it("should check whether level is changing now", () => {
     const gameGraph: MockCGameGraph = MockCGameGraph.getInstance();
 

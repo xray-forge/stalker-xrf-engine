@@ -336,7 +336,7 @@ describe("job_execution logic", () => {
   });
 });
 
-describe("switchSmartTerrainObjectToDesiredJob util", () => {
+describe("switchSmartTerrainObjectToDesiredJob", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -390,7 +390,7 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
   });
 });
 
-describe("selectSmartTerrainObjectJob util", () => {
+describe("selectSmartTerrainObjectJob", () => {
   beforeEach(() => {
     resetRegistry();
   });

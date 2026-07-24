@@ -5,7 +5,7 @@ import { boxConfig } from "@/engine/core/managers/box";
 import { initializeDropBoxesLootTables } from "@/engine/core/managers/box/utils/box_loot_utils";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("initializeDropBoxesLootTables util", () => {
+describe("initializeDropBoxesLootTables", () => {
   beforeEach(() => {
     resetRegistry();
 

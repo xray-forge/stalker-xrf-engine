@@ -24,7 +24,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("updateTerrainsMapSpotDisplay util", () => {
+describe("updateTerrainsMapSpotDisplay", () => {
   beforeEach(() => {
     for (const [, descriptor] of mapDisplayConfig.MAP_SPOTS) {
       descriptor.isVisible = false;
@@ -87,7 +87,7 @@ describe("updateTerrainsMapSpotDisplay util", () => {
   });
 });
 
-describe("updateTerrainMapSpot util", () => {
+describe("updateTerrainMapSpot", () => {
   beforeEach(() => {
     for (const [, descriptor] of mapDisplayConfig.MAP_SPOTS) {
       descriptor.isVisible = false;
@@ -151,7 +151,7 @@ describe("updateTerrainMapSpot util", () => {
   });
 });
 
-describe("removeTerrainMapSpot util", () => {
+describe("removeTerrainMapSpot", () => {
   beforeEach(() => {
     for (const [, descriptor] of mapDisplayConfig.MAP_SPOTS) {
       descriptor.isVisible = false;
@@ -179,7 +179,7 @@ describe("removeTerrainMapSpot util", () => {
   });
 });
 
-describe("getSmartTerrainMapDisplayHint util", () => {
+describe("getSmartTerrainMapDisplayHint", () => {
   beforeEach(() => {
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = false;
     resetRegistry();

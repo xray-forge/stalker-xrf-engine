@@ -9,7 +9,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { getObjectCommunity, getSquadCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { MockSquad } from "@/fixtures/engine";
 
-describe("getSquadCommunity util", () => {
+describe("getSquadCommunity", () => {
   it("should correctly get community for squads", () => {
     const squad: Squad = MockSquad.mock();
 
@@ -39,7 +39,7 @@ describe("getSquadCommunity util", () => {
   });
 });
 
-describe("getObjectCommunity util", () => {
+describe("getObjectCommunity", () => {
   it("should correctly get community", () => {
     expect(getObjectCommunity(MockGameObject.mock())).toBe("monster");
     expect(getObjectCommunity(MockAlifeHumanStalker.mock())).toBe("stalker");
@@ -58,7 +58,7 @@ describe("getObjectCommunity util", () => {
   });
 });
 
-describe("setObjectTeamSquadGroup util", () => {
+describe("setObjectTeamSquadGroup", () => {
   it("should correctly set object group details", () => {
     const firstServerObject: ServerHumanObject = MockAlifeHumanStalker.mock();
     const firstObject: GameObject = MockGameObject.mock({ id: firstServerObject.id });

@@ -12,7 +12,7 @@ import {
   scriptReleaseMonster,
 } from "@/engine/core/schemes/runtime/scheme_monster";
 
-describe("isMonsterScriptCaptured util", () => {
+describe("isMonsterScriptCaptured", () => {
   it("should correctly check if monster object is captured", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -22,7 +22,7 @@ describe("isMonsterScriptCaptured util", () => {
   });
 });
 
-describe("resetMonsterAction util", () => {
+describe("resetMonsterAction", () => {
   it("should correctly reset action", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -43,7 +43,7 @@ describe("resetMonsterAction util", () => {
   });
 });
 
-describe("scriptCaptureMonster util", () => {
+describe("scriptCaptureMonster", () => {
   it("should correctly capture monster script logic when resetting", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -91,7 +91,7 @@ describe("scriptCaptureMonster util", () => {
   });
 });
 
-describe("scriptReleaseMonster util", () => {
+describe("scriptReleaseMonster", () => {
   it("should correctly release monster script logic", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -111,7 +111,7 @@ describe("scriptReleaseMonster util", () => {
   });
 });
 
-describe("scriptCommandMonster util", () => {
+describe("scriptCommandMonster", () => {
   it("should correctly assign actions", () => {
     const object: GameObject = MockGameObject.mock();
     const moveAction: Move = new move(move.run_with_leader, new vector().set(1, 2, 3));

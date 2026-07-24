@@ -5,7 +5,7 @@ import { $fromObject } from "xray16/macros";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 
-describe("isUndergroundLevel util", () => {
+describe("isUndergroundLevel", () => {
   it("should correctly check if level is underground", () => {
     surgeConfig.UNDERGROUND_LEVELS = $fromObject<TName, boolean>({
       zaton: false,

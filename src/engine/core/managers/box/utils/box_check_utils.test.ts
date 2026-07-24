@@ -4,7 +4,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { BOX_METAL_01, BOX_WOOD_01, BOX_WOOD_02, isBoxObject } from "@/engine/core/managers/box";
 
-describe("isBoxObject util", () => {
+describe("isBoxObject", () => {
   it("should correctly check game objects", () => {
     const object: GameObject = MockGameObject.mock();
 

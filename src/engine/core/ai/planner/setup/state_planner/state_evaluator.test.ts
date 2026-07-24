@@ -60,7 +60,7 @@ import {
   EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/ai/state/weapon";
 
-describe("state_evaluator util", () => {
+describe("state_evaluator", () => {
   it("should correctly setup state planner evaluators", () => {
     const object: GameObject = MockGameObject.mock();
     const controller: StalkerStateController = new StalkerStateController(object);

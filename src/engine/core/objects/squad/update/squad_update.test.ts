@@ -13,7 +13,7 @@ import { MockSquad, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime");
 
-describe("updateMonsterSquadAction util", () => {
+describe("updateMonsterSquadAction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

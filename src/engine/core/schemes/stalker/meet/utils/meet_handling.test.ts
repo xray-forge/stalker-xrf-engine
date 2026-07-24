@@ -14,7 +14,7 @@ import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-describe("addObjectAbuse util", () => {
+describe("addObjectAbuse", () => {
   it("should correctly add abuse values to the manager", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -34,7 +34,7 @@ describe("addObjectAbuse util", () => {
   });
 });
 
-describe("clearObjectAbuse util", () => {
+describe("clearObjectAbuse", () => {
   it("should correctly clear abuse state from the manager", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -54,7 +54,7 @@ describe("clearObjectAbuse util", () => {
   });
 });
 
-describe("setObjectAbuseState util", () => {
+describe("setObjectAbuseState", () => {
   it("should correctly set abuse state for the manager", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);

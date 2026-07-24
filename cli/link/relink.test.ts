@@ -8,7 +8,7 @@ import { unlinkFolders } from "#/link/unlink";
 jest.mock("#/link/link");
 jest.mock("#/link/unlink");
 
-describe("relinkFolders util", () => {
+describe("relinkFolders", () => {
   it("should correctly relink existing files", async () => {
     const parameters: ILinkCommandParameters = {};
 

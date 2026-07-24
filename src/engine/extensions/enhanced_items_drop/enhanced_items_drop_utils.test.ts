@@ -7,7 +7,7 @@ import { weapons } from "@/engine/constants/items/weapons";
 import { registerSimulator } from "@/engine/core/database";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
 
-describe("onItemGoOnlineFirstTime util", () => {
+describe("onItemGoOnlineFirstTime", () => {
   beforeEach(() => {
     registerSimulator();
   });

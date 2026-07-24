@@ -10,7 +10,7 @@ import {
   readIniDropDependentItems,
 } from "@/engine/core/managers/drop/utils/drop_init";
 
-describe("readIniDropByCommunity util", () => {
+describe("readIniDropByCommunity", () => {
   it("should correctly read data", () => {
     expect(readIniDropByCommunity(DROP_MANAGER_CONFIG_LTX)).toEqualLuaTables({
       ...Object.keys(communities).reduce(
@@ -38,7 +38,7 @@ describe("readIniDropByCommunity util", () => {
   });
 });
 
-describe("readIniDropDependentItems util", () => {
+describe("readIniDropDependentItems", () => {
   it("should correctly read data", () => {
     expect(readIniDropDependentItems(DROP_MANAGER_CONFIG_LTX)).toEqualLuaTables({
       "ammo_11.43x23_fmj": {
@@ -69,7 +69,7 @@ describe("readIniDropDependentItems util", () => {
   });
 });
 
-describe("readIniDropCountByLevel util", () => {
+describe("readIniDropCountByLevel", () => {
   it("should correctly read data", () => {
     expect(level.name()).toBe("zaton");
     expect(level.get_game_difficulty()).toBe(3);

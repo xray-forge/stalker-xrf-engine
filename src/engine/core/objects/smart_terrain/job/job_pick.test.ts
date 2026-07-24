@@ -17,7 +17,7 @@ import {
 import { jobPreconditionCamper, jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { mockRegisteredActor, MockSmartTerrain } from "@/fixtures/engine";
 
-describe("selectSmartTerrainJob util", () => {
+describe("selectSmartTerrainJob", () => {
   beforeEach(() => {
     registerSimulator();
     mockRegisteredActor();
@@ -186,7 +186,7 @@ describe("selectSmartTerrainJob util", () => {
   });
 });
 
-describe("getSmartTerrainJobByObjectId util", () => {
+describe("getSmartTerrainJobByObjectId", () => {
   beforeEach(() => {
     registerSimulator();
     mockRegisteredActor();

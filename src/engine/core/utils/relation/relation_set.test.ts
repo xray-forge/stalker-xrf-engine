@@ -21,7 +21,7 @@ import {
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 
-describe("setGameObjectRelation util", () => {
+describe("setGameObjectRelation", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly set objects relation", () => {
@@ -44,7 +44,7 @@ describe("setGameObjectRelation util", () => {
   });
 });
 
-describe("setServerObjectRelation util", () => {
+describe("setServerObjectRelation", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly set objects relation", () => {
@@ -67,7 +67,7 @@ describe("setServerObjectRelation util", () => {
   });
 });
 
-describe("setGoodwillBetweenCommunities util", () => {
+describe("setGoodwillBetweenCommunities", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly set community goodwill", () => {
@@ -89,7 +89,7 @@ describe("setGoodwillBetweenCommunities util", () => {
   });
 });
 
-describe("setRelationFromCommunityToCommunity util", () => {
+describe("setRelationFromCommunityToCommunity", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check relation", () => {
@@ -111,7 +111,7 @@ describe("setRelationFromCommunityToCommunity util", () => {
   });
 });
 
-describe("increaseNumberRelationBetweenCommunityAndId util", () => {
+describe("increaseNumberRelationBetweenCommunityAndId", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check relation", () => {
@@ -129,7 +129,7 @@ describe("increaseNumberRelationBetweenCommunityAndId util", () => {
   });
 });
 
-describe("setObjectSympathy util", () => {
+describe("setObjectSympathy", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly set sympathy", () => {
@@ -157,7 +157,7 @@ describe("setObjectSympathy util", () => {
   });
 });
 
-describe("setSquadRelationToCommunity util", () => {
+describe("setSquadRelationToCommunity", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly set squad members relation", () => {
@@ -181,7 +181,7 @@ describe("setSquadRelationToCommunity util", () => {
   });
 });
 
-describe("setSquadRelationWithObject util", () => {
+describe("setSquadRelationWithObject", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -217,7 +217,7 @@ describe("setSquadRelationWithObject util", () => {
   });
 });
 
-describe("updateSquadIdRelationToActor util", () => {
+describe("updateSquadIdRelationToActor", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly update relation", () => {
@@ -249,7 +249,7 @@ describe("updateSquadIdRelationToActor util", () => {
   });
 });
 
-describe("setSquadRelationToActor util", () => {
+describe("setSquadRelationToActor", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly update relation", () => {

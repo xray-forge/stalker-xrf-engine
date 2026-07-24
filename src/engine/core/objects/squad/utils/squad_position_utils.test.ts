@@ -17,7 +17,7 @@ jest.mock("@/engine/core/database/stalker", () => ({
   resetStalkerState: jest.fn(),
 }));
 
-describe("setSquadPosition util", () => {
+describe("setSquadPosition", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(resetStalkerState);

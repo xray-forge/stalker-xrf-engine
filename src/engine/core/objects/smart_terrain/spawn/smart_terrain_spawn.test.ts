@@ -102,7 +102,7 @@ describe("smart_terrain_spawn module", () => {
   });
 });
 
-describe("respawnSmartTerrainSquad util", () => {
+describe("respawnSmartTerrainSquad", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -184,7 +184,7 @@ describe("respawnSmartTerrainSquad util", () => {
   });
 });
 
-describe("canRespawnSmartTerrainSquad util", () => {
+describe("canRespawnSmartTerrainSquad", () => {
   it("should correctly set idle state after check", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 

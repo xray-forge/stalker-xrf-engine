@@ -13,7 +13,7 @@ import {
   processVictim,
 } from "@/engine/core/schemes/stalker/wounded/utils/wounded_process";
 
-describe("processHPWound util", () => {
+describe("processHPWound", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -102,7 +102,7 @@ describe("processHPWound util", () => {
   });
 });
 
-describe("processPsyWound util", () => {
+describe("processPsyWound", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -123,7 +123,7 @@ describe("processPsyWound util", () => {
   });
 });
 
-describe("processVictim util", () => {
+describe("processVictim", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -144,7 +144,7 @@ describe("processVictim util", () => {
   });
 });
 
-describe("processFight util", () => {
+describe("processFight", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 

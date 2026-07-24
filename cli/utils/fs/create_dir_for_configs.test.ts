@@ -7,7 +7,7 @@ import { NodeLogger } from "#/utils/logging";
 
 jest.mock("node:fs");
 
-describe("create_dir_for_configs util", () => {
+describe("create_dir_for_configs", () => {
   it("should correctly call fs methods to create dir", () => {
     const mockLog: NodeLogger = { debug: jest.fn() } as unknown as NodeLogger;
 

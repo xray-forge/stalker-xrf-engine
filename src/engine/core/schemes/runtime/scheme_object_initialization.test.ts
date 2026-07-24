@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/schemes/runtime/scheme_object_initialization";
 import { EScheme } from "@/engine/core/schemes/types";
 
-describe("initializeObjectInvulnerability util", () => {
+describe("initializeObjectInvulnerability", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -47,7 +47,7 @@ describe("initializeObjectInvulnerability util", () => {
   });
 });
 
-describe("initializeObjectCanSelectWeaponState util", () => {
+describe("initializeObjectCanSelectWeaponState", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -85,7 +85,7 @@ describe("initializeObjectCanSelectWeaponState util", () => {
   });
 });
 
-describe("initializeObjectTakeItemsEnabledState util", () => {
+describe("initializeObjectTakeItemsEnabledState", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -123,7 +123,7 @@ describe("initializeObjectTakeItemsEnabledState util", () => {
   });
 });
 
-describe("initializeObjectGroup util", () => {
+describe("initializeObjectGroup", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -143,7 +143,7 @@ describe("initializeObjectGroup util", () => {
   });
 });
 
-describe("initializeObjectInfo util", () => {
+describe("initializeObjectInfo", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -171,7 +171,7 @@ describe("initializeObjectInfo util", () => {
   });
 });
 
-describe("initializeObjectIgnoreThreshold util", () => {
+describe("initializeObjectIgnoreThreshold", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);

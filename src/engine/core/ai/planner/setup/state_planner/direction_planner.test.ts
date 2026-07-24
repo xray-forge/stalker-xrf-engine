@@ -8,7 +8,7 @@ import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateContr
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
-describe("direction_planner util", () => {
+describe("direction_planner", () => {
   it("should correctly setup state planner planner actions", () => {
     const object: GameObject = MockGameObject.mock();
     const controller: StalkerStateController = new StalkerStateController(object);

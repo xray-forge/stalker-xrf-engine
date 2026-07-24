@@ -7,7 +7,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils/reach_task_utils";
 
-describe("updateObjectReachTaskMovement util", () => {
+describe("updateObjectReachTaskMovement", () => {
   beforeEach(() => {
     surgeConfig.IS_STARTED = false;
   });

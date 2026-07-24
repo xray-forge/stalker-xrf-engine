@@ -14,7 +14,7 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("launchSurgeSignalRockets util", () => {
+describe("launchSurgeSignalRockets", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -48,7 +48,7 @@ describe("launchSurgeSignalRockets util", () => {
   });
 });
 
-describe("isSurgeEnabledOnLevel util", () => {
+describe("isSurgeEnabledOnLevel", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -67,7 +67,7 @@ describe("isSurgeEnabledOnLevel util", () => {
   });
 });
 
-describe("isImmuneToSurgeObject util", () => {
+describe("isImmuneToSurgeObject", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();

@@ -6,7 +6,7 @@ import { loadExtension, saveExtension } from "@/engine/core/extensions/extension
 import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 
-describe("saveExtension util", () => {
+describe("saveExtension", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -31,7 +31,7 @@ describe("saveExtension util", () => {
   });
 });
 
-describe("loadExtension util", () => {
+describe("loadExtension", () => {
   beforeEach(() => {
     resetRegistry();
   });

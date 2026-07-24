@@ -77,7 +77,7 @@ function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 jest.mock("@/engine/core/managers/map/utils");
 
-describe("isActiveSection util", () => {
+describe("isActiveSection", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -98,7 +98,7 @@ describe("isActiveSection util", () => {
   });
 });
 
-describe("getSectionToActivate util", () => {
+describe("getSectionToActivate", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -149,7 +149,7 @@ describe("getSectionToActivate util", () => {
   });
 });
 
-describe("activateSchemeBySection util", () => {
+describe("activateSchemeBySection", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -298,7 +298,7 @@ describe("activateSchemeBySection util", () => {
   });
 });
 
-describe("enableObjectBaseSchemes util", () => {
+describe("enableObjectBaseSchemes", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -463,7 +463,7 @@ describe("enableObjectBaseSchemes util", () => {
   });
 });
 
-describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
+describe("resetObjectGenericSchemesOnSectionSwitch", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

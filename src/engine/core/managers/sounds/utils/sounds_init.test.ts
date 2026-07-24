@@ -6,7 +6,7 @@ import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { ActorSound, LoopedSound, NpcSound, ObjectSound } from "@/engine/core/managers/sounds/objects";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
 
-describe("readIniThemesList util", () => {
+describe("readIniThemesList", () => {
   it("should handle exceptional cases", () => {
     expect(() => readIniThemesList(MockIniFile.mock("test.ltx", {}))).toThrow(
       "There is no section 'list' in provided ini file."

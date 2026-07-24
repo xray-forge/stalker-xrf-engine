@@ -9,7 +9,7 @@ import { getSchemeStateOptimistic, IBaseSchemeState, setSchemeState } from "@/en
 import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 
-describe("emitSchemeEvent util", () => {
+describe("emitSchemeEvent", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -81,7 +81,7 @@ describe("emitSchemeEvent util", () => {
   });
 });
 
-describe("setObjectActiveSchemeSignal util", () => {
+describe("setObjectActiveSchemeSignal", () => {
   beforeEach(() => {
     resetRegistry();
   });

@@ -4,7 +4,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
-describe("normalize_parameter_path util", () => {
+describe("normalize_parameter_path", () => {
   const sep: string = path.sep;
 
   it("should correctly normalize with separator", () => {

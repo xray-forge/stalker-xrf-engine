@@ -11,7 +11,7 @@ jest.mock("extensions.d.main", () => ({ canToggle: false, register: () => {} }),
 jest.mock("extensions.e.check", () => ({}), { virtual: true });
 jest.mock("extensions.e.main", () => ({ register: () => {} }), { virtual: true });
 
-describe("getAvailableExtensions util", () => {
+describe("getAvailableExtensions", () => {
   it("should correctly return list of available extensions", () => {
     jest.spyOn(getFS(), "exist");
     jest.spyOn(lfs, "attributes").mockImplementation(() => null);

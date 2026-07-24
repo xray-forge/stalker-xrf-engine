@@ -5,7 +5,7 @@ import { parseConditionsList } from "@/engine/core/ini";
 import { ETreasureType } from "@/engine/core/managers/treasures";
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 
-describe("readIniTreasuresList util", () => {
+describe("readIniTreasuresList", () => {
   it("should correctly read", () => {
     expect(readIniTreasuresList(MockIniFile.mock("test.ltx", {}))).toEqualLuaTables({});
 

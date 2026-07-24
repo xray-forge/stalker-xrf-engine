@@ -13,7 +13,7 @@ const tableUtils: {
   ) => LuaTable<TValue, boolean>;
 } = jest.requireActual("@/engine/core/utils/table");
 
-describe("resetTable util", () => {
+describe("resetTable", () => {
   it("should correctly empty provided table", () => {
     const first: LuaArray<number> = $fromArray([1, 2, 3, 4]);
     const second: LuaTable<string, string> = $fromObject<string, string>({ a: "1", b: "2" });
@@ -26,7 +26,7 @@ describe("resetTable util", () => {
   });
 });
 
-describe("copyTable util", () => {
+describe("copyTable", () => {
   it("should correctly copy table", () => {
     const from: LuaTable = new LuaTable();
     const to: LuaTable<string, unknown> = $fromObject<string, unknown>({ a: 1, b: 2, c: 3, d: { a: "a" } });
@@ -46,7 +46,7 @@ describe("copyTable util", () => {
   });
 });
 
-describe("mergeTables util", () => {
+describe("mergeTables", () => {
   it("should correctly merge tables", () => {
     const to: LuaTable<string, number> = $fromObject<string, number>({ a: 1 });
 
@@ -61,7 +61,7 @@ describe("mergeTables util", () => {
   });
 });
 
-describe("isEmpty util", () => {
+describe("isEmpty", () => {
   it("should correctly check table emptiness", () => {
     expect(tableUtils.isEmpty($fromObject({ a: 1, b: 2 }))).toBe(false);
     expect(tableUtils.isEmpty($fromArray(["a", "b", "c", "d", "e"]))).toBe(false);
@@ -73,7 +73,7 @@ describe("isEmpty util", () => {
   });
 });
 
-describe("getTableKeys util", () => {
+describe("getTableKeys", () => {
   it("should correctly return list of keys", () => {
     expect(tableUtils.getTableKeys($fromObject<TName, TName>({}))).toEqualLuaArrays([]);
     expect(tableUtils.getTableKeys($fromObject({ a: 1, b: 2, c: 3 }))).toEqualLuaArrays(["a", "b", "c"]);
@@ -81,7 +81,7 @@ describe("getTableKeys util", () => {
   });
 });
 
-describe("getTableValuesAsSet util", () => {
+describe("getTableValuesAsSet", () => {
   it("should correctly return list of keys", () => {
     expect(tableUtils.getTableValuesAsSet($fromObject<TName, TName>({}))).toEqualLuaTables({});
     expect(tableUtils.getTableValuesAsSet($fromObject({ a: 1, b: 2, c: "3" }))).toEqualLuaTables({

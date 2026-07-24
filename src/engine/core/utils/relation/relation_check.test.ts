@@ -20,7 +20,7 @@ import {
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
 import { mockRegisteredActor, mockRelationsSquads, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("isActorEnemyWithFaction util", () => {
+describe("isActorEnemyWithFaction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -37,7 +37,7 @@ describe("isActorEnemyWithFaction util", () => {
   });
 });
 
-describe("isActorFriendWithFaction util", () => {
+describe("isActorFriendWithFaction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -55,7 +55,7 @@ describe("isActorFriendWithFaction util", () => {
   });
 });
 
-describe("isActorNeutralWithFaction util", () => {
+describe("isActorNeutralWithFaction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -72,7 +72,7 @@ describe("isActorNeutralWithFaction util", () => {
   });
 });
 
-describe("isSquadCommunityEnemyToActor util", () => {
+describe("isSquadCommunityEnemyToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -96,7 +96,7 @@ describe("isSquadCommunityEnemyToActor util", () => {
   });
 });
 
-describe("isSquadCommunityFriendToActor util", () => {
+describe("isSquadCommunityFriendToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -123,7 +123,7 @@ describe("isSquadCommunityFriendToActor util", () => {
   });
 });
 
-describe("isSquadCommunityNeutralToActor util", () => {
+describe("isSquadCommunityNeutralToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -147,7 +147,7 @@ describe("isSquadCommunityNeutralToActor util", () => {
   });
 });
 
-describe("areCommunitiesFriendly util", () => {
+describe("areCommunitiesFriendly", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -166,7 +166,7 @@ describe("areCommunitiesFriendly util", () => {
   });
 });
 
-describe("areCommunitiesNeutral util", () => {
+describe("areCommunitiesNeutral", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -187,7 +187,7 @@ describe("areCommunitiesNeutral util", () => {
   });
 });
 
-describe("areCommunitiesEnemies util", () => {
+describe("areCommunitiesEnemies", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -206,7 +206,7 @@ describe("areCommunitiesEnemies util", () => {
   });
 });
 
-describe("isAnySquadMemberEnemyToActor util", () => {
+describe("isAnySquadMemberEnemyToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -223,7 +223,7 @@ describe("isAnySquadMemberEnemyToActor util", () => {
   });
 });
 
-describe("isAnySquadMemberFriendToActor util", () => {
+describe("isAnySquadMemberFriendToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

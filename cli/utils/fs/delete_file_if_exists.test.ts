@@ -6,7 +6,7 @@ import { deleteFileIfExists } from "#/utils/fs/delete_file_if_exists";
 
 jest.mock("node:fs");
 
-describe("delete_file_if_exists util", () => {
+describe("delete_file_if_exists", () => {
   it("should correctly call fs methods to delete file if existing", () => {
     jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 

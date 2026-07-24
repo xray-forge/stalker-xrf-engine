@@ -4,7 +4,7 @@ import { quoted } from "#/utils/string";
 
 import { stringifyKey, toJSON } from "@/engine/core/utils/transform/json";
 
-describe("toJSON util", () => {
+describe("toJSON", () => {
   it("toJSON should correctly stringify simple types", () => {
     expect(toJSON("abc")).toBe(quoted("abc"));
     expect(toJSON("bca")).toBe(quoted("bca"));
@@ -53,7 +53,7 @@ describe("toJSON util", () => {
   });
 });
 
-describe("stringifyKey util", () => {
+describe("stringifyKey", () => {
   it("correctly stringify json keys", () => {
     expect(stringifyKey(123)).toBe("123");
     expect(stringifyKey("abc")).toBe("abc");

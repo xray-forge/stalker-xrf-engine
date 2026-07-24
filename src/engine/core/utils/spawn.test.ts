@@ -20,7 +20,7 @@ import {
 } from "@/engine/core/utils/spawn";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
-describe("spawnItemsForObject util", () => {
+describe("spawnItemsForObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -68,7 +68,7 @@ describe("spawnItemsForObject util", () => {
   });
 });
 
-describe("spawnAmmoForObject util", () => {
+describe("spawnAmmoForObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -106,7 +106,7 @@ describe("spawnAmmoForObject util", () => {
   });
 });
 
-describe("spawnItemsAtPosition util", () => {
+describe("spawnItemsAtPosition", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -156,7 +156,7 @@ describe("spawnItemsAtPosition util", () => {
   });
 });
 
-describe("spawnAmmoAtPosition util", () => {
+describe("spawnAmmoAtPosition", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -196,7 +196,7 @@ describe("spawnAmmoAtPosition util", () => {
   });
 });
 
-describe("spawnItemsForObjectFromList util", () => {
+describe("spawnItemsForObjectFromList", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -235,7 +235,7 @@ describe("spawnItemsForObjectFromList util", () => {
   });
 });
 
-describe("spawnSquadInSmart util", () => {
+describe("spawnSquadInSmart", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -261,7 +261,7 @@ describe("spawnSquadInSmart util", () => {
   });
 });
 
-describe("spawnObject util", () => {
+describe("spawnObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -285,7 +285,7 @@ describe("spawnObject util", () => {
   });
 });
 
-describe("spawnObjectInObject util", () => {
+describe("spawnObjectInObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -305,7 +305,7 @@ describe("spawnObjectInObject util", () => {
   });
 });
 
-describe("releaseObject util", () => {
+describe("releaseObject", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -322,7 +322,7 @@ describe("releaseObject util", () => {
   });
 });
 
-describe("spawnCreatureNearActor util", () => {
+describe("spawnCreatureNearActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

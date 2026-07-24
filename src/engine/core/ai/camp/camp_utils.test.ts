@@ -20,7 +20,7 @@ import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-describe("startPlayingGuitar util", () => {
+describe("startPlayingGuitar", () => {
   it("should correctly start playing without camp", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -53,7 +53,7 @@ describe("startPlayingGuitar util", () => {
   });
 });
 
-describe("startPlayingHarmonica util", () => {
+describe("startPlayingHarmonica", () => {
   it("should correctly start playing without camp", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -86,7 +86,7 @@ describe("startPlayingHarmonica util", () => {
   });
 });
 
-describe("canTellCampStory util", () => {
+describe("canTellCampStory", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
@@ -145,7 +145,7 @@ describe("canTellCampStory util", () => {
   });
 });
 
-describe("canPlayCampGuitar util", () => {
+describe("canPlayCampGuitar", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
@@ -206,7 +206,7 @@ describe("canPlayCampGuitar util", () => {
   });
 });
 
-describe("canPlayCampHarmonica util", () => {
+describe("canPlayCampHarmonica", () => {
   it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampController = new CampController(camp, MockIniFile.mock("test.ltx"));
@@ -267,7 +267,7 @@ describe("canPlayCampHarmonica util", () => {
   });
 });
 
-describe("getObjectCampActivityRole util", () => {
+describe("getObjectCampActivityRole", () => {
   it("should correctly get object roles for generic activities", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);

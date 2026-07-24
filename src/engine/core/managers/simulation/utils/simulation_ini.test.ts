@@ -8,7 +8,7 @@ import { initializeLevelSimulationGroupIds } from "@/engine/core/managers/simula
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("initializeLevelSimulationGroupIds util", () => {
+describe("initializeLevelSimulationGroupIds", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

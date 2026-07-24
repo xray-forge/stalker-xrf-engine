@@ -16,7 +16,7 @@ import {
 } from "@/engine/core/utils/squad/squad_actions";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
-describe("isObjectSquadCommander util", () => {
+describe("isObjectSquadCommander", () => {
   beforeEach(() => {
     mockRegisteredActor();
     registerSimulator();
@@ -61,7 +61,7 @@ describe("isObjectSquadCommander util", () => {
   });
 });
 
-describe("canSquadHelpActor util", () => {
+describe("canSquadHelpActor", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -156,7 +156,7 @@ describe("canSquadHelpActor util", () => {
   });
 });
 
-describe("getSquadHelpActorTargetId util", () => {
+describe("getSquadHelpActorTargetId", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -246,7 +246,7 @@ describe("getSquadHelpActorTargetId util", () => {
   });
 });
 
-describe("isSquadAction util", () => {
+describe("isSquadAction", () => {
   beforeEach(() => {
     resetRegistry();
   });

@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
 
-describe("calculateSoundFade util", () => {
+describe("calculateSoundFade", () => {
   it("should correctly calculate fade based on factor", () => {
     expect(calculateSoundFade(1, 1, 2, 21, 29)).toBe(21);
     expect(calculateSoundFade(2, 1, 2, 21, 29)).toBe(29);

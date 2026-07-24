@@ -9,7 +9,7 @@ import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("selectBestStalkerWeapon util", () => {
+describe("selectBestStalkerWeapon", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

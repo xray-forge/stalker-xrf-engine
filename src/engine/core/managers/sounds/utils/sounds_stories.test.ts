@@ -4,7 +4,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryPlaybackController } from "@/engine/core/managers/sounds/stories";
 import { getStoryPlayback } from "@/engine/core/managers/sounds/utils/sounds_stories";
 
-describe("getStoryPlayback util", () => {
+describe("getStoryPlayback", () => {
   beforeEach(() => {
     soundsConfig.storyPlaybacks = new LuaTable();
   });

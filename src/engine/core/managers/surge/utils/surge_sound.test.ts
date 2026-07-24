@@ -13,7 +13,7 @@ import {
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("playSurgeStartingSound util", () => {
+describe("playSurgeStartingSound", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -42,7 +42,7 @@ describe("playSurgeStartingSound util", () => {
   });
 });
 
-describe("playSurgeWillHappenSoonSound util", () => {
+describe("playSurgeWillHappenSoonSound", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -71,7 +71,7 @@ describe("playSurgeWillHappenSoonSound util", () => {
   });
 });
 
-describe("playSurgeEndedSound util", () => {
+describe("playSurgeEndedSound", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();

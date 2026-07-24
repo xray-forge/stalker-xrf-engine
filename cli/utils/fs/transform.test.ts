@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { transformBytesToMegabytes } from "#/utils/fs/transform";
 
-describe("transformBytesToMegabytes util", () => {
+describe("transformBytesToMegabytes", () => {
   it("should correctly convert values", () => {
     expect(transformBytesToMegabytes(1024 * 1024)).toBe(1);
     expect(transformBytesToMegabytes(1024 * 1024 * 5)).toBe(5);

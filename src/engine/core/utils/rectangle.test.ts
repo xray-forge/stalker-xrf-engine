@@ -3,7 +3,7 @@ import { Frect } from "xray16";
 
 import { copyRectangle, createRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 
-describe("createScreenRectangle util", () => {
+describe("createScreenRectangle", () => {
   it("should correctly create rectangles describing screen", () => {
     const rectangle: Frect = createScreenRectangle();
 
@@ -14,7 +14,7 @@ describe("createScreenRectangle util", () => {
   });
 });
 
-describe("createRectangle util", () => {
+describe("createRectangle", () => {
   it("should correctly create rectangles", () => {
     const rectangle: Frect = createRectangle(0, 1, 2, 3);
 
@@ -25,7 +25,7 @@ describe("createRectangle util", () => {
   });
 });
 
-describe("copyRectangle util", () => {
+describe("copyRectangle", () => {
   it("should correctly copy rectangles", () => {
     const rectangle: Frect = createRectangle(0, 1, 2, 3);
     const copied: Frect = copyRectangle(rectangle);

@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { parseConditionsList } from "@/engine/core/ini";
 import { getStateIndexByHp, parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 
-describe("parseWoundedData util", () => {
+describe("parseWoundedData", () => {
   it("should correctly parse data", () => {
     expect(parseWoundedData("0|false")).toEqualLuaTables([
       {
@@ -31,7 +31,7 @@ describe("parseWoundedData util", () => {
   });
 });
 
-describe("getStateIndexByHp util", () => {
+describe("getStateIndexByHp", () => {
   it("should correctly find matching indexes", () => {
     expect(getStateIndexByHp(new LuaTable(), -1)).toBeNull();
     expect(getStateIndexByHp(new LuaTable(), 0)).toBeNull();

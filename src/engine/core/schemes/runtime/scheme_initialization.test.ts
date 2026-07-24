@@ -42,7 +42,7 @@ import { INI_FILES_MOCKS, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 
-describe("configureObjectSchemes util", () => {
+describe("configureObjectSchemes", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -187,7 +187,7 @@ describe("configureObjectSchemes util", () => {
   });
 });
 
-describe("initializeObjectSchemeLogic util", () => {
+describe("initializeObjectSchemeLogic", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -288,7 +288,7 @@ describe("initializeObjectSchemeLogic util", () => {
   });
 });
 
-describe("initializeObjectSectionItems util", () => {
+describe("initializeObjectSectionItems", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -15,7 +15,7 @@ import {
   isTransitionWeather,
 } from "@/engine/core/managers/weather/utils/weather_generic";
 
-describe("getPossibleWeathersList util", () => {
+describe("getPossibleWeathersList", () => {
   it("should correctly get list of weathers", () => {
     replaceFunctionMock(lfs.dir, () => {
       const list: Array<TName> = [".", "..", "a.ltx", "b.ltx", "c.ltx", "another.xml"];
@@ -27,7 +27,7 @@ describe("getPossibleWeathersList util", () => {
   });
 });
 
-describe("getNextWeatherFromGraph util", () => {
+describe("getNextWeatherFromGraph", () => {
   it("should correctly get next possible weather from graph", () => {
     const graph: TWeatherGraph = $fromObject<TSection, TProbability>({
       clear: 0.25,
@@ -57,7 +57,7 @@ describe("getNextWeatherFromGraph util", () => {
   });
 });
 
-describe("getLevelWeatherDescriptor util", () => {
+describe("getLevelWeatherDescriptor", () => {
   it("should get descriptors of levels", () => {
     jest.spyOn(level, "name").mockImplementationOnce(() => "unknown");
     expect(getLevelWeatherDescriptor()).toEqual({
@@ -85,7 +85,7 @@ describe("getLevelWeatherDescriptor util", () => {
   });
 });
 
-describe("getNextPeriodChangeHour util", () => {
+describe("getNextPeriodChangeHour", () => {
   it("should correctly get next weather change hour for zaton", () => {
     jest.spyOn(level, "name").mockImplementationOnce(() => "zaton");
     jest.spyOn(math, "random").mockImplementationOnce((_, max) => max || 0);
@@ -123,7 +123,7 @@ describe("getNextPeriodChangeHour util", () => {
   });
 });
 
-describe("isIndoorWeather util", () => {
+describe("isIndoorWeather", () => {
   it("should check indoor weathers", () => {
     expect(isIndoorWeather("indoor_default")).toBe(true);
     expect(isIndoorWeather("indoor")).toBe(true);
@@ -134,7 +134,7 @@ describe("isIndoorWeather util", () => {
   });
 });
 
-describe("isPreBlowoutWeather util", () => {
+describe("isPreBlowoutWeather", () => {
   it("should check pre-blowout weathers", () => {
     expect(isPreBlowoutWeather("pre_blowout_default")).toBe(true);
     expect(isPreBlowoutWeather("pre_blowout")).toBe(true);
@@ -145,7 +145,7 @@ describe("isPreBlowoutWeather util", () => {
   });
 });
 
-describe("isPreBlowoutWeather util", () => {
+describe("isPreBlowoutWeather", () => {
   it("should check isTransitionWeather weathers", () => {
     expect(isTransitionWeather("transition_default")).toBe(true);
     expect(isTransitionWeather("transition")).toBe(true);

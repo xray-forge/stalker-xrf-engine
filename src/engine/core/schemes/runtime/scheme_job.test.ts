@@ -18,7 +18,7 @@ import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 jest.mock("@/engine/core/schemes/runtime/scheme_initialization");
 jest.mock("@/engine/core/schemes/runtime/scheme_logic");
 
-describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
+describe("setupObjectSmartJobsAndLogicOnSpawn", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -86,7 +86,7 @@ describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
   });
 });
 
-describe("setupSmartTerrainObjectJobLogic util", () => {
+describe("setupSmartTerrainObjectJobLogic", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

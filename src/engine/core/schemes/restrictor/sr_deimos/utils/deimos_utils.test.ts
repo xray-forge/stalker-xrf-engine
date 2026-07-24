@@ -8,7 +8,7 @@ import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-describe("isDeimosPhase util", () => {
+describe("isDeimosPhase", () => {
   beforeEach(() => {
     resetRegistry();
   });

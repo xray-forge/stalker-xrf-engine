@@ -5,7 +5,7 @@ import { MockIniFile } from "xray16/mocks";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
 
-describe("readObjectTradeIniPath util", () => {
+describe("readObjectTradeIniPath", () => {
   it("should correctly read object ini", () => {
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       logic_default: {

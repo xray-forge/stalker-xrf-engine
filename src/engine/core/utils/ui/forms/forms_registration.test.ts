@@ -5,7 +5,7 @@ import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "xray16/mock
 
 import { EElementType, initializeElement, initializeStatic, initializeStatics } from "@/engine/core/utils/ui/forms";
 
-describe("initializeStatic util", () => {
+describe("initializeStatic", () => {
   it("should correctly create static as shortcut", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
@@ -15,7 +15,7 @@ describe("initializeStatic util", () => {
   });
 });
 
-describe("initializeStatics util", () => {
+describe("initializeStatics", () => {
   it("should correctly create statics as shortcut", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
@@ -25,7 +25,7 @@ describe("initializeStatics util", () => {
   });
 });
 
-describe("initElement util", () => {
+describe("initElement", () => {
   it("should correctly register elements", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
@@ -89,7 +89,7 @@ describe("initElement util", () => {
   });
 });
 
-describe("registerUiElement util", () => {
+describe("registerUiElement", () => {
   it("should correctly register elements with callbacks", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();

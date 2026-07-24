@@ -7,7 +7,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getHelicopterHealth, isHelicopterAlive } from "@/engine/core/utils/helicopter";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("getHelicopterHealth util", () => {
+describe("getHelicopterHealth", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -45,7 +45,7 @@ describe("getHelicopterHealth util", () => {
   });
 });
 
-describe("isHelicopterAlive util", () => {
+describe("isHelicopterAlive", () => {
   beforeEach(() => {
     resetRegistry();
   });

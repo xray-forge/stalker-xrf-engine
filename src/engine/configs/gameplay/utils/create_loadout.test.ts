@@ -6,7 +6,7 @@ import {
   createSpawnLoadoutFlag,
 } from "@/engine/configs/gameplay/utils/create_loadout";
 
-describe("createSpawnList util", () => {
+describe("createSpawnList", () => {
   it("should correctly generate resulting strings", () => {
     expect(createSpawnList([{ section: "test_sect" }])).toBe("test_sect=1 \\n\n");
     expect(createSpawnList([{ section: "test_sect", probability: 1 }])).toBe("test_sect=1 \\n\n");
@@ -55,7 +55,7 @@ describe("createSpawnList util", () => {
   });
 });
 
-describe("createSpawnLoadout util", () => {
+describe("createSpawnLoadout", () => {
   it("should correctly generate resulting strings", () => {
     expect(createSpawnLoadout([{ section: "test_sect" }])).toBe("test_sect=1 \\n\n");
     expect(createSpawnLoadout([{ section: "test_sect" }])).toBe("test_sect=1 \\n\n");
@@ -99,7 +99,7 @@ describe("createSpawnLoadout util", () => {
   });
 });
 
-describe("createSpawnLoadoutFlag util", () => {
+describe("createSpawnLoadoutFlag", () => {
   it("should correctly serialize values", () => {
     expect(createSpawnLoadoutFlag("test", false)).toBe("");
     expect(createSpawnLoadoutFlag("test", undefined)).toBe("");

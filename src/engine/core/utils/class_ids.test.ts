@@ -30,7 +30,7 @@ import {
 } from "@/engine/core/utils/class_ids";
 import { MockSquad } from "@/fixtures/engine";
 
-describe("isArtefact util", () => {
+describe("isArtefact", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is an artefact", () => {
@@ -46,7 +46,7 @@ describe("isArtefact util", () => {
   });
 });
 
-describe("isGrenade util", () => {
+describe("isGrenade", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a grenade", () => {
@@ -60,7 +60,7 @@ describe("isGrenade util", () => {
   });
 });
 
-describe("isActor util", () => {
+describe("isActor", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is an actor", () => {
@@ -73,7 +73,7 @@ describe("isActor util", () => {
   });
 });
 
-describe("isSquad util", () => {
+describe("isSquad", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a squad", () => {
@@ -86,7 +86,7 @@ describe("isSquad util", () => {
   });
 });
 
-describe("isSmartTerrain util", () => {
+describe("isSmartTerrain", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a monster", () => {
@@ -100,7 +100,7 @@ describe("isSmartTerrain util", () => {
   });
 });
 
-describe("isMonster util", () => {
+describe("isMonster", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a monster", () => {
@@ -116,7 +116,7 @@ describe("isMonster util", () => {
   });
 });
 
-describe("isStalker util", () => {
+describe("isStalker", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -133,7 +133,7 @@ describe("isStalker util", () => {
   });
 });
 
-describe("isCreature util", () => {
+describe("isCreature", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -155,7 +155,7 @@ describe("isCreature util", () => {
   });
 });
 
-describe("isTrader util", () => {
+describe("isTrader", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -175,7 +175,7 @@ describe("isTrader util", () => {
   });
 });
 
-describe("isStrappableWeapon util", () => {
+describe("isStrappableWeapon", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object can be strapped", () => {
@@ -187,7 +187,7 @@ describe("isStrappableWeapon util", () => {
   });
 });
 
-describe("isWeapon util", () => {
+describe("isWeapon", () => {
   beforeEach(() => registerSimulator());
 
   it("utils should correctly check object class ids", () => {
@@ -215,7 +215,7 @@ describe("isWeapon util", () => {
   });
 });
 
-describe("isMonsterSquad util", () => {
+describe("isMonsterSquad", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if squad object assigned with no leader", () => {
@@ -245,7 +245,7 @@ describe("isMonsterSquad util", () => {
   });
 });
 
-describe("isSnork util", () => {
+describe("isSnork", () => {
   it("should correctly check object class IDs", () => {
     expect(isSnork(MockGameObject.mockWithClassId(clsid.snork_s))).toBe(true);
     expect(isSnork(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -256,7 +256,7 @@ describe("isSnork util", () => {
   });
 });
 
-describe("isDog util", () => {
+describe("isDog", () => {
   it("should correctly check object class IDs", () => {
     expect(isDog(MockGameObject.mockWithClassId(clsid.dog_s))).toBe(true);
     expect(isDog(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -267,7 +267,7 @@ describe("isDog util", () => {
   });
 });
 
-describe("isPsyDog util", () => {
+describe("isPsyDog", () => {
   it("should correctly check object class IDs", () => {
     expect(isPsyDog(MockGameObject.mockWithClassId(clsid.psy_dog_s))).toBe(true);
     expect(isPsyDog(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -278,7 +278,7 @@ describe("isPsyDog util", () => {
   });
 });
 
-describe("isPoltergeist util", () => {
+describe("isPoltergeist", () => {
   it("should correctly check object class IDs", () => {
     expect(isPoltergeist(MockGameObject.mockWithClassId(clsid.poltergeist_s))).toBe(true);
     expect(isPoltergeist(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -289,7 +289,7 @@ describe("isPoltergeist util", () => {
   });
 });
 
-describe("isTushkano util", () => {
+describe("isTushkano", () => {
   it("should correctly check object class IDs", () => {
     expect(isTushkano(MockGameObject.mockWithClassId(clsid.tushkano_s))).toBe(true);
     expect(isTushkano(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -300,7 +300,7 @@ describe("isTushkano util", () => {
   });
 });
 
-describe("isBurer util", () => {
+describe("isBurer", () => {
   it("should correctly check object class IDs", () => {
     expect(isBurer(MockGameObject.mockWithClassId(clsid.burer_s))).toBe(true);
     expect(isBurer(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -311,7 +311,7 @@ describe("isBurer util", () => {
   });
 });
 
-describe("isController util", () => {
+describe("isController", () => {
   it("should correctly check object class IDs", () => {
     expect(isController(MockGameObject.mockWithClassId(clsid.controller_s))).toBe(true);
     expect(isController(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -322,7 +322,7 @@ describe("isController util", () => {
   });
 });
 
-describe("isFlesh util", () => {
+describe("isFlesh", () => {
   it("should correctly check object class IDs", () => {
     expect(isFlesh(MockGameObject.mockWithClassId(clsid.flesh_s))).toBe(true);
     expect(isFlesh(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
@@ -333,7 +333,7 @@ describe("isFlesh util", () => {
   });
 });
 
-describe("isBoar util", () => {
+describe("isBoar", () => {
   it("should correctly check object class IDs", () => {
     expect(isBoar(MockGameObject.mockWithClassId(clsid.boar_s))).toBe(true);
     expect(isBoar(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);

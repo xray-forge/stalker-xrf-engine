@@ -6,7 +6,7 @@ import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 
 jest.mock("node:fs");
 
-describe("create_dir_if_no_existing util", () => {
+describe("create_dir_if_no_existing", () => {
   it("should correctly call fs methods to create dir if existing", () => {
     jest.spyOn(fs, "existsSync").mockImplementation(() => true);
 

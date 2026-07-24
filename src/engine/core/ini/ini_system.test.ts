@@ -5,7 +5,7 @@ import { MockIniFile } from "xray16/mocks";
 import { SYSTEM_INI } from "@/engine/core/database";
 import { overrideSystemIni, unlockSystemIniOverriding } from "@/engine/core/ini";
 
-describe("unlockSystemIniOverriding util", () => {
+describe("unlockSystemIniOverriding", () => {
   it("should allow overriding of system ini", () => {
     unlockSystemIniOverriding();
 
@@ -15,7 +15,7 @@ describe("unlockSystemIniOverriding util", () => {
   });
 });
 
-describe("overrideSystemIni util", () => {
+describe("overrideSystemIni", () => {
   it("should correctly override sections for system ini", () => {
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       first: {

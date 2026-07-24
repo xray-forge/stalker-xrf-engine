@@ -32,7 +32,7 @@ function getItemsCount(object: GameObject, section: TSection): TCount {
   ).length;
 }
 
-describe("giveMoneyToActor util", () => {
+describe("giveMoneyToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -57,7 +57,7 @@ describe("giveMoneyToActor util", () => {
   });
 });
 
-describe("takeMoneyFromActor util", () => {
+describe("takeMoneyFromActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -84,7 +84,7 @@ describe("takeMoneyFromActor util", () => {
   });
 });
 
-describe("transferItemsFromActor util", () => {
+describe("transferItemsFromActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -177,7 +177,7 @@ describe("transferItemsFromActor util", () => {
   });
 });
 
-describe("transferItemsToActor util", () => {
+describe("transferItemsToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -203,7 +203,7 @@ describe("transferItemsToActor util", () => {
   });
 });
 
-describe("giveItemsToActor util", () => {
+describe("giveItemsToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -226,7 +226,7 @@ describe("giveItemsToActor util", () => {
   });
 });
 
-describe("giveItemsToActor util", () => {
+describe("giveItemsToActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());
@@ -249,7 +249,7 @@ describe("giveItemsToActor util", () => {
   });
 });
 
-describe("takeItemFromActor util", () => {
+describe("takeItemFromActor", () => {
   beforeEach(() => {
     resetRegistry();
     registerActor(MockGameObject.mockActor());

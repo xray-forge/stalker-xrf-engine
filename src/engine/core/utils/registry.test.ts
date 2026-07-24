@@ -13,7 +13,7 @@ import {
   getServerObjects,
 } from "@/engine/core/utils/registry";
 
-describe("getNearestServerObject util", () => {
+describe("getNearestServerObject", () => {
   beforeEach(() => {
     MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
@@ -65,7 +65,7 @@ describe("getNearestServerObject util", () => {
   });
 });
 
-describe("getServerObjects util", () => {
+describe("getServerObjects", () => {
   beforeEach(() => {
     MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
@@ -137,7 +137,7 @@ describe("getServerObjects util", () => {
   });
 });
 
-describe("getNearestGameObject util", () => {
+describe("getNearestGameObject", () => {
   beforeEach(() => {
     MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
@@ -181,7 +181,7 @@ describe("getNearestGameObject util", () => {
   });
 });
 
-describe("getGameObjects util", () => {
+describe("getGameObjects", () => {
   beforeEach(() => {
     MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();

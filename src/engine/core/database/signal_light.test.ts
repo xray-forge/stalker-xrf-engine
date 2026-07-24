@@ -6,7 +6,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerSignalLight, unregisterSignalLight } from "@/engine/core/database/signal_light";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("registerSignalLight util", () => {
+describe("registerSignalLight", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -33,7 +33,7 @@ describe("registerSignalLight util", () => {
   });
 });
 
-describe("unregisterSignalLight util", () => {
+describe("unregisterSignalLight", () => {
   beforeEach(() => {
     resetRegistry();
   });

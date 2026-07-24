@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/utils/info_portion";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("giveInfoPortion util", () => {
+describe("giveInfoPortion", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -27,7 +27,7 @@ describe("giveInfoPortion util", () => {
   });
 });
 
-describe("disableInfoPortion util", () => {
+describe("disableInfoPortion", () => {
   beforeEach(() => {
     mockRegisteredActor();
 
@@ -50,7 +50,7 @@ describe("disableInfoPortion util", () => {
   });
 });
 
-describe("hasInfoPortions util", () => {
+describe("hasInfoPortions", () => {
   beforeEach(() => {
     mockRegisteredActor();
 
@@ -76,7 +76,7 @@ describe("hasInfoPortions util", () => {
   });
 });
 
-describe("hasAtLeastOneInfoPortion util", () => {
+describe("hasAtLeastOneInfoPortion", () => {
   beforeEach(() => {
     mockRegisteredActor();
 
@@ -101,7 +101,7 @@ describe("hasAtLeastOneInfoPortion util", () => {
   });
 });
 
-describe("hasFewInfoPortions util", () => {
+describe("hasFewInfoPortions", () => {
   beforeEach(() => {
     mockRegisteredActor();
 

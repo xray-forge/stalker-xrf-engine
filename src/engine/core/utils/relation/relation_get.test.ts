@@ -23,7 +23,7 @@ import {
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 
-describe("getObjectsRelationSafe util", () => {
+describe("getObjectsRelationSafe", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
@@ -52,7 +52,7 @@ describe("getObjectsRelationSafe util", () => {
   });
 });
 
-describe("getSquadMembersRelationToActorSafe util", () => {
+describe("getSquadMembersRelationToActorSafe", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
@@ -79,7 +79,7 @@ describe("getSquadMembersRelationToActorSafe util", () => {
   });
 });
 
-describe("getSquadMembersRelationToActor util", () => {
+describe("getSquadMembersRelationToActor", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
@@ -106,7 +106,7 @@ describe("getSquadMembersRelationToActor util", () => {
   });
 });
 
-describe("getNumberRelationBetweenCommunities util", () => {
+describe("getNumberRelationBetweenCommunities", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
@@ -128,7 +128,7 @@ describe("getNumberRelationBetweenCommunities util", () => {
   });
 });
 
-describe("getSquadCommunityRelationToActor util", () => {
+describe("getSquadCommunityRelationToActor", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
@@ -169,7 +169,7 @@ describe("getSquadCommunityRelationToActor util", () => {
   });
 });
 
-describe("getSquadRelationToActorById util", () => {
+describe("getSquadRelationToActorById", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);

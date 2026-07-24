@@ -5,7 +5,7 @@ import { MockGameObject } from "xray16/mocks";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { isOnCampPatrolWalkPoint } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 
-describe("isOnCampPatrolWalkPoint util", () => {
+describe("isOnCampPatrolWalkPoint", () => {
   it("should correctly check points based on patrol", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -53,7 +53,7 @@ describe("isOnCampPatrolWalkPoint util", () => {
   });
 });
 
-describe("getNextCampPatrolPoint util", () => {
+describe("getNextCampPatrolPoint", () => {
   it("should correctly initialize", () => {
     // todo;
   });

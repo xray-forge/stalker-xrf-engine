@@ -10,7 +10,7 @@ import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("objectPunchActor util", () => {
+describe("objectPunchActor", () => {
   beforeEach(() => {
     resetFunctionMock(level.add_cam_effector);
     resetRegistry();

@@ -5,7 +5,7 @@ import { MockIniFile } from "xray16/mocks";
 import { parseConditionsList } from "@/engine/core/ini";
 import { readIniTravelDialogs } from "@/engine/core/managers/travel/utils/travel_init";
 
-describe("readIniTravelDialogs util", () => {
+describe("readIniTravelDialogs", () => {
   it("should correctly read locations", () => {
     expect(readIniTravelDialogs(MockIniFile.mock("test.ltx", {}))).toEqualLuaArrays([{}, {}]);
 

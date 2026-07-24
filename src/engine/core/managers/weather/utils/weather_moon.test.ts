@@ -4,7 +4,7 @@ import { createTime } from "xray16/lib";
 import { EWeatherMoonPeriod } from "@/engine/core/managers/weather";
 import { getMoonPhase } from "@/engine/core/managers/weather/utils/weather_moon";
 
-describe("getMoonPhase util", () => {
+describe("getMoonPhase", () => {
   it("should correctly calculate phase for 8 days duration", () => {
     expect(getMoonPhase(createTime(2012, 6, 8, 9, 30, 0, 0), EWeatherMoonPeriod.DAYS_8)).toBe("1");
     expect(getMoonPhase(createTime(2012, 6, 16, 9, 30, 0, 0), EWeatherMoonPeriod.DAYS_8)).toBe("1");

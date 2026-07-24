@@ -8,7 +8,7 @@ import { createExclusiveJob } from "@/engine/core/objects/smart_terrain/job/job_
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 
-describe("createExclusiveJob util", () => {
+describe("createExclusiveJob", () => {
   it("should correctly handle empty ini", () => {
     const list: TSmartTerrainJobsList = createExclusiveJob(MockIniFile.mock("text.ltx", {}), "a", "b", new LuaTable());
 

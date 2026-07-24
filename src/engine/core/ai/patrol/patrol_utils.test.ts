@@ -7,7 +7,7 @@ import { MockGameObject } from "xray16/mocks";
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
 
-describe("isPatrolTeamSynchronized util", () => {
+describe("isPatrolTeamSynchronized", () => {
   it("should correctly check team sync state", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

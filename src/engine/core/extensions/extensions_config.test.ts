@@ -7,7 +7,7 @@ import { IExtensionsDescriptor } from "@/engine/core/extensions/extensions_types
 
 jest.mock("xray16", () => ({ ini_file: jest.fn() }));
 
-describe("openExtensionIni util", () => {
+describe("openExtensionIni", () => {
   it("should correctly open files relative to the extension directory", () => {
     const extension: IExtensionsDescriptor = {
       directory: "extension_directory",

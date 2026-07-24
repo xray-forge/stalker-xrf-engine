@@ -17,7 +17,7 @@ import {
 } from "@/engine/core/utils/ranks";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("readRanksList util", () => {
+describe("readRanksList", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -68,7 +68,7 @@ describe("readRanksList util", () => {
   });
 });
 
-describe("getStalkerRankByName util", () => {
+describe("getStalkerRankByName", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -88,7 +88,7 @@ describe("getStalkerRankByName util", () => {
   });
 });
 
-describe("getMonsterRankByName util", () => {
+describe("getMonsterRankByName", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -108,7 +108,7 @@ describe("getMonsterRankByName util", () => {
   });
 });
 
-describe("getNextStalkerRank util", () => {
+describe("getNextStalkerRank", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -132,7 +132,7 @@ describe("getNextStalkerRank util", () => {
   });
 });
 
-describe("getNextMonsterRank util", () => {
+describe("getNextMonsterRank", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -156,7 +156,7 @@ describe("getNextMonsterRank util", () => {
   });
 });
 
-describe("getStalkerRankByValue util", () => {
+describe("getStalkerRankByValue", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -185,7 +185,7 @@ describe("getStalkerRankByValue util", () => {
   });
 });
 
-describe("getMonsterRankByValue util", () => {
+describe("getMonsterRankByValue", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -214,7 +214,7 @@ describe("getMonsterRankByValue util", () => {
   });
 });
 
-describe("getGameObjectRank util", () => {
+describe("getGameObjectRank", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -243,7 +243,7 @@ describe("getGameObjectRank util", () => {
   });
 });
 
-describe("getServerObjectRank util", () => {
+describe("getServerObjectRank", () => {
   beforeEach(() => {
     resetRegistry();
   });

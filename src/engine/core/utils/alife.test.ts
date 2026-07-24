@@ -5,7 +5,7 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { registerSimulator, registry } from "@/engine/core/database";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 
-describe("setUnlimitedAlifeObjectsUpdate util", () => {
+describe("setUnlimitedAlifeObjectsUpdate", () => {
   beforeEach(() => registerSimulator());
 
   it("setUnlimitedAlifeObjectsUpdate should correctly set high updates limits", () => {
@@ -16,7 +16,7 @@ describe("setUnlimitedAlifeObjectsUpdate util", () => {
   });
 });
 
-describe("setStableAlifeObjectsUpdate util", () => {
+describe("setStableAlifeObjectsUpdate", () => {
   beforeEach(() => registerSimulator());
 
   it("setStableAlifeObjectsUpdate should correctly set high updates limits", () => {

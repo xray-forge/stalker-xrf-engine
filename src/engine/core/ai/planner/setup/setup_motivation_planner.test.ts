@@ -13,7 +13,7 @@ import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/Evaluato
 import { EAnimationType } from "@/engine/core/animation/types/animation_types";
 import { checkPlannerAction } from "@/fixtures/engine";
 
-describe("motivation_planner setup util", () => {
+describe("motivation_planner setup", () => {
   it("should correctly setup object motivation planner evaluators", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: ActionPlanner = object.motivation_action_manager();
