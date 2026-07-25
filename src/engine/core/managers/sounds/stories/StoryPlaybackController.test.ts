@@ -81,4 +81,234 @@ describe("StoryPlaybackController", () => {
     manager.setActiveStory("first");
     expect(manager.isFinished()).toBe(false);
   });
+
+  it("should do nothing without an active story", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const manager: SoundManager = getManager(SoundManager);
+
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledTimes(0);
+  });
+
+  it("should wait while the last speaker is still playing", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const speaker: GameObject = MockGameObject.mock();
+    const playing = { stop: jest.fn() } as unknown as AbstractPlayableSound;
+
+    registerObject(speaker);
+    controller.registerObject(speaker.id());
+    controller.setActiveStory("first");
+    controller.lastPlayingObjectId = speaker.id();
+    soundsConfig.playing.set(speaker.id(), playing);
+
+    controller.update();
+
+    expect(playing.stop).toHaveBeenCalledTimes(0);
+    expect(controller.story).not.toBeNull();
+  });
+
+  it("should cancel the story when the active speaker enters combat", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const speaker: GameObject = MockGameObject.mock();
+    const playing = { stop: jest.fn() } as unknown as AbstractPlayableSound;
+
+    registerObject(speaker);
+    controller.registerObject(speaker.id());
+    controller.setActiveStory("first");
+    controller.lastPlayingObjectId = speaker.id();
+    soundsConfig.playing.set(speaker.id(), playing);
+
+    jest.spyOn(speaker, "best_enemy").mockImplementation(() => MockGameObject.mock());
+
+    controller.update();
+
+    expect(controller.story).toBeNull();
+    expect(playing.stop).toHaveBeenCalledWith(speaker.id());
+  });
+
+  it("should wait out the idle interval between phrases", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const speaker: GameObject = MockGameObject.mock();
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(speaker);
+    controller.registerObject(speaker.id());
+    controller.setActiveStory("first");
+
+    controller.phraseIdle = 5_000;
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    // First tick just latches the timeout base.
+    controller.update();
+
+    expect(controller.phraseTimeout).toBe(100);
+    expect(manager.play).toHaveBeenCalledTimes(0);
+
+    replaceFunctionMock(time_global, () => 1_000);
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledTimes(0);
+
+    replaceFunctionMock(time_global, () => 10_000);
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledWith(speaker.id(), "theme-1");
+  });
+
+  it("should stop once the story runs out of phrases", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const speaker: GameObject = MockGameObject.mock();
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(speaker);
+    controller.registerObject(speaker.id());
+    controller.setActiveStory("empty-story");
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledTimes(0);
+  });
+
+  it("should do nothing without registered participants", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const manager: SoundManager = getManager(SoundManager);
+
+    controller.setActiveStory("first");
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledTimes(0);
+    expect(controller.storyteller).toBeNull();
+  });
+
+  it("should pick another participant for a reaction phrase", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const teller: GameObject = MockGameObject.mock();
+    const other: GameObject = MockGameObject.mock();
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(teller);
+    registerObject(other);
+
+    controller.registerObject(teller.id());
+    controller.registerObject(other.id());
+    controller.setStoryTeller(teller.id());
+    controller.setActiveStory("second");
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    // First phrase belongs to the teller.
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledWith(teller.id(), "theme-2");
+
+    controller.lastPlayingObjectId = null;
+    controller.phraseIdle = 0;
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledWith(other.id(), "theme-3");
+  });
+
+  it("should fall back to the only participant for a reaction phrase", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const teller: GameObject = MockGameObject.mock();
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(teller);
+
+    controller.registerObject(teller.id());
+    controller.setStoryTeller(teller.id());
+    controller.setActiveStory("second");
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+    controller.lastPlayingObjectId = null;
+    controller.phraseIdle = 0;
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledWith(teller.id(), "theme-3");
+  });
+
+  it("should play a reaction-all phrase for every non-teller participant", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const teller: GameObject = MockGameObject.mock();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(teller);
+    registerObject(first);
+    registerObject(second);
+
+    controller.registerObject(teller.id());
+    controller.registerObject(first.id());
+    controller.registerObject(second.id());
+    controller.setStoryTeller(teller.id());
+    controller.setActiveStory("third");
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+    controller.lastPlayingObjectId = null;
+    controller.phraseIdle = 0;
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledWith(first.id(), "theme-5");
+    expect(manager.play).toHaveBeenCalledWith(second.id(), "theme-5");
+    expect(manager.play).not.toHaveBeenCalledWith(teller.id(), "theme-5");
+    expect(controller.lastPlayingObjectId).toBe(second.id());
+    expect(controller.phraseTimeout).toBeNull();
+    expect(controller.phraseIdle).toBe(3_000_000);
+  });
+
+  it("should skip speakers that are no longer registered", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const manager: SoundManager = getManager(SoundManager);
+
+    controller.registerObject(9_999);
+    controller.setActiveStory("first");
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+
+    expect(manager.play).toHaveBeenCalledTimes(0);
+  });
+
+  it("should cancel the story when the next speaker is already in combat", () => {
+    const controller: StoryPlaybackController = new StoryPlaybackController("test-story");
+    const speaker: GameObject = MockGameObject.mock();
+    const playing = { stop: jest.fn() } as unknown as AbstractPlayableSound;
+    const manager: SoundManager = getManager(SoundManager);
+
+    registerObject(speaker);
+    controller.registerObject(speaker.id());
+    controller.setActiveStory("first");
+
+    soundsConfig.playing.set(speaker.id(), playing);
+    jest.spyOn(speaker, "best_enemy").mockImplementation(() => MockGameObject.mock());
+
+    replaceFunctionMock(time_global, () => 100);
+    jest.spyOn(manager, "play").mockReturnValue(null);
+
+    controller.update();
+
+    expect(controller.story).toBeNull();
+    expect(playing.stop).toHaveBeenCalledWith(speaker.id());
+    expect(manager.play).toHaveBeenCalledTimes(0);
+  });
 });

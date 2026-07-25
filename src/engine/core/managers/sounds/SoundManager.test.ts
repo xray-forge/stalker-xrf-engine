@@ -375,4 +375,100 @@ describe("SoundManager", () => {
     expect(data).toEqual({ SoundManager: expect.any(Object) });
     expect(manager.onDebugDump({})).toEqual({ SoundManager: expect.any(Object) });
   });
+
+  it("play should ignore requests without a theme name", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    expect(manager.play(object.id(), null)).toBeNull();
+    expect(soundsConfig.playing.length()).toBe(0);
+  });
+
+  it("play should not register the theme when playback did not start", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("attack_begin");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => false));
+
+    expect(manager.play(object.id(), "attack_begin", "faction", 1)).toBe(theme.getSoundObject(object.id()));
+    expect(soundsConfig.playing.length()).toBe(0);
+  });
+
+  it("stop should clear both the active and the looped sounds", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("attack_begin");
+    const looped: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "stop").mockImplementation(jest.fn());
+    jest.spyOn(looped, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(looped, "stop").mockImplementation(jest.fn());
+    jest.spyOn(looped, "isPlaying").mockImplementation(() => true);
+
+    manager.play(object.id(), "attack_begin");
+    manager.playLooped(object.id(), "looped_example");
+
+    manager.stop(object.id());
+
+    expect(theme.stop).toHaveBeenCalledWith(object.id());
+    expect(looped.stop).toHaveBeenCalledWith(object.id());
+    expect(soundsConfig.playing.length()).toBe(0);
+    expect(soundsConfig.looped.length()).toBe(0);
+  });
+
+  it("stop should skip looped sounds that already finished", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const looped: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(looped, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(looped, "stop").mockImplementation(jest.fn());
+    jest.spyOn(looped, "isPlaying").mockImplementation(() => false);
+
+    manager.playLooped(object.id(), "looped_example");
+    manager.stop(object.id());
+
+    expect(looped.stop).toHaveBeenCalledTimes(0);
+    expect(soundsConfig.looped.length()).toBe(0);
+  });
+
+  it("stop should be inert for objects without any sounds", () => {
+    const manager: SoundManager = getManager(SoundManager);
+
+    expect(() => manager.stop(9_999)).not.toThrow();
+  });
+
+  it("playLooped should not register the theme when playback did not start", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => false));
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(0);
+  });
+
+  it("stopLooped should be inert for unknown objects and themes", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    expect(() => manager.stopLooped(9_999, "looped_example")).not.toThrow();
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(() => manager.stopLooped(object.id(), "unknown_theme")).not.toThrow();
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+  });
+
+  it("stopAllLooped should be inert for objects without looped sounds", () => {
+    const manager: SoundManager = getManager(SoundManager);
+
+    expect(() => manager.stopAllLooped(9_999)).not.toThrow();
+  });
 });
