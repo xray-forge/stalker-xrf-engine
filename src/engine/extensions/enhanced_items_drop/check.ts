@@ -1,5 +1,3 @@
-import { game_object } from "xray16";
-
 import { IExtensionCheckResult } from "@/engine/core/extensions";
 
 /**
@@ -7,7 +5,7 @@ import { IExtensionCheckResult } from "@/engine/core/extensions";
  */
 export function check(): IExtensionCheckResult {
   return {
-    enabled: type((game_object as unknown as game_object)?.add_upgrade) === "function",
+    enabled: true,
     reason: "Requires the OpenXRay item upgrades API.",
   };
 }
