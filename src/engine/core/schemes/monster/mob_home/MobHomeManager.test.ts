@@ -10,7 +10,7 @@ import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeMa
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 
-describe("MobHomeManager functionality", () => {
+describe("MobHomeManager", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -114,5 +114,71 @@ describe("MobHomeManager functionality", () => {
     expect(maxRadius).toBe(70);
     expect(isAggressive).toBe(false);
     expect(midRadius).toBe(40);
+  });
+
+  it("should read radiuses from waypoint data", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
+      homeWayPoint: "test-wp-home-radius",
+    });
+    const manager: MobHomeManager = new MobHomeManager(object, state);
+
+    const [, minRadius, maxRadius, , midRadius] = manager.getHomeParameters();
+
+    expect(minRadius).toBe(20);
+    expect(maxRadius).toBe(80);
+    expect(midRadius).toBe(50);
+  });
+
+  it("should keep configured mid radius when it fits between bounds", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
+      homeMaxRadius: 200,
+      homeMidRadius: 120,
+      homeMinRadius: 100,
+      homeWayPoint: "test-wp",
+    });
+    const manager: MobHomeManager = new MobHomeManager(object, state);
+
+    expect(manager.getHomeParameters()[4]).toBe(120);
+  });
+
+  it("should recompute mid radius that falls outside of bounds", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
+      homeMaxRadius: 200,
+      homeMidRadius: 500,
+      homeMinRadius: 100,
+      homeWayPoint: "test-wp",
+    });
+    const manager: MobHomeManager = new MobHomeManager(object, state);
+
+    expect(manager.getHomeParameters()[4]).toBe(150);
+  });
+
+  it("should fail when min radius is not smaller than max radius", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
+      homeMaxRadius: 100,
+      homeMinRadius: 200,
+      homeWayPoint: "test-wp",
+    });
+    const manager: MobHomeManager = new MobHomeManager(object, state);
+
+    expect(() => manager.getHomeParameters()).toThrow("MobHome: Home min Radius MUST be < max radius.");
+  });
+
+  it("should get home location without waypoint", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeMobHomeState = mockSchemeState<ISchemeMobHomeState>(EScheme.MOB_HOME, {
+      homeWayPoint: null,
+    });
+    const manager: MobHomeManager = new MobHomeManager(object, state);
+
+    const [name, minRadius, maxRadius] = manager.getHomeParameters();
+
+    expect(name).toBeNull();
+    expect(minRadius).toBe(10);
+    expect(maxRadius).toBe(70);
   });
 });

@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CCar, move, time_global } from "xray16";
 import { Car, GameObject } from "xray16/alias";
-import { ACTOR, ACTOR_ID, AnyObject, NIL, TTimestamp } from "xray16/lib";
-import { MockGameObject, MockVector } from "xray16/mocks";
+import { ACTOR, ACTOR_ID, NIL, TTimestamp } from "xray16/lib";
+import { MockCCar, MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { registerStoryLink } from "@/engine/core/database";
@@ -24,20 +24,7 @@ import {
 } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { mockBaseSchemeLogic, mockCar, mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-
-// `xray16` mocks do not provide `CCar`, so its action constants are supplied locally.
-jest.mock("xray16", () => ({
-  ...(jest.requireActual("xray16") as AnyObject),
-  CCar: {
-    eWpnActivate: 3,
-    eWpnAutoFire: 5,
-    eWpnDesiredDir: 1,
-    eWpnDesiredPos: 2,
-    eWpnFire: 4,
-    eWpnToDefaultDir: 6,
-  },
-}));
+import { mockBaseSchemeLogic, mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/runtime", () => ({
   isActiveSection: jest.fn(() => true),
@@ -76,7 +63,7 @@ function createMinigunState(base: Partial<ISchemeMinigunState> = {}): ISchemeMin
  */
 function createManager(
   state: ISchemeMinigunState,
-  car: Car = mockCar(),
+  car: Car = MockCCar.mock(),
   object: GameObject = MockGameObject.mock({ position: MockVector.create(0, 0, 0) })
 ): { car: Car; manager: MinigunManager; object: GameObject } {
   jest.spyOn(object, "get_car").mockImplementation(() => car);
@@ -115,7 +102,7 @@ describe("MinigunManager", () => {
   it("should correctly activate without weapon", () => {
     mockRegisteredActor();
 
-    const { manager, car, object } = createManager(createMinigunState(), mockCar({ hasWeapon: false }));
+    const { manager, car, object } = createManager(createMinigunState(), MockCCar.mock({ hasWeapon: false }));
 
     manager.activate();
 
@@ -346,7 +333,7 @@ describe("MinigunManager", () => {
   });
 
   it("should destroy car on fast update when health is depleted", () => {
-    const { manager } = createManager(createMinigunState(), mockCar({ health: 0 }));
+    const { manager } = createManager(createMinigunState(), MockCCar.mock({ health: 0 }));
 
     jest.spyOn(manager, "destroyCar").mockImplementation(jest.fn());
 
@@ -544,7 +531,7 @@ describe("MinigunManager", () => {
   });
 
   it("should stop shooting at enemy target when hit is not possible", () => {
-    const { manager, car } = createManager(createMinigunState(), mockCar({ canHit: false }));
+    const { manager, car } = createManager(createMinigunState(), MockCCar.mock({ canHit: false }));
     const target: GameObject = MockGameObject.mock({ id: ACTOR_ID, position: MockVector.create(0, 0, 5) });
 
     manager.hasWeapon = true;

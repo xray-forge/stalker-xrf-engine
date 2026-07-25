@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
+import { TTimestamp } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
@@ -13,6 +14,8 @@ import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(() => false),
 }));
+
+const NOW: TTimestamp = 10_000;
 
 function createForceState(base: Partial<ISchemePhysicalForceState> = {}): ISchemePhysicalForceState {
   return mockSchemeState<ISchemePhysicalForceState>(EScheme.PH_FORCE, {
@@ -28,7 +31,9 @@ describe("PhysicalForceManager", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(trySwitchToAnotherSection);
+    resetFunctionMock(time_global);
     replaceFunctionMock(trySwitchToAnotherSection, () => false);
+    replaceFunctionMock(time_global, () => NOW);
   });
 
   it("should correctly initialize", () => {
@@ -56,7 +61,7 @@ describe("PhysicalForceManager", () => {
 
     manager.activate();
 
-    expect(manager.time).toBe(time_global() + 500);
+    expect(manager.time).toBe(NOW + 500);
     expect(manager.process).toBe(false);
   });
 
@@ -103,7 +108,7 @@ describe("PhysicalForceManager", () => {
     expect(object.set_const_force).not.toHaveBeenCalled();
     expect(manager.process).toBe(false);
 
-    manager.time = time_global() - 1;
+    manager.time = NOW - 1;
     manager.update();
 
     expect(object.set_const_force).toHaveBeenCalledTimes(1);
