@@ -130,6 +130,17 @@ describe("hit_npc_from_actor", () => {
       expect.objectContaining({ boneName: "bip01_spine", draftsman: actor, impulse: 0.001, power: 0.001 })
     );
   });
+
+  it("should hit the story object when one is named", () => {
+    const target: GameObject = MockGameObject.mock();
+
+    registerObject(target);
+    registerStoryLink(target.id(), "hit-target-sid");
+
+    callXrEffect("hit_npc_from_actor", MockGameObject.mockActor(), MockGameObject.mock(), "hit-target-sid");
+
+    expect(target.hit).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("make_enemy", () => {
@@ -145,6 +156,20 @@ describe("make_enemy", () => {
     expect(target.hit).toHaveBeenCalledWith(
       expect.objectContaining({ boneName: "bip01_spine", draftsman: source, impulse: 0.03, power: 0.03 })
     );
+  });
+
+  it("should hit the explicitly named target instead of the speaker", () => {
+    const from: GameObject = MockGameObject.mock();
+    const to: GameObject = MockGameObject.mock();
+
+    registerObject(from);
+    registerObject(to);
+    registerStoryLink(from.id(), "enemy-from-sid");
+    registerStoryLink(to.id(), "enemy-to-sid");
+
+    callXrEffect("make_enemy", MockGameObject.mockActor(), MockGameObject.mock(), "enemy-from-sid", "enemy-to-sid");
+
+    expect(to.hit).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -185,6 +210,15 @@ describe("remove_npc", () => {
 
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
   });
+
+  it("should do nothing without a story id or for an unknown one", () => {
+    registerSimulator();
+
+    callXrEffect("remove_npc", MockGameObject.mockActor(), MockGameObject.mock());
+    callXrEffect("remove_npc", MockGameObject.mockActor(), MockGameObject.mock(), "missing-npc");
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+  });
 });
 
 describe("clear_abuse", () => {
@@ -218,6 +252,14 @@ describe("disable_combat_handler", () => {
     expect(getSchemeState(state, EScheme.COMBAT)?.enabled).toBe(false);
     expect(getSchemeState(state, EScheme.MOB_COMBAT)?.enabled).toBe(false);
   });
+
+  it("should do nothing when neither combat scheme is present", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerObject(object);
+
+    expect(() => callXrEffect("disable_combat_handler", MockGameObject.mockActor(), object)).not.toThrow();
+  });
 });
 
 describe("disable_combat_ignore_handler", () => {
@@ -234,6 +276,14 @@ describe("disable_combat_ignore_handler", () => {
     callXrEffect("disable_combat_ignore_handler", MockGameObject.mockActor(), object);
 
     expect(getSchemeState(state, EScheme.COMBAT_IGNORE)?.enabled).toBe(false);
+  });
+
+  it("should do nothing when the combat ignore scheme is absent", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerObject(object);
+
+    expect(() => callXrEffect("disable_combat_ignore_handler", MockGameObject.mockActor(), object)).not.toThrow();
   });
 });
 
@@ -285,6 +335,39 @@ describe("spawn_corpse", () => {
     callXrEffect("spawn_corpse", MockGameObject.mockActor(), object, "test_stalker", "corpse-path", 0);
 
     expect(registry.simulator.create).toHaveBeenCalledWith("test_stalker", object.position(), 35, 55);
+    expect(corpse.kill).toHaveBeenCalledTimes(1);
+  });
+
+  it("should reject a missing section, a missing path, and an unknown path", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerSimulator();
+
+    expect(() => callXrEffect("spawn_corpse", MockGameObject.mockActor(), object)).toThrow();
+    expect(() => callXrEffect("spawn_corpse", MockGameObject.mockActor(), object, "stalker_section")).toThrow();
+    expect(() =>
+      callXrEffect("spawn_corpse", MockGameObject.mockActor(), object, "stalker_section", "missing-path")
+    ).toThrow();
+  });
+
+  it("should spawn at the requested patrol index", () => {
+    const object: GameObject = MockGameObject.mock();
+    const corpse: ServerHumanObject = MockAlifeHumanStalker.mock({ id: 601 });
+
+    registerSimulator();
+    MockPatrol.setup({
+      "corpse-path": {
+        points: [
+          { flag: 0, gvid: 1, lvid: 2, name: "first", position: object.position() as never },
+          { flag: 0, gvid: 3, lvid: 4, name: "second", position: object.position() as never },
+        ],
+      },
+    });
+    jest.spyOn(registry.simulator, "create").mockImplementation(() => corpse);
+    jest.spyOn(corpse, "kill");
+
+    callXrEffect("spawn_corpse", MockGameObject.mockActor(), object, "stalker_section", "corpse-path", 1);
+
     expect(corpse.kill).toHaveBeenCalledTimes(1);
   });
 });
@@ -350,6 +433,33 @@ describe("create_squad", () => {
   });
 });
 
+/**
+ * Register a simulator, an actor, a terrain and a story-linked squad ready for `create_squad_member`.
+ */
+function mockCreateSquadMemberSetup(): { squad: MockSquad; member: ServerHumanObject; terrain: MockSmartTerrain } {
+  registerSimulator();
+  mockRegisteredActor();
+
+  const terrain: MockSmartTerrain = MockSmartTerrain.mock("test-terrain") as MockSmartTerrain;
+  const squad: MockSquad = MockSquad.mock();
+  const commander: ServerHumanObject = MockAlifeHumanStalker.mock();
+  const member: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+  terrain.on_before_register();
+  terrain.on_register();
+  squad.assignedTerrainId = terrain.id;
+  squad.mockAddMember(commander);
+  MockAlifeSimulator.addToRegistry(squad);
+  MockAlifeSimulator.addToRegistry(commander);
+  registerStoryLink(squad.id, "test-squad");
+  jest.spyOn(squad, "commander_id").mockReturnValue(commander.id);
+  jest.spyOn(squad, "addMember").mockReturnValue(member);
+  jest.spyOn(squad, "assignMemberToTerrain");
+  jest.spyOn(squad, "update");
+
+  return { member, squad, terrain };
+}
+
 describe("create_squad_member", () => {
   it("should add and assign a member at the squad commander position", () => {
     registerSimulator();
@@ -383,6 +493,58 @@ describe("create_squad_member", () => {
     expect(squad.assignMemberToTerrain).toHaveBeenCalledWith(member.id, terrain, null);
     expect(squad.update).toHaveBeenCalledTimes(1);
   });
+
+  it("should reject a missing squad identifier", () => {
+    expect(() =>
+      callXrEffect("create_squad_member", MockGameObject.mockActor(), MockGameObject.mock(), "test_member")
+    ).toThrow("Wrong squad identificator [NIL] in 'create_squad_member' function");
+  });
+
+  it("should spawn at an explicitly named patrol point", () => {
+    const { squad, member } = mockCreateSquadMemberSetup();
+
+    MockPatrol.setup({
+      "member-point": {
+        points: [{ flag: 0, gvid: 11, lvid: 22, name: "point", position: MockGameObject.mock().position() as never }],
+      },
+    });
+
+    callXrEffect(
+      "create_squad_member",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      "test_member",
+      "test-squad",
+      "member-point"
+    );
+
+    expect(squad.addMember).toHaveBeenCalledWith("test_member", expect.anything(), 22, 11);
+    expect(squad.assignMemberToTerrain).toHaveBeenCalledWith(member.id, expect.anything(), null);
+  });
+
+  // The `simulation_point` variant that reads `spawn_point` out of system.ini is not covered here: forcing that
+  // read requires stubbing the shared `SYSTEM_INI` singleton, which leaks into every later test in this file.
+  it("should fall back to the terrain spawn point when the squad configures none", () => {
+    const { squad, terrain } = mockCreateSquadMemberSetup();
+
+    MockPatrol.setup({
+      "terrain-point": {
+        points: [{ flag: 0, gvid: 55, lvid: 66, name: "point", position: MockGameObject.mock().position() as never }],
+      },
+    });
+    terrain.spawnPointName = "terrain-point";
+
+    callXrEffect(
+      "create_squad_member",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      "test_member",
+      "test-squad",
+      "simulation_point"
+    );
+
+    expect(squad.addMember).toHaveBeenCalledWith("test_member", expect.anything(), 66, 55);
+  });
 });
 
 describe("remove_squad", () => {
@@ -404,6 +566,15 @@ describe("remove_squad", () => {
     expect(registry.simulator.release).toHaveBeenNthCalledWith(1, first, true);
     expect(registry.simulator.release).toHaveBeenNthCalledWith(2, second, true);
     expect(squad.npc_count()).toBe(0);
+  });
+
+  it("should reject a missing squad and an unknown story id", () => {
+    registerSimulator();
+
+    expect(() => callXrEffect("remove_squad", MockGameObject.mockActor(), MockGameObject.mock())).toThrow();
+    expect(() =>
+      callXrEffect("remove_squad", MockGameObject.mockActor(), MockGameObject.mock(), "missing-squad")
+    ).toThrow();
   });
 });
 
@@ -447,6 +618,16 @@ describe("heal_squad", () => {
     callXrEffect("heal_squad", MockGameObject.mockActor(), MockGameObject.mock(), "test-squad", 100);
 
     expect(onlineObject.health).toBe(1);
+  });
+
+  it("should reject a missing squad identifier and ignore an unknown squad", () => {
+    expect(() => callXrEffect("heal_squad", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "Wrong squad identifier 'nil' in heal_squad effect"
+    );
+
+    expect(() =>
+      callXrEffect("heal_squad", MockGameObject.mockActor(), MockGameObject.mock(), "missing-squad")
+    ).not.toThrow();
   });
 });
 
@@ -521,6 +702,12 @@ describe("update_obj_logic", () => {
     expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(1);
     expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, activeState);
   });
+
+  it("should skip story ids that resolve to nothing", () => {
+    expect(() =>
+      callXrEffect("update_obj_logic", MockGameObject.mockActor(), MockGameObject.mock(), "missing-logic-object")
+    ).not.toThrow();
+  });
 });
 
 describe("hit_npc", () => {
@@ -536,6 +723,41 @@ describe("hit_npc", () => {
     expect(object.hit).toHaveBeenCalledWith(
       expect.objectContaining({ boneName: "bone", draftsman: object, impulse: 10, power: 0.25 })
     );
+  });
+
+  it("should do nothing when the named hitter does not exist", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("hit_npc", MockGameObject.mockActor(), object, "missing-hitter", "bone", "1", 1, 1);
+
+    expect(object.hit).not.toHaveBeenCalled();
+  });
+
+  it("should swap the draftsman and direction when reversed", () => {
+    const object: GameObject = MockGameObject.mock();
+    const hitter: GameObject = MockGameObject.mock();
+
+    registerObject(hitter);
+    registerStoryLink(hitter.id(), "hitter-sid");
+
+    callXrEffect("hit_npc", MockGameObject.mockActor(), object, "hitter-sid", "bone", "1", 1, 1, TRUE);
+
+    expect(object.hit).toHaveBeenCalledTimes(1);
+  });
+
+  it("should hit from a patrol point for the self variant in both directions", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    MockPatrol.setup({
+      "hit-path": {
+        points: [{ flag: 0, gvid: 1, lvid: 2, name: "point", position: object.position() as never }],
+      },
+    });
+
+    callXrEffect("hit_npc", MockGameObject.mockActor(), object, "self", "hit-path", "bone", 1, 1);
+    callXrEffect("hit_npc", MockGameObject.mockActor(), object, "self", "hit-path", "bone", 1, 1, TRUE);
+
+    expect(object.hit).toHaveBeenCalledTimes(2);
   });
 });
 
@@ -688,6 +910,15 @@ describe("set_visual_memory_enabled", () => {
     expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(true);
     expect(object.set_visual_memory_enabled).toHaveBeenCalledWith(false);
   });
+
+  it("should ignore values outside the supported range", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("set_visual_memory_enabled", MockGameObject.mockActor(), object, 2);
+    callXrEffect("set_visual_memory_enabled", MockGameObject.mockActor(), object, -1);
+
+    expect(object.set_visual_memory_enabled).not.toHaveBeenCalled();
+  });
 });
 
 describe("set_monster_animation", () => {
@@ -830,6 +1061,31 @@ describe("set_bloodsucker_state", () => {
     expect(object.force_visibility_state).toHaveBeenNthCalledWith(1, 1);
     expect(object.force_visibility_state).toHaveBeenNthCalledWith(2, -1);
   });
+
+  it("should resolve the target from the story id and take the state from the second parameter", () => {
+    const target: GameObject = MockGameObject.mock();
+
+    registerObject(target);
+    registerStoryLink(target.id(), "bloodsucker-sid");
+
+    callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), MockGameObject.mock(), "bloodsucker-sid", "1");
+    expect(target.force_visibility_state).toHaveBeenCalledWith(1);
+
+    callXrEffect(
+      "set_bloodsucker_state",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      "bloodsucker-sid",
+      "default"
+    );
+    expect(target.force_visibility_state).toHaveBeenCalledWith(-1);
+  });
+
+  it("should do nothing when neither the speaker nor the story id resolves an object", () => {
+    expect(() =>
+      callXrEffect("set_bloodsucker_state", MockGameObject.mockActor(), null as unknown as GameObject, "missing", "1")
+    ).not.toThrow();
+  });
 });
 
 describe("clear_box", () => {
@@ -897,5 +1153,16 @@ describe("set_torch_state", () => {
 
     expect(torch.enable_attachable_item).toHaveBeenCalledTimes(2);
     expect(torch.enable_attachable_item).toHaveBeenCalledWith(false);
+  });
+
+  it("should do nothing when the story object carries no torch", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerObject(object);
+    registerStoryLink(object.id(), "torchless-sid");
+
+    expect(() =>
+      callXrEffect("set_torch_state", MockGameObject.mockActor(), MockGameObject.mock(), "torchless-sid", "on")
+    ).not.toThrow();
   });
 });

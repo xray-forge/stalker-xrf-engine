@@ -925,7 +925,7 @@ extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Nillable<Game
 
   if (p[1]) {
     state = p[1];
-    object = getObjectByStoryId(p[1]);
+    object = getObjectByStoryId(p[0]);
   }
 
   if (object) {

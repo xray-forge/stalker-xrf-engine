@@ -1,8 +1,9 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { hanging_lamp, level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
-import { TRUE, Y_VECTOR } from "xray16/lib";
+import { TRUE, TSection, Y_VECTOR } from "xray16/lib";
 import {
+  MockAlifeHumanStalker,
   MockAlifeItemArtefact,
   MockAlifeItemWeapon,
   MockAlifeObject,
@@ -12,6 +13,8 @@ import {
   MockPatrol,
 } from "xray16/mocks";
 
+import { questItems } from "@/engine/constants/items/quest_items";
+import { weapons } from "@/engine/constants/items/weapons";
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
@@ -33,6 +36,24 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { callXrEffect, mockRegisteredActor, mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+
+/**
+ * Register a simulator, a cutscene patrol path and an actor carrying a weapon of the provided section.
+ */
+function mockCutsceneSetup(section: TSection = "wpn_ak74"): { actor: GameObject; weapon: GameObject } {
+  const actor: GameObject = MockGameObject.mockActor();
+  const weapon: GameObject = MockGameObject.mock({ section });
+
+  registerSimulator();
+  MockAlifeSimulator.addToRegistry(MockAlifeItemWeapon.mock({ id: weapon.id(), section }));
+  MockPatrol.setup({
+    "cutscene-path": {
+      points: [{ flag: 0, gvid: 42, lvid: 24, name: "cutscene-point", position: actor.position() as never }],
+    },
+  });
+
+  return { actor, weapon };
+}
 
 beforeAll(() => {
   require("@/engine/scripts/declarations/effects/world");
@@ -184,6 +205,36 @@ describe("set_game_time", () => {
     expect(weatherManager.forceWeatherChange).toHaveBeenCalledTimes(1);
     expect(surgeConfig.IS_TIME_FORWARDED).toBe(true);
   });
+
+  it("should wrap to the next day when the requested hour already passed", () => {
+    jest.spyOn(getManager(WeatherManager), "forceWeatherChange").mockImplementation(jest.fn());
+    jest.spyOn(level, "get_time_hours").mockReturnValue(20);
+    jest.spyOn(level, "get_time_minutes").mockReturnValue(30);
+
+    callXrEffect("set_game_time", MockGameObject.mockActor(), MockGameObject.mock(), "8", "45");
+
+    expect(level.change_game_time).toHaveBeenCalledWith(0, 12, 15);
+  });
+
+  it("should only move the minutes when the requested hour is the current one", () => {
+    jest.spyOn(getManager(WeatherManager), "forceWeatherChange").mockImplementation(jest.fn());
+    jest.spyOn(level, "get_time_hours").mockReturnValue(12);
+    jest.spyOn(level, "get_time_minutes").mockReturnValue(10);
+
+    callXrEffect("set_game_time", MockGameObject.mockActor(), MockGameObject.mock(), "12", "40");
+
+    expect(level.change_game_time).toHaveBeenCalledWith(0, 0, 30);
+  });
+
+  it("should default the minutes to zero when they are not provided", () => {
+    jest.spyOn(getManager(WeatherManager), "forceWeatherChange").mockImplementation(jest.fn());
+    jest.spyOn(level, "get_time_hours").mockReturnValue(10);
+    jest.spyOn(level, "get_time_minutes").mockReturnValue(20);
+
+    callXrEffect("set_game_time", MockGameObject.mockActor(), MockGameObject.mock(), "12");
+
+    expect(level.change_game_time).toHaveBeenCalledWith(0, 1, 40);
+  });
 });
 
 describe("forward_game_time", () => {
@@ -231,6 +282,140 @@ describe("pick_artefact_from_anomaly", () => {
       object.game_vertex_id(),
       object.id()
     );
+  });
+
+  it("should resolve the target object through its story id", () => {
+    const stalker = MockAlifeHumanStalker.mock({ id: 111 });
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+    const artefact = MockAlifeItemArtefact.mock({ id: 112, section: "af_test" });
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+    registerStoryLink(stalker.id, "anomaly-target");
+    MockAlifeSimulator.addToRegistry(artefact);
+    zone.spawnedArtefactsCount = 1;
+    zone.artefactPathsByArtefactId.set(artefact.id, "artefact-path");
+    jest.spyOn(zone, "onArtefactTaken");
+
+    callXrEffect(
+      "pick_artefact_from_anomaly",
+      MockGameObject.mockActor(),
+      null as unknown as GameObject,
+      "anomaly-target",
+      zone.object.name(),
+      "af_test"
+    );
+
+    expect(zone.onArtefactTaken).toHaveBeenCalledWith(artefact.id);
+  });
+
+  it("should take the first artefact when no section is requested", () => {
+    const object: GameObject = MockGameObject.mock();
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+    const artefact = MockAlifeItemArtefact.mock({ id: 121, section: "af_other" });
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+    MockAlifeSimulator.addToRegistry(artefact);
+    zone.spawnedArtefactsCount = 1;
+    zone.artefactPathsByArtefactId.set(artefact.id, "artefact-path");
+
+    callXrEffect("pick_artefact_from_anomaly", MockGameObject.mockActor(), object, undefined, zone.object.name());
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(artefact, true);
+    expect(registry.simulator.create).toHaveBeenCalledWith(
+      "af_other",
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+  });
+
+  it("should do nothing when the zone has no spawned artefacts", () => {
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+    zone.spawnedArtefactsCount = 0;
+
+    callXrEffect(
+      "pick_artefact_from_anomaly",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      undefined,
+      zone.object.name(),
+      "af_test"
+    );
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+  });
+
+  it("should do nothing when the requested section is not in the zone", () => {
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+    const artefact = MockAlifeItemArtefact.mock({ id: 131, section: "af_other" });
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+    MockAlifeSimulator.addToRegistry(artefact);
+    zone.spawnedArtefactsCount = 1;
+    zone.artefactPathsByArtefactId.set(artefact.id, "artefact-path");
+
+    callXrEffect(
+      "pick_artefact_from_anomaly",
+      MockGameObject.mockActor(),
+      MockGameObject.mock(),
+      undefined,
+      zone.object.name(),
+      "af_test"
+    );
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+  });
+
+  it("should reject an unknown story id, a dead target, and an unknown anomaly zone", () => {
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+
+    registerSimulator();
+    registerAnomalyZone(zone);
+
+    expect(() =>
+      callXrEffect(
+        "pick_artefact_from_anomaly",
+        MockGameObject.mockActor(),
+        null as unknown as GameObject,
+        "missing-story-id",
+        zone.object.name(),
+        "af_test"
+      )
+    ).toThrow();
+
+    const deadStalker = MockAlifeHumanStalker.mock({ id: 141 });
+
+    jest.spyOn(deadStalker, "alive").mockReturnValue(false);
+    registerStoryLink(deadStalker.id, "dead-target");
+
+    expect(() =>
+      callXrEffect(
+        "pick_artefact_from_anomaly",
+        MockGameObject.mockActor(),
+        null as unknown as GameObject,
+        "dead-target",
+        zone.object.name(),
+        "af_test"
+      )
+    ).toThrow();
+
+    expect(() =>
+      callXrEffect(
+        "pick_artefact_from_anomaly",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        undefined,
+        "missing-zone",
+        "af_test"
+      )
+    ).toThrow();
   });
 });
 
@@ -574,6 +759,164 @@ describe("create_cutscene_actor_with_weapon", () => {
       cutsceneActor.id
     );
     expect(cutsceneWeapon.clone_addons).toHaveBeenCalledWith(actorWeapon);
+  });
+
+  it("should reject missing spawn section, missing path, and unknown path", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const object: GameObject = MockGameObject.mock();
+
+    registerSimulator();
+
+    expect(() => callXrEffect("create_cutscene_actor_with_weapon", actor, object)).toThrow();
+    expect(() => callXrEffect("create_cutscene_actor_with_weapon", actor, object, "cutscene_stalker")).toThrow();
+    expect(() =>
+      callXrEffect("create_cutscene_actor_with_weapon", actor, object, "cutscene_stalker", "missing-path")
+    ).toThrow();
+  });
+
+  it("should set the torso yaw for a spawned stalker and the angle for anything else", () => {
+    const { actor, weapon } = mockCutsceneSetup();
+    const cutsceneStalker = MockAlifeHumanStalker.mock({ id: 511 });
+    const cutsceneWeapon = MockAlifeItemWeapon.mock({ id: 512, section: "wpn_ak74" });
+
+    jest.spyOn(actor, "active_slot").mockReturnValue(2);
+    jest.spyOn(actor, "active_item").mockReturnValue(weapon);
+    jest
+      .spyOn(registry.simulator, "create")
+      .mockImplementationOnce(() => cutsceneStalker)
+      .mockImplementationOnce(() => cutsceneWeapon);
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path",
+      0,
+      180
+    );
+
+    expect(cutsceneStalker.o_torso()!.yaw).toBeCloseTo(Math.PI);
+  });
+
+  it("should do nothing when the active slot holds no weapon", () => {
+    const { actor } = mockCutsceneSetup();
+
+    jest.spyOn(actor, "active_slot").mockReturnValue(1);
+    jest.spyOn(registry.simulator, "create").mockImplementationOnce(() => MockAlifeObject.mock({ id: 521 }));
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path"
+    );
+
+    expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+  });
+
+  it("should take the weapon from an explicitly requested slot", () => {
+    const { actor, weapon } = mockCutsceneSetup();
+    const cutsceneWeapon = MockAlifeItemWeapon.mock({ id: 532, section: "wpn_ak74" });
+
+    MockGameObject.asMock(actor).item_in_slot.mockImplementation(((slot: number) =>
+      slot === 3 ? weapon : null) as never);
+    jest
+      .spyOn(registry.simulator, "create")
+      .mockImplementationOnce(() => MockAlifeObject.mock({ id: 531 }))
+      .mockImplementationOnce(() => cutsceneWeapon);
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path",
+      0,
+      0,
+      3
+    );
+
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(2, "wpn_ak74", actor.position(), 24, 42, 531);
+  });
+
+  it("should fall back to slot three and then slot two when the requested slot is empty", () => {
+    for (const fallbackSlot of [3, 2]) {
+      const { actor, weapon } = mockCutsceneSetup();
+      const cutsceneWeapon = MockAlifeItemWeapon.mock({ id: 542, section: "wpn_ak74" });
+
+      MockGameObject.asMock(actor).item_in_slot.mockImplementation(((slot: number) =>
+        slot === fallbackSlot ? weapon : null) as never);
+
+      const create = jest
+        .spyOn(registry.simulator, "create")
+        .mockReset()
+        .mockImplementationOnce(() => MockAlifeObject.mock({ id: 541 }))
+        .mockImplementationOnce(() => cutsceneWeapon);
+
+      callXrEffect(
+        "create_cutscene_actor_with_weapon",
+        actor,
+        MockGameObject.mock(),
+        "cutscene_stalker",
+        "cutscene-path",
+        0,
+        0,
+        7
+      );
+
+      expect(create).toHaveBeenCalledTimes(2);
+    }
+  });
+
+  it("should do nothing when the requested slot and both fallbacks are empty", () => {
+    const { actor } = mockCutsceneSetup();
+
+    MockGameObject.asMock(actor).item_in_slot.mockImplementation((() => null) as never);
+    jest.spyOn(registry.simulator, "create").mockImplementationOnce(() => MockAlifeObject.mock({ id: 551 }));
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path",
+      0,
+      0,
+      7
+    );
+
+    expect(registry.simulator.create).toHaveBeenCalledTimes(1);
+  });
+
+  it("should substitute the repaired gauss rifle and skip cloning its addons", () => {
+    const { actor } = mockCutsceneSetup(questItems.pri_a17_gauss_rifle);
+    const gaussRifle: GameObject = MockGameObject.mock({ section: questItems.pri_a17_gauss_rifle });
+    const cutsceneWeapon = MockAlifeItemWeapon.mock({ id: 562, section: weapons.wpn_gauss });
+
+    MockAlifeSimulator.addToRegistry(
+      MockAlifeItemWeapon.mock({ id: gaussRifle.id(), section: questItems.pri_a17_gauss_rifle })
+    );
+
+    jest.spyOn(actor, "active_slot").mockReturnValue(2);
+    jest.spyOn(actor, "active_item").mockReturnValue(gaussRifle);
+    jest.spyOn(cutsceneWeapon, "clone_addons");
+    jest
+      .spyOn(registry.simulator, "create")
+      .mockImplementationOnce(() => MockAlifeObject.mock({ id: 561 }))
+      .mockImplementationOnce(() => cutsceneWeapon);
+
+    callXrEffect(
+      "create_cutscene_actor_with_weapon",
+      actor,
+      MockGameObject.mock(),
+      "cutscene_stalker",
+      "cutscene-path"
+    );
+
+    expect(registry.simulator.create).toHaveBeenNthCalledWith(2, weapons.wpn_gauss, actor.position(), 24, 42, 561);
+    expect(cutsceneWeapon.clone_addons).not.toHaveBeenCalled();
   });
 });
 
