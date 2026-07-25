@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CUIMessageBoxEx, CUIMMShniaga, DIK_keys, game, get_console, IsGameTypeSingle, level, ui_events } from "xray16";
+import { gameTypes } from "xray16/lib";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
@@ -254,5 +255,159 @@ describe("MainMenu keyboard events", () => {
 
     menu.OnKeyboard(DIK_keys.DIK_ESCAPE, ui_events.WINDOW_KEY_PRESSED);
     expect(menu.onReturnToGameButtonClick).toHaveBeenCalledTimes(3);
+  });
+
+  it("should register callbacks for every menu control", () => {
+    const menu: MainMenu = new MainMenu();
+
+    jest.mocked(menu.AddCallback).mockClear();
+    menu.initializeCallBacks();
+
+    const registered: Array<string> = jest.mocked(menu.AddCallback).mock.calls.map(([id]) => id as string);
+
+    expect(registered).toEqual(
+      expect.arrayContaining([
+        "btn_novice",
+        "btn_stalker",
+        "btn_veteran",
+        "btn_master",
+        "btn_options",
+        "btn_load",
+        "btn_save",
+        "btn_quit",
+        "btn_quit_to_mm",
+        "btn_ret",
+        "btn_lastsave",
+        "btn_extensions",
+        "btn_credits",
+        "msg_box",
+      ])
+    );
+  });
+
+  it("should toggle magnifier visibility on show", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.Show(true);
+
+    expect(menu.xrMenuPageController.SetVisibleMagnifier).toHaveBeenCalledWith(true);
+  });
+
+  it("should reset modal mode on message box ok and cancel", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
+    menu.onMessageBoxOkClick();
+    expect(menu.modalBoxMode).toBe(EMainMenuModalMode.OFF);
+
+    menu.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
+    menu.onMessageBoxCancelClick();
+    expect(menu.modalBoxMode).toBe(EMainMenuModalMode.OFF);
+  });
+
+  it("should show confirmation dialog on quit to windows", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onQuitToWindowsButtonClick();
+
+    expect(menu.uiModalBox.InitMessageBox).toHaveBeenCalledWith("message_box_quit_windows");
+    expect(menu.uiModalBox.ShowDialog).toHaveBeenCalledWith(true);
+  });
+
+  it("should show disconnect dialog with a message matching the game type", () => {
+    const menu: MainMenu = new MainMenu();
+
+    jest.spyOn(level, "game_id").mockImplementation(() => gameTypes.eGameIDSingle);
+    menu.onDisconnectButtonClick();
+
+    expect(menu.uiModalBox.InitMessageBox).toHaveBeenCalledWith("message_box_quit_game");
+    expect(menu.uiModalBox.SetText).toHaveBeenCalledWith("ui_mm_quit_game_message");
+
+    jest.spyOn(level, "game_id").mockImplementation(() => gameTypes.eGameIDDeathmatch);
+    menu.onDisconnectButtonClick();
+
+    expect(menu.uiModalBox.SetText).toHaveBeenCalledWith("ui_mm_disconnect_message");
+  });
+
+  it("should execute console commands on quit confirmations", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onQuitGameConfirmButtonClick();
+    expect(get_console().execute).toHaveBeenCalledWith("disconnect");
+
+    menu.onQuitGameButtonClick();
+    expect(get_console().execute).toHaveBeenCalledWith("quit");
+  });
+
+  it("should close menu on return to game", () => {
+    const menu: MainMenu = new MainMenu();
+
+    jest.spyOn(menu, "close").mockImplementation(jest.fn());
+
+    menu.onReturnToGameButtonClick();
+
+    expect(menu.close).toHaveBeenCalledTimes(1);
+  });
+
+  it("should start credits tutorial", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onGameCreditsButtonClick();
+
+    expect(game.start_tutorial).toHaveBeenCalledWith("credits_seq");
+  });
+
+  it("should load last save directly when no game is running", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onLoadLastSaveButtonClick();
+
+    expect(loadLastGameSave).toHaveBeenCalledTimes(1);
+    expect(menu.modalBoxMode).toBe(EMainMenuModalMode.OFF);
+  });
+
+  it("should confirm loading last save while playing", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const menu: MainMenu = new MainMenu();
+
+    registerSimulator();
+    jest.spyOn(actorGameObject, "alive").mockImplementation(() => true);
+
+    menu.onLoadLastSaveButtonClick();
+
+    expect(loadLastGameSave).not.toHaveBeenCalled();
+    expect(menu.modalBoxMode).toBe(EMainMenuModalMode.CONFIRM_LOAD_SAVE);
+    expect(menu.uiModalBox.InitMessageBox).toHaveBeenCalledWith("message_box_confirm_load_save");
+    expect(menu.uiModalBox.ShowDialog).toHaveBeenCalledWith(true);
+  });
+
+  it("should lazily create and show the extensions dialog", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onExtensionsButtonClick();
+
+    const dialog = menu.uiGameExtensionsDialog;
+
+    expect(dialog).not.toBeNull();
+    expect(dialog?.ShowDialog).toHaveBeenCalledWith(true);
+    expect(menu.HideDialog).toHaveBeenCalledTimes(1);
+
+    menu.onExtensionsButtonClick();
+
+    expect(menu.uiGameExtensionsDialog).toBe(dialog);
+  });
+
+  it("should lazily create and show the save dialog", () => {
+    const menu: MainMenu = new MainMenu();
+
+    menu.onSaveGameButtonClick();
+
+    const dialog = menu.uiGameSavesSaveDialog;
+
+    expect(dialog).not.toBeNull();
+
+    menu.onSaveGameButtonClick();
+
+    expect(menu.uiGameSavesSaveDialog).toBe(dialog);
   });
 });

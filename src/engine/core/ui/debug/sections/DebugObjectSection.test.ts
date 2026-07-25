@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
-import { AnyObject, NIL, Nillable } from "xray16/lib";
+import { NIL } from "xray16/lib";
 import { MockAlifeSimulator, MockCUIScriptWnd, MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
@@ -36,9 +36,6 @@ jest.mock("@/engine/core/utils/relation", () => {
   return { ...actual, setGameObjectRelation: jest.fn() };
 });
 
-// `level.get_target_obj` is not provided by `xray16` mocks, so it is stubbed per test run.
-const getTargetObject = jest.fn((): Nillable<GameObject> => null);
-
 function createSection(): DebugObjectSection {
   const section: DebugObjectSection = new DebugObjectSection(MockCUIScriptWnd.mock(), "test-name");
 
@@ -54,9 +51,8 @@ function createSection(): DebugObjectSection {
 describe("DebugObjectSection", () => {
   beforeEach(() => {
     resetRegistry();
-    (level as unknown as AnyObject).get_target_obj = getTargetObject;
-    getTargetObject.mockReset();
-    getTargetObject.mockImplementation(() => null);
+    resetFunctionMock(level.get_target_obj);
+    replaceFunctionMock(level.get_target_obj, () => null);
     resetFunctionMock(getNearestGameObject);
     resetFunctionMock(setGameObjectRelation);
     resetFunctionMock(setObjectWounded);
@@ -86,7 +82,7 @@ describe("DebugObjectSection", () => {
     mockRegisteredActor();
     registry.simulator = MockAlifeSimulator.getInstance();
     replaceFunctionMock(getNearestGameObject, () => nearest);
-    getTargetObject.mockImplementation(() => target);
+    replaceFunctionMock(level.get_target_obj, () => target);
 
     const section: DebugObjectSection = createSection();
 
@@ -120,7 +116,7 @@ describe("DebugObjectSection", () => {
   it("should skip logging handlers when no object is resolved", () => {
     mockRegisteredActor();
     registry.simulator = MockAlifeSimulator.getInstance();
-    getTargetObject.mockImplementation(() => null);
+    replaceFunctionMock(level.get_target_obj, () => null);
 
     const section: DebugObjectSection = createSection();
 
@@ -147,7 +143,7 @@ describe("DebugObjectSection", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     registry.simulator = MockAlifeSimulator.getInstance();
-    getTargetObject.mockImplementation(() => target);
+    replaceFunctionMock(level.get_target_obj, () => target);
 
     const section: DebugObjectSection = createSection();
 
@@ -179,7 +175,7 @@ describe("DebugObjectSection", () => {
     mockRegisteredActor();
     registry.simulator = MockAlifeSimulator.getInstance();
     replaceFunctionMock(getNearestGameObject, () => nearest);
-    getTargetObject.mockImplementation(() => target);
+    replaceFunctionMock(level.get_target_obj, () => target);
 
     const section: DebugObjectSection = createSection();
 

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, level } from "xray16";
 import { ServerObject } from "xray16/alias";
-import { AnyObject, TSection } from "xray16/lib";
+import { TSection } from "xray16/lib";
 import { MockAlifeSimulator, MockCUIScriptWnd, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
@@ -22,9 +22,6 @@ function getFirstTreasureSection(): TSection {
   throw new Error("Expected at least one configured treasure.");
 }
 
-// `game.jump_to_level` is not provided by `xray16` mocks, so it is stubbed per test run.
-const jumpToLevel = jest.fn();
-
 /**
  * Controls are assigned by the base constructor before subclass field declarations are defined, so initialization
  * has to be repeated to observe the resulting UI state.
@@ -42,8 +39,7 @@ function createSection(): DebugTreasuresSection {
 describe("DebugTreasuresSection", () => {
   beforeEach(() => {
     resetRegistry();
-    (game as unknown as AnyObject).jump_to_level = jumpToLevel;
-    jumpToLevel.mockReset();
+    resetFunctionMock(game.jump_to_level);
     resetFunctionMock(level.name);
   });
 

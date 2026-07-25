@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, get_console, level } from "xray16";
-import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockAlifeSimulator, MockCUIScriptWnd, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
@@ -15,10 +14,6 @@ import { getServerObjects } from "@/engine/core/utils/registry";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/utils/registry", () => ({ getServerObjects: jest.fn(() => new LuaTable()) }));
-
-// `game.jump_to_level` is not provided by `xray16` mocks, so it is stubbed per test run.
-// todo: Replace with sdk update.
-const jumpToLevel = jest.fn();
 
 /**
  * Controls are assigned by the base constructor before subclass field declarations are defined, so initialization
@@ -37,8 +32,7 @@ function createSection(): DebugTeleportSection {
 describe("DebugTeleportSection", () => {
   beforeEach(() => {
     resetRegistry();
-    (game as unknown as AnyObject).jump_to_level = jumpToLevel;
-    jumpToLevel.mockReset();
+    resetFunctionMock(game.jump_to_level);
     resetFunctionMock(level.add_pp_effector);
     resetFunctionMock(level.name);
     resetFunctionMock(getServerObjects);
@@ -116,7 +110,7 @@ describe("DebugTeleportSection", () => {
     section.onTeleport();
 
     expect(level.add_pp_effector).not.toHaveBeenCalled();
-    expect(jumpToLevel).not.toHaveBeenCalled();
+    expect(game.jump_to_level).not.toHaveBeenCalled();
   });
 
   it("should not teleport without selected item", () => {
@@ -129,7 +123,7 @@ describe("DebugTeleportSection", () => {
     section.onTeleport();
 
     expect(level.add_pp_effector).not.toHaveBeenCalled();
-    expect(jumpToLevel).not.toHaveBeenCalled();
+    expect(game.jump_to_level).not.toHaveBeenCalled();
   });
 
   it("should teleport to selected item on the same level", () => {
@@ -157,7 +151,7 @@ describe("DebugTeleportSection", () => {
 
     expect(level.add_pp_effector).toHaveBeenCalledWith(postProcessors.teleport, 2006, false);
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(entry.position);
-    expect(jumpToLevel).not.toHaveBeenCalled();
+    expect(game.jump_to_level).not.toHaveBeenCalled();
   });
 
   it("should jump to another level and close menu when teleporting instantly", () => {
@@ -184,7 +178,7 @@ describe("DebugTeleportSection", () => {
 
     section.onTeleport(true);
 
-    expect(jumpToLevel).toHaveBeenCalledWith(entry.position, entry.lvid, entry.gvid);
+    expect(game.jump_to_level).toHaveBeenCalledWith(entry.position, entry.lvid, entry.gvid);
     expect(get_console().execute).toHaveBeenCalledWith("main_menu off");
     expect(EventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.MAIN_MENU_OFF);
   });
