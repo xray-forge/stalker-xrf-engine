@@ -4,7 +4,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
+import { DeimosController } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosController";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
@@ -144,7 +144,7 @@ describe("SchemeDeimos", () => {
     expect(state.switchUpperBound).toBe(0.75);
     expect(state.intensity).toBe(0);
 
-    assertSchemeSubscribedToManager(state, DeimosManager);
+    assertSchemeSubscribedToManager(state, DeimosController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -201,6 +201,6 @@ describe("SchemeDeimos", () => {
     expect(state.switchUpperBound).toBe(2.5);
     expect(state.intensity).toBe(0);
 
-    assertSchemeSubscribedToManager(state, DeimosManager);
+    assertSchemeSubscribedToManager(state, DeimosController);
   });
 });

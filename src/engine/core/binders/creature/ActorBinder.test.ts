@@ -18,17 +18,13 @@ import {
   getObjectDynamicState,
   IRegistryObjectState,
   registerSimulator,
-  registerZone,
   registry,
   setPortableStoreValue,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save";
-import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
-import { setSchemeState } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/core/schemes/types";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
-import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("ActorBinder", () => {
   beforeEach(() => {
@@ -43,7 +39,6 @@ describe("ActorBinder", () => {
     const binder: ActorBinder = new ActorBinder(actor);
 
     expect(binder.isFirstUpdatePerformed).toBe(false);
-    expect(binder.deimosIntensity).toBeNull();
     expect(binder.eventsManager).toBe(getManager(EventsManager));
   });
 
@@ -180,10 +175,9 @@ describe("ActorBinder", () => {
     expect(processor.writeDataOrder).toEqual([
       EMockPacketDataType.STRING,
       EMockPacketDataType.U32,
-      EMockPacketDataType.BOOLEAN,
       EMockPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual(["save_from_ActorBinder", 0, false, 3]);
+    expect(processor.dataList).toEqual(["save_from_ActorBinder", 0, 2]);
 
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 
@@ -196,26 +190,11 @@ describe("ActorBinder", () => {
     expect(processor.dataList).toHaveLength(0);
   });
 
-  it("should correctly handle save/load with deimos and pstore values", () => {
+  it("should correctly handle save/load with pstore values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
     const saveManager: SaveManager = getManager(SaveManager);
     const processor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
-
-    const firstZone: GameObject = MockGameObject.mock();
-    const secondZone: GameObject = MockGameObject.mock();
-
-    registerZone(firstZone);
-    registerZone(secondZone);
-
-    const secondState: IRegistryObjectState = registry.objects.get(secondZone.id());
-
-    secondState.activeSection = SchemeDeimos.SCHEME_SECTION;
-    setSchemeState(
-      secondState,
-      EScheme.SR_DEIMOS,
-      mockSchemeState<ISchemeDeimosState>(EScheme.SR_DEIMOS, { intensity: 11.5 })
-    );
 
     jest.spyOn(saveManager, "clientSave").mockImplementation(jest.fn());
     jest.spyOn(saveManager, "clientLoad").mockImplementation(jest.fn());
@@ -238,23 +217,9 @@ describe("ActorBinder", () => {
       EMockPacketDataType.STRING,
       EMockPacketDataType.U8,
       EMockPacketDataType.STRING,
-      EMockPacketDataType.BOOLEAN,
-      EMockPacketDataType.F32,
       EMockPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual([
-      "save_from_ActorBinder",
-      2,
-      "test-1",
-      1,
-      "value",
-      "test-2",
-      1,
-      "value",
-      true,
-      11.5,
-      10,
-    ]);
+    expect(processor.dataList).toEqual(["save_from_ActorBinder", 2, "test-1", 1, "value", "test-2", 1, "value", 8]);
 
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 

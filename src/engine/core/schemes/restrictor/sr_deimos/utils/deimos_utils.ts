@@ -1,7 +1,9 @@
 import { GameObject } from "xray16/alias";
 import { TName, TRate } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
-import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
+import { DeimosManager } from "@/engine/core/managers/deimos";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -24,8 +26,13 @@ export function isDeimosPhaseActive(object: GameObject, bounds: TName, isIncreas
   const deimosState: ISchemeDeimosState = getSchemeStateOptimistic(state, EScheme.SR_DEIMOS);
 
   // todo: Probably should be separate rate for increase and decrease variants.
-  const intensityDelta: TRate =
-    deimosState.growingRate * (deimosState.movementSpeed - registry.actor.get_movement_speed().magnitude()) * 0.005;
+  const actorSpeed = getManager(DeimosManager).getActorMovementSpeed();
+
+  if ($isNil(actorSpeed)) {
+    return false;
+  }
+
+  const intensityDelta: TRate = deimosState.growingRate * (deimosState.movementSpeed - actorSpeed) * 0.005;
 
   // Skip invalid cases, assumptions for deimos increasing phase are:
   // Increase -> actor speed is faster than deimos and deimos is decreasing.

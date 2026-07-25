@@ -5,11 +5,11 @@ import { ACTOR_ID, TTimestamp } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import { getManager } from "@/engine/core/database";
+import { DeimosManager as PlayerDeimosManager } from "@/engine/core/managers/deimos";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosConfig";
-import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
+import { DeimosController } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosController";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -23,6 +23,9 @@ jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
 jest.mock("@/engine/core/utils/game", () => ({ isBlackScreen: jest.fn(() => false) }));
 
 const NOW: TTimestamp = 100_000;
+
+type DeimosManager = DeimosController;
+const DeimosManager: typeof DeimosController = DeimosController;
 
 function createDeimosState(base: Partial<ISchemeDeimosState> = {}): ISchemeDeimosState {
   return mockSchemeState<ISchemeDeimosState>(EScheme.SR_DEIMOS, {
@@ -44,7 +47,11 @@ function createDeimosState(base: Partial<ISchemeDeimosState> = {}): ISchemeDeimo
   });
 }
 
-describe("DeimosManager", () => {
+function restoreDeimosIntensity(intensity: number): void {
+  (getManager(PlayerDeimosManager) as unknown as { restoredIntensity: number }).restoredIntensity = intensity;
+}
+
+describe("DeimosController", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -68,9 +75,10 @@ describe("DeimosManager", () => {
 
   it("should activate and dispose phased effects as intensity rises and falls", () => {
     const object: GameObject = MockGameObject.mock();
-    const { actorGameObject } = mockRegisteredActor();
     const manager: DeimosManager = new DeimosManager(object, mockSchemeState(EScheme.SR_DEIMOS));
     const soundManager: SoundManager = getManager(SoundManager);
+
+    mockRegisteredActor();
 
     manager.state.camEffector = "camera";
     manager.state.camEffectorRepeatingTime = 1_000;
@@ -86,7 +94,7 @@ describe("DeimosManager", () => {
     manager.state.ppEffector2 = "deimos_secondary";
     manager.state.switchLowerBound = 0.3;
     manager.state.switchUpperBound = 0.6;
-    (actorGameObject as unknown as { deimosIntensity: number }).deimosIntensity = 0.5;
+    restoreDeimosIntensity(0.5);
 
     jest.spyOn(soundManager, "playLooped").mockImplementation(() => null);
     jest.spyOn(soundManager, "setLoopedSoundVolume").mockImplementation(() => null);
@@ -180,10 +188,11 @@ describe("DeimosManager", () => {
 
   it("should not enable any phase for intensity below disable bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const { actorGameObject } = mockRegisteredActor();
     const manager: DeimosManager = new DeimosManager(object, createDeimosState({ intensity: 0 }));
 
-    (actorGameObject as unknown as ActorBinder).deimosIntensity = 0.05;
+    mockRegisteredActor();
+
+    restoreDeimosIntensity(0.05);
 
     manager.update();
 
@@ -193,14 +202,15 @@ describe("DeimosManager", () => {
 
   it("should enable first phase only for intensity between bounds", () => {
     const object: GameObject = MockGameObject.mock();
-    const { actorGameObject } = mockRegisteredActor();
     const manager: DeimosManager = new DeimosManager(object, createDeimosState({ intensity: 0 }));
     const soundManager: SoundManager = getManager(SoundManager);
+
+    mockRegisteredActor();
 
     jest.spyOn(soundManager, "playLooped").mockImplementation(() => null);
     jest.spyOn(soundManager, "setLoopedSoundVolume").mockImplementation(() => null);
 
-    (actorGameObject as unknown as ActorBinder).deimosIntensity = 0.2;
+    restoreDeimosIntensity(0.2);
 
     manager.update();
 

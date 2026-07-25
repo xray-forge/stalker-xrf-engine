@@ -7,6 +7,7 @@ import { loadExtension, saveExtension } from "@/engine/core/extensions";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
+import { DeimosManager } from "@/engine/core/managers/deimos";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
@@ -54,6 +55,7 @@ export class SaveManager extends AbstractManager {
     getManager(TaskManager).save(packet);
     getManager(ActorInputManager).save(packet);
     getManager(GameSettingsManager).save(packet);
+    getManager(DeimosManager).save(packet);
   }
 
   /**
@@ -72,6 +74,7 @@ export class SaveManager extends AbstractManager {
     getManager(TaskManager).load(reader);
     getManager(ActorInputManager).load(reader);
     getManager(GameSettingsManager).load(reader);
+    getManager(DeimosManager).load(reader);
   }
 
   /**

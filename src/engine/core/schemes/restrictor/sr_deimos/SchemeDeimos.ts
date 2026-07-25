@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
+import { DeimosController } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosController";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -49,6 +49,6 @@ export class SchemeDeimos extends AbstractScheme {
     section: TSection,
     state: ISchemeDeimosState
   ): void {
-    AbstractScheme.subscribe(state, new DeimosManager(object, state));
+    AbstractScheme.subscribe(state, new DeimosController(object, state));
   }
 }

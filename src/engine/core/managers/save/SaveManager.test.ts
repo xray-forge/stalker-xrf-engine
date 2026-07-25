@@ -15,6 +15,7 @@ import { IExtensionsDescriptor } from "@/engine/core/extensions";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
+import { DeimosManager } from "@/engine/core/managers/deimos";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { SaveManager } from "@/engine/core/managers/save";
@@ -91,6 +92,7 @@ describe("SaveManager", () => {
       TaskManager,
       ActorInputManager,
       GameSettingsManager,
+      DeimosManager,
     ];
 
     expectedOrder.forEach((it) => initializeManager(it));

@@ -1,6 +1,6 @@
 import { callback, level, LuabindClass, object_binder, time_global } from "xray16";
 import { GameObject, GameTask, NetPacket, NetReader, ServerActorObject, TTaskState } from "xray16/alias";
-import { ACTOR_ID, Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
+import { ACTOR_ID, TCount, TDuration, TName, TSection, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -8,12 +8,10 @@ import {
   closeSaveMarker,
   getManager,
   initializePortableStore,
-  IRegistryObjectState,
   loadPortableStore,
   openLoadMarker,
   openSaveMarker,
   registerActor,
-  registry,
   resetPortableStore,
   savePortableStore,
   unregisterActor,
@@ -23,9 +21,6 @@ import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
-import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
-import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
-import { EScheme } from "@/engine/core/schemes/types";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -38,9 +33,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class ActorBinder extends object_binder {
   public readonly eventsManager: EventsManager = getManager(EventsManager);
-
-  // todo: Move out deimos related logic / data.
-  public deimosIntensity: Nillable<number> = null;
 
   public isFirstUpdatePerformed: boolean = false;
 
@@ -63,11 +55,6 @@ export class ActorBinder extends object_binder {
 
     registerActor(this.object);
     initializePortableStore(this.object.id());
-
-    // todo: Move out deimos related logic / data.
-    (registry.actor as unknown as ActorBinder).deimosIntensity = this.deimosIntensity;
-
-    this.deimosIntensity = null;
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_GO_ONLINE, this);
 
@@ -112,8 +99,8 @@ export class ActorBinder extends object_binder {
     // At re-init allow alife to do batched updates.
     setUnlimitedAlifeObjectsUpdate();
 
-    this.eventsManager.registerGameTimeout(setStableAlifeObjectsUpdate, alifeConfig.OBJECT_INITIAL_SPAWN_BUFFER_TIME);
     this.eventsManager.emitEvent(EGameEvent.ACTOR_REINIT, this);
+    this.eventsManager.registerGameTimeout(setStableAlifeObjectsUpdate, alifeConfig.OBJECT_INITIAL_SPAWN_BUFFER_TIME);
   }
 
   public override update(delta: TDuration): void {
@@ -176,26 +163,6 @@ export class ActorBinder extends object_binder {
     savePortableStore(this.object.id(), packet);
     getManager(SaveManager).clientSave(packet);
 
-    // todo: Move out deimos logic. Probably store in pstore?
-    let isDeimosExisting: boolean = false;
-
-    for (const [, zone] of registry.zones) {
-      const state: IRegistryObjectState = registry.objects.get(zone.id());
-
-      // todo: Probably should check scheme instead of section.
-      // todo: Only one deimos zone can exist, it is hardcoded.
-      // todo: Consider creating separate deimos manager or store in dynamic save file?
-      if (state.activeSection === SchemeDeimos.SCHEME_SECTION) {
-        isDeimosExisting = true;
-        packet.w_bool(true);
-        packet.w_float(getSchemeStateOptimistic(state, EScheme.SR_DEIMOS).intensity);
-      }
-    }
-
-    if (!isDeimosExisting) {
-      packet.w_bool(false);
-    }
-
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
@@ -208,13 +175,6 @@ export class ActorBinder extends object_binder {
 
     loadPortableStore(this.object.id(), reader);
     getManager(SaveManager).clientLoad(reader);
-
-    // todo: Move out deimos logic.
-    const hasDeimos: boolean = reader.r_bool();
-
-    if (hasDeimos) {
-      this.deimosIntensity = reader.r_float();
-    }
 
     closeLoadMarker(reader, ActorBinder.__name);
   }
