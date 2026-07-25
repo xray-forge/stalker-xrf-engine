@@ -10,8 +10,8 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-// `MockCScriptXmlInit.InitProgressBar` returns a plain window without progress bar methods.
-// todo: Think about updating xray sdk.
+// `MockCScriptXmlInit.InitProgressBar` still returns `MockCUIWindow`, which has no `SetProgressPos`.
+// todo: Drop this stand-in once `xray16` mocks ship a progress bar mock.
 const uiProgressBar = { SetProgressPos: jest.fn(), Show: jest.fn() };
 
 jest.mock("@/engine/core/utils/ui", () => {

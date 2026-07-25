@@ -5,13 +5,6 @@ import { AnyObject } from "xray16/lib";
 
 import { PostProcessEffector } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessEffector";
 
-// `xray16` mocks do not provide `effector_params`, so a local stand-in is supplied.
-// todo: Replace with xray sdk update.
-jest.mock("xray16", () => ({
-  ...(jest.requireActual("xray16") as AnyObject),
-  effector_params: (jest.requireActual("@/fixtures/engine/mocks/effector.mock") as AnyObject).MockEffectorParams,
-}));
-
 describe("PostProcessEffector", () => {
   it("should correctly initialize", () => {
     const postProcessEffector: PostProcessEffector = new PostProcessEffector(2005);
@@ -27,8 +20,9 @@ describe("PostProcessEffector", () => {
     const params: EffectorParams = new effector_params();
     const baseProcess = jest.fn(() => false);
 
-    // `MockEffector` declares `process` as an own instance mock, so it both shadows this class override and
+    // `MockEffector` still declares `process` as an own instance mock, so it both shadows this class override and
     // leaves `super.process` undefined. Move it onto the base prototype to reach the real implementation.
+    // todo: Drop this once `xray16` mocks declare effector methods on the prototype.
     (Object.getPrototypeOf(PostProcessEffector.prototype) as AnyObject).process = baseProcess;
     delete (postProcessEffector as unknown as AnyObject).process;
 

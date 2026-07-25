@@ -159,4 +159,111 @@ describe("CutsceneManager", () => {
     expect(actorGameObject.set_actor_direction).toHaveBeenCalled();
     expect(state.signals.get("cameff_end")).toBe(true);
   });
+
+  it("should release script control when the actor is talking", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeCutsceneState = createCutsceneState();
+    const manager: CutsceneManager = new CutsceneManager(object, state);
+    const { actorGameObject } = mockRegisteredActor();
+    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
+
+    state.signals = new LuaTable();
+    manager.isUiDisabled = true;
+    manager.motionId = 2;
+    manager.motion = { state: EEffectorState.RELEASE } as CameraEffectorSet;
+
+    MockPatrol.setup({
+      look_path: {
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "look", position: actorGameObject.position() as never }],
+      },
+      point_path: {
+        points: [{ flag: 0, gvid: 0, lvid: 0, name: "point", position: actorGameObject.position() as never }],
+      },
+    });
+
+    jest.spyOn(actorGameObject, "is_talking").mockReturnValue(true);
+    jest.spyOn(actorInputManager, "releaseControl").mockImplementation(() => {});
+    jest.spyOn(actorInputManager, "enableGameUi").mockImplementation(() => {});
+
+    manager.onCutscene();
+
+    expect(actorInputManager.releaseControl).toHaveBeenCalledTimes(1);
+    expect(actorInputManager.enableGameUi).not.toHaveBeenCalled();
+    expect(state.signals.get("cameff_end")).toBe(true);
+  });
+
+  it("should continue to the next effector while the set is still playing", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeCutsceneState = createCutsceneState();
+    const manager: CutsceneManager = new CutsceneManager(object, state);
+    const effect = { anim: "next_motion" };
+    const motion = {
+      getNextEffector: jest.fn(() => effect),
+      isPlaying: true,
+      startEffect: jest.fn(),
+      state: EEffectorState.START,
+    };
+
+    mockRegisteredActor();
+    manager.motion = motion as unknown as CameraEffectorSet;
+
+    manager.onCutscene();
+
+    expect(motion.isPlaying).toBe(false);
+    expect(motion.startEffect).toHaveBeenCalledWith(effect);
+  });
+
+  it("should not start a new effector when the set has none left", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeCutsceneState = createCutsceneState();
+    const manager: CutsceneManager = new CutsceneManager(object, state);
+    const motion = {
+      getNextEffector: jest.fn(() => null),
+      isPlaying: true,
+      startEffect: jest.fn(),
+      state: EEffectorState.START,
+    };
+
+    mockRegisteredActor();
+    manager.motion = motion as unknown as CameraEffectorSet;
+
+    manager.onCutscene();
+
+    expect(motion.startEffect).not.toHaveBeenCalled();
+  });
+
+  it("should enable brighten postprocess for outdoor cutscene at night", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeCutsceneState = createCutsceneState();
+    const manager: CutsceneManager = new CutsceneManager(object, state);
+
+    mockRegisteredActor();
+    state.isOutdoor = true;
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 23);
+    jest.spyOn(manager, "selectNextMotion").mockImplementation(jest.fn());
+    jest.spyOn(getManager(ActorInputManager), "disableGameUi").mockImplementation(() => {});
+
+    manager.onZoneEnter();
+
+    expect(manager.isPostprocess).toBe(true);
+    expect(level.add_complex_effector).toHaveBeenCalledWith("brighten", 1999);
+  });
+
+  it("should not enable brighten postprocess for outdoor cutscene at daytime", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeCutsceneState = createCutsceneState();
+    const manager: CutsceneManager = new CutsceneManager(object, state);
+
+    mockRegisteredActor();
+    state.isOutdoor = true;
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 12);
+    jest.spyOn(manager, "selectNextMotion").mockImplementation(jest.fn());
+    jest.spyOn(getManager(ActorInputManager), "disableGameUi").mockImplementation(() => {});
+
+    manager.onZoneEnter();
+
+    expect(manager.isPostprocess).toBe(false);
+  });
 });

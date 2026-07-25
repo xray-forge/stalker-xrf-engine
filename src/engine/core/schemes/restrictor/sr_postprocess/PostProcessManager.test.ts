@@ -12,13 +12,6 @@ import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-// `xray16` mocks do not provide `effector_params`, so a local stand-in is supplied.
-// todo: Replace with xray sdk update.
-jest.mock("xray16", () => ({
-  ...(jest.requireActual("xray16") as AnyObject),
-  effector_params: (jest.requireActual("@/fixtures/engine/mocks/effector.mock") as AnyObject).MockEffectorParams,
-}));
-
 jest.mock("@/engine/core/schemes/runtime/scheme_switch", () => ({
   trySwitchToAnotherSection: jest.fn(() => false),
 }));
