@@ -394,6 +394,20 @@ describe("destroy_object", () => {
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
     expect(registry.simulator.release).toHaveBeenCalledWith(targetObject, true);
   });
+
+  it("should resolve target descriptors supplied with a third parameter", () => {
+    const object: GameObject = MockGameObject.mock();
+    const targetObject = MockAlifeObject.create();
+
+    registerSimulator();
+    MockAlifeSimulator.addToRegistry(targetObject);
+    registerStoryLink(targetObject.id, "target");
+
+    // Target type has to come from the first parameter, not from the tuple itself.
+    callXrEffect("destroy_object", MockGameObject.mockActor(), object, "story", "target", "extra");
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(targetObject, true);
+  });
 });
 
 describe("create_squad", () => {

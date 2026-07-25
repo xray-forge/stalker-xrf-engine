@@ -4,7 +4,7 @@ import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
 import { AnyCallablesModule, getExtern } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
-import { infoPortions } from "@/engine/constants/info_portions";
+import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
 import { storyNames } from "@/engine/constants/story_names";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
@@ -15,7 +15,7 @@ import {
   registerZone,
   registry,
 } from "@/engine/core/database";
-import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
+import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 import { callXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
@@ -50,7 +50,7 @@ describe("zat_b29_anomaly_has_af", () => {
 
     giveInfoPortion(zatB29InfopBringTable.get(23));
 
-    registry.artefacts.ways.set(artefact.id, "test");
+    anomaly.artefactPathsByArtefactId.set(artefact.id, "test");
 
     expect(
       callXrCondition(
@@ -82,6 +82,39 @@ describe("zat_b29_anomaly_has_af", () => {
         anomaly.object.name()
       )
     ).toBe(true);
+  });
+
+  it("should only check artefacts spawned in the provided anomaly zone", () => {
+    mockRegisteredActor();
+    registerSimulator();
+
+    const first: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock({ name: "zat_b53_anomal_zone" }));
+    const second: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock({ name: "zat_b55_anomal_zone" }));
+
+    registerAnomalyZone(first);
+    registerAnomalyZone(second);
+
+    first.spawnedArtefactsCount = 1;
+    second.spawnedArtefactsCount = 1;
+
+    const artefact: ServerObject = MockAlifeObject.mock();
+
+    jest.spyOn(artefact, "section_name").mockImplementation(() => zatB29AfTable.get(23));
+    giveInfoPortion(zatB29InfopBringTable.get(23));
+
+    // Artefact is spawned in the second zone only, while the global registry knows about it too.
+    second.artefactPathsByArtefactId.set(artefact.id, "test");
+    registry.artefacts.ways.set(artefact.id, "test");
+
+    expect(
+      callXrCondition("zat_b29_anomaly_has_af", MockGameObject.mockActor(), MockGameObject.mock(), first.object.name())
+    ).toBe(false);
+    expect(hasInfoPortion(first.object.name() as TInfoPortion)).toBe(false);
+
+    expect(
+      callXrCondition("zat_b29_anomaly_has_af", MockGameObject.mockActor(), MockGameObject.mock(), second.object.name())
+    ).toBe(true);
+    expect(hasInfoPortion(second.object.name() as TInfoPortion)).toBe(true);
   });
 });
 

@@ -339,8 +339,8 @@ extern(
       abort("Wrong parameters in destroy_object function.");
     }
 
-    const targetString = $isNotNil(parameters[2])
-      ? [0] + "|" + parameters[1] + "," + parameters[2]
+    const targetString: string = $isNotNil(parameters[2])
+      ? parameters[0] + "|" + parameters[1] + "," + parameters[2]
       : parameters[0] + "|" + parameters[1];
     const [, targetId] = initTarget(object, targetString);
 

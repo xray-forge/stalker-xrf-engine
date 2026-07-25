@@ -46,7 +46,8 @@ extern(
       }
     }
 
-    for (const [artefactId] of registry.artefacts.ways) {
+    // Only artefacts spawned in the checked zone matter, `registry.artefacts.ways` is global.
+    for (const [artefactId] of anomaly.artefactPathsByArtefactId) {
       const artefact: Nillable<ServerObject> = registry.simulator.object(tonumber(artefactId) as TNumberId);
 
       if (artefact && artefact.section_name() === artefactName) {

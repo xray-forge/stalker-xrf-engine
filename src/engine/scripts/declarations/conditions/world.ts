@@ -130,7 +130,7 @@ extern(
     const status: Nillable<ESmartTerrainStatus> = ALARM_STATUSES[alarmStatus];
 
     if (!status) {
-      return abort("Wrong status '%s' in 'check_smart_alarm_status' condition.", status);
+      return abort("Wrong status '%s' in 'check_smart_alarm_status' condition.", alarmStatus);
     }
 
     const terrainControl: Nillable<SmartTerrainControl> = getSimulationTerrainByName(terrainName)

@@ -251,7 +251,7 @@ describe("check_smart_alarm_status", () => {
         "name",
         "not-existing"
       );
-    }).toThrow("Wrong status 'nil' in 'check_smart_alarm_status' condition.");
+    }).toThrow("Wrong status 'not-existing' in 'check_smart_alarm_status' condition.");
     expect(() => {
       return callXrCondition(
         "check_smart_alarm_status",
