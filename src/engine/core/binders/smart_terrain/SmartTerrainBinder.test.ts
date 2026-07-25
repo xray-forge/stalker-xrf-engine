@@ -78,6 +78,8 @@ describe("SmartTerrainBinder", () => {
 
     getManager(EventsManager).registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);
 
+    jest.spyOn(serverObject, "update").mockImplementation(jest.fn());
+
     binder.net_spawn(serverObject);
     binder.update(255);
 
@@ -102,6 +104,8 @@ describe("SmartTerrainBinder", () => {
   it("updates the server terrain before the actor is available without marking it visited", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
     const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
+
+    jest.spyOn(serverObject, "update").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
     binder.update(255);

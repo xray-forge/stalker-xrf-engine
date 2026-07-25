@@ -480,7 +480,7 @@ describe("create_squad_member", () => {
     jest.spyOn(squad, "commander_id").mockReturnValue(commander.id);
     jest.spyOn(squad, "addMember").mockReturnValue(member);
     jest.spyOn(squad, "assignMemberToTerrain");
-    jest.spyOn(squad, "update");
+    jest.spyOn(squad, "update").mockImplementation(jest.fn());
 
     callXrEffect("create_squad_member", MockGameObject.mockActor(), MockGameObject.mock(), "test_member", "test-squad");
 

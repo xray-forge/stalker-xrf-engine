@@ -7,18 +7,7 @@ import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { registerObject, registry } from "@/engine/core/database";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-
-// `MockCScriptXmlInit.InitProgressBar` still returns `MockCUIWindow`, which has no `SetProgressPos`.
-// todo: Drop this stand-in once `xray16` mocks ship a progress bar mock.
-const uiProgressBar = { SetProgressPos: jest.fn(), Show: jest.fn() };
-
-jest.mock("@/engine/core/utils/ui", () => {
-  const actual = jest.requireActual("@/engine/core/utils/ui") as Record<string, unknown>;
-
-  return { ...actual, resolveXmlFile: jest.fn() };
-});
 
 const NOW: TTimestamp = 100_000;
 
@@ -40,10 +29,6 @@ describe("HelicopterFireManager", () => {
     resetFunctionMock(time_global);
     resetFunctionMock(level.object_by_id);
     replaceFunctionMock(time_global, () => NOW);
-    resetFunctionMock(resolveXmlFile);
-    uiProgressBar.SetProgressPos.mockReset();
-    uiProgressBar.Show.mockReset();
-    replaceFunctionMock(resolveXmlFile, () => ({ InitProgressBar: () => uiProgressBar }) as unknown as XmlInit);
     registry.simulator = MockAlifeSimulator.getInstance();
     get_hud().RemoveCustomStatic("cs_heli_health");
     mockRegisteredActor({ position: MockVector.create(1, 0, 0) });
@@ -235,8 +220,9 @@ describe("HelicopterFireManager", () => {
     manager.showHelicopterFightUI();
 
     expect(get_hud().GetCustomStatic("cs_heli_health")).not.toBeNull();
-    expect(manager.uiProgressBar?.Show).toHaveBeenCalledWith(true);
+    expect(manager.uiProgressBar?.IsShown()).toBe(true);
     expect(manager.uiProgressBar?.SetProgressPos).toHaveBeenCalledWith(50);
+    expect(manager.uiProgressBar?.GetProgressPos()).toBe(50);
 
     // Repeated calls reuse the existing static.
     manager.showHelicopterFightUI();
@@ -254,7 +240,7 @@ describe("HelicopterFireManager", () => {
     jest.spyOn(helicopter, "GetfHealth").mockImplementation(() => 0);
     manager.setHelicopterFightUIHealth();
 
-    expect(manager.uiProgressBar?.Show).toHaveBeenCalledWith(false);
+    expect(manager.uiProgressBar?.IsShown()).toBe(false);
     expect(manager.showHealth).toBe(false);
     expect(get_hud().GetCustomStatic("cs_heli_health")).toBeNull();
   });

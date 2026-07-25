@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
-import { IniFile } from "xray16/alias";
+import { IniFile, TClassId } from "xray16/alias";
 import { Nillable, TName, TSection } from "xray16/lib";
-import { MockIniFile } from "xray16/mocks";
+import { MockAlifeSmartZone, mockClsid, MockIniFile } from "xray16/mocks";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 
@@ -13,6 +13,8 @@ export class MockSmartTerrain extends SmartTerrain {
     const terrain: MockSmartTerrain = new MockSmartTerrain(section);
 
     terrain.ini = terrain.spawn_ini() as IniFile;
+
+    (terrain as unknown as MockAlifeSmartZone).classId = mockClsid.smart_terrain as TClassId;
 
     if (name) {
       jest.spyOn(terrain, "name").mockImplementation(() => name);
@@ -71,6 +73,9 @@ export class MockSmartTerrain extends SmartTerrain {
     });
 
     terrain.ini = terrain.spawn_ini() as IniFile;
+
+    (terrain as unknown as MockAlifeSmartZone).classId = mockClsid.smart_terrain as TClassId;
+
     jest.spyOn(terrain, "name").mockImplementation(() => name);
 
     return terrain;
