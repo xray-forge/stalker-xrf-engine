@@ -1,19 +1,29 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { action_base, anim, look, move, property_storage } from "xray16";
+import { action_base, anim, level, look, move, property_storage } from "xray16";
 import {
   EGameObjectMovementType,
   EGameObjectPath,
   GameObject,
   ServerCreatureObject,
   ServerGroupObject,
+  ServerObject,
 } from "xray16/alias";
 import { Z_VECTOR } from "xray16/lib";
-import { MockAlifeOnlineOfflineGroup, MockGameObject, MockObject, MockServerAlifeCreatureAbstract } from "xray16/mocks";
+import {
+  MockAlifeOnlineOfflineGroup,
+  MockAlifeSmartZone,
+  MockGameObject,
+  MockObject,
+  MockServerAlifeCreatureAbstract,
+  MockVector,
+} from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registerSimulator } from "@/engine/core/database";
+import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions/ActionReachTaskLocation";
@@ -49,6 +59,7 @@ describe("ActionReachTaskLocation", () => {
   beforeEach(() => {
     registerSimulator();
     reachTaskConfig.PATROLS = new LuaTable();
+    surgeConfig.IS_STARTED = false;
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
   });
 
@@ -220,5 +231,142 @@ describe("ActionReachTaskLocation", () => {
     action.onSwitchOffline(object);
 
     expect(patrolManager.removeObjectFromPatrol).toHaveBeenCalledWith(object);
+  });
+
+  it("should head to another game vertex as commander", () => {
+    const { object, action, squad, target } = mockActionData();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => object.id());
+    jest.spyOn(object, "game_vertex_id").mockImplementation(() => target.m_game_vertex_id + 1);
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    resetFunctionMock(object.set_path_type);
+    resetFunctionMock(object.set_dest_level_vertex_id);
+
+    action.executeSquadCommander(squad, target as unknown as TSimulationObject);
+
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.GAME_PATH);
+    expect(object.set_dest_game_vertex_id).toHaveBeenCalledWith(target.m_game_vertex_id);
+    expect(object.set_dest_level_vertex_id).not.toHaveBeenCalled();
+  });
+
+  it("should move to the target level position as commander", () => {
+    const { object, action, squad, target } = mockActionData();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => object.id());
+    jest.spyOn(object, "game_vertex_id").mockImplementation(() => target.m_game_vertex_id);
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    resetFunctionMock(object.set_path_type);
+
+    action.executeSquadCommander(squad, target as unknown as TSimulationObject);
+
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
+    expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(target.m_level_vertex_id);
+    expect(object.set_desired_position).toHaveBeenCalledWith(target.position);
+  });
+
+  it("should pick the nearest accessible position for an unreachable target", () => {
+    const { object, action, squad, target } = mockActionData();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => object.id());
+    jest.spyOn(object, "game_vertex_id").mockImplementation(() => target.m_game_vertex_id);
+    jest.spyOn(object, "accessible").mockImplementation(() => false);
+    jest.spyOn(object, "accessible_nearest").mockImplementation(() => $multi(777, MockVector.create(7, 0, 0)));
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    action.executeSquadCommander(squad, target as unknown as TSimulationObject);
+
+    expect(object.set_dest_level_vertex_id).toHaveBeenCalledWith(777);
+  });
+
+  it("should skip commander movement while talking or without target", () => {
+    const { object, action, squad, target } = mockActionData();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => object.id());
+    jest.spyOn(object, "is_talking").mockImplementation(() => true);
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    resetFunctionMock(object.set_dest_level_vertex_id);
+
+    action.executeSquadCommander(squad, target as unknown as TSimulationObject);
+    action.executeSquadCommander(squad, null);
+
+    expect(object.set_dest_level_vertex_id).not.toHaveBeenCalled();
+  });
+
+  it("should follow the commander movement type without a target", () => {
+    const { object, action, squad } = mockActionData();
+    const commander: GameObject = MockGameObject.mock();
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => commander.id());
+    jest.spyOn(level, "object_by_id").mockImplementation(() => commander);
+
+    resetFunctionMock(object.set_movement_type);
+
+    action.executeSquadSoldier(squad, null);
+
+    expect(object.set_path_type).toHaveBeenCalledWith(EGameObjectPath.LEVEL_PATH);
+    expect(object.set_movement_type).toHaveBeenCalledWith(commander.movement_type());
+    expect(object.set_mental_state).toHaveBeenCalledWith(commander.mental_state());
+  });
+
+  it("should stand still when the commander stands still", () => {
+    const { object, action, squad } = mockActionData();
+    // A squad target short-circuits soldier movement, so a non-squad simulation target is used here.
+    const target: ServerObject = MockAlifeSmartZone.mock();
+    const commander: GameObject = MockGameObject.mock();
+
+    jest.spyOn(commander, "movement_type").mockImplementation(() => move.stand);
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => commander.id());
+    jest.spyOn(level, "object_by_id").mockImplementation(() => commander);
+
+    resetFunctionMock(object.set_movement_type);
+
+    action.executeSquadSoldier(squad, target as unknown as TSimulationObject);
+
+    expect(object.set_movement_type).toHaveBeenCalledWith(move.stand);
+  });
+
+  it("should choose run or walk by distance to the order position", () => {
+    const { object, action, squad } = mockActionData();
+    // A squad target short-circuits soldier movement, so a non-squad simulation target is used here.
+    const target: ServerObject = MockAlifeSmartZone.mock();
+    const commander: GameObject = MockGameObject.mock();
+
+    jest.spyOn(commander, "movement_type").mockImplementation(() => move.walk);
+    jest.spyOn(object, "position").mockImplementation(() => MockVector.create(0, 0, 0));
+
+    action.setup(object, new property_storage());
+    action.initialize();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => commander.id());
+    jest.spyOn(level, "object_by_id").mockImplementation(() => commander);
+    jest.spyOn(level, "vertex_position").mockImplementation(() => MockVector.create(100, 0, 0));
+
+    resetFunctionMock(object.set_movement_type);
+    action.executeSquadSoldier(squad, target as unknown as TSimulationObject);
+    expect(object.set_movement_type).toHaveBeenCalledWith(move.run);
+
+    jest.spyOn(level, "vertex_position").mockImplementation(() => MockVector.create(1, 0, 0));
+
+    resetFunctionMock(object.set_movement_type);
+    action.executeSquadSoldier(squad, target as unknown as TSimulationObject);
+    expect(object.set_movement_type).toHaveBeenCalledWith(move.walk);
   });
 });

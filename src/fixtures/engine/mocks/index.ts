@@ -1,5 +1,3 @@
-export * from "@/fixtures/engine/mocks/car.mock";
-export * from "@/fixtures/engine/mocks/effector.mock";
 export * from "@/fixtures/engine/mocks/extension.mock";
 export * from "@/fixtures/engine/mocks/ini_files.mock";
 export * from "@/fixtures/engine/mocks/object.mock";
