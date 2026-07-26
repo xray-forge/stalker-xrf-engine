@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
-import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
+import { CombatProcessEnemyController } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyController";
 import { SchemeCombatIgnore } from "@/engine/core/schemes/stalker/combat_ignore/SchemeCombatIgnore";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeCombatIgnore", () => {
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe("SchemeCombatIgnore", () => {
 
     SchemeCombatIgnore.add(object, ini, EScheme.COMBAT_IGNORE, null as never, state);
 
-    expect(state.action).toBeInstanceOf(CombatProcessEnemyManager);
+    expect(state.action).toBeInstanceOf(CombatProcessEnemyController);
   });
 
   it("should subscribe manager and register enemy callback on reset", () => {
@@ -44,7 +44,7 @@ describe("SchemeCombatIgnore", () => {
     const registryState: IRegistryObjectState = registerObject(object);
     const state: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
-    state.action = new CombatProcessEnemyManager(object, state);
+    state.action = new CombatProcessEnemyController(object, state);
     registryState.overrides = { combatIgnoreKeepWhenAttacked: true } as never;
     setSchemeState(registryState, EScheme.COMBAT_IGNORE, state);
 
@@ -54,7 +54,7 @@ describe("SchemeCombatIgnore", () => {
     expect(state.enabled).toBe(true);
     expect(state.overrides).toBe(registryState.overrides);
 
-    assertSchemeSubscribedToManager(state, CombatProcessEnemyManager);
+    assertSchemeSubscribedToController(state, CombatProcessEnemyController);
   });
 
   it("should unsubscribe manager and drop enemy callback on disable", () => {
@@ -62,7 +62,7 @@ describe("SchemeCombatIgnore", () => {
     const registryState: IRegistryObjectState = registerObject(object);
     const state: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
-    state.action = new CombatProcessEnemyManager(object, state);
+    state.action = new CombatProcessEnemyController(object, state);
     setSchemeState(registryState, EScheme.COMBAT_IGNORE, state);
 
     SchemeCombatIgnore.reset(object, EScheme.COMBAT_IGNORE, registryState, null as never);

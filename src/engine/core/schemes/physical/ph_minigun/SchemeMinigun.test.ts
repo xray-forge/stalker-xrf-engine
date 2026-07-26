@@ -4,11 +4,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
-import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
+import { MinigunController } from "@/engine/core/schemes/physical/ph_minigun/MinigunController";
 import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
 import { SchemeMinigun } from "@/engine/core/schemes/physical/ph_minigun/SchemeMinigun";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
-import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, mockBaseSchemeLogic } from "@/fixtures/engine";
 
 describe("SchemeMinigun", () => {
   it("should correctly activate scheme with defaults", () => {
@@ -45,7 +45,7 @@ describe("SchemeMinigun", () => {
     expect(state.onTargetVis).toBeNull();
     expect(state.onTargetNvis).toBeNull();
 
-    assertSchemeSubscribedToManager(state, MinigunManager);
+    assertSchemeSubscribedToController(state, MinigunController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -100,6 +100,6 @@ describe("SchemeMinigun", () => {
       mockBaseSchemeLogic({ condlist: parseConditionsList("false"), name: "on_target_nvis", p1: "b" })
     );
 
-    assertSchemeSubscribedToManager(state, MinigunManager);
+    assertSchemeSubscribedToController(state, MinigunController);
   });
 });

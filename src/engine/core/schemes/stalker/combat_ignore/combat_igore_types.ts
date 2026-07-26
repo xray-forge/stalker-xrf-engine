@@ -1,4 +1,4 @@
-import type { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
+import type { CombatProcessEnemyController } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyController";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
 
@@ -7,7 +7,7 @@ import type { EScheme } from "@/engine/core/schemes/types";
  */
 export interface ISchemeCombatIgnoreState extends IBaseSchemeState {
   enabled: boolean;
-  action: CombatProcessEnemyManager;
+  action: CombatProcessEnemyController;
 }
 
 declare module "@/engine/core/schemes/state/types" {

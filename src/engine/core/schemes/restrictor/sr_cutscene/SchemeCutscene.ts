@@ -10,7 +10,7 @@ import {
   readIniString,
 } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
+import { CutsceneController } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneController";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -55,6 +55,6 @@ export class SchemeCutscene extends AbstractScheme {
     section: TSection,
     state: ISchemeCutsceneState
   ): void {
-    AbstractScheme.subscribe(state, new CutsceneManager(object, state));
+    AbstractScheme.subscribe(state, new CutsceneController(object, state));
   }
 }

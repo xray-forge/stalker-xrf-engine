@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
+import { IdleController } from "@/engine/core/schemes/restrictor/sr_idle/IdleController";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle/SchemeIdle";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeIdle", () => {
   it("should be correctly defined", () => {
@@ -44,6 +44,6 @@ describe("SchemeIdle", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_idle@test"));
     expect(state.actions?.length()).toBe(1);
 
-    assertSchemeSubscribedToManager(state, IdleManager);
+    assertSchemeSubscribedToController(state, IdleController);
   });
 });

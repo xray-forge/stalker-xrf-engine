@@ -34,7 +34,7 @@ import { ESquadActionType } from "@/engine/core/objects/squad";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
@@ -1340,12 +1340,12 @@ describe("animpoint_reached", () => {
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
 
     setSchemeState(state, EScheme.ANIMPOINT, schemeState);
-    schemeState.animpointManager = new AnimpointManager(object, schemeState);
+    schemeState.animpointController = new AnimpointController(object, schemeState);
 
-    jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => true);
+    jest.spyOn(schemeState.animpointController, "isPositionReached").mockImplementation(() => true);
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(true);
 
-    jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => false);
+    jest.spyOn(schemeState.animpointController, "isPositionReached").mockImplementation(() => false);
     expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
   });
 });

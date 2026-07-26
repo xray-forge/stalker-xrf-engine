@@ -53,7 +53,7 @@ export function setObjectWounded(object: GameObject): void {
 export function enableObjectWoundedHealing(object: GameObject): void {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  (state?.wounded as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+  (state?.wounded as Nillable<ISchemeWoundedState>)?.woundController.unlockMedkit();
 }
 
 /**
@@ -64,7 +64,7 @@ export function isObjectPsyWounded(object: GameObject): boolean {
   const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state.wounded) {
-    const woundState: Nillable<TName> = (state?.wounded as Nillable<ISchemeWoundedState>)?.woundManager
+    const woundState: Nillable<TName> = (state?.wounded as Nillable<ISchemeWoundedState>)?.woundController
       .woundState as Nillable<TName>;
 
     return (

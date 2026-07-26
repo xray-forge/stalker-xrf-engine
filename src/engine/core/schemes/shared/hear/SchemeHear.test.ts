@@ -80,17 +80,17 @@ describe("SchemeHear", () => {
   it("should notify danger manager about heard sound", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const dangerManager = { onHear: jest.fn() };
+    const dangerController = { onHear: jest.fn() };
 
     setSchemeState(
       state,
       EScheme.DANGER,
-      mockSchemeState<ISchemeDangerState>(EScheme.DANGER, { dangerManager } as AnyObject)
+      mockSchemeState<ISchemeDangerState>(EScheme.DANGER, { dangerController } as AnyObject)
     );
 
     SchemeHear.onObjectHearSound(object, 500, snd_type.weapon, MockVector.create(1, 1, 1), 0.5);
 
-    expect(dangerManager.onHear).toHaveBeenCalledWith(object, 500, snd_type.weapon, MockVector.create(1, 1, 1), 0.5);
+    expect(dangerController.onHear).toHaveBeenCalledWith(object, 500, snd_type.weapon, MockVector.create(1, 1, 1), 0.5);
   });
 
   it("should do nothing without configured hear info", () => {

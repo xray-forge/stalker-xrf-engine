@@ -6,7 +6,7 @@ import { registry } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
-import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
+import { MobCombatController } from "@/engine/core/schemes/monster/mob_combat/MobCombatController";
 import { getSchemeStateByKey } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -38,7 +38,7 @@ export class SchemeMobCombat extends AbstractScheme {
     section: TSection,
     state: ISchemeMobCombatState
   ): void {
-    const manager: MobCombatManager = new MobCombatManager(object, state);
+    const manager: MobCombatController = new MobCombatController(object, state);
 
     state.action = manager;
 

@@ -53,7 +53,7 @@ export function breakObjectDialog(object: GameObject): void {
 export function updateObjectDialog(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  getSchemeStateOptimistic(state, EScheme.MEET).meetManager.update();
+  getSchemeStateOptimistic(state, EScheme.MEET).meetController.update();
   updateObjectMeetAvailability(object, state);
   updateStalkerLogic(object, state);
 }

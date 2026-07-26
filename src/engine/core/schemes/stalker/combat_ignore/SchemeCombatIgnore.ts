@@ -4,7 +4,7 @@ import { Nillable, TSection } from "xray16/lib";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
-import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
+import { CombatProcessEnemyController } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyController";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -39,7 +39,7 @@ export class SchemeCombatIgnore extends AbstractScheme {
     section: TSection,
     state: ISchemeCombatIgnoreState
   ): void {
-    state.action = new CombatProcessEnemyManager(object, state);
+    state.action = new CombatProcessEnemyController(object, state);
   }
 
   public static override reset(

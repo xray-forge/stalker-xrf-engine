@@ -28,7 +28,7 @@ import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
 import {
@@ -371,9 +371,9 @@ describe("StalkerBinder", () => {
     setSchemeState(state, EScheme.COMBAT, mockSchemeState(EScheme.COMBAT));
     setSchemeState(state, EScheme.HIT, mockSchemeState(EScheme.HIT));
     setSchemeState(state, EScheme.WOUNDED, mockSchemeState(EScheme.WOUNDED));
-    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager = {
+    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundController = {
       onHit: jest.fn(),
-    } as AnyObject as WoundManager;
+    } as AnyObject as WoundController;
 
     binder.onHit(object, 1000, ZERO_VECTOR, actorGameObject, 10);
 
@@ -381,7 +381,7 @@ describe("StalkerBinder", () => {
 
     expect(syncObjectHitSmartTerrainAlert).toHaveBeenCalledWith(object);
 
-    expect(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit).toHaveBeenCalledTimes(1);
+    expect(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundController.onHit).toHaveBeenCalledTimes(1);
 
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
     expect(manager.emitEvent).toHaveBeenCalledWith(

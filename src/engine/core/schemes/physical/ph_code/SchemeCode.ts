@@ -9,7 +9,7 @@ import {
   readIniStringAndCondList,
 } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
+import { CodeController } from "@/engine/core/schemes/physical/ph_code/CodeController";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { IBaseSchemeLogic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
@@ -62,6 +62,6 @@ export class SchemeCode extends AbstractScheme {
     section: TSection,
     state: ISchemeCodeState
   ): void {
-    AbstractScheme.subscribe(state, new CodeManager(object, state));
+    AbstractScheme.subscribe(state, new CodeController(object, state));
   }
 }

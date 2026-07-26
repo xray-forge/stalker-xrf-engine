@@ -4,7 +4,7 @@ import { TSection } from "xray16/lib";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
-import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
+import { MobDeathController } from "@/engine/core/schemes/monster/mob_death/MobDeathController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -34,6 +34,6 @@ export class SchemeMobDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeMobDeathState
   ): void {
-    AbstractScheme.subscribe(state, new MobDeathManager(object, state));
+    AbstractScheme.subscribe(state, new MobDeathController(object, state));
   }
 }

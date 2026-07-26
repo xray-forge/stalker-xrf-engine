@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
+import { IdleController } from "@/engine/core/schemes/restrictor/sr_idle/IdleController";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -35,6 +35,6 @@ export class SchemeIdle extends AbstractScheme {
     section: TSection,
     state: ISchemeIdleState
   ): void {
-    AbstractScheme.subscribe(state, new IdleManager(object, state));
+    AbstractScheme.subscribe(state, new IdleController(object, state));
   }
 }

@@ -1,7 +1,7 @@
 import { MockIniFile } from "xray16/mocks";
 
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/ini";
-import { type AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { type AbstractSchemeController } from "@/engine/core/schemes/base";
 import { type IBaseSchemeLogic, type IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 
@@ -81,6 +81,6 @@ export function mockBaseSchemeLogic(base: Partial<IBaseSchemeLogic> = {}): IBase
 /**
  * Get generic subscriber to scheme actions.
  */
-export function getSchemeAction<S extends IBaseSchemeState, T extends AbstractSchemeManager<S>>(state: S): T {
+export function getSchemeAction<S extends IBaseSchemeState, T extends AbstractSchemeController<S>>(state: S): T {
   return new Array(...(state.actions as unknown as Map<T, boolean>).keys())[0];
 }

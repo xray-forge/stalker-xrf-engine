@@ -111,6 +111,6 @@ export function initializeMeetScheme(
     state.isMeetOnlyAtPathEnabled = true;
   }
 
-  state.meetManager.initialize();
+  state.meetController.initialize();
   state.isMeetInitialized = true;
 }

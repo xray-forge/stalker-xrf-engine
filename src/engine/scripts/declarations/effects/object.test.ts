@@ -225,13 +225,13 @@ describe("clear_abuse", () => {
   it("should clear abuse state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const abuseManager = { clearAbuse: jest.fn() };
+    const abuseController = { clearAbuse: jest.fn() };
 
-    setSchemeState(state, EScheme.ABUSE, { abuseManager } as unknown as ISchemeAbuseState);
+    setSchemeState(state, EScheme.ABUSE, { abuseController } as unknown as ISchemeAbuseState);
 
     callXrEffect("clear_abuse", MockGameObject.mockActor(), object);
 
-    expect(abuseManager.clearAbuse).toHaveBeenCalledTimes(1);
+    expect(abuseController.clearAbuse).toHaveBeenCalledTimes(1);
   });
 });
 

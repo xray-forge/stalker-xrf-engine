@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
+import { OscillateController } from "@/engine/core/schemes/physical/ph_oscillate/OscillateController";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { SchemeOscillate } from "@/engine/core/schemes/physical/ph_oscillate/SchemeOscillate";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeOscillate", () => {
   it("should be correctly defined", () => {
@@ -52,7 +52,7 @@ describe("SchemeOscillate", () => {
     expect(state.force).toBe(15);
     expect(state.angle).toBe(0);
 
-    assertSchemeSubscribedToManager(state, OscillateManager);
+    assertSchemeSubscribedToController(state, OscillateController);
   });
 
   it("should require main parameters", () => {

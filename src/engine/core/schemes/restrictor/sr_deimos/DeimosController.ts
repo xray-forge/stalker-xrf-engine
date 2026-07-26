@@ -4,14 +4,14 @@ import { $isNil } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { DeimosManager } from "@/engine/core/managers/deimos";
-import { AbstractSchemeManager } from "@/engine/core/schemes/base";
+import { AbstractSchemeController } from "@/engine/core/schemes/base";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 
 /**
  * Per-restrictor controller for the Deimos intensity state machine and scheme switching.
  */
-export class DeimosController extends AbstractSchemeManager<ISchemeDeimosState> {
+export class DeimosController extends AbstractSchemeController<ISchemeDeimosState> {
   public phase: TIndex = 0;
   public effectorActivatedAt: TTimestamp = 0;
 

@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
-import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
+import { TimerController } from "@/engine/core/schemes/restrictor/sr_timer/TimerController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -63,6 +63,6 @@ export class SchemeTimer extends AbstractScheme {
     section: TSection,
     state: ISchemeTimerState
   ): void {
-    AbstractScheme.subscribe(state, new TimerManager(object, state));
+    AbstractScheme.subscribe(state, new TimerController(object, state));
   }
 }

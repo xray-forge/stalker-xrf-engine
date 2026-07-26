@@ -2,7 +2,7 @@ import { NetPacket, NetProcessor } from "xray16/alias";
 import { abort, IConstructor, TDuration } from "xray16/lib";
 
 /**
- * Abstract class for core manager implementation.
+ * Base class for a global registry-owned manager implementation.
  */
 export abstract class AbstractManager {
   // Whether manager was disposed and removed from registry, disposed manager are not supposed to work.

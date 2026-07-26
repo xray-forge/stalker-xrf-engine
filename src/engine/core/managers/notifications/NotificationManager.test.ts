@@ -385,7 +385,7 @@ describe("NotificationManager", () => {
     MockAlifeSimulator.addToRegistry(MockAlifeHumanStalker.mock({ id: sender.id(), online: true, alive: true }));
 
     registry.objects.get(sender.id()).wounded = {
-      woundManager: {
+      woundController: {
         woundState: "heavy",
       },
     } as ISchemeWoundedState;

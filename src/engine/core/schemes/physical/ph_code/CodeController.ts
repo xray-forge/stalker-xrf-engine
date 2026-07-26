@@ -1,0 +1,45 @@
+import { Nillable, TLabel } from "xray16/lib";
+
+import { registry } from "@/engine/core/database";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/ini";
+import { AbstractSchemeController } from "@/engine/core/schemes/base";
+import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
+import { NumPadWindow } from "@/engine/core/ui/game/numpad";
+
+/**
+ * Controller of prompting and checking logics.
+ */
+export class CodeController extends AbstractSchemeController<ISchemeCodeState> {
+  public override activate(): void {
+    this.object.set_nonscript_usable(false);
+  }
+
+  public override deactivate(): void {
+    this.object.set_tip_text("");
+  }
+
+  public override onUse(): void {
+    const window: NumPadWindow = new NumPadWindow(this);
+
+    window.ShowDialog(true);
+  }
+
+  /**
+   * Handle received number from modal input.
+   *
+   * @param text - Input text from the modal sent by player.
+   */
+  public onNumberReceive(text: TLabel): void {
+    if (this.state.code) {
+      if (tonumber(text) === this.state.code && this.state.onCode) {
+        pickSectionFromCondList(registry.actor, this.object, this.state.onCode.condlist);
+      }
+    } else {
+      const condlist: Nillable<TConditionList> = this.state.onCheckCode.get(text) as Nillable<TConditionList>;
+
+      if (condlist) {
+        pickSectionFromCondList(registry.actor, this.object, condlist);
+      }
+    }
+  }
+}

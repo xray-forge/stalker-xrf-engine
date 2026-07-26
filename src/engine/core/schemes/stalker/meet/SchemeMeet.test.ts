@@ -9,12 +9,17 @@ import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet/SchemeMeet";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 jest.mock("@/engine/core/schemes/stalker/meet/utils");
 
@@ -42,7 +47,7 @@ describe("SchemeMeet", () => {
 
     const state: ISchemeMeetState = SchemeMeet.activate(object, ini, EScheme.MEET, "meet@test");
 
-    assertSchemeSubscribedToManager(state, MeetManager);
+    assertSchemeSubscribedToController(state, MeetController);
   });
 
   it("should correctly add", () => {
@@ -88,7 +93,7 @@ describe("SchemeMeet", () => {
       []
     );
 
-    assertSchemeSubscribedToManager(state, MeetManager);
+    assertSchemeSubscribedToController(state, MeetController);
   });
 
   it("should correctly reset", () => {

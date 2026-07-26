@@ -11,7 +11,12 @@ import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover/cover_types";
 import { SchemeCover } from "@/engine/core/schemes/stalker/cover/SchemeCover";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 describe("SchemeCover", () => {
   beforeEach(() => {
@@ -113,6 +118,6 @@ describe("SchemeCover", () => {
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.NEED_COVER, false]], []);
 
-    assertSchemeSubscribedToManager(state, ActionCover);
+    assertSchemeSubscribedToController(state, ActionCover);
   });
 });

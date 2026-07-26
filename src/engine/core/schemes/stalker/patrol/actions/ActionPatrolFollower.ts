@@ -67,7 +67,7 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
     this.nextUpdateAt = now + 1000;
 
     const object: GameObject = this.object;
-    const [lvid, direction, state] = this.state.patrolManager.getFollowerTarget(object);
+    const [lvid, direction, state] = this.state.patrolController.getFollowerTarget(object);
 
     if (!areSameVectors(direction, ZERO_VECTOR)) {
       object.set_desired_direction(copyVector(direction).normalize());
@@ -88,15 +88,15 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
   }
 
   public deactivate(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   public onDeath(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   public onSwitchOffline(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   /**

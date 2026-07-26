@@ -12,7 +12,12 @@ import {
 } from "@/engine/core/schemes/stalker/combat_camper/evaluator";
 import { SchemeCombatCamper } from "@/engine/core/schemes/stalker/combat_camper/SchemeCombatCamper";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 describe("SchemeCombatCamper", () => {
   beforeEach(() => {
@@ -90,6 +95,6 @@ describe("SchemeCombatCamper", () => {
 
     expect(state.isCamperCombatAction).toBe(false);
 
-    assertSchemeSubscribedToManager(state, ActionLookAround);
+    assertSchemeSubscribedToController(state, ActionLookAround);
   });
 });

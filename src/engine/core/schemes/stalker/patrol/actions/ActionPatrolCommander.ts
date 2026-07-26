@@ -59,7 +59,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
       { context: this, callback: this.onProcessWaypoint }
     );
 
-    this.state.patrolManager.setCommanderState(this.object, this.currentState, this.state.formation);
+    this.state.patrolController.setCommanderState(this.object, this.currentState, this.state.formation);
   }
 
   public override execute(): void {
@@ -98,12 +98,12 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
       this.previousState = state;
     }
 
-    this.state.patrolManager.setCommanderState(this.object, state, this.state.formation);
+    this.state.patrolController.setCommanderState(this.object, state, this.state.formation);
   }
 
   public override finalize(): void {
     if (this.object.alive()) {
-      this.state.patrolManager.setCommanderState(this.object, EStalkerState.GUARD, this.state.formation);
+      this.state.patrolController.setCommanderState(this.object, EStalkerState.GUARD, this.state.formation);
       this.patrolController.finalize();
     }
 
@@ -111,15 +111,15 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   }
 
   public deactivate(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   public onDeath(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   public onSwitchOffline(object: GameObject): void {
-    this.state.patrolManager.unregisterObject(object);
+    this.state.patrolController.unregisterObject(object);
   }
 
   /**

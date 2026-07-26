@@ -9,7 +9,7 @@ import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeD
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeDeimos", () => {
   beforeEach(() => {
@@ -144,7 +144,7 @@ describe("SchemeDeimos", () => {
     expect(state.switchUpperBound).toBe(0.75);
     expect(state.intensity).toBe(0);
 
-    assertSchemeSubscribedToManager(state, DeimosController);
+    assertSchemeSubscribedToController(state, DeimosController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -201,6 +201,6 @@ describe("SchemeDeimos", () => {
     expect(state.switchUpperBound).toBe(2.5);
     expect(state.intensity).toBe(0);
 
-    assertSchemeSubscribedToManager(state, DeimosController);
+    assertSchemeSubscribedToController(state, DeimosController);
   });
 });

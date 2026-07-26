@@ -21,7 +21,7 @@ import type { Actor } from "@/engine/core/objects/creature/Actor";
 import type { SmartCover } from "@/engine/core/objects/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { TAbstractSchemeConstructor } from "@/engine/core/schemes/base";
-import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
+import type { LightController } from "@/engine/core/schemes/restrictor/sr_light";
 import type { EScheme } from "@/engine/core/schemes/types";
 import type { ERelation } from "@/engine/core/utils/relation";
 
@@ -204,7 +204,7 @@ export const registry = {
   /**
    * List of light active.
    */
-  lightZones: new LuaTable<number, LightManager>(),
+  lightZones: new LuaTable<number, LightController>(),
   /**
    * List of dynamically created ini files by name.
    */

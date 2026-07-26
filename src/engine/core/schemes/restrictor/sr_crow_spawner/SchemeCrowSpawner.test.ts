@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
+import { CrowSpawnerController } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerController";
 import { SchemeCrowSpawner } from "@/engine/core/schemes/restrictor/sr_crow_spawner/SchemeCrowSpawner";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeCrowSpawner", () => {
   it("should be correctly defined", () => {
@@ -41,7 +41,7 @@ describe("SchemeCrowSpawner", () => {
     expect(state.pathsList).toEqualLuaArrays(["a", "b", "c", "d"]);
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_crow_spawner@test"));
 
-    assertSchemeSubscribedToManager(state, CrowSpawnerManager);
+    assertSchemeSubscribedToController(state, CrowSpawnerController);
   });
 
   it("should correctly read empty configuration", () => {
@@ -62,6 +62,6 @@ describe("SchemeCrowSpawner", () => {
     expect(state.pathsList).toEqualLuaArrays([]);
     expect(state.logic).toBeNull();
 
-    assertSchemeSubscribedToManager(state, CrowSpawnerManager);
+    assertSchemeSubscribedToController(state, CrowSpawnerController);
   });
 });

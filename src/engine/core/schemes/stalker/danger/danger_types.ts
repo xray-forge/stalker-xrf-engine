@@ -1,6 +1,6 @@
 import { Nillable, TTimestamp } from "xray16/lib";
 
-import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
+import { DangerController } from "@/engine/core/schemes/stalker/danger/DangerController";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 
@@ -9,7 +9,7 @@ import { EScheme } from "@/engine/core/schemes/types";
  */
 export interface ISchemeDangerState extends IBaseSchemeState {
   dangerTime: Nillable<TTimestamp>;
-  dangerManager: DangerManager;
+  dangerController: DangerController;
 }
 
 declare module "@/engine/core/schemes/state/types" {

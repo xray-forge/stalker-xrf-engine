@@ -4,7 +4,7 @@ import { $isNil } from "xray16/macros";
 
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
+import { ParticleController } from "@/engine/core/schemes/restrictor/sr_particle/ParticleController";
 import {
   EParticleBehaviour,
   ISchemeParticleState,
@@ -50,6 +50,6 @@ export class SchemeParticle extends AbstractScheme {
     section: TSection,
     state: ISchemeParticleState
   ): void {
-    AbstractScheme.subscribe(state, new ParticleManager(object, state));
+    AbstractScheme.subscribe(state, new ParticleController(object, state));
   }
 }

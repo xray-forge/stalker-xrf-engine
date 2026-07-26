@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions, readIniNumber, readIniString, readIniStringList } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
+import { MonsterController } from "@/engine/core/schemes/restrictor/sr_monster/MonsterController";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -42,6 +42,6 @@ export class SchemeMonster extends AbstractScheme {
     section: TSection,
     state: ISchemeMonsterState
   ): void {
-    AbstractScheme.subscribe(state, new MonsterManager(object, state));
+    AbstractScheme.subscribe(state, new MonsterController(object, state));
   }
 }

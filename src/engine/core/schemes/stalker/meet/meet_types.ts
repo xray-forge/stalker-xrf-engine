@@ -1,7 +1,7 @@
 import type { Nillable, TDistance, TSection } from "xray16/lib";
 
 import type { TConditionList } from "@/engine/core/ini";
-import type { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import type { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
 
@@ -18,7 +18,7 @@ export const enum EMeetDistance {
  */
 export interface ISchemeMeetState extends IBaseSchemeState {
   isMeetInitialized: boolean;
-  meetManager: MeetManager;
+  meetController: MeetController;
   meetSection: Nillable<TSection>;
   abuse: TConditionList;
   use: TConditionList;

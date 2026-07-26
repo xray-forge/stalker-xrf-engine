@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
-import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
+import { MobWalkerController } from "@/engine/core/schemes/monster/mob_walker/MobWalkerController";
 import { SchemeMobWalker } from "@/engine/core/schemes/monster/mob_walker/SchemeMobWalker";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobWalker", () => {
   it("should correctly activate with defaults", () => {
@@ -39,7 +39,7 @@ describe("SchemeMobWalker", () => {
     expect(state.pathWalkInfo).toBeNull();
     expect(state.pathLookInfo).toBeNull();
 
-    assertSchemeSubscribedToManager(state, MobWalkerManager);
+    assertSchemeSubscribedToController(state, MobWalkerController);
   });
 
   it("should correctly activate with provided values", () => {
@@ -73,7 +73,7 @@ describe("SchemeMobWalker", () => {
     expect(state.pathWalkInfo).toBeNull();
     expect(state.pathLookInfo).toBeNull();
 
-    assertSchemeSubscribedToManager(state, MobWalkerManager);
+    assertSchemeSubscribedToController(state, MobWalkerController);
   });
 
   it("should correctly fail on same look and walk path", () => {

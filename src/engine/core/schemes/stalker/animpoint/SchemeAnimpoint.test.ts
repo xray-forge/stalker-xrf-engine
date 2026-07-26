@@ -10,11 +10,16 @@ import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
 import { SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint/SchemeAnimpoint";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 describe("SchemeAnimpoint", () => {
   beforeEach(() => {
@@ -59,8 +64,8 @@ describe("SchemeAnimpoint", () => {
     expect(state.reachDistanceSqr).toBe(0.5625);
     expect(state.availableAnimations).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionPlayAnimpoint);
-    assertSchemeSubscribedToManager(state, AnimpointManager);
+    assertSchemeSubscribedToController(state, ActionPlayAnimpoint);
+    assertSchemeSubscribedToController(state, AnimpointController);
   });
 
   it("should correctly activate with custom values", () => {
@@ -100,8 +105,8 @@ describe("SchemeAnimpoint", () => {
     expect(state.reachDistanceSqr).toBe(9);
     expect(state.availableAnimations).toEqualLuaArrays(["a", "b", "c"]);
 
-    assertSchemeSubscribedToManager(state, ActionPlayAnimpoint);
-    assertSchemeSubscribedToManager(state, AnimpointManager);
+    assertSchemeSubscribedToController(state, ActionPlayAnimpoint);
+    assertSchemeSubscribedToController(state, AnimpointController);
   });
 
   it("should handle add actions", () => {
@@ -169,7 +174,7 @@ describe("SchemeAnimpoint", () => {
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_ANIMPOINT_NEEDED, false]], []);
 
-    assertSchemeSubscribedToManager(state, AnimpointManager);
-    assertSchemeSubscribedToManager(state, ActionPlayAnimpoint);
+    assertSchemeSubscribedToController(state, AnimpointController);
+    assertSchemeSubscribedToController(state, ActionPlayAnimpoint);
   });
 });

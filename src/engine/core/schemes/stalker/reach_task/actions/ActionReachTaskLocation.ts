@@ -10,7 +10,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
-import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
+import { ReachTaskPatrolController } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolController";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils";
 import { ISchemeEventHandler } from "@/engine/core/schemes/types";
 import { isSquad } from "@/engine/core/utils/class_ids";
@@ -29,7 +29,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionReachTaskLocation extends action_base implements ISchemeEventHandler {
   public nextUpdateAt: TTimestamp = 0;
 
-  public patrolManager!: ReachTaskPatrolManager;
+  public patrolController!: ReachTaskPatrolController;
 
   public currentState: EStalkerState = EStalkerState.PATROL;
   public formation: EPatrolFormation = EPatrolFormation.BACK;
@@ -86,11 +86,11 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     // Add to patrol init.
     if ($isNil(reachTaskConfig.PATROLS.get(this.squadId))) {
-      reachTaskConfig.PATROLS.set(this.squadId, new ReachTaskPatrolManager(this.squadId));
+      reachTaskConfig.PATROLS.set(this.squadId, new ReachTaskPatrolController(this.squadId));
     }
 
-    this.patrolManager = reachTaskConfig.PATROLS.get(objectSquad.id);
-    this.patrolManager.addObjectToPatrol(gameObject);
+    this.patrolController = reachTaskConfig.PATROLS.get(objectSquad.id);
+    this.patrolController.addObjectToPatrol(gameObject);
   }
 
   /**
@@ -225,11 +225,11 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param object - Game object to switch.
    */
   public onDeath(object: GameObject): void {
-    if (!this.patrolManager) {
+    if (!this.patrolController) {
       return;
     }
 
-    this.patrolManager.removeObjectFromPatrol(object);
+    this.patrolController.removeObjectFromPatrol(object);
   }
 
   /**
@@ -239,10 +239,10 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param object - Game object to switch.
    */
   public onSwitchOffline(object: GameObject): void {
-    if (!this.patrolManager) {
+    if (!this.patrolController) {
       return;
     }
 
-    this.patrolManager.removeObjectFromPatrol(object);
+    this.patrolController.removeObjectFromPatrol(object);
   }
 }

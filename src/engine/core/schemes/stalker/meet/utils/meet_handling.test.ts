@@ -9,7 +9,7 @@ import { parseConditionsList } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import {
   activateMeetWithObject,
   addObjectAbuse,
@@ -33,7 +33,7 @@ jest.mock("@/engine/core/utils/planner", () => ({
  */
 function registerObjectWithMeet(
   object: GameObject,
-  { use = null, isAbuseModeEnabled = null }: Partial<Pick<MeetManager, "use" | "isAbuseModeEnabled">> = {},
+  { use = null, isAbuseModeEnabled = null }: Partial<Pick<MeetController, "use" | "isAbuseModeEnabled">> = {},
   meetState: Partial<ISchemeMeetState> = {}
 ): ISchemeMeetState {
   const registryState: IRegistryObjectState = registerObject(object);
@@ -42,9 +42,9 @@ function registerObjectWithMeet(
     ...meetState,
   });
 
-  state.meetManager = new MeetManager(object, state);
-  state.meetManager.use = use;
-  state.meetManager.isAbuseModeEnabled = isAbuseModeEnabled;
+  state.meetController = new MeetController(object, state);
+  state.meetController.use = use;
+  state.meetController.isAbuseModeEnabled = isAbuseModeEnabled;
 
   setSchemeState(registryState, EScheme.MEET, state);
 
@@ -60,7 +60,7 @@ describe("addObjectAbuse", () => {
     setSchemeState(
       state,
       EScheme.ABUSE,
-      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseController: manager } as AnyObject)
     );
 
     addObjectAbuse(object, 10);
@@ -80,7 +80,7 @@ describe("clearObjectAbuse", () => {
     setSchemeState(
       state,
       EScheme.ABUSE,
-      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseController: manager } as AnyObject)
     );
 
     clearObjectAbuse(object);
@@ -100,7 +100,7 @@ describe("setObjectAbuseState", () => {
     setSchemeState(
       state,
       EScheme.ABUSE,
-      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager: manager } as AnyObject)
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseController: manager } as AnyObject)
     );
 
     setObjectAbuseState(object, true);
@@ -132,7 +132,7 @@ describe("updateObjectMeetAvailability", () => {
       EScheme.WOUNDED,
       mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
         isTalkEnabled: true,
-        woundManager: { woundState: "wounded" },
+        woundController: { woundState: "wounded" },
       } as AnyObject)
     );
 
@@ -147,7 +147,7 @@ describe("updateObjectMeetAvailability", () => {
     const registryState: IRegistryObjectState = registerObject(object);
     const woundedState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       isTalkEnabled: true,
-      woundManager: { woundState: "wounded" },
+      woundController: { woundState: "wounded" },
     } as AnyObject);
 
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.FRIEND);
@@ -170,7 +170,7 @@ describe("updateObjectMeetAvailability", () => {
     updateObjectMeetAvailability(object, registry.objects.get(object.id()));
 
     expect(object.enable_talk).toHaveBeenCalledTimes(1);
-    expect(state.meetManager.use).toBe(TRUE);
+    expect(state.meetController.use).toBe(TRUE);
   });
 
   it("should disable talk when object is busy with wounded or corpse", () => {
@@ -260,7 +260,7 @@ describe("activateMeetWithObject", () => {
   it("should add abuse when interacting with abusing friend that cannot be used", () => {
     const object: GameObject = MockGameObject.mock();
     const registryState: IRegistryObjectState = registerObject(object);
-    const abuseManager = { addAbuse: jest.fn() };
+    const abuseController = { addAbuse: jest.fn() };
     const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "play").mockImplementation(() => null);
@@ -269,31 +269,31 @@ describe("activateMeetWithObject", () => {
     setSchemeState(
       registryState,
       EScheme.ABUSE,
-      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager } as AnyObject)
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseController } as AnyObject)
     );
     registerObjectWithMeet(object, { isAbuseModeEnabled: TRUE, use: FALSE });
 
     activateMeetWithObject(object);
 
-    expect(abuseManager.addAbuse).toHaveBeenCalledWith(1);
+    expect(abuseController.addAbuse).toHaveBeenCalledWith(1);
   });
 
   it("should not add abuse when object is not abusing", () => {
     const object: GameObject = MockGameObject.mock();
     const registryState: IRegistryObjectState = registerObject(object);
-    const abuseManager = { addAbuse: jest.fn() };
+    const abuseController = { addAbuse: jest.fn() };
 
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.FRIEND);
 
     setSchemeState(
       registryState,
       EScheme.ABUSE,
-      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseManager } as AnyObject)
+      mockSchemeState<ISchemeAbuseState>(EScheme.ABUSE, { abuseController } as AnyObject)
     );
     registerObjectWithMeet(object, { isAbuseModeEnabled: FALSE, use: FALSE });
 
     activateMeetWithObject(object);
 
-    expect(abuseManager.addAbuse).not.toHaveBeenCalled();
+    expect(abuseController.addAbuse).not.toHaveBeenCalled();
   });
 });

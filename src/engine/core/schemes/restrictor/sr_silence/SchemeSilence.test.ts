@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject, registry } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { SchemeSilence } from "@/engine/core/schemes/restrictor/sr_silence/SchemeSilence";
-import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
+import { SilenceController } from "@/engine/core/schemes/restrictor/sr_silence/SilenceController";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeSilence", () => {
   it("should correctly initialize", () => {
@@ -28,6 +28,6 @@ describe("SchemeSilence", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_silence@test"));
     expect(registry.silenceZones.get(object.id())).toBe(object.name());
 
-    assertSchemeSubscribedToManager(state, SilenceManager);
+    assertSchemeSubscribedToController(state, SilenceController);
   });
 });

@@ -4,13 +4,13 @@ import { $fromArray, $fromObject } from "xray16/macros";
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IFormationObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";
-import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
+import { PatrolController } from "@/engine/core/schemes/stalker/patrol/PatrolController";
 
 export const patrolConfig = {
   /**
    * List of active patrols.
    */
-  PATROLS: new LuaTable<TStringId, PatrolManager>(),
+  PATROLS: new LuaTable<TStringId, PatrolController>(),
   /**
    * List of patrol formations configurations.
    */

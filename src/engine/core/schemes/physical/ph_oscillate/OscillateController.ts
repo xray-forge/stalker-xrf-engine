@@ -1,0 +1,52 @@
+import { time_global } from "xray16";
+import { PhysicsJoint, Vector } from "xray16/alias";
+import { createVector, Nillable, TRate, TTimestamp, vectorRotateY } from "xray16/lib";
+
+import { AbstractSchemeController } from "@/engine/core/schemes/base";
+import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
+
+/**
+ * Controller to handle oscillation of objects with some time period.
+ */
+export class OscillateController extends AbstractSchemeController<ISchemeOscillateState> {
+  public time: TTimestamp = 0;
+  public coefficient: TRate = 0;
+  public dir: Vector = createVector(math.random(), 0, math.random()).normalize();
+  public joint: Nillable<PhysicsJoint> = null;
+  public pause: boolean = false;
+
+  public override activate(): void {
+    this.time = time_global();
+    this.dir = createVector(math.random(), 0, math.random()).normalize();
+    this.coefficient = this.state.force / this.state.period;
+    this.joint = this.object.get_physics_shell()!.get_joint_by_bone_name(this.state.joint);
+    this.pause = false;
+  }
+
+  public update(): void {
+    const now: TTimestamp = time_global();
+
+    if (this.pause) {
+      if (now - this.time < this.state.period * 0.5) {
+        return;
+      }
+
+      this.time = now;
+      this.pause = false;
+    }
+
+    if (now - this.time >= this.state.period) {
+      this.dir.x = -this.dir.x;
+      this.dir.z = -this.dir.z;
+      this.dir = vectorRotateY(createVector(-this.dir.x, 0, -this.dir.z), this.state.angle);
+      this.time = now;
+      this.pause = true;
+
+      return;
+    }
+
+    const force: TRate = (now - this.time) * this.coefficient;
+
+    this.object.set_const_force(this.dir, force, 2);
+  }
+}

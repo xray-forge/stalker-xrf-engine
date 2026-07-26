@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
-import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
+import { PhysicalDeathController } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathController";
 import { SchemePhysicalOnDeath } from "@/engine/core/schemes/physical/ph_on_death/SchemePhysicalOnDeath";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemePhysicalOnDeath", () => {
   it("should correctly initialize with defaults", () => {
@@ -29,9 +29,9 @@ describe("SchemePhysicalOnDeath", () => {
     );
 
     expect(state.logic).toEqualLuaTables({});
-    expect(state.action).toBeInstanceOf(PhysicalDeathManager);
+    expect(state.action).toBeInstanceOf(PhysicalDeathController);
 
-    assertSchemeSubscribedToManager(state, PhysicalDeathManager);
+    assertSchemeSubscribedToController(state, PhysicalDeathController);
   });
 
   it("should correctly initialize with custom data", () => {
@@ -53,8 +53,8 @@ describe("SchemePhysicalOnDeath", () => {
     );
 
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "ph_on_death@test"));
-    expect(state.action).toBeInstanceOf(PhysicalDeathManager);
+    expect(state.action).toBeInstanceOf(PhysicalDeathController);
 
-    assertSchemeSubscribedToManager(state, PhysicalDeathManager);
+    assertSchemeSubscribedToController(state, PhysicalDeathController);
   });
 });

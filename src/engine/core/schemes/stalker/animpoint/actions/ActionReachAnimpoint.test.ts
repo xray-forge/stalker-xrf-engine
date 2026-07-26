@@ -8,7 +8,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions/ActionReachAnimpoint";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -24,16 +24,16 @@ describe("ActionReachAnimpoint", () => {
 
     action.setup(object, MockPropertyStorage.mock());
 
-    state.animpointManager = new AnimpointManager(object, state);
-    jest.spyOn(state.animpointManager, "calculatePosition").mockImplementation(jest.fn());
+    state.animpointController = new AnimpointController(object, state);
+    jest.spyOn(state.animpointController, "calculatePosition").mockImplementation(jest.fn());
 
     action.initialize();
 
-    expect(state.animpointManager.calculatePosition).toHaveBeenCalledTimes(1);
+    expect(state.animpointController.calculatePosition).toHaveBeenCalledTimes(1);
 
     action.finalize();
 
-    expect(state.animpointManager.calculatePosition).toHaveBeenCalledTimes(1);
+    expect(state.animpointController.calculatePosition).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly execute animpoint reach action when reached", () => {
@@ -44,10 +44,10 @@ describe("ActionReachAnimpoint", () => {
 
     state.stateController = new StalkerStateController(object);
 
-    animpointState.animpointManager = new AnimpointManager(object, animpointState);
-    animpointState.animpointManager.positionLevelVertexId = 15;
-    animpointState.animpointManager.lookPosition = MZ_VECTOR;
-    animpointState.animpointManager.smartCoverDirection = MY_VECTOR;
+    animpointState.animpointController = new AnimpointController(object, animpointState);
+    animpointState.animpointController.positionLevelVertexId = 15;
+    animpointState.animpointController.lookPosition = MZ_VECTOR;
+    animpointState.animpointController.smartCoverDirection = MY_VECTOR;
     animpointState.reachDistanceSqr = 16;
     animpointState.reachMovement = EStalkerState.SPRINT;
 
@@ -81,9 +81,9 @@ describe("ActionReachAnimpoint", () => {
 
     state.stateController = new StalkerStateController(object);
 
-    animpointState.animpointManager = new AnimpointManager(object, animpointState);
-    animpointState.animpointManager.positionLevelVertexId = 26;
-    animpointState.animpointManager.smartCoverDirection = X_VECTOR;
+    animpointState.animpointController = new AnimpointController(object, animpointState);
+    animpointState.animpointController.positionLevelVertexId = 26;
+    animpointState.animpointController.smartCoverDirection = X_VECTOR;
     animpointState.reachDistanceSqr = 4;
     animpointState.reachMovement = EStalkerState.PATROL;
 

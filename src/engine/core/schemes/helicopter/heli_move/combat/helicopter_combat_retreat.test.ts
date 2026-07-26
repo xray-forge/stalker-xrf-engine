@@ -4,28 +4,28 @@ import { ZERO_VECTOR } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 
 import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_retreat";
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
 
 describe("updateHelicopterCombatRetreat", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mockHelicopter();
-    const manager: HelicopterCombatManager = new HelicopterCombatManager(object);
+    const controller: HelicopterCombatController = new HelicopterCombatController(object);
 
-    manager.enemyLastSeenPos = MockVector.mock(1, 0, 0.5);
-    manager.maxVelocity = 1000;
-    manager.safeAltitude = 500;
+    controller.enemyLastSeenPos = MockVector.mock(1, 0, 0.5);
+    controller.maxVelocity = 1000;
+    controller.safeAltitude = 500;
 
-    expect(manager.isRetreatInitialized).toBe(false);
+    expect(controller.isRetreatInitialized).toBe(false);
 
-    updateHelicopterCombatRetreat(manager);
+    updateHelicopterCombatRetreat(controller);
 
-    expect(manager.isRetreatInitialized).toBe(true);
-    expect(manager.helicopter.SetMaxVelocity).toHaveBeenCalledWith(1000);
-    expect(manager.helicopter.SetSpeedInDestPoint).toHaveBeenCalledWith(1000);
-    expect(manager.helicopter.LookAtPoint).toHaveBeenCalledWith(ZERO_VECTOR, false);
-    expect(manager.helicopter.SetDestPosition).toHaveBeenCalledWith(
+    expect(controller.isRetreatInitialized).toBe(true);
+    expect(controller.helicopter.SetMaxVelocity).toHaveBeenCalledWith(1000);
+    expect(controller.helicopter.SetSpeedInDestPoint).toHaveBeenCalledWith(1000);
+    expect(controller.helicopter.LookAtPoint).toHaveBeenCalledWith(ZERO_VECTOR, false);
+    expect(controller.helicopter.SetDestPosition).toHaveBeenCalledWith(
       MockVector.create(3536.2838970939033, 500, 3536.2838970939033)
     );
-    expect(manager.helicopter.ClearEnemy).toHaveBeenCalledTimes(1);
+    expect(controller.helicopter.ClearEnemy).toHaveBeenCalledTimes(1);
   });
 });

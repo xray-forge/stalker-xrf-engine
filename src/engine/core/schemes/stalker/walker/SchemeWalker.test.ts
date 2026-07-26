@@ -10,7 +10,7 @@ import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actio
 import { SchemeWalker } from "@/engine/core/schemes/stalker/walker/SchemeWalker";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeWalker", () => {
   it("should correctly activate with default data", () => {
@@ -49,7 +49,7 @@ describe("SchemeWalker", () => {
     expect(state.description).toBe("walker_camp");
     expect(state.approvedActions).toEqualLuaTables({});
 
-    assertSchemeSubscribedToManager(state, ActionWalkerActivity);
+    assertSchemeSubscribedToController(state, ActionWalkerActivity);
   });
 
   it("should correctly activate with custom data", () => {
@@ -94,7 +94,7 @@ describe("SchemeWalker", () => {
     expect(state.description).toBe("walker_camp");
     expect(state.approvedActions).toEqualLuaTables({});
 
-    assertSchemeSubscribedToManager(state, ActionWalkerActivity);
+    assertSchemeSubscribedToController(state, ActionWalkerActivity);
   });
 
   it("should correctly add evaluators/actions", () => {

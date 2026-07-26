@@ -15,6 +15,6 @@ export class EvaluatorPatrolCommander extends property_evaluator {
   }
 
   public override evaluate(): boolean {
-    return this.state.patrolManager.commanderId === this.object.id();
+    return this.state.patrolController.commanderId === this.object.id();
   }
 }

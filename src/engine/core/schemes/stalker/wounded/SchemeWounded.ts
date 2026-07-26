@@ -11,8 +11,8 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -34,7 +34,7 @@ export class SchemeWounded extends AbstractScheme {
   ): ISchemeWoundedState {
     const state: ISchemeWoundedState = AbstractScheme.assign(object, ini, scheme, section);
 
-    state.woundManager = new WoundManager(object, state);
+    state.woundController = new WoundController(object, state);
 
     return state;
   }
@@ -86,7 +86,7 @@ export class SchemeWounded extends AbstractScheme {
       getSchemeStateOptimistic(state, EScheme.WOUNDED)
     );
 
-    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit();
+    getSchemeStateOptimistic(state, EScheme.WOUNDED).woundController.onHit();
   }
 
   /**

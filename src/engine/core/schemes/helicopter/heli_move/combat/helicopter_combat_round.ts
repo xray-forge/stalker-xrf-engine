@@ -3,92 +3,92 @@ import { GameObject } from "xray16/alias";
 import { distanceBetween2d, pickRandom, TTimestamp } from "xray16/lib";
 
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
 
 /**
- * @param manager - Instance to initialize.
+ * @param controller - Instance to initialize.
  */
-export function initializeHelicopterCombatRound(manager: HelicopterCombatManager): void {
-  manager.changeDirAt = 0;
-  manager.changePosAt = 0;
-  manager.centerPos = manager.enemyLastSeenPos!;
-  manager.flightDirection = pickRandom(true, false);
-  manager.changeCombatTypeAllowed = true;
-  manager.roundBeginShootTime = 0;
+export function initializeHelicopterCombatRound(controller: HelicopterCombatController): void {
+  controller.changeDirAt = 0;
+  controller.changePosAt = 0;
+  controller.centerPos = controller.enemyLastSeenPos!;
+  controller.flightDirection = pickRandom(true, false);
+  controller.changeCombatTypeAllowed = true;
+  controller.roundBeginShootTime = 0;
 
-  manager.helicopter.SetMaxVelocity(manager.roundVelocity);
-  manager.helicopter.SetSpeedInDestPoint(manager.roundVelocity);
-  manager.helicopter.UseFireTrail(false);
+  controller.helicopter.SetMaxVelocity(controller.roundVelocity);
+  controller.helicopter.SetSpeedInDestPoint(controller.roundVelocity);
+  controller.helicopter.UseFireTrail(false);
 
-  manager.isRoundInitialized = true;
+  controller.isRoundInitialized = true;
 
-  roundSetupFlight(manager, manager.flightDirection!);
+  roundSetupFlight(controller, controller.flightDirection!);
 }
 
 /**
- * @param manager - Instance to setup.
+ * @param controller - Instance to setup.
  * @param direction - Direction of flight to setup.
  */
-export function roundSetupFlight(manager: HelicopterCombatManager, direction: boolean): void {
-  manager.centerPos = manager.enemyLastSeenPos!;
-  manager.centerPos.y = manager.safeAltitude;
+export function roundSetupFlight(controller: HelicopterCombatController, direction: boolean): void {
+  controller.centerPos = controller.enemyLastSeenPos!;
+  controller.centerPos.y = controller.safeAltitude;
 
-  manager.helicopter.GoPatrolByRoundPath(manager.centerPos, manager.searchAttackDist, direction);
-  manager.helicopter.LookAtPoint(manager.enemy!.position(), true);
+  controller.helicopter.GoPatrolByRoundPath(controller.centerPos, controller.searchAttackDist, direction);
+  controller.helicopter.LookAtPoint(controller.enemy!.position(), true);
 }
 
 /**
- * @param manager - Instance to initialize.
+ * @param controller - Instance to initialize.
  * @param seeEnemy - Whether enemy is seen.
  */
-export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
+export function updateHelicopterCombatRoundShooting(controller: HelicopterCombatController, seeEnemy: boolean): void {
   if (seeEnemy) {
     const now: TTimestamp = time_global();
 
-    if (manager.roundBeginShootTime) {
-      if (manager.roundBeginShootTime < now) {
-        manager.helicopter.SetEnemy(manager.enemy as GameObject);
+    if (controller.roundBeginShootTime) {
+      if (controller.roundBeginShootTime < now) {
+        controller.helicopter.SetEnemy(controller.enemy as GameObject);
       }
     } else {
-      manager.roundBeginShootTime = now + helicopterConfig.ROUND_SHOOT_DELAY;
+      controller.roundBeginShootTime = now + helicopterConfig.ROUND_SHOOT_DELAY;
     }
   } else {
-    manager.helicopter.ClearEnemy();
-    manager.roundBeginShootTime = null;
+    controller.helicopter.ClearEnemy();
+    controller.roundBeginShootTime = null;
   }
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  */
-export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManager): void {
+export function updateHelicopterCombatRoundFlight(controller: HelicopterCombatController): void {
   const now: TTimestamp = time_global();
 
-  if (manager.changePosAt < now) {
-    manager.changePosAt = now + 2_000;
+  if (controller.changePosAt < now) {
+    controller.changePosAt = now + 2_000;
 
     if (
-      !manager.canForgetEnemy &&
-      distanceBetween2d(manager.object.position(), manager.enemyLastSeenPos!) <= manager.searchAttackDist
+      !controller.canForgetEnemy &&
+      distanceBetween2d(controller.object.position(), controller.enemyLastSeenPos!) <= controller.searchAttackDist
     ) {
-      manager.canForgetEnemy = true;
+      controller.canForgetEnemy = true;
     }
 
-    if (distanceBetween2d(manager.centerPos, manager.enemyLastSeenPos!) > 10) {
-      roundSetupFlight(manager, manager.flightDirection);
+    if (distanceBetween2d(controller.centerPos, controller.enemyLastSeenPos!) > 10) {
+      roundSetupFlight(controller, controller.flightDirection);
     }
   }
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  * @param seeEnemy - Whether enemy is seen.
  */
-export function updateHelicopterCombatRound(manager: HelicopterCombatManager, seeEnemy: boolean): void {
-  if (!manager.isRoundInitialized) {
-    initializeHelicopterCombatRound(manager);
+export function updateHelicopterCombatRound(controller: HelicopterCombatController, seeEnemy: boolean): void {
+  if (!controller.isRoundInitialized) {
+    initializeHelicopterCombatRound(controller);
   }
 
-  updateHelicopterCombatRoundShooting(manager, seeEnemy);
-  updateHelicopterCombatRoundFlight(manager);
+  updateHelicopterCombatRoundShooting(controller, seeEnemy);
+  updateHelicopterCombatRoundFlight(controller);
 }

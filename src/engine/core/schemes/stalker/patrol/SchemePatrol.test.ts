@@ -13,11 +13,11 @@ import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schem
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
-import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
+import { PatrolController } from "@/engine/core/schemes/stalker/patrol/PatrolController";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol/SchemePatrol";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import {
-  assertSchemeSubscribedToManager,
+  assertSchemeSubscribedToController,
   checkPlannerAction,
   mockSchemeState,
   MockSquad,
@@ -128,15 +128,15 @@ describe("SchemePatrol", () => {
       standing: null,
     });
 
-    expect(state.patrolManager).toBeInstanceOf(PatrolManager);
-    expect(state.patrolManager).toBe(patrolConfig.PATROLS.get(state.patrolKey));
-    expect(state.patrolManager.name).toBe(state.pathName);
+    expect(state.patrolController).toBeInstanceOf(PatrolController);
+    expect(state.patrolController).toBe(patrolConfig.PATROLS.get(state.patrolKey));
+    expect(state.patrolController.name).toBe(state.pathName);
 
     expect(patrolConfig.PATROLS.length()).toBe(1);
-    expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolManager);
+    expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolController);
 
-    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
+    assertSchemeSubscribedToController(state, ActionPatrolCommander);
+    assertSchemeSubscribedToController(state, ActionPatrolFollower);
   });
 
   it("should be activate with custom values", () => {
@@ -198,10 +198,10 @@ describe("SchemePatrol", () => {
     });
 
     expect(patrolConfig.PATROLS.length()).toBe(1);
-    expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolManager);
+    expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolController);
 
-    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
+    assertSchemeSubscribedToController(state, ActionPatrolCommander);
+    assertSchemeSubscribedToController(state, ActionPatrolFollower);
   });
 
   it("should handle add actions", () => {
@@ -270,7 +270,7 @@ describe("SchemePatrol", () => {
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_PATROL_ENDED, true]], []);
 
-    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
+    assertSchemeSubscribedToController(state, ActionPatrolCommander);
+    assertSchemeSubscribedToController(state, ActionPatrolFollower);
   });
 });

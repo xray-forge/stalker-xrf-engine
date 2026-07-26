@@ -3,12 +3,12 @@ import { GameObject, IniFile } from "xray16/alias";
 import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
-import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessManager";
+import { PostProcessController } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessController";
 import { SchemePostProcess } from "@/engine/core/schemes/restrictor/sr_postprocess/SchemePostProcess";
 import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemePostProcess", () => {
   it("should correctly initialize with defaults", () => {
@@ -36,6 +36,6 @@ describe("SchemePostProcess", () => {
     expect(state.intensitySpeed).toBe(42);
     expect(state.hitIntensity).toBe(255);
 
-    assertSchemeSubscribedToManager(state, PostProcessManager);
+    assertSchemeSubscribedToController(state, PostProcessController);
   });
 });

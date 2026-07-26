@@ -18,6 +18,6 @@ export class EvaluatorAbuse extends property_evaluator {
    * @returns Whether object is abused.
    */
   public override evaluate(): boolean {
-    return this.state.abuseManager.update();
+    return this.state.abuseController.update();
   }
 }

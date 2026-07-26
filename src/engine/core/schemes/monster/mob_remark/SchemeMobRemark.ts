@@ -5,7 +5,7 @@ import { getMonsterState } from "@/engine/core/database";
 import { getConfigSwitchConditions, readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
-import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
+import { MobRemarkController } from "@/engine/core/schemes/monster/mob_remark/MobRemarkController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -44,6 +44,6 @@ export class SchemeMobRemark extends AbstractScheme {
     section: TSection,
     state: ISchemeMobRemarkState
   ): void {
-    AbstractScheme.subscribe(state, new MobRemarkManager(object, state));
+    AbstractScheme.subscribe(state, new MobRemarkController(object, state));
   }
 }

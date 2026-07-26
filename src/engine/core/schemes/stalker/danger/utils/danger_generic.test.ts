@@ -16,7 +16,7 @@ import {
   isObjectFacingDanger,
 } from "@/engine/core/schemes/stalker/danger/utils/danger_generic";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { ILogicsOverrides, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -152,7 +152,7 @@ describe("isObjectFacingDanger", () => {
       state,
       EScheme.WOUNDED,
       mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
-        woundManager: { woundState: "true" } as WoundManager,
+        woundController: { woundState: "true" } as WoundController,
       })
     );
     expect(isObjectFacingDanger(object)).toBe(false);

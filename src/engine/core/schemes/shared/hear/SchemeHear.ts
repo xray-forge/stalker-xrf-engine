@@ -70,7 +70,7 @@ export class SchemeHear extends AbstractScheme {
     const dangerState: Nillable<ISchemeDangerState> = getSchemeState(state, EScheme.DANGER);
 
     if (dangerState) {
-      dangerState.dangerManager.onHear(object, whoId, soundType, soundPosition, soundPower);
+      dangerState.dangerController.onHear(object, whoId, soundType, soundPosition, soundPower);
     }
 
     if (!state.hearInfo) {

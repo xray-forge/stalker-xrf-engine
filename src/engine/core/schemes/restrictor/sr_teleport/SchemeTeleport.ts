@@ -4,7 +4,7 @@ import { assert, TSection } from "xray16/lib";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
-import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
+import { TeleportController } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -56,6 +56,6 @@ export class SchemeTeleport extends AbstractScheme {
     section: TSection,
     state: ISchemeTeleportState
   ): void {
-    AbstractScheme.subscribe(state, new TeleportManager(object, state));
+    AbstractScheme.subscribe(state, new TeleportController(object, state));
   }
 }

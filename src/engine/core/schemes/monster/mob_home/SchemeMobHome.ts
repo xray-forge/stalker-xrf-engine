@@ -6,7 +6,7 @@ import { getMonsterState } from "@/engine/core/database";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
-import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
+import { MobHomeController } from "@/engine/core/schemes/monster/mob_home/MobHomeController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -52,6 +52,6 @@ export class SchemeMobHome extends AbstractScheme {
     section: TSection,
     state: ISchemeMobHomeState
   ): void {
-    AbstractScheme.subscribe(state, new MobHomeManager(object, state));
+    AbstractScheme.subscribe(state, new MobHomeController(object, state));
   }
 }

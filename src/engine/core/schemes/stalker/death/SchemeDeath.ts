@@ -6,7 +6,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { parseConditionsList, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
-import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
+import { DeathController } from "@/engine/core/schemes/stalker/death/DeathController";
 import { getSchemeStateOptimistic } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -36,7 +36,7 @@ export class SchemeDeath extends AbstractScheme {
     section: TSection,
     state: ISchemeDeathState
   ): void {
-    AbstractScheme.subscribe(state, new DeathManager(object, state));
+    AbstractScheme.subscribe(state, new DeathController(object, state));
   }
 
   public static override reset(

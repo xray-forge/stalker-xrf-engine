@@ -12,7 +12,7 @@ import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators";
 import { SchemeCamper } from "@/engine/core/schemes/stalker/camper/SchemeCamper";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeCamper", () => {
   it("should fail if look and walk patrols are same", () => {
@@ -99,7 +99,7 @@ describe("SchemeCamper", () => {
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);
 
-    assertSchemeSubscribedToManager(state, ActionCombatCamping);
+    assertSchemeSubscribedToController(state, ActionCombatCamping);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -157,7 +157,7 @@ describe("SchemeCamper", () => {
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);
 
-    assertSchemeSubscribedToManager(state, ActionCombatCamping);
+    assertSchemeSubscribedToController(state, ActionCombatCamping);
   });
 
   it("should correctly add planner actions", () => {

@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
+import { MonsterController } from "@/engine/core/schemes/restrictor/sr_monster/MonsterController";
 import { SchemeMonster } from "@/engine/core/schemes/restrictor/sr_monster/SchemeMonster";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMonster", () => {
   it("should be correctly defined", () => {
@@ -49,7 +49,7 @@ describe("SchemeMonster", () => {
     expect(state.monster).toBeNull();
     expect(state.soundSlideVel).toBe(7);
 
-    assertSchemeSubscribedToManager(state, MonsterManager);
+    assertSchemeSubscribedToController(state, MonsterController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -87,6 +87,6 @@ describe("SchemeMonster", () => {
     expect(state.monster).toBe("boar");
     expect(state.soundSlideVel).toBe(5);
 
-    assertSchemeSubscribedToManager(state, MonsterManager);
+    assertSchemeSubscribedToController(state, MonsterController);
   });
 });

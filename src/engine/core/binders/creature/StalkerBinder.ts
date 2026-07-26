@@ -597,7 +597,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (amount > 0) {
-      getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.onHit();
+      getSchemeStateOptimistic(state, EScheme.WOUNDED).woundController.onHit();
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, object, amount, direction, who, boneIndex);

@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
-import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
+import { PhysicalButtonController } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonController";
 import { SchemePhysicalButton } from "@/engine/core/schemes/physical/ph_button/SchemePhysicalButton";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemePhysicalButton", () => {
   it("should correctly activate with defaults", () => {
@@ -37,7 +37,7 @@ describe("SchemePhysicalButton", () => {
     expect(state.anim).toBe("anim_test");
     expect(state.blending).toBe(true);
 
-    assertSchemeSubscribedToManager(state, PhysicalButtonManager);
+    assertSchemeSubscribedToController(state, PhysicalButtonController);
   });
 
   it("should correctly activate with data", () => {
@@ -75,6 +75,6 @@ describe("SchemePhysicalButton", () => {
     expect(state.anim).toBe("anim_test2");
     expect(state.blending).toBe(false);
 
-    assertSchemeSubscribedToManager(state, PhysicalButtonManager);
+    assertSchemeSubscribedToController(state, PhysicalButtonController);
   });
 });

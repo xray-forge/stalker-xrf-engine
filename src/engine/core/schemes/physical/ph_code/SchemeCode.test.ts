@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
-import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
+import { CodeController } from "@/engine/core/schemes/physical/ph_code/CodeController";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { SchemeCode } from "@/engine/core/schemes/physical/ph_code/SchemeCode";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeCode", () => {
   it("should correctly activate with defaults", () => {
@@ -30,7 +30,7 @@ describe("SchemeCode", () => {
     expect(state.code).toBeNull();
     expect(state.onCheckCode).toEqualLuaTables({});
 
-    assertSchemeSubscribedToManager(state, CodeManager);
+    assertSchemeSubscribedToController(state, CodeController);
   });
 
   it("should correctly activate with one code", () => {
@@ -63,7 +63,7 @@ describe("SchemeCode", () => {
       p2: null,
     });
 
-    assertSchemeSubscribedToManager(state, CodeManager);
+    assertSchemeSubscribedToController(state, CodeController);
   });
 
   it("should correctly activate with on_check_code", () => {
@@ -93,6 +93,6 @@ describe("SchemeCode", () => {
       456: parseConditionsList("{+test2} c, d"),
     });
 
-    assertSchemeSubscribedToManager(state, CodeManager);
+    assertSchemeSubscribedToController(state, CodeController);
   });
 });

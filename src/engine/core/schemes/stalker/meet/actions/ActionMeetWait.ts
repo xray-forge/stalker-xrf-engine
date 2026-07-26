@@ -45,6 +45,6 @@ export class ActionMeetWait extends action_base {
   public override execute(): void {
     super.execute();
 
-    this.state.meetManager.execute();
+    this.state.meetController.execute();
   }
 }

@@ -1,1 +1,1 @@
-export * from "@/engine/core/schemes/helicopter/heli_move/fly/HelicopterFlyManager";
+export * from "@/engine/core/schemes/helicopter/heli_move/fly/HelicopterFlyController";

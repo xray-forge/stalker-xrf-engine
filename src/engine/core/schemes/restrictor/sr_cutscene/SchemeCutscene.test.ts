@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
+import { CutsceneController } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneController";
 import { SchemeCutscene } from "@/engine/core/schemes/restrictor/sr_cutscene/SchemeCutscene";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeCutscene", () => {
   it("should be correctly defined", () => {
@@ -42,7 +42,7 @@ describe("SchemeCutscene", () => {
     expect(state.shouldEnableUiOnEnd).toBe(true);
     expect(state.isOutdoor).toBe(false);
 
-    assertSchemeSubscribedToManager(state, CutsceneManager);
+    assertSchemeSubscribedToController(state, CutsceneController);
   });
 
   it("should correctly add to logics with custom values", () => {
@@ -75,6 +75,6 @@ describe("SchemeCutscene", () => {
     expect(state.shouldEnableUiOnEnd).toBe(false);
     expect(state.isOutdoor).toBe(true);
 
-    assertSchemeSubscribedToManager(state, CutsceneManager);
+    assertSchemeSubscribedToController(state, CutsceneController);
   });
 });

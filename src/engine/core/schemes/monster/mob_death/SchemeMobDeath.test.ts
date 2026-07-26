@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
-import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
+import { MobDeathController } from "@/engine/core/schemes/monster/mob_death/MobDeathController";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobDeath", () => {
   it("should be correctly defined", () => {
@@ -34,6 +34,6 @@ describe("SchemeMobDeath", () => {
 
     expect(schemeState.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "mob_death@test")!);
 
-    assertSchemeSubscribedToManager(schemeState, MobDeathManager);
+    assertSchemeSubscribedToController(schemeState, MobDeathController);
   });
 });

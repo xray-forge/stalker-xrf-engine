@@ -105,7 +105,7 @@ export const enum EAnimationMarker {
 /**
  * Runtime state of an animation manager instance.
  */
-export interface IAnimationManagerState {
+export interface IAnimationControllerState {
   lastIndex: Nillable<TIndex>;
   currentState: Nillable<EStalkerState>;
   targetState: Nillable<EStalkerState>;

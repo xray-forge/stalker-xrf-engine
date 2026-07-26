@@ -11,7 +11,7 @@ import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actio
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { SchemeRemark } from "@/engine/core/schemes/stalker/remark/SchemeRemark";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeRemark", () => {
   it("should correctly activate with defaults", () => {
@@ -35,7 +35,7 @@ describe("SchemeRemark", () => {
     expect(state.targetId).toBeNull();
     expect(state.targetPosition).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionRemarkActivity);
+    assertSchemeSubscribedToController(state, ActionRemarkActivity);
   });
 
   it("should correctly activate with custom data", () => {
@@ -67,7 +67,7 @@ describe("SchemeRemark", () => {
     expect(state.targetId).toBeNull();
     expect(state.targetPosition).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionRemarkActivity);
+    assertSchemeSubscribedToController(state, ActionRemarkActivity);
   });
 
   it("should correctly add planner actions", () => {

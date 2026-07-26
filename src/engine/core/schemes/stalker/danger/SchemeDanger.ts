@@ -6,7 +6,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
-import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
+import { DangerController } from "@/engine/core/schemes/stalker/danger/DangerController";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -43,7 +43,7 @@ export class SchemeDanger extends AbstractScheme {
     dangerActionPlanner.add_evaluator(EEvaluatorId.DANGER, new EvaluatorDanger(state));
 
     // Assign manager to handle danger events.
-    state.dangerManager = new DangerManager(object, state);
+    state.dangerController = new DangerController(object, state);
   }
 
   public static override reset(

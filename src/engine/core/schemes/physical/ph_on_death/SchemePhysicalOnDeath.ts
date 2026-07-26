@@ -4,7 +4,7 @@ import { TSection } from "xray16/lib";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
-import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
+import { PhysicalDeathController } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -34,7 +34,7 @@ export class SchemePhysicalOnDeath extends AbstractScheme {
     section: TSection,
     storage: ISchemePhysicalOnDeathState
   ): void {
-    const action: PhysicalDeathManager = new PhysicalDeathManager(object, storage);
+    const action: PhysicalDeathController = new PhysicalDeathController(object, storage);
 
     storage.action = action;
 

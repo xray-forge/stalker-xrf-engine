@@ -1,7 +1,7 @@
 import type { LuaArray, Nillable, TDistance, TSection, TStringId } from "xray16/lib";
 
 import type { TConditionList } from "@/engine/core/ini";
-import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import type { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
 
@@ -30,7 +30,7 @@ export interface IWoundedStateDescriptor {
  * Configures how stalker should behave once it is wounded.
  */
 export interface ISchemeWoundedState extends IBaseSchemeState {
-  woundManager: WoundManager;
+  woundController: WoundController;
   woundedSection: TSection;
   helpStartDialog: Nillable<string>;
   helpDialog: Nillable<TStringId>;

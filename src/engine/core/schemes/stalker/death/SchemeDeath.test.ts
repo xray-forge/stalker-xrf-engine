@@ -6,10 +6,10 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
-import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
+import { DeathController } from "@/engine/core/schemes/stalker/death/DeathController";
 import { SchemeDeath } from "@/engine/core/schemes/stalker/death/SchemeDeath";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeDeath", () => {
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("SchemeDeath", () => {
     expect(state.info).toBeUndefined();
     expect(state.info2).toBeUndefined();
 
-    assertSchemeSubscribedToManager(state, DeathManager);
+    assertSchemeSubscribedToController(state, DeathController);
   });
 
   it("should correctly reset without death section", () => {

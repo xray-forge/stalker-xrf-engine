@@ -7,17 +7,17 @@ import { NO_MEET_SECTION } from "@/engine/constants/sections";
 import { parseConditionsList } from "@/engine/core/ini";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
 import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils/meet_initialize";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
-function createMeetState(): { manager: MeetManager; state: ISchemeMeetState } {
+function createMeetState(): { manager: MeetController; state: ISchemeMeetState } {
   const state: ISchemeMeetState = mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetSection: null });
-  const manager: MeetManager = new MeetManager(MockGameObject.mock(), state);
+  const manager: MeetController = new MeetController(MockGameObject.mock(), state);
 
   jest.spyOn(manager, "initialize").mockImplementation(jest.fn());
-  state.meetManager = manager;
+  state.meetController = manager;
 
   return { manager, state };
 }

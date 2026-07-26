@@ -6,11 +6,11 @@ import { MockGameObject, MockIniFile, MockVector } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
-import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
+import { MobJumpController } from "@/engine/core/schemes/monster/mob_jump/MobJumpController";
 import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJump";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobJump", () => {
   it("should correctly activate scheme with default values", () => {
@@ -38,7 +38,7 @@ describe("SchemeMobJump", () => {
     expect(state.jumpPathName).toBeNull();
     expect(state.offset).toEqualLuaTables(ZERO_VECTOR);
 
-    assertSchemeSubscribedToManager(state, MobJumpManager);
+    assertSchemeSubscribedToController(state, MobJumpController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -68,7 +68,7 @@ describe("SchemeMobJump", () => {
     expect(state.jumpPathName).toBe("test_smart_test_jump");
     expect(state.offset).toEqualLuaTables(MockVector.mock(1, 2, 3));
 
-    assertSchemeSubscribedToManager(state, MobJumpManager);
+    assertSchemeSubscribedToController(state, MobJumpController);
   });
 
   it("should correctly throw if no on_signal supplied", () => {

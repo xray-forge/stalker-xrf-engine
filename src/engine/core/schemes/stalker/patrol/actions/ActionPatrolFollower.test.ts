@@ -7,7 +7,7 @@ import { StalkerStateController } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
-import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
+import { ISchemePatrolState, PatrolController } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolFollower";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -107,15 +107,15 @@ describe("ActionPatrolFollower", () => {
     const action: ActionPatrolFollower = new ActionPatrolFollower(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.deactivate(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle death event", () => {
@@ -128,15 +128,15 @@ describe("ActionPatrolFollower", () => {
     const action: ActionPatrolFollower = new ActionPatrolFollower(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.onDeath(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle switch offline", () => {
@@ -149,15 +149,15 @@ describe("ActionPatrolFollower", () => {
     const action: ActionPatrolFollower = new ActionPatrolFollower(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.onSwitchOffline(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle waypoint processing", () => {
@@ -183,12 +183,12 @@ describe("ActionPatrolFollower", () => {
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolFollower = new ActionPatrolFollower(state, object);
 
-    state.patrolManager = new PatrolManager("test-wp-patrol");
+    state.patrolController = new PatrolController("test-wp-patrol");
     state.pathWalk = "test-wp";
     state.pathLook = "test-wp-2";
 
-    state.patrolManager.registerObject(MockGameObject.mock());
-    state.patrolManager.registerObject(object);
+    state.patrolController.registerObject(MockGameObject.mock());
+    state.patrolController.registerObject(object);
 
     action.setup(object, MockPropertyStorage.mock());
 

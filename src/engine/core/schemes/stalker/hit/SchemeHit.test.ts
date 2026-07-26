@@ -6,10 +6,10 @@ import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
-import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
+import { HitController } from "@/engine/core/schemes/stalker/hit/HitController";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit/SchemeHit";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeHit", () => {
   it("should correctly activate with defaults", () => {
@@ -26,8 +26,8 @@ describe("SchemeHit", () => {
     const state: ISchemeHitState = SchemeHit.activate(object, ini, EScheme.HIT, "hit@test");
 
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "hit@test"));
-    expect(state.action).toBeInstanceOf(HitManager);
-    assertSchemeSubscribedToManager(state, HitManager);
+    expect(state.action).toBeInstanceOf(HitController);
+    assertSchemeSubscribedToController(state, HitController);
   });
 
   it("should correctly deactivate", () => {

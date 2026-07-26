@@ -4,7 +4,7 @@ import { TSection } from "xray16/lib";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
-import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
+import { PhysicalHitController } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -38,6 +38,6 @@ export class SchemePhysicalHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalHitState
   ): void {
-    AbstractScheme.subscribe(state, new PhysicalHitManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalHitController(object, state));
   }
 }

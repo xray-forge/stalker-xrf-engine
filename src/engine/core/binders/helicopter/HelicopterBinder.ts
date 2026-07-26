@@ -20,9 +20,9 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { readIniNumber } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
-import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
+import { HelicopterFireController } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireController";
+import { getHelicopterFireController } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
 import { ESchemeEvent, ESchemeType } from "@/engine/core/schemes/types";
@@ -38,8 +38,8 @@ export class HelicopterBinder extends object_binder {
 
   public state!: IRegistryObjectState;
   public helicopter: CHelicopter;
-  public helicopterFireManager: HelicopterFireManager;
-  public combatManager!: HelicopterCombatManager;
+  public helicopterFireController: HelicopterFireController;
+  public combatController!: HelicopterCombatController;
 
   public flameStartHealth: TRate = 0;
 
@@ -47,7 +47,7 @@ export class HelicopterBinder extends object_binder {
     super(object);
 
     this.helicopter = this.object.get_helicopter();
-    this.helicopterFireManager = getHelicopterFireManager(object);
+    this.helicopterFireController = getHelicopterFireController(object);
   }
 
   public override reinit(): void {
@@ -56,7 +56,7 @@ export class HelicopterBinder extends object_binder {
     this.isInitialized = false;
     this.state = resetObject(this.object);
 
-    this.combatManager = new HelicopterCombatManager(this.object);
+    this.combatController = new HelicopterCombatController(this.object);
     this.flameStartHealth = readIniNumber(SYSTEM_INI, "helicopter", "flame_start_health", true);
 
     this.object.set_callback(callback.helicopter_on_point, this.onWaypoint, this);
@@ -123,7 +123,7 @@ export class HelicopterBinder extends object_binder {
 
     closeSaveMarker(packet, HelicopterBinder.__name);
 
-    this.combatManager.save(packet);
+    this.combatController.save(packet);
   }
 
   public override load(reader: NetReader): void {
@@ -137,7 +137,7 @@ export class HelicopterBinder extends object_binder {
 
     closeLoadMarker(reader, HelicopterBinder.__name);
 
-    this.combatManager.load(reader);
+    this.combatController.load(reader);
   }
 
   /**
@@ -158,8 +158,8 @@ export class HelicopterBinder extends object_binder {
     const enemy: Nillable<GameObject> = level.object_by_id(objectId);
     const enemyClassId: Nillable<TClassId> = enemy?.clsid() as Nillable<TClassId>;
 
-    this.helicopterFireManager.enemy = enemy;
-    this.helicopterFireManager.onHit();
+    this.helicopterFireController.enemy = enemy;
+    this.helicopterFireController.onHit();
 
     if (this.state.hit && (enemyClassId === clsid.actor || enemyClassId === clsid.script_stalker)) {
       emitSchemeEvent(this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);

@@ -4,7 +4,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -88,11 +88,11 @@ describe("updateObjectDialog", () => {
     const meetState: ISchemeMeetState = mockSchemeState(EScheme.MEET);
 
     setSchemeState(state, EScheme.MEET, meetState);
-    meetState.meetManager = { update: jest.fn() } as unknown as MeetManager;
+    meetState.meetController = { update: jest.fn() } as unknown as MeetController;
 
     updateObjectDialog(object);
 
-    expect(meetState.meetManager.update).toHaveBeenCalledTimes(1);
+    expect(meetState.meetController.update).toHaveBeenCalledTimes(1);
     expect(updateObjectMeetAvailability).toHaveBeenCalledWith(object, state);
     expect(updateStalkerLogic).toHaveBeenCalledWith(object, state);
   });

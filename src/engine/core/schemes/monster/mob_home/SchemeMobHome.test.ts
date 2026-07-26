@@ -4,11 +4,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
-import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
+import { MobHomeController } from "@/engine/core/schemes/monster/mob_home/MobHomeController";
 import { SchemeMobHome } from "@/engine/core/schemes/monster/mob_home/SchemeMobHome";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobHome functionality", () => {
   it("should be correctly defined", () => {
@@ -56,6 +56,6 @@ describe("SchemeMobHome functionality", () => {
     expect(state.homeMidRadius).toBe(15);
     expect(state.homeMaxRadius).toBe(18);
 
-    assertSchemeSubscribedToManager(state, MobHomeManager);
+    assertSchemeSubscribedToController(state, MobHomeController);
   });
 });

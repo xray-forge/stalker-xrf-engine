@@ -14,7 +14,7 @@ import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schem
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
-import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
+import { PatrolController } from "@/engine/core/schemes/stalker/patrol/PatrolController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
@@ -76,15 +76,15 @@ export class SchemePatrol extends AbstractScheme {
       movingFire: null,
     };
 
-    let manager: Nillable<PatrolManager> = patrolConfig.PATROLS.get(state.patrolKey);
+    let manager: Nillable<PatrolController> = patrolConfig.PATROLS.get(state.patrolKey);
 
     if (!manager) {
-      manager = new PatrolManager(state.pathName);
+      manager = new PatrolController(state.pathName);
 
       patrolConfig.PATROLS.set(state.patrolKey, manager);
     }
 
-    state.patrolManager = manager;
+    state.patrolController = manager;
 
     manager.registerObject(object, state.commander);
 

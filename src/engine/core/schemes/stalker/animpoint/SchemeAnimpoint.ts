@@ -17,7 +17,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { addCommonActionPreconditions } from "@/engine/core/schemes/runtime/scheme_setup";
 import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -107,9 +107,9 @@ export class SchemeAnimpoint extends AbstractScheme {
     // Cannot go to alife simulation if animation is defined.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ANIMPOINT_NEEDED, false));
 
-    state.animpointManager = new AnimpointManager(object, state);
+    state.animpointController = new AnimpointController(object, state);
 
     AbstractScheme.subscribe(state, actionAnimpoint);
-    AbstractScheme.subscribe(state, state.animpointManager);
+    AbstractScheme.subscribe(state, state.animpointController);
   }
 }

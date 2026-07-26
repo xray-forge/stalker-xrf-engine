@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
-import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
+import { PhysicalIdleController } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -47,6 +47,6 @@ export class SchemePhysicalIdle extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalIdleState
   ): void {
-    AbstractScheme.subscribe(state, new PhysicalIdleManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalIdleController(object, state));
   }
 }

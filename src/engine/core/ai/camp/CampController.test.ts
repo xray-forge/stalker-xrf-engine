@@ -16,7 +16,7 @@ import { getStoryPlayback } from "@/engine/core/managers/sounds/utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -107,8 +107,8 @@ describe("CampController", () => {
     const listener: GameObject = MockGameObject.mock();
     const directorState: IRegistryObjectState = registerObject(director);
     const listenerState: IRegistryObjectState = registerObject(listener);
-    const directorMeetManager: MeetManager = { isCampStoryDirector: false } as MeetManager;
-    const listenerMeetManager: MeetManager = { isCampStoryDirector: true } as MeetManager;
+    const directorMeetController: MeetController = { isCampStoryDirector: false } as MeetController;
+    const listenerMeetController: MeetController = { isCampStoryDirector: true } as MeetController;
 
     directorState.activeScheme = EScheme.ANIMPOINT;
     listenerState.activeScheme = EScheme.ANIMPOINT;
@@ -117,12 +117,12 @@ describe("CampController", () => {
     setSchemeState(
       directorState,
       EScheme.MEET,
-      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetManager: directorMeetManager })
+      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetController: directorMeetController })
     );
     setSchemeState(
       listenerState,
       EScheme.MEET,
-      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetManager: listenerMeetManager })
+      mockSchemeState<ISchemeMeetState>(EScheme.MEET, { meetController: listenerMeetController })
     );
     manager.objects.set(director.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
     manager.objects.set(listener.id(), { state: EObjectCampActivity.IDLE } as ICampStateDescriptor);
@@ -137,8 +137,8 @@ describe("CampController", () => {
 
     manager.update(0);
 
-    expect(directorMeetManager.isCampStoryDirector).toBe(true);
-    expect(listenerMeetManager.isCampStoryDirector).toBe(false);
+    expect(directorMeetController.isCampStoryDirector).toBe(true);
+    expect(listenerMeetController.isCampStoryDirector).toBe(false);
   });
 
   it("should select an eligible director and reset an ineligible activity to idle", () => {

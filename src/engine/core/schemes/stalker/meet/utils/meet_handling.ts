@@ -7,7 +7,7 @@ import { pickSectionFromCondList } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { getSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -26,7 +26,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 export function updateObjectMeetAvailability(object: GameObject, state: IRegistryObjectState): void {
   const woundedState: Nillable<ISchemeWoundedState> = getSchemeState(state, EScheme.WOUNDED);
 
-  if (woundedState && tostring(woundedState.woundManager.woundState) !== NIL) {
+  if (woundedState && tostring(woundedState.woundController.woundState) !== NIL) {
     if (object.relation(registry.actor) === EGameObjectRelation.ENEMY) {
       object.disable_talk();
     } else if (woundedState.isTalkEnabled) {
@@ -38,7 +38,7 @@ export function updateObjectMeetAvailability(object: GameObject, state: IRegistr
     return;
   }
 
-  const use: Nillable<string> = getSchemeState(state, EScheme.MEET)?.meetManager.use;
+  const use: Nillable<string> = getSchemeState(state, EScheme.MEET)?.meetController.use;
 
   if (use === TRUE) {
     if (isObjectSearchingCorpse(object) || isObjectHelpingWounded(object)) {
@@ -81,11 +81,11 @@ export function activateMeetWithObject(object: GameObject): void {
     getManager(SoundManager).play(object.id(), sound);
   }
 
-  const meetManager: MeetManager = state.meetManager;
+  const meetController: MeetController = state.meetController;
 
   if (
-    meetManager.use === FALSE &&
-    meetManager.isAbuseModeEnabled === TRUE &&
+    meetController.use === FALSE &&
+    meetController.isAbuseModeEnabled === TRUE &&
     getObjectsRelationSafe(object, actor) === EGameObjectRelation.FRIEND
   ) {
     addObjectAbuse(object, 1);
@@ -101,7 +101,7 @@ export function activateMeetWithObject(object: GameObject): void {
 export function addObjectAbuse(object: GameObject, value: TCount): void {
   const abuseState: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
-  abuseState?.abuseManager.addAbuse(value);
+  abuseState?.abuseController.addAbuse(value);
 }
 
 /**
@@ -112,7 +112,7 @@ export function addObjectAbuse(object: GameObject, value: TCount): void {
 export function clearObjectAbuse(object: GameObject): void {
   const state: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
-  state?.abuseManager.clearAbuse();
+  state?.abuseController.clearAbuse();
 }
 
 /**
@@ -125,8 +125,8 @@ export function setObjectAbuseState(object: GameObject, isEnabled: boolean): voi
   const state: Nillable<ISchemeAbuseState> = getSchemeState(registry.objects.get(object.id()), EScheme.ABUSE);
 
   if (isEnabled) {
-    state?.abuseManager.enableAbuse();
+    state?.abuseController.enableAbuse();
   } else {
-    state?.abuseManager.disableAbuse();
+    state?.abuseController.disableAbuse();
   }
 }

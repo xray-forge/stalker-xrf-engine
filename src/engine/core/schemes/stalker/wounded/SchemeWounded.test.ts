@@ -10,8 +10,8 @@ import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";
 import { SchemeWounded } from "@/engine/core/schemes/stalker/wounded/SchemeWounded";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -32,7 +32,7 @@ describe("SchemeWounded", () => {
 
     const state: ISchemeWoundedState = SchemeWounded.activate(object, ini, EScheme.WOUNDED, "wounded@test");
 
-    expect(state.woundManager).toBeInstanceOf(WoundManager);
+    expect(state.woundController).toBeInstanceOf(WoundController);
     expect(state.isWoundedInitialized).toBeUndefined();
     expect(state.isTalkEnabled).toBeUndefined();
     expect(state.isNotForHelp).toBeUndefined();
@@ -87,7 +87,7 @@ describe("SchemeWounded", () => {
 
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
-      woundManager: { onHit: jest.fn() } as unknown as WoundManager,
+      woundController: { onHit: jest.fn() } as unknown as WoundController,
     });
 
     state.ini = ini;
@@ -99,13 +99,13 @@ describe("SchemeWounded", () => {
     SchemeWounded.reset(object, EScheme.WOUNDED, state, "some@test");
 
     expect(SchemeWounded.initializeWoundedState).toHaveBeenCalledWith(object, state.ini, "test_wounded", schemeState);
-    expect(schemeState.woundManager.onHit).toHaveBeenCalledTimes(1);
+    expect(schemeState.woundController.onHit).toHaveBeenCalledTimes(1);
 
     jest.spyOn(SchemeWounded, "initializeWoundedState").mockImplementationOnce(() => {});
 
     SchemeWounded.reset(object, EScheme.NIL, state, "some@test");
     expect(SchemeWounded.initializeWoundedState).toHaveBeenCalledWith(object, state.ini, "test_wounded_2", schemeState);
-    expect(schemeState.woundManager.onHit).toHaveBeenCalledTimes(2);
+    expect(schemeState.woundController.onHit).toHaveBeenCalledTimes(2);
   });
 
   it("should correctly initialize with default values", () => {

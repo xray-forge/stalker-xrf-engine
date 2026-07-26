@@ -6,7 +6,7 @@ import { $isNil } from "xray16/macros";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
-import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
+import { PhysicalForceController } from "@/engine/core/schemes/physical/ph_force/PhysicalForceController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -62,6 +62,6 @@ export class SchemePhysicalForce extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalForceState
   ): void {
-    AbstractScheme.subscribe(state, new PhysicalForceManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalForceController(object, state));
   }
 }

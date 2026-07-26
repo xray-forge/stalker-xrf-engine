@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import {
@@ -79,16 +79,16 @@ describe("enableObjectWoundedHealing", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
-      woundManager: {
+      woundController: {
         unlockMedkit: jest.fn(),
-      } as unknown as WoundManager,
+      } as unknown as WoundController,
     });
 
     setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     enableObjectWoundedHealing(object);
 
-    expect(schemeState.woundManager.unlockMedkit).toHaveBeenCalledTimes(1);
+    expect(schemeState.woundController.unlockMedkit).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -101,9 +101,9 @@ describe("isObjectPsyWounded", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
-      woundManager: {
+      woundController: {
         woundState: null,
-      } as unknown as WoundManager,
+      } as unknown as WoundController,
     });
 
     setSchemeState(state, EScheme.WOUNDED, schemeState);
@@ -114,25 +114,25 @@ describe("isObjectPsyWounded", () => {
     expect(isObjectPsyWounded(objectWithoutWounds)).toBe(false);
     expect(isObjectPsyWounded(object)).toBe(false);
 
-    schemeState.woundManager.woundState = "test";
+    schemeState.woundController.woundState = "test";
     expect(isObjectPsyWounded(object)).toBe(false);
 
-    schemeState.woundManager.woundState = "physical";
+    schemeState.woundController.woundState = "physical";
     expect(isObjectPsyWounded(object)).toBe(false);
 
-    schemeState.woundManager.woundState = "psy_pain";
+    schemeState.woundController.woundState = "psy_pain";
     expect(isObjectPsyWounded(object)).toBe(true);
 
-    schemeState.woundManager.woundState = "psy_armed";
+    schemeState.woundController.woundState = "psy_armed";
     expect(isObjectPsyWounded(object)).toBe(true);
 
-    schemeState.woundManager.woundState = "psy_shoot";
+    schemeState.woundController.woundState = "psy_shoot";
     expect(isObjectPsyWounded(object)).toBe(true);
 
-    schemeState.woundManager.woundState = "psycho_pain";
+    schemeState.woundController.woundState = "psycho_pain";
     expect(isObjectPsyWounded(object)).toBe(true);
 
-    schemeState.woundManager.woundState = "psycho_shoot";
+    schemeState.woundController.woundState = "psycho_shoot";
     expect(isObjectPsyWounded(object)).toBe(true);
   });
 });

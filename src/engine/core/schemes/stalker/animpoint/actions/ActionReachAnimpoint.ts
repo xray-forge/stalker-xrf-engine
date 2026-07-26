@@ -23,7 +23,7 @@ export class ActionReachAnimpoint extends action_base {
 
   public override initialize(): void {
     super.initialize();
-    this.state.animpointManager.calculatePosition();
+    this.state.animpointController.calculatePosition();
 
     logger.info("Starting reach place of animpoint: %s", this.object.name());
   }
@@ -45,17 +45,17 @@ export class ActionReachAnimpoint extends action_base {
     const state: ISchemeAnimpointState = this.state;
 
     // Set destination point to walk.
-    object.set_dest_level_vertex_id(state.animpointManager.positionLevelVertexId!);
-    object.set_desired_direction(state.animpointManager.smartCoverDirection!);
+    object.set_dest_level_vertex_id(state.animpointController.positionLevelVertexId!);
+    object.set_desired_direction(state.animpointController.smartCoverDirection!);
     object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     const isDistanceReached: boolean =
-      object.position().distance_to_sqr(state.animpointManager.vertexPosition!) <= state.reachDistanceSqr;
+      object.position().distance_to_sqr(state.animpointController.vertexPosition!) <= state.reachDistanceSqr;
 
     if (isDistanceReached) {
       // When reached place start looking to where animation should happen.
       setStalkerState(object, state.reachMovement, null, null, {
-        lookPosition: state.animpointManager.lookPosition,
+        lookPosition: state.animpointController.lookPosition,
       });
     } else {
       // Just walk to the place.

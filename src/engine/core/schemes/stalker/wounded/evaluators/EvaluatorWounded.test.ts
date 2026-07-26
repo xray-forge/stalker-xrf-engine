@@ -6,7 +6,7 @@ import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT, PS_WOUNDED_STATE } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
@@ -23,9 +23,9 @@ function mockEvaluator(hasEnemy: boolean = false): {
 
   registerObject(object);
 
-  state.woundManager = new WoundManager(object, state);
+  state.woundController = new WoundController(object, state);
 
-  jest.spyOn(state.woundManager, "update").mockImplementation(jest.fn());
+  jest.spyOn(state.woundController, "update").mockImplementation(jest.fn());
 
   evaluator.actionPlanner = planner.asMock();
   planner.add_evaluator(EEvaluatorId.ENEMY, new MockPropertyEvaluatorConst(hasEnemy).asMock());

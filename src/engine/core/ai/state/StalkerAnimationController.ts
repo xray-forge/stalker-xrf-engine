@@ -19,9 +19,9 @@ import { animstates } from "@/engine/core/animation/animstates";
 import {
   EAnimationMarker,
   EAnimationType,
+  IAnimationControllerState,
   IAnimationDescriptor,
   IAnimationDescriptorProperties,
-  IAnimationManagerState,
   TAnimationSequenceElements,
 } from "@/engine/core/animation/types/animation_types";
 import type { EStalkerState } from "@/engine/core/animation/types/state_types";
@@ -43,7 +43,7 @@ export class StalkerAnimationController {
   public readonly stateController: StalkerStateController;
   public readonly animations: LuaTable<TName, IAnimationDescriptor>;
 
-  public readonly state: IAnimationManagerState = {
+  public readonly state: IAnimationControllerState = {
     lastIndex: null,
     currentState: null,
     targetState: null,
@@ -194,7 +194,7 @@ export class StalkerAnimationController {
    * @returns Tuple with animation name and descriptor or tuple with nulls.
    */
   public selectAnimation(): LuaMultiReturn<[TName, IAnimationDescriptor] | [null, null]> {
-    const states: IAnimationManagerState = this.state;
+    const states: IAnimationControllerState = this.state;
 
     /**
      * New animation detected for playback change.
@@ -340,7 +340,7 @@ export class StalkerAnimationController {
       return null;
     }
 
-    const states: IAnimationManagerState = this.state;
+    const states: IAnimationControllerState = this.state;
     let index: TIndex;
 
     if (animation.length() > 1) {
@@ -424,7 +424,7 @@ export class StalkerAnimationController {
       return;
     }
 
-    const states: IAnimationManagerState = this.state;
+    const states: IAnimationControllerState = this.state;
 
     switch (this.state.animationMarker) {
       case EAnimationMarker.IN: {

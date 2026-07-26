@@ -2,107 +2,111 @@ import { time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import { distanceBetween2d, pickRandom, TRate, TTimestamp } from "xray16/lib";
 
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 
 /**
- * @param manager - Instance to initialize.
+ * @param controller - Instance to initialize.
  */
-export function initializeHelicopterCombatSearch(manager: HelicopterCombatManager): void {
-  manager.isSearchInitialized = true;
+export function initializeHelicopterCombatSearch(controller: HelicopterCombatController): void {
+  controller.isSearchInitialized = true;
 
-  manager.changeSpeedAt = time_global() + math.random(5_000, 7_000);
-  manager.speedIs0 = true;
+  controller.changeSpeedAt = time_global() + math.random(5_000, 7_000);
+  controller.speedIs0 = true;
 
-  manager.changePosAt = 0;
-  manager.centerPos = manager.enemyLastSeenPos as Vector;
+  controller.changePosAt = 0;
+  controller.centerPos = controller.enemyLastSeenPos as Vector;
 
-  manager.flightDirection = pickRandom(true, false);
-  manager.changeCombatTypeAllowed = true;
-  manager.searchBeginShootAt = 0;
+  controller.flightDirection = pickRandom(true, false);
+  controller.changeCombatTypeAllowed = true;
+  controller.searchBeginShootAt = 0;
 
-  manager.helicopter.UseFireTrail(false);
+  controller.helicopter.UseFireTrail(false);
 
-  setupHelicopterCombatSearchFlight(manager);
+  setupHelicopterCombatSearchFlight(controller);
 }
 
 /**
- * @param manager - Instance to setup.
+ * @param controller - Instance to setup.
  */
-export function setupHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
-  manager.centerPos = manager.enemyLastSeenPos as Vector;
-  manager.centerPos.y = manager.safeAltitude;
+export function setupHelicopterCombatSearchFlight(controller: HelicopterCombatController): void {
+  controller.centerPos = controller.enemyLastSeenPos as Vector;
+  controller.centerPos.y = controller.safeAltitude;
 
-  const velocity: TRate = manager.speedIs0 ? 0 : manager.searchVelocity;
+  const velocity: TRate = controller.speedIs0 ? 0 : controller.searchVelocity;
 
-  manager.helicopter.SetMaxVelocity(velocity);
-  manager.helicopter.SetSpeedInDestPoint(velocity);
+  controller.helicopter.SetMaxVelocity(velocity);
+  controller.helicopter.SetSpeedInDestPoint(velocity);
 
-  manager.helicopter.GoPatrolByRoundPath(manager.centerPos, manager.searchAttackDist, manager.flightDirection);
-  manager.helicopter.LookAtPoint(manager.enemy!.position(), true);
+  controller.helicopter.GoPatrolByRoundPath(
+    controller.centerPos,
+    controller.searchAttackDist,
+    controller.flightDirection
+  );
+  controller.helicopter.LookAtPoint(controller.enemy!.position(), true);
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  * @param seeEnemy - Whether enemy is seen.
  */
-export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
+export function updateHelicopterCombatSearchShooting(controller: HelicopterCombatController, seeEnemy: boolean): void {
   if (seeEnemy) {
     const now: TTimestamp = time_global();
 
-    if (manager.searchBeginShootAt) {
-      if (manager.searchBeginShootAt < now) {
-        manager.helicopter.SetEnemy(manager.enemy as GameObject);
+    if (controller.searchBeginShootAt) {
+      if (controller.searchBeginShootAt < now) {
+        controller.helicopter.SetEnemy(controller.enemy as GameObject);
       }
     } else {
-      manager.searchBeginShootAt = now + helicopterConfig.SEARCH_SHOOT_DELAY;
+      controller.searchBeginShootAt = now + helicopterConfig.SEARCH_SHOOT_DELAY;
     }
   } else {
-    manager.helicopter.ClearEnemy();
-    manager.searchBeginShootAt = null;
+    controller.helicopter.ClearEnemy();
+    controller.searchBeginShootAt = null;
   }
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  */
-export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
+export function updateHelicopterCombatSearchFlight(controller: HelicopterCombatController): void {
   const now: TTimestamp = time_global();
 
-  if (manager.changeSpeedAt < now) {
-    manager.changeSpeedAt = now + math.random(8_000, 12_000);
-    manager.speedIs0 = !manager.speedIs0;
+  if (controller.changeSpeedAt < now) {
+    controller.changeSpeedAt = now + math.random(8_000, 12_000);
+    controller.speedIs0 = !controller.speedIs0;
 
-    setupHelicopterCombatSearchFlight(manager);
+    setupHelicopterCombatSearchFlight(controller);
 
     return;
   }
 
-  if (manager.changePosAt < now) {
-    manager.changePosAt = now + 2_000;
+  if (controller.changePosAt < now) {
+    controller.changePosAt = now + 2_000;
 
     if (
-      !manager.canForgetEnemy &&
-      distanceBetween2d(manager.object.position(), manager.enemyLastSeenPos!) <= manager.searchAttackDist
+      !controller.canForgetEnemy &&
+      distanceBetween2d(controller.object.position(), controller.enemyLastSeenPos!) <= controller.searchAttackDist
     ) {
-      manager.canForgetEnemy = true;
+      controller.canForgetEnemy = true;
     }
 
-    if (distanceBetween2d(manager.centerPos, manager.enemyLastSeenPos!) > 10) {
-      setupHelicopterCombatSearchFlight(manager);
+    if (distanceBetween2d(controller.centerPos, controller.enemyLastSeenPos!) > 10) {
+      setupHelicopterCombatSearchFlight(controller);
     }
   }
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  * @param seeEnemy - Whether enemy is seen.
  */
-export function updateHelicopterCombatSearch(manager: HelicopterCombatManager, seeEnemy: boolean): void {
-  if (!manager.isSearchInitialized) {
-    initializeHelicopterCombatSearch(manager);
+export function updateHelicopterCombatSearch(controller: HelicopterCombatController, seeEnemy: boolean): void {
+  if (!controller.isSearchInitialized) {
+    initializeHelicopterCombatSearch(controller);
   }
 
-  updateHelicopterCombatSearchShooting(manager, seeEnemy);
-  updateHelicopterCombatSearchFlight(manager);
+  updateHelicopterCombatSearchShooting(controller, seeEnemy);
+  updateHelicopterCombatSearchFlight(controller);
 }

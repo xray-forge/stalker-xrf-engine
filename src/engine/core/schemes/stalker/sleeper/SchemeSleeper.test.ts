@@ -11,7 +11,7 @@ import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/act
 import { SchemeSleeper } from "@/engine/core/schemes/stalker/sleeper/SchemeSleeper";
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeSleeper", () => {
   it("should correctly activate with default data", () => {
@@ -41,7 +41,7 @@ describe("SchemeSleeper", () => {
     expect(state.pathLook).toBeNull();
     expect(state.pathLookInfo).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionSleeperActivity);
+    assertSchemeSubscribedToController(state, ActionSleeperActivity);
   });
 
   it("should correctly activate with custom data", () => {
@@ -73,7 +73,7 @@ describe("SchemeSleeper", () => {
     expect(state.pathLook).toBeNull();
     expect(state.pathLookInfo).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionSleeperActivity);
+    assertSchemeSubscribedToController(state, ActionSleeperActivity);
   });
 
   it("should correctly activate with custom data", () => {

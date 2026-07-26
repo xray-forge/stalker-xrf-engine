@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
-import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
+import { PhysicalDoorController } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -68,6 +68,6 @@ export class SchemePhysicalDoor extends AbstractScheme {
   ): void {
     object.register_door_for_npc();
 
-    AbstractScheme.subscribe(state, new PhysicalDoorManager(object, state));
+    AbstractScheme.subscribe(state, new PhysicalDoorController(object, state));
   }
 }

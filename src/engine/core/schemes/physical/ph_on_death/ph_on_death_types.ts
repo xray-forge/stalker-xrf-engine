@@ -1,4 +1,4 @@
-import type { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
+import type { PhysicalDeathController } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathController";
 import type { IBaseSchemeState } from "@/engine/core/schemes/state";
 import type { EScheme } from "@/engine/core/schemes/types";
 
@@ -6,7 +6,7 @@ import type { EScheme } from "@/engine/core/schemes/types";
  * State descriptor to handle death logics for physical objects.
  */
 export interface ISchemePhysicalOnDeathState extends IBaseSchemeState {
-  action: PhysicalDeathManager;
+  action: PhysicalDeathController;
 }
 
 declare module "@/engine/core/schemes/state/types" {

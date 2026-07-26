@@ -5,7 +5,7 @@ import { $filename } from "xray16/macros";
 import { registry } from "@/engine/core/database";
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";
+import { LightController } from "@/engine/core/schemes/restrictor/sr_light/LightController";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -41,7 +41,7 @@ export class SchemeLight extends AbstractScheme {
     section: TSection,
     state: ISchemeLightState
   ): void {
-    AbstractScheme.subscribe(state, new LightManager(object, state));
+    AbstractScheme.subscribe(state, new LightController(object, state));
   }
 
   public static override reset(): void {

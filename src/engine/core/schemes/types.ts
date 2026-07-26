@@ -118,7 +118,7 @@ export const enum ESchemeCondition {
 }
 
 /**
- * Generic scheme logics events to get callbacks from schemeManager subscribers.
+ * Generic scheme logics events to get callbacks from schemeController subscribers.
  */
 export const enum ESchemeEvent {
   ACTIVATE = "activate",

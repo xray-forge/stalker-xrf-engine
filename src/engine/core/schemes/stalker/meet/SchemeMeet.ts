@@ -10,7 +10,7 @@ import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -72,9 +72,9 @@ export class SchemeMeet extends AbstractScheme {
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
 
-    state.meetManager = new MeetManager(object, state);
+    state.meetController = new MeetController(object, state);
 
-    AbstractScheme.subscribe(state, state.meetManager);
+    AbstractScheme.subscribe(state, state.meetController);
   }
 
   public static override reset(

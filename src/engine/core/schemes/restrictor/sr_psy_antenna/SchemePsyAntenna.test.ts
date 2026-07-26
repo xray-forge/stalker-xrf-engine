@@ -7,12 +7,12 @@ import { resetFunctionMock } from "xray16/testing/utils";
 import { getManager, registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
-import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaManager";
+import { PsyAntennaSchemaController } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaController";
 import { SchemePsyAntenna } from "@/engine/core/schemes/restrictor/sr_psy_antenna/SchemePsyAntenna";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemePsyAntenna", () => {
   it("should correctly initialize with defaults", () => {
@@ -45,7 +45,7 @@ describe("SchemePsyAntenna", () => {
     expect(state.hitType).toBe("wound");
     expect(state.hitFreq).toBe(5000);
 
-    assertSchemeSubscribedToManager(state, PsyAntennaSchemaManager);
+    assertSchemeSubscribedToController(state, PsyAntennaSchemaController);
   });
 
   it("should correctly initialize with custom data", () => {
@@ -86,11 +86,11 @@ describe("SchemePsyAntenna", () => {
     expect(state.hitType).toBe("fire");
     expect(state.hitFreq).toBe(2000);
 
-    assertSchemeSubscribedToManager(state, PsyAntennaSchemaManager);
+    assertSchemeSubscribedToController(state, PsyAntennaSchemaController);
   });
 });
 
-describe("PsyAntennaSchemaManager post-process allocation", () => {
+describe("PsyAntennaSchemaController post-process allocation", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(level.set_pp_effector_factor);
@@ -115,8 +115,8 @@ describe("PsyAntennaSchemaManager post-process allocation", () => {
     const object: GameObject = MockGameObject.mock();
     const manager: PsyAntennaManager = getManager(PsyAntennaManager);
 
-    const first: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("first.ppe"));
-    const second: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("second.ppe"));
+    const first: PsyAntennaSchemaController = new PsyAntennaSchemaController(object, createState("first.ppe"));
+    const second: PsyAntennaSchemaController = new PsyAntennaSchemaController(object, createState("second.ppe"));
 
     first.onZoneEnter();
     second.onZoneEnter();
@@ -131,7 +131,7 @@ describe("PsyAntennaSchemaManager post-process allocation", () => {
     expect(manager.updatePostprocess(firstEffect)).toBe(false);
     manager.postprocess.delete("first.ppe");
 
-    const third: PsyAntennaSchemaManager = new PsyAntennaSchemaManager(object, createState("third.ppe"));
+    const third: PsyAntennaSchemaController = new PsyAntennaSchemaController(object, createState("third.ppe"));
 
     third.onZoneEnter();
 

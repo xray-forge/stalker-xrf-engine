@@ -9,7 +9,7 @@ import { type IBaseSchemeState } from "@/engine/core/schemes/state";
  * @param state - Base state to check.
  * @param action - Action class to verify subscription for.
  */
-export function assertSchemeSubscribedToManager(state: IBaseSchemeState, action: IConstructor<AnyObject>): void {
+export function assertSchemeSubscribedToController(state: IBaseSchemeState, action: IConstructor<AnyObject>): void {
   for (const [subscriber] of state.actions as LuaTable<AnyObject, boolean>) {
     if (subscriber instanceof action) {
       return;

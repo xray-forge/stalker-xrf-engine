@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions, readIniNumber } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { PostProcessManager } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessManager";
+import { PostProcessController } from "@/engine/core/schemes/restrictor/sr_postprocess/PostProcessController";
 import { ISchemePostProcessState } from "@/engine/core/schemes/restrictor/sr_postprocess/sr_postprocess_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -37,6 +37,6 @@ export class SchemePostProcess extends AbstractScheme {
     section: TSection,
     state: ISchemePostProcessState
   ): void {
-    AbstractScheme.subscribe(state, new PostProcessManager(object, state));
+    AbstractScheme.subscribe(state, new PostProcessController(object, state));
   }
 }

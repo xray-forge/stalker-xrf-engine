@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
 import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/mob_remark_types";
-import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
+import { MobRemarkController } from "@/engine/core/schemes/monster/mob_remark/MobRemarkController";
 import { SchemeMobRemark } from "@/engine/core/schemes/monster/mob_remark/SchemeMobRemark";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobRemark", () => {
   it("should correctly activate with defaults", () => {
@@ -34,7 +34,7 @@ describe("SchemeMobRemark", () => {
     expect(state.snd).toBeNull();
     expect(state.time).toBeNull();
 
-    assertSchemeSubscribedToManager(state, MobRemarkManager);
+    assertSchemeSubscribedToController(state, MobRemarkController);
   });
 
   it("should correctly activate with overrides", () => {
@@ -76,6 +76,6 @@ describe("SchemeMobRemark", () => {
       p2: null,
     });
 
-    assertSchemeSubscribedToManager(state, MobRemarkManager);
+    assertSchemeSubscribedToController(state, MobRemarkController);
   });
 });

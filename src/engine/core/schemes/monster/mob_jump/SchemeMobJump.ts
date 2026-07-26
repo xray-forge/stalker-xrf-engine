@@ -4,7 +4,7 @@ import { assert, createVector, LuaArray, TName, TSection } from "xray16/lib";
 import { getConfigSwitchConditions, parseStringsList, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
-import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
+import { MobJumpController } from "@/engine/core/schemes/monster/mob_jump/MobJumpController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -43,6 +43,6 @@ export class SchemeMobJump extends AbstractScheme {
     section: TSection,
     state: ISchemeMobJumpState
   ): void {
-    SchemeMobJump.subscribe(state, new MobJumpManager(object, state));
+    SchemeMobJump.subscribe(state, new MobJumpController(object, state));
   }
 }

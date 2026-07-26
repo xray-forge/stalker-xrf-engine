@@ -6,7 +6,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
-import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
+import { DangerController } from "@/engine/core/schemes/stalker/danger/DangerController";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
 import { SchemeDanger } from "@/engine/core/schemes/stalker/danger/SchemeDanger";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
@@ -51,7 +51,7 @@ describe("SchemeDanger", () => {
     expect(planner.remove_evaluator).toHaveBeenCalledWith(EEvaluatorId.DANGER);
     expect(planner.add_evaluator).toHaveBeenCalledWith(EEvaluatorId.DANGER, expect.any(EvaluatorDanger));
     expect(planner.action(EActionId.DANGER)).toBeDefined();
-    expect(state.dangerManager).toBeInstanceOf(DangerManager);
+    expect(state.dangerController).toBeInstanceOf(DangerController);
   });
 
   it("should have noop reset implementation", () => {

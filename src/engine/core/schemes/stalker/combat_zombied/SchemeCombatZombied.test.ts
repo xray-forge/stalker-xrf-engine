@@ -9,7 +9,12 @@ import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";
 import { SchemeCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/SchemeCombatZombied";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 describe("SchemeCombatZombied", () => {
   beforeEach(() => {
@@ -78,7 +83,7 @@ describe("SchemeCombatZombied", () => {
       ]
     );
 
-    assertSchemeSubscribedToManager(state, ActionZombieShoot);
-    assertSchemeSubscribedToManager(state, ActionZombieGoToDanger);
+    assertSchemeSubscribedToController(state, ActionZombieShoot);
+    assertSchemeSubscribedToController(state, ActionZombieGoToDanger);
   });
 });

@@ -14,13 +14,13 @@ import {
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import {
   ISchemeWoundedState,
   PS_BEGIN_WOUNDED,
   PS_WOUNDED_SOUND,
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 
@@ -87,25 +87,25 @@ export class ActionWounded extends action_base {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const woundManager: WoundManager = this.state.woundManager;
+    const woundController: WoundController = this.state.woundController;
     const now: TTimestamp = time_global();
 
     // Handle healing up by objects after some timeout.
-    if (this.state.isAutoHealing && !woundManager.canUseMedkit) {
+    if (this.state.isAutoHealing && !woundController.canUseMedkit) {
       const woundedAt: TTimestamp = getPortableStoreValue(objectId, PS_BEGIN_WOUNDED)!;
 
       if ($isNil(woundedAt)) {
         setPortableStoreValue(objectId, PS_BEGIN_WOUNDED, now);
       } else if (now - woundedAt > schemeWoundedConfig.WOUNDED_TIMEOUT) {
         giveWoundedObjectMedkit(object);
-        woundManager.unlockMedkit();
+        woundController.unlockMedkit();
       }
     }
 
-    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(objectId, PS_WOUNDED_STATE)!;
-    const woundManagerSound: TName = getPortableStoreValue(objectId, PS_WOUNDED_SOUND)!;
+    const woundControllerState: EStalkerState = getPortableStoreValue<EStalkerState>(objectId, PS_WOUNDED_STATE)!;
+    const woundControllerSound: TName = getPortableStoreValue(objectId, PS_WOUNDED_SOUND)!;
 
-    if (woundManagerState === TRUE) {
+    if (woundControllerState === TRUE) {
       const hitObject: Hit = new hit();
 
       hitObject.power = 0;
@@ -118,19 +118,19 @@ export class ActionWounded extends action_base {
       object.hit(hitObject);
     } else {
       if (this.state.canUseMedkit === true) {
-        woundManager.useMedkit();
+        woundController.useMedkit();
       }
 
-      if (tostring(woundManagerState) === NIL) {
+      if (tostring(woundControllerState) === NIL) {
         abort("Wrong wounded animation '%s'.", object.name());
       }
 
-      setStalkerState(object, woundManagerState, null, null, null, { isForced: true });
+      setStalkerState(object, woundControllerState, null, null, null, { isForced: true });
     }
 
     // Play call for help not more often than once per 5 seconds.
     if (now > this.nextSoundPlayAt) {
-      getManager(SoundManager).play(objectId, woundManagerSound === NIL ? null : woundManagerSound);
+      getManager(SoundManager).play(objectId, woundControllerSound === NIL ? null : woundControllerSound);
 
       this.nextSoundPlayAt = now + schemeWoundedConfig.CALL_FOR_HELP_PERIOD;
     }

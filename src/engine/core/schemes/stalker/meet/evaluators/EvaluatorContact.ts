@@ -35,7 +35,7 @@ export class EvaluatorContact extends property_evaluator {
       return false;
     }
 
-    this.state.meetManager.update();
+    this.state.meetController.update();
 
     // Wounded or have enemy, cannot speak.
     if (isObjectWounded(this.object.id()) || $isNotNil(this.object.best_enemy())) {
@@ -48,12 +48,12 @@ export class EvaluatorContact extends property_evaluator {
 
     // In combat/searching for enemy, cannot speak.
     if (this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate()) {
-      this.state.meetManager.use = FALSE;
+      this.state.meetController.use = FALSE;
       this.object.disable_talk();
 
       return false;
     }
 
-    return $isNotNil(this.state.meetManager.currentDistanceToSpeaker);
+    return $isNotNil(this.state.meetController.currentDistanceToSpeaker);
   }
 }

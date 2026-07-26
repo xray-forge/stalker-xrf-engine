@@ -9,8 +9,8 @@ import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBin
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
-import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat";
+import { HelicopterFireController } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/schemes/runtime";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { setSchemeState } from "@/engine/core/schemes/state";
@@ -34,7 +34,7 @@ describe("HelicopterBinder", () => {
     expect(binder.isLoaded).toBe(false);
     expect(binder.flameStartHealth).toBe(0);
     expect(binder.helicopter).toBeInstanceOf(CHelicopter);
-    expect(binder.helicopterFireManager).toBeInstanceOf(HelicopterFireManager);
+    expect(binder.helicopterFireController).toBeInstanceOf(HelicopterFireController);
   });
 
   it("resets runtime state and registers helicopter callbacks on reinitialization", () => {
@@ -46,7 +46,7 @@ describe("HelicopterBinder", () => {
 
     expect(binder.isInitialized).toBe(false);
     expect(binder.state).toBe(registry.objects.get(object.id()));
-    expect(binder.combatManager).toBeInstanceOf(HelicopterCombatManager);
+    expect(binder.combatController).toBeInstanceOf(HelicopterCombatController);
     expect(binder.flameStartHealth).toBeGreaterThan(0);
     expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_point, binder.onWaypoint, binder);
     expect(object.set_callback).toHaveBeenCalledWith(callback.helicopter_on_hit, binder.onHit, binder);
@@ -122,9 +122,9 @@ describe("HelicopterBinder", () => {
     const binder: HelicopterBinder = new HelicopterBinder(MockGameObject.mockHelicopter());
     const binderState: IRegistryObjectState = registerObject(binder.object);
 
-    binder.combatManager = new HelicopterCombatManager(binder.object);
+    binder.combatController = new HelicopterCombatController(binder.object);
 
-    jest.spyOn(binder.combatManager, "save").mockImplementation(jest.fn());
+    jest.spyOn(binder.combatController, "save").mockImplementation(jest.fn());
 
     binderState.iniFilename = "test_filename.ltx";
     binderState.jobIni = "test.ltx";
@@ -134,7 +134,7 @@ describe("HelicopterBinder", () => {
 
     binder.save(processor.asNetPacket());
 
-    expect(binder.combatManager.save).toHaveBeenCalledWith(processor);
+    expect(binder.combatController.save).toHaveBeenCalledWith(processor);
 
     expect(processor.writeDataOrder).toEqual([
       EMockPacketDataType.STRING,
@@ -166,13 +166,13 @@ describe("HelicopterBinder", () => {
     const newBinder: HelicopterBinder = new HelicopterBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.combatManager = new HelicopterCombatManager(binder.object);
+    newBinder.combatController = new HelicopterCombatController(binder.object);
 
-    jest.spyOn(newBinder.combatManager, "load").mockImplementation(jest.fn());
+    jest.spyOn(newBinder.combatController, "load").mockImplementation(jest.fn());
 
     newBinder.load(processor.asNetReader());
 
-    expect(newBinder.combatManager.load).toHaveBeenCalledWith(processor);
+    expect(newBinder.combatController.load).toHaveBeenCalledWith(processor);
 
     expect(newBinderState.jobIni).toBe("test.ltx");
     expect(newBinderState.loadedSectionLogic).toBe("logic");
@@ -232,12 +232,12 @@ describe("HelicopterBinder", () => {
     setSchemeState(state, EScheme.HIT, schemeState);
     binder.state = state;
 
-    jest.spyOn(binder.helicopterFireManager, "onHit").mockImplementation(jest.fn());
+    jest.spyOn(binder.helicopterFireController, "onHit").mockImplementation(jest.fn());
 
     binder.onHit(0.5, 1, 10, enemy.id());
 
-    expect(binder.helicopterFireManager.enemy).toBe(enemy);
-    expect(binder.helicopterFireManager.onHit).toHaveBeenCalledTimes(1);
+    expect(binder.helicopterFireController.enemy).toBe(enemy);
+    expect(binder.helicopterFireController.onHit).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(schemeState, ESchemeEvent.HIT, object, 0.5, null, enemy, null);

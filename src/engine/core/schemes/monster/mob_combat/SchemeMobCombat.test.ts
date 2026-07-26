@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
-import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
+import { MobCombatController } from "@/engine/core/schemes/monster/mob_combat/MobCombatController";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat/SchemeMobCombat";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeMobCombat", () => {
   it("should correctly activate", () => {
@@ -27,8 +27,8 @@ describe("SchemeMobCombat", () => {
 
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "mob_combat@test")!);
     expect(state.enabled).toBe(true);
-    expect(state.action).toBeInstanceOf(MobCombatManager);
-    assertSchemeSubscribedToManager(state, MobCombatManager);
+    expect(state.action).toBeInstanceOf(MobCombatController);
+    assertSchemeSubscribedToController(state, MobCombatController);
   });
 
   it("should correctly disable", () => {

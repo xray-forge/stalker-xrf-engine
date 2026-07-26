@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/schemes/stalker/help_wounded";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { getSchemeStateOptimistic, setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
@@ -41,14 +41,14 @@ describe("finishObjectHelpWounded", () => {
       secondState,
       EScheme.WOUNDED,
       mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
-        woundManager: { unlockMedkit: jest.fn() } as unknown as WoundManager,
+        woundController: { unlockMedkit: jest.fn() } as unknown as WoundController,
       })
     );
 
     finishObjectHelpWounded(first);
 
     expect(giveWoundedObjectMedkit).toHaveBeenCalledWith(second);
-    expect(getSchemeStateOptimistic(secondState, EScheme.WOUNDED).woundManager.unlockMedkit).toHaveBeenCalled();
+    expect(getSchemeStateOptimistic(secondState, EScheme.WOUNDED).woundController.unlockMedkit).toHaveBeenCalled();
   });
 });
 

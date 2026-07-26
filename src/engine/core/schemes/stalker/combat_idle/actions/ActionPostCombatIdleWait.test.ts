@@ -43,7 +43,7 @@ describe("ActionPostCombatIdleWait", () => {
     expect(action.object.set_sight).toHaveBeenCalledWith(look.danger, null, 0);
 
     expect(action.isAnimationStarted).toBe(false);
-    expect(action.stateManager).toEqual({ animstate: { state: { animationMarker: null } } });
+    expect(action.stateController).toEqual({ animstate: { state: { animationMarker: null } } });
     expect(action.state.animation).toBeInstanceOf(StalkerAnimationController);
   });
 

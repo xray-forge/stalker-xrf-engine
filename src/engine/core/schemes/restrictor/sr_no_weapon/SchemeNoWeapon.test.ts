@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
+import { NoWeaponController } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponController";
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeNoWeapon", () => {
   it("should be correctly defined", () => {
@@ -44,6 +44,6 @@ describe("SchemeNoWeapon", () => {
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "sr_no_weapon@test"));
     expect(state.actions?.length()).toBe(1);
 
-    assertSchemeSubscribedToManager(state, NoWeaponManager);
+    assertSchemeSubscribedToController(state, NoWeaponController);
   });
 });

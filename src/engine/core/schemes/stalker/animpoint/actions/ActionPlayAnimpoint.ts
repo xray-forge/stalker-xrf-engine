@@ -23,39 +23,39 @@ export class ActionPlayAnimpoint extends action_base implements ISchemeEventHand
   }
 
   public override initialize(): void {
-    logger.info("Starting animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
+    logger.info("Starting animpoint: %s %s", this.object.name(), this.state.animpointController.currentAction);
 
     super.initialize();
-    this.state.animpointManager.start();
+    this.state.animpointController.start();
   }
 
   public override finalize(): void {
-    logger.info("Ending animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
+    logger.info("Ending animpoint: %s %s", this.object.name(), this.state.animpointController.currentAction);
 
-    this.state.animpointManager.stop();
+    this.state.animpointController.stop();
     super.finalize();
   }
 
   public override execute(): void {
     super.execute();
 
-    if (!this.state.animpointManager.isStarted) {
-      this.state.animpointManager.start();
+    if (!this.state.animpointController.isStarted) {
+      this.state.animpointController.start();
     }
 
-    const [position, direction] = this.state.animpointManager.getAnimationParameters();
+    const [position, direction] = this.state.animpointController.getAnimationParameters();
 
     setStalkerState(
       this.object,
-      this.state.animpointManager.currentAction as EStalkerState,
+      this.state.animpointController.currentAction as EStalkerState,
       null,
       null,
-      { lookPosition: this.state.animpointManager.lookPosition },
+      { lookPosition: this.state.animpointController.lookPosition },
       { animationPosition: position, animationDirection: direction }
     );
   }
 
   public onSwitchOffline(): void {
-    this.state.animpointManager.stop();
+    this.state.animpointController.stop();
   }
 }

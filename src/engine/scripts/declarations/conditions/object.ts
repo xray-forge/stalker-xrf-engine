@@ -1096,7 +1096,7 @@ extern("xr_conditions.animpoint_reached", (_: GameObject, object: GameObject): b
   ] as Nillable<ISchemeAnimpointState>;
 
   if (animpointState) {
-    return animpointState.animpointManager.isPositionReached();
+    return animpointState.animpointController.isPositionReached();
   } else {
     return false;
   }

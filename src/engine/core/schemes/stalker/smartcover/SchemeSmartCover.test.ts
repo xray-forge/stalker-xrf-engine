@@ -12,7 +12,7 @@ import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/sm
 import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/SchemeSmartCover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, checkPlannerAction } from "@/fixtures/engine";
 
 describe("SchemeSmartCover", () => {
   it("should correctly activate with default data", () => {
@@ -43,7 +43,7 @@ describe("SchemeSmartCover", () => {
     expect(state.moving).toBe("sneak");
     expect(state.soundIdle).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
+    assertSchemeSubscribedToController(state, ActionSmartCoverUse);
   });
 
   it("should correctly activate with custom data", () => {
@@ -90,7 +90,7 @@ describe("SchemeSmartCover", () => {
     expect(state.moving).toBe("test_moving");
     expect(state.soundIdle).toBe("test_sound");
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
+    assertSchemeSubscribedToController(state, ActionSmartCoverUse);
   });
 
   it("should correctly activate with default data", () => {
@@ -104,7 +104,7 @@ describe("SchemeSmartCover", () => {
 
     const state: ISchemeSmartCoverState = SchemeSmartCover.activate(object, ini, EScheme.SMARTCOVER, "smartcover@test");
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
+    assertSchemeSubscribedToController(state, ActionSmartCoverUse);
 
     const planner: ActionPlanner = object.motivation_action_manager();
 

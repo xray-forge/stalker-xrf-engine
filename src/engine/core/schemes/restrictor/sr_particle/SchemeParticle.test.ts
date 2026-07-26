@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
+import { ParticleController } from "@/engine/core/schemes/restrictor/sr_particle/ParticleController";
 import { SchemeParticle } from "@/engine/core/schemes/restrictor/sr_particle/SchemeParticle";
 import { ISchemeParticleState } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemeParticle", () => {
   it("should correctly fail with no data", () => {
@@ -54,7 +54,7 @@ describe("SchemeParticle", () => {
     expect(state.path).toBe("test-path-1");
     expect(state.mode).toBe(1);
 
-    assertSchemeSubscribedToManager(state, ParticleManager);
+    assertSchemeSubscribedToController(state, ParticleController);
   });
 
   it("should correctly activate with provided values", () => {
@@ -78,6 +78,6 @@ describe("SchemeParticle", () => {
     expect(state.path).toBe("test-path-2");
     expect(state.mode).toBe(2);
 
-    assertSchemeSubscribedToManager(state, ParticleManager);
+    assertSchemeSubscribedToController(state, ParticleController);
   });
 });

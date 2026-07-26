@@ -3,7 +3,7 @@ import { TName, TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions, parseStringsList, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
+import { CrowSpawnerController } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerController";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -37,6 +37,6 @@ export class SchemeCrowSpawner extends AbstractScheme {
     section: TSection,
     state: ISchemeCrowSpawnerState
   ): void {
-    AbstractScheme.subscribe(state, new CrowSpawnerManager(object, state));
+    AbstractScheme.subscribe(state, new CrowSpawnerController(object, state));
   }
 }

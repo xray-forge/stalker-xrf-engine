@@ -11,7 +11,12 @@ import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reac
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import {
+  assertSchemeSubscribedToController,
+  checkPlannerAction,
+  mockSchemeState,
+  resetRegistry,
+} from "@/fixtures/engine";
 
 describe("SchemeReachTask", () => {
   beforeEach(() => {
@@ -75,6 +80,6 @@ describe("SchemeReachTask", () => {
     SchemeReachTask.setup(object);
     SchemeReachTask.add(object, ini, EScheme.REACH_TASK, null as never, state);
 
-    assertSchemeSubscribedToManager(state, ActionReachTaskLocation);
+    assertSchemeSubscribedToController(state, ActionReachTaskLocation);
   });
 });

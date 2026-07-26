@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MAX_ALIFE_ID } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
-import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
+import { ISchemePatrolState, PatrolController } from "@/engine/core/schemes/stalker/patrol";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators/EvaluatorPatrolCommander";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -14,12 +14,12 @@ describe("EvaluatorPatrolCommander", () => {
     const object: GameObject = MockGameObject.mock();
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const evaluator: EvaluatorPatrolCommander = new EvaluatorPatrolCommander(state);
-    const manager: PatrolManager = new PatrolManager("test-path-key");
+    const manager: PatrolController = new PatrolController("test-path-key");
 
     evaluator.setup(object, MockPropertyStorage.mock());
 
     state.patrolKey = "test-path-key";
-    state.patrolManager = manager;
+    state.patrolController = manager;
 
     patrolConfig.PATROLS.set(state.patrolKey, manager);
 

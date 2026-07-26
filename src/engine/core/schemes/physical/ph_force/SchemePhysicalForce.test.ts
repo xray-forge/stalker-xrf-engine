@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
-import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
+import { PhysicalForceController } from "@/engine/core/schemes/physical/ph_force/PhysicalForceController";
 import { SchemePhysicalForce } from "@/engine/core/schemes/physical/ph_force/SchemePhysicalForce";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, patrols, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, patrols, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemePhysicalForce", () => {
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe("SchemePhysicalForce", () => {
     expect(state.delay).toBe(500);
     expect(state.point).toEqual(patrols["test-wp"].points[1].position);
 
-    assertSchemeSubscribedToManager(state, PhysicalForceManager);
+    assertSchemeSubscribedToController(state, PhysicalForceController);
   });
 
   it("should correctly activate with defaults for delay and point index", () => {

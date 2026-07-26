@@ -3,7 +3,7 @@ import { TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
-import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
+import { NoWeaponController } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponController";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -34,6 +34,6 @@ export class SchemeNoWeapon extends AbstractScheme {
     section: TSection,
     state: ISchemeNoWeaponState
   ): void {
-    AbstractScheme.subscribe(state, new NoWeaponManager(object, state));
+    AbstractScheme.subscribe(state, new NoWeaponController(object, state));
   }
 }

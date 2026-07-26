@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
-import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
+import { PhysicalHitController } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitController";
 import { SchemePhysicalHit } from "@/engine/core/schemes/physical/ph_hit/SchemePhysicalHit";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemePhysicalHit", () => {
   it("should correctly activate with defaults", () => {
@@ -32,7 +32,7 @@ describe("SchemePhysicalHit", () => {
     expect(state.bone).toBe("test_bone");
     expect(state.dirPath).toBe("test_path");
 
-    assertSchemeSubscribedToManager(state, PhysicalHitManager);
+    assertSchemeSubscribedToController(state, PhysicalHitController);
   });
 
   it("should correctly activate with custom data", () => {
@@ -58,7 +58,7 @@ describe("SchemePhysicalHit", () => {
     expect(state.bone).toBe("test_bone2");
     expect(state.dirPath).toBe("test_path2");
 
-    assertSchemeSubscribedToManager(state, PhysicalHitManager);
+    assertSchemeSubscribedToController(state, PhysicalHitController);
   });
 
   it("should correctly fail with no bone/path", () => {

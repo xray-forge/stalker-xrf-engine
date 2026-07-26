@@ -25,7 +25,7 @@ import { registerSimulator } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
-import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
+import { ReachTaskPatrolController } from "@/engine/core/schemes/stalker/reach_task";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions/ActionReachTaskLocation";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { MockSquad } from "@/fixtures/engine";
@@ -92,11 +92,11 @@ describe("ActionReachTaskLocation", () => {
     expect(object.inactualize_patrol_path).toHaveBeenCalled();
     expect(object.set_sight).toHaveBeenCalledWith(look.path_dir, null, 0);
 
-    const patrolManager: ReachTaskPatrolManager = reachTaskConfig.PATROLS.get(squad.id);
+    const patrolController: ReachTaskPatrolController = reachTaskConfig.PATROLS.get(squad.id);
 
     expect(reachTaskConfig.PATROLS.length()).toBe(1);
-    expect(patrolManager.objectsList.has(object.id())).toBe(true);
-    expect(patrolManager.commanderId).toBeNull();
+    expect(patrolController.objectsList.has(object.id())).toBe(true);
+    expect(patrolController.commanderId).toBeNull();
   });
 
   it("should correctly initialize for squad commander", () => {
@@ -128,11 +128,11 @@ describe("ActionReachTaskLocation", () => {
     expect(object.inactualize_patrol_path).toHaveBeenCalled();
     expect(object.set_sight).toHaveBeenCalledWith(look.path_dir, null, 0);
 
-    const patrolManager: ReachTaskPatrolManager = reachTaskConfig.PATROLS.get(squad.id);
+    const patrolController: ReachTaskPatrolController = reachTaskConfig.PATROLS.get(squad.id);
 
     expect(reachTaskConfig.PATROLS.length()).toBe(1);
-    expect(patrolManager.objectsList.has(object.id())).toBe(true);
-    expect(patrolManager.commanderId).toBe(object.id());
+    expect(patrolController.objectsList.has(object.id())).toBe(true);
+    expect(patrolController.commanderId).toBe(object.id());
   });
 
   it("should correctly finalize", () => {
@@ -207,13 +207,13 @@ describe("ActionReachTaskLocation", () => {
     action.setup(object, new property_storage());
     action.initialize();
 
-    const patrolManager: ReachTaskPatrolManager = reachTaskConfig.PATROLS.get(squad.id);
+    const patrolController: ReachTaskPatrolController = reachTaskConfig.PATROLS.get(squad.id);
 
-    jest.spyOn(patrolManager, "removeObjectFromPatrol").mockImplementation(jest.fn());
+    jest.spyOn(patrolController, "removeObjectFromPatrol").mockImplementation(jest.fn());
 
     action.onDeath(object);
 
-    expect(patrolManager.removeObjectFromPatrol).toHaveBeenCalledWith(object);
+    expect(patrolController.removeObjectFromPatrol).toHaveBeenCalledWith(object);
   });
 
   it("should correctly switch offline", () => {
@@ -224,13 +224,13 @@ describe("ActionReachTaskLocation", () => {
     action.setup(object, new property_storage());
     action.initialize();
 
-    const patrolManager: ReachTaskPatrolManager = reachTaskConfig.PATROLS.get(squad.id);
+    const patrolController: ReachTaskPatrolController = reachTaskConfig.PATROLS.get(squad.id);
 
-    jest.spyOn(patrolManager, "removeObjectFromPatrol").mockImplementation(jest.fn());
+    jest.spyOn(patrolController, "removeObjectFromPatrol").mockImplementation(jest.fn());
 
     action.onSwitchOffline(object);
 
-    expect(patrolManager.removeObjectFromPatrol).toHaveBeenCalledWith(object);
+    expect(patrolController.removeObjectFromPatrol).toHaveBeenCalledWith(object);
   });
 
   it("should head to another game vertex as commander", () => {

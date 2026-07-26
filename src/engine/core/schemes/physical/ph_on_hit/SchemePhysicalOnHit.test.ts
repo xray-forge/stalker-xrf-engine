@@ -5,7 +5,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
-import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
+import { PhysicalOnHitController } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitController";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit/SchemePhysicalOnHit";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
@@ -30,7 +30,7 @@ describe("SchemePhysicalOnHit", () => {
     );
 
     expect(state.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "ph_on_hit@test")!);
-    expect(state.action).toBeInstanceOf(PhysicalOnHitManager);
+    expect(state.action).toBeInstanceOf(PhysicalOnHitController);
   });
 
   it("should correctly disable", () => {
@@ -53,7 +53,7 @@ describe("SchemePhysicalOnHit", () => {
       "ph_on_hit@test"
     );
 
-    expect(state.action).toBeInstanceOf(PhysicalOnHitManager);
+    expect(state.action).toBeInstanceOf(PhysicalOnHitController);
 
     SchemePhysicalOnHit.disable(object, EScheme.PH_ON_HIT);
     expect(state.actions).toEqualLuaTables({});

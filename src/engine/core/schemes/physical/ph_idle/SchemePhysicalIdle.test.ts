@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionList } from "@/engine/core/ini";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
-import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
+import { PhysicalIdleController } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleController";
 import { SchemePhysicalIdle } from "@/engine/core/schemes/physical/ph_idle/SchemePhysicalIdle";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController } from "@/fixtures/engine";
 
 describe("SchemePhysicalIdle", () => {
   it("should correctly initialize", () => {
@@ -39,7 +39,7 @@ describe("SchemePhysicalIdle", () => {
       logic: {},
     });
 
-    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
+    assertSchemeSubscribedToController(state, PhysicalIdleController);
   });
 
   it("should correctly initialize with custom values", () => {
@@ -75,6 +75,6 @@ describe("SchemePhysicalIdle", () => {
       logic: getConfigSwitchConditions(ini, "ph_idle@test"),
     });
 
-    assertSchemeSubscribedToManager(state, PhysicalIdleManager);
+    assertSchemeSubscribedToController(state, PhysicalIdleController);
   });
 });

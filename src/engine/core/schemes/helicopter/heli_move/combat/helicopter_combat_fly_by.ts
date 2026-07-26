@@ -2,78 +2,78 @@ import { GameObject, Vector } from "xray16/alias";
 import { distanceBetween2d, ZERO_VECTOR } from "xray16/lib";
 
 import { EHelicopterFlyByState } from "@/engine/core/schemes/helicopter/heli_move";
-import type { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import type { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
 
 /**
- * @param manager - Instance to initialize.
+ * @param controller - Instance to initialize.
  */
-export function initializeHelicopterCombatFlyBy(manager: HelicopterCombatManager): void {
-  manager.isFlybyInitialized = true;
-  manager.isStateInitialized = false;
-  manager.wasCallback = false;
-  manager.flybyStatesForOnePass = 2;
+export function initializeHelicopterCombatFlyBy(controller: HelicopterCombatController): void {
+  controller.isFlybyInitialized = true;
+  controller.isStateInitialized = false;
+  controller.wasCallback = false;
+  controller.flybyStatesForOnePass = 2;
 
-  manager.flyByState =
-    distanceBetween2d(manager.object.position(), manager.enemyLastSeenPos!) < manager.flybyAttackDist
+  controller.flyByState =
+    distanceBetween2d(controller.object.position(), controller.enemyLastSeenPos!) < controller.flybyAttackDist
       ? EHelicopterFlyByState.TO_ATTACK_DIST
       : EHelicopterFlyByState.TO_ENEMY;
 
-  manager.helicopter.SetMaxVelocity(manager.maxVelocity);
-  manager.helicopter.SetSpeedInDestPoint(manager.maxVelocity);
-  manager.helicopter.LookAtPoint(ZERO_VECTOR, false);
+  controller.helicopter.SetMaxVelocity(controller.maxVelocity);
+  controller.helicopter.SetSpeedInDestPoint(controller.maxVelocity);
+  controller.helicopter.LookAtPoint(ZERO_VECTOR, false);
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  */
-export function updateHelicopterCombatFlyByFlight(manager: HelicopterCombatManager): void {
-  if (manager.wasCallback) {
-    switch (manager.flyByState) {
+export function updateHelicopterCombatFlyByFlight(controller: HelicopterCombatController): void {
+  if (controller.wasCallback) {
+    switch (controller.flyByState) {
       case EHelicopterFlyByState.TO_ATTACK_DIST:
-        manager.flyByState = EHelicopterFlyByState.TO_ENEMY;
+        controller.flyByState = EHelicopterFlyByState.TO_ENEMY;
         break;
 
       case EHelicopterFlyByState.TO_ENEMY:
-        manager.flyByState = EHelicopterFlyByState.TO_ATTACK_DIST;
+        controller.flyByState = EHelicopterFlyByState.TO_ATTACK_DIST;
         break;
     }
 
-    manager.wasCallback = false;
-    manager.isStateInitialized = false;
+    controller.wasCallback = false;
+    controller.isStateInitialized = false;
   }
 
-  switch (manager.flyByState) {
+  switch (controller.flyByState) {
     case EHelicopterFlyByState.TO_ATTACK_DIST:
-      if (!manager.isStateInitialized) {
-        const position: Vector = manager.calculatePositionInRadius(manager.flybyAttackDist);
+      if (!controller.isStateInitialized) {
+        const position: Vector = controller.calculatePositionInRadius(controller.flybyAttackDist);
 
-        manager.helicopter.SetDestPosition(position);
-        manager.helicopter.ClearEnemy();
+        controller.helicopter.SetDestPosition(position);
+        controller.helicopter.ClearEnemy();
 
-        manager.changeCombatTypeAllowed = false;
-        manager.isStateInitialized = true;
+        controller.changeCombatTypeAllowed = false;
+        controller.isStateInitialized = true;
       }
 
       break;
 
     case EHelicopterFlyByState.TO_ENEMY: {
-      if (!manager.isStateInitialized) {
-        manager.helicopter.SetEnemy(manager.enemy as GameObject);
-        manager.helicopter.UseFireTrail(true);
+      if (!controller.isStateInitialized) {
+        controller.helicopter.SetEnemy(controller.enemy as GameObject);
+        controller.helicopter.UseFireTrail(true);
 
-        manager.flybyStatesForOnePass = manager.flybyStatesForOnePass - 1;
+        controller.flybyStatesForOnePass = controller.flybyStatesForOnePass - 1;
 
-        manager.isStateInitialized = true;
+        controller.isStateInitialized = true;
       }
 
-      const position: Vector = manager.enemyLastSeenPos!;
+      const position: Vector = controller.enemyLastSeenPos!;
 
-      position.set(position.x, manager.safeAltitude, position.z);
+      position.set(position.x, controller.safeAltitude, position.z);
 
-      manager.changeCombatTypeAllowed =
-        distanceBetween2d(manager.object.position(), position) > manager.searchAttackDist;
+      controller.changeCombatTypeAllowed =
+        distanceBetween2d(controller.object.position(), position) > controller.searchAttackDist;
 
-      manager.helicopter.SetDestPosition(position);
+      controller.helicopter.SetDestPosition(position);
 
       break;
     }
@@ -81,12 +81,12 @@ export function updateHelicopterCombatFlyByFlight(manager: HelicopterCombatManag
 }
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  */
-export function updateHelicopterCombatFlyby(manager: HelicopterCombatManager): void {
-  if (!manager.isFlybyInitialized) {
-    initializeHelicopterCombatFlyBy(manager);
+export function updateHelicopterCombatFlyby(controller: HelicopterCombatController): void {
+  if (!controller.isFlybyInitialized) {
+    initializeHelicopterCombatFlyBy(controller);
   }
 
-  updateHelicopterCombatFlyByFlight(manager);
+  updateHelicopterCombatFlyByFlight(controller);
 }

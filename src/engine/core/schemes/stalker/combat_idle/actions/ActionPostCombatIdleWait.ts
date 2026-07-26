@@ -8,7 +8,7 @@ import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import {
-  IPartialAnimationManager,
+  IPartialAnimationController,
   ISchemePostCombatIdleState,
 } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -25,7 +25,7 @@ export class ActionPostCombatIdleWait extends action_base {
   public readonly state: ISchemePostCombatIdleState;
 
   public isAnimationStarted: boolean = false;
-  public stateManager!: IPartialAnimationManager;
+  public stateController!: IPartialAnimationController;
 
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, ActionPostCombatIdleWait.__name);
@@ -47,11 +47,11 @@ export class ActionPostCombatIdleWait extends action_base {
     object.set_sight(look.danger, null, 0);
 
     this.isAnimationStarted = false;
-    this.stateManager = { animstate: { state: { animationMarker: null } } };
+    this.stateController = { animstate: { state: { animationMarker: null } } };
 
     this.state.animation = new StalkerAnimationController(
       object,
-      this.stateManager as unknown as StalkerStateController,
+      this.stateController as unknown as StalkerStateController,
       EAnimationType.ANIMATION
     );
   }

@@ -3,7 +3,7 @@ import { TName, TSection } from "xray16/lib";
 
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
+import { OscillateController } from "@/engine/core/schemes/physical/ph_oscillate/OscillateController";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -39,6 +39,6 @@ export class SchemeOscillate extends AbstractScheme {
     section: TSection,
     state: ISchemeOscillateState
   ): void {
-    AbstractScheme.subscribe(state, new OscillateManager(object, state));
+    AbstractScheme.subscribe(state, new OscillateController(object, state));
   }
 }

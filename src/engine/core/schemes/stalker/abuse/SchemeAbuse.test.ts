@@ -6,7 +6,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
-import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
+import { AbuseController } from "@/engine/core/schemes/stalker/abuse/AbuseController";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
@@ -51,7 +51,7 @@ describe("SchemeAbuse", () => {
     const planner: ActionPlanner = object.motivation_action_manager();
 
     expect(planner.evaluator(EEvaluatorId.IS_ABUSED)).toBeInstanceOf(EvaluatorAbuse);
-    expect(state.abuseManager).toBeInstanceOf(AbuseManager);
+    expect(state.abuseController).toBeInstanceOf(AbuseController);
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_ABUSED, false]], []);
     checkPlannerAction(

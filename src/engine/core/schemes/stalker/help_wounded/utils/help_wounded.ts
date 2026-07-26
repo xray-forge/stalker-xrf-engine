@@ -25,7 +25,7 @@ export function finishObjectHelpWounded(object: GameObject): void {
 
   if (selectedObjectState) {
     giveWoundedObjectMedkit(selectedObjectState.object);
-    getSchemeState(selectedObjectState, EScheme.WOUNDED)?.woundManager.unlockMedkit();
+    getSchemeState(selectedObjectState, EScheme.WOUNDED)?.woundController.unlockMedkit();
   }
 }
 

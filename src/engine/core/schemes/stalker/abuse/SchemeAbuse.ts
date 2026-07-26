@@ -6,7 +6,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState } from "@/engine/core/database";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
-import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
+import { AbuseController } from "@/engine/core/schemes/stalker/abuse/AbuseController";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators/EvaluatorAbuse";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
@@ -51,7 +51,7 @@ export class SchemeAbuse extends AbstractScheme {
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
-    state.abuseManager = new AbuseManager(object, state);
+    state.abuseController = new AbuseController(object, state);
   }
 
   public static override reset(

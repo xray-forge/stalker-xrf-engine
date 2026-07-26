@@ -4,12 +4,12 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 
 import { registerObject, registry } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
-import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";
+import { LightController } from "@/engine/core/schemes/restrictor/sr_light/LightController";
 import { SchemeLight } from "@/engine/core/schemes/restrictor/sr_light/SchemeLight";
 import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_light_types";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeLight", () => {
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe("SchemeLight", () => {
     expect(state.actions?.length()).toBe(1);
     expect(state.light).toBe(false);
 
-    assertSchemeSubscribedToManager(state, LightManager);
+    assertSchemeSubscribedToController(state, LightController);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -77,8 +77,8 @@ describe("SchemeLight", () => {
   });
 
   it("should correctly reset scheme", () => {
-    const first: LightManager = new LightManager(MockGameObject.mock(), mockSchemeState(EScheme.SR_LIGHT));
-    const second: LightManager = new LightManager(MockGameObject.mock(), mockSchemeState(EScheme.SR_LIGHT));
+    const first: LightController = new LightController(MockGameObject.mock(), mockSchemeState(EScheme.SR_LIGHT));
+    const second: LightController = new LightController(MockGameObject.mock(), mockSchemeState(EScheme.SR_LIGHT));
 
     expect(registry.lightZones.length()).toBe(0);
 

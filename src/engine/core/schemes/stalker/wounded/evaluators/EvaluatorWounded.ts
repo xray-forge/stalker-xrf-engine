@@ -34,7 +34,7 @@ export class EvaluatorWounded extends property_evaluator {
       return false;
     }
 
-    this.state.woundManager.update();
+    this.state.woundController.update();
 
     if (object.critically_wounded()) {
       return false;

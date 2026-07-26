@@ -1,18 +1,18 @@
 import { ZERO_VECTOR } from "xray16/lib";
 
-import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import { HelicopterCombatController } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatController";
 
 /**
- * @param manager - Instance to update.
+ * @param controller - Instance to update.
  */
-export function updateHelicopterCombatRetreat(manager: HelicopterCombatManager): void {
-  if (!manager.isRetreatInitialized) {
-    manager.isRetreatInitialized = true;
+export function updateHelicopterCombatRetreat(controller: HelicopterCombatController): void {
+  if (!controller.isRetreatInitialized) {
+    controller.isRetreatInitialized = true;
 
-    manager.helicopter.SetMaxVelocity(manager.maxVelocity);
-    manager.helicopter.SetSpeedInDestPoint(manager.maxVelocity);
-    manager.helicopter.LookAtPoint(ZERO_VECTOR, false);
-    manager.helicopter.SetDestPosition(manager.calculatePositionInRadius(5000));
-    manager.helicopter.ClearEnemy();
+    controller.helicopter.SetMaxVelocity(controller.maxVelocity);
+    controller.helicopter.SetSpeedInDestPoint(controller.maxVelocity);
+    controller.helicopter.LookAtPoint(ZERO_VECTOR, false);
+    controller.helicopter.SetDestPosition(controller.calculatePositionInRadius(5000));
+    controller.helicopter.ClearEnemy();
   }
 }

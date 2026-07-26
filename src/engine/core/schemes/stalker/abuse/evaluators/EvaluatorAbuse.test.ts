@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { AbuseManager, ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
+import { AbuseController, ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators/EvaluatorAbuse";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -10,14 +10,14 @@ describe("EvaluatorAbuse", () => {
     const state: ISchemeAbuseState = mockSchemeState(EScheme.ABUSE);
     const evaluator: EvaluatorAbuse = new EvaluatorAbuse(state);
 
-    state.abuseManager = { update: jest.fn(() => true) } as unknown as AbuseManager;
+    state.abuseController = { update: jest.fn(() => true) } as unknown as AbuseController;
 
-    jest.spyOn(state.abuseManager, "update").mockImplementation(() => false);
+    jest.spyOn(state.abuseController, "update").mockImplementation(() => false);
     expect(evaluator.evaluate()).toBe(false);
-    expect(state.abuseManager.update).toHaveBeenCalledTimes(1);
+    expect(state.abuseController.update).toHaveBeenCalledTimes(1);
 
-    jest.spyOn(state.abuseManager, "update").mockImplementation(() => true);
+    jest.spyOn(state.abuseController, "update").mockImplementation(() => true);
     expect(evaluator.evaluate()).toBe(true);
-    expect(state.abuseManager.update).toHaveBeenCalledTimes(2);
+    expect(state.abuseController.update).toHaveBeenCalledTimes(2);
   });
 });

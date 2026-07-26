@@ -24,7 +24,7 @@ import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
-import { IdleManager } from "@/engine/core/schemes/restrictor/sr_idle/IdleManager";
+import { IdleController } from "@/engine/core/schemes/restrictor/sr_idle/IdleController";
 import {
   activateSchemeBySection,
   enableObjectBaseSchemes,
@@ -43,7 +43,7 @@ import { SchemeDeath } from "@/engine/core/schemes/stalker/death";
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items";
 import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded";
 import { SchemeHit } from "@/engine/core/schemes/stalker/hit";
-import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
+import { HitController } from "@/engine/core/schemes/stalker/hit/HitController";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet";
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
@@ -233,7 +233,7 @@ describe("activateSchemeBySection", () => {
     state.schemeType = ESchemeType.RESTRICTOR;
 
     jest.spyOn(SchemeIdle, "activate");
-    jest.spyOn(IdleManager.prototype, "activate");
+    jest.spyOn(IdleController.prototype, "activate");
 
     expect(() => activateSchemeBySection(object, ini, "sr_idle@test", null, false)).toThrow();
 
@@ -265,7 +265,7 @@ describe("activateSchemeBySection", () => {
     state.schemeType = ESchemeType.STALKER;
 
     jest.spyOn(SchemeHit, "activate");
-    jest.spyOn(HitManager.prototype, "activate");
+    jest.spyOn(HitController.prototype, "activate");
 
     loadGenericSchemes();
     loadSchemeImplementation(SchemeHit);

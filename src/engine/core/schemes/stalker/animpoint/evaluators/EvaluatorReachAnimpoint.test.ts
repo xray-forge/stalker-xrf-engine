@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators/EvaluatorReachAnimpoint";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -16,12 +16,12 @@ describe("EvaluatorReachAnimpoint", () => {
 
     evaluator.setup(object, MockPropertyStorage.mock());
 
-    state.animpointManager = new AnimpointManager(object, state);
+    state.animpointController = new AnimpointController(object, state);
 
-    jest.spyOn(state.animpointManager, "isPositionReached").mockImplementation(() => true);
+    jest.spyOn(state.animpointController, "isPositionReached").mockImplementation(() => true);
     expect(evaluator.evaluate()).toBe(true);
 
-    jest.spyOn(state.animpointManager, "isPositionReached").mockImplementation(() => false);
+    jest.spyOn(state.animpointController, "isPositionReached").mockImplementation(() => false);
     expect(evaluator.evaluate()).toBe(false);
   });
 });

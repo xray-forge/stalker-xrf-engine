@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
-import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
+import { PhysicalOnHitController } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -35,7 +35,7 @@ export class SchemePhysicalOnHit extends AbstractScheme {
     section: TSection,
     state: ISchemePhysicalOnHitState
   ): void {
-    const manager: PhysicalOnHitManager = new PhysicalOnHitManager(object, state);
+    const manager: PhysicalOnHitController = new PhysicalOnHitController(object, state);
 
     state.action = manager;
 

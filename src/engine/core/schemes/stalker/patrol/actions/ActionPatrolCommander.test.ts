@@ -8,7 +8,7 @@ import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/typ
 import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { parseWaypointsData } from "@/engine/core/ini";
 import { SoundManager } from "@/engine/core/managers/sounds";
-import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
+import { ISchemePatrolState, PatrolController } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolCommander } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolCommander";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -52,10 +52,10 @@ describe("ActionPatrolCommander", () => {
 
     state.pathWalk = "test-wp";
     state.pathLook = "test-wp-2";
-    state.patrolManager = new PatrolManager("test-name");
+    state.patrolController = new PatrolController("test-name");
 
     jest.spyOn(objectState.patrolController, "reset").mockImplementation(jest.fn());
-    jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "setCommanderState").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.activate();
@@ -73,7 +73,7 @@ describe("ActionPatrolCommander", () => {
       { context: action, callback: action.onProcessWaypoint }
     );
 
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledWith(object, action.currentState, state.formation);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledWith(object, action.currentState, state.formation);
   });
 
   it("should correctly finalize", () => {
@@ -86,10 +86,10 @@ describe("ActionPatrolCommander", () => {
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-name");
+    state.patrolController = new PatrolController("test-name");
 
     jest.spyOn(objectState.patrolController, "finalize").mockImplementation(jest.fn());
-    jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "setCommanderState").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
 
@@ -97,14 +97,14 @@ describe("ActionPatrolCommander", () => {
     action.finalize();
 
     expect(objectState.patrolController.finalize).toHaveBeenCalledTimes(0);
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(0);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledTimes(0);
 
     jest.spyOn(object, "alive").mockImplementation(() => true);
     action.finalize();
 
     expect(objectState.patrolController.finalize).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.GUARD, state.formation);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.GUARD, state.formation);
   });
 
   it("should correctly deactivate", () => {
@@ -117,15 +117,15 @@ describe("ActionPatrolCommander", () => {
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.deactivate(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle death event", () => {
@@ -138,15 +138,15 @@ describe("ActionPatrolCommander", () => {
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.onDeath(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle switch offline", () => {
@@ -159,15 +159,15 @@ describe("ActionPatrolCommander", () => {
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
     state.pathWalk = "test-wp";
-    state.patrolManager = new PatrolManager("test-wp-key");
+    state.patrolController = new PatrolController("test-wp-key");
 
-    jest.spyOn(state.patrolManager, "unregisterObject").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "unregisterObject").mockImplementation(jest.fn());
 
     action.setup(object, MockPropertyStorage.mock());
     action.onSwitchOffline(object);
 
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.unregisterObject).toHaveBeenCalledWith(object);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.unregisterObject).toHaveBeenCalledWith(object);
   });
 
   it("should correctly handle waypoints callback", () => {
@@ -200,11 +200,11 @@ describe("ActionPatrolCommander", () => {
     const state: ISchemePatrolState = mockSchemeState(EScheme.PATROL);
     const action: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
-    state.patrolManager = new PatrolManager("test-patrol");
+    state.patrolController = new PatrolController("test-patrol");
 
     jest.spyOn(objectState.patrolController, "update").mockImplementation(jest.fn());
     jest.spyOn(objectState.stateController, "getState").mockImplementation(jest.fn(() => EStalkerState.SNEAK));
-    jest.spyOn(state.patrolManager, "setCommanderState").mockImplementation(jest.fn());
+    jest.spyOn(state.patrolController, "setCommanderState").mockImplementation(jest.fn());
     jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null));
 
     expect(action.previousState).toBeNull();
@@ -214,8 +214,8 @@ describe("ActionPatrolCommander", () => {
 
     expect(action.previousState).toBe(EStalkerState.SNEAK);
     expect(objectState.patrolController.update).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledTimes(1);
-    expect(state.patrolManager.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.SNEAK, state.formation);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledTimes(1);
+    expect(state.patrolController.setCommanderState).toHaveBeenCalledWith(object, EStalkerState.SNEAK, state.formation);
     expect(soundManager.play).toHaveBeenCalledTimes(1);
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "patrol_sneak");
 

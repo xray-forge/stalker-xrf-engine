@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ini";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
-import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
+import { PhysicalDoorController } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorController";
 import { SchemePhysicalDoor } from "@/engine/core/schemes/physical/ph_door/SchemePhysicalDoor";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemePhysicalDoor", () => {
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe("SchemePhysicalDoor", () => {
     expect(object.unlock_door_for_npc).not.toHaveBeenCalled();
     expect(object.register_door_for_npc).toHaveBeenCalledTimes(1);
 
-    assertSchemeSubscribedToManager(state, PhysicalDoorManager);
+    assertSchemeSubscribedToController(state, PhysicalDoorController);
   });
 
   it("should correctly activate with data", () => {

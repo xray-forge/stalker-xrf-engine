@@ -5,7 +5,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
-import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
+import { HelicopterMoveController } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -57,6 +57,6 @@ export class SchemeHelicopterMove extends AbstractScheme {
     section: TSection,
     state: ISchemeHelicopterMoveState
   ): void {
-    AbstractScheme.subscribe(state, new HelicopterMoveManager(object, state));
+    AbstractScheme.subscribe(state, new HelicopterMoveController(object, state));
   }
 }

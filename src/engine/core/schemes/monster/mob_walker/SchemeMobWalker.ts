@@ -5,7 +5,7 @@ import { getMonsterState } from "@/engine/core/database";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base";
 import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
-import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
+import { MobWalkerController } from "@/engine/core/schemes/monster/mob_walker/MobWalkerController";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
 /**
@@ -50,6 +50,6 @@ export class SchemeMobWalker extends AbstractScheme {
     section: TSection,
     state: ISchemeMobWalkerState
   ): void {
-    AbstractScheme.subscribe(state, new MobWalkerManager(object, state));
+    AbstractScheme.subscribe(state, new MobWalkerController(object, state));
   }
 }

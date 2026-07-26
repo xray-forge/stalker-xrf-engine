@@ -5,11 +5,11 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
-import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
+import { HelicopterMoveController } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveController";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
-import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
+import { assertSchemeSubscribedToController, resetRegistry } from "@/fixtures/engine";
 
 describe("SchemeHelicopterMove", () => {
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe("SchemeHelicopterMove", () => {
       "heli_move@test"
     );
 
-    assertSchemeSubscribedToManager(schemeState, HelicopterMoveManager);
+    assertSchemeSubscribedToController(schemeState, HelicopterMoveController);
 
     expect(state.invulnerable).toBe(false);
     expect(state.immortal).toBe(false);

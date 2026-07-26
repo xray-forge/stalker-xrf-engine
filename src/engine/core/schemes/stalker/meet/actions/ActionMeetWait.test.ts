@@ -5,7 +5,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { registerObject } from "@/engine/core/database";
 import { ActionMeetWait } from "@/engine/core/schemes/stalker/meet/actions/ActionMeetWait";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -16,8 +16,8 @@ function createAction(): { action: ActionMeetWait; object: GameObject; state: IS
 
   registerObject(object);
 
-  state.meetManager = new MeetManager(object, state);
-  jest.spyOn(state.meetManager, "execute").mockImplementation(jest.fn());
+  state.meetController = new MeetController(object, state);
+  jest.spyOn(state.meetController, "execute").mockImplementation(jest.fn());
 
   action.setup(object, MockPropertyStorage.mock());
 
@@ -52,6 +52,6 @@ describe("ActionMeetWait", () => {
     action.initialize();
     action.execute();
 
-    expect(state.meetManager.execute).toHaveBeenCalledTimes(1);
+    expect(state.meetController.execute).toHaveBeenCalledTimes(1);
   });
 });

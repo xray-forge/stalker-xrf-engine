@@ -8,7 +8,7 @@ import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, registry } from "@/engine/core/database";
 import { EvaluatorContact } from "@/engine/core/schemes/stalker/meet/evaluators/EvaluatorContact";
 import { EMeetDistance, ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import { EScheme } from "@/engine/core/schemes/types";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -27,8 +27,8 @@ function mockEvaluator(hasEnemy: boolean = false): {
 
   registerObject(object);
 
-  state.meetManager = new MeetManager(object, state);
-  jest.spyOn(state.meetManager, "update").mockImplementation(jest.fn());
+  state.meetController = new MeetController(object, state);
+  jest.spyOn(state.meetController, "update").mockImplementation(jest.fn());
 
   planner.add_evaluator(EEvaluatorId.ENEMY, new MockPropertyEvaluatorConst(hasEnemy).asMock());
   evaluator.actionPlanner = planner.asMock();
@@ -51,7 +51,7 @@ describe("EvaluatorContact", () => {
     state.isMeetInitialized = false;
 
     expect(evaluator.evaluate()).toBe(false);
-    expect(state.meetManager.update).not.toHaveBeenCalled();
+    expect(state.meetController.update).not.toHaveBeenCalled();
   });
 
   it("should not be ready to contact without alive actor", () => {
@@ -60,24 +60,24 @@ describe("EvaluatorContact", () => {
     jest.spyOn(registry.actor, "alive").mockImplementation(() => false);
 
     expect(evaluator.evaluate()).toBe(false);
-    expect(state.meetManager.update).not.toHaveBeenCalled();
+    expect(state.meetController.update).not.toHaveBeenCalled();
   });
 
   it("should not be ready to contact when wounded", () => {
     const { evaluator, state } = mockEvaluator();
 
     replaceFunctionMock(isObjectWounded, () => true);
-    state.meetManager.currentDistanceToSpeaker = EMeetDistance.CLOSE;
+    state.meetController.currentDistanceToSpeaker = EMeetDistance.CLOSE;
 
     expect(evaluator.evaluate()).toBe(false);
-    expect(state.meetManager.update).toHaveBeenCalledTimes(1);
+    expect(state.meetController.update).toHaveBeenCalledTimes(1);
   });
 
   it("should not be ready to contact when has best enemy", () => {
     const { evaluator, object, state } = mockEvaluator();
 
     jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mock());
-    state.meetManager.currentDistanceToSpeaker = EMeetDistance.CLOSE;
+    state.meetController.currentDistanceToSpeaker = EMeetDistance.CLOSE;
 
     expect(evaluator.evaluate()).toBe(false);
   });
@@ -85,10 +85,10 @@ describe("EvaluatorContact", () => {
   it("should disable talk when enemy evaluator is active", () => {
     const { evaluator, object, state } = mockEvaluator(true);
 
-    state.meetManager.currentDistanceToSpeaker = EMeetDistance.CLOSE;
+    state.meetController.currentDistanceToSpeaker = EMeetDistance.CLOSE;
 
     expect(evaluator.evaluate()).toBe(false);
-    expect(state.meetManager.use).toBe(FALSE);
+    expect(state.meetController.use).toBe(FALSE);
     expect(object.disable_talk).toHaveBeenCalledTimes(1);
   });
 
@@ -97,10 +97,10 @@ describe("EvaluatorContact", () => {
 
     expect(evaluator.evaluate()).toBe(false);
 
-    state.meetManager.currentDistanceToSpeaker = EMeetDistance.FAR;
+    state.meetController.currentDistanceToSpeaker = EMeetDistance.FAR;
     expect(evaluator.evaluate()).toBe(true);
 
-    state.meetManager.currentDistanceToSpeaker = EMeetDistance.CLOSE;
+    state.meetController.currentDistanceToSpeaker = EMeetDistance.CLOSE;
     expect(evaluator.evaluate()).toBe(true);
   });
 

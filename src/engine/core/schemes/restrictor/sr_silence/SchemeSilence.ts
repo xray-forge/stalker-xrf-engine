@@ -4,7 +4,7 @@ import { TSection } from "xray16/lib";
 import { registry } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { AbstractScheme } from "@/engine/core/schemes/base/AbstractScheme";
-import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
+import { SilenceController } from "@/engine/core/schemes/restrictor/sr_silence/SilenceController";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { EScheme, ESchemeType } from "@/engine/core/schemes/types";
 
@@ -40,6 +40,6 @@ export class SchemeSilence extends AbstractScheme {
     section: TSection,
     state: ISchemeSilenceState
   ): void {
-    AbstractScheme.subscribe(state, new SilenceManager(object, state));
+    AbstractScheme.subscribe(state, new SilenceController(object, state));
   }
 }

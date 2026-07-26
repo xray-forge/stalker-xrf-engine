@@ -9,7 +9,7 @@ import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateContr
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import {
@@ -61,20 +61,20 @@ describe("isObjectWounded", () => {
     expect(isObjectWounded(object.id())).toBe(false);
 
     const schemeState: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED, {});
-    const woundManager: WoundManager = new WoundManager(object, schemeState);
+    const woundController: WoundController = new WoundController(object, schemeState);
 
-    schemeState.woundManager = woundManager;
+    schemeState.woundController = woundController;
     setSchemeState(state, EScheme.WOUNDED, schemeState);
 
     expect(isObjectWounded(object.id())).toBe(false);
 
-    woundManager.woundState = "test";
+    woundController.woundState = "test";
     expect(isObjectWounded(object.id())).toBe(true);
 
-    woundManager.woundState = "another";
+    woundController.woundState = "another";
     expect(isObjectWounded(object.id())).toBe(true);
 
-    woundManager.woundState = "nil";
+    woundController.woundState = "nil";
     expect(isObjectWounded(object.id())).toBe(false);
   });
 });

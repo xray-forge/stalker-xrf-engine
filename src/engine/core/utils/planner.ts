@@ -30,7 +30,7 @@ export function isObjectWounded(objectId: TNumberId): boolean {
     return false;
   }
 
-  return tostring(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundManager.woundState) !== NIL;
+  return tostring(getSchemeStateOptimistic(state, EScheme.WOUNDED).woundController.woundState) !== NIL;
 }
 
 /**

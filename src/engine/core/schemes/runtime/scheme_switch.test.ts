@@ -11,7 +11,7 @@ import { addConditionToList, parseConditionsList } from "@/engine/core/ini";
 import { SchemeIdle } from "@/engine/core/schemes/restrictor/sr_idle";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer";
-import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
+import { TimerController } from "@/engine/core/schemes/restrictor/sr_timer/TimerController";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime/scheme_setup";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import {
@@ -760,7 +760,7 @@ describe("switchObjectSchemeToSection", () => {
     expect(switchObjectSchemeToSection(object, ini, null)).toBe(false);
     expect(handler.deactivate).not.toHaveBeenCalled();
 
-    jest.spyOn(TimerManager.prototype, "activate").mockImplementation(jest.fn);
+    jest.spyOn(TimerController.prototype, "activate").mockImplementation(jest.fn);
 
     expect(switchObjectSchemeToSection(object, ini, "sr_timer@next")).toBe(true);
     expect(handler.deactivate).toHaveBeenCalledTimes(1);

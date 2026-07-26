@@ -17,7 +17,7 @@ export interface ISchemePostCombatIdleState extends IBaseSchemeState {
 /**
  * Partial animation manager interface for post combat action handling.
  */
-export interface IPartialAnimationManager {
+export interface IPartialAnimationController {
   animstate: {
     state: {
       animationMarker: null;

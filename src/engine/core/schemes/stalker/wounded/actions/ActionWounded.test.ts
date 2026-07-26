@@ -24,7 +24,7 @@ import {
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
-import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -113,7 +113,7 @@ describe("ActionWounded", () => {
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
-      woundManager: { useMedkit: jest.fn() } as unknown as WoundManager,
+      woundController: { useMedkit: jest.fn() } as unknown as WoundController,
     });
 
     const soundManager: SoundManager = getManager(SoundManager);
@@ -137,7 +137,7 @@ describe("ActionWounded", () => {
     expect(object.hit).not.toHaveBeenCalled();
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_snd");
     expect(action.nextSoundPlayAt).toBe(6000);
-    expect(schemeState.woundManager.useMedkit).toHaveBeenCalled();
+    expect(schemeState.woundController.useMedkit).toHaveBeenCalled();
     expect(state.stateController.setState).toHaveBeenCalled();
   });
 
@@ -145,7 +145,7 @@ describe("ActionWounded", () => {
     const object: GameObject = MockGameObject.mock();
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
-      woundManager: { unlockMedkit: jest.fn() } as unknown as WoundManager,
+      woundController: { unlockMedkit: jest.fn() } as unknown as WoundController,
     });
 
     registerObject(object);
@@ -164,13 +164,13 @@ describe("ActionWounded", () => {
 
     expect(registry.simulator.create).not.toHaveBeenCalled();
     expect(getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED)).toBe(1000);
-    expect(schemeState.woundManager.unlockMedkit).not.toHaveBeenCalled();
+    expect(schemeState.woundController.unlockMedkit).not.toHaveBeenCalled();
 
     replaceFunctionMockOnce(time_global, () => 100_000);
     action.execute();
 
     expect(registry.simulator.create).toHaveBeenCalled();
     expect(getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED)).toBe(1000);
-    expect(schemeState.woundManager.unlockMedkit).toHaveBeenCalled();
+    expect(schemeState.woundController.unlockMedkit).toHaveBeenCalled();
   });
 });

@@ -11,7 +11,7 @@ import { readIniStringList } from "@/engine/core/ini";
 import { getStoryPlayback, SoundManager, soundsConfig, StoryPlaybackController } from "@/engine/core/managers/sounds";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
+import { MeetController } from "@/engine/core/schemes/stalker/meet/MeetController";
 import {
   getActiveSchemeState,
   getActiveSchemeStateOptimistic,
@@ -139,13 +139,13 @@ export class CampController {
           emitSchemeEvent(getActiveSchemeStateOptimistic(state), ESchemeEvent.UPDATE);
         }
 
-        const meetManager: Nillable<MeetManager> = $isNotNil(state)
-          ? getSchemeState(state, EScheme.MEET)?.meetManager
+        const meetController: Nillable<MeetController> = $isNotNil(state)
+          ? getSchemeState(state, EScheme.MEET)?.meetController
           : null;
 
         // Mark as director to prevent object from speaking with actor.
-        if (meetManager) {
-          meetManager.isCampStoryDirector = this.directorId === id;
+        if (meetController) {
+          meetController.isCampStoryDirector = this.directorId === id;
         }
       }
     }

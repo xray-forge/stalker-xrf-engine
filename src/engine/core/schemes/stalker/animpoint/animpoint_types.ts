@@ -2,7 +2,7 @@ import { GameObject } from "xray16/alias";
 import { LuaArray, Nillable, TDistance, TName } from "xray16/lib";
 
 import { EStalkerState } from "@/engine/core/animation/types";
-import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
+import { AnimpointController } from "@/engine/core/schemes/stalker/animpoint/AnimpointController";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 
@@ -10,7 +10,7 @@ import { EScheme } from "@/engine/core/schemes/types";
  * State of animpoint scheme.
  */
 export interface ISchemeAnimpointState extends IBaseSchemeState {
-  animpointManager: AnimpointManager;
+  animpointController: AnimpointController;
   actionNameBase: Nillable<TName>;
   coverName: TName;
   useCamp: boolean;
