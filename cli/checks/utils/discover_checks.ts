@@ -24,11 +24,20 @@ export const FLOW_LAUNCHER_PREFIX: string = "flow_";
 export const LAUNCHER_PREFIXES: Array<string> = [CHECK_LAUNCHER_PREFIX, FLOW_LAUNCHER_PREFIX];
 
 /**
+ * Identity of the generated launcher that sweeps every check, and the module implementing the sweep.
+ */
+export const SUITE_IDENTITY: string = "all";
+export const SUITE_MODULE: string = "checks.framework.suite";
+export const SUITE_EMITTED: string = "framework/suite.script";
+
+/**
  * Descriptor of a single discovered check or flow.
  */
 export interface ICheckDescriptor {
   /** Which lifecycle this artifact uses. */
   kind: "check" | "flow";
+  /** Flat name the artifact reports itself under, e.g. `quests_zat_b29`. */
+  identity: string;
   /** Source file, absolute. */
   source: string;
   /** Path relative to the checks root, posix separators, e.g. `quests/zat_b29.check.ts`. */
@@ -100,6 +109,7 @@ export function discoverChecks(): Array<ICheckDescriptor> {
 
       return {
         kind: isFlow ? ("flow" as const) : ("check" as const),
+        identity,
         source,
         relative,
         emitted: `${emitted}.script`,

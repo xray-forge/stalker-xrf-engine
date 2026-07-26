@@ -37,6 +37,7 @@ Both kinds are triggered from the game console:
 
 ```
 run_script check_quests_zat_b29
+run_script check_all
 run_script flow_quests_zat_b29
 run_script flow_quests_zat_b29_reset
 ```
@@ -50,6 +51,10 @@ Notes:
   at the main menu. Flows additionally need the actor registered, since the cursor lives on it.
 - `run_script` supports tab completion, so `run_script check_` and `run_script flow_` list what is
   available.
+- `check_all` sweeps every check in sequence, isolating each so one abort does not stop the rest, and
+  writes a combined `all.txt` with a row per check. Flows are excluded: they advance a cursor kept in
+  the save, and a sweep must not move state nobody asked to move. Checks that cannot run on the
+  loaded level report as skipped rather than failing.
 - Execution is deferred by a frame. `run_script X` queues the script, and the level script process
   loads it on its next update, so output appears a frame after the command rather than during it.
 - Rebuilding does not need a game restart. Launchers clear `package.loaded` for their module, and
