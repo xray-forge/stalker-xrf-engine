@@ -25,7 +25,7 @@ import {
 } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { getServerObjectByStoryId, registry } from "@/engine/core/database";
+import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { resetTable } from "@/engine/core/utils/table";
 
@@ -272,6 +272,44 @@ export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName:
       registry.noWeaponZones.set(id, true);
     }
   }
+}
+
+/**
+ * Teleport actor onto navigable ground in front of whoever carries a story id, facing them.
+ *
+ * Aborts on an unregistered id, or on a target outside the loaded level, where level vertices of the
+ * target mean nothing.
+ *
+ * @param storyId - Story id of the object to arrive in front of.
+ * @param distance - How far in front of the target to stop, in metres.
+ */
+export function teleportActorInFrontOfStoryObject(storyId: TStringId, distance: TDistance = 5): void {
+  const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
+
+  assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
+  assert(
+    isObjectOnLevel(serverObject, level.name()),
+    "Cannot teleport to '%s', it is not on the loaded level.",
+    storyId
+  );
+
+  const target: Nillable<GameObject> = getObjectByStoryId(storyId);
+  const targetPosition: Vector = $isNotNil(target) ? target.position() : serverObject!.position;
+  const targetVertexId: TNumberId = $isNotNil(target) ? target.level_vertex_id() : serverObject!.m_level_vertex_id;
+
+  // Facing is only readable from an online object. Offline, step towards where the actor already
+  // stands, which lands it on the side the actor would have walked in from.
+  const offsetDirection: Vector = $isNotNil(target)
+    ? target.direction()
+    : registry.actor.position().sub(targetPosition);
+
+  const arrivalVertexId: TNumberId = level.vertex_in_direction(targetVertexId, offsetDirection, distance);
+  const arrival: Vector = level.vertex_position(
+    arrivalVertexId >= MAX_LEVEL_VERTEX_ID ? targetVertexId : arrivalVertexId
+  );
+
+  registry.actor.set_actor_position(arrival);
+  registry.actor.set_actor_direction(-targetPosition.sub(arrival).getH());
 }
 
 /**

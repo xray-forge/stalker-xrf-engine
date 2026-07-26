@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game_graph, patrol } from "xray16";
+import { game_graph, level, patrol } from "xray16";
 import {
   ESoundObjectType,
   GameObject,
@@ -8,7 +8,7 @@ import {
   ServerSmartZoneObject,
   Vector,
 } from "xray16/alias";
-import { MAX_U32, ZERO_VECTOR } from "xray16/lib";
+import { MAX_LEVEL_VERTEX_ID, MAX_U32, ZERO_VECTOR } from "xray16/lib";
 import {
   MockAlifeHumanStalker,
   MockAlifeObject,
@@ -17,6 +17,7 @@ import {
   MockSoundObject,
   MockVector,
 } from "xray16/mocks";
+import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { registerObject, registerSimulator, registerStoryLink, registerZone, registry } from "@/engine/core/database";
 import {
@@ -32,6 +33,7 @@ import {
   isObjectOnLevel,
   resetPositionCache,
   sendToNearestAccessibleVertex,
+  teleportActorInFrontOfStoryObject,
   teleportActorToPatrol,
   teleportActorToStoryObject,
   teleportActorWithEffects,
@@ -252,6 +254,79 @@ describe("teleportActorToPatrol", () => {
     teleportActorToPatrol("test-wp");
 
     expect(registry.noWeaponZones.get(noWeaponZone.id())).toBe(false);
+  });
+});
+
+describe("teleportActorInFrontOfStoryObject", () => {
+  beforeEach(() => {
+    resetFunctionMock(level.vertex_in_direction);
+    resetFunctionMock(level.vertex_position);
+  });
+
+  it("should arrive at a vertex stepped away from the target and face it", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+    const arrival: Vector = MockVector.mock(10, 0, 10);
+
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_in_direction, () => 500);
+    replaceFunctionMock(level.vertex_position, () => arrival);
+
+    teleportActorInFrontOfStoryObject("test-sid");
+
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(target.m_level_vertex_id, expect.anything(), 5);
+    expect(level.vertex_position).toHaveBeenCalledWith(500);
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(arrival);
+    expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(-target.position.sub(arrival).getH());
+  });
+
+  it("should respect a supplied distance", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_in_direction, () => 500);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    teleportActorInFrontOfStoryObject("test-sid", 12);
+
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(target.m_level_vertex_id, expect.anything(), 12);
+  });
+
+  it("should fall back to the target vertex when no vertex is reachable in that direction", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_in_direction, () => MAX_LEVEL_VERTEX_ID);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    teleportActorInFrontOfStoryObject("test-sid");
+
+    expect(level.vertex_position).toHaveBeenCalledWith(target.m_level_vertex_id);
+  });
+
+  it("should abort for an unregistered story id", () => {
+    mockRegisteredActor();
+
+    expect(() => teleportActorInFrontOfStoryObject("not-existing-sid")).toThrow(
+      "Cannot teleport, no object with story id 'not-existing-sid' is registered."
+    );
+  });
+
+  it("should abort for a target outside the loaded level", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+
+    registerStoryLink(target.id, "test-sid");
+    jest.spyOn(game_graph().vertex(target.m_game_vertex_id), "level_id").mockImplementation(() => 5_555);
+
+    expect(() => teleportActorInFrontOfStoryObject("test-sid")).toThrow(
+      "Cannot teleport to 'test-sid', it is not on the loaded level."
+    );
   });
 });
 
