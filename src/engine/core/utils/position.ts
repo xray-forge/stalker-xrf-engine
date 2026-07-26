@@ -281,10 +281,41 @@ export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName:
  * @param position - World position to arrive next to.
  */
 export function teleportActorNearPosition(position: Vector): void {
-  const [, arrival] = registry.actor.accessible_nearest(position, ZERO_VECTOR);
+  const vertexId: TNumberId = level.vertex_id(position);
+
+  assert(vertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport, no level vertex near the requested position.");
+
+  const arrival: Vector = level.vertex_position(vertexId);
 
   registry.actor.set_actor_position(arrival);
   registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
+}
+
+/**
+ * Step away from a level vertex along a direction, shrinking the distance until the graph allows it.
+ *
+ * `vertex_in_direction` returns the vertex it started from when it cannot travel that far, which
+ * indoors is the common case: asking for 15 metres inside a ship hull yields no movement at all.
+ *
+ * @param vertexId - Vertex to step away from.
+ * @param direction - Direction to step in.
+ * @param distance - Preferred distance, in metres.
+ * @returns Vertex stepped to, or the original one when even the smallest step does not fit.
+ */
+function stepAwayFromVertex(vertexId: TNumberId, direction: Vector, distance: TDistance): TNumberId {
+  let attempt: TDistance = distance;
+
+  while (attempt >= 1) {
+    const candidate: TNumberId = level.vertex_in_direction(vertexId, direction, attempt);
+
+    if (candidate < MAX_LEVEL_VERTEX_ID && candidate !== vertexId) {
+      return candidate;
+    }
+
+    attempt = attempt / 2;
+  }
+
+  return vertexId;
 }
 
 /**
@@ -313,7 +344,12 @@ export function teleportActorToStoryObject(
 
   const target: Nillable<GameObject> = getObjectByStoryId(storyId);
   const targetPosition: Vector = $isNotNil(target) ? target.position() : serverObject!.position;
-  const targetVertexId: TNumberId = $isNotNil(target) ? target.level_vertex_id() : serverObject!.m_level_vertex_id;
+
+  // Offline, derive the vertex from the position rather than trusting `m_level_vertex_id`, which for
+  // an object that has never been online can be stale or unset.
+  const targetVertexId: TNumberId = $isNotNil(target) ? target.level_vertex_id() : level.vertex_id(targetPosition);
+
+  assert(targetVertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport to '%s', it has no level vertex.", storyId);
 
   let offsetDirection: Nillable<Vector> = direction;
 
@@ -323,10 +359,7 @@ export function teleportActorToStoryObject(
       : copyVector(registry.actor.position()).sub(targetPosition);
   }
 
-  const arrivalVertexId: TNumberId = level.vertex_in_direction(targetVertexId, offsetDirection, distance);
-  const arrival: Vector = level.vertex_position(
-    arrivalVertexId >= MAX_LEVEL_VERTEX_ID ? targetVertexId : arrivalVertexId
-  );
+  const arrival: Vector = level.vertex_position(stepAwayFromVertex(targetVertexId, offsetDirection, distance));
 
   registry.actor.set_actor_position(arrival);
   registry.actor.set_actor_direction(-copyVector(targetPosition).sub(arrival).getH());

@@ -258,28 +258,51 @@ describe("teleportActorToPatrol", () => {
 });
 
 describe("teleportActorNearPosition", () => {
-  it("should arrive at the nearest accessible spot and face the position", () => {
+  beforeEach(() => {
+    resetFunctionMock(level.vertex_id);
+    resetFunctionMock(level.vertex_position);
+  });
+
+  it("should arrive at the level vertex nearest the position and face it", () => {
     const { actorGameObject } = mockRegisteredActor();
     const target: Vector = MockVector.mock(10, 0, 10);
     const arrival: Vector = MockVector.mock(6, 0, 8);
 
-    jest.spyOn(actorGameObject, "accessible_nearest").mockImplementation(() => $multi(42, arrival));
+    replaceFunctionMock(level.vertex_id, () => 42);
+    replaceFunctionMock(level.vertex_position, () => arrival);
 
     teleportActorNearPosition(target);
 
-    expect(actorGameObject.accessible_nearest).toHaveBeenCalledWith(target, ZERO_VECTOR);
+    // Never `accessible_nearest`: it casts to CCustomMonster, which the actor is not.
+    expect(actorGameObject.accessible_nearest).not.toHaveBeenCalled();
+    expect(level.vertex_id).toHaveBeenCalledWith(target);
+    expect(level.vertex_position).toHaveBeenCalledWith(42);
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(arrival);
     expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(-MockVector.mock(4, 0, 2).getH());
 
     // The supplied position must survive: `sub` mutates whatever it is called on.
     expect(target).toEqual(MockVector.mock(10, 0, 10));
   });
+
+  it("should abort when no level vertex is near the position", () => {
+    mockRegisteredActor();
+
+    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
+
+    expect(() => teleportActorNearPosition(MockVector.mock(1, 0, 1))).toThrow(
+      "Cannot teleport, no level vertex near the requested position."
+    );
+  });
 });
 
 describe("teleportActorToStoryObject", () => {
   beforeEach(() => {
+    resetFunctionMock(level.vertex_id);
     resetFunctionMock(level.vertex_in_direction);
     resetFunctionMock(level.vertex_position);
+
+    // Offline targets derive their start vertex from their position, so every case needs a valid one.
+    replaceFunctionMock(level.vertex_id, () => 300);
   });
 
   it("should arrive at a vertex stepped away from the target and face it", () => {
@@ -293,10 +316,50 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid");
 
-    expect(level.vertex_in_direction).toHaveBeenCalledWith(target.m_level_vertex_id, expect.anything(), 5);
+    // Offline, the start vertex is derived from the position rather than read off the server object.
+    expect(level.vertex_id).toHaveBeenCalledWith(target.position);
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, expect.anything(), 5);
     expect(level.vertex_position).toHaveBeenCalledWith(500);
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(arrival);
     expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(-target.position.sub(arrival).getH());
+  });
+
+  it("should shrink the step until the graph allows it", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+    const attempts: Array<number> = [];
+
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    // Indoors the engine refuses to travel far and hands back the vertex it started from.
+    replaceFunctionMock(level.vertex_in_direction, (vertexId: number, _: Vector, distance: number) => {
+      attempts.push(distance);
+
+      return distance > 4 ? vertexId : 900;
+    });
+
+    teleportActorToStoryObject("test-sid", null, 16);
+
+    expect(attempts).toEqual([16, 8, 4]);
+    expect(level.vertex_position).toHaveBeenCalledWith(900);
+  });
+
+  it("should settle for the target vertex when even the smallest step does not fit", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+    replaceFunctionMock(level.vertex_in_direction, (vertexId: number) => vertexId);
+
+    teleportActorToStoryObject("test-sid", null, 8);
+
+    expect(level.vertex_position).toHaveBeenCalledWith(300);
   });
 
   it("should default to the target's own facing when it is online", () => {
@@ -331,7 +394,7 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid");
 
-    expect(level.vertex_in_direction).toHaveBeenCalledWith(target.m_level_vertex_id, MockVector.mock(-6, 0, -4), 5);
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, MockVector.mock(-6, 0, -4), 5);
   });
 
   it("should not mutate the target position while turning the actor to face it", () => {
@@ -382,7 +445,7 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid", null, 12);
 
-    expect(level.vertex_in_direction).toHaveBeenCalledWith(target.m_level_vertex_id, expect.anything(), 12);
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, expect.anything(), 12);
   });
 
   it("should fall back to the target vertex when no vertex is reachable in that direction", () => {
@@ -396,7 +459,7 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid");
 
-    expect(level.vertex_position).toHaveBeenCalledWith(target.m_level_vertex_id);
+    expect(level.vertex_position).toHaveBeenCalledWith(300);
   });
 
   it("should abort for an unregistered story id", () => {
