@@ -10,7 +10,7 @@ describe("saveTextToFile", () => {
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 
-    saveTextToFile("base", "example.scopx", "abcdefg");
+    expect(saveTextToFile("base", "example.scopx", "abcdefg")).toBe("base\\example.scopx");
 
     expect(lfs.mkdir).toHaveBeenCalledWith("base");
     expect(io.open).toHaveBeenCalledWith("base\\example.scopx", "wb");
@@ -20,7 +20,9 @@ describe("saveTextToFile", () => {
     expect(file.content).toBe("abcdefg");
 
     file.isOpen = false;
-    saveTextToFile("base\\", "example2.scopx", "aab");
+
+    // A dir that already ends with a separator must not gain a second one.
+    expect(saveTextToFile("base\\", "example2.scopx", "aab")).toBe("base\\example2.scopx");
 
     expect(lfs.mkdir).toHaveBeenCalledWith("base\\");
     expect(io.open).toHaveBeenCalledWith("base\\example2.scopx", "wb");

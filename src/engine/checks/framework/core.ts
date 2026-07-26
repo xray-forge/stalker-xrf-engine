@@ -258,9 +258,9 @@ export function persistOutcome(result: ICheckResult, extra: Nillable<LuaArray<st
 
   const [isCompleted, caught] = pcall(() => {
     const folder: TPath = getFS().update_path(roots.appDataRoot, RESULTS_DIR);
+    const path: TPath = saveTextToFile(folder, `${result.name}.txt`, table.concat(lines, "\n"));
 
-    saveTextToFile(folder, `${result.name}.txt`, table.concat(lines, "\n"));
-    report("%s: result -> %s%s.txt", result.name, folder, result.name);
+    report("%s: result -> %s", result.name, path);
   });
 
   if (!isCompleted) {

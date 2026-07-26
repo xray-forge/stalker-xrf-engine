@@ -10,6 +10,7 @@ import {
 } from "xray16/alias";
 import {
   assert,
+  copyVector,
   graphDistance,
   isObjectInZone,
   MAX_ALIFE_ID,
@@ -275,15 +276,32 @@ export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName:
 }
 
 /**
+ * Teleport actor to navigable ground nearest a position, facing it.
+ *
+ * @param position - World position to arrive next to.
+ */
+export function teleportActorNearPosition(position: Vector): void {
+  const [, arrival] = registry.actor.accessible_nearest(position, ZERO_VECTOR);
+
+  registry.actor.set_actor_position(arrival);
+  registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
+}
+
+/**
  * Teleport actor onto navigable ground in front of whoever carries a story id, facing them.
  *
  * Aborts on an unregistered id, or on a target outside the loaded level, where level vertices of the
  * target mean nothing.
  *
  * @param storyId - Story id of the object to arrive in front of.
+ * @param direction - Direction to step away from the target in. Defaults to the target's own facing.
  * @param distance - How far in front of the target to stop, in metres.
  */
-export function teleportActorInFrontOfStoryObject(storyId: TStringId, distance: TDistance = 5): void {
+export function teleportActorToStoryObject(
+  storyId: TStringId,
+  direction: Nillable<Vector> = null,
+  distance: TDistance = 5
+): void {
   const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
 
   assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
@@ -297,11 +315,13 @@ export function teleportActorInFrontOfStoryObject(storyId: TStringId, distance: 
   const targetPosition: Vector = $isNotNil(target) ? target.position() : serverObject!.position;
   const targetVertexId: TNumberId = $isNotNil(target) ? target.level_vertex_id() : serverObject!.m_level_vertex_id;
 
-  // Facing is only readable from an online object. Offline, step towards where the actor already
-  // stands, which lands it on the side the actor would have walked in from.
-  const offsetDirection: Vector = $isNotNil(target)
-    ? target.direction()
-    : registry.actor.position().sub(targetPosition);
+  let offsetDirection: Nillable<Vector> = direction;
+
+  if ($isNil(offsetDirection)) {
+    offsetDirection = $isNotNil(target)
+      ? target.direction()
+      : copyVector(registry.actor.position()).sub(targetPosition);
+  }
 
   const arrivalVertexId: TNumberId = level.vertex_in_direction(targetVertexId, offsetDirection, distance);
   const arrival: Vector = level.vertex_position(
@@ -309,22 +329,7 @@ export function teleportActorInFrontOfStoryObject(storyId: TStringId, distance: 
   );
 
   registry.actor.set_actor_position(arrival);
-  registry.actor.set_actor_direction(-targetPosition.sub(arrival).getH());
-}
-
-/**
- * Teleport actor to whoever or whatever carries a story id. Aborts on an unregistered id.
- *
- * Resolves the server object, so it works whether or not the target is currently online.
- *
- * @param storyId - Story id of the object to arrive at.
- */
-export function teleportActorToStoryObject(storyId: TStringId): void {
-  const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
-
-  assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
-
-  registry.actor.set_actor_position(serverObject!.position);
+  registry.actor.set_actor_direction(-copyVector(targetPosition).sub(arrival).getH());
 }
 
 /**

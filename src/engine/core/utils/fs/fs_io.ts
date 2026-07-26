@@ -11,8 +11,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param dir - Target dir to save file, make sure it exists before writing to the file.
  * @param filename - Target file to save data.
  * @param data - Target data to save.
+ * @returns Full path written to, so callers can report it without re-joining it themselves.
  */
-export function saveTextToFile(dir: TPath, filename: TPath, data: string): void {
+export function saveTextToFile(dir: TPath, filename: TPath, data: string): TPath {
   // Make sure target directory exists.
   lfs.mkdir(dir);
 
@@ -22,13 +23,17 @@ export function saveTextToFile(dir: TPath, filename: TPath, data: string): void 
   const [file] = io.open(path, "wb");
 
   if (!file || io.type(file) !== "file") {
-    return logger.info("Cannot write to save path: '%s'", path);
-  } else {
-    logger.info("Saving text data: '%s'", path);
+    logger.info("Cannot write to save path: '%s'", path);
+
+    return path;
   }
+
+  logger.info("Saving text data: '%s'", path);
 
   file.write(data);
   file.close();
+
+  return path;
 }
 
 /**
@@ -37,13 +42,16 @@ export function saveTextToFile(dir: TPath, filename: TPath, data: string): void 
  * @param dir - Target dir to save file, make sure it exists before writing to the file.
  * @param filename - Target file to save data.
  * @param data - Target table data to save.
+ * @returns Full path written to, or null when `marshal` is unavailable and nothing was written.
  */
-export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): void {
+export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): Nillable<TPath> {
   if ($isNil(marshal)) {
-    return logger.info("Cannot save object to file,`marshal` lib is not available: '%s'", filename);
-  } else {
-    logger.info("Saving object data: '%s' - '%s'", dir, filename);
+    logger.info("Cannot save object to file,`marshal` lib is not available: '%s'", filename);
+
+    return null;
   }
+
+  logger.info("Saving object data: '%s' - '%s'", dir, filename);
 
   return saveTextToFile(dir, filename, marshal.encode(data));
 }
