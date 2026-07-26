@@ -276,19 +276,34 @@ export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName:
 }
 
 /**
- * Teleport actor to navigable ground nearest a position, facing it.
+ * Teleport actor next to a position, on navigable ground where there is any.
  *
  * @param position - World position to arrive next to.
+ * @returns Whether the arrival point came from the AI graph rather than being the position itself.
  */
-export function teleportActorNearPosition(position: Vector): void {
+export function teleportActorNearPosition(position: Vector): boolean {
   const vertexId: TNumberId = level.vertex_id(position);
 
-  assert(vertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport, no level vertex near the requested position.");
+  let arrival: Vector = position;
+  let isOnGraph: boolean = false;
 
-  const arrival: Vector = level.vertex_position(vertexId);
+  if (vertexId < MAX_LEVEL_VERTEX_ID) {
+    const candidate: Vector = level.vertex_position(vertexId);
+
+    if (candidate.distance_to_sqr(position) <= 100) {
+      arrival = candidate;
+      isOnGraph = true;
+    }
+  }
 
   registry.actor.set_actor_position(arrival);
-  registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
+
+  // Arriving on the position itself leaves nothing to face, and `getH` of a zero vector is noise.
+  if (isOnGraph) {
+    registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
+  }
+
+  return isOnGraph;
 }
 
 /**

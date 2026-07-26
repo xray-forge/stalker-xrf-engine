@@ -263,15 +263,16 @@ describe("teleportActorNearPosition", () => {
     resetFunctionMock(level.vertex_position);
   });
 
-  it("should arrive at the level vertex nearest the position and face it", () => {
+  it("should arrive at the resolved vertex and face the position when it is close", () => {
     const { actorGameObject } = mockRegisteredActor();
     const target: Vector = MockVector.mock(10, 0, 10);
     const arrival: Vector = MockVector.mock(6, 0, 8);
 
+    MockVector.DEFAULT_DISTANCE = 4;
     replaceFunctionMock(level.vertex_id, () => 42);
     replaceFunctionMock(level.vertex_position, () => arrival);
 
-    teleportActorNearPosition(target);
+    expect(teleportActorNearPosition(target)).toBe(true);
 
     // Never `accessible_nearest`: it casts to CCustomMonster, which the actor is not.
     expect(actorGameObject.accessible_nearest).not.toHaveBeenCalled();
@@ -284,14 +285,31 @@ describe("teleportActorNearPosition", () => {
     expect(target).toEqual(MockVector.mock(10, 0, 10));
   });
 
-  it("should abort when no level vertex is near the position", () => {
-    mockRegisteredActor();
+  it("should use the position itself when the resolved vertex is far away", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(10, 0, 10);
+
+    // What an off graph position produces: a valid looking id pointing somewhere unrelated.
+    MockVector.DEFAULT_DISTANCE = 400;
+    replaceFunctionMock(level.vertex_id, () => 42);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(900, 0, 900));
+
+    expect(teleportActorNearPosition(target)).toBe(false);
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target);
+    expect(actorGameObject.set_actor_direction).not.toHaveBeenCalled();
+  });
+
+  it("should use the position itself when no vertex resolves at all", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(1, 0, 1);
 
     replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
 
-    expect(() => teleportActorNearPosition(MockVector.mock(1, 0, 1))).toThrow(
-      "Cannot teleport, no level vertex near the requested position."
-    );
+    expect(teleportActorNearPosition(target)).toBe(false);
+
+    expect(level.vertex_position).not.toHaveBeenCalled();
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target);
   });
 });
 
