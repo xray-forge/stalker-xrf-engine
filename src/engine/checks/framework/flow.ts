@@ -8,6 +8,7 @@ import {
   evaluateRequirements,
   ICheckRequirements,
   ICheckResult,
+  notify,
   persistOutcome,
   report,
   reportOutcome,
@@ -176,6 +177,14 @@ function armStep(context: CheckContext, definition: IFlowDefinition, name: TName
     report("%s: next -> %s", name, step.handOff);
   }
 
+  // One tip per invocation rather than one per line: the queue would otherwise show the step label
+  // and its hand off as two hints competing for the same corner of the screen.
+  notify(
+    $isNotNil(step.handOff)
+      ? `${position}/${definition.steps.length} ${step.name} - next: ${step.handOff}`
+      : `${position}/${definition.steps.length} ${step.name}`
+  );
+
   return true;
 }
 
@@ -202,6 +211,7 @@ function advance(context: CheckContext, definition: IFlowDefinition, name: TName
   // Past the last step: the flow is done and stays done until it is reset.
   if (cursor > total) {
     report("%s: already complete, reset with 'run_script flow_%s_reset' to walk it again", name, name);
+    notify(`${name} is already complete - reset it to walk again`);
 
     return "COMPLETE";
   }
@@ -218,6 +228,7 @@ function advance(context: CheckContext, definition: IFlowDefinition, name: TName
   if (cursor === total) {
     writeCursor(name, total + 1);
     report("%s: last step reached, flow complete", name);
+    notify(`${name} complete: ${total}/${total} steps walked`);
 
     return "COMPLETE";
   }
@@ -268,6 +279,14 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
   reportOutcome(result, outcome, time_global() - startedAt);
   persistOutcome(result, extra);
 
+  // A run that could not proceed, or one that found something, must not be discoverable only by
+  // opening the console: the operator is looking at the game, not at the log.
+  if ($isNotNil(skipReason)) {
+    notify(`${name} skipped: ${skipReason}`);
+  } else if (outcome === "FAIL") {
+    notify(`${name} FAILED: ${result.failures.length()} problem(s), see the console`);
+  }
+
   return result;
 }
 
@@ -291,4 +310,5 @@ export function resetFlow(dirname: TName, filename: TName): void {
 
   writeCursor(name, 0);
   report("%s: flow reset, next run arms step 1", name);
+  notify(`${name} reset - next run arms step 1`);
 }

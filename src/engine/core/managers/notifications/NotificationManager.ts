@@ -14,7 +14,6 @@ import {
   TPath,
   TSection,
   TStringId,
-  TTimestamp,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
@@ -240,7 +239,7 @@ export class NotificationManager extends AbstractManager {
     caption: TLabel,
     sender: Nillable<TNotificationIcon | TNotificationIconKey | GameObject> = null,
     delay: Nillable<TDuration> = 0,
-    showtime: Nillable<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
+    showtime: Nillable<TDuration> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Nillable<TStringId> = null
   ): void {
     logger.info("Show tip notification: %s %s %s %s", caption, delay, showtime, senderId);

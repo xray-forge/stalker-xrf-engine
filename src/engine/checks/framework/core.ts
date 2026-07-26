@@ -14,7 +14,8 @@ import {
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { roots } from "@/engine/constants/roots";
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
+import { NotificationManager } from "@/engine/core/managers/notifications";
 import { saveTextToFile } from "@/engine/core/utils/fs";
 
 /**
@@ -43,6 +44,26 @@ const RESULTS_DIR: TPath = "check_results";
  */
 export function report(base: string, ...args: AnyArgs): void {
   log(`${PREFIX} ${string.format(base, ...args)}`);
+}
+
+/**
+ * Show a line in game as a PDA tip, for output the operator has to act on.
+ *
+ * Guarded: notifications reach the UI and the sound system, and a harness must never die because it
+ * could not draw a hint. Failures fall back to the console, which always works.
+ *
+ * @param base - Base string for interpolation.
+ * @param args - Variadic list of values to interpolate.
+ */
+export function notify(base: string, ...args: AnyArgs): void {
+  const text: TLabel = string.format(base, ...args);
+  const [isCompleted, caught] = pcall(() =>
+    getManager(NotificationManager).sendTipNotification(text, null, null, 10_000)
+  );
+
+  if (!isCompleted) {
+    report("could not show notification '%s' -> %s", text, tostring(caught));
+  }
 }
 
 /**
