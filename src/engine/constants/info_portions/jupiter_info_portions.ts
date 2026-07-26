@@ -358,6 +358,7 @@ export const jupiterInfoPortions = {
   jup_b6_freedom_employed: "jup_b6_freedom_employed",
   jup_b6_give_task: "jup_b6_give_task",
   jup_b6_gonta_employed: "jup_b6_gonta_employed",
+  jup_b6_half_artefact_from_b14_given_to_sci: "jup_b6_half_artefact_from_b14_given_to_sci",
   jup_b6_scientist_biochemist_anomalous_grove_done: "jup_b6_scientist_biochemist_anomalous_grove_done",
   jup_b6_scientist_biochemist_anomalous_plant_done: "jup_b6_scientist_biochemist_anomalous_plant_done",
   jup_b6_scientist_biochemist_soldier_outfit_done: "jup_b6_scientist_biochemist_soldier_outfit_done",
