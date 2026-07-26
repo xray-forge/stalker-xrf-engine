@@ -18,26 +18,15 @@ import { getManager, registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { saveTextToFile } from "@/engine/core/utils/fs";
 
-/**
- * Prefix of every reported line, to make output greppable in the log.
- */
+/** Prefix of every reported line, to make output greppable in the log. */
 const PREFIX: TLabel = "[check]";
-
-/**
- * Maximum failures echoed to the console. The result file always holds all of them.
- */
+/** Maximum failures echoed to the console. The result file always holds all of them. */
 const CONSOLE_FAILURE_LIMIT: TCount = 25;
-
-/**
- * Name of the `_appdata_` subdirectory results are written to.
- */
+/** Name of the `_appdata_` subdirectory results are written to. */
 const RESULTS_DIR: TPath = "check_results";
 
 /**
  * Print a line to the game console and log.
- *
- * Uses the engine `log` binding, not `LuaLogger`: logger calls are stripped from the build when lua
- * logs are disabled, and check output has to survive that.
  *
  * @param base - Base string for interpolation.
  * @param args - Variadic list of values to interpolate.
@@ -48,9 +37,6 @@ export function report(base: string, ...args: AnyArgs): void {
 
 /**
  * Show a line in game as a PDA tip, for output the operator has to act on.
- *
- * Guarded: notifications reach the UI and the sound system, and a harness must never die because it
- * could not draw a hint. Failures fall back to the console, which always works.
  *
  * @param base - Base string for interpolation.
  * @param args - Variadic list of values to interpolate.

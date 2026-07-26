@@ -168,13 +168,21 @@ export function run(): ICheckResult {
             "teleport to the anomaly",
             `teleportActorNearPosition('${zone.object.name()}')`
           );
+
+          if (isWantedArtefactCarried()) {
+            report("actor already carries '%s'", WANTED_ARTEFACT);
+          } else {
+            report("actor has no '%s', spawning one into the inventory", WANTED_ARTEFACT);
+            spawnItemsForObject(registry.actor, WANTED_ARTEFACT, 1);
+          }
         },
         verify: (context: CheckContext): void => {
           // 0 means the artefact never spawned, more than 1 means the lookup is not scoped per zone.
           context.expectEqual(findClaimingZones().length(), 1, "zones claiming the artefact");
         },
-        handOff: `collect '${WANTED_ARTEFACT}' from the anomaly, or run again and it will be handed over`,
-        advanceWhen: (): boolean => isWantedArtefactCarried(),
+        handOff:
+          `collect '${WANTED_ARTEFACT}' from the anomaly if you want to, otherwise one has been put ` +
+          `in the inventory for the hand in`,
       },
       {
         name: "hand in opens once the artefact is carried",
@@ -184,15 +192,6 @@ export function run(): ICheckResult {
             "teleport to the base",
             `teleportActorToPatrol('${BASE_WALK_PATH}', '${BASE_LOOK_PATH}')`
           );
-
-          // Collecting it out of a live anomaly is fiddly, and this step is about the hand in rather
-          // than about picking it up, so supply it when the previous step did not produce it.
-          if (isWantedArtefactCarried()) {
-            report("actor already carries '%s'", WANTED_ARTEFACT);
-          } else {
-            report("actor has no '%s', spawning one into the inventory", WANTED_ARTEFACT);
-            spawnItemsForObject(registry.actor, WANTED_ARTEFACT, 1);
-          }
 
           // Pins the reward branch: phrase 2 of the dialog, worth less than the untouched artefact.
           setInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival, true);
@@ -215,7 +214,6 @@ export function run(): ICheckResult {
           );
         },
         handOff: "hand the artefact to Beard, or run again and the replica is applied for you",
-        advanceWhen: (): boolean => !isWantedArtefactCarried(),
       },
       {
         name: "give artefact replica clears the task and pays out",
@@ -246,12 +244,6 @@ export function run(): ICheckResult {
           setInfoPortion(infoPortions.zat_b29_redice, true);
         },
         verify: (context: CheckContext): void => {
-          context.expect(
-            !isWantedArtefactCarried(),
-            "artefact taken",
-            `'${WANTED_ARTEFACT}' is still in the inventory, transferItemsFromActor did not take it`
-          );
-
           // The action clears this itself, which is what opens `condlist_0` and completes the task.
           context.expect(
             !hasInfoPortion(infoPortions.zat_b29_adv_task_given),
@@ -280,6 +272,8 @@ export function run(): ICheckResult {
             "expected 'zat_b29_linker_take_af_from_rival' to be cleared by on_complete"
           );
         },
+        handOff: "hand in done, run once more to confirm the artefact left the inventory",
+        advanceWhen: (): boolean => !isWantedArtefactCarried(),
       },
     ],
   });

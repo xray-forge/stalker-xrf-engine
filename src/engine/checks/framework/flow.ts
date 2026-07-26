@@ -77,6 +77,37 @@ function resolveCursorKey(name: TName): TName {
 }
 
 /**
+ * @param name - Flow name.
+ * @returns Actor portable store key holding the failure tally of this walk.
+ */
+function resolveFailuresKey(name: TName): TName {
+  return `${CURSOR_KEY_PREFIX}${name}_failures`;
+}
+
+/**
+ * Read how many assertions have failed so far during this walk.
+ *
+ * Each invocation gets its own context, so without a persisted tally the last one - which arms
+ * nothing and asserts nothing - would report a clean pass over a walk that failed earlier.
+ *
+ * @param name - Flow name.
+ * @returns Failures recorded since the flow was last reset.
+ */
+function readFailures(name: TName): TCount {
+  return getPortableStoreValue<TCount>(ACTOR_ID, resolveFailuresKey(name), 0);
+}
+
+/**
+ * Record the running failure tally of this walk.
+ *
+ * @param name - Flow name.
+ * @param count - Total to store.
+ */
+function writeFailures(name: TName, count: TCount): void {
+  setPortableStoreValue<TCount>(ACTOR_ID, resolveFailuresKey(name), count);
+}
+
+/**
  * Read the cursor of a flow.
  *
  * @param name - Flow name.
@@ -217,6 +248,9 @@ function advance(context: CheckContext, definition: IFlowDefinition, name: TName
   }
 
   if (cursor === 0) {
+    // Starting over: the previous walk's tally must not leak into this one.
+    writeFailures(name, 0);
+
     return armStep(context, definition, name, 1) ? "ARMED" : "FAIL";
   }
 
@@ -226,9 +260,15 @@ function advance(context: CheckContext, definition: IFlowDefinition, name: TName
   report("%s: step %s/%s '%s' done", name, cursor, total, current.name);
 
   if (cursor === total) {
+    const walkFailures: TCount = readFailures(name) + context.failures.length();
+
     writeCursor(name, total + 1);
     report("%s: last step reached, flow complete", name);
-    notify(`${name} complete: ${total}/${total} steps walked`);
+    notify(
+      walkFailures === 0
+        ? `${name} complete: ${total}/${total} steps, no failures`
+        : `${name} complete: ${total}/${total} steps, ${walkFailures} failure(s) during the walk`
+    );
 
     return "COMPLETE";
   }
@@ -267,16 +307,37 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
     skipReason: skipReason,
   };
 
+  const failures: TCount = result.failures.length();
+
+  // The tally spans the whole walk, so a clean final invocation cannot pass off an earlier failure.
+  const walkFailures: TCount = $isNotNil(skipReason) ? readFailures(name) : readFailures(name) + failures;
+
+  if ($isNil(skipReason)) {
+    writeFailures(name, walkFailures);
+  }
+
   // A failing assertion outranks the progression verdict: the step moved, but something is broken.
-  const outcome: TLabel = result.failures.length() === 0 ? verdict : "FAIL";
+  // Completing a walk that failed anywhere is a failure too, however clean the last invocation was.
+  let outcome: TLabel = failures === 0 ? verdict : "FAIL";
+
+  if (outcome === "COMPLETE" && walkFailures > 0) {
+    outcome = "FAIL";
+  }
+
   const extra: LuaArray<string> = new LuaTable();
 
   table.insert(extra, `kind=flow`);
   table.insert(extra, `state=${string.lower(outcome)}`);
   table.insert(extra, `step=${readCursor(name)}`);
   table.insert(extra, `total=${definition.steps.length}`);
+  table.insert(extra, `failedWalk=${walkFailures}`);
 
   reportOutcome(result, outcome, time_global() - startedAt);
+
+  if (walkFailures > failures) {
+    report("%s: %s failure(s) so far in this walk", name, walkFailures);
+  }
+
   persistOutcome(result, extra);
 
   // A run that could not proceed, or one that found something, must not be discoverable only by
@@ -284,7 +345,7 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
   if ($isNotNil(skipReason)) {
     notify(`${name} skipped: ${skipReason}`);
   } else if (outcome === "FAIL") {
-    notify(`${name} FAILED: ${result.failures.length()} problem(s), see the console`);
+    notify(`${name} FAILED: ${failures} problem(s) here, ${walkFailures} in this walk`);
   }
 
   return result;
@@ -309,6 +370,7 @@ export function resetFlow(dirname: TName, filename: TName): void {
   }
 
   writeCursor(name, 0);
+  writeFailures(name, 0);
   report("%s: flow reset, next run arms step 1", name);
   notify(`${name} reset - next run arms step 1`);
 }
