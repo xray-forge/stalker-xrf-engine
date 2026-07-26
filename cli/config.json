@@ -21,7 +21,8 @@
     "scripts": "../src/engine/scripts",
     "translations": "../src/engine/translations",
     "extensions": "../src/engine/extensions",
-    "ui": "../src/engine/forms"
+    "ui": "../src/engine/forms",
+    "checks": "../src/engine/checks"
   },
   "compression": {
     "xr_compress_path": ".\\bin\\compression\\xrCompress.exe",

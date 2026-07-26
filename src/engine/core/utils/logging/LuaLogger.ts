@@ -52,7 +52,6 @@ export class LuaLogger {
 
     const result: string = string.format("[%s][%s][info] %s", time_global(), this.prefix, string.format(base, ...args));
 
-    // Write into shared game console if no file defined/dual mode enabled.
     if (luaLog) {
       luaLog(result);
     }

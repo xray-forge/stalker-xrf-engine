@@ -10,6 +10,7 @@ export const BIN_DIR: string = path.resolve(CLI_DIR, "bin");
 
 export const OPEN_XRAY_ENGINES_DIR: string = path.resolve(BIN_DIR, "engines");
 export const BUILD_LUA_TSCONFIG: string = path.resolve(CLI_DIR, "build/tsconfig.scripts.json");
+export const BUILD_CHECKS_TSCONFIG: string = path.resolve(CLI_DIR, "build/tsconfig.checks.json");
 export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 
 export const RESOURCES_DIR: string = path.resolve(
@@ -23,11 +24,14 @@ export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(CLI_DIR, config.build.
 export const GAME_DATA_EXTENSIONS_DIR: string = path.resolve(CLI_DIR, config.build.extensions);
 export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(CLI_DIR, config.build.translations);
 export const GAME_DATA_UI_DIR: string = path.resolve(CLI_DIR, config.build.ui);
+export const GAME_DATA_CHECKS_DIR: string = path.resolve(CLI_DIR, config.build.checks);
 
 export const TARGET_DIR: string = path.resolve(CLI_DIR, config.build.target);
 export const TARGET_GAME_DATA_DIR: string = path.resolve(TARGET_DIR, "gamedata");
 export const TARGET_GAME_DATA_METADATA_FILE: string = path.resolve(TARGET_GAME_DATA_DIR, "metadata.json");
 export const TARGET_GAME_DATA_CONFIGS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "configs");
+export const TARGET_GAME_DATA_SCRIPTS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "scripts");
+export const TARGET_GAME_DATA_CHECKS_DIR: string = path.resolve(TARGET_GAME_DATA_DIR, "checks");
 export const TARGET_GAME_DATA_UI_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "ui");
 export const TARGET_GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(TARGET_GAME_DATA_CONFIGS_DIR, "text");
 

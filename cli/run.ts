@@ -3,6 +3,7 @@
 import { Command } from "commander";
 
 import { setupBuildCommands } from "#/build/run";
+import { setupChecksCommands } from "#/checks/run";
 import { setupCloneCommands } from "#/clone/run";
 import { setupCompressCommands } from "#/compress/run";
 import { setupEngineCommands } from "#/engine/run";
@@ -33,6 +34,7 @@ setupOpenCommands(program);
 setupPackCommands(program);
 setupParseCommands(program);
 setupParticlesCommands(program);
+setupChecksCommands(program);
 setupSpawnCommands(program);
 setupStartCommands(program);
 setupTranslationsCommands(program);

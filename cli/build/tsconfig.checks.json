@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.scripts.json",
+  "compilerOptions": {
+    "rootDir": "../../src/engine",
+    "outDir": "../../target/gamedata"
+  },
+  "include": [
+    "../../src/engine/lib",
+    "../../src/engine/scripts",
+    "../../src/engine/extensions",
+    "../../src/engine/checks"
+  ],
+  "exclude": ["../../**/*.test.ts"]
+}
