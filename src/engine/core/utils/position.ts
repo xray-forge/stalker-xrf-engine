@@ -1,7 +1,17 @@
-import { device, game_graph, level, sound_object } from "xray16";
-import { AlifeSimulator, ESoundObjectType, GameObject, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
+import { device, game_graph, level, patrol, sound_object } from "xray16";
 import {
+  AlifeSimulator,
+  ESoundObjectType,
+  GameObject,
+  Patrol,
+  ServerCreatureObject,
+  ServerObject,
+  Vector,
+} from "xray16/alias";
+import {
+  assert,
   graphDistance,
+  isObjectInZone,
   MAX_ALIFE_ID,
   MAX_LEVEL_VERTEX_ID,
   Nillable,
@@ -9,12 +19,13 @@ import {
   TDistance,
   TName,
   TNumberId,
+  TStringId,
   yawDegree3d,
   ZERO_VECTOR,
 } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { registry } from "@/engine/core/database";
+import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { resetTable } from "@/engine/core/utils/table";
 
@@ -236,6 +247,46 @@ export function teleportActorWithEffects(actor: GameObject, position: Vector, di
   actor.set_actor_direction(-direction.getH());
 
   new sound_object("affects\\tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, ZERO_VECTOR, 1.0);
+}
+
+/**
+ * Teleport actor to the first point of a patrol path. Aborts on an unknown path.
+ *
+ * Also refreshes no weapon zone flags, since arriving inside such a zone has to register the same
+ * way walking into it would.
+ *
+ * @param positionPatrolName - Patrol path whose first point the actor is moved to.
+ * @param lookPatrolName - Optional patrol path the actor is turned to face.
+ */
+export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName: Nillable<TName> = null): void {
+  const point: Patrol = new patrol(positionPatrolName);
+
+  if (lookPatrolName) {
+    registry.actor.set_actor_direction(-new patrol(lookPatrolName).point(0).sub(point.point(0)).getH());
+  }
+
+  registry.actor.set_actor_position(point.point(0));
+
+  for (const [id] of registry.noWeaponZones) {
+    if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
+      registry.noWeaponZones.set(id, true);
+    }
+  }
+}
+
+/**
+ * Teleport actor to whoever or whatever carries a story id. Aborts on an unregistered id.
+ *
+ * Resolves the server object, so it works whether or not the target is currently online.
+ *
+ * @param storyId - Story id of the object to arrive at.
+ */
+export function teleportActorToStoryObject(storyId: TStringId): void {
+  const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
+
+  assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
+
+  registry.actor.set_actor_position(serverObject!.position);
 }
 
 /**

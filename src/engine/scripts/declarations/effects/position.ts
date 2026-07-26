@@ -1,21 +1,11 @@
 import { level, particles_object, patrol } from "xray16";
 import { GameObject, ParticlesObject, Patrol, Vector } from "xray16/alias";
-import {
-  abort,
-  assert,
-  extern,
-  isObjectInZone,
-  Nillable,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TStringId,
-} from "xray16/lib";
+import { abort, assert, extern, Nillable, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 
 import { getObjectIdByStoryId, getServerObjectByStoryId, registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
+import { teleportActorToPatrol } from "@/engine/core/utils/position";
 
 /**
  * Teleports npc to patrol point based on patrol name and index.
@@ -89,19 +79,7 @@ extern(
   (_: GameObject, __: GameObject, [positionPatrolName, lookPatrolName]: [Nillable<TName>, Nillable<TName>]): void => {
     assert(positionPatrolName, "Wrong parameters in 'teleport_actor' effect.");
 
-    const point: Patrol = new patrol(positionPatrolName);
-
-    if (lookPatrolName) {
-      registry.actor.set_actor_direction(-new patrol(lookPatrolName).point(0).sub(point.point(0)).getH());
-    }
-
-    registry.actor.set_actor_position(point.point(0));
-
-    for (const [id] of registry.noWeaponZones) {
-      if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
-        registry.noWeaponZones.set(id, true);
-      }
-    }
+    teleportActorToPatrol(positionPatrolName, lookPatrolName);
   }
 );
 

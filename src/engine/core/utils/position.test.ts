@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game_graph } from "xray16";
+import { game_graph, patrol } from "xray16";
 import {
   ESoundObjectType,
   GameObject,
@@ -18,7 +18,7 @@ import {
   MockVector,
 } from "xray16/mocks";
 
-import { registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { registerObject, registerSimulator, registerStoryLink, registerZone, registry } from "@/engine/core/database";
 import {
   areObjectsOnSameLevel,
   getGameLevelName,
@@ -32,11 +32,14 @@ import {
   isObjectOnLevel,
   resetPositionCache,
   sendToNearestAccessibleVertex,
+  teleportActorToPatrol,
+  teleportActorToStoryObject,
   teleportActorWithEffects,
 } from "@/engine/core/utils/position";
-import { mockRegisteredActor } from "@/fixtures/engine";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 beforeEach(() => {
+  resetRegistry();
   registerSimulator();
   MockSoundObject.resetRegistry();
   resetPositionCache();
@@ -204,9 +207,94 @@ describe("teleportActorWithEffects", () => {
   });
 });
 
+describe("teleportActorToPatrol", () => {
+  it("should move the actor to the first point of the patrol path", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    teleportActorToPatrol("test-wp");
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(new patrol("test-wp").point(0));
+    expect(actorGameObject.set_actor_direction).toHaveBeenCalledTimes(0);
+  });
+
+  it("should turn the actor towards the look path when one is supplied", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    teleportActorToPatrol("test-wp-2", "test-wp-3");
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(new patrol("test-wp-2").point(0));
+    expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(expect.closeTo(-1.5707));
+  });
+
+  it("should mark no weapon zones the actor arrived inside as active", () => {
+    mockRegisteredActor();
+
+    const noWeaponZone: GameObject = MockGameObject.mock();
+
+    registerObject(noWeaponZone);
+    jest.spyOn(noWeaponZone, "inside").mockImplementation(() => true);
+    registry.noWeaponZones.set(noWeaponZone.id(), false);
+
+    teleportActorToPatrol("test-wp");
+
+    expect(registry.noWeaponZones.get(noWeaponZone.id())).toBe(true);
+  });
+
+  it("should leave no weapon zones the actor is outside of alone", () => {
+    mockRegisteredActor();
+
+    const noWeaponZone: GameObject = MockGameObject.mock();
+
+    registerObject(noWeaponZone);
+    jest.spyOn(noWeaponZone, "inside").mockImplementation(() => false);
+    registry.noWeaponZones.set(noWeaponZone.id(), false);
+
+    teleportActorToPatrol("test-wp");
+
+    expect(registry.noWeaponZones.get(noWeaponZone.id())).toBe(false);
+  });
+});
+
+describe("teleportActorToStoryObject", () => {
+  it("should move the actor to the server position of the story object", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    registerStoryLink(target.id, "test-sid");
+
+    teleportActorToStoryObject("test-sid");
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target.position);
+  });
+
+  it("should resolve the target even when it is not online", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    registerStoryLink(target.id, "test-sid-offline");
+
+    // No `registerObject` call, so there is no online game object for this id.
+    expect(registry.objects.get(target.id)).toBeNull();
+
+    teleportActorToStoryObject("test-sid-offline");
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target.position);
+  });
+
+  it("should abort for an unregistered story id", () => {
+    mockRegisteredActor();
+
+    expect(() => teleportActorToStoryObject("not-existing-sid")).toThrow(
+      "Cannot teleport, no object with story id 'not-existing-sid' is registered."
+    );
+  });
+});
+
 describe("isObjectInActorFrustum", () => {
   it("should correctly check whether object is in actor frustum", () => {
     const object: GameObject = MockGameObject.mock();
+
+    mockRegisteredActor();
 
     jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.6, 0, 0.6));
     expect(isObjectInActorFrustum(object)).toBe(true);
