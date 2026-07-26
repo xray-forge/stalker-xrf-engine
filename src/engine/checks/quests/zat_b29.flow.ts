@@ -14,15 +14,15 @@ import { $dirname, $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { CheckContext, ICheckResult, report } from "@/engine/checks/framework/core";
 import { resetFlow, runFlow } from "@/engine/checks/framework/flow";
-import { forceTaskEvaluation, giveFreshTask, setInfoPortion } from "@/engine/checks/framework/world";
+import { evaluateTaskState, giveFreshTask, setInfoPortion } from "@/engine/checks/framework/world";
 import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
-import { getManager, getObjectByStoryId, registry } from "@/engine/core/database";
-import { TaskManager } from "@/engine/core/managers/tasks";
+import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { actorHasItem } from "@/engine/core/utils/item";
 import { teleportActorNearPosition, teleportActorToPatrol } from "@/engine/core/utils/position";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
@@ -94,25 +94,6 @@ function findClaimingZones(): LuaArray<AnomalyZoneBinder> {
 }
 
 /**
- * @returns Whether the actor is carrying the artefact this run pinned the quest to.
- */
-function isWantedArtefactCarried(): boolean {
-  return $isNotNil(registry.actor.object(WANTED_ARTEFACT));
-}
-
-/**
- * Evaluate the task from the current portion state.
- *
- * @returns Settled task state, or null when no gate matched.
- */
-function evaluateState(): Nillable<ETaskState> {
-  forceTaskEvaluation(TASK_ID);
-  getManager(TaskManager).isTaskCompleted(TASK_ID);
-
-  return taskConfig.ACTIVE_TASKS.get(TASK_ID)?.state;
-}
-
-/**
  * Zaton b29 advanced task, walked one step per invocation with real play in between.
  */
 export function run(): ICheckResult {
@@ -142,7 +123,7 @@ export function run(): ICheckResult {
           requestArtefactSpawn(context);
         },
         verify: (context: CheckContext): void => {
-          context.expectEqual(evaluateState(), null, "held open while the task is given");
+          context.expectEqual(evaluateTaskState(TASK_ID), null, "held open while the task is given");
         },
         handOff:
           "nothing to do here: anomaly zones never go offline, so the queued artefact spawns on the " +
@@ -169,7 +150,7 @@ export function run(): ICheckResult {
             `teleportActorNearPosition('${zone.object.name()}')`
           );
 
-          if (isWantedArtefactCarried()) {
+          if (actorHasItem(WANTED_ARTEFACT)) {
             report("actor already carries '%s'", WANTED_ARTEFACT);
           } else {
             report("actor has no '%s', spawning one into the inventory", WANTED_ARTEFACT);
@@ -199,7 +180,11 @@ export function run(): ICheckResult {
         verify: (context: CheckContext): void => {
           const dialogs: AnyCallablesModule = getExtern<AnyCallablesModule>("dialogs_zaton");
 
-          context.expect(isWantedArtefactCarried(), "artefact carried", `actor is not carrying '${WANTED_ARTEFACT}'`);
+          context.expect(
+            actorHasItem(WANTED_ARTEFACT),
+            "artefact carried",
+            `actor is not carrying '${WANTED_ARTEFACT}'`
+          );
 
           // Both gates the dialog itself declares: its precondition and its `has_info`.
           context.expect(
@@ -218,7 +203,7 @@ export function run(): ICheckResult {
       {
         name: "give artefact replica clears the task and pays out",
         arrange: (context: CheckContext): void => {
-          if (!isWantedArtefactCarried()) {
+          if (!actorHasItem(WANTED_ARTEFACT)) {
             return report("artefact already handed over in play, nothing to mirror");
           }
 
@@ -255,7 +240,7 @@ export function run(): ICheckResult {
             context.expectEqual(registry.actor.money() - moneyBeforeHandIn, 12_000, "reward paid");
           }
 
-          context.expectEqual(evaluateState(), ETaskState.COMPLETED, "state after the hand in");
+          context.expectEqual(evaluateTaskState(TASK_ID), ETaskState.COMPLETED, "state after the hand in");
 
           const task: Nillable<TaskObject> = taskConfig.ACTIVE_TASKS.get(TASK_ID);
 
@@ -273,7 +258,7 @@ export function run(): ICheckResult {
           );
         },
         handOff: "hand in done, run once more to confirm the artefact left the inventory",
-        advanceWhen: (): boolean => !isWantedArtefactCarried(),
+        advanceWhen: (): boolean => !actorHasItem(WANTED_ARTEFACT),
       },
     ],
   });

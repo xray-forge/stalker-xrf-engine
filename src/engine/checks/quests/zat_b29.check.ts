@@ -3,10 +3,9 @@ import { $dirname, $filename, $fromArray, $isNotNil } from "xray16/macros";
 
 import { runCheck } from "@/engine/checks/framework/check";
 import { CheckContext, ICheckResult } from "@/engine/checks/framework/core";
-import { forceTaskEvaluation, giveFreshTask, setInfoPortion } from "@/engine/checks/framework/world";
+import { evaluateFreshTaskState, setInfoPortion } from "@/engine/checks/framework/world";
 import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
-import { getManager, SYSTEM_INI } from "@/engine/core/database";
-import { TaskManager } from "@/engine/core/managers/tasks";
+import { SYSTEM_INI } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
@@ -36,19 +35,6 @@ const ANOMALY_ZONES: LuaArray<TName> = $fromArray<TName>([
 ]);
 
 /**
- * Evaluate the task from the current portion state.
- *
- * @returns Settled task state, or null when no gate matched.
- */
-function evaluateState(): Nillable<ETaskState> {
-  giveFreshTask(TASK_ID);
-  forceTaskEvaluation(TASK_ID);
-  getManager(TaskManager).isTaskCompleted(TASK_ID);
-
-  return taskConfig.ACTIVE_TASKS.get(TASK_ID)?.state;
-}
-
-/**
  * Assert the negated completion gate and the side effect applied on completion.
  *
  * `condlist_0` is `{-zat_b29_adv_task_given} complete`, so the task completes when the portion is
@@ -62,19 +48,19 @@ function checkTaskGate(context: CheckContext): void {
   context.stage("held open while the task is given", () => {
     setInfoPortion(taskTimeout, false);
     setInfoPortion(taskGiven, true);
-    context.expectEqual(evaluateState(), null, "state");
+    context.expectEqual(evaluateFreshTaskState(TASK_ID), null, "state");
   });
 
   context.stage("completes once the task is no longer given", () => {
     setInfoPortion(taskTimeout, false);
     setInfoPortion(taskGiven, false);
-    context.expectEqual(evaluateState(), ETaskState.COMPLETED, "state");
+    context.expectEqual(evaluateFreshTaskState(TASK_ID), ETaskState.COMPLETED, "state");
   });
 
   context.stage("reverses on timeout", () => {
     setInfoPortion(taskGiven, true);
     setInfoPortion(taskTimeout, true);
-    context.expectEqual(evaluateState(), ETaskState.REVERSED, "state");
+    context.expectEqual(evaluateFreshTaskState(TASK_ID), ETaskState.REVERSED, "state");
   });
 
   context.stage("on_complete clears the rival pickup", () => {
@@ -82,7 +68,7 @@ function checkTaskGate(context: CheckContext): void {
     setInfoPortion(taskGiven, false);
     setInfoPortion(takeFromRival, true);
 
-    context.expectEqual(evaluateState(), ETaskState.COMPLETED, "state before side effects");
+    context.expectEqual(evaluateFreshTaskState(TASK_ID), ETaskState.COMPLETED, "state before side effects");
 
     const task: Nillable<TaskObject> = taskConfig.ACTIVE_TASKS.get(TASK_ID);
 

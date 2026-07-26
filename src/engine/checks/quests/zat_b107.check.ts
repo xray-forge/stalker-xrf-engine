@@ -1,13 +1,9 @@
-import { Nillable, TStringId } from "xray16/lib";
 import { $dirname, $filename } from "xray16/macros";
 
 import { runCheck } from "@/engine/checks/framework/check";
 import { CheckContext, ICheckResult } from "@/engine/checks/framework/core";
-import { forceTaskEvaluation, giveFreshTask, setInfoPortion } from "@/engine/checks/framework/world";
+import { evaluateFreshTaskState, setInfoPortion } from "@/engine/checks/framework/world";
 import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
-import { getManager } from "@/engine/core/database";
-import { TaskManager } from "@/engine/core/managers/tasks";
-import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 
 /**
@@ -16,22 +12,6 @@ import { ETaskState } from "@/engine/core/managers/tasks/types";
  */
 const BARMEN_EVACUATION_ASKED: TInfoPortion = "zat_a2_stalker_barmen_evacuation_asked" as TInfoPortion;
 const JUPITER_EVACUATION_VISITED: TInfoPortion = "jup_b205_evacuation_visited" as TInfoPortion;
-
-/**
- * Evaluate a task from the current portion state.
- *
- * Re-given every time, so a previously evaluated state cannot leak into the next stage.
- *
- * @param taskId - Task to evaluate.
- * @returns Settled task state, or null when no gate matched.
- */
-function evaluateState(taskId: TStringId): Nillable<ETaskState> {
-  giveFreshTask(taskId);
-  forceTaskEvaluation(taskId);
-  getManager(TaskManager).isTaskCompleted(taskId);
-
-  return taskConfig.ACTIVE_TASKS.get(taskId)?.state;
-}
 
 /**
  * Make every evacuation task's title resolvable.
@@ -60,41 +40,41 @@ export function run(): ICheckResult {
       context.stage("zaton: settles on neither gate", () => {
         setInfoPortion(BARMEN_EVACUATION_ASKED, false);
         setInfoPortion(blackbox, false);
-        context.expectEqual(evaluateState("zat_b107_evacuation_zaton"), null, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_zaton"), null, "state");
       });
 
       context.stage("zaton: reverses once the blackbox is decrypted", () => {
         setInfoPortion(BARMEN_EVACUATION_ASKED, false);
         setInfoPortion(blackbox, true);
-        context.expectEqual(evaluateState("zat_b107_evacuation_zaton"), ETaskState.REVERSED, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_zaton"), ETaskState.REVERSED, "state");
       });
 
       context.stage("zaton: complete precedes reversed", () => {
         setInfoPortion(BARMEN_EVACUATION_ASKED, true);
         setInfoPortion(blackbox, true);
-        context.expectEqual(evaluateState("zat_b107_evacuation_zaton"), ETaskState.COMPLETED, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_zaton"), ETaskState.COMPLETED, "state");
       });
 
       context.stage("jupiter: settles on neither gate", () => {
         setInfoPortion(JUPITER_EVACUATION_VISITED, false);
         setInfoPortion(blackbox, false);
-        context.expectEqual(evaluateState("zat_b107_evacuation_jupiter"), null, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_jupiter"), null, "state");
       });
 
       context.stage("jupiter: completes once the evacuation point was visited", () => {
         setInfoPortion(JUPITER_EVACUATION_VISITED, true);
         setInfoPortion(blackbox, false);
-        context.expectEqual(evaluateState("zat_b107_evacuation_jupiter"), ETaskState.COMPLETED, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_jupiter"), ETaskState.COMPLETED, "state");
       });
 
       context.stage("pripyat: held open without the commander dialog", () => {
         setInfoPortion(commanderDialog, false);
-        context.expectEqual(evaluateState("zat_b107_evacuation_pripyat"), null, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_pripyat"), null, "state");
       });
 
       context.stage("pripyat: completes on the commander dialog", () => {
         setInfoPortion(commanderDialog, true);
-        context.expectEqual(evaluateState("zat_b107_evacuation_pripyat"), ETaskState.COMPLETED, "state");
+        context.expectEqual(evaluateFreshTaskState("zat_b107_evacuation_pripyat"), ETaskState.COMPLETED, "state");
       });
     },
   });

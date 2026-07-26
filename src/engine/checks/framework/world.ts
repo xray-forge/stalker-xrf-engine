@@ -7,6 +7,7 @@ import { getManager } from "@/engine/core/database";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 
 /**
@@ -42,6 +43,31 @@ export function forceTaskEvaluation(taskId: TStringId): void {
   if ($isNotNil(task)) {
     task.nextUpdateAt = 0;
   }
+}
+
+/**
+ * Settle a task against the current portion state and report the state it reached.
+ *
+ * @param taskId - Task to evaluate.
+ * @returns Settled task state, or null when no condlist branch matched.
+ */
+export function evaluateTaskState(taskId: TStringId): Nillable<ETaskState> {
+  forceTaskEvaluation(taskId);
+  getManager(TaskManager).isTaskCompleted(taskId);
+
+  return taskConfig.ACTIVE_TASKS.get(taskId)?.state;
+}
+
+/**
+ * Re-give a task, then settle it against the current portion state.
+ *
+ * @param taskId - Task to re-give and evaluate.
+ * @returns Settled task state, or null when no condlist branch matched.
+ */
+export function evaluateFreshTaskState(taskId: TStringId): Nillable<ETaskState> {
+  giveFreshTask(taskId);
+
+  return evaluateTaskState(taskId);
 }
 
 /**
