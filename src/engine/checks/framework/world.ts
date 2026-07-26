@@ -1,10 +1,9 @@
-import { ServerObject } from "xray16/alias";
-import { AnyCallablesModule, assert, getExtern, Nillable, TName, TStringId } from "xray16/lib";
+import { Nillable, TStringId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { report } from "@/engine/checks/framework/core";
 import { TInfoPortion } from "@/engine/constants/info_portions";
-import { getManager, getServerObjectByStoryId, registry } from "@/engine/core/database";
+import { getManager } from "@/engine/core/database";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
@@ -61,29 +60,4 @@ export function setInfoPortion(infoPortion: TInfoPortion, isPresent: boolean): v
   } else if (hasInfoPortion(infoPortion)) {
     disableInfoPortion(infoPortion);
   }
-}
-
-/**
- * Move the actor to a patrol path, the way quest configs do it. Aborts on an unknown path.
- *
- * @param positionPatrolName - Patrol path whose first point the actor is moved to.
- * @param lookPatrolName - Optional patrol path the actor is turned to face.
- */
-export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName: Nillable<TName> = null): void {
-  getExtern<AnyCallablesModule>("xr_effects").teleport_actor(null, null, [positionPatrolName, lookPatrolName]);
-}
-
-/**
- * Move the actor to whoever or whatever carries a story id. Aborts on an unregistered id.
- *
- * Resolves the server object, so it works whether or not the target is currently online.
- *
- * @param storyId - Story id of the object to arrive at.
- */
-export function teleportActorToStoryObject(storyId: TStringId): void {
-  const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
-
-  assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
-
-  registry.actor.set_actor_position(serverObject!.position);
 }
