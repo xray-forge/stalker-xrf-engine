@@ -3,7 +3,7 @@ import * as path from "node:path";
 
 import { blueBright, yellow } from "chalk";
 
-import { LAUNCHER_PREFIX } from "#/checks/utils/discover_checks";
+import { LAUNCHER_PREFIXES } from "#/checks/utils/discover_checks";
 import { TARGET_GAME_DATA_CHECKS_DIR, TARGET_GAME_DATA_SCRIPTS_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils/logging";
 
@@ -34,7 +34,7 @@ export async function cleanChecks(parameters: ICleanChecksParameters = {}): Prom
 
   if (fs.existsSync(TARGET_GAME_DATA_SCRIPTS_DIR)) {
     for (const entry of fs.readdirSync(TARGET_GAME_DATA_SCRIPTS_DIR)) {
-      if (entry.startsWith(LAUNCHER_PREFIX)) {
+      if (LAUNCHER_PREFIXES.some((prefix) => entry.startsWith(prefix))) {
         fs.rmSync(path.resolve(TARGET_GAME_DATA_SCRIPTS_DIR, entry), { force: true });
         removedLaunchers += 1;
 

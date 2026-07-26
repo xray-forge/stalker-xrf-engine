@@ -14,8 +14,12 @@ export async function listChecks(): Promise<void> {
   log.info(blueBright("Checks:"), checks.length);
 
   for (const check of checks) {
-    log.info(" ", greenBright(check.command));
+    log.info(" ", greenBright(check.command), green(`[${check.kind}]`));
     log.info("   ", green("source:"), check.relative);
     log.info("   ", green("module:"), check.module);
+
+    if (check.resetCommand) {
+      log.info("   ", green("reset: "), check.resetCommand);
+    }
   }
 }
