@@ -6,7 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
 import { getManager } from "@/engine/core/database";
-import { DeimosManager as PlayerDeimosManager } from "@/engine/core/managers/deimos";
+import { DeimosManager } from "@/engine/core/managers/deimos";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosConfig";
 import { DeimosController } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosController";
@@ -45,7 +45,7 @@ function createDeimosState(base: Partial<ISchemeDeimosState> = {}): ISchemeDeimo
 }
 
 function restoreDeimosIntensity(intensity: number): void {
-  (getManager(PlayerDeimosManager) as unknown as { restoredIntensity: number }).restoredIntensity = intensity;
+  (getManager(DeimosManager) as unknown as { restoredIntensity: number }).restoredIntensity = intensity;
 }
 
 describe("DeimosController", () => {
@@ -64,7 +64,7 @@ describe("DeimosController", () => {
 
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
+    const controller: DeimosController = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
 
     expect(controller.phase).toBe(0);
     expect(controller.effectorActivatedAt).toBe(0);
@@ -72,7 +72,7 @@ describe("DeimosController", () => {
 
   it("should activate and dispose phased effects as intensity rises and falls", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
+    const controller: DeimosController = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
     const soundManager: SoundManager = getManager(SoundManager);
 
     mockRegisteredActor();
@@ -118,7 +118,7 @@ describe("DeimosController", () => {
 
   it("should handle reset", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
+    const controller: DeimosController = new DeimosController(object, mockSchemeState(EScheme.SR_DEIMOS));
     const soundManager: SoundManager = getManager(SoundManager);
 
     controller.state.noiseSound = "test-noise";
@@ -164,7 +164,7 @@ describe("DeimosController", () => {
 
   it("should do nothing without actor", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, createDeimosState());
+    const controller: DeimosController = new DeimosController(object, createDeimosState());
 
     controller.update();
 
@@ -173,7 +173,7 @@ describe("DeimosController", () => {
 
   it("should do nothing while black screen is shown", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, createDeimosState());
+    const controller: DeimosController = new DeimosController(object, createDeimosState());
 
     mockRegisteredActor();
     replaceFunctionMock(isBlackScreen, () => true);
@@ -185,7 +185,7 @@ describe("DeimosController", () => {
 
   it("should not enable any phase for intensity below disable bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, createDeimosState({ intensity: 0 }));
+    const controller: DeimosController = new DeimosController(object, createDeimosState({ intensity: 0 }));
 
     mockRegisteredActor();
 
@@ -199,7 +199,7 @@ describe("DeimosController", () => {
 
   it("should enable first phase only for intensity between bounds", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, createDeimosState({ intensity: 0 }));
+    const controller: DeimosController = new DeimosController(object, createDeimosState({ intensity: 0 }));
     const soundManager: SoundManager = getManager(SoundManager);
 
     mockRegisteredActor();
@@ -219,7 +219,7 @@ describe("DeimosController", () => {
   it("should apply camera effector and health loss above upper bound", () => {
     const object: GameObject = MockGameObject.mock();
     const { actorGameObject } = mockRegisteredActor();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ healthLost: 0.25, intensity: 0.7, movementSpeed: 100 })
     );
@@ -250,7 +250,7 @@ describe("DeimosController", () => {
 
   it("should not repeat camera effector within repeating time", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ intensity: 0.7, movementSpeed: 100 })
     );
@@ -266,7 +266,7 @@ describe("DeimosController", () => {
 
   it("should enable second phase when growing past lower bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ intensity: 0.4, movementSpeed: 1 })
     );
@@ -285,7 +285,7 @@ describe("DeimosController", () => {
 
   it("should enable first phase when growing past disable bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ intensity: 0.15, movementSpeed: 1 })
     );
@@ -304,7 +304,7 @@ describe("DeimosController", () => {
 
   it("should drop to first phase when lowering past lower bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ intensity: 0.25, movementSpeed: -1 })
     );
@@ -323,7 +323,7 @@ describe("DeimosController", () => {
 
   it("should remove secondary effectors when lowering past upper bound", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(
+    const controller: DeimosController = new DeimosController(
       object,
       createDeimosState({ intensity: 0.5, movementSpeed: -1 })
     );
@@ -342,7 +342,7 @@ describe("DeimosController", () => {
 
   it("should reset on switching to another section", () => {
     const object: GameObject = MockGameObject.mock();
-    const controller: DeimosManager = new DeimosController(object, createDeimosState());
+    const controller: DeimosController = new DeimosController(object, createDeimosState());
 
     mockRegisteredActor();
     replaceFunctionMock(trySwitchToAnotherSection, () => true);
