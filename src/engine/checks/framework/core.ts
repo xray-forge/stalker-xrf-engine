@@ -67,12 +67,11 @@ export function report(base: string, ...args: AnyArgs): void {
 /**
  * Mark the start of an invocation, so a session of repeated walks stays navigable.
  *
- * @param name - Name of the check or flow being run.
- * @param kind - Lifecycle it was run under.
+ * @param name - Name of the flow being walked.
  */
-export function reportBanner(name: TName, kind: TLabel): void {
+export function reportBanner(name: TName): void {
   writeLine("");
-  writeLine(`=== ${name} (${kind}) @ ${time_global()} ===`);
+  writeLine(`=== ${name} @ ${time_global()} ===`);
 }
 
 /**
@@ -109,18 +108,18 @@ export interface ICheckFailure {
 }
 
 /**
- * Outcome of a single run, shared by one shot checks and by one step of a flow.
+ * Outcome of a single invocation of a flow.
  */
 export interface ICheckResult {
   name: TName;
-  stages: TCount;
+  steps: TCount;
   checked: TCount;
   failures: LuaArray<ICheckFailure>;
   skipReason: Nillable<TLabel>;
 }
 
 /**
- * Collector passed to every check and flow step body.
+ * Collector behind the free assertion functions, one per invocation.
  *
  * Bodies report through it instead of throwing, so one failed assertion does not hide the rest.
  */
@@ -129,26 +128,10 @@ export class CheckContext {
   public readonly failures: LuaArray<ICheckFailure> = new LuaTable();
 
   public checked: TCount = 0;
-  public stages: TCount = 0;
+  public steps: TCount = 0;
 
   public constructor(name: TName) {
     this.name = name;
-  }
-
-  /**
-   * Run a group of assertions in isolation, the equivalent of a single test case.
-   *
-   * @param name - What this stage establishes and verifies.
-   * @param body - Stage implementation.
-   */
-  public stage(name: TLabel, body: (this: void) => void): void {
-    this.stages += 1;
-
-    const [isCompleted, caught] = pcall(body);
-
-    if (!isCompleted) {
-      this.fail(`stage '${name}'`, `aborted -> ${tostring(caught)}`);
-    }
   }
 
   /**
@@ -304,10 +287,10 @@ export function reportOutcome(result: ICheckResult, verdict: TLabel, duration: T
   }
 
   report(
-    "%s: %s | stages %s, checked %s, failed %s, took %s ms",
+    "%s: %s | steps %s, checked %s, failed %s, took %s ms",
     result.name,
     verdict,
-    result.stages,
+    result.steps,
     result.checked,
     failuresCount,
     duration
@@ -324,7 +307,7 @@ export function persistOutcome(result: ICheckResult, extra: Nillable<LuaArray<st
   const lines: LuaArray<string> = new LuaTable();
 
   table.insert(lines, `name=${result.name}`);
-  table.insert(lines, `stages=${result.stages}`);
+  table.insert(lines, `steps=${result.steps}`);
   table.insert(lines, `checked=${result.checked}`);
   table.insert(lines, `failed=${result.failures.length()}`);
   table.insert(lines, `skipped=${$isNotNil(result.skipReason) ? 1 : 0}`);

@@ -1,23 +1,17 @@
 # [XRF](../../../) / ENGINE / CHECKS
 
-On-demand in-game checks for behavior that unit tests cannot cover: Lua, INI parsing, tasks, and engine bindings.
-They are excluded from the normal build and enter gamedata only after an explicit build.
+In-game flow checks for behavior unit tests cannot cover, including Lua, INI parsing, tasks, and engine bindings.
+They are built into gamedata on demand.
 
-| Kind  | Source       | Purpose                                            |
-| ----- | ------------ | -------------------------------------------------- |
-| Check | `*.check.ts` | Sets up and verifies isolated behavior in one run. |
-| Flow  | `*.flow.ts`  | Observes an ordered game progression across saves. |
+A flow (`*.flow.ts`) observes quest progress without changing it. It verifies reached steps, stops at the first pending
+step, and stores progress in the actor save. Load an earlier save to run a flow again.
 
-Flows do not change quest state. They verify each reached step, stop at the first pending one, and preserve progress in
-the actor save. Load an earlier save to observe a flow again.
+## Writing flows
 
-## Writing checks
+Flow files have no exports and import from `@/engine/checks/framework`.
 
-Source files declare themselves at module scope and import from `@/engine/checks/framework`.
-
-- Use `requires`, `beforeAll`, and `it` for a check.
-- Use `requires` and ordered `step` calls for a flow. Each step needs `reached`; `verify`, `travel`, and `handOff` are
-  optional.
+- `requires` declares the starting level and state.
+- Ordered `step` calls describe progression. Each needs `reached`; `verify`, `travel`, and `handOff` are optional.
 
 ## Commands
 
@@ -28,12 +22,10 @@ npm run cli checks clean
 npm run typecheck:checks
 ```
 
-After building, run a launcher from the game console:
+Run a built flow in the game console:
 
 ```text
-run_script check_<name>
 run_script flow_<name>
-run_script check_all
 ```
 
-Use the `mixed` or `release` engine variant and load a level first. `check_all` runs checks only; flows are excluded.
+Use the `mixed` or `release` engine variant with a loaded level.

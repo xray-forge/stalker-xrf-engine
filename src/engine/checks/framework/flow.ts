@@ -120,7 +120,7 @@ function verifyStep(context: CheckContext, step: IFlowStep, position: TIndex): v
     return;
   }
 
-  context.stages += 1;
+  context.steps += 1;
 
   const [isCompleted, caught] = pcall(() => step.verify!());
 
@@ -257,7 +257,7 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
 
   const result: ICheckResult = {
     name: name,
-    stages: context.stages,
+    steps: context.steps,
     checked: context.checked,
     failures: context.failures,
     skipReason: skipReason,

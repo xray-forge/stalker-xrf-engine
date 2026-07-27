@@ -4,13 +4,6 @@ import { $isNil } from "xray16/macros";
 import { CheckContext, ICheckRequirements } from "@/engine/checks/framework/core";
 
 /**
- * Declaration surface shared by checks and flows.
- */
-
-/** Which lifecycle a source file registered for. */
-export type TCheckKind = "check" | "flow";
-
-/**
  * One step of a flow.
  *
  * A step is a point of progression the world either has reached or has not. It never makes itself
@@ -48,21 +41,11 @@ export interface IFlowStep extends IFlowStepBody {
 }
 
 /**
- * One stage of a check: an independent group of assertions over the shared world.
- */
-export interface ICheckStage {
-  name: TLabel;
-  body: (this: void) => void;
-}
-
-/**
  * Everything a source file registered while it was being required.
  */
 export interface IRegistration {
   requirements: Nillable<ICheckRequirements>;
   steps: LuaArray<IFlowStep>;
-  stages: LuaArray<ICheckStage>;
-  beforeAll: Nillable<(this: void) => void>;
 }
 
 /**
@@ -72,8 +55,6 @@ function createRegistration(): IRegistration {
   return {
     requirements: null,
     steps: new LuaTable(),
-    stages: new LuaTable(),
-    beforeAll: null,
   };
 }
 
@@ -88,11 +69,11 @@ let pending: IRegistration = createRegistration();
 let current: Nillable<CheckContext> = null;
 
 /**
- * Declare what the environment must provide before this check or flow is worth running.
+ * Declare what the world must provide before this flow is worth running.
  *
  * Last call wins, so a file cannot end up with two conflicting sets of requirements.
  *
- * @param requirements - Environment the run needs.
+ * @param requirements - Level and progression the walk starts from.
  */
 export function requires(requirements: ICheckRequirements): void {
   pending.requirements = requirements;
@@ -112,28 +93,6 @@ export function step(name: TLabel, body: IFlowStepBody): void {
     verify: body.verify,
     handOff: body.handOff,
   });
-}
-
-/**
- * Register one stage of a check. Stages run in declaration order within a single invocation, each
- * isolated so one abort does not hide the rest.
- *
- * @param name - What this stage establishes and verifies.
- * @param body - Stage implementation.
- */
-export function it(name: TLabel, body: (this: void) => void): void {
-  table.insert(pending.stages, { name: name, body: body });
-}
-
-/**
- * Register world setup to run once before any stage of a check.
- *
- * A failing `beforeAll` skips every stage, since assertions against half built state only mislead.
- *
- * @param body - Setup implementation.
- */
-export function beforeAll(body: (this: void) => void): void {
-  pending.beforeAll = body;
 }
 
 /**
@@ -174,8 +133,8 @@ export function clearCurrentContext(): void {
 function requireCurrentContext(assertion: TLabel): CheckContext {
   if ($isNil(current)) {
     abort(
-      "checks: '%s' was asserted outside a running step or stage. " +
-        "Assertions and the helpers that make them only work inside step()/it() bodies.",
+      "checks: '%s' was asserted outside a running step. " +
+        "Assertions and the helpers that make them only work inside step() bodies.",
       assertion
     );
   }
