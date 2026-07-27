@@ -153,6 +153,8 @@ export const zatonInfoPortions = {
   zat_b29_af_21: "zat_b29_af_21",
   zat_b29_af_22: "zat_b29_af_22",
   zat_b29_af_23: "zat_b29_af_23",
+  zat_b29_barmen_dialog_disable: "zat_b29_barmen_dialog_disable",
+  zat_b29_bring_af_16: "zat_b29_bring_af_16",
   zat_b29_bring_af_17: "zat_b29_bring_af_17",
   zat_b29_bring_af_18: "zat_b29_bring_af_18",
   zat_b29_bring_af_19: "zat_b29_bring_af_19",
