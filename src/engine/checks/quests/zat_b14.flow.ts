@@ -63,12 +63,18 @@ step("quest taken from Beard", {
 
     expectEqual(task?.state, null, "state with no branch satisfied");
     expectTaskTextResolves(task, TASK_ID, "with no progress portions");
+
+    expect(
+      $isNotNil(getServerObjectByStoryId(ARTEFACT_STORY_ID)) || actorHasItem(QUEST_ARTEFACT),
+      "artefact accounted for",
+      `'${ARTEFACT_STORY_ID}' is not in the world and the actor is not carrying it`
+    );
   },
-  handOff: "ask Beard about the sunken ship - phrase 11 of 'zat_a2_linker_b14_quest_init'",
+  handOff: "ask Beard about available work and the sunken ship",
 });
 
-step("at the artefact, still placed in the world", {
-  reached: (): boolean => hasInfoPortion(infoPortions.zat_b14_actor_in_up_point_zone),
+step("artefact taken", {
+  reached: (): boolean => hasInfoPortion(infoPortions.zat_b14_take_item),
   travel: (): void => {
     const artefactPosition: Vector = createVector(412.489, -0.942, 231.008);
     const placed: Nillable<ServerObject> = getServerObjectByStoryId(ARTEFACT_STORY_ID);
@@ -78,23 +84,10 @@ step("at the artefact, still placed in the world", {
     }
   },
   verify: (): void => {
-    expect(
-      $isNotNil(getServerObjectByStoryId(ARTEFACT_STORY_ID)) || actorHasItem(QUEST_ARTEFACT),
-      "artefact accounted for",
-      `'${ARTEFACT_STORY_ID}' is not in the world and the actor is not carrying it`
-    );
-    expectTaskTextResolves(settleTask(TASK_ID), TASK_ID, "at the up point");
-  },
-  handOff: "climb to the artefact - being in the up point zone is what the title branches on",
-});
-
-step("artefact taken", {
-  reached: (): boolean => hasInfoPortion(infoPortions.zat_b14_take_item),
-  verify: (): void => {
     expect(actorHasItem(QUEST_ARTEFACT), "artefact carried", `'${QUEST_ARTEFACT}' is not in the inventory`);
     expectTaskTextResolves(settleTask(TASK_ID), TASK_ID, "with the item taken");
   },
-  handOff: "pick the artefact up",
+  handOff: "pick the artefact up - you have been taken to where it sits",
 });
 
 step("robbed below for it", {

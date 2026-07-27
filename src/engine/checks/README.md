@@ -13,6 +13,9 @@ Flow files have no exports and import from `@/engine/checks/framework`.
 - `requires` declares the starting level and state.
 - Ordered `step` calls describe progression. Each needs `reached`; `verify`, `travel`, and `handOff` are optional.
 
+`reached` must observe something the game actually sets. A predicate naming a portion nothing gives would stall the walk
+forever, so a step that is not reached while a later one is gets reported and walked past rather than waited on.
+
 ## Commands
 
 ```text
@@ -29,3 +32,8 @@ run_script flow_<name>
 ```
 
 Use the `mixed` or `release` engine variant with a loaded level.
+
+## Output
+
+Every reported line goes to the game console, the engine log, and `$logs$\xrf_checks.log`. That file is truncated once
+per game session and appended thereafter, with a banner per invocation.
