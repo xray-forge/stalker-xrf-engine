@@ -22,10 +22,6 @@ export async function listChecks(): Promise<void> {
     log.info(" ", greenBright(check.command), green(`[${check.kind}]`));
     log.info("   ", green("source:"), check.relative);
     log.info("   ", green("module:"), check.module);
-
-    if (check.resetCommand) {
-      log.info("   ", green("reset: "), check.resetCommand);
-    }
   }
 
   if (checks.some((it) => it.kind === "check")) {

@@ -50,10 +50,6 @@ export interface ICheckDescriptor {
   launcher: string;
   /** Console command to run it. */
   command: string;
-  /** Launcher resetting the cursor, flows only. */
-  resetLauncher?: string;
-  /** Console command resetting the cursor, flows only. */
-  resetCommand?: string;
 }
 
 /**
@@ -116,8 +112,6 @@ export function discoverChecks(): Array<ICheckDescriptor> {
         module: `checks.${emitted.replace(/\//g, ".")}`,
         launcher: `${prefix}${identity}.script`,
         command: `run_script ${prefix}${identity}`,
-        resetLauncher: isFlow ? `${prefix}${identity}_reset.script` : undefined,
-        resetCommand: isFlow ? `run_script ${prefix}${identity}_reset` : undefined,
       };
     })
     .sort((first, second) => first.relative.localeCompare(second.relative));
