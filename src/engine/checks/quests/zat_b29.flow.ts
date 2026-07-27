@@ -19,7 +19,6 @@ import { infoPortions, TInfoPortion } from "@/engine/constants/info_portions";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
-import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasItem } from "@/engine/core/utils/item";
@@ -241,24 +240,29 @@ export function run(): ICheckResult {
           }
 
           context.expectEqual(evaluateTaskState(TASK_ID), ETaskState.COMPLETED, "state after the hand in");
-
-          const task: Nillable<TaskObject> = taskConfig.ACTIVE_TASKS.get(TASK_ID);
-
-          if ($isNil(task) || $isNil(task.task)) {
-            return context.fail("on_complete applied", "task object or its game task was missing");
-          }
-
-          // `on_complete` runs on deactivation rather than on evaluation, so drive it explicitly.
-          task.onDeactivate(task.task);
-
+        },
+        handOff: "run again to confirm the completion effects",
+        advanceWhen: (): boolean => !hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival),
+      },
+      {
+        name: "completion effects applied by the manager",
+        verify: (context: CheckContext): void => {
           context.expect(
             !hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival),
             "on_complete applied",
             "expected 'zat_b29_linker_take_af_from_rival' to be cleared by on_complete"
           );
+          context.expect(
+            $isNil(taskConfig.ACTIVE_TASKS.get(TASK_ID)),
+            "task closed",
+            "task is still active, so the manager never deactivated it"
+          );
+          context.expect(
+            !actorHasItem(WANTED_ARTEFACT),
+            "artefact taken",
+            `'${WANTED_ARTEFACT}' is still in the inventory`
+          );
         },
-        handOff: "hand in done, run once more to confirm the artefact left the inventory",
-        advanceWhen: (): boolean => !actorHasItem(WANTED_ARTEFACT),
       },
     ],
   });
@@ -268,5 +272,16 @@ export function run(): ICheckResult {
  * Send the flow back to its first step.
  */
 export function reset(): void {
+  for (const index of $range(FIRST_INDEX, LAST_INDEX)) {
+    setInfoPortion(zatB29InfopBringTable.get(index) as TInfoPortion, false);
+  }
+
+  setInfoPortion(infoPortions.zat_b29_adv_task_given, false);
+  setInfoPortion(infoPortions.zat_b29_adv_task_timeout, false);
+  setInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival, false);
+  setInfoPortion(infoPortions.zat_b29_redice, false);
+
+  report("cleared the b29 portions this flow drives");
+
   resetFlow($dirname, $filename);
 }
