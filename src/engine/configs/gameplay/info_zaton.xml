@@ -293,6 +293,7 @@
   <info_portion id="zat_b29_task_start"></info_portion>
   <info_portion id="zat_b29_task_fail"></info_portion>
   <info_portion id="zat_b29_linker_info"></info_portion>
+  <info_portion id="zat_b29_barmen_dialog_disable"></info_portion>
   <info_portion id="zat_b29_rivals_search"></info_portion>
   <info_portion id="zat_b29_stalker_rival_1_found_af"></info_portion>
   <info_portion id="zat_b29_stalker_rival_2_found_af"></info_portion>
@@ -306,6 +307,7 @@
   <info_portion id="zat_b29_af_21"></info_portion>
   <info_portion id="zat_b29_af_22"></info_portion>
   <info_portion id="zat_b29_af_23"></info_portion>
+  <info_portion id="zat_b29_bring_af_16"></info_portion>
   <info_portion id="zat_b29_bring_af_17"></info_portion>
   <info_portion id="zat_b29_bring_af_18"></info_portion>
   <info_portion id="zat_b29_bring_af_19"></info_portion>
