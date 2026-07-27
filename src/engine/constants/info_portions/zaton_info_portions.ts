@@ -103,6 +103,7 @@ export const zatonInfoPortions = {
   zat_b14_stalker_at_bar_start_done: "zat_b14_stalker_at_bar_start_done",
   zat_b14_stalker_change_smart: "zat_b14_stalker_change_smart",
   zat_b14_stalker_cut_scene_ready: "zat_b14_stalker_cut_scene_ready",
+  zat_b14_stalker_killed_by_actor: "zat_b14_stalker_killed_by_actor",
   zat_b14_stalker_robbery: "zat_b14_stalker_robbery",
   zat_b14_stalker_robbery_cutscene_end: "zat_b14_stalker_robbery_cutscene_end",
   zat_b14_stalker_robbery_cutscene_start: "zat_b14_stalker_robbery_cutscene_start",
