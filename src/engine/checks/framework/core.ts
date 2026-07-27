@@ -1,4 +1,4 @@
-import { getFS, level, log } from "xray16";
+import { getFS, level, log, time_global } from "xray16";
 import {
   AnyArgs,
   AnyCallable,
@@ -17,6 +17,7 @@ import { roots } from "@/engine/constants/roots";
 import { getManager, registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { saveTextToFile } from "@/engine/core/utils/fs";
+import { openLogFile } from "@/engine/core/utils/logging";
 
 /** Prefix of every reported line, to make output greppable in the log. */
 const PREFIX: TLabel = "[check]";
@@ -26,13 +27,52 @@ const CONSOLE_FAILURE_LIMIT: TCount = 25;
 const RESULTS_DIR: TPath = "check_results";
 
 /**
- * Print a line to the game console and log.
+ * Dedicated `$logs$\xrf_checks.log`, holding everything reported across a whole game session.
+ *
+ * Written directly rather than through `LuaLogger` on purpose. A check is something explicitly asked
+ * for, so its output must not depend on `forge.ltx` debug flags, and duplicating every line into
+ * `xrf_lua.log` would bury it in the noisiest file in the folder.
+ */
+const [isLogOpened, openedLog] = pcall(openLogFile, "checks");
+const checksFile: Nillable<LuaFile> = isLogOpened ? (openedLog as LuaFile) : null;
+
+if (!isLogOpened) {
+  log(`${PREFIX} could not open xrf_checks.log, console only -> ${tostring(openedLog)}`);
+}
+
+/**
+ * Write one line to both destinations, which are deliberately identical.
+ *
+ * @param text - Line to write, already formatted.
+ */
+function writeLine(text: TLabel): void {
+  log(text);
+
+  if ($isNotNil(checksFile)) {
+    checksFile.write(text);
+    checksFile.write("\n");
+  }
+}
+
+/**
+ * Print a line to the game console, the engine log and the check log.
  *
  * @param base - Base string for interpolation.
  * @param args - Variadic list of values to interpolate.
  */
 export function report(base: string, ...args: AnyArgs): void {
-  log(`${PREFIX} ${string.format(base, ...args)}`);
+  writeLine(`[${time_global()}] ${PREFIX} ${string.format(base, ...args)}`);
+}
+
+/**
+ * Mark the start of an invocation, so a session of repeated walks stays navigable.
+ *
+ * @param name - Name of the check or flow being run.
+ * @param kind - Lifecycle it was run under.
+ */
+export function reportBanner(name: TName, kind: TLabel): void {
+  writeLine("");
+  writeLine(`=== ${name} (${kind}) @ ${time_global()} ===`);
 }
 
 /**

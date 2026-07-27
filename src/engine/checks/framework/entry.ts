@@ -2,7 +2,7 @@ import { abort, Nillable, TCount, TLabel, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { runCheck } from "@/engine/checks/framework/check";
-import { ICheckResult } from "@/engine/checks/framework/core";
+import { ICheckResult, reportBanner } from "@/engine/checks/framework/core";
 import { drainRegistration, IRegistration, TCheckKind } from "@/engine/checks/framework/dsl";
 import { runFlow } from "@/engine/checks/framework/flow";
 
@@ -80,6 +80,7 @@ export function run(name: TName, kind: TCheckKind): ICheckResult {
   const registration: IRegistration = drainRegistration();
 
   assertKindMatches(name, kind, registration);
+  reportBanner(name, kind);
 
   return kind === "flow" ? runFlow(name, registration) : runCheck(name, registration);
 }

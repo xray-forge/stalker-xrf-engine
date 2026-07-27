@@ -7,6 +7,7 @@ import {
   ICheckResult,
   persistOutcome,
   report,
+  reportBanner,
   reportOutcome,
 } from "@/engine/checks/framework/core";
 import { run } from "@/engine/checks/framework/entry";
@@ -54,6 +55,7 @@ export function runAll(entries: LuaArray<ICheckEntry>): ICheckResult {
   let failed: TCount = 0;
   let skipped: TCount = 0;
 
+  reportBanner(SUITE_NAME, "suite");
   report("%s: start, %s check(s)", SUITE_NAME, total);
 
   for (const [, entry] of entries) {
