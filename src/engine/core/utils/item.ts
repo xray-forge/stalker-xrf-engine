@@ -93,9 +93,9 @@ export function actorHasMedKit(
 /**
  * Check whether actor has item in inventory.
  *
- * @param section - Item section to check in the inventory.
+ * @param section - Item section or object id to check in the inventory.
  * @param actor - Target object to check, gets actor from registry by default.
- * @returns Whether actor has all of provided items.
+ * @returns Whether actor has the provided item.
  */
 export function actorHasItem(section: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
   return $isNotNil(actor.object(section));
