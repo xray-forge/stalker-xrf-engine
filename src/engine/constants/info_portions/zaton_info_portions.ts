@@ -209,6 +209,7 @@ export const zatonInfoPortions = {
   zat_b30_compass_to_barmen_reversed: "zat_b30_compass_to_barmen_reversed",
   zat_b30_compass_to_sultan: "zat_b30_compass_to_sultan",
   zat_b30_compass_to_sultan_reversed: "zat_b30_compass_to_sultan_reversed",
+  zat_b30_dialog_info: "zat_b30_dialog_info",
   zat_b30_first_detector: "zat_b30_first_detector",
   zat_b30_jup_b6_scientist_tech_about_owl: "zat_b30_jup_b6_scientist_tech_about_owl",
   zat_b30_need_artefact_from_noah: "zat_b30_need_artefact_from_noah",
@@ -224,6 +225,7 @@ export const zatonInfoPortions = {
   zat_b30_owl_stalker_trader_about_osis_art: "zat_b30_owl_stalker_trader_about_osis_art",
   zat_b30_owl_stalker_trader_more_documets_done: "zat_b30_owl_stalker_trader_more_documets_done",
   zat_b30_owl_to_sultan: "zat_b30_owl_to_sultan",
+  zat_b30_owl_trouble_dialog_info: "zat_b30_owl_trouble_dialog_info",
   zat_b30_rival_1_wo_detector: "zat_b30_rival_1_wo_detector",
   zat_b30_rival_2_wo_detector: "zat_b30_rival_2_wo_detector",
   zat_b30_second_detector: "zat_b30_second_detector",
@@ -231,6 +233,7 @@ export const zatonInfoPortions = {
   zat_b30_sultan_know_about_detectors: "zat_b30_sultan_know_about_detectors",
   zat_b30_sultan_loose: "zat_b30_sultan_loose",
   zat_b30_sultan_refuses_af: "zat_b30_sultan_refuses_af",
+  zat_b30_task_end: "zat_b30_task_end",
   zat_b30_task_percents_running: "zat_b30_task_percents_running",
   zat_b30_task_start: "zat_b30_task_start",
   /**
@@ -534,6 +537,8 @@ export const zatonInfoPortions = {
   zat_b5_sultan_close_by_trader: "zat_b5_sultan_close_by_trader",
   zat_b5_sultan_dead: "zat_b5_sultan_dead",
   zat_b5_sultan_speak_for_stalkers: "zat_b5_sultan_speak_for_stalkers",
+  zat_b5_task_end: "zat_b5_task_end",
+  zat_b5_task_end_another: "zat_b5_task_end_another",
   zat_b5_trader_death: "zat_b5_trader_death",
   zat_b5_trader_death_info: "zat_b5_trader_death_info",
   /**
