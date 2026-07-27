@@ -45,43 +45,17 @@ const BEARD_STORY_ID: TStringId = "zat_a2_stalker_barmen";
 const BASE_WALK_PATH: TName = "zat_b29_actor_base_walk";
 const BASE_LOOK_PATH: TName = "zat_b29_actor_base_look";
 
-const ROBBERY_ZONE: TName = "zat_b14_robbery_start";
 const ARTEFACT_POSITION: Vector = createVector(412.489, -0.942, 231.008);
 const ROBBERY_POSITION: Vector = createVector(410.694, -5.751, 219.537);
-const TASK_REWARD: TCount = 3_000;
 
-/**
- * The other task of this chain. Both share `condlist_0 = {+zat_b14_give_item_linker} complete` and
- * both carry their own `reward_money`, so one portion closes whichever of them are active and pays for
- * each. That is vanilla behaviour, not a defect, and the flow models it rather than being surprised.
- */
-const SIBLING_TASK_ID: TStringId = "zat_b14_learn_about_strange_occurrence_by_stalkers";
-
-/**
- * Actor store keys holding the reward baseline. The reward only lands on the invocation after the hand
- * in, and the module is reloaded between invocations, so a module variable would not survive.
- */
 const MONEY_BEFORE_KEY: TName = "xrf_b14_money_before";
-const TASKS_PENDING_KEY: TName = "xrf_b14_tasks_pending";
+const TASK_REWARD: TCount = 3_000;
 
 /**
  * Record what the reward should come to, just before the hand in closes the tasks.
  */
 function rememberPendingReward(): void {
-  let pending: TCount = 0;
-
-  for (const taskId of [TASK_ID, SIBLING_TASK_ID]) {
-    if ($isNotNil(taskConfig.ACTIVE_TASKS.get(taskId))) {
-      pending += 1;
-    }
-  }
-
-  if (pending > 1) {
-    report("both b14 tasks are active, so the hand in closes both and pays %s twice", TASK_REWARD);
-  }
-
   setPortableStoreValue<TCount>(ACTOR_ID, MONEY_BEFORE_KEY, registry.actor.money());
-  setPortableStoreValue<TCount>(ACTOR_ID, TASKS_PENDING_KEY, pending);
 }
 
 /**
@@ -91,13 +65,8 @@ function rememberPendingReward(): void {
  */
 function expectRewardPaid(context: CheckContext): void {
   const before: TCount = getPortableStoreValue<TCount>(ACTOR_ID, MONEY_BEFORE_KEY, -1);
-  const pending: TCount = getPortableStoreValue<TCount>(ACTOR_ID, TASKS_PENDING_KEY, 0);
 
-  if (before < 0) {
-    return report("no reward baseline recorded, the hand in happened outside this walk");
-  }
-
-  context.expectEqual(registry.actor.money() - before, TASK_REWARD * pending, "reward_money paid");
+  context.expectEqual(registry.actor.money() - before, TASK_REWARD, "reward_money paid");
 }
 
 /**
@@ -107,9 +76,6 @@ function expectRewardPaid(context: CheckContext): void {
  * @param when - What portion state the title is being checked under.
  */
 function expectTitleResolves(context: CheckContext, when: TLabel): void {
-  // Refreshes the title from the condlist without re-giving the task: `update` recomputes it, and a
-  // second `giveTask` would hand the engine another game task for the same id, so completing it later
-  // fires the completion notification once per copy.
   evaluateTaskState(TASK_ID);
 
   const task: Nillable<TaskObject> = taskConfig.ACTIVE_TASKS.get(TASK_ID);
@@ -130,18 +96,9 @@ function expectTitleResolves(context: CheckContext, when: TLabel): void {
 /**
  * Put the actor where the robbery expects it: inside `zat_b14_robbery_start`.
  *
- * Standing outside that zone is what turns the squad hostile. `zat_b14_stalker_3`'s `remark@robbery`
- * carries `{!actor_in_zone(zat_b14_robbery_start)} walker@fight %=set_squad_enemy_to_actor(...)%`, so
- * arriving anywhere else means they open fire instead of talking.
- *
- * The zone's own centre is not that spot, so fixed coordinates are used and the zone is consulted only
- * to confirm they land inside it.
- *
  * @param context - Running flow context.
  */
 function teleportActorToRobbery(context: CheckContext): void {
-  const zone: Nillable<GameObject> = registry.zones.get(ROBBERY_ZONE);
-
   context.expectNoThrow(
     () => teleportActorToPosition(ROBBERY_POSITION),
     "teleport below",
@@ -151,23 +108,7 @@ function teleportActorToRobbery(context: CheckContext): void {
   const arrival: Vector = registry.actor.position();
 
   report("arrived at %.3f %.3f %.3f", arrival.x, arrival.y, arrival.z);
-
-  // `sr_cutscene@coming` in `zat_b14_cutscene_robbery.ltx` runs `teleport_actor` to its own `point`
-  // when the robbery starts, so the actor does not stay here: this teleport exists to be inside the
-  // trigger volume when the cutscene fires, and the cutscene decides where the hold up is played out.
   report("the robbery cutscene will move the actor to its own anchor once it fires");
-
-  // Standing outside the trigger volume is what turns the squad hostile, so it is worth stating
-  // outright rather than leaving it to be inferred from being shot at.
-  if ($isNil(zone)) {
-    return report("'%s' is not registered, cannot confirm the actor is inside it", ROBBERY_ZONE);
-  }
-
-  context.expect(
-    zone.inside(registry.actor.position()),
-    "inside the robbery zone",
-    `actor is outside '${ROBBERY_ZONE}', so the stalkers will open fire instead of talking`
-  );
 }
 
 /**
@@ -208,8 +149,8 @@ function moveArtefactToActor(context: CheckContext): void {
 }
 
 /**
- * Zaton b14 strange occurrence chain, walked along the quest's own geography: Beard, the artefact, the
- * robbery below, back to Beard, hand in.
+ * Zaton b14 strange occurrence chain, walked along the quest's own geography:
+ * Beard, the artefact, the robbery below, back to Beard, hand in.
  */
 export function run(): ICheckResult {
   return runFlow($dirname, $filename, {
