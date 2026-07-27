@@ -1,4 +1,4 @@
-import { getFS, level, log, time_global } from "xray16";
+import { level, log, time_global } from "xray16";
 import {
   AnyArgs,
   AnyCallable,
@@ -9,22 +9,16 @@ import {
   TDuration,
   TLabel,
   TName,
-  TPath,
 } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
-import { roots } from "@/engine/constants/roots";
 import { getManager, registry } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";
-import { saveTextToFile } from "@/engine/core/utils/fs";
 import { openLogFile } from "@/engine/core/utils/logging";
 
-/** Prefix of every reported line, to make output greppable in the log. */
 const PREFIX: TLabel = "[check]";
 /** Maximum failures echoed to the console. The result file always holds all of them. */
 const CONSOLE_FAILURE_LIMIT: TCount = 25;
-/** Name of the `_appdata_` subdirectory results are written to. */
-const RESULTS_DIR: TPath = "check_results";
 
 /**
  * Dedicated `$logs$\xrf_checks.log`, holding everything reported across a whole game session.
@@ -83,7 +77,7 @@ export function reportBanner(name: TName): void {
 export function notify(base: string, ...args: AnyArgs): void {
   const text: TLabel = string.format(base, ...args);
   const [isCompleted, caught] = pcall(() =>
-    getManager(NotificationManager).sendTipNotification(text, null, null, 10_000)
+    getManager(NotificationManager).sendTipNotification(text, null, null, 15_000)
   );
 
   if (!isCompleted) {
@@ -279,7 +273,7 @@ export function reportOutcome(result: ICheckResult, verdict: TLabel, duration: T
 
   for (const [index, failure] of result.failures) {
     if (index > CONSOLE_FAILURE_LIMIT) {
-      report("%s: ... %s more failure(s), see result file", result.name, failuresCount - CONSOLE_FAILURE_LIMIT);
+      report("%s: ... %s more failure(s), see xrf_checks.log", result.name, failuresCount - CONSOLE_FAILURE_LIMIT);
       break;
     }
 
@@ -295,45 +289,4 @@ export function reportOutcome(result: ICheckResult, verdict: TLabel, duration: T
     failuresCount,
     duration
   );
-}
-
-/**
- * Write the run outcome where the CLI can turn it into an exit code.
- *
- * @param result - Result of the run.
- * @param extra - Additional `key=value` lines, written before the failure rows.
- */
-export function persistOutcome(result: ICheckResult, extra: Nillable<LuaArray<string>> = null): void {
-  const lines: LuaArray<string> = new LuaTable();
-
-  table.insert(lines, `name=${result.name}`);
-  table.insert(lines, `steps=${result.steps}`);
-  table.insert(lines, `checked=${result.checked}`);
-  table.insert(lines, `failed=${result.failures.length()}`);
-  table.insert(lines, `skipped=${$isNotNil(result.skipReason) ? 1 : 0}`);
-
-  if ($isNotNil(extra)) {
-    for (const [, line] of extra) {
-      table.insert(lines, line);
-    }
-  }
-
-  if ($isNotNil(result.skipReason)) {
-    table.insert(lines, `skip\t${result.skipReason}`);
-  }
-
-  for (const [, failure] of result.failures) {
-    table.insert(lines, `fail\t${failure.assertion}\t${failure.detail}`);
-  }
-
-  const [isCompleted, caught] = pcall(() => {
-    const folder: TPath = getFS().update_path(roots.appDataRoot, RESULTS_DIR);
-    const path: TPath = saveTextToFile(folder, `${result.name}.txt`, table.concat(lines, "\n"));
-
-    report("%s: result -> %s", result.name, path);
-  });
-
-  if (!isCompleted) {
-    report("%s: could not persist result -> %s", result.name, tostring(caught));
-  }
 }

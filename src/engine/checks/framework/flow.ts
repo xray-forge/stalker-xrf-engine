@@ -9,7 +9,6 @@ import {
   evaluateStateRequirements,
   ICheckResult,
   notify,
-  persistOutcome,
   report,
   reportOutcome,
 } from "@/engine/checks/framework/core";
@@ -18,11 +17,6 @@ import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/data
 
 /**
  * Prefix of the actor portable store key a flow keeps its progress under.
- *
- * `ActorBinder.save` writes that store into the save packet, so progress travels with the save. That is
- * also the only way to rewind a flow: load a save from before the walk. Nothing here undoes world state,
- * because most of what a chain does - money, items, faction standing, spawned squads - cannot be undone,
- * and flipping the portions back while leaving all of that produces a state the game never produces.
  */
 const CURSOR_KEY_PREFIX: TName = "xrf_flow_";
 
@@ -44,9 +38,6 @@ function resolveFailuresKey(name: TName): TName {
 
 /**
  * Read how many assertions have failed so far during this walk.
- *
- * Each invocation gets its own context, so without a persisted tally the last one - which confirms the
- * final step and nothing else - would report a clean pass over a walk that failed earlier.
  *
  * @param name - Flow name.
  * @returns Failures recorded since the walk began.
@@ -106,6 +97,28 @@ function isStepReached(context: CheckContext, step: IFlowStep, position: TIndex)
   }
 
   return caught === true;
+}
+
+/**
+ * Look past a step the world has not reached, for one it has.
+ *
+ * Quiet on purpose: a lookahead predicate that aborts is treated as not reached rather than recorded, so
+ * scanning for evidence cannot itself produce findings about steps the walk has not arrived at.
+ *
+ * @param steps - Steps the flow registered.
+ * @param position - Position to look past.
+ * @returns Position of the first later step already reached, or 0 when there is none.
+ */
+function findReachedAfter(steps: LuaArray<IFlowStep>, position: TIndex): TIndex {
+  for (const later of $range(position + 1, steps.length())) {
+    const [isCompleted, caught] = pcall(() => steps.get(later).reached());
+
+    if (isCompleted && caught === true) {
+      return later;
+    }
+  }
+
+  return 0;
 }
 
 /**
@@ -171,6 +184,25 @@ function observe(context: CheckContext, steps: LuaArray<IFlowStep>, name: TName)
     }
 
     if (!isStepReached(context, step, position)) {
+      const overtaken: TIndex = findReachedAfter(steps, position);
+
+      // A later step already reached is positive evidence the world moved past this one, so waiting on it
+      // would stall the walk forever. Either the predicate cannot be satisfied - the state it names has no
+      // setter, or it is transient and was missed - or the chain genuinely skipped it. All three are
+      // findings, and all three are better reported and walked past than silently waited on.
+      if (overtaken > 0) {
+        context.fail(
+          `step ${position} reachability`,
+          `'${step.name}' is not reached but step ${overtaken} '${steps.get(overtaken).name}' is, so the walk ` +
+            `advances past it - check that its predicate observes something the game actually sets`
+        );
+
+        report("%s: step %s/%s '%s' skipped, step %s is already reached", name, position, total, step.name, overtaken);
+        writeCursor(name, position);
+
+        continue;
+      }
+
       report("%s: step %s/%s '%s' not reached yet", name, position, total, step.name);
 
       if ($isNotNil(step.handOff)) {
@@ -281,25 +313,12 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
     outcome = "FAIL";
   }
 
-  const extra: LuaArray<string> = new LuaTable();
-
-  table.insert(extra, `kind=flow`);
-  table.insert(extra, `state=${string.lower(outcome)}`);
-  table.insert(extra, `confirmed=${readCursor(name)}`);
-  table.insert(extra, `total=${registration.steps.length()}`);
-  table.insert(extra, `failedWalk=${walkFailures}`);
-
-  for (const [, blocker] of blockers) {
-    table.insert(extra, `blocked\t${blocker}`);
-  }
-
+  report("%s: %s/%s step(s) confirmed", name, readCursor(name), registration.steps.length());
   reportOutcome(result, outcome, time_global() - startedAt);
 
   if (walkFailures > failures) {
     report("%s: %s failure(s) so far in this walk", name, walkFailures);
   }
-
-  persistOutcome(result, extra);
 
   // A run that could not proceed, or one that found something, must not be discoverable only by
   // opening the console: the operator is looking at the game, not at the log.
