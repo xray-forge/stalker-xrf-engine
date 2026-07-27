@@ -1,6 +1,6 @@
 import { time_global } from "xray16";
-import { LuaArray, TCount, TDuration, TLabel, TName } from "xray16/lib";
-import { $isNil, $isNotNil } from "xray16/macros";
+import { AnyObject, LuaArray, TCount, TDuration, TLabel, TName } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
 import {
   ensureScriptLoggingEnabled,
@@ -9,19 +9,17 @@ import {
   report,
   reportOutcome,
 } from "@/engine/checks/framework/core";
+import { run } from "@/engine/checks/framework/entry";
 
 /** Name the combined run reports and persists itself under. */
 const SUITE_NAME: TName = "all";
 
 /**
  * One check the suite runs, as handed over by the generated launcher.
- *
- * The launcher supplies the name so an aborting check can still be identified, since a check that
- * dies before returning never reports one.
  */
 interface ICheckEntry {
   name: TName;
-  run: (this: void) => ICheckResult;
+  module: TName;
 }
 
 /**
@@ -93,23 +91,22 @@ export function runAll(entries: LuaArray<ICheckEntry>): ICheckResult {
 }
 
 /**
- * Run one check, folding its counts and failures into the combined result.
+ * Require one check module and run whatever it registered, folding the outcome into the sweep.
  *
  * @param combined - Result of the whole sweep, mutated in place.
  * @param entry - Check to run.
  * @returns Verdict for this single check.
  */
 function runEntry(combined: ICheckResult, entry: ICheckEntry): TLabel {
-  if ($isNil(entry.run)) {
-    table.insert(combined.failures, {
-      assertion: `check '${entry.name}'`,
-      detail: "exports no 'run' function",
-    });
+  const [isCompleted, caught] = pcall(() => {
+    // Reached through `_G` because `package` is a reserved word in a TypeScript module.
+    const loaded: LuaTable<TName, unknown> = ((_G as AnyObject).package as AnyObject).loaded;
 
-    return "FAIL";
-  }
+    loaded.set(entry.module, null);
+    require(entry.module);
 
-  const [isCompleted, caught] = pcall(entry.run);
+    return run(entry.name, "check");
+  });
 
   if (!isCompleted) {
     table.insert(combined.failures, {

@@ -6,71 +6,29 @@ import {
   CheckContext,
   ensureScriptLoggingEnabled,
   evaluateRequirements,
-  ICheckRequirements,
+  evaluateStateRequirements,
   ICheckResult,
   notify,
   persistOutcome,
   report,
   reportOutcome,
 } from "@/engine/checks/framework/core";
-import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { clearCurrentContext, IFlowStep, IRegistration, setCurrentContext } from "@/engine/checks/framework/dsl";
+import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 
 /**
- * Suffix stripped from the source file name when deriving a flow name.
- */
-const NAME_SUFFIX: TLabel = ".flow";
-
-/**
- * Prefix of the actor portable store key a flow keeps its cursor under.
+ * Prefix of the actor portable store key a flow keeps its progress under.
  *
- * `ActorBinder` writes that store into the save packet, so the cursor survives save, load and
- * restarts, and it travels with the save: loading an earlier save rewinds the flow with it.
+ * `ActorBinder.save` writes that store into the save packet, so progress travels with the save. That is
+ * also the only way to rewind a flow: load a save from before the walk. Nothing here undoes world state,
+ * because most of what a chain does - money, items, faction standing, spawned squads - cannot be undone,
+ * and flipping the portions back while leaving all of that produces a state the game never produces.
  */
 const CURSOR_KEY_PREFIX: TName = "xrf_flow_";
 
 /**
- * One step of a flow.
- */
-interface IFlowStep {
-  /** What this step establishes, echoed to the console when the step is armed. */
-  name: TLabel;
-  /** Mutations putting the world into the state this step needs. */
-  arrange?: (this: void, context: CheckContext) => void;
-  /** Assertions that must hold immediately after `arrange`. */
-  verify?: (this: void, context: CheckContext) => void;
-  /** What the operator is expected to do while this step is armed. */
-  handOff?: TLabel;
-  /**
-   * What should be true by the time the flow leaves this step. Asserted on the way out, never
-   * awaited: the next invocation advances either way, and an unmet gate is reported as a failure.
-   */
-  advanceWhen?: (this: void) => boolean;
-}
-
-/**
- * Declarative description of a resumable flow.
- */
-interface IFlowDefinition {
-  requires?: ICheckRequirements;
-  steps: Array<IFlowStep>;
-}
-
-/**
- * Derive the flow name from the source location of the caller.
- *
- * @param dirname - Value of the `$dirname` macro at the call site.
- * @param filename - Value of the `$filename` macro at the call site.
- * @returns Name the flow reports and stores its cursor under.
- */
-function resolveName(dirname: TName, filename: TName): TName {
-  const [name] = string.gsub(`${dirname}_${filename}`, `%${NAME_SUFFIX}$`, "");
-
-  return name;
-}
-
-/**
  * @param name - Flow name.
- * @returns Actor portable store key holding the cursor of this flow.
+ * @returns Actor portable store key holding how far this flow has been confirmed.
  */
 function resolveCursorKey(name: TName): TName {
   return `${CURSOR_KEY_PREFIX}${name}`;
@@ -87,11 +45,11 @@ function resolveFailuresKey(name: TName): TName {
 /**
  * Read how many assertions have failed so far during this walk.
  *
- * Each invocation gets its own context, so without a persisted tally the last one - which arms
- * nothing and asserts nothing - would report a clean pass over a walk that failed earlier.
+ * Each invocation gets its own context, so without a persisted tally the last one - which confirms the
+ * final step and nothing else - would report a clean pass over a walk that failed earlier.
  *
  * @param name - Flow name.
- * @returns Failures recorded since the flow was last reset.
+ * @returns Failures recorded since the walk began.
  */
 function readFailures(name: TName): TCount {
   return getPortableStoreValue<TCount>(ACTOR_ID, resolveFailuresKey(name), 0);
@@ -108,17 +66,17 @@ function writeFailures(name: TName, count: TCount): void {
 }
 
 /**
- * Read the cursor of a flow.
+ * Read how many steps of a flow have been confirmed.
  *
  * @param name - Flow name.
- * @returns Position of the armed step, 0 when the flow has not started.
+ * @returns Position of the last confirmed step, 0 when nothing has been.
  */
 function readCursor(name: TName): TIndex {
   return getPortableStoreValue<TIndex>(ACTOR_ID, resolveCursorKey(name), 0);
 }
 
 /**
- * Move the cursor of a flow.
+ * Record how many steps of a flow have been confirmed.
  *
  * @param name - Flow name.
  * @param position - Position to store.
@@ -128,110 +86,63 @@ function writeCursor(name: TName, position: TIndex): void {
 }
 
 /**
- * @param definition - Flow being run.
- * @param position - One based step position.
- * @returns Step at that position.
+ * Ask a step whether the world has reached it.
+ *
+ * A predicate that aborts is treated as not reached and recorded as a failure: the flow should stop
+ * where it can no longer tell, rather than walk on past a step it never actually observed.
+ *
+ * @param context - Running flow context.
+ * @param step - Step to test.
+ * @param position - Position of the step, for failure reporting.
+ * @returns Whether the step's outcome exists in the world.
  */
-function resolveStep(definition: IFlowDefinition, position: TIndex): IFlowStep {
-  return definition.steps[position - 1];
+function isStepReached(context: CheckContext, step: IFlowStep, position: TIndex): boolean {
+  const [isCompleted, caught] = pcall(() => step.reached());
+
+  if (!isCompleted) {
+    context.fail(`step ${position} reached`, `could not be evaluated -> ${tostring(caught)}`);
+
+    return false;
+  }
+
+  return caught === true;
 }
 
 /**
- * Assert the expected outcome of a step on the way out of it.
- *
- * An unmet gate is a finding either way: the hand off was not done yet, or doing it failed to
- * produce the state the configs promise.
+ * Verify a step that has been reached, in isolation from the rest of the walk.
  *
  * @param context - Running flow context.
- * @param step - Step being left.
+ * @param step - Step to verify.
  * @param position - Position of the step, for failure reporting.
  */
-function assertStepOutcome(context: CheckContext, step: IFlowStep, position: TIndex): void {
-  if ($isNil(step.advanceWhen)) {
+function verifyStep(context: CheckContext, step: IFlowStep, position: TIndex): void {
+  if ($isNil(step.verify)) {
     return;
   }
 
-  const [isCompleted, caught] = pcall(() => step.advanceWhen!());
-
-  if (!isCompleted) {
-    return context.fail(`step ${position} gate`, `could not be evaluated -> ${tostring(caught)}`);
-  }
-
-  context.expect(
-    caught === true,
-    `step ${position} outcome`,
-    $isNotNil(step.handOff)
-      ? `advanced before '${step.handOff}' was satisfied, later steps may fail as a result`
-      : `advanced before the expected outcome of step ${position} was reached`
-  );
-}
-
-/**
- * Arm a step: establish its state, verify what must hold straight after, and move the cursor.
- *
- * The cursor moves only once `arrange` has completed, so a step that aborts mid setup is retried
- * rather than skipped past a half built world.
- *
- * @param context - Running flow context.
- * @param definition - Flow being run.
- * @param name - Flow name.
- * @param position - Position of the step to arm.
- * @returns Whether the step was armed.
- */
-function armStep(context: CheckContext, definition: IFlowDefinition, name: TName, position: TIndex): boolean {
-  const step: IFlowStep = resolveStep(definition, position);
-
   context.stages += 1;
 
-  if ($isNotNil(step.arrange)) {
-    const [isCompleted, caught] = pcall(() => step.arrange!(context));
+  const [isCompleted, caught] = pcall(() => step.verify!());
 
-    if (!isCompleted) {
-      context.fail(`step ${position} arrange`, `aborted, cursor left in place -> ${tostring(caught)}`);
-
-      return false;
-    }
+  if (!isCompleted) {
+    context.fail(`step ${position} verify`, `aborted -> ${tostring(caught)}`);
   }
-
-  writeCursor(name, position);
-  report("%s: step %s/%s '%s' armed", name, position, definition.steps.length, step.name);
-
-  if ($isNotNil(step.verify)) {
-    const [isCompleted, caught] = pcall(() => step.verify!(context));
-
-    if (!isCompleted) {
-      context.fail(`step ${position} verify`, `aborted -> ${tostring(caught)}`);
-    }
-  }
-
-  if ($isNotNil(step.handOff)) {
-    report("%s: next -> %s", name, step.handOff);
-  }
-
-  // One tip per invocation rather than one per line: the queue would otherwise show the step label
-  // and its hand off as two hints competing for the same corner of the screen.
-  notify(
-    $isNotNil(step.handOff)
-      ? `${position}/${definition.steps.length} ${step.name} - next: ${step.handOff}`
-      : `${position}/${definition.steps.length} ${step.name}`
-  );
-
-  return true;
 }
 
 /**
- * Advance the flow by exactly one step and describe what happened.
+ * Walk forward over everything the world has already reached, and report where it stops.
  *
- * Every invocation moves forward, so a flow is walked by repeating one console command.
+ * This is the whole lifecycle. Every invocation re-observes from the last confirmed step, so progress
+ * made in play counts identically to progress made across earlier invocations - and a step reached
+ * naturally is still verified, which is the point of watching rather than driving.
  *
  * @param context - Running flow context.
- * @param definition - Flow being run.
+ * @param steps - Steps the flow registered.
  * @param name - Flow name.
  * @returns Headline verdict of this invocation.
  */
-function advance(context: CheckContext, definition: IFlowDefinition, name: TName): TLabel {
-  const total: TCount = definition.steps.length;
-  const cursor: TIndex = readCursor(name);
+function observe(context: CheckContext, steps: LuaArray<IFlowStep>, name: TName): TLabel {
+  const total: TCount = steps.length();
 
   if (total === 0) {
     context.fail("flow", "declares no steps");
@@ -239,64 +150,109 @@ function advance(context: CheckContext, definition: IFlowDefinition, name: TName
     return "FAIL";
   }
 
-  // Past the last step: the flow is done and stays done until it is reset.
-  if (cursor > total) {
-    report("%s: already complete, reset with 'run_script flow_%s_reset' to walk it again", name, name);
-    notify(`${name} is already complete - reset it to walk again`);
+  let confirmed: TIndex = readCursor(name);
+
+  if (confirmed >= total) {
+    report("%s: already complete, load a save from before the walk to observe it again", name);
+    notify(`${name} is already complete - load an earlier save to watch it again`);
 
     return "COMPLETE";
   }
 
-  if (cursor === 0) {
-    // Starting over: the previous walk's tally must not leak into this one.
-    writeFailures(name, 0);
+  for (const position of $range(confirmed + 1, total)) {
+    const step: IFlowStep = steps.get(position);
 
-    return armStep(context, definition, name, 1) ? "ARMED" : "FAIL";
+    if ($isNotNil(step.travel)) {
+      const [isCompleted, caught] = pcall(() => step.travel!());
+
+      if (!isCompleted) {
+        context.fail(`step ${position} travel`, `aborted -> ${tostring(caught)}`);
+      }
+    }
+
+    if (!isStepReached(context, step, position)) {
+      report("%s: step %s/%s '%s' not reached yet", name, position, total, step.name);
+
+      if ($isNotNil(step.handOff)) {
+        report("%s: to reach it -> %s", name, step.handOff);
+      }
+
+      notify(
+        $isNotNil(step.handOff)
+          ? `${position}/${total} ${step.name} - to reach it: ${step.handOff}`
+          : `${position}/${total} ${step.name} - not reached yet`
+      );
+
+      return "WAITING";
+    }
+
+    verifyStep(context, step, position);
+    writeCursor(name, position);
+
+    confirmed = position;
+    report("%s: step %s/%s '%s' reached", name, position, total, step.name);
   }
 
-  const current: IFlowStep = resolveStep(definition, cursor);
+  const walkFailures: TCount = readFailures(name) + context.failures.length();
 
-  assertStepOutcome(context, current, cursor);
-  report("%s: step %s/%s '%s' done", name, cursor, total, current.name);
+  report("%s: last step reached, flow complete", name);
+  notify(
+    walkFailures === 0
+      ? `${name} complete: ${total}/${total} steps, no failures`
+      : `${name} complete: ${total}/${total} steps, ${walkFailures} failure(s) during the walk`
+  );
 
-  if (cursor === total) {
-    const walkFailures: TCount = readFailures(name) + context.failures.length();
-
-    writeCursor(name, total + 1);
-    report("%s: last step reached, flow complete", name);
-    notify(
-      walkFailures === 0
-        ? `${name} complete: ${total}/${total} steps, no failures`
-        : `${name} complete: ${total}/${total} steps, ${walkFailures} failure(s) during the walk`
-    );
-
-    return "COMPLETE";
-  }
-
-  return armStep(context, definition, name, cursor + 1) ? "ARMED" : "FAIL";
+  return "COMPLETE";
 }
 
 /**
- * Execute one invocation of a flow: advance one step, report and persist the result.
+ * Execute one invocation of a flow: observe how far the chain has got, and verify it.
  *
- * @param dirname - Value of the `$dirname` macro at the call site.
- * @param filename - Value of the `$filename` macro at the call site.
- * @param definition - Step description of the flow.
+ * @param name - Flow name, single sourced from the generated launcher.
+ * @param registration - What the flow source file declared while it was required.
  * @returns Result of the invocation.
  */
-export function runFlow(dirname: TName, filename: TName, definition: IFlowDefinition): ICheckResult {
-  const name: TName = resolveName(dirname, filename);
+export function runFlow(name: TName, registration: IRegistration): ICheckResult {
   const context: CheckContext = new CheckContext(name);
 
   ensureScriptLoggingEnabled();
   report("%s: flow start", name);
 
   const startedAt: TCount = time_global();
-  const skipReason: Nillable<TLabel> = evaluateRequirements(definition.requires);
+  const skipReason: Nillable<TLabel> = evaluateRequirements(registration.requirements);
+  const blockers: LuaArray<TLabel> = $isNil(skipReason)
+    ? evaluateStateRequirements(registration.requirements)
+    : new LuaTable();
+
   let verdict: TLabel = "SKIP";
 
-  if ($isNil(skipReason)) {
-    verdict = advance(context, definition, name);
+  if ($isNotNil(skipReason)) {
+    verdict = "SKIP";
+  } else if (blockers.length() > 0) {
+    // Blocked rather than forced. The chain has to be brought here by playing it or by walking the flow
+    // that produces this state, because there is no honest way to fake a mid chain world.
+    verdict = "BLOCKED";
+
+    for (const [, blocker] of blockers) {
+      report("%s: blocked - %s", name, blocker);
+    }
+
+    notify(`${name} blocked: ${blockers.get(1)}`);
+  } else {
+    // Bracketed rather than left set: a stray assertion after this invocation should abort loudly
+    // instead of being recorded against a result nobody is going to read.
+    setCurrentContext(context);
+
+    const [isCompleted, caught] = pcall(() => {
+      verdict = observe(context, registration.steps, name);
+    });
+
+    clearCurrentContext();
+
+    if (!isCompleted) {
+      context.fail("flow", `aborted -> ${tostring(caught)}`);
+      verdict = "FAIL";
+    }
   }
 
   const result: ICheckResult = {
@@ -308,15 +264,16 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
   };
 
   const failures: TCount = result.failures.length();
+  const isObserving: boolean = $isNil(skipReason) && blockers.length() === 0;
 
   // The tally spans the whole walk, so a clean final invocation cannot pass off an earlier failure.
-  const walkFailures: TCount = $isNotNil(skipReason) ? readFailures(name) : readFailures(name) + failures;
+  const walkFailures: TCount = isObserving ? readFailures(name) + failures : readFailures(name);
 
-  if ($isNil(skipReason)) {
+  if (isObserving) {
     writeFailures(name, walkFailures);
   }
 
-  // A failing assertion outranks the progression verdict: the step moved, but something is broken.
+  // A failing assertion outranks the progression verdict: the chain got here, but something is broken.
   // Completing a walk that failed anywhere is a failure too, however clean the last invocation was.
   let outcome: TLabel = failures === 0 ? verdict : "FAIL";
 
@@ -328,9 +285,13 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
 
   table.insert(extra, `kind=flow`);
   table.insert(extra, `state=${string.lower(outcome)}`);
-  table.insert(extra, `step=${readCursor(name)}`);
-  table.insert(extra, `total=${definition.steps.length}`);
+  table.insert(extra, `confirmed=${readCursor(name)}`);
+  table.insert(extra, `total=${registration.steps.length()}`);
   table.insert(extra, `failedWalk=${walkFailures}`);
+
+  for (const [, blocker] of blockers) {
+    table.insert(extra, `blocked\t${blocker}`);
+  }
 
   reportOutcome(result, outcome, time_global() - startedAt);
 
@@ -349,28 +310,4 @@ export function runFlow(dirname: TName, filename: TName, definition: IFlowDefini
   }
 
   return result;
-}
-
-/**
- * Send a flow back to its first step.
- *
- * Clears the cursor only. World state a previous walk established is left alone, since every step
- * arranges its own preconditions on the way through.
- *
- * @param dirname - Value of the `$dirname` macro at the call site.
- * @param filename - Value of the `$filename` macro at the call site.
- */
-export function resetFlow(dirname: TName, filename: TName): void {
-  const name: TName = resolveName(dirname, filename);
-
-  ensureScriptLoggingEnabled();
-
-  if ($isNil(registry.actor)) {
-    return report("%s: cannot reset, actor is not registered", name);
-  }
-
-  writeCursor(name, 0);
-  writeFailures(name, 0);
-  report("%s: flow reset, next run arms step 1", name);
-  notify(`${name} reset - next run arms step 1`);
 }

@@ -169,11 +169,25 @@ export class CheckContext {
 }
 
 /**
- * Environment needed before a check or flow is worth running at all.
+ * A world state a flow needs before it is worth starting.
+ */
+export interface IStateRequirement {
+  holds: (this: void) => boolean;
+  missing: TLabel;
+}
+
+/**
+ * Everything needed before a check or flow is worth running at all.
  */
 export interface ICheckRequirements {
   /** Level that must be loaded, otherwise the run reports as skipped. */
   level?: TName;
+  /**
+   * Progression the flow starts from. Nothing here is ever forced: an unmet requirement blocks the
+   * run and says which flow to walk instead, because forcing a chain into a mid state produces portion
+   * combinations the game's own logic never produces.
+   */
+  state?: Array<IStateRequirement>;
 }
 
 /**
@@ -196,6 +210,32 @@ export function evaluateRequirements(requires: Nillable<ICheckRequirements>): Ni
   }
 
   return null;
+}
+
+/**
+ * Collect the progression requirements the world does not currently satisfy.
+ *
+ * @param requires - Declared requirements, if any.
+ * @returns Messages for every unmet requirement, empty when the flow can start.
+ */
+export function evaluateStateRequirements(requires: Nillable<ICheckRequirements>): LuaArray<TLabel> {
+  const unmet: LuaArray<TLabel> = new LuaTable();
+
+  if ($isNil(requires?.state)) {
+    return unmet;
+  }
+
+  for (const requirement of requires!.state!) {
+    const [isCompleted, caught] = pcall(() => requirement.holds());
+
+    if (!isCompleted) {
+      table.insert(unmet, `${requirement.missing} (precondition aborted -> ${tostring(caught)})`);
+    } else if (caught !== true) {
+      table.insert(unmet, requirement.missing);
+    }
+  }
+
+  return unmet;
 }
 
 /**

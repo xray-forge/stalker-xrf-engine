@@ -1,58 +1,48 @@
 import { time_global } from "xray16";
 import { Nillable, TLabel, TName, TTimestamp } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import {
   CheckContext,
   ensureScriptLoggingEnabled,
   evaluateRequirements,
-  ICheckRequirements,
   ICheckResult,
   persistOutcome,
   report,
   reportOutcome,
 } from "@/engine/checks/framework/core";
-
-/**
- * Suffix stripped from the source file name when deriving a check name.
- */
-const NAME_SUFFIX: TLabel = ".check";
-
-/**
- * Declarative description of a one shot check run.
- *
- * Mirrors a unit test file: `setup` establishes world state once, `body` groups assertions into
- * stages. For a chain that needs play in between steps, use a flow instead.
- */
-interface ICheckDefinition {
-  requires?: ICheckRequirements;
-  setup?: (this: void, context: CheckContext) => void;
-  body: (this: void, context: CheckContext) => void;
-}
+import { clearCurrentContext, IRegistration, setCurrentContext } from "@/engine/checks/framework/dsl";
 
 /**
  * Execute a check, report a summary and persist the result.
  *
  * Requirements are evaluated before anything mutates, so a check that cannot run leaves no trace.
- * A failing setup skips the body, since assertions against half built state only mislead.
  *
- * @param dirname - Value of the `$dirname` macro at the call site.
- * @param filename - Value of the `$filename` macro at the call site.
- * @param definition - Lifecycle description of the check.
+ * @param name - Check name, single sourced from the generated launcher.
+ * @param registration - What the check source file declared while it was required.
  * @returns Result of the run.
  */
-export function runCheck(dirname: TName, filename: TName, definition: ICheckDefinition): ICheckResult {
-  const [name] = string.gsub(`${dirname}_${filename}`, `%${NAME_SUFFIX}$`, "");
+export function runCheck(name: TName, registration: IRegistration): ICheckResult {
   const context: CheckContext = new CheckContext(name);
 
   ensureScriptLoggingEnabled();
   report("%s: start", name);
 
   const startedAt: TTimestamp = time_global();
-  const skipReason: Nillable<TLabel> = evaluateRequirements(definition.requires);
+  const skipReason: Nillable<TLabel> = evaluateRequirements(registration.requirements);
 
   if ($isNil(skipReason)) {
-    runPhases(context, definition);
+    // Bracketed rather than left set: a stray assertion after this run should abort loudly instead
+    // of being recorded against a result nobody is going to read.
+    setCurrentContext(context);
+
+    const [isCompleted, caught] = pcall(() => runStages(context, registration));
+
+    clearCurrentContext();
+
+    if (!isCompleted) {
+      context.fail("check", `aborted before completion -> ${tostring(caught)}`);
+    }
   }
 
   const result: ICheckResult = {
@@ -70,23 +60,24 @@ export function runCheck(dirname: TName, filename: TName, definition: ICheckDefi
 }
 
 /**
- * Run setup and body with the failure semantics described on {@link ICheckDefinition}.
+ * Run the setup hook, then every stage the file registered.
+ *
+ * A failing `beforeAll` skips every stage, since assertions against half built state only mislead.
+ * Stages are individually isolated, so one abort does not hide the ones after it.
  *
  * @param context - Running check context.
- * @param definition - Lifecycle description of the check.
+ * @param registration - What the check source file declared.
  */
-function runPhases(context: CheckContext, definition: ICheckDefinition): void {
-  if (definition.setup) {
-    const [isCompleted, caught] = pcall(() => definition.setup!(context));
+function runStages(context: CheckContext, registration: IRegistration): void {
+  if ($isNotNil(registration.beforeAll)) {
+    const [isCompleted, caught] = pcall(() => registration.beforeAll!());
 
     if (!isCompleted) {
-      return context.fail("setup", `aborted, body skipped -> ${tostring(caught)}`);
+      return context.fail("beforeAll", `aborted, every stage skipped -> ${tostring(caught)}`);
     }
   }
 
-  const [isCompleted, caught] = pcall(() => definition.body(context));
-
-  if (!isCompleted) {
-    context.fail("body", `aborted before completion -> ${tostring(caught)}`);
+  for (const [, stage] of registration.stages) {
+    context.stage(stage.name, stage.body);
   }
 }
