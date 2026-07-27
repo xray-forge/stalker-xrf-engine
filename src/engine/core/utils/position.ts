@@ -11,20 +11,25 @@ import {
 import {
   assert,
   copyVector,
+  createVector,
   graphDistance,
   isObjectInZone,
+  LuaArray,
   MAX_ALIFE_ID,
   MAX_LEVEL_VERTEX_ID,
   Nillable,
   TCount,
   TDistance,
+  TIndex,
   TName,
   TNumberId,
+  TRate,
   TStringId,
+  vectorRotateY,
   yawDegree3d,
   ZERO_VECTOR,
 } from "xray16/lib";
-import { $isNil, $isNotNil } from "xray16/macros";
+import { $fromArray, $isNil, $isNotNil } from "xray16/macros";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -251,22 +256,41 @@ export function teleportActorWithEffects(actor: GameObject, position: Vector, di
 }
 
 /**
- * Teleport actor to the first point of a patrol path. Aborts on an unknown path.
+ * Teleport actor to a point of a patrol path.
  *
  * Also refreshes no weapon zone flags, since arriving inside such a zone has to register the same
  * way walking into it would.
  *
- * @param positionPatrolName - Patrol path whose first point the actor is moved to.
+ * @param positionPatrolName - Patrol path the actor is moved onto.
  * @param lookPatrolName - Optional patrol path the actor is turned to face.
+ * @param pointIndex - Index of the point to arrive at, or -1 for the last one.
  */
-export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName: Nillable<TName> = null): void {
+export function teleportActorToPatrol(
+  positionPatrolName: TName,
+  lookPatrolName: Nillable<TName> = null,
+  pointIndex: TIndex = 0
+): void {
+  assert(
+    level.patrol_path_exists(positionPatrolName),
+    "Cannot teleport, patrol path '%s' does not exist.",
+    positionPatrolName
+  );
+
   const point: Patrol = new patrol(positionPatrolName);
+  const index: TIndex = pointIndex === -1 ? point.count() - 1 : pointIndex;
+  const destination: Vector = point.point(index);
 
   if (lookPatrolName) {
-    registry.actor.set_actor_direction(-new patrol(lookPatrolName).point(0).sub(point.point(0)).getH());
+    assert(
+      level.patrol_path_exists(lookPatrolName),
+      "Cannot teleport, look patrol path '%s' does not exist.",
+      lookPatrolName
+    );
+
+    registry.actor.set_actor_direction(-copyVector(new patrol(lookPatrolName).point(0)).sub(destination).getH());
   }
 
-  registry.actor.set_actor_position(point.point(0));
+  registry.actor.set_actor_position(destination);
 
   for (const [id] of registry.noWeaponZones) {
     if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
@@ -276,34 +300,58 @@ export function teleportActorToPatrol(positionPatrolName: TName, lookPatrolName:
 }
 
 /**
- * Teleport actor next to a position, on navigable ground where there is any.
+ * Teleport actor a short distance away from a position, facing it, on navigable ground where possible.
  *
  * @param position - World position to arrive next to.
- * @returns Whether the arrival point came from the AI graph rather than being the position itself.
+ * @param standoff - How far from the position to stop, in metres. Zero arrives on the position.
+ * @returns Whether the arrival point came from the AI graph rather than being the offset point itself.
  */
-export function teleportActorNearPosition(position: Vector): boolean {
-  const vertexId: TNumberId = level.vertex_id(position);
+export function teleportActorNearPosition(position: Vector, standoff: TDistance = 3): boolean {
+  const actorPosition: Vector = registry.actor.position();
 
-  let arrival: Vector = position;
+  // Standing on the target leaves no line to back away along, so pick an arbitrary one.
+  const approach: Vector =
+    actorPosition.distance_to(position) > 0.1 ? copyVector(actorPosition).sub(position) : createVector(1, 0, 0);
+
+  let arrival: Vector = copyVector(position).add(copyVector(approach).set_length(standoff));
   let isOnGraph: boolean = false;
 
-  if (vertexId < MAX_LEVEL_VERTEX_ID) {
+  for (const angle of [0, 90, 180, 270]) {
+    const offset: Vector = angle === 0 ? copyVector(approach) : vectorRotateY(approach, angle);
+    const candidateStandoff: Vector = copyVector(position).add(offset.set_length(standoff));
+    const vertexId: TNumberId = level.vertex_id(candidateStandoff);
+
+    if (vertexId >= MAX_LEVEL_VERTEX_ID) {
+      continue;
+    }
+
     const candidate: Vector = level.vertex_position(vertexId);
 
-    if (candidate.distance_to_sqr(position) <= 100) {
+    if (candidate.distance_to_sqr(candidateStandoff) <= 100) {
       arrival = candidate;
       isOnGraph = true;
+      break;
     }
   }
 
   registry.actor.set_actor_position(arrival);
-
-  // Arriving on the position itself leaves nothing to face, and `getH` of a zero vector is noise.
-  if (isOnGraph) {
-    registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
-  }
+  registry.actor.set_actor_direction(-copyVector(position).sub(arrival).getH());
 
   return isOnGraph;
+}
+
+/**
+ * Teleport actor exactly onto a position, with no AI graph involvement at all.
+ *
+ * @param position - World position to arrive on.
+ * @param facing - Optional position to turn towards on arrival.
+ */
+export function teleportActorToPosition(position: Vector, facing: Nillable<Vector> = null): void {
+  registry.actor.set_actor_position(position);
+
+  if ($isNotNil(facing)) {
+    registry.actor.set_actor_direction(-copyVector(facing).sub(position).getH());
+  }
 }
 
 /**

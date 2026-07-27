@@ -3,6 +3,7 @@ import { game_graph, level, patrol } from "xray16";
 import {
   ESoundObjectType,
   GameObject,
+  Patrol,
   ServerHumanObject,
   ServerObject,
   ServerSmartZoneObject,
@@ -219,6 +220,38 @@ describe("teleportActorToPatrol", () => {
     expect(actorGameObject.set_actor_direction).toHaveBeenCalledTimes(0);
   });
 
+  it("should move the actor to the last point when asked for the end of the path", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const path: Patrol = new patrol("test-wp");
+
+    teleportActorToPatrol("test-wp", null, -1);
+
+    // A walker's destination, not where it sets off from.
+    expect(path.count()).toBeGreaterThan(1);
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(path.point(path.count() - 1));
+  });
+
+  it("should abort on an unknown position path before moving the actor", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    expect(() => teleportActorToPatrol("not-existing-wp")).toThrow(
+      "Cannot teleport, patrol path 'not-existing-wp' does not exist."
+    );
+    expect(actorGameObject.set_actor_position).not.toHaveBeenCalled();
+  });
+
+  it("should abort on an unknown look path before moving the actor", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    // Checked up front: turning the actor and then aborting would leave it facing a place it never
+    // travelled to.
+    expect(() => teleportActorToPatrol("test-wp", "not-existing-wp")).toThrow(
+      "Cannot teleport, look patrol path 'not-existing-wp' does not exist."
+    );
+    expect(actorGameObject.set_actor_position).not.toHaveBeenCalled();
+    expect(actorGameObject.set_actor_direction).not.toHaveBeenCalled();
+  });
+
   it("should turn the actor towards the look path when one is supplied", () => {
     const { actorGameObject } = mockRegisteredActor();
 
@@ -263,53 +296,99 @@ describe("teleportActorNearPosition", () => {
     resetFunctionMock(level.vertex_position);
   });
 
-  it("should arrive at the resolved vertex and face the position when it is close", () => {
+  it("should look up a vertex for the standoff point, not for the target", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const target: Vector = MockVector.mock(10, 0, 10);
-    const arrival: Vector = MockVector.mock(6, 0, 8);
+    const target: Vector = MockVector.mock(4, 0, 0);
+    const candidate: Vector = MockVector.mock(7.5, 0, 0);
 
-    MockVector.DEFAULT_DISTANCE = 4;
+    // Both vectors non origin, so the mock reports DEFAULT_DISTANCE for every `distance_to`.
+    MockVector.DEFAULT_DISTANCE = 6;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
     replaceFunctionMock(level.vertex_id, () => 42);
-    replaceFunctionMock(level.vertex_position, () => arrival);
+    replaceFunctionMock(level.vertex_position, () => candidate);
 
     expect(teleportActorNearPosition(target)).toBe(true);
 
     // Never `accessible_nearest`: it casts to CCustomMonster, which the actor is not.
     expect(actorGameObject.accessible_nearest).not.toHaveBeenCalled();
-    expect(level.vertex_id).toHaveBeenCalledWith(target);
+    // 3 metres back from the target along the line towards the actor: (4,0,0) + (3,0,0).
+    expect(level.vertex_id).toHaveBeenCalledWith(MockVector.mock(7, 0, 0));
     expect(level.vertex_position).toHaveBeenCalledWith(42);
-    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(arrival);
-    expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(-MockVector.mock(4, 0, 2).getH());
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(candidate);
+    expect(actorGameObject.set_actor_direction).toHaveBeenCalledWith(-MockVector.mock(-3.5, 0, 0).getH());
 
-    // The supplied position must survive: `sub` mutates whatever it is called on.
-    expect(target).toEqual(MockVector.mock(10, 0, 10));
+    // The supplied position must survive: `sub` and `add` mutate whatever they are called on.
+    expect(target).toEqual(MockVector.mock(4, 0, 0));
   });
 
-  it("should use the position itself when the resolved vertex is far away", () => {
+  it("should never arrive on the target itself when the vertex is unusable", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const target: Vector = MockVector.mock(10, 0, 10);
+    const target: Vector = MockVector.mock(4, 0, 0);
 
     // What an off graph position produces: a valid looking id pointing somewhere unrelated.
-    MockVector.DEFAULT_DISTANCE = 400;
+    MockVector.DEFAULT_DISTANCE = 40;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
     replaceFunctionMock(level.vertex_id, () => 42);
     replaceFunctionMock(level.vertex_position, () => MockVector.mock(900, 0, 900));
 
     expect(teleportActorNearPosition(target)).toBe(false);
 
-    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target);
-    expect(actorGameObject.set_actor_direction).not.toHaveBeenCalled();
+    // Standing on the target is what displaces a placed item, so the standoff has to survive here.
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(MockVector.mock(7, 0, 0));
+    expect(actorGameObject.set_actor_position).not.toHaveBeenCalledWith(target);
+    expect(actorGameObject.set_actor_direction).toHaveBeenCalled();
   });
 
-  it("should use the position itself when no vertex resolves at all", () => {
+  it("should try other sides of the target when the natural approach is unreachable", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const target: Vector = MockVector.mock(1, 0, 1);
+    const target: Vector = MockVector.mock(4, 0, 0);
+    const reachable: Vector = MockVector.mock(4, 0, 3);
+    const attempts: Array<Vector> = [];
 
+    MockVector.DEFAULT_DISTANCE = 6;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
+
+    // A target inside a hull: only one side of it has ground the actor can stand on.
+    replaceFunctionMock(level.vertex_id, (candidate: Vector) => {
+      attempts.push(MockVector.mock(candidate.x, candidate.y, candidate.z));
+
+      return attempts.length < 3 ? MAX_LEVEL_VERTEX_ID : 77;
+    });
+    replaceFunctionMock(level.vertex_position, () => reachable);
+
+    expect(teleportActorNearPosition(target)).toBe(true);
+
+    // Straight back first, then quarter turns until the graph accepts one.
+    expect(attempts).toHaveLength(3);
+    expect(attempts[0]).toEqual(MockVector.mock(7, 0, 0));
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(reachable);
+  });
+
+  it("should keep the standoff when no vertex resolves at all", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(4, 0, 0);
+
+    MockVector.DEFAULT_DISTANCE = 6;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
     replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
 
     expect(teleportActorNearPosition(target)).toBe(false);
 
     expect(level.vertex_position).not.toHaveBeenCalled();
-    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(target);
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(MockVector.mock(7, 0, 0));
+  });
+
+  it("should respect a supplied standoff", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(4, 0, 0);
+
+    MockVector.DEFAULT_DISTANCE = 6;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
+    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
+
+    teleportActorNearPosition(target, 8);
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(MockVector.mock(12, 0, 0));
   });
 });
 
