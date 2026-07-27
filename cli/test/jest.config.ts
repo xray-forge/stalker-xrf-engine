@@ -15,7 +15,7 @@ module.exports = xra16.createJestConfig({
   collectCoverage: false,
   cacheDirectory: "<rootDir>/target/jest_cache",
   coverageDirectory: "<rootDir>/target/coverage_report",
-  coveragePathIgnorePatterns: ["/node_modules/", "<rootDir>/src/fixtures/"],
+  coveragePathIgnorePatterns: ["/node_modules/", "<rootDir>/src/fixtures/", "<rootDir>/src/engine/checks/"],
   coverageReporters: ["json", "html"],
   moduleNameMapper: {
     "^#/(.*)": "<rootDir>/cli/$1",
