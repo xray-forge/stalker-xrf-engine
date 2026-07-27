@@ -168,9 +168,6 @@ function emitSuiteLauncher(checks: Array<ICheckDescriptor>): string | null {
   }
 
   const launcher: string = `${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}.script`;
-  const unload: string = [SUITE_MODULE, ...runnable.map((it) => it.module)]
-    .map((it) => `  package.loaded["${it}"] = nil\n`)
-    .join("");
   const entries: string = runnable
     .map((it) => `    { name = "${it.identity}", run = require("${it.module}").run },\n`)
     .join("");
@@ -180,7 +177,7 @@ function emitSuiteLauncher(checks: Array<ICheckDescriptor>): string | null {
     `-- Runs every built check in sequence. Flows are excluded, they advance a saved cursor.\n` +
     `-- Run with: run_script ${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}\n` +
     `function main()\n` +
-    unload +
+    UNLOAD_CHECK_MODULES +
     `  require("${SUITE_MODULE}").runAll({\n` +
     entries +
     `  })\n` +
@@ -194,6 +191,16 @@ function emitSuiteLauncher(checks: Array<ICheckDescriptor>): string | null {
 }
 
 /**
+ * Lua dropping every cached check module from `package.loaded`.
+ */
+const UNLOAD_CHECK_MODULES: string =
+  `  for name in pairs(package.loaded) do\n` +
+  `    if string.sub(name, 1, 7) == "checks." then\n` +
+  `      package.loaded[name] = nil\n` +
+  `    end\n` +
+  `  end\n`;
+
+/**
  * Write a single launcher script invoking one exported entry point of a check module.
  *
  * The work must live in `main`: `run_script X` loads the file into namespace `X`, then resumes
@@ -205,7 +212,7 @@ function writeLauncher(launcher: string, check: ICheckDescriptor, entry: "run" |
     `-- Launcher for ${check.relative} (${check.kind}, ${entry}).\n` +
     `-- Run with: run_script ${launcher.replace(/\.script$/, "")}\n` +
     `function main()\n` +
-    `  package.loaded["${check.module}"] = nil\n` +
+    UNLOAD_CHECK_MODULES +
     `  require("${check.module}").${entry}()\n` +
     `end\n`;
 
