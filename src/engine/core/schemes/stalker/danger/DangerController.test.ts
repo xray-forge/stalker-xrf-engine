@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { snd_type, time_global } from "xray16";
+import { clsid, snd_type, time_global } from "xray16";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { TTimestamp } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
@@ -29,7 +29,7 @@ function createController(): { controller: DangerController; object: GameObject;
  * Register a sound source object that the listener treats as an enemy.
  */
 function registerEnemySource(object: GameObject): GameObject {
-  const who: GameObject = MockGameObject.mock();
+  const who: GameObject = MockGameObject.mockStalker();
 
   registerObject(who);
   jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.ENEMY);
@@ -98,7 +98,7 @@ describe("DangerController", () => {
 
   it("should ignore bullet hits from non enemies", () => {
     const { controller, object, state } = createController();
-    const who: GameObject = MockGameObject.mock();
+    const who: GameObject = MockGameObject.mockStalker();
 
     registerObject(who);
     jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.FRIEND);
@@ -120,8 +120,8 @@ describe("DangerController", () => {
 
   it("should assist allies shooting at a mutual enemy", () => {
     const { controller, object, state } = createController();
-    const who: GameObject = MockGameObject.mock();
-    const shootingAt: GameObject = MockGameObject.mock();
+    const who: GameObject = MockGameObject.mockStalker();
+    const shootingAt: GameObject = MockGameObject.mockStalker();
 
     registerObject(who);
     jest.spyOn(who, "best_enemy").mockImplementation(() => shootingAt);
@@ -143,12 +143,46 @@ describe("DangerController", () => {
     expect(state.dangerTime).toBeNull();
   });
 
-  it("should ignore unrelated sound types", () => {
+  it("should ignore unrelated sound types before evaluating the sound source", () => {
     const { controller, object, state } = createController();
     const who: GameObject = registerEnemySource(object);
 
     controller.onHear(object, who.id(), snd_type.monster, MockVector.create(0, 0, 0), 1);
 
     expect(state.dangerTime).toBeNull();
+    // Sound type is filtered out first, so no enemy evaluation happens at all.
+    expect(canObjectSelectAsEnemy).not.toHaveBeenCalled();
+    expect(object.best_enemy).not.toHaveBeenCalled();
+  });
+
+  it("should ignore sounds produced by non-creature objects", () => {
+    const { controller, object, state } = createController();
+    const artefact: GameObject = MockGameObject.mockWithClassId(clsid.artefact);
+
+    registerObject(artefact);
+    jest.spyOn(object, "relation").mockImplementation(() => EGameObjectRelation.ENEMY);
+
+    controller.onHear(object, artefact.id(), snd_type.weapon_bullet_hit, MockVector.create(1, 0, 0), 1);
+
+    expect(state.dangerTime).toBeNull();
+    /**
+     * Artefacts have no relations, evaluating them as enemies makes the engine log
+     * `cannot apply GetRelationType method for non-alive object`.
+     */
+    expect(canObjectSelectAsEnemy).not.toHaveBeenCalled();
+    expect(object.relation).not.toHaveBeenCalled();
+    expect(object.set_dest_level_vertex_id).not.toHaveBeenCalled();
+  });
+
+  it("should ignore weapon sounds produced by physics objects", () => {
+    const { controller, object, state } = createController();
+    const physicObject: GameObject = MockGameObject.mockWithClassId(clsid.obj_phys_destroyable);
+
+    registerObject(physicObject);
+
+    controller.onHear(object, physicObject.id(), snd_type.weapon, MockVector.create(1, 0, 0), 1);
+
+    expect(state.dangerTime).toBeNull();
+    expect(canObjectSelectAsEnemy).not.toHaveBeenCalled();
   });
 });

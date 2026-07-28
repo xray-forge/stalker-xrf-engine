@@ -7,6 +7,7 @@ import { AbstractSchemeController } from "@/engine/core/schemes/base";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { isCreature } from "@/engine/core/utils/class_ids";
 import { isSoundType } from "@/engine/core/utils/sound";
 
 /**
@@ -33,10 +34,22 @@ export class DangerController extends AbstractSchemeController<ISchemeDangerStat
     soundPosition: Vector,
     soundPower: TRate
   ): void {
+    // Only weapon sounds can trigger danger state, filter everything else out before doing any lookups.
+    // Note: `weapon_bullet_hit` mask includes `weapon` bits, so a single check covers both branches below.
+    if (!isSoundType(soundType, snd_type.weapon)) {
+      return;
+    }
+
+    // If already in combat.
+    if (object.best_enemy()) {
+      return;
+    }
+
     const who: Nillable<GameObject> = registry.objects.get(whoId)?.object;
 
-    // If already in combat or no game object 'who'.
-    if (!who || object.best_enemy()) {
+    // If there is no game object 'who' or sound source is not a creature.
+    // Artefacts, grenades and physics objects also emit sounds, but cannot be treated as enemies.
+    if (!who || !isCreature(who)) {
       return;
     }
 
@@ -58,7 +71,8 @@ export class DangerController extends AbstractSchemeController<ISchemeDangerStat
         this.state.dangerTime = time_global();
         object.set_dest_level_vertex_id(who.level_vertex_id());
       }
-    } else if (isSoundType(soundType, snd_type.weapon)) {
+    } else {
+      // Generic weapon sound, including bullet hits produced by non-enemies.
       const shootingAt: Nillable<GameObject> = who.best_enemy();
 
       // If hear others shooting at enemy OR enemy shooting in range, try to help

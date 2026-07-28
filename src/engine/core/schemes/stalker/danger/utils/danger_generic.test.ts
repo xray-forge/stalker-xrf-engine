@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { danger_object } from "xray16";
+import { clsid, danger_object } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
 import { FALSE, TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "xray16/mocks";
@@ -39,7 +39,7 @@ describe("isObjectFacingDanger", () => {
 
     expect(isObjectFacingDanger(object)).toBe(false);
 
-    bestDanger.dangerDependentObject = MockGameObject.mock();
+    bestDanger.dangerDependentObject = MockGameObject.mockStalker();
     expect(isObjectFacingDanger(object)).toBe(false);
 
     replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
@@ -60,7 +60,7 @@ describe("isObjectFacingDanger", () => {
     setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
-    bestDanger.dangerDependentObject = MockGameObject.mock();
+    bestDanger.dangerDependentObject = MockGameObject.mockStalker();
     replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
     bestDanger.dangerType = danger_object.hit;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 150 * 150);
@@ -93,6 +93,7 @@ describe("isObjectFacingDanger", () => {
     replaceFunctionMock(object.best_danger, () => bestDanger);
     replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
 
+    bestDanger.dangerObject = MockGameObject.mockStalker();
     bestDanger.dangerType = danger_object.entity_death;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 16);
     expect(isObjectFacingDanger(object)).toBe(true);
@@ -110,6 +111,7 @@ describe("isObjectFacingDanger", () => {
     setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
+    bestDanger.dangerObject = MockGameObject.mockStalker();
     bestDanger.dangerType = danger_object.entity_death;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 1);
 
@@ -157,6 +159,39 @@ describe("isObjectFacingDanger", () => {
     );
     expect(isObjectFacingDanger(object)).toBe(false);
   });
+
+  it("should not evaluate relations of non-creature danger sources", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const bestDanger: MockDangerObject = new MockDangerObject();
+    const state: IRegistryObjectState = registerObject(object);
+
+    setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
+    replaceFunctionMock(object.best_danger, () => bestDanger);
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
+
+    bestDanger.dangerObject = MockGameObject.mockWithClassId(clsid.artefact);
+    bestDanger.dangerType = danger_object.hit;
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 1);
+
+    expect(isObjectFacingDanger(object)).toBe(false);
+    // Artefacts have no relations, asking for one makes the engine log a script error.
+    expect(object.relation).not.toHaveBeenCalled();
+  });
+
+  it("should not react to danger when object is dead", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const bestDanger: MockDangerObject = new MockDangerObject();
+
+    registerObject(object);
+    replaceFunctionMock(object.best_danger, () => bestDanger);
+
+    bestDanger.dangerType = danger_object.grenade;
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 1);
+    expect(isObjectFacingDanger(object)).toBe(true);
+
+    jest.spyOn(object, "alive").mockImplementation(() => false);
+    expect(isObjectFacingDanger(object)).toBe(false);
+  });
 });
 
 describe("canObjectSelectAsEnemy", () => {
@@ -167,7 +202,7 @@ describe("canObjectSelectAsEnemy", () => {
 
   it("should correctly check enemies selection possibility", () => {
     const object: GameObject = MockGameObject.mockStalker();
-    const enemy: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mockStalker();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
@@ -203,7 +238,7 @@ describe("canObjectSelectAsEnemy", () => {
 
   it("should prioritize critically wounded over combat ignore overrides", () => {
     const object: GameObject = MockGameObject.mockStalker();
-    const enemy: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mockStalker();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
@@ -224,7 +259,7 @@ describe("canObjectSelectAsEnemy", () => {
 
   it("should correctly check enemies in no-combat zones", () => {
     const object: GameObject = MockGameObject.mockStalker();
-    const enemy: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mockStalker();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
@@ -249,7 +284,7 @@ describe("canObjectSelectAsEnemy", () => {
 
   it("should correctly ignore enemies in no-combat smarts", () => {
     const object: GameObject = MockGameObject.mockStalker();
-    const enemy: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mockStalker();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
@@ -266,9 +301,55 @@ describe("canObjectSelectAsEnemy", () => {
     expect(state.enemyId).toBe(enemy.id());
   });
 
+  it("should reject non-creature enemies without touching enemy state", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const state: IRegistryObjectState = registerObject(object);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
+
+    setSchemeState(state, EScheme.COMBAT_IGNORE, combatIgnoreState);
+
+    // An override condlist that evaluates `actor_enemy`, which needs an alive creature in the actor slot.
+    combatIgnoreState.overrides = {
+      combatIgnore: mockBaseSchemeLogic({
+        condlist: parseConditionsList("{=actor_enemy} true, false"),
+      }),
+    } as ILogicsOverrides;
+
+    /**
+     * Artefacts, grenades and physics objects emit sounds and produce danger, but have no relations.
+     * They must never reach the condlist, otherwise the engine logs
+     * `cannot apply GetRelationType method for non-alive object`.
+     */
+    for (const enemy of [
+      MockGameObject.mockWithClassId(clsid.artefact),
+      MockGameObject.mockWithClassId(clsid.wpn_grenade_rgd5_s),
+      MockGameObject.mockWithClassId(clsid.obj_phys_destroyable),
+    ]) {
+      expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
+      expect(object.relation).not.toHaveBeenCalled();
+
+      // Enemy state must stay untouched, it feeds `check_enemy_name` / `check_enemy_smart` / `fighting_actor`.
+      expect(state.enemyId).toBeUndefined();
+      expect(state.enemy).toBeUndefined();
+    }
+  });
+
+  it("should reject dead creatures as enemies", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const enemy: GameObject = MockGameObject.mockStalker();
+    const state: IRegistryObjectState = registerObject(object);
+
+    setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
+
+    jest.spyOn(enemy, "alive").mockImplementation(() => false);
+
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
+    expect(state.enemyId).toBeUndefined();
+  });
+
   it("should evaluate no-combat zone before combat-ignore overrides (matches is_enemy ordering)", () => {
     const object: GameObject = MockGameObject.mockStalker();
-    const enemy: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mockStalker();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 

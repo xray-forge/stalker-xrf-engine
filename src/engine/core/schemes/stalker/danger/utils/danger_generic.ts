@@ -13,6 +13,7 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_i
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { ILogicsOverrides } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
+import { isCreature } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 
@@ -23,6 +24,11 @@ import { isObjectWounded } from "@/engine/core/utils/planner";
  * @returns Whether object is facing any danger right now.
  */
 export function isObjectFacingDanger(object: GameObject): boolean {
+  // Dead objects cannot react to danger.
+  if (!object.alive()) {
+    return false;
+  }
+
   const bestDanger: Nillable<DangerObject> = object.best_danger();
 
   // No danger at all.
@@ -59,14 +65,22 @@ export function isObjectFacingDanger(object: GameObject): boolean {
     return false;
   }
 
-  // Skip the relation check only for grenades.
-  if (bestDangerType !== danger_object.grenade && object.relation(bestDangerObject) !== EGameObjectRelation.ENEMY) {
-    return false;
-  }
+  // Grenade danger source is the grenade item itself, so it cannot be evaluated as an enemy at all.
+  // Relation and combat ignore checks are skipped for it, everything else has to be an alive creature.
+  if (bestDangerType !== danger_object.grenade) {
+    // Items and physics objects have no relations, reacting to them as to enemies is not possible.
+    if (!isCreature(bestDangerObject)) {
+      return false;
+    }
 
-  // Verify if object is not enemy at all.
-  if (!canObjectSelectAsEnemy(object, bestDangerObject)) {
-    return false;
+    if (object.relation(bestDangerObject) !== EGameObjectRelation.ENEMY) {
+      return false;
+    }
+
+    // Verify if object is not enemy at all.
+    if (!canObjectSelectAsEnemy(object, bestDangerObject)) {
+      return false;
+    }
   }
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
@@ -105,6 +119,11 @@ export function isObjectFacingDanger(object: GameObject): boolean {
 export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): boolean {
   // Dead, cannot select enemies.
   if (!object.alive()) {
+    return false;
+  }
+
+  // Only alive creatures can be enemies.
+  if (!isCreature(enemy) || !enemy.alive()) {
     return false;
   }
 
