@@ -159,7 +159,10 @@ export const jupiterInfoPortions = {
   /**
    * Jupiter b202.
    */
+  jup_b202_actor_find_snag: "jup_b202_actor_find_snag",
   jup_b202_actor_items_returned: "jup_b202_actor_items_returned",
+  jup_b202_actor_items_stolen: "jup_b202_actor_items_stolen",
+  jup_b202_actor_spare_snag: "jup_b202_actor_spare_snag",
   jup_b202_bandit_hited: "jup_b202_bandit_hited",
   jup_b202_bandit_hited_by_actor: "jup_b202_bandit_hited_by_actor",
   jup_b202_polustanok: "jup_b202_polustanok",
@@ -230,6 +233,8 @@ export const jupiterInfoPortions = {
   /**
    * Jupiter b217 - tech quests.
    */
+  jup_b217_guide_welcome_end: "jup_b217_guide_welcome_end",
+  jup_b217_pp_end_in_scene: "jup_b217_pp_end_in_scene",
   jup_b217_stalker_tech_jupiter_delivery_done: "jup_b217_stalker_tech_jupiter_delivery_done",
   jup_b217_stalker_tech_jupiter_evacuation_done: "jup_b217_stalker_tech_jupiter_evacuation_done",
   jup_b217_stalker_tech_jupiter_losses_done: "jup_b217_stalker_tech_jupiter_losses_done",
@@ -237,10 +242,14 @@ export const jupiterInfoPortions = {
   jup_b217_stalker_tech_jupiter_power_done: "jup_b217_stalker_tech_jupiter_power_done",
   jup_b217_stalker_tech_jupiter_way_done: "jup_b217_stalker_tech_jupiter_way_done",
   jup_b217_task_end: "jup_b217_task_end",
+  jup_b217_task_start: "jup_b217_task_start",
   jup_b217_tech_instrument_1_brought: "jup_b217_tech_instrument_1_brought",
   jup_b217_tech_instrument_2_brought: "jup_b217_tech_instrument_2_brought",
   jup_b217_tech_instrument_3_brought: "jup_b217_tech_instrument_3_brought",
   jup_b217_tech_instruments_start: "jup_b217_tech_instruments_start",
+  jup_b217_welcome_faded: "jup_b217_welcome_faded",
+  jup_b217_welcome_guide_talked: "jup_b217_welcome_guide_talked",
+  jup_b217_welcome_tech_talked: "jup_b217_welcome_tech_talked",
   /**
    * Jupiter b218.
    */
@@ -383,6 +392,10 @@ export const jupiterInfoPortions = {
   jup_b9_blackbox_decrypted: "jup_b9_blackbox_decrypted",
   jup_b9_heli_1_searched: "jup_b9_heli_1_searched",
   jup_b9_heli_1_searching: "jup_b9_heli_1_searching",
+  /**
+   * Jupiter arrival.
+   */
+  jup_first_meet_made: "jup_first_meet_made",
   /**
    * Jupiter pri zulus death.
    */

@@ -3,16 +3,22 @@ import { createVector, Nillable, TCount, TLabel, TName, TSection } from "xray16/
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { expect, expectEqual, report, requires, step } from "@/engine/checks/framework";
-import { checkTaskText, expectActorMoneyGained, rememberActorMoney } from "@/engine/checks/framework/world";
+import {
+  checkTaskText,
+  expectActorMoneyGained,
+  rememberActorMoney,
+  teleportToPatrol,
+  teleportToPoint,
+} from "@/engine/checks/framework/world";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { artefacts } from "@/engine/constants/items/artefacts";
+import { levels } from "@/engine/constants/levels";
 import { getServerObjectByStoryId } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { Squad } from "@/engine/core/objects/squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasItem } from "@/engine/core/utils/item";
-import { teleportActorToPatrol, teleportActorToPosition } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 
 const TASK_ID: TName = "zat_b14_learn_about_strange_occurrence";
@@ -77,7 +83,7 @@ step("1 - quest taken from Beard", {
   reached: (): boolean =>
     hasInfoPortion(infoPortions.zat_b14_recon_place) && $isNotNil(taskConfig.ACTIVE_TASKS.get(TASK_ID)),
   travel: (): void => {
-    teleportActorToPatrol(BASE_WALK_PATH, BASE_LOOK_PATH);
+    teleportToPatrol(BASE_WALK_PATH, BASE_LOOK_PATH);
     rememberActorMoney(MONEY_BEFORE_KEY);
   },
   verify: (): void => {
@@ -107,7 +113,7 @@ step("2 - artefact taken", {
     const placed: Nillable<ServerObject> = getServerObjectByStoryId(ARTEFACT_STORY_ID);
 
     if ($isNotNil(placed)) {
-      teleportActorToPosition(artefactPosition, placed.position);
+      teleportToPoint("the artefact ledge", levels.zaton, artefactPosition, placed.position);
     }
   },
   verify: (): void => {
@@ -122,7 +128,7 @@ step("3 - settled with the stalkers below", {
   travel: (): void => {
     const robberyPosition: Vector = createVector(410.694, -5.751, 219.537);
 
-    teleportActorToPosition(robberyPosition);
+    teleportToPoint("the robbery spot below deck", levels.zaton, robberyPosition);
   },
   verify: (): void => {
     report("settled by: %s", tostring(resolveRobberyOutcome()));
@@ -134,7 +140,7 @@ step("3 - settled with the stalkers below", {
 
 step("4 - handed in, reward_money paid", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b14_give_item_linker),
-  travel: (): void => teleportActorToPatrol(BASE_WALK_PATH, BASE_LOOK_PATH),
+  travel: (): void => void teleportToPatrol(BASE_WALK_PATH, BASE_LOOK_PATH),
   verify: (): void => {
     let pending: TCount = 0;
 

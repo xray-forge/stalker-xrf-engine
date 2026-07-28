@@ -2,7 +2,7 @@ import { Nillable, TCount, TLabel, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { expect, expectEqual, report, requires, step } from "@/engine/checks/framework";
-import { checkTaskText, travelToStoryObject, travelToZone } from "@/engine/checks/framework/world";
+import { checkTaskText, teleportNearZone, teleportToStoryObject } from "@/engine/checks/framework/world";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
@@ -15,6 +15,7 @@ const TASK_TITLE: TLabel = "zat_b33_zaporojec_name";
 const SNAG_STORY_ID: TName = "zat_b33_stalker_snag";
 const MECHANIC_STORY_ID: TName = "zat_a2_stalker_mechanic";
 const TREASURE_STORY_ID: TName = "zat_b33_treasure";
+const TUTOR_ZONE: TName = "zat_b33_tutor";
 const MECHANIC_PRICE: TCount = 500;
 
 /**
@@ -47,7 +48,7 @@ requires({
 
 step("1 - Snag asked for his stash back", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b33_safe_container),
-  travel: (): void => void travelToStoryObject(SNAG_STORY_ID),
+  travel: (): void => void teleportToStoryObject(SNAG_STORY_ID),
   verify: (): void => {
     expect(
       hasInfoPortion(infoPortions.zat_b33_stalker_snag_setup),
@@ -75,8 +76,8 @@ step("2 - Zaporozhets task handed out", {
 step("3 - container out of the stash", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b33_find_package),
   travel: (): void => {
-    if (!travelToZone("zat_b33_tutor")) {
-      travelToStoryObject(TREASURE_STORY_ID);
+    if (!teleportNearZone(TUTOR_ZONE)) {
+      void teleportToStoryObject(TREASURE_STORY_ID);
     }
   },
   verify: (): void => {
@@ -98,14 +99,14 @@ step("3 - container out of the stash", {
     checkTaskText(TASK_ID, "with the container found");
   },
   handOff:
-    "climb down to the Zaporozhets at zat_b33 and take the container out of the stash - turning Snag down does not " +
-    "empty it, so this is still worth doing",
+    "you are put down a few metres short of the Zaporozhets on purpose - walk the rest of the way in and take the " +
+    "container out of the stash. Turning Snag down does not empty it, so this is still worth doing",
 });
 
 step("4 - container opened", {
   reached: (): boolean => $isNotNil(resolveContainerFate()),
   travel: (): void =>
-    void travelToStoryObject(hasInfoPortion(infoPortions.zat_b33_refuse_task) ? MECHANIC_STORY_ID : SNAG_STORY_ID),
+    void teleportToStoryObject(hasInfoPortion(infoPortions.zat_b33_refuse_task) ? MECHANIC_STORY_ID : SNAG_STORY_ID),
   verify: (): void => {
     report("fate of the container: %s", tostring(resolveContainerFate()));
 

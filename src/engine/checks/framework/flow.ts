@@ -167,6 +167,8 @@ function observe(context: CheckContext, steps: LuaArray<IFlowStep>, name: TName)
     const step: IFlowStep = steps.get(position);
 
     if ($isNotNil(step.travel)) {
+      report("%s: step %s/%s '%s' travelling", name, position, total, step.name);
+
       const [isCompleted, caught] = pcall(() => step.travel!());
 
       if (!isCompleted) {

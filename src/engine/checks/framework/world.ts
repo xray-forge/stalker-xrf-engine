@@ -1,12 +1,26 @@
 import { game, level } from "xray16";
 import { GameObject, ServerObject, Vector } from "xray16/alias";
-import { ACTOR_ID, copyVector, Nillable, TCount, TDistance, TLabel, TName, TStringId } from "xray16/lib";
+import {
+  ACTOR_ID,
+  isObjectInZone,
+  MAX_LEVEL_VERTEX_ID,
+  MAX_U16,
+  Nillable,
+  TCount,
+  TDistance,
+  TIndex,
+  TLabel,
+  TName,
+  TStringId,
+  vectorToString,
+} from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { report } from "@/engine/checks/framework/core";
 import { expect } from "@/engine/checks/framework/dsl";
 import {
   getManager,
+  getObjectByStoryId,
   getPortableStoreValue,
   getServerObjectByStoryId,
   registry,
@@ -16,7 +30,15 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
-import { isObjectOnLevel, teleportActorToPosition, teleportActorToStoryObject } from "@/engine/core/utils/position";
+import {
+  getActorPosition,
+  getPositionLevelVertexId,
+  isOnLoadedLevel,
+  teleportActorNearPosition,
+  teleportActorToPatrol,
+  teleportActorToPosition,
+  teleportActorToStoryObject,
+} from "@/engine/core/utils/position";
 
 /**
  * Force the next evaluation of a task to run instead of being throttled.
@@ -119,84 +141,214 @@ export function checkTaskText(taskId: TStringId, when: TLabel): Nillable<TaskObj
 }
 
 /**
+ * Record a teleport that did not happen, and hand back the refusal.
+ *
+ * @param destination - What was asked for, story id or restrictor name.
+ * @param reason - Why the actor was left where it is.
+ * @returns Always false, to be returned straight out of the caller.
+ */
+function reportTeleportRefused(destination: TName, reason: TLabel): boolean {
+  report("teleport: '%s' refused, %s", destination, reason);
+
+  return false;
+}
+
+/**
+ * Record where a teleport actually put the actor, so a walk can be retraced from the log alone.
+ *
+ * @param destination - What was asked for, story id or restrictor name.
+ * @param route - Which arrival route was taken, since they fail in different ways.
+ * @param from - Where the actor stood before the move, as read by {@link getActorPosition}.
+ * @returns Always true, to be returned straight out of the caller.
+ */
+function reportTeleportArrival(destination: TName, route: TLabel, from: Vector): boolean {
+  const to: Vector = registry.actor.position();
+
+  report(
+    "teleport: '%s' by %s on '%s', %s -> %s, %.1f m",
+    destination,
+    route,
+    level.name(),
+    vectorToString(from),
+    vectorToString(to),
+    from.distance_to(to)
+  );
+
+  return true;
+}
+
+/**
  * Move the actor into a space restrictor, when the level has one registered under that name.
  *
  * @param zoneName - Restrictor name, spelled as the logic spells it.
  * @returns Whether the actor was moved.
  */
-export function travelToZone(zoneName: TName): boolean {
+export function teleportToZone(zoneName: TName): boolean {
   const zone: Nillable<GameObject> = registry.zones.get(zoneName);
 
   if ($isNil(zone)) {
-    report("no restrictor named '%s' is registered, so the actor stays where it is", zoneName);
-
-    return false;
+    return reportTeleportRefused(zoneName, "no restrictor is registered under that name on the loaded level");
   }
+
+  const from: Vector = getActorPosition();
 
   teleportActorToPosition(zone.position());
 
-  return true;
+  return reportTeleportArrival(zoneName, "restrictor centre", from);
 }
 
 /**
- * Turn the actor's view up at the sky.
+ * Move the actor to just outside a space restrictor, facing it.
  *
- * `set_actor_direction` only turns the yaw, so aiming up means naming a point to look at rather than an angle.
- * The point is nudged forward as well as raised, since one directly overhead leaves the heading undefined.
- *
- * @param height - Metres above the actor to look at.
- */
-export function lookActorAtSky(height: TDistance = 100): void {
-  const target: Vector = copyVector(registry.actor.position()).add(
-    copyVector(registry.actor.direction()).set_length(2)
-  );
-
-  target.y += height;
-
-  registry.actor.actor_look_at_point(target);
-}
-
-/**
- * Move the actor next to a story object, when there is one on this level to move next to.
- *
- * @param storyId - Story id of the object to arrive next to.
+ * @param zoneName - Restrictor name, spelled as the logic spells it.
+ * @param standoff - Metres to stop short of the restrictor's centre.
  * @returns Whether the actor was moved.
  */
-export function travelToStoryObject(storyId: TStringId): boolean {
-  const target: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
+export function teleportNearZone(zoneName: TName, standoff: TDistance = 5): boolean {
+  const zone: Nillable<GameObject> = registry.zones.get(zoneName);
 
-  if (!isObjectOnLevel(target, level.name())) {
-    return false;
+  if ($isNil(zone)) {
+    return reportTeleportRefused(zoneName, "no restrictor is registered under that name on the loaded level");
   }
 
-  teleportActorToStoryObject(storyId);
+  const from: Vector = getActorPosition();
+
+  teleportActorNearPosition(zone.position(), null, standoff);
+  reportTeleportArrival(zoneName, string.format("restrictor centre less %s m", standoff), from);
+
+  if (isObjectInZone(registry.actor, zone)) {
+    report(
+      "teleport: '%s' still holds the actor at %s m, so its shape reaches further out than the standoff",
+      zoneName,
+      standoff
+    );
+  }
 
   return true;
 }
 
 /**
- * Move the actor to a story object on another level, loading that level to do it.
- *
- * Only worth pointing at something the spawn compiler placed, since the jump goes to the object's own vertices
- * and those are only dependable for an object that has always existed. For a chain that has to cross a level
- * boundary, jump to a fixture and let the on level helpers refine from there.
+ * Move the actor to a story object, loading another level when that is where the object is.
  *
  * @param storyId - Story id of the object to arrive at.
- * @returns Whether the jump was started.
+ * @returns Whether the actor was moved.
  */
-export function jumpToStoryObject(storyId: TStringId): boolean {
+export function teleportToStoryObject(storyId: TStringId): boolean {
   const target: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
 
   if ($isNil(target)) {
-    report("nothing is registered under story id '%s', so the actor stays where it is", storyId);
-
-    return false;
+    return reportTeleportRefused(storyId, "nothing is registered under that story id");
   }
 
-  report("jumping to '%s', which is not on '%s'", storyId, level.name());
-  game.jump_to_level(target!.position, target!.m_level_vertex_id, target!.m_game_vertex_id);
+  const online: Nillable<GameObject> = getObjectByStoryId(storyId);
+
+  report(
+    "teleport: '%s' resolves to %s #%s at %s, gvid %s, lvid %s, %s",
+    storyId,
+    target.section_name(),
+    target.id,
+    vectorToString(target.position),
+    target.m_game_vertex_id,
+    target.m_level_vertex_id,
+    $isNotNil(online) ? "online" : "offline"
+  );
+
+  // Being online is proof of the loaded level on its own, so it is asked before the vertices are trusted for it.
+  if ($isNotNil(online) || isOnLoadedLevel(target)) {
+    const from: Vector = getActorPosition();
+    const position: Vector = $isNotNil(online) ? online.position() : target.position;
+
+    // Stepping away along the graph beats picking the nearest vertex to a point in space: the walk only ever ends
+    // on ground connected to the object, where the nearest vertex can sit across a hatch or a railing, at the right
+    // height and still not somewhere the actor stays standing. It needs a vertex under the object to start from.
+    if (getPositionLevelVertexId(position) < MAX_LEVEL_VERTEX_ID) {
+      teleportActorToStoryObject(storyId);
+
+      return reportTeleportArrival(storyId, "graph step away from the object", from);
+    }
+
+    // Its own facing, when it has one, so the actor arrives in front of it rather than on whichever side it was
+    // approached from. Off the mesh nothing here is guaranteed ground, and the front of an NPC is the best guess.
+    teleportActorNearPosition(position, $isNotNil(online) ? online.direction() : null);
+
+    return reportTeleportArrival(storyId, "position, the object standing off the AI mesh", from);
+  }
+
+  if (target.m_game_vertex_id >= MAX_U16) {
+    return reportTeleportRefused(
+      storyId,
+      string.format(
+        "it carries no game vertex and its position %s has none on '%s' either, so the level it sits on cannot be told",
+        vectorToString(target.position),
+        level.name()
+      )
+    );
+  }
+
+  report("teleport: '%s' sits off '%s', jumping level to gvid %s", storyId, level.name(), target.m_game_vertex_id);
+  game.jump_to_level(target.position, target.m_level_vertex_id, target.m_game_vertex_id);
 
   return true;
+}
+
+/**
+ * Move the actor onto a patrol point, when the loaded level has that path.
+ *
+ * @param positionPatrolName - Patrol path to arrive on.
+ * @param lookPatrolName - Patrol path whose first point the actor turns towards, if any.
+ * @param pointIndex - Point of the position patrol to arrive on, -1 for the last one.
+ * @returns Whether the actor was moved.
+ */
+export function teleportToPatrol(
+  positionPatrolName: TName,
+  lookPatrolName: Nillable<TName> = null,
+  pointIndex: TIndex = 0
+): boolean {
+  if (!level.patrol_path_exists(positionPatrolName)) {
+    return reportTeleportRefused(positionPatrolName, string.format("no such patrol path on '%s'", level.name()));
+  }
+
+  if ($isNotNil(lookPatrolName) && !level.patrol_path_exists(lookPatrolName)) {
+    return reportTeleportRefused(
+      positionPatrolName,
+      string.format("its look path '%s' does not exist on '%s'", lookPatrolName, level.name())
+    );
+  }
+
+  const from: Vector = getActorPosition();
+
+  teleportActorToPatrol(positionPatrolName, lookPatrolName, pointIndex);
+
+  return reportTeleportArrival(positionPatrolName, string.format("patrol point %s", pointIndex), from);
+}
+
+/**
+ * Move the actor onto a bare world position on a named level.
+ *
+ * @param label - What the position stands for, since a raw vector says nothing in a log.
+ * @param levelName - Level the coordinates were taken on.
+ * @param position - World position to arrive on.
+ * @param facing - Optional position to turn towards on arrival.
+ * @returns Whether the actor was moved.
+ */
+export function teleportToPoint(
+  label: TLabel,
+  levelName: TName,
+  position: Vector,
+  facing: Nillable<Vector> = null
+): boolean {
+  if (level.name() !== levelName) {
+    return reportTeleportRefused(
+      label,
+      string.format("its coordinates were taken on '%s' and '%s' is loaded", levelName, level.name())
+    );
+  }
+
+  const from: Vector = getActorPosition();
+
+  teleportActorToPosition(position, facing);
+
+  return reportTeleportArrival(label, string.format("bare position %s", vectorToString(position)), from);
 }
 
 /**
