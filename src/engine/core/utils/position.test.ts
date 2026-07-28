@@ -9,7 +9,7 @@ import {
   ServerSmartZoneObject,
   Vector,
 } from "xray16/alias";
-import { MAX_LEVEL_VERTEX_ID, MAX_U16, MAX_U32, ZERO_VECTOR } from "xray16/lib";
+import { MAX_LEVEL_VERTEX_ID, MAX_U16, MAX_U32, TCount, ZERO_VECTOR } from "xray16/lib";
 import {
   MockAlifeHumanStalker,
   MockAlifeObject,
@@ -27,6 +27,7 @@ import {
   getGameLevelName,
   getGameVertexLevelId,
   getObjectTerrain,
+  getPositionLevelVertexId,
   getServerDistanceBetween,
   isActorInNoWeaponZone,
   isObjectInActorFrustum,
@@ -99,30 +100,6 @@ describe("isObjectOnLevel", () => {
 
     expect(game_graph().vertex(second.m_game_vertex_id).level_id()).toBe(1);
     expect(registry.simulator.level_name).toHaveBeenCalledWith(1);
-  });
-});
-
-describe("isOnLoadedLevel", () => {
-  beforeEach(() => {
-    resetFunctionMock(level.vertex_id);
-  });
-
-  it("should judge by the game vertex when the object carries one", () => {
-    // `level.name()` is 'zaton' under the mocks, and game vertex 152 resolves to it.
-    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 152 }))).toBe(true);
-    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 350 }))).toBe(false);
-    expect(level.vertex_id).not.toHaveBeenCalled();
-  });
-
-  it("should fall back to the position when the object carries no game vertex", () => {
-    const vertexless: ServerObject = MockAlifeObject.mock({ gameVertexId: MAX_U16 });
-
-    replaceFunctionMock(level.vertex_id, () => 300);
-    expect(isOnLoadedLevel(vertexless)).toBe(true);
-    expect(level.vertex_id).toHaveBeenCalledWith(vertexless.position);
-
-    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
-    expect(isOnLoadedLevel(vertexless)).toBe(false);
   });
 });
 
@@ -329,6 +306,65 @@ describe("teleportActorToPatrol", () => {
   });
 });
 
+describe("isOnLoadedLevel", () => {
+  beforeEach(() => {
+    resetFunctionMock(level.vertex_id);
+  });
+
+  it("should judge by the game vertex when the object carries one", () => {
+    // `level.name()` is 'zaton' under the mocks, and game vertex 152 resolves to it.
+    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 152 }))).toBe(true);
+    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 350 }))).toBe(false);
+    expect(level.vertex_id).not.toHaveBeenCalled();
+  });
+
+  it("should fall back to the position when the object carries no game vertex", () => {
+    const vertexless: ServerObject = MockAlifeObject.mock({ gameVertexId: MAX_U16 });
+
+    // Close enough that the vertex answers with the position it was looked up for.
+    MockVector.DEFAULT_DISTANCE = 1;
+    replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+    expect(isOnLoadedLevel(vertexless)).toBe(true);
+    expect(level.vertex_id).toHaveBeenCalledWith(vertexless.position);
+
+    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
+    expect(isOnLoadedLevel(vertexless)).toBe(false);
+  });
+});
+
+describe("getPositionLevelVertexId", () => {
+  beforeEach(() => {
+    resetFunctionMock(level.vertex_id);
+    resetFunctionMock(level.vertex_position);
+  });
+
+  it("should hand back the vertex when it answers with the position it was looked up for", () => {
+    MockVector.DEFAULT_DISTANCE = 1;
+    replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    expect(getPositionLevelVertexId(MockVector.mock(1, 0, 1))).toBe(300);
+  });
+
+  it("should refuse a vertex that names somewhere else on the level", () => {
+    // `level.vertex_id` looks up by grid cell, so a position the mesh does not cover can resolve to a plausible
+    // looking id belonging to another part of the level - Nimble resolved to one 727 m away.
+    MockVector.DEFAULT_DISTANCE = 727;
+    replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(-585, 11.8, -9.7));
+
+    expect(getPositionLevelVertexId(MockVector.mock(105.7, -1.3, 186.9))).toBe(MAX_LEVEL_VERTEX_ID);
+  });
+
+  it("should pass an unresolvable position straight through", () => {
+    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
+
+    expect(getPositionLevelVertexId(MockVector.mock(1, 0, 1))).toBe(MAX_LEVEL_VERTEX_ID);
+    expect(level.vertex_position).not.toHaveBeenCalled();
+  });
+});
+
 describe("teleportActorNearPosition", () => {
   beforeEach(() => {
     resetFunctionMock(level.vertex_id);
@@ -340,8 +376,9 @@ describe("teleportActorNearPosition", () => {
     const target: Vector = MockVector.mock(4, 0, 0);
     const candidate: Vector = MockVector.mock(7.5, 0, 0);
 
-    // Both vectors non origin, so the mock reports DEFAULT_DISTANCE for every `distance_to`.
-    MockVector.DEFAULT_DISTANCE = 6;
+    // Both vectors non origin, so the mock reports DEFAULT_DISTANCE for every `distance_to`, and a 2 m snap is
+    // one the window accepts.
+    MockVector.DEFAULT_DISTANCE = 2;
     jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
     replaceFunctionMock(level.vertex_id, () => 42);
     replaceFunctionMock(level.vertex_position, () => candidate);
@@ -384,7 +421,7 @@ describe("teleportActorNearPosition", () => {
     const reachable: Vector = MockVector.mock(4, 0, 3);
     const attempts: Array<Vector> = [];
 
-    MockVector.DEFAULT_DISTANCE = 6;
+    MockVector.DEFAULT_DISTANCE = 2;
     jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
 
     // A target inside a hull: only one side of it has ground the actor can stand on.
@@ -397,10 +434,85 @@ describe("teleportActorNearPosition", () => {
 
     expect(teleportActorNearPosition(target)).toBe(true);
 
-    // Straight back first, then quarter turns until the graph accepts one.
-    expect(attempts).toHaveLength(3);
+    // Straight back first, then quarter turns - all of them, since a later side can snap closer than an earlier one.
+    expect(attempts).toHaveLength(4);
     expect(attempts[0]).toEqual(MockVector.mock(7, 0, 0));
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(reachable);
+  });
+
+  it("should refuse a vertex on another floor and take one at the target's height", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(100, -3.9, 182);
+    const belowDeck: Vector = MockVector.mock(99, -7.5, 180);
+    const onDeck: Vector = MockVector.mock(103, -3.9, 182);
+    const attempts: Array<Vector> = [];
+
+    let lookups: TCount = 0;
+
+    // Close enough by distance either way: Skadovsk's decks stand 3.6 m apart, well inside the snap window.
+    MockVector.DEFAULT_DISTANCE = 2;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(96, -7.5, 183));
+    replaceFunctionMock(level.vertex_id, (candidate: Vector) => {
+      attempts.push(MockVector.mock(candidate.x, candidate.y, candidate.z));
+
+      return 42;
+    });
+    replaceFunctionMock(level.vertex_position, () => {
+      lookups += 1;
+
+      return lookups === 1 ? belowDeck : onDeck;
+    });
+
+    expect(teleportActorNearPosition(target)).toBe(true);
+
+    // The standoff point stays level with the target however far below it the actor set off from.
+    expect(attempts[0].y).toBe(-3.9);
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(onDeck);
+    expect(actorGameObject.set_actor_position).not.toHaveBeenCalledWith(belowDeck);
+  });
+
+  it("should back away along a supplied direction rather than the line to the actor", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(4, 0, 0);
+    const attempts: Array<Vector> = [];
+
+    MockVector.DEFAULT_DISTANCE = 2;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
+    replaceFunctionMock(level.vertex_id, (candidate: Vector) => {
+      attempts.push(MockVector.mock(candidate.x, candidate.y, candidate.z));
+
+      return MAX_LEVEL_VERTEX_ID;
+    });
+
+    // Facing away from the actor, so the side tried first is the far one rather than the near one.
+    teleportActorNearPosition(target, MockVector.mock(-1, 0, 0));
+
+    expect(attempts[0]).toEqual(MockVector.mock(1, 0, 0));
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(MockVector.mock(1, 0, 0));
+  });
+
+  it("should hold the side tried first when a later one snaps no closer", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const target: Vector = MockVector.mock(4, 0, 0);
+    const front: Vector = MockVector.mock(1, 0, 0);
+    const side: Vector = MockVector.mock(4, 0, 3);
+
+    let lookups: TCount = 0;
+
+    // Every side snaps the same distance, so nothing beats the facing outright and it keeps the arrival.
+    MockVector.DEFAULT_DISTANCE = 2;
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
+    replaceFunctionMock(level.vertex_id, () => 42);
+    replaceFunctionMock(level.vertex_position, () => {
+      lookups += 1;
+
+      return lookups === 1 ? front : side;
+    });
+
+    teleportActorNearPosition(target, MockVector.mock(-1, 0, 0));
+
+    expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(front);
+    expect(actorGameObject.set_actor_position).not.toHaveBeenCalledWith(side);
   });
 
   it("should keep the standoff when no vertex resolves at all", () => {
@@ -425,7 +537,7 @@ describe("teleportActorNearPosition", () => {
     jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(10, 0, 0));
     replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
 
-    teleportActorNearPosition(target, 8);
+    teleportActorNearPosition(target, null, 8);
 
     expect(actorGameObject.set_actor_position).toHaveBeenCalledWith(MockVector.mock(12, 0, 0));
   });
@@ -437,14 +549,18 @@ describe("teleportActorToStoryObject", () => {
     resetFunctionMock(level.vertex_in_direction);
     resetFunctionMock(level.vertex_position);
 
-    // Offline targets derive their start vertex from their position, so every case needs a valid one.
+    // Every case derives its start vertex from the target's position, so every case needs a valid one that
+    // answers back with the position it was looked up for.
+    MockVector.DEFAULT_DISTANCE = 1;
     replaceFunctionMock(level.vertex_id, () => 300);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
   });
 
   it("should arrive at a vertex stepped away from the target and face it", () => {
     const { actorGameObject } = mockRegisteredActor();
     const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
-    const arrival: Vector = MockVector.mock(10, 0, 10);
+    // Near enough the target that the start vertex validates as being the one it stands on.
+    const arrival: Vector = MockVector.mock(2, 0, 2);
 
     registerStoryLink(target.id, "test-sid");
     replaceFunctionMock(level.vertex_in_direction, () => 500);

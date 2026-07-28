@@ -165,6 +165,27 @@ export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName
 }
 
 /**
+ * Resolve the level vertex a position stands on, refusing an answer that names somewhere else.
+ *
+ * `level.vertex_id` looks the position up by grid cell rather than by proximity, and for one the mesh does not
+ * cover it can hand back a plausible looking id belonging to another part of the level: Nimble, on Skadovsk's top
+ * deck, resolves to a vertex 727 m away. Nothing about the id says so, so the only test is asking the vertex where
+ * it is and seeing whether it answers with the position it was looked up for.
+ *
+ * @param position - World position to resolve.
+ * @returns Vertex at the position, or `MAX_LEVEL_VERTEX_ID` when the position has none.
+ */
+export function getPositionLevelVertexId(position: Vector): TNumberId {
+  const vertexId: TNumberId = level.vertex_id(position);
+
+  if (vertexId >= MAX_LEVEL_VERTEX_ID) {
+    return MAX_LEVEL_VERTEX_ID;
+  }
+
+  return level.vertex_position(vertexId).distance_to_sqr(position) <= 25 ? vertexId : MAX_LEVEL_VERTEX_ID;
+}
+
+/**
  * Check whether a server object sits on the level currently loaded.
  *
  * @param object - Server object to locate.
@@ -173,7 +194,7 @@ export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName
 export function isOnLoadedLevel(object: ServerObject): boolean {
   return object.m_game_vertex_id < MAX_U16
     ? isObjectOnLevel(object, level.name())
-    : level.vertex_id(object.position) < MAX_LEVEL_VERTEX_ID;
+    : getPositionLevelVertexId(object.position) < MAX_LEVEL_VERTEX_ID;
 }
 
 /**
@@ -322,19 +343,40 @@ export function teleportActorToPatrol(
 /**
  * Teleport actor a short distance away from a position, facing it, on navigable ground where possible.
  *
+ * Sides are tried in quarter turns from the direction given, and the nearest vertex any of them lands on wins, ties
+ * going to the side tried first. Handing in the facing of whoever stands at the position therefore puts the actor in
+ * front of them unless another side is strictly closer, which is both where you would stand to talk and the side
+ * least likely to have a wall on it.
+ *
  * @param position - World position to arrive next to.
+ * @param direction - Direction to back away along. Defaults to the line from the position to the actor.
  * @param standoff - How far from the position to stop, in metres. Zero arrives on the position.
  * @returns Whether the arrival point came from the AI graph rather than being the offset point itself.
  */
-export function teleportActorNearPosition(position: Vector, standoff: TDistance = 3): boolean {
+export function teleportActorNearPosition(
+  position: Vector,
+  direction: Nillable<Vector> = null,
+  standoff: TDistance = 3
+): boolean {
   const actorPosition: Vector = registry.actor.position();
 
-  // Standing on the target leaves no line to back away along, so pick an arbitrary one.
-  const approach: Vector =
-    actorPosition.distance_to(position) > 0.1 ? copyVector(actorPosition).sub(position) : createVector(1, 0, 0);
+  // Horizontal only. An approach taken in three dimensions tilts the whole ring of candidates towards the floor the
+  // actor is standing on, and after one bad arrival that is the wrong floor, which makes the mistake self sustaining.
+  const approach: Vector = $isNotNil(direction)
+    ? createVector(direction.x, 0, direction.z)
+    : createVector(actorPosition.x - position.x, 0, actorPosition.z - position.z);
+
+  // Standing over or under the target leaves no line to back away along, so pick an arbitrary one.
+  if (approach.magnitude() < 0.1) {
+    approach.set(1, 0, 0);
+  }
 
   let arrival: Vector = copyVector(position).add(copyVector(approach).set_length(standoff));
   let isOnGraph: boolean = false;
+
+  // A vertex further from the standoff point than this is not an arrival, it is a different place: at a standoff of
+  // 3 m it already puts the actor 7 m from the target. Falling back to the offset point beats accepting one.
+  let closest: TDistance = 16;
 
   for (const angle of [0, 90, 180, 270]) {
     const offset: Vector = angle === 0 ? copyVector(approach) : vectorRotateY(approach, angle);
@@ -346,12 +388,18 @@ export function teleportActorNearPosition(position: Vector, standoff: TDistance 
     }
 
     const candidate: Vector = level.vertex_position(vertexId);
+    const gap: TDistance = candidate.distance_to_sqr(candidateStandoff);
 
-    if (candidate.distance_to_sqr(candidateStandoff) <= 100) {
-      arrival = candidate;
-      isOnGraph = true;
-      break;
+    // Height is judged against the target, not against the standoff point: what matters is whether the actor lands
+    // somewhere the target can be reached from, and a vertex one floor down is near in metres yet useless in fact.
+    // A later side has to beat the one before it outright, so an equal snap leaves the first side holding.
+    if (gap >= closest || math.abs(candidate.y - position.y) > 1.5) {
+      continue;
     }
+
+    arrival = candidate;
+    isOnGraph = true;
+    closest = gap;
   }
 
   registry.actor.set_actor_position(arrival);
@@ -431,7 +479,7 @@ export function teleportActorToStoryObject(
   );
 
   const targetPosition: Vector = $isNotNil(target) ? target.position() : serverObject!.position;
-  const targetVertexId: TNumberId = level.vertex_id(targetPosition);
+  const targetVertexId: TNumberId = getPositionLevelVertexId(targetPosition);
 
   assert(targetVertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport to '%s', it stands off the AI mesh.", storyId);
 
