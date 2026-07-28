@@ -1366,6 +1366,7 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         rank={50}
         supplies={[
+          { section: questItems.device_pda_port_bandit_leader },
           ...loadoutMp5(),
           ...loadoutColt1911(true),
           ...loadoutF1Grenades(2),
