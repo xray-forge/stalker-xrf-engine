@@ -47,7 +47,7 @@ export class ActionPostCombatIdleWait extends action_base {
     object.set_sight(look.danger, null, 0);
 
     this.isAnimationStarted = false;
-    this.stateController = { animstate: { state: { animationMarker: null } } };
+    this.stateController = { animstateController: { state: { animationMarker: null } } };
 
     this.state.animation = new StalkerAnimationController(
       object,

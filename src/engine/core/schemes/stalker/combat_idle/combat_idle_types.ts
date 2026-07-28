@@ -1,6 +1,7 @@
 import { Nillable, TDuration, TName, TNumberId } from "xray16/lib";
 
 import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
+import type { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { IBaseSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 
@@ -15,15 +16,21 @@ export interface ISchemePostCombatIdleState extends IBaseSchemeState {
 }
 
 /**
+ * Helper tying partial controller keys to the real state controller fields.
+ */
+type TPartialStateControllerOf<K extends keyof StalkerStateController, V> = Record<K, V>;
+
+/**
  * Partial animation manager interface for post combat action handling.
  */
-export interface IPartialAnimationController {
-  animstate: {
+export type IPartialAnimationController = TPartialStateControllerOf<
+  "animstateController",
+  {
     state: {
       animationMarker: null;
     };
-  };
-}
+  }
+>;
 
 declare module "@/engine/core/schemes/state/types" {
   interface ISchemeStateMap {

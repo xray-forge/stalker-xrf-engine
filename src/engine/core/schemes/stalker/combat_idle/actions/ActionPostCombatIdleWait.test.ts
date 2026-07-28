@@ -5,6 +5,7 @@ import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 import { replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
+import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
@@ -43,7 +44,7 @@ describe("ActionPostCombatIdleWait", () => {
     expect(action.object.set_sight).toHaveBeenCalledWith(look.danger, null, 0);
 
     expect(action.isAnimationStarted).toBe(false);
-    expect(action.stateController).toEqual({ animstate: { state: { animationMarker: null } } });
+    expect(action.stateController).toEqual({ animstateController: { state: { animationMarker: null } } });
     expect(action.state.animation).toBeInstanceOf(StalkerAnimationController);
   });
 
@@ -87,6 +88,28 @@ describe("ActionPostCombatIdleWait", () => {
     expect(animation.setState).toHaveBeenCalledWith(EStalkerState.HIDE);
     expect(animation.setControl).toHaveBeenCalled();
     expect(soundManager.play).toHaveBeenCalledWith(action.object.id(), "post_combat_wait");
+  });
+
+  it("should provide partial state controller compatible with animation controller", () => {
+    const soundManager: SoundManager = getManager(SoundManager);
+    const action: ActionPostCombatIdleWait = mockAction();
+
+    jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null));
+
+    action.initialize();
+
+    const animation: StalkerAnimationController = action.state.animation as StalkerAnimationController;
+
+    // Note: `setControl` is intentionally not mocked, it should work with partial controller.
+    jest.spyOn(animation, "updateAnimation").mockImplementation(jest.fn());
+
+    expect(() => action.execute()).not.toThrow();
+    expect(animation.updateAnimation).toHaveBeenCalledTimes(1);
+
+    // Every partial controller field should exist in real state controller with same name.
+    for (const key of Object.keys(action.stateController)) {
+      expect(new StalkerStateController(MockGameObject.mock())).toHaveProperty(key);
+    }
   });
 
   it("should correctly skip animation states based on conditions", () => {
