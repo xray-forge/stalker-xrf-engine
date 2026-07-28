@@ -5,10 +5,13 @@ import { TTimestamp } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 
-import { registerObject } from "@/engine/core/database";
+import { registerObject, registry } from "@/engine/core/database";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { DangerController } from "@/engine/core/schemes/stalker/danger/DangerController";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -94,6 +97,43 @@ describe("DangerController", () => {
     controller.onHear(object, who.id(), snd_type.weapon_bullet_hit, MockVector.create(100, 100, 100), 1);
 
     expect(state.dangerTime).toBeNull();
+  });
+
+  it("should reject out of range sounds before evaluating the sound source", () => {
+    const { controller, object, state } = createController();
+    const who: GameObject = registerEnemySource(object);
+
+    // Beyond `ALLIES_SHOOTING_ASSIST_DISTANCE_SQR`, the largest distance any of the branches reacts within.
+    controller.onHear(object, who.id(), snd_type.weapon, MockVector.create(41, 0, 0), 1);
+
+    expect(state.dangerTime).toBeNull();
+    expect(canObjectSelectAsEnemy).not.toHaveBeenCalled();
+
+    // Just within range the sound source is evaluated as usual.
+    controller.onHear(object, who.id(), snd_type.weapon, MockVector.create(40, 0, 0), 1);
+
+    expect(state.dangerTime).toBe(NOW);
+    expect(canObjectSelectAsEnemy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should ignore sounds when object is wounded", () => {
+    const { controller, object, state } = createController();
+    const who: GameObject = registerEnemySource(object);
+
+    setSchemeState(
+      registry.objects.get(object.id()),
+      EScheme.WOUNDED,
+      mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
+        woundController: { woundState: "true" } as WoundController,
+      })
+    );
+
+    controller.onHear(object, who.id(), snd_type.weapon_bullet_hit, MockVector.create(1, 0, 0), 1);
+
+    // `isObjectFacingDanger` refuses danger for wounded objects, but `dangerTime` grants it through
+    // the inertia branch of `EvaluatorDanger` regardless, so it must not be set here.
+    expect(state.dangerTime).toBeNull();
+    expect(canObjectSelectAsEnemy).not.toHaveBeenCalled();
   });
 
   it("should ignore bullet hits from non enemies", () => {

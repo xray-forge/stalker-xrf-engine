@@ -8,6 +8,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { isCreature } from "@/engine/core/utils/class_ids";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isSoundType } from "@/engine/core/utils/sound";
 
 /**
@@ -37,6 +38,17 @@ export class DangerController extends AbstractSchemeController<ISchemeDangerStat
     // Only weapon sounds can trigger danger state, filter everything else out before doing any lookups.
     // Note: `weapon_bullet_hit` mask includes `weapon` bits, so a single check covers both branches below.
     if (!isSoundType(soundType, snd_type.weapon)) {
+      return;
+    }
+
+    // Sound has to be within the largest of the reaction distances used below.
+    // Weapon sounds carry much further than that, so this cheap check filters most of them out.
+    if (object.position().distance_to_sqr(soundPosition) > combatConfig.ALLIES_SHOOTING_ASSIST_DISTANCE_SQR) {
+      return;
+    }
+
+    // Wounded objects cannot react to danger.
+    if (isObjectWounded(object.id())) {
       return;
     }
 
