@@ -1,13 +1,22 @@
+import { level } from "xray16";
+import { ServerObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TCount, TLabel, TName, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { report } from "@/engine/checks/framework/core";
 import { expect } from "@/engine/checks/framework/dsl";
-import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import {
+  getManager,
+  getPortableStoreValue,
+  getServerObjectByStoryId,
+  registry,
+  setPortableStoreValue,
+} from "@/engine/core/database";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
+import { isObjectOnLevel, teleportActorToStoryObject } from "@/engine/core/utils/position";
 
 /**
  * Force the next evaluation of a task to run instead of being throttled.
@@ -75,6 +84,19 @@ export function expectTaskTextResolves(task: Nillable<TaskObject>, taskId: TStri
       taskId,
       tostring(task?.currentTitle)
     );
+  }
+}
+
+/**
+ * Move the actor next to a story object, when there is one to move next to.
+ *
+ * @param storyId - Story id of the object to arrive next to.
+ */
+export function travelToStoryObject(storyId: TStringId): void {
+  const target: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
+
+  if (isObjectOnLevel(target, level.name())) {
+    teleportActorToStoryObject(storyId);
   }
 }
 

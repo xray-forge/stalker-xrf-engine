@@ -163,6 +163,7 @@ export const jupiterInfoPortions = {
   jup_b202_bandit_hited: "jup_b202_bandit_hited",
   jup_b202_bandit_hited_by_actor: "jup_b202_bandit_hited_by_actor",
   jup_b202_polustanok: "jup_b202_polustanok",
+  jup_b202_snag_on_jup_founded: "jup_b202_snag_on_jup_founded",
   /**
    * Jupiter b206.
    */
