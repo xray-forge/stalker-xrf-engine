@@ -102,9 +102,6 @@ function isStepReached(context: CheckContext, step: IFlowStep, position: TIndex)
 /**
  * Look past a step the world has not reached, for one it has.
  *
- * Quiet on purpose: a lookahead predicate that aborts is treated as not reached rather than recorded, so
- * scanning for evidence cannot itself produce findings about steps the walk has not arrived at.
- *
  * @param steps - Steps the flow registered.
  * @param position - Position to look past.
  * @returns Position of the first later step already reached, or 0 when there is none.
@@ -144,10 +141,6 @@ function verifyStep(context: CheckContext, step: IFlowStep, position: TIndex): v
 
 /**
  * Walk forward over everything the world has already reached, and report where it stops.
- *
- * This is the whole lifecycle. Every invocation re-observes from the last confirmed step, so progress
- * made in play counts identically to progress made across earlier invocations - and a step reached
- * naturally is still verified, which is the point of watching rather than driving.
  *
  * @param context - Running flow context.
  * @param steps - Steps the flow registered.
@@ -252,9 +245,10 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
 
   const startedAt: TCount = time_global();
   const skipReason: Nillable<TLabel> = evaluateRequirements(registration.requirements);
-  const blockers: LuaArray<TLabel> = $isNil(skipReason)
-    ? evaluateStateRequirements(registration.requirements)
-    : new LuaTable();
+
+  const isStarting: boolean = readCursor(name) === 0;
+  const blockers: LuaArray<TLabel> =
+    $isNil(skipReason) && isStarting ? evaluateStateRequirements(registration.requirements) : new LuaTable();
 
   let verdict: TLabel = "SKIP";
 

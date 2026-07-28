@@ -11,21 +11,9 @@ import { CheckContext, ICheckRequirements } from "@/engine/checks/framework/core
  * what to go and do while it is not. Nothing here writes quest state.
  */
 export interface IFlowStepBody {
-  /**
-   * Whether this step's outcome exists in the world.
-   *
-   * Required, and the whole basis of the lifecycle: a step already reached is verified and walked past,
-   * so a chain progressed in play is observed rather than re-driven. A step with no outcome of its own
-   * is not a step - fold it into a neighbour.
-   */
+  /** Whether this step's outcome exists in the world. */
   reached: (this: void) => boolean;
-  /**
-   * Getting the actor somewhere it can see the step happen. Teleports only.
-   *
-   * Deliberately not `arrange`: a flow that writes quest state to reach a step produces portion
-   * combinations the game's own logic never produces, and cannot undo the money, items and faction
-   * standing it moves on the way. Preconditions belong in `requires`, not here.
-   */
+  /** Getting the actor somewhere it can see the step happen. Teleports only. */
   travel?: (this: void) => void;
   /** Assertions that must hold once the step is reached. */
   verify?: (this: void) => void;
