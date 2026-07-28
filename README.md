@@ -68,12 +68,6 @@ Breaking / radical changes can be implemented as extensions.
 - [c++ engine (open xray)](https://github.com/orgs/xray-forge/projects/6)
 - [documentation](https://github.com/orgs/xray-forge/projects/5)
 
-## 🧰 State / bugs
-
-It took ~3 months just to migrate all the 20 years of LUA codebase to typescript. <br/>
-Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
-Some things were not tested fully yet.
-
 ## 📦 Credits
 
 [Link.](https://xray-forge.github.io/stalker-xrf-book/CREDITS.html)
