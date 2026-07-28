@@ -9,7 +9,7 @@ import {
   ServerSmartZoneObject,
   Vector,
 } from "xray16/alias";
-import { MAX_LEVEL_VERTEX_ID, MAX_U32, ZERO_VECTOR } from "xray16/lib";
+import { MAX_LEVEL_VERTEX_ID, MAX_U16, MAX_U32, ZERO_VECTOR } from "xray16/lib";
 import {
   MockAlifeHumanStalker,
   MockAlifeObject,
@@ -23,6 +23,7 @@ import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";
 import { registerObject, registerSimulator, registerStoryLink, registerZone, registry } from "@/engine/core/database";
 import {
   areObjectsOnSameLevel,
+  getActorPosition,
   getGameLevelName,
   getGameVertexLevelId,
   getObjectTerrain,
@@ -32,6 +33,7 @@ import {
   isObjectInSilenceZone,
   isObjectInSmartTerrain,
   isObjectOnLevel,
+  isOnLoadedLevel,
   resetPositionCache,
   sendToNearestAccessibleVertex,
   teleportActorNearPosition,
@@ -97,6 +99,43 @@ describe("isObjectOnLevel", () => {
 
     expect(game_graph().vertex(second.m_game_vertex_id).level_id()).toBe(1);
     expect(registry.simulator.level_name).toHaveBeenCalledWith(1);
+  });
+});
+
+describe("isOnLoadedLevel", () => {
+  beforeEach(() => {
+    resetFunctionMock(level.vertex_id);
+  });
+
+  it("should judge by the game vertex when the object carries one", () => {
+    // `level.name()` is 'zaton' under the mocks, and game vertex 152 resolves to it.
+    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 152 }))).toBe(true);
+    expect(isOnLoadedLevel(MockAlifeObject.mock({ gameVertexId: 350 }))).toBe(false);
+    expect(level.vertex_id).not.toHaveBeenCalled();
+  });
+
+  it("should fall back to the position when the object carries no game vertex", () => {
+    const vertexless: ServerObject = MockAlifeObject.mock({ gameVertexId: MAX_U16 });
+
+    replaceFunctionMock(level.vertex_id, () => 300);
+    expect(isOnLoadedLevel(vertexless)).toBe(true);
+    expect(level.vertex_id).toHaveBeenCalledWith(vertexless.position);
+
+    replaceFunctionMock(level.vertex_id, () => MAX_LEVEL_VERTEX_ID);
+    expect(isOnLoadedLevel(vertexless)).toBe(false);
+  });
+});
+
+describe("getActorPosition", () => {
+  it("should hand back a copy that a later move cannot rewrite", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    jest.spyOn(actorGameObject, "position").mockImplementation(() => MockVector.mock(1, 2, 3));
+
+    const position: Vector = getActorPosition();
+
+    expect(position).toEqual(MockVector.mock(1, 2, 3));
+    expect(position).not.toBe(actorGameObject.position());
   });
 });
 
@@ -474,8 +513,28 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid");
 
-    // Online, both the start vertex and the direction come from the game object, not the server one.
-    expect(level.vertex_in_direction).toHaveBeenCalledWith(777, facing, 5);
+    // Online the direction comes from the game object, but the start vertex still comes from where it stands.
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, facing, 5);
+  });
+
+  it("should ignore the level vertex an online target carries", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+    const online: GameObject = MockGameObject.mock({ id: target.id, levelVertexId: 1_227_388 });
+
+    registerObject(online);
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_in_direction, () => 500);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    teleportActorToStoryObject("test-sid");
+
+    // Classes with `used_ai_locations()` off carry a vertex that is in range but not theirs, so it cannot be
+    // told apart from a real one - the b202 inventory boxes share 1227388 while standing 380 m apart.
+    expect(level.vertex_id).toHaveBeenCalledWith(online.position());
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, expect.anything(), 5);
+    expect(online.level_vertex_id).not.toHaveBeenCalled();
   });
 
   it("should step towards the actor when the target is offline", () => {
@@ -527,7 +586,7 @@ describe("teleportActorToStoryObject", () => {
 
     teleportActorToStoryObject("test-sid", supplied, 5);
 
-    expect(level.vertex_in_direction).toHaveBeenCalledWith(777, supplied, 5);
+    expect(level.vertex_in_direction).toHaveBeenCalledWith(300, supplied, 5);
     expect(online.direction).not.toHaveBeenCalled();
   });
 
@@ -578,6 +637,22 @@ describe("teleportActorToStoryObject", () => {
     expect(() => teleportActorToStoryObject("test-sid")).toThrow(
       "Cannot teleport to 'test-sid', it is not on the loaded level."
     );
+  });
+
+  it("should trust being online over a game vertex naming another level", () => {
+    mockRegisteredActor();
+
+    const target: ServerHumanObject = MockAlifeHumanStalker.mock({ gameVertexId: 152 });
+
+    registerObject(MockGameObject.mock({ id: target.id }));
+    registerStoryLink(target.id, "test-sid");
+    replaceFunctionMock(level.vertex_in_direction, () => 500);
+    replaceFunctionMock(level.vertex_position, () => MockVector.mock(1, 0, 1));
+
+    // The b202 chest reports game vertex 317 while standing on 327, so a wrong one must not strand the caller.
+    jest.spyOn(game_graph().vertex(target.m_game_vertex_id), "level_id").mockImplementation(() => 5_555);
+
+    expect(() => teleportActorToStoryObject("test-sid")).not.toThrow();
   });
 });
 

@@ -14,22 +14,21 @@ import {
   createVector,
   graphDistance,
   isObjectInZone,
-  LuaArray,
   MAX_ALIFE_ID,
   MAX_LEVEL_VERTEX_ID,
+  MAX_U16,
   Nillable,
   TCount,
   TDistance,
   TIndex,
   TName,
   TNumberId,
-  TRate,
   TStringId,
   vectorRotateY,
   yawDegree3d,
   ZERO_VECTOR,
 } from "xray16/lib";
-import { $fromArray, $isNil, $isNotNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -166,6 +165,18 @@ export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName
 }
 
 /**
+ * Check whether a server object sits on the level currently loaded.
+ *
+ * @param object - Server object to locate.
+ * @returns Whether the object is on the loaded level.
+ */
+export function isOnLoadedLevel(object: ServerObject): boolean {
+  return object.m_game_vertex_id < MAX_U16
+    ? isObjectOnLevel(object, level.name())
+    : level.vertex_id(object.position) < MAX_LEVEL_VERTEX_ID;
+}
+
+/**
  * Check whether objects are on same level.
  *
  * @param first - Object to compare.
@@ -239,6 +250,15 @@ export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Nill
  */
 export function isObjectInActorFrustum(object: GameObject): boolean {
   return yawDegree3d(device().cam_dir, object.position().sub(registry.actor.position())) < 35;
+}
+
+/**
+ * Read where the actor stands, as a value of its own rather than a handle on the actor.
+ *
+ * @returns Copy of the actor's current position.
+ */
+export function getActorPosition(): Vector {
+  return copyVector(registry.actor.position());
 }
 
 /**
@@ -384,8 +404,7 @@ function stepAwayFromVertex(vertexId: TNumberId, direction: Vector, distance: TD
 /**
  * Teleport actor onto navigable ground in front of whoever carries a story id, facing them.
  *
- * Aborts on an unregistered id, or on a target outside the loaded level, where level vertices of the
- * target mean nothing.
+ * Aborts on an unregistered id, on a target outside the loaded level, or on one standing off the AI mesh.
  *
  * @param storyId - Story id of the object to arrive in front of.
  * @param direction - Direction to step away from the target in. Defaults to the target's own facing.
@@ -399,27 +418,27 @@ export function teleportActorToStoryObject(
   const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(storyId);
 
   assert($isNotNil(serverObject), "Cannot teleport, no object with story id '%s' is registered.", storyId);
+
+  const target: Nillable<GameObject> = getObjectByStoryId(storyId);
+
+  // Being online settles the level on its own, which is worth preferring: the game vertex of these objects is no
+  // sounder than the level one, the b202 chest reporting 317 while the ground it stands on is 327. A wrong one that
+  // happens to name another level would throw the actor across the map through the caller's own level jump.
   assert(
-    isObjectOnLevel(serverObject, level.name()),
+    $isNotNil(target) || isOnLoadedLevel(serverObject!),
     "Cannot teleport to '%s', it is not on the loaded level.",
     storyId
   );
 
-  const target: Nillable<GameObject> = getObjectByStoryId(storyId);
   const targetPosition: Vector = $isNotNil(target) ? target.position() : serverObject!.position;
+  const targetVertexId: TNumberId = level.vertex_id(targetPosition);
 
-  // Offline, derive the vertex from the position rather than trusting `m_level_vertex_id`, which for
-  // an object that has never been online can be stale or unset.
-  const targetVertexId: TNumberId = $isNotNil(target) ? target.level_vertex_id() : level.vertex_id(targetPosition);
-
-  assert(targetVertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport to '%s', it has no level vertex.", storyId);
+  assert(targetVertexId < MAX_LEVEL_VERTEX_ID, "Cannot teleport to '%s', it stands off the AI mesh.", storyId);
 
   let offsetDirection: Nillable<Vector> = direction;
 
   if ($isNil(offsetDirection)) {
-    offsetDirection = $isNotNil(target)
-      ? target.direction()
-      : copyVector(registry.actor.position()).sub(targetPosition);
+    offsetDirection = $isNotNil(target) ? target.direction() : getActorPosition().sub(targetPosition);
   }
 
   const arrival: Vector = level.vertex_position(stepAwayFromVertex(targetVertexId, offsetDirection, distance));
