@@ -3,12 +3,7 @@ import { createVector, Nillable, TCount, TLabel, TName, TSection } from "xray16/
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { expect, expectEqual, report, requires, step } from "@/engine/checks/framework";
-import {
-  expectActorMoneyGained,
-  expectTaskTextResolves,
-  rememberActorMoney,
-  settleTask,
-} from "@/engine/checks/framework/world";
+import { checkTaskText, expectActorMoneyGained, rememberActorMoney } from "@/engine/checks/framework/world";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { artefacts } from "@/engine/constants/items/artefacts";
 import { getServerObjectByStoryId } from "@/engine/core/database";
@@ -92,10 +87,9 @@ step("1 - quest taken from Beard", {
       "expected giving the task to hand out 'zat_b14_learn_about_strange_occurrence_give_task'"
     );
 
-    const task: Nillable<TaskObject> = settleTask(TASK_ID);
+    const task: Nillable<TaskObject> = checkTaskText(TASK_ID, "with no progress portions");
 
     expectEqual(task?.state, null, "state with no branch satisfied");
-    expectTaskTextResolves(task, TASK_ID, "with no progress portions");
 
     expect(
       $isNotNil(getServerObjectByStoryId(ARTEFACT_STORY_ID)) || actorHasItem(QUEST_ARTEFACT),
@@ -118,7 +112,7 @@ step("2 - artefact taken", {
   },
   verify: (): void => {
     expect(actorHasItem(QUEST_ARTEFACT), "artefact carried", `'${QUEST_ARTEFACT}' is not in the inventory`);
-    expectTaskTextResolves(settleTask(TASK_ID), TASK_ID, "with the item taken");
+    checkTaskText(TASK_ID, "with the item taken");
   },
   handOff: "pick the artefact up - you have been taken to where it sits",
 });

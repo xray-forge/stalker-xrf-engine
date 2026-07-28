@@ -1,17 +1,14 @@
-import { GameObject } from "xray16/alias";
 import { Nillable, TCount, TLabel, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { expect, expectEqual, report, requires, step } from "@/engine/checks/framework";
-import { expectTaskTextResolves, settleTask, travelToStoryObject } from "@/engine/checks/framework/world";
+import { checkTaskText, travelToStoryObject, travelToZone } from "@/engine/checks/framework/world";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
-import { registry } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasItem } from "@/engine/core/utils/item";
-import { teleportActorToPosition } from "@/engine/core/utils/position";
 
 const TASK_ID: TName = "zat_b33_zaporojec";
 const TASK_TITLE: TLabel = "zat_b33_zaporojec_name";
@@ -50,7 +47,7 @@ requires({
 
 step("1 - Snag asked for his stash back", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b33_safe_container),
-  travel: (): void => travelToStoryObject(SNAG_STORY_ID),
+  travel: (): void => void travelToStoryObject(SNAG_STORY_ID),
   verify: (): void => {
     expect(
       hasInfoPortion(infoPortions.zat_b33_stalker_snag_setup),
@@ -65,28 +62,20 @@ step("1 - Snag asked for his stash back", {
 step("2 - Zaporozhets task handed out", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b33_task_gived),
   verify: (): void => {
-    const task: Nillable<TaskObject> = settleTask(TASK_ID);
+    const task: Nillable<TaskObject> = checkTaskText(TASK_ID, "once the task is handed out");
 
-    if ($isNil(task)) {
-      return report("the task has already left the log, so it was settled before this step was observed");
+    if ($isNotNil(task)) {
+      expectEqual(task?.state, null, "state with no branch satisfied");
+      expectEqual(task?.currentTitle, TASK_TITLE, "title resolves to the only branch there is");
     }
-
-    expectEqual(task?.state, null, "state with no branch satisfied");
-    expectEqual(task?.currentTitle, TASK_TITLE, "title resolves to the only branch there is");
-    expectTaskTextResolves(task, TASK_ID, "once the task is handed out");
-    report("task shows '%s' / '%s'", tostring(task?.currentTitle), tostring(task?.currentDescription));
   },
   handOff: "stay near Snag a moment, his animpoint hands the task out on its next update",
 });
 
 step("3 - container out of the stash", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b33_find_package),
-  travel: () => {
-    const tutorZone: Nillable<GameObject> = registry.zones.get("zat_b33_tutor");
-
-    if ($isNotNil(tutorZone)) {
-      return teleportActorToPosition(tutorZone.position());
-    } else {
+  travel: (): void => {
+    if (!travelToZone("zat_b33_tutor")) {
       travelToStoryObject(TREASURE_STORY_ID);
     }
   },
@@ -106,10 +95,7 @@ step("3 - container out of the stash", {
       hasInfoPortion(infoPortions.zat_b33_refuse_task) ? "Cardan, the job was turned down" : "Snag or Cardan"
     );
 
-    const task: Nillable<TaskObject> = settleTask(TASK_ID);
-
-    expectTaskTextResolves(task, TASK_ID, "with the container found");
-    report("task shows '%s' / '%s'", tostring(task?.currentTitle), tostring(task?.currentDescription));
+    checkTaskText(TASK_ID, "with the container found");
   },
   handOff:
     "climb down to the Zaporozhets at zat_b33 and take the container out of the stash - turning Snag down does not " +
@@ -119,7 +105,7 @@ step("3 - container out of the stash", {
 step("4 - container opened", {
   reached: (): boolean => $isNotNil(resolveContainerFate()),
   travel: (): void =>
-    travelToStoryObject(hasInfoPortion(infoPortions.zat_b33_refuse_task) ? MECHANIC_STORY_ID : SNAG_STORY_ID),
+    void travelToStoryObject(hasInfoPortion(infoPortions.zat_b33_refuse_task) ? MECHANIC_STORY_ID : SNAG_STORY_ID),
   verify: (): void => {
     report("fate of the container: %s", tostring(resolveContainerFate()));
 
