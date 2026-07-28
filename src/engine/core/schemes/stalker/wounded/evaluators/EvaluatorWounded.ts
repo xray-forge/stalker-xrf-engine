@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
-import { ActionPlanner, GameObject } from "xray16/alias";
-import { NIL, Nillable, TRUE } from "xray16/lib";
+import { GameObject } from "xray16/alias";
+import { NIL, TRUE } from "xray16/lib";
+import { $isNotNil } from "xray16/macros";
 
-import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import {
   ISchemeWoundedState,
@@ -16,7 +16,6 @@ import {
 @LuabindClass()
 export class EvaluatorWounded extends property_evaluator {
   public readonly state: ISchemeWoundedState;
-  public actionPlanner: Nillable<ActionPlanner> = null;
 
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
@@ -40,15 +39,8 @@ export class EvaluatorWounded extends property_evaluator {
       return false;
     }
 
-    if (!this.actionPlanner) {
-      this.actionPlanner = object.motivation_action_manager();
-    }
-
-    // If fighting and wounded_fight is set to 'true' still fight:
-    if (
-      this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate() &&
-      getPortableStoreValue(object.id(), PS_WOUNDED_FIGHT) === TRUE
-    ) {
+    // If fighting and wounded_fight is set to 'true' still fight.
+    if ($isNotNil(object.best_enemy()) && getPortableStoreValue(object.id(), PS_WOUNDED_FIGHT) === TRUE) {
       return false;
     }
 

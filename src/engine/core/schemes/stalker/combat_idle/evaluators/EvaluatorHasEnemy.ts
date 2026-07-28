@@ -6,8 +6,9 @@ import { $isNotNil } from "xray16/macros";
 import { registry } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
-import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { ILogicsOverrides } from "@/engine/core/schemes/state";
+import { isObjectWounded } from "@/engine/core/utils/planner";
 
 /**
  * Evaluator to check whether any enemy exists.
@@ -27,6 +28,11 @@ export class EvaluatorHasEnemy extends property_evaluator {
     const object: GameObject = this.object;
 
     if (!object.alive()) {
+      return false;
+    }
+
+    // Wounded objects lay on the ground and should not be captured by post-combat idle animation.
+    if (isObjectWounded(object.id())) {
       return false;
     }
 
@@ -61,6 +67,11 @@ export class EvaluatorHasEnemy extends property_evaluator {
 
         state.timer = now + math.random(min, max);
       }
+    }
+
+    // Active danger should be handled by danger scheme instead of being blocked by post-combat idle hold.
+    if (isObjectFacingDanger(object)) {
+      return false;
     }
 
     // Delay enemy check for some time after direct threat fading.

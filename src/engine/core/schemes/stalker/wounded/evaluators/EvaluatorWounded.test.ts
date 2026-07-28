@@ -1,8 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
-import { MockActionPlanner, MockGameObject, MockPropertyEvaluatorConst, MockPropertyStorage } from "xray16/mocks";
+import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
 
-import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT, PS_WOUNDED_STATE } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";
@@ -13,13 +12,11 @@ import { mockSchemeState } from "@/fixtures/engine";
 function mockEvaluator(hasEnemy: boolean = false): {
   evaluator: EvaluatorWounded;
   state: ISchemeWoundedState;
-  planner: MockActionPlanner;
   object: GameObject;
 } {
   const object: GameObject = MockGameObject.mock();
   const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
   const evaluator: EvaluatorWounded = new EvaluatorWounded(state);
-  const planner: MockActionPlanner = new MockActionPlanner();
 
   registerObject(object);
 
@@ -27,12 +24,13 @@ function mockEvaluator(hasEnemy: boolean = false): {
 
   jest.spyOn(state.woundController, "update").mockImplementation(jest.fn());
 
-  evaluator.actionPlanner = planner.asMock();
-  planner.add_evaluator(EEvaluatorId.ENEMY, new MockPropertyEvaluatorConst(hasEnemy).asMock());
+  if (hasEnemy) {
+    jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mock());
+  }
 
   evaluator.setup(object, MockPropertyStorage.mock());
 
-  return { evaluator, state, planner, object };
+  return { evaluator, state, object };
 }
 
 describe("EvaluatorWounded", () => {
