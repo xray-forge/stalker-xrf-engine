@@ -14,14 +14,14 @@ export interface ICleanChecksParameters {
 }
 
 /**
- * Remove every check artifact from gamedata.
+ * Remove every flow artifact from gamedata.
  *
  * Packing copies gamedata as it stands, so run this before a release pack.
  */
 export async function cleanChecks(parameters: ICleanChecksParameters = {}): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
-  log.info(blueBright("Clean checks"));
+  log.info(blueBright("Clean flows"));
 
   if (fs.existsSync(TARGET_GAME_DATA_CHECKS_DIR)) {
     fs.rmSync(TARGET_GAME_DATA_CHECKS_DIR, { recursive: true, force: true });

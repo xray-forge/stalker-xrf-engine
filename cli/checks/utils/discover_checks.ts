@@ -4,56 +4,41 @@ import * as path from "node:path";
 import { GAME_DATA_CHECKS_DIR } from "#/globals/paths";
 
 /**
- * The two kinds of runnable artifact, distinguished by source suffix.
+ * Source suffix marking a flow.
  *
- * A check runs to completion in one invocation. A flow is walked one step per invocation, keeping
- * its cursor in the save, so real play can happen in between.
+ * A flow is walked one step per invocation, keeping its progress in the save, so real play can happen in
+ * between. It is currently the only kind of runnable artifact.
  */
-export const CHECK_SUFFIX: string = ".check.ts";
 export const FLOW_SUFFIX: string = ".flow.ts";
 
 /**
- * Prefixes of generated launcher scripts. Also the markers `checks clean` matches them by.
+ * Prefix of generated launcher scripts. Also the marker `checks clean` matches them by.
  */
-export const CHECK_LAUNCHER_PREFIX: string = "check_";
 export const FLOW_LAUNCHER_PREFIX: string = "flow_";
 
 /**
  * Every prefix a generated launcher can carry.
  */
-export const LAUNCHER_PREFIXES: Array<string> = [CHECK_LAUNCHER_PREFIX, FLOW_LAUNCHER_PREFIX];
+export const LAUNCHER_PREFIXES: Array<string> = [FLOW_LAUNCHER_PREFIX];
 
 /**
- * Identity of the generated launcher that sweeps every check, and the module implementing the sweep.
- */
-export const SUITE_IDENTITY: string = "all";
-export const SUITE_MODULE: string = "checks.framework.suite";
-export const SUITE_EMITTED: string = "framework/suite.script";
-
-/**
- * Descriptor of a single discovered check or flow.
+ * Descriptor of a single discovered flow.
  */
 export interface ICheckDescriptor {
-  /** Which lifecycle this artifact uses. */
-  kind: "check" | "flow";
-  /** Flat name the artifact reports itself under, e.g. `quests_zat_b29`. */
+  /** Flat name the flow reports itself under, e.g. `quests_zat_b14`. */
   identity: string;
   /** Source file, absolute. */
   source: string;
-  /** Path relative to the checks root, posix separators, e.g. `quests/zat_b29.check.ts`. */
+  /** Path relative to the checks root, posix separators, e.g. `quests/zat_b14.flow.ts`. */
   relative: string;
-  /** Emitted script path relative to the checks output dir, e.g. `quests/zat_b29_check.script`. */
+  /** Emitted script path relative to the checks output dir, e.g. `quests/zat_b14_flow.script`. */
   emitted: string;
-  /** Lua module name the transpiler emits, e.g. `checks.quests.zat_b29_check`. */
+  /** Lua module name the transpiler emits, e.g. `checks.quests.zat_b14_flow`. */
   module: string;
-  /** Generated launcher file name, e.g. `check_quests_zat_b29.script`. */
+  /** Generated launcher file name, e.g. `flow_quests_zat_b14.script`. */
   launcher: string;
   /** Console command to run it. */
   command: string;
-  /** Launcher resetting the cursor, flows only. */
-  resetLauncher?: string;
-  /** Console command resetting the cursor, flows only. */
-  resetCommand?: string;
 }
 
 /**
@@ -82,42 +67,34 @@ function walk(dir: string, filter: (name: string) => boolean, acc: Array<string>
 }
 
 /**
- * Discover checks and flows, and derive their module and launcher names.
+ * Discover flows, and derive their module and launcher names.
  *
- * Launcher names flatten the source layout because `run_script` resolves its argument as a single
- * file directly under `$game_scripts$` and cannot descend into directories.
+ * Launcher names flatten the source layout because `run_script` resolves its argument as a single file
+ * directly under `$game_scripts$` and cannot descend into directories.
  *
  * @returns List of descriptors, sorted by relative path.
  */
 export function discoverChecks(): Array<ICheckDescriptor> {
-  const sources: Array<string> = walk(
-    GAME_DATA_CHECKS_DIR,
-    (name) => name.endsWith(CHECK_SUFFIX) || name.endsWith(FLOW_SUFFIX)
-  );
+  const sources: Array<string> = walk(GAME_DATA_CHECKS_DIR, (name) => name.endsWith(FLOW_SUFFIX));
 
   return sources
     .map((source) => {
       const relative: string = path.relative(GAME_DATA_CHECKS_DIR, source).replace(/\\/g, "/");
       const withoutExtension: string = relative.replace(/\.ts$/, "");
-      const isFlow: boolean = relative.endsWith(FLOW_SUFFIX);
-      const prefix: string = isFlow ? FLOW_LAUNCHER_PREFIX : CHECK_LAUNCHER_PREFIX;
-      const identity: string = withoutExtension.replace(/\.(check|flow)$/, "").replace(/\//g, "_");
+      const identity: string = withoutExtension.replace(/\.flow$/, "").replace(/\//g, "_");
 
       // The transpiler cannot keep dots inside a file name, since a dot separates lua module
-      // path segments, so `zat_b29.check.ts` is emitted as `zat_b29_check.script`.
+      // path segments, so `zat_b14.flow.ts` is emitted as `zat_b14_flow.script`.
       const emitted: string = withoutExtension.replace(/\./g, "_");
 
       return {
-        kind: isFlow ? ("flow" as const) : ("check" as const),
         identity,
         source,
         relative,
         emitted: `${emitted}.script`,
         module: `checks.${emitted.replace(/\//g, ".")}`,
-        launcher: `${prefix}${identity}.script`,
-        command: `run_script ${prefix}${identity}`,
-        resetLauncher: isFlow ? `${prefix}${identity}_reset.script` : undefined,
-        resetCommand: isFlow ? `run_script ${prefix}${identity}_reset` : undefined,
+        launcher: `${FLOW_LAUNCHER_PREFIX}${identity}.script`,
+        command: `run_script ${FLOW_LAUNCHER_PREFIX}${identity}`,
       };
     })
     .sort((first, second) => first.relative.localeCompare(second.relative));

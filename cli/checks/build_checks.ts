@@ -4,43 +4,44 @@ import * as path from "node:path";
 import { blueBright, green, greenBright, red, yellow, yellowBright } from "chalk";
 import * as tstl from "typescript-to-lua";
 
-import {
-  CHECK_LAUNCHER_PREFIX,
-  discoverChecks,
-  ICheckDescriptor,
-  SUITE_EMITTED,
-  SUITE_IDENTITY,
-  SUITE_MODULE,
-} from "#/checks/utils/discover_checks";
+import { discoverChecks, ICheckDescriptor } from "#/checks/utils/discover_checks";
 import { BUILD_CHECKS_TSCONFIG, TARGET_GAME_DATA_CHECKS_DIR, TARGET_GAME_DATA_SCRIPTS_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
+/**
+ * Lua module the framework exposes its entry points through.
+ *
+ * The transpiler emits a directory import as an explicit `.index`, so this is what the barrel at
+ * `src/engine/checks/framework/index.ts` resolves to at runtime.
+ */
+const FRAMEWORK_MODULE: string = "checks.framework.index";
+
 export interface IBuildChecksParameters {
   verbose?: boolean;
 }
 
 /**
- * Transpile checks into gamedata and emit a console launcher for each one.
+ * Transpile flows into gamedata and emit a console launcher for each one.
  *
- * Checks live outside the regular script build, so nothing here affects normal build or watch
- * timings. Running this command is the only way check code reaches gamedata.
+ * Flows live outside the regular script build, so nothing here affects normal build or watch timings.
+ * Running this command is the only way flow code reaches gamedata.
  */
 export async function buildChecks(parameters: IBuildChecksParameters = {}): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
-  log.info(blueBright("Build checks"));
+  log.info(blueBright("Build flows"));
 
   const timeTracker: TimeTracker = new TimeTracker().start();
   const checks: Array<ICheckDescriptor> = discoverChecks();
 
   if (!checks.length) {
-    return log.warn("No checks found, nothing to build");
+    return log.warn("No flows found, nothing to build");
   }
 
-  log.info("Discovered checks:", checks.length);
+  log.info("Discovered flows:", checks.length);
 
   transpileChecks();
   timeTracker.addMark("CHECKS_TRANSPILED");
@@ -48,24 +49,12 @@ export async function buildChecks(parameters: IBuildChecksParameters = {}): Prom
   emitLaunchers(checks);
   timeTracker.addMark("CHECKS_LAUNCHERS");
 
-  const suiteCommand: string | null = emitSuiteLauncher(checks);
-
-  timeTracker.addMark("CHECKS_SUITE");
-
-  log.info("Checks built in", timeTracker.end().getDuration() / 1000, "sec");
+  log.info("Flows built in", timeTracker.end().getDuration() / 1000, "sec");
   log.pushNewLine();
   log.info("Run in game console (engine variant must be", yellowBright("mixed"), "or", yellowBright("release") + "):");
 
   for (const check of checks) {
-    log.info(" ", greenBright(check.command), green(`(${check.kind}, ${check.relative})`));
-
-    if (check.resetCommand) {
-      log.info("   ", green(`${check.resetCommand} to walk it again from step 1`));
-    }
-  }
-
-  if (suiteCommand) {
-    log.info(" ", greenBright(suiteCommand), green("(every check in sequence, flows excluded)"));
+    log.info(" ", greenBright(check.command), green(`(${check.relative})`));
   }
 }
 
@@ -118,14 +107,7 @@ function emitLaunchers(checks: Array<ICheckDescriptor>): void {
       );
     }
 
-    writeLauncher(check.launcher, check, "run");
-
-    // A flow keeps a cursor in the save, so it needs a second entry point to send it back to the
-    // start. The console cannot pass arguments to `run_script`, hence a launcher rather than a flag.
-    if (check.resetLauncher) {
-      writeLauncher(check.resetLauncher, check, "reset");
-      emitted += 1;
-    }
+    writeLauncher(check.launcher, check);
 
     emitted += 1;
   }
@@ -134,64 +116,11 @@ function emitLaunchers(checks: Array<ICheckDescriptor>): void {
 }
 
 /**
- * Write the launcher that sweeps every check in one invocation.
- *
- * Only checks are listed. A flow advances a cursor kept in the save, so sweeping it would move state
- * nobody asked to move. The generated file carries nothing but the list: the sequencing, isolation and
- * combined reporting live in `framework/suite.ts`, where they are typed and readable.
- *
- * @param checks - Everything discovered, flows included and filtered out here.
- * @returns Console command for the suite, or null when there is nothing to sweep.
- */
-function emitSuiteLauncher(checks: Array<ICheckDescriptor>): string | null {
-  const runnable: Array<ICheckDescriptor> = checks.filter((it) => it.kind === "check");
-
-  if (!runnable.length) {
-    log.info("No checks to sweep, skipping", yellow(`${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}`));
-
-    return null;
-  }
-
-  const collision: ICheckDescriptor | undefined = checks.find((it) => it.identity === SUITE_IDENTITY);
-
-  if (collision) {
-    throw new Error(
-      `Source '${collision.relative}' produces identity '${SUITE_IDENTITY}', which the sweep launcher ` +
-        `already uses. Rename it, so 'run_script ${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}' stays unambiguous.`
-    );
-  }
-
-  const suitePath: string = path.resolve(TARGET_GAME_DATA_CHECKS_DIR, SUITE_EMITTED);
-
-  if (!fs.existsSync(suitePath)) {
-    throw new Error(`Expected transpiled suite at '${suitePath}'. Module '${SUITE_MODULE}' would not resolve.`);
-  }
-
-  const launcher: string = `${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}.script`;
-  const entries: string = runnable
-    .map((it) => `    { name = "${it.identity}", run = require("${it.module}").run },\n`)
-    .join("");
-
-  const body: string =
-    `-- Generated by 'xrf checks build'. Do not edit.\n` +
-    `-- Runs every built check in sequence. Flows are excluded, they advance a saved cursor.\n` +
-    `-- Run with: run_script ${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}\n` +
-    `function main()\n` +
-    UNLOAD_CHECK_MODULES +
-    `  require("${SUITE_MODULE}").runAll({\n` +
-    entries +
-    `  })\n` +
-    `end\n`;
-
-  fs.writeFileSync(path.resolve(TARGET_GAME_DATA_SCRIPTS_DIR, launcher), body, "utf8");
-
-  log.info("Emitted sweep launcher:", green(launcher), `over ${runnable.length} check(s)`);
-
-  return `run_script ${CHECK_LAUNCHER_PREFIX}${SUITE_IDENTITY}`;
-}
-
-/**
  * Lua dropping every cached check module from `package.loaded`.
+ *
+ * Runs once, before anything is required. Clearing the framework here rather than between checks is
+ * what keeps it to a single live instance, so the ambient assertion context cannot end up in one copy
+ * while the runner reads another.
  */
 const UNLOAD_CHECK_MODULES: string =
   `  for name in pairs(package.loaded) do\n` +
@@ -201,22 +130,23 @@ const UNLOAD_CHECK_MODULES: string =
   `  end\n`;
 
 /**
- * Write a single launcher script invoking one exported entry point of a check module.
+ * Write a single launcher script that requires a source file and runs whatever it registered.
  *
  * The work must live in `main`: `run_script X` loads the file into namespace `X`, then resumes
  * `X.main()` as a coroutine. Without it the engine ends up calling a nil value.
  */
-function writeLauncher(launcher: string, check: ICheckDescriptor, entry: "run" | "reset"): void {
+function writeLauncher(launcher: string, check: ICheckDescriptor): void {
   const body: string =
     `-- Generated by 'xrf checks build'. Do not edit.\n` +
-    `-- Launcher for ${check.relative} (${check.kind}, ${entry}).\n` +
+    `-- Launcher for ${check.relative}.\n` +
     `-- Run with: run_script ${launcher.replace(/\.script$/, "")}\n` +
     `function main()\n` +
     UNLOAD_CHECK_MODULES +
-    `  require("${check.module}").${entry}()\n` +
+    `  require("${check.module}")\n` +
+    `  require("${FRAMEWORK_MODULE}").run("${check.identity}")\n` +
     `end\n`;
 
   fs.writeFileSync(path.resolve(TARGET_GAME_DATA_SCRIPTS_DIR, launcher), body, "utf8");
 
-  log.debug("Emitted launcher:", launcher, "->", `${check.module}.${entry}`);
+  log.debug("Emitted launcher:", launcher, "->", `${check.module} as '${check.identity}'`);
 }

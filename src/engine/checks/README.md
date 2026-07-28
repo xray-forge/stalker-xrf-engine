@@ -1,0 +1,39 @@
+# [XRF](../../../) / ENGINE / CHECKS
+
+In-game flow checks for behavior unit tests cannot cover, including Lua, INI parsing, tasks, and engine bindings.
+They are built into gamedata on demand.
+
+A flow (`*.flow.ts`) observes quest progress without changing it. It verifies reached steps, stops at the first pending
+step, and stores progress in the actor save. Load an earlier save to run a flow again.
+
+## Writing flows
+
+Flow files have no exports and import from `@/engine/checks/framework`.
+
+- `requires` declares the starting level and state.
+- Ordered `step` calls describe progression. Each needs `reached`; `verify`, `travel`, and `handOff` are optional.
+
+`reached` must observe something the game actually sets. A predicate naming a portion nothing gives would stall the walk
+forever, so a step that is not reached while a later one is gets reported and walked past rather than waited on.
+
+## Commands
+
+```text
+npm run cli checks list
+npm run cli checks build
+npm run cli checks clean
+npm run typecheck:checks
+```
+
+Run a built flow in the game console:
+
+```text
+run_script flow_<name>
+```
+
+Use the `mixed` or `release` engine variant with a loaded level.
+
+## Output
+
+Every reported line goes to the game console, the engine log, and `$logs$\xrf_checks.log`. That file is truncated once
+per game session and appended thereafter, with a banner per invocation.
