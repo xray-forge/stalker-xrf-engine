@@ -1,7 +1,3 @@
-/**
- * Everything a check or flow source file needs, in one import.
- */
-
 export type {
   ICheckFailure,
   ICheckRequirements,

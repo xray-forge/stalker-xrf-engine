@@ -130,8 +130,6 @@ function verifyStep(context: CheckContext, step: IFlowStep, position: TIndex): v
     return;
   }
 
-  context.steps += 1;
-
   const [isCompleted, caught] = pcall(() => step.verify!());
 
   if (!isCompleted) {
@@ -214,6 +212,7 @@ function observe(context: CheckContext, steps: LuaArray<IFlowStep>, name: TName)
     verifyStep(context, step, position);
     writeCursor(name, position);
 
+    context.steps += 1;
     confirmed = position;
     report("%s: step %s/%s '%s' reached", name, position, total, step.name);
   }
@@ -255,8 +254,6 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
   if ($isNotNil(skipReason)) {
     verdict = "SKIP";
   } else if (blockers.length() > 0) {
-    // Blocked rather than forced. The chain has to be brought here by playing it or by walking the flow
-    // that produces this state, because there is no honest way to fake a mid chain world.
     verdict = "BLOCKED";
 
     for (const [, blocker] of blockers) {
@@ -265,8 +262,6 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
 
     notify(`${name} blocked: ${blockers.get(1)}`);
   } else {
-    // Bracketed rather than left set: a stray assertion after this invocation should abort loudly
-    // instead of being recorded against a result nobody is going to read.
     setCurrentContext(context);
 
     const [isCompleted, caught] = pcall(() => {
@@ -299,8 +294,6 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
     writeFailures(name, walkFailures);
   }
 
-  // A failing assertion outranks the progression verdict: the chain got here, but something is broken.
-  // Completing a walk that failed anywhere is a failure too, however clean the last invocation was.
   let outcome: TLabel = failures === 0 ? verdict : "FAIL";
 
   if (outcome === "COMPLETE" && walkFailures > 0) {
@@ -314,8 +307,6 @@ export function runFlow(name: TName, registration: IRegistration): ICheckResult 
     report("%s: %s failure(s) so far in this walk", name, walkFailures);
   }
 
-  // A run that could not proceed, or one that found something, must not be discoverable only by
-  // opening the console: the operator is looking at the game, not at the log.
   if ($isNotNil(skipReason)) {
     notify(`${name} skipped: ${skipReason}`);
   } else if (outcome === "FAIL") {
