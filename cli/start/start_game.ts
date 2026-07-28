@@ -9,22 +9,72 @@ import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
+/** Enumeration of game difficulties possible to provide on game start. */
+export enum EGameDifficulty {
+  NOVICE = "gd_novice",
+  STALKER = "gd_stalker",
+  VETERAN = "gd_veteran",
+  MASTER = "gd_master",
+}
+
+export interface IStartGameCommandParameters {
+  new?: boolean;
+  load?: string;
+  difficulty?: EGameDifficulty;
+  intro?: boolean;
+}
+
 const START_GAME_ARGUMENTS: ReadonlyArray<string> = ["-dump_bindings"];
+const START_GAME_NO_INTRO_ARGUMENTS: ReadonlyArray<string> = ["-nointro", "-nogameintro"];
+const NEW_GAME_SPAWN: string = "all";
+const GAME_SAVE_EXTENSION: string = ".scop";
 
 /**
  * Start game executable provided in config.json file.
+ * Optionally starts game world right away to skip main menu when testing.
  */
-export async function startGame(): Promise<void> {
+export async function startGame(parameters: IStartGameCommandParameters = {}): Promise<void> {
   log.info("Starting game");
 
-  const { app, bin, root } = await getGamePaths();
+  const { app, bin, root, savedgames } = await getGamePaths();
 
   const engineApp: string = path.join(bin, "xrEngine.exe");
   const startApp: string = (await exists(engineApp)) ? engineApp : app;
+  const startArguments: Array<string> = [...START_GAME_ARGUMENTS];
 
-  log.info("Starting game app:", yellowBright(startApp), START_GAME_ARGUMENTS.join(" "));
+  if (parameters.new && parameters.load) {
+    throw new Error("Cannot start new game and load game save at the same time.");
+  }
 
-  const game = cp.spawn(startApp, START_GAME_ARGUMENTS, {
+  if (parameters.load) {
+    const save: string = path.join(savedgames, parameters.load + GAME_SAVE_EXTENSION);
+
+    if (!(await exists(save))) {
+      throw new Error(`Provided game save does not exist: '${save}'.`);
+    }
+  }
+
+  if (parameters.new || parameters.load) {
+    if (parameters.intro === false) {
+      startArguments.push(...START_GAME_NO_INTRO_ARGUMENTS);
+    }
+
+    // Note: engine reads it as `-$<command> <parameter>`, single space breaks parsing of the arguments.
+    if (parameters.difficulty) {
+      startArguments.push("-$g_game_difficulty", parameters.difficulty);
+    }
+
+    // Note: `-start` is parsed as whole remaining command line, so it should be provided last.
+    startArguments.push(
+      "-start",
+      parameters.new ? `server(${NEW_GAME_SPAWN}/single/alife/new)` : `server(${parameters.load}/single/alife/load)`,
+      "client(localhost)"
+    );
+  }
+
+  log.info("Starting game app:", yellowBright(startApp), startArguments.join(" "));
+
+  const game = cp.spawn(startApp, startArguments, {
     cwd: root,
     detached: true,
     stdio: "ignore",

@@ -1,10 +1,21 @@
-import { Command } from "commander";
+import { Command, Option } from "commander";
 
-import { startGame } from "#/start/start_game";
+import { EGameDifficulty, startGame } from "#/start/start_game";
 
 /**
  * Setup start commands.
  */
 export function setupStartCommands(command: Command): void {
-  command.command("start_game").description("start game executable configured in config.json file").action(startGame);
+  command
+    .command("start_game")
+    .description("start game executable configured in config.json file")
+    .addOption(new Option("-n, --new", "start new game world instantly, skipping main menu"))
+    .addOption(new Option("-l, --load <save>", "load game save instantly, skipping main menu").conflicts("new"))
+    .addOption(
+      new Option("-d, --difficulty <difficulty>", "game difficulty to use with instant start").choices(
+        Object.values(EGameDifficulty)
+      )
+    )
+    .addOption(new Option("--ni, --no-intro", "skip intro videos on instant start"))
+    .action(startGame);
 }

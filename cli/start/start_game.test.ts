@@ -1,0 +1,98 @@
+import * as cp from "node:child_process";
+import * as path from "node:path";
+
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { replaceFunctionMock } from "xray16/testing/utils";
+
+import { EGameDifficulty, startGame } from "#/start/start_game";
+import { exists } from "#/utils/fs/exists";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
+
+jest.mock("node:child_process");
+jest.mock("#/utils/fs/exists");
+jest.mock("#/utils/fs/get_game_paths");
+
+describe("startGame", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+
+    replaceFunctionMock(getGamePaths, async () => ({
+      app: "app-path",
+      bin: "bin-path",
+      root: "root-path",
+      savedgames: "savedgames-path",
+    }));
+    replaceFunctionMock(exists, async () => true);
+    replaceFunctionMock(cp.spawn, () => ({ once: jest.fn(), unref: jest.fn() }));
+  });
+
+  it("should start game executable without world start by default", async () => {
+    await startGame();
+
+    expect(cp.spawn).toHaveBeenCalledWith(path.join("bin-path", "xrEngine.exe"), ["-dump_bindings"], {
+      cwd: "root-path",
+      detached: true,
+      stdio: "ignore",
+    });
+  });
+
+  it("should fallback to configured app when engine executable does not exist", async () => {
+    replaceFunctionMock(exists, async () => false);
+
+    await startGame();
+
+    expect(cp.spawn).toHaveBeenCalledWith("app-path", ["-dump_bindings"], expect.anything());
+  });
+
+  it("should start new game world", async () => {
+    await startGame({ new: true });
+
+    expect(cp.spawn).toHaveBeenCalledWith(
+      expect.any(String),
+      ["-dump_bindings", "-start", "server(all/single/alife/new)", "client(localhost)"],
+      expect.anything()
+    );
+  });
+
+  it("should start new game world with difficulty and without intro", async () => {
+    await startGame({ difficulty: EGameDifficulty.MASTER, intro: false, new: true });
+
+    expect(cp.spawn).toHaveBeenCalledWith(
+      expect.any(String),
+      [
+        "-dump_bindings",
+        "-nointro",
+        "-nogameintro",
+        "-$g_game_difficulty",
+        "gd_master",
+        "-start",
+        "server(all/single/alife/new)",
+        "client(localhost)",
+      ],
+      expect.anything()
+    );
+  });
+
+  it("should start game world from provided save", async () => {
+    await startGame({ load: "test_save" });
+
+    expect(exists).toHaveBeenCalledWith(path.join("savedgames-path", "test_save.scop"));
+    expect(cp.spawn).toHaveBeenCalledWith(
+      expect.any(String),
+      ["-dump_bindings", "-start", "server(test_save/single/alife/load)", "client(localhost)"],
+      expect.anything()
+    );
+  });
+
+  it("should fail when provided save does not exist", async () => {
+    replaceFunctionMock(exists, async (target: unknown) => target !== path.join("savedgames-path", "test_save.scop"));
+
+    await expect(startGame({ load: "test_save" })).rejects.toThrow();
+    expect(cp.spawn).not.toHaveBeenCalled();
+  });
+
+  it("should fail when new game and save load are mixed", async () => {
+    await expect(startGame({ load: "test_save", new: true })).rejects.toThrow();
+    expect(cp.spawn).not.toHaveBeenCalled();
+  });
+});
