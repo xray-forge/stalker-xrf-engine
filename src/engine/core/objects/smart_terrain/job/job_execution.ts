@@ -12,7 +12,6 @@ import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objec
 import { isObjectArrivedToTerrain } from "@/engine/core/objects/smart_terrain/object";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { setupSmartTerrainObjectJobLogic } from "@/engine/core/schemes/runtime/scheme_job";
-import { switchObjectSchemeToSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 
@@ -425,10 +424,10 @@ export function assignTerrainJobToObject(
 
     terrain.objectByJobSection.set(terrain.jobs.get(selectedJob.id as TNumberId).section, selectedJob.objectId);
 
-    // Reset object active scheme.
-    if (state) {
-      switchObjectSchemeToSection(state.object, terrain.jobsConfig, NIL);
-    }
+    // Note: intentionally no `nil` section switch here.
+    // Deactivating logic before re-activation drops active section for a tick, which lets alife branch of
+    // motivation planner reset object animations to idle. Following `setupSmartTerrainObjectJobLogic` call
+    // switches section on its own. Matches CoC / anomaly behaviour.
   }
 
   // Start job execution if it was not started before or new job is selected.

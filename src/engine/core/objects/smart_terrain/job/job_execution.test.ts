@@ -1,17 +1,26 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { IniFile, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
+import { GameObject, IniFile, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
 import { AnyObject, MAX_ALIFE_ID } from "xray16/lib";
-import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject } from "xray16/mocks";
 
-import { registerSimulator } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
 import {
+  assignTerrainJobToObject,
   selectTerrainObjectJob,
   switchTerrainObjectToDesiredJob,
   updateTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
-import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
+import {
+  EJobPathType,
+  EJobType,
+  IObjectJobState,
+  ISmartTerrainJobDescriptor,
+} from "@/engine/core/objects/smart_terrain/job/job_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { setupSmartTerrainObjectJobLogic } from "@/engine/core/schemes/runtime/scheme_job";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+
+jest.mock("@/engine/core/schemes/runtime/scheme_job");
 
 describe("job_execution logic", () => {
   beforeEach(() => {
@@ -513,5 +522,35 @@ describe("selectSmartTerrainObjectJob", () => {
         schemeType: 1,
       },
     });
+  });
+
+  it("should re-setup logic of online objects on job change without deactivating active section", () => {
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
+    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ id: stalker.id });
+
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
+
+    (terrain as AnyObject).m_game_vertex_id = 512;
+    (stalker as AnyObject).m_game_vertex_id = 512;
+
+    terrain.on_register();
+    terrain.register_npc(stalker);
+
+    const state: IRegistryObjectState = registerObject(object);
+    const descriptor: IObjectJobState = terrain.objectJobDescriptors.get(stalker.id);
+    const anotherJob: ISmartTerrainJobDescriptor = terrain.jobs.get(descriptor.jobId === 4 ? 25 : 4);
+
+    state.activeSection = "logic@test_smart_previous_job";
+
+    assignTerrainJobToObject(terrain, descriptor, anotherJob);
+
+    expect(descriptor.job).toBe(anotherJob);
+    expect(descriptor.isBegun).toBe(true);
+
+    // Logic is re-activated by job setup, active section is not dropped in between.
+    expect(setupSmartTerrainObjectJobLogic).toHaveBeenCalledWith(terrain, object);
+    expect(state.activeSection).toBe("logic@test_smart_previous_job");
   });
 });
