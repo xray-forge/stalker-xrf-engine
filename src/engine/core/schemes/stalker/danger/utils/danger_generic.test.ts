@@ -37,20 +37,26 @@ describe("isObjectFacingDanger", () => {
     setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
+    /**
+     * Use a non-grenade danger type, only those evaluate creature / relation / combat ignore checks.
+     * Distance is mocked explicitly, `MockVector` reports a constant distance for non-origin vectors.
+     */
+    bestDanger.dangerType = danger_object.hit;
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 10 * 10);
+
+    // Danger source is not a creature.
     expect(isObjectFacingDanger(object)).toBe(false);
 
+    // Creature danger source, but relations are not hostile.
     bestDanger.dangerDependentObject = MockGameObject.mockStalker();
     expect(isObjectFacingDanger(object)).toBe(false);
 
+    // Hostile creature danger source within reaction distance.
     replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
-    expect(isObjectFacingDanger(object)).toBe(false);
-
-    bestDanger.dangerType = danger_object.hit;
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 150 * 150);
     expect(isObjectFacingDanger(object)).toBe(true);
   });
 
-  it("should correctly check generic danger", () => {
+  it("should ignore non-grenade danger when object is not alive", () => {
     expect(isObjectFacingDanger(MockGameObject.mock())).toBe(false);
 
     const object: GameObject = MockGameObject.mock();
@@ -95,11 +101,11 @@ describe("isObjectFacingDanger", () => {
 
     bestDanger.dangerObject = MockGameObject.mockStalker();
     bestDanger.dangerType = danger_object.entity_death;
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 16);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 50 * 50);
     expect(isObjectFacingDanger(object)).toBe(true);
 
     bestDanger.dangerType = danger_object.entity_death;
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 17);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 50 * 50 + 1);
     expect(isObjectFacingDanger(object)).toBe(false);
   });
 
@@ -134,11 +140,11 @@ describe("isObjectFacingDanger", () => {
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     // Out of range.
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 226);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 30 * 30 + 1);
     expect(isObjectFacingDanger(object)).toBe(false);
 
     // In range.
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 225);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 30 * 30);
     expect(isObjectFacingDanger(object)).toBe(true);
 
     // When zombied.
@@ -160,6 +166,29 @@ describe("isObjectFacingDanger", () => {
     expect(isObjectFacingDanger(object)).toBe(false);
   });
 
+  it("should react to enemy sound danger produced by mutants", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const bestDanger: MockDangerObject = new MockDangerObject();
+    const state: IRegistryObjectState = registerObject(object);
+
+    setSchemeState(state, EScheme.COMBAT_IGNORE, mockSchemeState(EScheme.COMBAT_IGNORE));
+    replaceFunctionMock(object.best_danger, () => bestDanger);
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
+
+    /**
+     * Monster attack sounds are classified as `enemy_sound` by the engine danger manager.
+     * Originally the type had `0` ignore distance, which discarded such danger at any distance.
+     */
+    bestDanger.dangerObject = MockGameObject.mockWithClassId(clsid.dog_s);
+    bestDanger.dangerType = danger_object.enemy_sound;
+
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 40 * 40);
+    expect(isObjectFacingDanger(object)).toBe(true);
+
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 40 * 40 + 1);
+    expect(isObjectFacingDanger(object)).toBe(false);
+  });
+
   it("should not evaluate relations of non-creature danger sources", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const bestDanger: MockDangerObject = new MockDangerObject();
@@ -178,7 +207,7 @@ describe("isObjectFacingDanger", () => {
     expect(object.relation).not.toHaveBeenCalled();
   });
 
-  it("should not react to danger when object is dead", () => {
+  it("should ignore grenade danger when object is not alive", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const bestDanger: MockDangerObject = new MockDangerObject();
 

@@ -84,10 +84,10 @@ export function isObjectFacingDanger(object: GameObject): boolean {
   }
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
-  const ignoreDistanceByType: Nillable<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE[bestDangerType];
+  const ignoreDistanceByType: Nillable<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE_SQR[bestDangerType];
   const ignoreDistance: TDistance = $isNil(ignoreDistanceByType)
     ? dangerConfig.IGNORE_DISTANCE_GENERAL_SQR
-    : ignoreDistanceByType * ignoreDistanceByType;
+    : ignoreDistanceByType;
 
   // Verify danger distance.
   if (dangerDistanceSqrt > ignoreDistance) {
