@@ -1,7 +1,7 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { Nillable, TDuration, TRate, TTimestamp } from "xray16/lib";
-import { $filename, $isNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateController } from "@/engine/core/ai/state/StalkerStateController";
 import { states } from "@/engine/core/animation/states";
@@ -38,7 +38,9 @@ export class ActionStateEnd extends action_base {
     super.execute();
 
     // Handle callback execution of animation.
-    if (this.controller.callback) {
+    // Callbacks without timeout are not timed out here - as example, turn end callbacks are fired by direction
+    // evaluator and should not be dropped / called on state end.
+    if (this.controller.callback && $isNotNil(this.controller.callback.timeout)) {
       const now: TTimestamp = time_global();
 
       // Set start of animation timeout.

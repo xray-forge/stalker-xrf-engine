@@ -24,4 +24,33 @@ describe("ActionStateEnd", () => {
     expect(callback).toHaveBeenCalledWith();
     expect(controller.callback).toBeNull();
   });
+
+  it("preserves callbacks without timeout, like turn end only descriptors", () => {
+    const object: GameObject = MockGameObject.mock();
+    const controller: StalkerStateController = new StalkerStateController(object);
+    const turnEndCallback = jest.fn();
+    const action: ActionStateEnd = new ActionStateEnd(controller);
+
+    action.setup(object, MockPropertyStorage.mock());
+
+    const callbackDescriptor = {
+      context: controller,
+      callback: null,
+      begin: null,
+      timeout: null,
+      turnEndCallback,
+    };
+
+    controller.callback = callbackDescriptor;
+
+    jest.spyOn(Date, "now").mockImplementation(() => 0);
+    action.execute();
+
+    jest.spyOn(Date, "now").mockImplementation(() => 100_000);
+    action.execute();
+
+    expect(turnEndCallback).not.toHaveBeenCalled();
+    expect(controller.callback).toBe(callbackDescriptor);
+    expect(controller.callback?.begin).toBeNull();
+  });
 });
