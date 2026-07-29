@@ -10,7 +10,8 @@ import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { CampController } from "@/engine/core/ai/camp/CampController";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { getManager, IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getStoryPlayback } from "@/engine/core/managers/sounds/utils";
 import { emitSchemeEvent } from "@/engine/core/schemes/runtime";
@@ -220,10 +221,26 @@ describe("CampController", () => {
     expect(manager.activityTimeout).toBe(100);
   });
 
+  it("should not advance activity while no objects are registered in camp", () => {
+    const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
+
+    replaceFunctionMock(time_global, () => 100);
+
+    manager.update(0);
+
+    expect(manager.activity).toBe(EObjectCampActivity.IDLE);
+    expect(manager.activitySwitchAt).toBe(-1);
+    expect(manager.activityTimeout).toBe(0);
+    expect(manager.directorId).toBeNull();
+  });
+
   for (const activity of [EObjectCampActivity.GUITAR, EObjectCampActivity.HARMONICA]) {
     it(`should stop ${activity} activity after its story finishes`, () => {
       const manager: CampController = new CampController(MockGameObject.mock(), MockIniFile.mock("test.ltx"));
 
+      jest.spyOn(getManager(SoundManager), "play").mockImplementation(() => null);
+
+      manager.objects.set(10, { state: activity } as ICampStateDescriptor);
       manager.activity = activity;
       manager.directorId = 10;
       manager.activitySwitchAt = 10_000;

@@ -21,6 +21,7 @@ import {
 import { EScheme, ESchemeEvent } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
+import { isEmpty } from "@/engine/core/utils/table";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -98,6 +99,11 @@ export class CampController {
    * Handle client side update tick.
    */
   public update(delta: TDuration): void {
+    // Nothing to coordinate while no objects are registered in camp.
+    if (isEmpty(this.objects)) {
+      return;
+    }
+
     // Process story telling if not finished.
     if (!this.storyPlayback.isFinished()) {
       return this.storyPlayback.update();
