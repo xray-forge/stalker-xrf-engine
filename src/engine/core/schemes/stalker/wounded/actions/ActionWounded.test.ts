@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { time_global } from "xray16";
+import { object as object_actions, time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
@@ -59,6 +59,10 @@ describe("ActionWounded", () => {
     expect(object.wounded).toHaveBeenCalledWith(true);
     expect(action.nextSoundPlayAt).toBe(6000);
 
+    // Weapon is settled before laying animation starts and cannot be re-selected while wounded.
+    expect(object.set_item).toHaveBeenCalledWith(object_actions.idle, null);
+    expect(object.can_select_weapon).toHaveBeenCalledWith(false);
+
     expect(registry.objectsWounded.get(object.id())).toBe(state);
   });
 
@@ -83,6 +87,8 @@ describe("ActionWounded", () => {
     expect(object.wounded).toHaveBeenCalledWith(false);
     expect(object.movement_enabled).toHaveBeenCalledWith(true);
 
+    // Weapon selection is restored from active logics configuration.
+    expect(object.can_select_weapon).toHaveBeenCalledWith(true);
     expect(registry.objectsWounded.get(object.id())).toBeNil();
   });
 

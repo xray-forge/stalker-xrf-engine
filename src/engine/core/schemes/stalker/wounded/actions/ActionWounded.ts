@@ -1,18 +1,20 @@
-import { action_base, hit, LuabindClass, time_global } from "xray16";
+import { action_base, hit, LuabindClass, object, time_global } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
-import { abort, NIL, TName, TNumberId, TRUE, TTimestamp } from "xray16/lib";
+import { abort, NIL, TName, TNumberId, TRUE, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
   getManager,
   getPortableStoreValue,
+  IRegistryObjectState,
   registry,
   setPortableStoreValue,
   setStalkerState,
 } from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { initializeObjectCanSelectWeaponState } from "@/engine/core/schemes/runtime/scheme_object_initialization";
 import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
 import {
@@ -21,10 +23,13 @@ import {
   PS_WOUNDED_SOUND,
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
+import { EScheme } from "@/engine/core/schemes/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 
 const logger: LuaLogger = new LuaLogger($filename);
+
+const OBJECT_IDLE = object.idle;
 
 /**
  * Action to handle stalkers wounded state.
@@ -58,6 +63,12 @@ export class ActionWounded extends action_base {
     object.disable_trade();
     object.wounded(true);
 
+    // Settle weapon before laying animation starts.
+    // Wounded states expect no active weapon, and every weapon action requires no animation to be played, so
+    // weapon change happening later interrupts laying animation - object stands up and lays down again.
+    object.set_item(OBJECT_IDLE, null);
+    object.can_select_weapon(false);
+
     // Give some time to fall before calling for help.
     this.nextSoundPlayAt = time_global() + schemeWoundedConfig.CALL_FOR_HELP_DELAY;
 
@@ -75,6 +86,11 @@ export class ActionWounded extends action_base {
     object.disable_talk();
     object.wounded(false);
     object.movement_enabled(true);
+
+    // Restore weapon selection based on active logics configuration.
+    const state: IRegistryObjectState = registry.objects.get(object.id());
+
+    initializeObjectCanSelectWeaponState(object, state.activeScheme as EScheme, state, state.activeSection as TSection);
 
     unRegisterWoundedObject(object);
   }
