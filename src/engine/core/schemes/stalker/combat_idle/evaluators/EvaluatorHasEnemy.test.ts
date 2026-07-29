@@ -2,16 +2,19 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID } from "xray16/lib";
 import { MockGameObject, MockPropertyStorage } from "xray16/mocks";
-import { replaceFunctionMock } from "xray16/testing/utils";
+import { replaceFunctionMock, replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { StalkerStateController } from "@/engine/core/ai/state";
 import { StalkerAnimationController } from "@/engine/core/ai/state/StalkerAnimationController";
-import { EAnimationType } from "@/engine/core/animation/types";
+import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators/EvaluatorHasEnemy";
-import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
+import { canObjectSelectAsEnemy, isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { WoundController } from "@/engine/core/schemes/stalker/wounded/WoundController";
+import { setSchemeState } from "@/engine/core/schemes/state";
 import { EScheme } from "@/engine/core/schemes/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 
@@ -51,6 +54,43 @@ describe("EvaluatorHasEnemy", () => {
     jest.spyOn(evaluator.object, "alive").mockImplementation(() => false);
 
     expect(evaluator.evaluate()).toBe(false);
+  });
+
+  it("should correctly ignore wounded objects", () => {
+    const evaluator: EvaluatorHasEnemy = mockEvaluator();
+    const state: IRegistryObjectState = registerObject(evaluator.object);
+    const enemy: GameObject = MockGameObject.mock();
+
+    replaceFunctionMock(canObjectSelectAsEnemy, () => true);
+    jest.spyOn(evaluator.object, "best_enemy").mockImplementation(() => enemy);
+
+    expect(evaluator.evaluate()).toBe(true);
+
+    setSchemeState(
+      state,
+      EScheme.WOUNDED,
+      mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
+        woundController: { woundState: EStalkerState.WOUNDED_HEAVY } as WoundController,
+      })
+    );
+
+    expect(evaluator.evaluate()).toBe(false);
+  });
+
+  it("should correctly ignore post-combat hold when facing danger", () => {
+    const evaluator: EvaluatorHasEnemy = mockEvaluator();
+
+    registerObject(evaluator.object);
+
+    // Post-combat hold is active.
+    evaluator.state.timer = 2_000;
+
+    expect(evaluator.evaluate()).toBe(true);
+
+    replaceFunctionMockOnce(isObjectFacingDanger, () => true);
+
+    expect(evaluator.evaluate()).toBe(false);
+    expect(evaluator.state.timer).toBe(2_000);
   });
 
   it("should correctly ignore non-selectable enemies", () => {
