@@ -2,6 +2,7 @@ import { level } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import {
   angleToDirection,
+  areSameVectors,
   assert,
   createVector,
   LuaArray,
@@ -37,6 +38,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class AnimpointController extends AbstractSchemeController<ISchemeAnimpointState> {
   public isStarted: boolean = false;
+  public isDirectionReached: boolean = false;
 
   public currentAction: Nillable<EStalkerState> = null;
   public availableActions: Nillable<LuaArray<IAnimpointActionDescriptor>> = null;
@@ -158,7 +160,15 @@ export class AnimpointController extends AbstractSchemeController<ISchemeAnimpoi
 
     assert(smartCover, "There is no registered smart_cover with name '%s'.", this.state.coverName);
 
+    const previousPosition: Nillable<Vector> = this.position;
+
     this.position = smartCover.position;
+
+    // Turn towards another cover has to be performed from scratch.
+    if (!previousPosition || !areSameVectors(previousPosition, this.position)) {
+      this.isDirectionReached = false;
+    }
+
     this.positionLevelVertexId = level.vertex_id(this.position);
     this.vertexPosition = level.vertex_position(this.positionLevelVertexId);
     this.smartCoverDirection = angleToDirection(smartCover.angle);
@@ -212,16 +222,27 @@ export class AnimpointController extends AbstractSchemeController<ISchemeAnimpoi
       return false;
     }
 
-    const direction: Vector = object.direction();
-    const v1: TRate = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
-    const v2: TRate = -math.deg(math.atan2(direction.x, direction.z));
-    const rotY: TRate = math.min(math.abs(v1 - v2), 360 - math.abs(v1) - math.abs(v2));
+    // Left the place, have to reach it and turn towards cover again.
+    if (object.position().distance_to_sqr(this.vertexPosition!) > this.state.reachDistanceSqr) {
+      this.isDirectionReached = false;
 
-    const isDistanceReached: boolean =
-      object.position().distance_to_sqr(this.vertexPosition!) <= this.state.reachDistanceSqr;
-    const isDirectionReached: boolean = rotY < 50;
+      return false;
+    }
 
-    return isDistanceReached && isDirectionReached;
+    // Turn towards cover is latched - once done it stays valid while object remains at the place.
+    if (!this.isDirectionReached) {
+      const direction: Vector = object.direction();
+      const coverAngle: TRate = -math.deg(math.atan2(this.smartCoverDirection!.x, this.smartCoverDirection!.z));
+      const objectAngle: TRate = -math.deg(math.atan2(direction.x, direction.z));
+      const rotationY: TRate = math.min(
+        math.abs(coverAngle - objectAngle),
+        360 - math.abs(coverAngle) - math.abs(objectAngle)
+      );
+
+      this.isDirectionReached = rotationY < 50;
+    }
+
+    return this.isDirectionReached;
   }
 
   /**

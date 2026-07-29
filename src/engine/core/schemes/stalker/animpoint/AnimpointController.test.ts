@@ -126,10 +126,59 @@ describe("AnimpointController", () => {
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0);
 
     expect(controller.isPositionReached()).toBe(true);
+    expect(controller.isDirectionReached).toBe(true);
+
+    // Performed turn is latched, transient direction mismatch does not reset it.
+    controller.smartCoverDirection = MockVector.mock(0, 0, -1);
+
+    expect(controller.isPositionReached()).toBe(true);
+
+    // Leaving the place invalidates performed turn.
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 100);
+
+    expect(controller.isPositionReached()).toBe(false);
+    expect(controller.isDirectionReached).toBe(false);
+
+    // Back at the place, but looking in another direction.
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 0);
+
+    expect(controller.isPositionReached()).toBe(false);
 
     controller.currentAction = EStalkerState.SIT;
 
     expect(controller.isPositionReached()).toBe(true);
+  });
+
+  it("should reset performed turn when cover changes", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeAnimpointState = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
+      coverName: "test_cover",
+      availableAnimations: $fromArray<EStalkerState>([EStalkerState.ANIMPOINT_STAY_WALL]),
+    });
+    const controller: AnimpointController = new AnimpointController(object, state);
+    const cover: SmartCover = MockSmartCover.mock("test_cover");
+
+    cover.position = MockVector.mock(10, 20, 30);
+    cover.angle = MockVector.mock(0, 0, 0);
+
+    jest.spyOn(cover, "description").mockImplementation(() => EStalkerState.ANIMPOINT_STAY_WALL);
+    jest.spyOn(level, "vertex_id").mockImplementation(() => 25);
+    jest.spyOn(level, "vertex_position").mockImplementation(() => MockVector.mock(11, 20, 31));
+
+    registerSmartCover(cover);
+
+    controller.calculatePosition();
+    controller.isDirectionReached = true;
+
+    // Same cover position, turn stays valid.
+    controller.calculatePosition();
+
+    expect(controller.isDirectionReached).toBe(true);
+
+    cover.position = MockVector.mock(40, 50, 60);
+    controller.calculatePosition();
+
+    expect(controller.isDirectionReached).toBe(false);
   });
 
   it("should fill approved actions from configured animations or matching predicates", () => {
