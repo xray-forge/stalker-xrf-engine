@@ -1241,7 +1241,7 @@ extern(
  * @returns Whether the b32 task dialog is available.
  */
 extern("dialogs_jupiter.jup_b32_task_give_dialog_precond", (_: GameObject, __: GameObject): boolean => {
-  return !(hasInfoPortion(infoPortions.jup_b32_task_start) && !hasInfoPortion("jup_b32_task_end"));
+  return !(hasInfoPortion(infoPortions.jup_b32_task_start) && !hasInfoPortion(infoPortions.jup_b32_task_end));
 });
 
 /**
@@ -1305,8 +1305,8 @@ extern(
  * @returns Whether the anomaly has no artefact.
  */
 extern("dialogs_jupiter.jup_b32_anomaly_do_not_has_af", (_: GameObject, __: GameObject): boolean => {
-  if (hasInfoPortion("jup_b32_anomaly_true")) {
-    disableInfoPortion("jup_b32_anomaly_true");
+  if (hasInfoPortion(infoPortions.jup_b32_anomaly_true)) {
+    disableInfoPortion(infoPortions.jup_b32_anomaly_true);
 
     return false;
   }
@@ -1437,7 +1437,7 @@ extern(
 
     transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b207_merc_pda_with_contract");
     giveMoneyToActor(amount);
-    giveInfoPortion("jup_b207_merc_pda_with_contract_sold");
+    giveInfoPortion(infoPortions.jup_b207_merc_pda_with_contract_sold);
   }
 );
 
@@ -1971,6 +1971,18 @@ extern("dialogs_jupiter.jupiter_b220_no_one_hunted", (_: GameObject, __: GameObj
  */
 const moneyCountTable: LuaArray<TCount> = $fromArray([3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650]);
 
+const techMaterialsBroughtInfoPortions: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
+  infoPortions.jup_b200_tech_materials_brought_counter_1,
+  infoPortions.jup_b200_tech_materials_brought_counter_2,
+  infoPortions.jup_b200_tech_materials_brought_counter_3,
+  infoPortions.jup_b200_tech_materials_brought_counter_4,
+  infoPortions.jup_b200_tech_materials_brought_counter_5,
+  infoPortions.jup_b200_tech_materials_brought_counter_6,
+  infoPortions.jup_b200_tech_materials_brought_counter_7,
+  infoPortions.jup_b200_tech_materials_brought_counter_8,
+  infoPortions.jup_b200_tech_materials_brought_counter_9,
+]);
+
 /**
  * Check whether the actor has enough money for the b9 blackbox, scaled by the brought-materials counter.
  *
@@ -1982,7 +1994,7 @@ extern("dialogs_jupiter.jup_b9_actor_has_money", (_: GameObject, __: GameObject)
   let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasInfoPortion(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
+    if (hasInfoPortion(techMaterialsBroughtInfoPortions.get(it))) {
       moneyCount = moneyCountTable.get(it);
     }
   }
@@ -2000,7 +2012,7 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: GameObject, s
   let moneyCount: TCount = 0;
 
   for (const it of $range(1, 9)) {
-    if (hasInfoPortion(("jup_b200_tech_materials_brought_counter_" + it) as TInfoPortion)) {
+    if (hasInfoPortion(techMaterialsBroughtInfoPortions.get(it))) {
       moneyCount = moneyCountTable.get(it);
     }
   }

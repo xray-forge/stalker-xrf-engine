@@ -1176,16 +1176,16 @@ extern(
 extern("dialogs_zaton.zat_b29_linker_get_adv_task_af", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const i of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-      disableInfoPortion("zat_b29_adv_task_given");
+      disableInfoPortion(infoPortions.zat_b29_adv_task_given);
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB29AfTable.get(i));
       if (i < 20) {
-        if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+        if (hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival)) {
           giveMoneyToActor(12000);
         } else {
           giveMoneyToActor(18000);
         }
       } else if (i > 19) {
-        if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+        if (hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival)) {
           giveMoneyToActor(18000);
         } else {
           giveMoneyToActor(24000);
@@ -1522,6 +1522,90 @@ const zatB51BuyItemTable: LuaArray<LuaArray<{ item: LuaArray<TSection> }>> = $fr
   $fromArray<{ item: LuaArray<TSection> }>([{ item: $fromArray<TSection>([outfits.exo_outfit]) }]),
 ]);
 
+interface IZatB51InfoPortions {
+  processing: TInfoPortion;
+  finishing: TInfoPortion;
+  ordered: LuaArray<TInfoPortion>;
+  done: LuaArray<TInfoPortion>;
+}
+
+const zatB51InfoPortionsTable: LuaArray<IZatB51InfoPortions> = $fromArray<IZatB51InfoPortions>([
+  {
+    processing: infoPortions.zat_b51_processing_category_1,
+    finishing: infoPortions.zat_b51_finishing_category_1,
+    ordered: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_ordered_item_1_1,
+      infoPortions.zat_b51_ordered_item_1_2,
+      infoPortions.zat_b51_ordered_item_1_3,
+    ]),
+    done: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_done_item_1_1,
+      infoPortions.zat_b51_done_item_1_2,
+      infoPortions.zat_b51_done_item_1_3,
+    ]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_2,
+    finishing: infoPortions.zat_b51_finishing_category_2,
+    ordered: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_ordered_item_2_1,
+      infoPortions.zat_b51_ordered_item_2_2,
+      infoPortions.zat_b51_ordered_item_2_3,
+    ]),
+    done: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_done_item_2_1,
+      infoPortions.zat_b51_done_item_2_2,
+      infoPortions.zat_b51_done_item_2_3,
+    ]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_3,
+    finishing: infoPortions.zat_b51_finishing_category_3,
+    ordered: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_ordered_item_3_1,
+      infoPortions.zat_b51_ordered_item_3_2,
+      infoPortions.zat_b51_ordered_item_3_3,
+    ]),
+    done: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_done_item_3_1,
+      infoPortions.zat_b51_done_item_3_2,
+      infoPortions.zat_b51_done_item_3_3,
+    ]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_4,
+    finishing: infoPortions.zat_b51_finishing_category_4,
+    ordered: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_ordered_item_4_1,
+      infoPortions.zat_b51_ordered_item_4_2,
+      infoPortions.zat_b51_ordered_item_4_3,
+    ]),
+    done: $fromArray<TInfoPortion>([
+      infoPortions.zat_b51_done_item_4_1,
+      infoPortions.zat_b51_done_item_4_2,
+      infoPortions.zat_b51_done_item_4_3,
+    ]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_5,
+    finishing: infoPortions.zat_b51_finishing_category_5,
+    ordered: $fromArray<TInfoPortion>([infoPortions.zat_b51_ordered_item_5_1]),
+    done: $fromArray<TInfoPortion>([infoPortions.zat_b51_done_item_5_1]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_6,
+    finishing: infoPortions.zat_b51_finishing_category_6,
+    ordered: $fromArray<TInfoPortion>([infoPortions.zat_b51_ordered_item_6_1]),
+    done: $fromArray<TInfoPortion>([infoPortions.zat_b51_done_item_6_1]),
+  },
+  {
+    processing: infoPortions.zat_b51_processing_category_7,
+    finishing: infoPortions.zat_b51_finishing_category_7,
+    ordered: $fromArray<TInfoPortion>([infoPortions.zat_b51_ordered_item_7_1]),
+    done: $fromArray<TInfoPortion>([infoPortions.zat_b51_done_item_7_1]),
+  },
+]);
+
 /**
  * For each processing category, randomly select one not yet ordered item and mark it as ordered.
  *
@@ -1530,20 +1614,21 @@ const zatB51BuyItemTable: LuaArray<LuaArray<{ item: LuaArray<TSection> }>> = $fr
  */
 extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+    const categoryInfoPortions: IZatB51InfoPortions = zatB51InfoPortionsTable.get(it);
+
+    if (hasInfoPortion(categoryInfoPortions.processing)) {
       const zatB51AvailableItemsTable: LuaArray<TCount> = new LuaTable();
 
       for (const j of $range(1, itemCountByCategory.get(it))) {
-        if (!hasInfoPortion(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
+        if (!hasInfoPortion(categoryInfoPortions.done.get(j))) {
           table.insert(zatB51AvailableItemsTable, j);
         }
       }
 
       giveInfoPortion(
-        ("zat_b51_ordered_item_" +
-          tostring(it) +
-          "_" +
-          tostring(zatB51AvailableItemsTable.get(math.random(1, zatB51AvailableItemsTable.length())))) as TInfoPortion
+        categoryInfoPortions.ordered.get(
+          zatB51AvailableItemsTable.get(math.random(1, zatB51AvailableItemsTable.length()))
+        )
       );
     }
   }
@@ -1557,7 +1642,7 @@ extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: GameObject, second
  */
 extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+    if (hasInfoPortion(zatB51InfoPortionsTable.get(it).processing)) {
       if (!hasInfoPortion(infoPortions.zat_b51_order_refused)) {
         return transferMoneyFromActor(
           getNpcSpeaker(firstSpeaker, secondSpeaker),
@@ -1581,7 +1666,7 @@ extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: GameObject, secondSpea
   const actor: GameObject = registry.actor;
 
   for (const it of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+    if (hasInfoPortion(zatB51InfoPortionsTable.get(it).processing)) {
       if (!hasInfoPortion(infoPortions.zat_b51_order_refused)) {
         return actor.money() >= zatB51CostsTable.get(it).prepayAgreed;
       }
@@ -1612,17 +1697,19 @@ extern("dialogs_zaton.zat_b51_hasnt_prepay", (firstSpeaker: GameObject, secondSp
  */
 extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion)) {
+    const categoryInfoPortions: IZatB51InfoPortions = zatB51InfoPortionsTable.get(it);
+
+    if (hasInfoPortion(categoryInfoPortions.processing)) {
       for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
-        if (hasInfoPortion(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
+        if (hasInfoPortion(categoryInfoPortions.ordered.get(j))) {
           for (const [k, v] of zatB51BuyItemTable.get(it).get(j).item) {
             transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
           }
 
           transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), zatB51CostsTable.get(it).cost);
-          disableInfoPortion(("zat_b51_processing_category_" + tostring(it)) as TInfoPortion);
-          disableInfoPortion(("zat_b51_ordered_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
-          giveInfoPortion(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion);
+          disableInfoPortion(categoryInfoPortions.processing);
+          disableInfoPortion(categoryInfoPortions.ordered.get(j));
+          giveInfoPortion(categoryInfoPortions.done.get(j));
           break;
         }
       }
@@ -1630,14 +1717,14 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeake
       let categoryFinishing: boolean = true;
 
       for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
-        if (!hasInfoPortion(("zat_b51_done_item_" + tostring(it) + "_" + tostring(j)) as TInfoPortion)) {
+        if (!hasInfoPortion(categoryInfoPortions.done.get(j))) {
           categoryFinishing = false;
           break;
         }
       }
 
       if (categoryFinishing) {
-        giveInfoPortion(("zat_b51_finishing_category_" + tostring(it)) as TInfoPortion);
+        giveInfoPortion(categoryInfoPortions.finishing);
       }
 
       return;
@@ -1653,12 +1740,14 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeake
  */
 extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const i of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
+    const categoryInfoPortions: IZatB51InfoPortions = zatB51InfoPortionsTable.get(i);
+
+    if (hasInfoPortion(categoryInfoPortions.processing)) {
       for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
-        if (hasInfoPortion(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
-          disableInfoPortion(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion);
-          disableInfoPortion(("zat_b51_ordered_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion);
-          giveInfoPortion(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion);
+        if (hasInfoPortion(categoryInfoPortions.ordered.get(j))) {
+          disableInfoPortion(categoryInfoPortions.processing);
+          disableInfoPortion(categoryInfoPortions.ordered.get(j));
+          giveInfoPortion(categoryInfoPortions.done.get(j));
           break;
         }
       }
@@ -1666,14 +1755,14 @@ extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: GameObject, secondSpe
       let categoryFinishing: boolean = true;
 
       for (const j of $range(1, zatB51BuyItemTable.get(i).length())) {
-        if (!hasInfoPortion(("zat_b51_done_item_" + tostring(i) + "_" + tostring(j)) as TInfoPortion)) {
+        if (!hasInfoPortion(categoryInfoPortions.done.get(j))) {
           categoryFinishing = false;
           break;
         }
       }
 
       if (categoryFinishing === true) {
-        giveInfoPortion(("zat_b51_finishing_category_" + tostring(i)) as TInfoPortion);
+        giveInfoPortion(categoryInfoPortions.finishing);
       }
 
       return;
@@ -1692,7 +1781,7 @@ extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: GameObject, secondS
   const actor: GameObject = registry.actor;
 
   for (const i of $range(1, 7)) {
-    if (hasInfoPortion(("zat_b51_processing_category_" + tostring(i)) as TInfoPortion)) {
+    if (hasInfoPortion(zatB51InfoPortionsTable.get(i).processing)) {
       return actor.money() >= zatB51CostsTable.get(i).cost;
     }
   }

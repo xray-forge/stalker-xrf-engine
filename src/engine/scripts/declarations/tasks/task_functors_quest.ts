@@ -1,6 +1,7 @@
 import { GameObject } from "xray16/alias";
 import { extern, Nillable, TLabel, TSection, TStringId } from "xray16/lib";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
@@ -27,31 +28,34 @@ extern("task_functors.zat_b29_adv_descr", (): Nillable<TLabel> => {
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       if (registry.actor.object(zatB29AfTable.get(it))) {
-        if (hasInfoPortion("zat_b29_stalker_rival_1_found_af") && hasInfoPortion("zat_b29_first_rival_taken_out")) {
-          return "zat_b29_simple_bring_text_5";
-        } else if (
-          hasInfoPortion("zat_b29_stalker_rival_2_found_af") &&
-          hasInfoPortion("zat_b29_second_rival_taken_out")
+        if (
+          hasInfoPortion(infoPortions.zat_b29_stalker_rival_1_found_af) &&
+          hasInfoPortion(infoPortions.zat_b29_first_rival_taken_out)
         ) {
           return "zat_b29_simple_bring_text_5";
-        } else if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+        } else if (
+          hasInfoPortion(infoPortions.zat_b29_stalker_rival_2_found_af) &&
+          hasInfoPortion(infoPortions.zat_b29_second_rival_taken_out)
+        ) {
+          return "zat_b29_simple_bring_text_5";
+        } else if (hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival)) {
           return "zat_b29_simple_bring_text_4";
-        } else if (hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
+        } else if (hasInfoPortion(infoPortions.zat_b29_stalkers_rivals_found_af)) {
           return "zat_b29_simple_bring_text_3";
-        } else if (hasInfoPortion("zat_b29_rivals_search")) {
-          return hasInfoPortion("zat_b29_exclusive_conditions")
+        } else if (hasInfoPortion(infoPortions.zat_b29_rivals_search)) {
+          return hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
             ? "zat_b29_simple_bring_text_1"
             : "zat_b29_simple_bring_text_2";
         }
 
         return "zat_b29_simple_bring_text_5";
       } else {
-        if (hasInfoPortion("zat_b29_linker_take_af_from_rival")) {
+        if (hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival)) {
           return "zat_b29_simple_find_text_4";
-        } else if (hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
+        } else if (hasInfoPortion(infoPortions.zat_b29_stalkers_rivals_found_af)) {
           return "zat_b29_simple_find_text_3";
-        } else if (hasInfoPortion("zat_b29_rivals_search")) {
-          return hasInfoPortion("zat_b29_exclusive_conditions")
+        } else if (hasInfoPortion(infoPortions.zat_b29_rivals_search)) {
+          return hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
             ? "zat_b29_simple_find_text_1"
             : "zat_b29_simple_find_text_2";
         }
@@ -83,24 +87,27 @@ extern("task_functors.zat_b29_adv_target", () => {
     }
   }
 
-  if (!hasInfoPortion("zat_b29_linker_take_af_from_rival") && hasInfoPortion("zat_b29_stalkers_rivals_found_af")) {
-    if (hasInfoPortion("zat_b29_stalker_rival_1_found_af")) {
-      if (!hasInfoPortion("zat_b29_first_rival_taken_out")) {
-        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+  if (
+    !hasInfoPortion(infoPortions.zat_b29_linker_take_af_from_rival) &&
+    hasInfoPortion(infoPortions.zat_b29_stalkers_rivals_found_af)
+  ) {
+    if (hasInfoPortion(infoPortions.zat_b29_stalker_rival_1_found_af)) {
+      if (!hasInfoPortion(infoPortions.zat_b29_first_rival_taken_out)) {
+        targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
           ? "zat_b29_stalker_rival_1"
           : "zat_b29_stalker_rival_default_1";
       } else if (!artefact) {
-        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+        targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
           ? "zat_b29_stalker_rival_1"
           : "zat_b29_stalker_rival_default_1";
       }
-    } else if (hasInfoPortion("zat_b29_stalker_rival_2_found_af")) {
-      if (!hasInfoPortion("zat_b29_second_rival_taken_out")) {
-        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+    } else if (hasInfoPortion(infoPortions.zat_b29_stalker_rival_2_found_af)) {
+      if (!hasInfoPortion(infoPortions.zat_b29_second_rival_taken_out)) {
+        targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
           ? "zat_b29_stalker_rival_2"
           : "zat_b29_stalker_rival_default_2";
       } else if (!artefact) {
-        targetObjectId = hasInfoPortion("zat_b29_exclusive_conditions")
+        targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
           ? "zat_b29_stalker_rival_2"
           : "zat_b29_stalker_rival_default_2";
       }
