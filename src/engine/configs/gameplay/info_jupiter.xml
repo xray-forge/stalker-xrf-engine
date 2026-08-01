@@ -127,7 +127,19 @@
   <info_portion id="jup_a12_task_start"></info_portion>
   <info_portion id="jup_a12_spawn_merc_squad"></info_portion>
 
-  <!--B25-->
+  <!--B200-->
+
+  <info_portion id="jup_b200_tech_materials_brought_counter_1"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_2"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_3"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_4"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_5"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_6"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_7"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_8"></info_portion>
+  <info_portion id="jup_b200_tech_materials_brought_counter_9"></info_portion>
+
+  <!--B207-->
 
   <info_portion id="jup_b207_task_start"></info_portion>
   <info_portion id="jup_b207_morgan_blackmailed"></info_portion>
@@ -145,6 +157,7 @@
   <info_portion id="jup_b207_attack_end"></info_portion>
   <info_portion id="jup_b207_duty_asked_to_leave"></info_portion>
   <info_portion id="jup_b207_freedom_refused_to_leave"></info_portion>
+  <info_portion id="jup_b207_merc_pda_with_contract_sold"></info_portion>
 
   <!--B25-->
 
@@ -213,9 +226,14 @@
 
   <!-- other infos -->
   <info_portion id="jup_b218_soldier_need_outfit"></info_portion>
+  <info_portion id="jup_b218_monolith_hired"></info_portion>
+  <info_portion id="jup_b218_soldier_hired"></info_portion>
   <info_portion id="jup_b206_soldier_outfit_mentioned"></info_portion>
   <info_portion id="jup_b206_spawn_plant"></info_portion>
   <info_portion id="jup_b206_play_particle"></info_portion>
+
+  <!--B219-->
+  <info_portion id="jup_b219_entering_underpass"></info_portion>
 
 
   <!--B220-->
@@ -238,10 +256,12 @@
   <info_portion id="jup_b32_scanner_4_placed"></info_portion>
   <info_portion id="jup_b32_scanner_5_placed"></info_portion>
   <info_portion id="jup_b32_scanner_reward"></info_portion>
+  <info_portion id="jup_b32_anomaly_true"></info_portion>
   <info_portion id="jup_b32_task_end"></info_portion>
   <info_portion id="jup_b32_tutorial_done"></info_portion>
 
   <!--A10-->
+  <info_portion id="jup_a10_vano_agree_go_und"></info_portion>
   <info_portion id="jup_a10_debt_wo_percent"></info_portion>
   <info_portion id="jup_a10_threatened"></info_portion>
   <info_portion id="jup_a10_bandit_about_percent_asked"></info_portion>

@@ -1,6 +1,13 @@
 <?xml version='1.0' encoding="windows-1251"?>
 
 <game_information_portions>
+  <!--A15-->
+  <info_portion id="pri_a15_all_dead"></info_portion>
+  <info_portion id="pri_a15_sokolov_out"></info_portion>
+  <info_portion id="pri_a15_vano_out"></info_portion>
+  <info_portion id="pri_a15_wanderer_out"></info_portion>
+  <info_portion id="pri_a15_zulus_out"></info_portion>
+
   <!--A17-->
   <info_portion id="pri_a17_give_task_get_gauss_rifle"></info_portion>
   <info_portion id="pri_a17_military_base_commander_task_dialog_end"></info_portion>

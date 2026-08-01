@@ -87,4 +87,6 @@
   <info_portion id="sim_capture_enemy_base_bandit_done"></info_portion>
   <info_portion id="sim_capture_enemy_base_freedom_done"></info_portion>
   <info_portion id="sim_capture_enemy_base_dolg_done"></info_portion>
+
+  <info_portion id="actor_was_in_many_bad_places"></info_portion>
 </game_information_portions>

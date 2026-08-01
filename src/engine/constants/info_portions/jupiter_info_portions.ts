@@ -157,6 +157,18 @@ export const jupiterInfoPortions = {
   jup_b1_stalker_squad: "jup_b1_stalker_squad",
   jup_b1_task_done: "jup_b1_task_done",
   /**
+   * Jupiter b200.
+   */
+  jup_b200_tech_materials_brought_counter_1: "jup_b200_tech_materials_brought_counter_1",
+  jup_b200_tech_materials_brought_counter_2: "jup_b200_tech_materials_brought_counter_2",
+  jup_b200_tech_materials_brought_counter_3: "jup_b200_tech_materials_brought_counter_3",
+  jup_b200_tech_materials_brought_counter_4: "jup_b200_tech_materials_brought_counter_4",
+  jup_b200_tech_materials_brought_counter_5: "jup_b200_tech_materials_brought_counter_5",
+  jup_b200_tech_materials_brought_counter_6: "jup_b200_tech_materials_brought_counter_6",
+  jup_b200_tech_materials_brought_counter_7: "jup_b200_tech_materials_brought_counter_7",
+  jup_b200_tech_materials_brought_counter_8: "jup_b200_tech_materials_brought_counter_8",
+  jup_b200_tech_materials_brought_counter_9: "jup_b200_tech_materials_brought_counter_9",
+  /**
    * Jupiter b202.
    */
   jup_b202_actor_find_snag: "jup_b202_actor_find_snag",

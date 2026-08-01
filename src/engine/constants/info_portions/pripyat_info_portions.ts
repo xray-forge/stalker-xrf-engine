@@ -5,9 +5,13 @@
  */
 export const pripyatInfoPortions = {
   pri_a12_stalker_prisoner_free: "pri_a12_stalker_prisoner_free",
+  pri_a15_all_dead: "pri_a15_all_dead",
   pri_a15_cutscene_end: "pri_a15_cutscene_end",
   pri_a15_lights_off: "pri_a15_lights_off",
   pri_a15_sokolov_out: "pri_a15_sokolov_out",
+  pri_a15_vano_out: "pri_a15_vano_out",
+  pri_a15_wanderer_out: "pri_a15_wanderer_out",
+  pri_a15_zulus_out: "pri_a15_zulus_out",
   pri_a16_vano_was_alive_when_removed: "pri_a16_vano_was_alive_when_removed",
   pri_a16_wanderer_was_alive_when_removed: "pri_a16_wanderer_was_alive_when_removed",
   pri_a17_actor_attack_bad: "pri_a17_actor_attack_bad",

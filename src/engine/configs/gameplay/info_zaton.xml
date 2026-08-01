@@ -49,6 +49,7 @@
 
   <!-- B38 -->
 
+  <info_portion id="zat_b38_actor_jump_down"></info_portion>
   <info_portion id="zat_b38_actor_know_about_lair"></info_portion>
 
 
@@ -74,6 +75,7 @@
   <info_portion id="zat_b38_spawn_npc_cop_again2"></info_portion>
   <info_portion id="zat_b38_cop_spawn_again"></info_portion>
   <info_portion id="zat_b38_cop_spawn_again2"></info_portion>
+  <info_portion id="zat_b38_cop_passed_away"></info_portion>
   <info_portion id="zat_b38_stalker_cop_destroy"></info_portion>
   <info_portion id="zat_b38_stalker_cop_destroy2"></info_portion>
   <info_portion id="zat_b38_bloodsucker_1_angry"></info_portion>
@@ -92,6 +94,9 @@
   <info_portion id="zat_b38_den_of_the_bloodsucker_complete"></info_portion>
   <info_portion id="zat_b38_den_of_the_bloodsucker_inform_stalkers_give"></info_portion>
   <info_portion id="zat_b38_den_of_the_bloodsucker_tell_barman_about_all_give"></info_portion>
+  <info_portion id="zat_b38_failed_getaway"></info_portion>
+  <info_portion id="zat_b38_lair_started"></info_portion>
+  <info_portion id="zat_b38_quest_failed"></info_portion>
 
   <!-- Other infos -->
   <info_portion id="zat_b38_stalker_cop_fear_1"></info_portion>
@@ -121,6 +126,7 @@
   <info_portion id="zat_b57_den_of_the_bloodsucker_talk_shystriy"></info_portion>
   <info_portion id="zat_b57_den_of_the_bloodsucker_place_gas_give"></info_portion>
   <info_portion id="zat_b57_den_of_the_bloodsucker_twist_vintil_give"></info_portion>
+  <info_portion id="zat_b57_den_of_the_bloodsucker_wait_destroy_give"></info_portion>
   <info_portion id="zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give"></info_portion>
   <info_portion id="zat_b57_den_of_the_bloodsucker_spawn_gas"></info_portion>
   <info_portion id="zat_b30_owl_stalker_trader_more_documets_done"></info_portion>
@@ -141,6 +147,7 @@
   <info_portion id="zat_b57_gas_running_stop"></info_portion>
 
   <info_portion id="zat_b57_balon_use"></info_portion>
+  <info_portion id="zat_b57_actor_has_gas"></info_portion>
   <info_portion id="zat_b57_set_bloodsucker_attacker_1_state"></info_portion>
   <info_portion id="zat_b57_set_bloodsucker_attacker_2_state"></info_portion>
   <info_portion id="zat_b57_set_bloodsucker_attacker_3_state"></info_portion>
@@ -204,6 +211,9 @@
   <info_portion id="zat_b22_barmen_gave_reward"></info_portion>
   <info_portion id="zat_b22_questline_reversed"></info_portion>
   <info_portion id="zat_b22_stalker_medic_body_searched"></info_portion>
+  <info_portion id="zat_b22_stalker_medic_death"></info_portion>
+  <info_portion id="zat_b22_find_proof"></info_portion>
+  <info_portion id="zat_b22_actor_has_proof"></info_portion>
   <info_portion id="con"></info_portion>
   <info_portion id="1"></info_portion>
   <info_portion id="2"></info_portion>
@@ -495,6 +505,11 @@
   <!-- Zaton B14 -->
   <info_portion id="zat_b14_den_of_the_bloodsucker_find_keys_give"></info_portion>
   <info_portion id="zat_b14_den_of_the_bloodsucker_open_conteiner_give"></info_portion>
+
+  <!-- Zaton B12 -->
+  <info_portion id="zat_b12_actor_have_keys"></info_portion>
+  <info_portion id="zat_b12_find_keys_and_open"></info_portion>
+  <info_portion id="zat_b12_find_the_way_to_open"></info_portion>
   <info_portion id="zat_b12_key_1_use"></info_portion>
   <info_portion id="zat_b12_key_2_use"></info_portion>
 

@@ -63,9 +63,12 @@ export const zatonInfoPortions = {
   /**
    * Zaton b12.
    */
+  zat_b12_actor_have_keys: "zat_b12_actor_have_keys",
   zat_b12_documents_sold_1: "zat_b12_documents_sold_1",
   zat_b12_documents_sold_2: "zat_b12_documents_sold_2",
   zat_b12_documents_sold_3: "zat_b12_documents_sold_3",
+  zat_b12_find_keys_and_open: "zat_b12_find_keys_and_open",
+  zat_b12_find_the_way_to_open: "zat_b12_find_the_way_to_open",
   zat_b12_key_1_use: "zat_b12_key_1_use",
   zat_b12_key_2_use: "zat_b12_key_2_use",
   zat_b14_actor_enemy: "zat_b14_actor_enemy",
@@ -127,10 +130,12 @@ export const zatonInfoPortions = {
   zat_b18_reset_memory: "zat_b18_reset_memory",
   zat_b215_gave_maps: "zat_b215_gave_maps",
   zat_b22_actor_gone: "zat_b22_actor_gone",
+  zat_b22_actor_has_proof: "zat_b22_actor_has_proof",
   zat_b22_actor_in: "zat_b22_actor_in",
   zat_b22_barmen_gave_reward: "zat_b22_barmen_gave_reward",
   zat_b22_deal_with_medic_vampire_completed: "zat_b22_deal_with_medic_vampire_completed",
   zat_b22_deal_with_medic_vampire_reversed: "zat_b22_deal_with_medic_vampire_reversed",
+  zat_b22_find_proof: "zat_b22_find_proof",
   zat_b22_medic_dialog_info_1: "zat_b22_medic_dialog_info_1",
   zat_b22_medic_dialog_info_2: "zat_b22_medic_dialog_info_2",
   zat_b22_medic_dialog_info_3: "zat_b22_medic_dialog_info_3",
@@ -139,6 +144,7 @@ export const zatonInfoPortions = {
   zat_b22_stalker_cop_place: "zat_b22_stalker_cop_place",
   zat_b22_stalker_medic_b52_about_nimble_dialog_done: "zat_b22_stalker_medic_b52_about_nimble_dialog_done",
   zat_b22_stalker_medic_body_searched: "zat_b22_stalker_medic_body_searched",
+  zat_b22_stalker_medic_death: "zat_b22_stalker_medic_death",
   zat_b22_stalker_medic_wounded_heavy: "zat_b22_stalker_medic_wounded_heavy",
   zat_b22_stalker_vampire: "zat_b22_stalker_vampire",
   zat_b22_stalker_vampire_story: "zat_b22_stalker_vampire_story",
@@ -264,6 +270,7 @@ export const zatonInfoPortions = {
   /**
    * Zaton b38 - bloodsuckers lair, disappearing stalkers.
    */
+  zat_b38_actor_jump_down: "zat_b38_actor_jump_down",
   zat_b38_actor_know_about_lair: "zat_b38_actor_know_about_lair",
   zat_b38_bloodscuker_1_death: "zat_b38_bloodscuker_1_death",
   zat_b38_bloodscuker_1_hit: "zat_b38_bloodscuker_1_hit",
@@ -278,6 +285,7 @@ export const zatonInfoPortions = {
   zat_b38_cop_about_lair_dialog_done: "zat_b38_cop_about_lair_dialog_done",
   zat_b38_cop_dead: "zat_b38_cop_dead",
   zat_b38_cop_hit_from_actor: "zat_b38_cop_hit_from_actor",
+  zat_b38_cop_passed_away: "zat_b38_cop_passed_away",
   zat_b38_cop_spawn_again: "zat_b38_cop_spawn_again",
   zat_b38_cop_spawn_again2: "zat_b38_cop_spawn_again2",
   zat_b38_den_of_the_bloodsucker_complete: "zat_b38_den_of_the_bloodsucker_complete",
@@ -309,11 +317,14 @@ export const zatonInfoPortions = {
   zat_b38_disappearance_stalkers_reversed: "zat_b38_disappearance_stalkers_reversed",
   zat_b38_disappearance_stalkers_tell_barmen_about_medic_give:
     "zat_b38_disappearance_stalkers_tell_barmen_about_medic_give",
+  zat_b38_failed_getaway: "zat_b38_failed_getaway",
   zat_b38_jump_tonnel_info: "zat_b38_jump_tonnel_info",
+  zat_b38_lair_started: "zat_b38_lair_started",
   zat_b38_lift_open: "zat_b38_lift_open",
   zat_b38_lock_sound_play: "zat_b38_lock_sound_play",
   zat_b38_lock_sound_stop: "zat_b38_lock_sound_stop",
   zat_b38_open_info: "zat_b38_open_info",
+  zat_b38_quest_failed: "zat_b38_quest_failed",
   zat_b38_show_spot_dead_body: "zat_b38_show_spot_dead_body",
   zat_b38_spawn_all: "zat_b38_spawn_all",
   zat_b38_spawn_npc_cop_again: "zat_b38_spawn_npc_cop_again",
@@ -478,6 +489,7 @@ export const zatonInfoPortions = {
   zat_b52_snag_port_bandits: "zat_b52_snag_port_bandits",
   zat_b52_snag_port_cranes: "zat_b52_snag_port_cranes",
   zat_b52_sultan_know_there_snag: "zat_b52_sultan_know_there_snag",
+  zat_b57_actor_has_gas: "zat_b57_actor_has_gas",
   zat_b57_balon_use: "zat_b57_balon_use",
   zat_b57_barmen_about_bloodsucker_lair_dialog_done: "zat_b57_barmen_about_bloodsucker_lair_dialog_done",
   zat_b57_bloodsucker_lair_clear: "zat_b57_bloodsucker_lair_clear",
@@ -490,6 +502,7 @@ export const zatonInfoPortions = {
   zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give:
     "zat_b57_den_of_the_bloodsucker_tell_stalkers_about_destroy_lair_give",
   zat_b57_den_of_the_bloodsucker_twist_vintil_give: "zat_b57_den_of_the_bloodsucker_twist_vintil_give",
+  zat_b57_den_of_the_bloodsucker_wait_destroy_give: "zat_b57_den_of_the_bloodsucker_wait_destroy_give",
   zat_b57_gas_running_play: "zat_b57_gas_running_play",
   zat_b57_gas_running_stop: "zat_b57_gas_running_stop",
   zat_b57_generic_dialog_done: "zat_b57_generic_dialog_done",
