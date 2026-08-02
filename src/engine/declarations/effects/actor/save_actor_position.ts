@@ -1,8 +1,7 @@
 import { extern } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-
-import { actorState } from "./shared";
+import { actorState } from "@/engine/declarations/effects/actor/shared";
 
 /**
  * Save actor position vector for further restoration.

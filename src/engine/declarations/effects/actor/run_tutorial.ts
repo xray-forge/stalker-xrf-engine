@@ -1,8 +1,11 @@
 import { game } from "xray16";
 import { GameObject } from "xray16/alias";
 import { extern, TName } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
-import { logger } from "./shared";
+import { LuaLogger } from "@/engine/core/utils/logging";
+
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Run game tutorial.

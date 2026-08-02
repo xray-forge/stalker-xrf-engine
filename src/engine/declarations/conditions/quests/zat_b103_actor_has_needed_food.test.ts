@@ -8,7 +8,7 @@ import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_po
 import { callXrCondition, mockRegisteredActor } from "@/fixtures/engine";
 
 beforeAll(() => {
-  require("@/engine/declarations/dialogs/dialogs_zaton");
+  require("@/engine/declarations/dialogs/zaton/zat_b103/supplies");
   require("@/engine/declarations/conditions/quests/zat_b103_actor_has_needed_food");
 });
 

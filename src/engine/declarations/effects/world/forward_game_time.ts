@@ -1,12 +1,14 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { extern } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Forward the in-game clock by the provided hours and minutes and force a weather change.

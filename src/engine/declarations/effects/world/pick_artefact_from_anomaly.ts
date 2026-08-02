@@ -1,13 +1,14 @@
 import { GameObject, ServerArtefactItemObject, ServerHumanObject } from "xray16/alias";
 import { abort, extern, Nillable, TName, TNumberId, TSection, TStringId } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $filename, $isNil } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 // todo: Rework, looks bad
 extern(

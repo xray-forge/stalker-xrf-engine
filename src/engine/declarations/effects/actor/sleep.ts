@@ -1,10 +1,12 @@
 import { extern, isObjectInZone } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { sleepConfig } from "@/engine/core/managers/sleep";
 import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Trigger sleep dialog for actor.

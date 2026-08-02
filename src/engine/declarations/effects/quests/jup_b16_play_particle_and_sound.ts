@@ -3,7 +3,7 @@ import { GameObject } from "xray16/alias";
 import { extern } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
-import { questsState } from "./shared";
+import { questsState } from "@/engine/declarations/effects/quests/shared";
 
 /**
  * Play the Jupiter b16 teleport particle effect at the object's particle patrol point by index.

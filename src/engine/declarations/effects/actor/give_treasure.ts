@@ -1,10 +1,12 @@
 import { GameObject } from "xray16/alias";
 import { extern, LuaArray, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { TreasureManager } from "@/engine/core/managers/treasures";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Give actor list of treasures.

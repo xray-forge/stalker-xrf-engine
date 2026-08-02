@@ -1,7 +1,10 @@
 import { GameObject, GameTask } from "xray16/alias";
 import { extern, Nillable, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
-import { logger } from "./shared";
+import { LuaLogger } from "@/engine/core/utils/logging";
+
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Set one of active actor tasks as current one.

@@ -1,9 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { assert, extern, Nillable, TSection, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Relocate item by section from one story ID to another story ID object.

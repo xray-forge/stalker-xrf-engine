@@ -1,10 +1,12 @@
 import { extern } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { getActiveSchemeState } from "@/engine/core/schemes/state";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { postProcessState } from "@/engine/declarations/effects/post_process/shared";
 
-import { logger, postProcessState } from "./shared";
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Callback for camera effects handling.

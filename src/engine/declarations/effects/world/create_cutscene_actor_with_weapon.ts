@@ -1,14 +1,15 @@
 import { level, patrol } from "xray16";
 import { GameObject, Patrol, ServerObject, ServerWeaponObject } from "xray16/alias";
 import { abort, extern, Nillable, TIndex, TName, TRate, TSection } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { questItems } from "@/engine/constants/items/quest_items";
 import { weapons } from "@/engine/constants/items/weapons";
 import { registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Spawn a cutscene actor at a patrol path and equip it with a clone of the actor's active weapon.

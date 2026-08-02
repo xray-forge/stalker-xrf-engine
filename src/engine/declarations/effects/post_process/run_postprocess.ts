@@ -1,10 +1,12 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TName, TNumberId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Run complex effector by name (section) and Nillable ID override parameter.

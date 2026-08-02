@@ -1,8 +1,7 @@
 import { assert, extern } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-
-import { actorState } from "./shared";
+import { actorState } from "@/engine/declarations/effects/actor/shared";
 
 /**
  * Set current actor position based on previously saved one (with save effect).

@@ -1,9 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { abort, assert, extern, LuaArray, Nillable, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Release all items contained in the inventory box referenced by the provided story ID.

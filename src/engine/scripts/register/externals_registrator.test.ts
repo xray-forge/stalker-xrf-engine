@@ -21,15 +21,15 @@ describe("extrnals_registrator entry point", () => {
 
     jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementation(() => {
-      require("@/engine/declarations/callbacks/actor");
-      require("@/engine/declarations/callbacks/custom");
+      require("@/engine/declarations/callbacks/actor/on_actor_critical_power");
+      require("@/engine/declarations/callbacks/custom/on_start_sleeping");
       require("@/engine/declarations/conditions/static/always");
-      require("@/engine/declarations/dialogs/dialog_manager");
-      require("@/engine/declarations/dialogs/dialogs/dialogs_generic");
-      require("@/engine/declarations/dialogs/dialogs_jupiter");
-      require("@/engine/declarations/dialogs/dialogs_pripyat");
-      require("@/engine/declarations/dialogs/dialogs_zaton");
-      require("@/engine/declarations/dialogs/zaton/zat_b29/advanced_artefacts");
+      require("@/engine/declarations/dialogs/dialog_manager/lifecycle");
+      require("@/engine/declarations/dialogs/generic");
+      require("@/engine/declarations/dialogs/jupiter/jup_b208/reward");
+      require("@/engine/declarations/dialogs/pripyat/pri_b301/reward");
+      require("@/engine/declarations/dialogs/zaton/zat_b30/owl-items");
+      require("@/engine/declarations/dialogs/zaton/zat_b29/advanced-artefacts");
       require("@/engine/declarations/effects/game/inc_counter");
       require("@/engine/declarations/tasks/task_functors");
     });

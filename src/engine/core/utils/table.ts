@@ -14,7 +14,7 @@ export function isEmpty(target: Nillable<LuaTable | LuaMap>): target is LuaTable
     return true;
   }
 
-  for (const it of target) {
+  for (const [key] of target) {
     return false;
   }
 

@@ -2,8 +2,7 @@ import { ServerPhysicObject } from "xray16/alias";
 import { copyVector, extern, TRate, TSection } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-
-import { questsState } from "./shared";
+import { questsState } from "@/engine/declarations/effects/quests/shared";
 
 /**
  * Recreate the Jupiter b219 gate object at the previously saved position.

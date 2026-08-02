@@ -1,11 +1,13 @@
 import { GameObject } from "xray16/alias";
 import { extern, LuaArray, Nillable, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { trySwitchToAnotherSection } from "@/engine/core/schemes/runtime/scheme_switch";
 import { getActiveSchemeStateOptimistic, hasActiveScheme } from "@/engine/core/schemes/state";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Try to switch the active scheme to another section for each object referenced by story ID.

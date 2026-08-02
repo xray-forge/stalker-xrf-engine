@@ -2,8 +2,7 @@ import { GameObject, ServerObject } from "xray16/alias";
 import { extern, Nillable } from "xray16/lib";
 
 import { getObjectByStoryId, registry } from "@/engine/core/database";
-
-import { questsState } from "./shared";
+import { questsState } from "@/engine/declarations/effects/quests/shared";
 
 /**
  * Save the position of the Jupiter b219 gate object and release it from the simulation.

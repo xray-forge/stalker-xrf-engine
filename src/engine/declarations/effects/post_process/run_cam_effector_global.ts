@@ -1,8 +1,12 @@
 import { device, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { extern, Nillable, TName, TNumberId, TRate } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
-import { logger, postProcessState } from "./shared";
+import { LuaLogger } from "@/engine/core/utils/logging";
+import { postProcessState } from "@/engine/declarations/effects/post_process/shared";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Add global effector based on name / id / fov parameters.

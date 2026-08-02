@@ -1,9 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { extern, TSection } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Give list of items to an object.

@@ -1,12 +1,13 @@
 import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TNumberId } from "xray16/lib";
-import { $isNil, $isNotNil } from "xray16/macros";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { releaseObject } from "@/engine/core/utils/spawn";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Release the linked object or a target resolved from the provided story type and section parameters.

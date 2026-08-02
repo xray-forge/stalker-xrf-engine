@@ -1,5 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { abort, extern, FALSE, Nillable, TName, TStringifiedBoolean } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getStoryIdByObjectId } from "@/engine/core/database";
 import {
@@ -8,8 +9,9 @@ import {
   releaseSimulationSquad,
 } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Release squads assigned to the named smart terrain, Nillablely keeping story-bound squads.

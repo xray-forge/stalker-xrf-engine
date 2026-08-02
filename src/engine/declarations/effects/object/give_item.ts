@@ -1,10 +1,12 @@
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { extern, Nillable, TNumberId, TSection, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Give specific item to an object by story id.

@@ -2,10 +2,6 @@ import { ParticlesObject, SoundObject, Vector } from "xray16/alias";
 import { LuaArray, Nillable, TStringId } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-export const logger: LuaLogger = new LuaLogger("quests");
-
 export const questsState: {
   jupB219Position: Nillable<Vector>;
   jupB219LVId: Nillable<number>;

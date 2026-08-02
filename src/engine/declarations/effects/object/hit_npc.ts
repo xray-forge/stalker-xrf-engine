@@ -1,10 +1,12 @@
 import { hit, patrol } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
 import { extern, Nillable, TRUE } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Hit the linked object from a source story object or patrol point, Nillablely reversing the direction.

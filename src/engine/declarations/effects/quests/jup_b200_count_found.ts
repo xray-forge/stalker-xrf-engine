@@ -3,8 +3,7 @@ import { ACTOR_ID, extern, MAX_ALIFE_ID, Nillable, TCount, TNumberId } from "xra
 import { $isNotNil } from "xray16/macros";
 
 import { getObjectByStoryId, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
-
-import { materialsTable } from "./shared";
+import { materialsTable } from "@/engine/declarations/effects/quests/shared";
 
 /**
  * Count the Jupiter b200 tech materials carried by the actor and store the found counter value.

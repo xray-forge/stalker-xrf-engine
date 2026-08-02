@@ -1,10 +1,12 @@
 import { GameObject } from "xray16/alias";
 import { abort, assert, extern, Nillable, TSection } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Remove item from actor inventory based on provided section parameter.

@@ -1,9 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { extern, Nillable, TStringId } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Turn off the hanging lamps of all predefined Pripyat underpass lamp objects.

@@ -1,9 +1,11 @@
 import { GameObject } from "xray16/alias";
 import { abort, createVector, extern, Nillable } from "xray16/lib";
+import { $filename } from "xray16/macros";
 
 import { getObjectByStoryId } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 
-import { logger } from "./shared";
+export const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Apply a constant upward force to the object referenced by the provided story ID.
