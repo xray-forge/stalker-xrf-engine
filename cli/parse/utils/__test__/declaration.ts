@@ -1,8 +1,8 @@
 type SomeAlias = number | string;
 
 class SomeClass {
-  public first: string;
-  public second: number;
+  public first!: string;
+  public second!: number;
 }
 
 interface IAbstractInterface {
@@ -13,13 +13,12 @@ interface IAbstractInterface {
 /**
  * Mock `extern` method for testing.
  */
-function extern(...args: Array<unknown>): void;
-function extern(name: string, cb: (...args: Array<unknown>) => void): void {}
+function extern<TArgs extends Array<unknown>, TResult>(name: string, cb: (...args: TArgs) => TResult): void {}
 
 /**
  * Mock `another` method for testing of incorrect module global level calls.
  */
-function another(name: string, cb: (...args: Array<unknown>) => void): void {}
+function another<TArgs extends Array<unknown>, TResult>(name: string, cb: (...args: TArgs) => TResult): void {}
 
 extern("module.callback_name_one", (a: number, b: string, c: boolean, d: SomeAlias): boolean => true);
 
@@ -54,8 +53,11 @@ extern(
 another("another_module.another_callback_name", (a: number, b: string): boolean => false);
 
 // Invalid.
+// @ts-expect-error -- `extern` requires a callback.
 extern("test");
 // Invalid.
+// @ts-expect-error -- the module name and callback have incompatible types.
 extern(1, 1);
 // Invalid.
+// @ts-expect-error -- `extern` requires a callback function.
 extern("test", 1);

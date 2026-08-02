@@ -17,6 +17,7 @@
   },
   "include": [
     "../../cli/**/*.test.ts",
+    "../../cli/**/__test__/**/*.ts",
     "../../src/**/*.test.ts",
     "../../src/fixtures/**/*.ts",
     "../../src/typedefs/**/*.d.ts"
