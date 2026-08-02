@@ -19,6 +19,7 @@ import {
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { TLevel } from "@/engine/constants/levels";
+import { mapMarks } from "@/engine/constants/map_marks";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -136,7 +137,7 @@ export class TaskObject {
     this.currentTargetId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);
 
     this.status = ETaskStatus.NORMAL;
-    this.spot = this.isStorylineTask ? "storyline_task_location" : "secondary_task_location";
+    this.spot = this.isStorylineTask ? mapMarks.storyline_task_location : mapMarks.secondary_task_location;
 
     this.isNotificationOnUpdateMuted = readIniBoolean(ini, id, "dont_send_update_news", false, false);
   }
@@ -217,7 +218,7 @@ export class TaskObject {
         this.task.change_map_location(this.spot, nextTargetId);
         level.map_add_object_spot(
           nextTargetId,
-          this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+          this.isStorylineTask ? mapMarks.ui_storyline_task_blink : mapMarks.ui_secondary_task_blink,
           ""
         );
       } else {
@@ -227,7 +228,7 @@ export class TaskObject {
         } else {
           level.map_add_object_spot(
             nextTargetId,
-            this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+            this.isStorylineTask ? mapMarks.ui_storyline_task_blink : mapMarks.ui_secondary_task_blink,
             ""
           );
 
@@ -314,7 +315,7 @@ export class TaskObject {
 
       level.map_add_object_spot(
         this.currentTargetId,
-        this.isStorylineTask ? "ui_storyline_task_blink" : "ui_secondary_task_blink",
+        this.isStorylineTask ? mapMarks.ui_storyline_task_blink : mapMarks.ui_secondary_task_blink,
         ""
       );
     }

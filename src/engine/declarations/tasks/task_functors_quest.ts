@@ -2,6 +2,7 @@ import { GameObject } from "xray16/alias";
 import { extern, Nillable, TLabel, TSection, TStringId } from "xray16/lib";
 
 import { infoPortions } from "@/engine/constants/info_portions";
+import { storyIds } from "@/engine/constants/story_ids";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
@@ -76,7 +77,7 @@ extern("task_functors.zat_b29_adv_descr", (): Nillable<TLabel> => {
 extern("task_functors.zat_b29_adv_target", () => {
   const actor: GameObject = registry.actor;
 
-  let targetObjectId: TStringId = "zat_a2_stalker_barmen";
+  let targetObjectId: TStringId = storyIds.zat_a2_stalker_barmen;
   let artefact: Nillable<TSection> = null;
 
   // Get available search artefact.
@@ -94,22 +95,22 @@ extern("task_functors.zat_b29_adv_target", () => {
     if (hasInfoPortion(infoPortions.zat_b29_stalker_rival_1_found_af)) {
       if (!hasInfoPortion(infoPortions.zat_b29_first_rival_taken_out)) {
         targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
-          ? "zat_b29_stalker_rival_1"
-          : "zat_b29_stalker_rival_default_1";
+          ? storyIds.zat_b29_stalker_rival_1
+          : storyIds.zat_b29_stalker_rival_default_1;
       } else if (!artefact) {
         targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
-          ? "zat_b29_stalker_rival_1"
-          : "zat_b29_stalker_rival_default_1";
+          ? storyIds.zat_b29_stalker_rival_1
+          : storyIds.zat_b29_stalker_rival_default_1;
       }
     } else if (hasInfoPortion(infoPortions.zat_b29_stalker_rival_2_found_af)) {
       if (!hasInfoPortion(infoPortions.zat_b29_second_rival_taken_out)) {
         targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
-          ? "zat_b29_stalker_rival_2"
-          : "zat_b29_stalker_rival_default_2";
+          ? storyIds.zat_b29_stalker_rival_2
+          : storyIds.zat_b29_stalker_rival_default_2;
       } else if (!artefact) {
         targetObjectId = hasInfoPortion(infoPortions.zat_b29_exclusive_conditions)
-          ? "zat_b29_stalker_rival_2"
-          : "zat_b29_stalker_rival_default_2";
+          ? storyIds.zat_b29_stalker_rival_2
+          : storyIds.zat_b29_stalker_rival_default_2;
       }
     }
 

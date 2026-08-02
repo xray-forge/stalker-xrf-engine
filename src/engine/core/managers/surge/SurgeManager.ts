@@ -22,6 +22,7 @@ import { $filename } from "xray16/macros";
 import { animations, postProcessors } from "@/engine/constants/animation";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { TLevel } from "@/engine/constants/levels";
+import { taskIds } from "@/engine/constants/task_ids";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   closeLoadMarker,
@@ -221,7 +222,7 @@ export class SurgeManager extends AbstractManager {
    */
   protected giveSurgeHideTask(): void {
     if (this.surgeTaskSection !== "empty") {
-      getManager(TaskManager).giveTask(this.surgeTaskSection === "" ? "hide_from_surge" : this.surgeTaskSection);
+      getManager(TaskManager).giveTask(this.surgeTaskSection === "" ? taskIds.hide_from_surge : this.surgeTaskSection);
     }
 
     // Mark as given regardless of the task section.

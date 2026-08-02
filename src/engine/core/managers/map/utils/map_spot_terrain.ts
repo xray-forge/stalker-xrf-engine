@@ -1,6 +1,7 @@
 import { game, level } from "xray16";
 import { Nillable, TLabel, TName, TNumberId, TRUE } from "xray16/lib";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { pickSectionFromCondList } from "@/engine/core/ini";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -28,7 +29,7 @@ export function updateTerrainsMapSpotDisplay(): void {
 
       if (objectId) {
         descriptor.isVisible = true;
-        level.map_add_object_spot(objectId, "primary_object", descriptor.hint);
+        level.map_add_object_spot(objectId, mapMarks.primary_object, descriptor.hint);
       }
     }
   }

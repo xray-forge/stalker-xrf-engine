@@ -55,6 +55,7 @@ export const storyIds = {
   zat_a2_actor_treasure: "zat_a2_actor_treasure",
   zat_a2_spot: "zat_a2_spot",
   zat_a2_sr_sleep_id: "zat_a2_sr_sleep_id",
+  zat_a2_stalker_barmen: "zat_a2_stalker_barmen",
   zat_a2_stalker_mechanic: "zat_a2_stalker_mechanic",
   zat_a2_stalker_nimble_id: "zat_a2_stalker_nimble_id",
   zat_b100_spot: "zat_b100_spot",
@@ -71,6 +72,10 @@ export const storyIds = {
   zat_b215_stalker_guide_jupiter: "zat_b215_stalker_guide_jupiter",
   zat_b215_stalker_guide_zaton: "zat_b215_stalker_guide_zaton",
   zat_b28_spot: "zat_b28_spot",
+  zat_b29_stalker_rival_1: "zat_b29_stalker_rival_1",
+  zat_b29_stalker_rival_2: "zat_b29_stalker_rival_2",
+  zat_b29_stalker_rival_default_1: "zat_b29_stalker_rival_default_1",
+  zat_b29_stalker_rival_default_2: "zat_b29_stalker_rival_default_2",
   zat_b33_spot: "zat_b33_spot",
   zat_b33_stalker_snag: "zat_b33_stalker_snag",
   zat_b33_treasure: "zat_b33_treasure",
@@ -85,6 +90,7 @@ export const storyIds = {
   zat_b56_spot: "zat_b56_spot",
   zat_b5_spot: "zat_b5_spot",
   zat_b7_spot: "zat_b7_spot",
+  zat_b7_stalkers_victims_1: "zat_b7_stalkers_victims_1",
 } as const;
 
 export type TStoryIds = typeof storyIds;

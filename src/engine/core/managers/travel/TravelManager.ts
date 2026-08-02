@@ -22,6 +22,7 @@ import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { postProcessors } from "@/engine/constants/animation";
 import { communities, TCommunity } from "@/engine/constants/communities";
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { pickSectionFromCondList } from "@/engine/core/ini";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -193,7 +194,7 @@ export class TravelManager extends AbstractManager {
       return false;
     } else if (objectCommunity === communities.bandit || objectCommunity === communities.army) {
       return false;
-    } else if (getObjectTerrain(object)?.name() === "jup_b41") {
+    } else if (getObjectTerrain(object)?.name() === smartTerrainNames.jup_b41) {
       return false;
     }
 

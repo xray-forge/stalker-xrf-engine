@@ -2,6 +2,7 @@ import { level } from "xray16";
 import { Nillable, TName, TNumberId, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";
 
@@ -25,8 +26,8 @@ export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): voi
     return;
   }
 
-  const spotToAdd: TName = isStoryline ? "storyline_task_on_guider" : "secondary_task_on_guider";
-  const spotToRemove: TName = isStoryline ? "secondary_task_on_guider" : "storyline_task_on_guider";
+  const spotToAdd: TName = isStoryline ? mapMarks.storyline_task_on_guider : mapMarks.secondary_task_on_guider;
+  const spotToRemove: TName = isStoryline ? mapMarks.secondary_task_on_guider : mapMarks.storyline_task_on_guider;
 
   level.map_remove_object_spot(guiderId, spotToRemove);
   level.map_add_object_spot(guiderId, spotToAdd, "");
@@ -48,12 +49,12 @@ export function removeGuiderSpot(from: TName): void {
     const guiderId: Nillable<TNumberId> = getObjectIdByStoryId(storyId);
 
     if ($isNotNil(guiderId)) {
-      if (level.map_has_object_spot(guiderId, "storyline_task_on_guider") !== 0) {
-        level.map_remove_object_spot(guiderId, "storyline_task_on_guider");
+      if (level.map_has_object_spot(guiderId, mapMarks.storyline_task_on_guider) !== 0) {
+        level.map_remove_object_spot(guiderId, mapMarks.storyline_task_on_guider);
       }
 
-      if (level.map_has_object_spot(guiderId, "secondary_task_on_guider") !== 0) {
-        level.map_remove_object_spot(guiderId, "secondary_task_on_guider");
+      if (level.map_has_object_spot(guiderId, mapMarks.secondary_task_on_guider) !== 0) {
+        level.map_remove_object_spot(guiderId, mapMarks.secondary_task_on_guider);
       }
     }
   }

@@ -3,6 +3,7 @@ import { GameObject, IniFile, NetPacket, NetReader, ServerObject, Vector } from 
 import { Nillable, TCount, TDuration, TIndex, TNumberId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
+import { mapMarks } from "@/engine/constants/map_marks";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -58,7 +59,7 @@ export class PhysicObjectBinder extends object_binder {
     const ini: Nillable<IniFile> = this.object.spawn_ini() as Nillable<IniFile>;
 
     if (ini && ini.section_exist("level_spot") && ini.line_exist("level_spot", "actor_box")) {
-      level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
+      level.map_add_object_spot(this.object.id(), mapMarks.ui_pda2_actor_box_location, "st_ui_pda_actor_box");
     }
 
     registerObject(this.object);
@@ -76,8 +77,8 @@ export class PhysicObjectBinder extends object_binder {
 
     this.resetCallbacks();
 
-    if (level.map_has_object_spot(objectId, "ui_pda2_actor_box_location") !== 0) {
-      level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
+    if (level.map_has_object_spot(objectId, mapMarks.ui_pda2_actor_box_location) !== 0) {
+      level.map_remove_object_spot(objectId, mapMarks.ui_pda2_actor_box_location);
     }
 
     getManager(SoundManager).stop(objectId);

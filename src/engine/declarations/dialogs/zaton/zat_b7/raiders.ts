@@ -4,6 +4,7 @@ import { extern, TCount, TIndex } from "xray16/lib";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { drugs } from "@/engine/constants/items/drugs";
 import { food } from "@/engine/constants/items/food";
+import { storyIds } from "@/engine/constants/story_ids";
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
@@ -95,7 +96,7 @@ extern("dialogs_zaton.zat_b7_killed_self_precond", (firstSpeaker: GameObject, se
     return false;
   }
 
-  return !isStoryObjectExisting("zat_b7_stalkers_victims_1");
+  return !isStoryObjectExisting(storyIds.zat_b7_stalkers_victims_1);
 });
 
 /**
@@ -106,5 +107,5 @@ extern("dialogs_zaton.zat_b7_killed_self_precond", (firstSpeaker: GameObject, se
  * @returns Whether the victims squad story object still exists.
  */
 extern("dialogs_zaton.zat_b7_squad_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return isStoryObjectExisting("zat_b7_stalkers_victims_1");
+  return isStoryObjectExisting(storyIds.zat_b7_stalkers_victims_1);
 });
