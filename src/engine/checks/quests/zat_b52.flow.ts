@@ -14,6 +14,7 @@ import { infoPortions } from "@/engine/constants/info_portions";
 import { nimbleWeapons } from "@/engine/constants/items/weapons";
 import { levels } from "@/engine/constants/levels";
 import { storyIds } from "@/engine/constants/story_ids";
+import { zoneNames } from "@/engine/constants/zone_names";
 import {
   getPortableStoreValue,
   getServerObjectByStoryId,
@@ -29,16 +30,16 @@ import { giveMoneyToActor } from "@/engine/core/utils/reward";
 
 const TASK_ID: TName = "zat_b52_reputation";
 
-const SNAG_STORY_ID: TName = "zat_b33_stalker_snag";
-const NIMBLE_STORY_ID: TName = "zat_a2_stalker_nimble_id";
-const SNAG_PLACE_ZONE: TName = "zat_b52_snag_place";
-const PORT_CRANES_ZONE: TName = "zat_b52_snag_port_cranes";
-const SUBSTATION_ZONE: TName = "jup_b202_logic";
-const BANDIT_LEADER_STORY_ID: TName = "port_bandit_1_leader_id";
-const BANDITS_SQUAD_STORY_ID: TName = "zat_b52_port_bandits";
-const JUPITER_SNAG_STORY_ID: TName = "jup_b202_stalker_snag";
-const YANOV_TECH_STORY_ID: TName = "jup_b217_stalker_tech";
-const JUPITER_BANDIT_STORY_ID: TName = "jup_b202_bandit";
+const SNAG_STORY_ID: TName = storyIds.zat_b33_stalker_snag;
+const NIMBLE_STORY_ID: TName = storyIds.zat_a2_stalker_nimble_id;
+const SNAG_PLACE_ZONE: TName = zoneNames.zat_b52_snag_place;
+const PORT_CRANES_ZONE: TName = zoneNames.zat_b52_snag_port_cranes;
+const SUBSTATION_ZONE: TName = zoneNames.jup_b202_logic;
+const BANDIT_LEADER_STORY_ID: TName = storyIds.port_bandit_1_leader_id;
+const BANDITS_SQUAD_STORY_ID: TName = storyIds.zat_b52_port_bandits;
+const JUPITER_SNAG_STORY_ID: TName = storyIds.jup_b202_stalker_snag;
+const YANOV_TECH_STORY_ID: TName = storyIds.jup_b217_stalker_tech;
+const JUPITER_BANDIT_STORY_ID: TName = storyIds.jup_b202_bandit;
 const ACTOR_STASH_STORY_ID: TName = storyIds.jup_b202_actor_treasure;
 
 const FIND_SNAG_TITLE: TLabel = "zat_b52_reputation_find_snag_name";

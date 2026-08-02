@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { callXrCondition, MockSquad } from "@/fixtures/engine";
 
@@ -20,7 +21,7 @@ describe("pri_a28_actor_is_far", () => {
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     registerSimulator();
-    registerStoryLink(squad.id, "pri_a16_military_squad");
+    registerStoryLink(squad.id, storyIds.pri_a16_military_squad);
 
     expect(callXrCondition("pri_a28_actor_is_far", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
 

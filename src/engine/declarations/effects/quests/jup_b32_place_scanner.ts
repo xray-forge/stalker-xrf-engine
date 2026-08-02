@@ -2,6 +2,7 @@ import { extern, isObjectInZone, TStringId } from "xray16/lib";
 
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
+import { getJupB32ScannerPlacementZoneName } from "@/engine/constants/zone_names";
 import { registry } from "@/engine/core/database";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { takeItemFromActor } from "@/engine/core/utils/reward";
@@ -15,7 +16,7 @@ extern("xr_effects.jup_b32_place_scanner", (): void => {
     const infoPortion: TStringId = "jup_b32_scanner_" + index + "_placed";
 
     if (
-      isObjectInZone(registry.actor, registry.zones.get("jup_b32_sr_scanner_place_" + index)) &&
+      isObjectInZone(registry.actor, registry.zones.get(getJupB32ScannerPlacementZoneName(index))) &&
       !hasInfoPortion(infoPortion)
     ) {
       giveInfoPortion(infoPortion);

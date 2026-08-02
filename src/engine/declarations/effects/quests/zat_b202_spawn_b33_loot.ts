@@ -8,6 +8,7 @@ import { artefacts } from "@/engine/constants/items/artefacts";
 import { drugs } from "@/engine/constants/items/drugs";
 import { helmets } from "@/engine/constants/items/helmets";
 import { weapons } from "@/engine/constants/items/weapons";
+import { storyIds } from "@/engine/constants/story_ids";
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { spawnObjectInObject } from "@/engine/core/utils/spawn";
@@ -49,7 +50,8 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObj
   ]);
 
   for (const [index, infoPortion] of infoPortionsList) {
-    const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
+    const objectId: TStringId =
+      index === 1 || index === 3 ? storyIds.jup_b202_stalker_snag : storyIds.jup_b202_snag_treasure;
 
     if (!hasInfoPortion(infoPortion)) {
       for (const [_, itemSection] of rewardItems.get(index)) {

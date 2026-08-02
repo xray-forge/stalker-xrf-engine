@@ -2,6 +2,8 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject } from "xray16/mocks";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { registerSimulator, registerZone } from "@/engine/core/database";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -18,10 +20,10 @@ beforeAll(() => {
 
 describe("squads_in_zone_b41", () => {
   it("should require every assigned squad member to be inside the light zone", () => {
-    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("jup_b41");
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered(smartTerrainNames.jup_b41);
     const squad: MockSquad = MockSquad.mock();
     const member: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const zone: GameObject = MockGameObject.mock({ name: "jup_b41_sr_light" });
+    const zone: GameObject = MockGameObject.mock({ name: zoneNames.jup_b41_sr_light });
 
     squad.mockAddMember(member);
     getSimulationTerrainDescriptorById(terrain.id)!.assignedSquads.set(squad.id, squad);

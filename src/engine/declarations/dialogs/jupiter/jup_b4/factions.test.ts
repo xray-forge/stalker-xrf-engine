@@ -4,6 +4,7 @@ import { AnyArgs, AnyObject, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
 import { registry } from "@/engine/core/database";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
@@ -34,7 +35,7 @@ describe("npc_in_b4_smart", () => {
 
     jest.mocked(isObjectInSmartTerrain).mockReturnValue(true);
     expect(callDialogsBinding("npc_in_b4_smart", [registry.actor, npc])).toBe(true);
-    expect(isObjectInSmartTerrain).toHaveBeenLastCalledWith(npc, "jup_b4");
+    expect(isObjectInSmartTerrain).toHaveBeenLastCalledWith(npc, smartTerrainNames.jup_b4);
 
     jest.mocked(isObjectInSmartTerrain).mockReturnValue(false);
     expect(callDialogsBinding("npc_in_b4_smart", [registry.actor, npc])).toBe(false);

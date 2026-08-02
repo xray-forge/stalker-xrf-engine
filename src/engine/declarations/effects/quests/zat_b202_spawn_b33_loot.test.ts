@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerStoryLink } from "@/engine/core/database";
 import { spawnObjectInObject } from "@/engine/core/utils/spawn";
 import { callXrEffect, resetRegistry } from "@/fixtures/engine";
@@ -21,8 +22,8 @@ describe("zat_b202_spawn_b33_loot", () => {
     const stalkerBox: GameObject = MockGameObject.mock();
     const treasureBox: GameObject = MockGameObject.mock();
 
-    registerStoryLink(stalkerBox.id(), "jup_b202_stalker_snag");
-    registerStoryLink(treasureBox.id(), "jup_b202_snag_treasure");
+    registerStoryLink(stalkerBox.id(), storyIds.jup_b202_stalker_snag);
+    registerStoryLink(treasureBox.id(), storyIds.jup_b202_snag_treasure);
 
     callXrEffect("zat_b202_spawn_b33_loot", MockGameObject.mockActor(), MockGameObject.mock());
 

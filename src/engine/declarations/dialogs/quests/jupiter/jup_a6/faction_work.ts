@@ -2,6 +2,7 @@ import { GameObject } from "xray16/alias";
 import { extern } from "xray16/lib";
 
 import { infoPortions } from "@/engine/constants/info_portions";
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
@@ -31,5 +32,5 @@ extern("dialogs.freedom_can_not_work_for_sci", (_firstSpeaker: GameObject, _seco
   );
 });
 extern("dialogs.squad_in_smart_jup_b25", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_a6");
+  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), smartTerrainNames.jup_a6);
 });

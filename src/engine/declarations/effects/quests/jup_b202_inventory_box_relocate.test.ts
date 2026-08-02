@@ -23,7 +23,7 @@ describe("jup_b202_inventory_box_relocate", () => {
     const second: GameObject = MockGameObject.mock();
 
     registerStoryLink(from.id(), storyIds.jup_b202_actor_treasure);
-    registerStoryLink(to.id(), "jup_b202_snag_treasure");
+    registerStoryLink(to.id(), storyIds.jup_b202_snag_treasure);
     replaceFunctionMock(from.iterate_inventory_box, (callback) => {
       callback(from, first);
       callback(from, second);

@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { callXrEffect, resetRegistry } from "@/fixtures/engine";
 
@@ -20,7 +21,7 @@ describe("jup_b219_save_pos", () => {
 
     registerSimulator();
     MockAlifeSimulator.addToRegistry(serverGate);
-    registerStoryLink(gate.id(), "jup_b219_gate_id");
+    registerStoryLink(gate.id(), storyIds.jup_b219_gate_id);
 
     callXrEffect("jup_b219_save_pos", MockGameObject.mockActor(), MockGameObject.mock());
 

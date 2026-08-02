@@ -1,6 +1,7 @@
 import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { AnyCallable, extern, getExtern } from "xray16/lib";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
@@ -13,7 +14,7 @@ import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
  * @returns Whether the NPC is in the b4 smart terrain.
  */
 extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b4");
+  return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), smartTerrainNames.jup_b4);
 });
 
 /**

@@ -2,6 +2,8 @@ import { GameObject } from "xray16/alias";
 import { extern, Nillable } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { registry } from "@/engine/core/database";
 import {
   getSimulationTerrainByName,
@@ -17,8 +19,8 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
  * @returns Whether every member of every squad assigned to the terrain is inside the zone.
  */
 extern("xr_conditions.squads_in_zone_b41", (): boolean => {
-  const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName("jup_b41");
-  const zone: Nillable<GameObject> = registry.zones.get("jup_b41_sr_light");
+  const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(smartTerrainNames.jup_b41);
+  const zone: Nillable<GameObject> = registry.zones.get(zoneNames.jup_b41_sr_light);
 
   if (!zone) {
     return false;

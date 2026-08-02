@@ -12,7 +12,7 @@ import { getObjectByStoryId } from "@/engine/core/database";
  */
 extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
   const inventoryBoxOut: Nillable<GameObject> = getObjectByStoryId(storyIds.jup_b202_actor_treasure);
-  const inventoryBoxIn: Nillable<GameObject> = getObjectByStoryId("jup_b202_snag_treasure");
+  const inventoryBoxIn: Nillable<GameObject> = getObjectByStoryId(storyIds.jup_b202_snag_treasure);
   const itemsToRelocate: LuaArray<GameObject> = new LuaTable();
 
   if (!inventoryBoxIn || !inventoryBoxOut) {

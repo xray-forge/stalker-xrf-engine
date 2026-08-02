@@ -1,6 +1,7 @@
 import { AlifeSimulator, GameObject, ServerCreatureObject } from "xray16/alias";
 import { extern, getDistanceBetween, Nillable, TDistance } from "xray16/lib";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { getObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 
@@ -12,7 +13,7 @@ import { Squad } from "@/engine/core/objects/squad";
  * @returns Whether the actor is past the backward point and beyond the required distance from the object and squad.
  */
 extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: GameObject): boolean => {
-  const backwardObject: Nillable<GameObject> = getObjectByStoryId("pas_b400_bwd");
+  const backwardObject: Nillable<GameObject> = getObjectByStoryId(storyIds.pas_b400_bwd);
 
   if (backwardObject) {
     if (getDistanceBetween(backwardObject, registry.actor) > getDistanceBetween(backwardObject, object)) {

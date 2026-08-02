@@ -5,6 +5,8 @@ import { expect, expectEqual, report, requires, step } from "@/engine/checks/fra
 import { checkTaskText, teleportNearZone, teleportToStoryObject } from "@/engine/checks/framework/world";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
+import { storyIds } from "@/engine/constants/story_ids";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -12,10 +14,10 @@ import { actorHasItem } from "@/engine/core/utils/item";
 
 const TASK_ID: TName = "zat_b33_zaporojec";
 const TASK_TITLE: TLabel = "zat_b33_zaporojec_name";
-const SNAG_STORY_ID: TName = "zat_b33_stalker_snag";
-const MECHANIC_STORY_ID: TName = "zat_a2_stalker_mechanic";
-const TREASURE_STORY_ID: TName = "zat_b33_treasure";
-const TUTOR_ZONE: TName = "zat_b33_tutor";
+const SNAG_STORY_ID: TName = storyIds.zat_b33_stalker_snag;
+const MECHANIC_STORY_ID: TName = storyIds.zat_a2_stalker_mechanic;
+const TREASURE_STORY_ID: TName = storyIds.zat_b33_treasure;
+const TUTOR_ZONE: TName = zoneNames.zat_b33_tutor;
 const MECHANIC_PRICE: TCount = 500;
 
 /**

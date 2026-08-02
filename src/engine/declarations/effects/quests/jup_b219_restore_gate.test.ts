@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { GameObject } from "xray16/alias";
 import { MockAlifeObject, MockAlifeObjectPhysic, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { callXrEffect, resetRegistry } from "@/fixtures/engine";
 
@@ -22,7 +23,7 @@ describe("jup_b219_restore_gate", () => {
 
     registerSimulator();
     MockAlifeSimulator.addToRegistry(serverGate);
-    registerStoryLink(gate.id(), "jup_b219_gate_id");
+    registerStoryLink(gate.id(), storyIds.jup_b219_gate_id);
     jest.spyOn(restoredGate, "set_yaw");
     jest.spyOn(registry.simulator, "create").mockReturnValue(restoredGate);
 

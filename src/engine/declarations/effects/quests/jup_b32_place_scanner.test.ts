@@ -4,6 +4,7 @@ import { MockGameObject } from "xray16/mocks";
 
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
+import { getJupB32ScannerPlacementZoneName } from "@/engine/constants/zone_names";
 import { registerZone } from "@/engine/core/database";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { takeItemFromActor } from "@/engine/core/utils/reward";
@@ -26,7 +27,7 @@ describe("jup_b32_place_scanner", () => {
   it("should place scanners", () => {
     mockRegisteredActor();
 
-    const object: GameObject = MockGameObject.mock({ name: "jup_b32_sr_scanner_place_5" });
+    const object: GameObject = MockGameObject.mock({ name: getJupB32ScannerPlacementZoneName(5) });
 
     jest.spyOn(object, "inside").mockImplementation(() => true);
 

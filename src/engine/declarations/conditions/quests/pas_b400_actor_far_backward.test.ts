@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockAlifeSimulator, MockGameObject } from "xray16/mocks";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { callXrCondition, mockRegisteredActor, MockSquad } from "@/fixtures/engine";
 
@@ -27,7 +28,7 @@ describe("pas_b400_actor_far_backward", () => {
     squad.mockAddMember(member);
     registerObject(object);
     registerObject(memberObject);
-    registerStoryLink(backward.id(), "pas_b400_bwd");
+    registerStoryLink(backward.id(), storyIds.pas_b400_bwd);
     registerObject(backward);
     jest.spyOn(backward.position(), "distance_to_sqr").mockReturnValue(1);
     jest.spyOn(object.position(), "distance_to_sqr").mockReturnValue(70 * 70);

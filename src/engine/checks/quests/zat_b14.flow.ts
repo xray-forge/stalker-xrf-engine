@@ -13,6 +13,7 @@ import {
 import { infoPortions } from "@/engine/constants/info_portions";
 import { artefacts } from "@/engine/constants/items/artefacts";
 import { levels } from "@/engine/constants/levels";
+import { storyIds } from "@/engine/constants/story_ids";
 import { getServerObjectByStoryId } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
@@ -24,7 +25,7 @@ import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 const TASK_ID: TName = "zat_b14_learn_about_strange_occurrence";
 const SIBLING_TASK_ID: TName = "zat_b14_learn_about_strange_occurrence_by_stalkers";
 const QUEST_ARTEFACT: TSection = artefacts.af_quest_b14_twisted;
-const ARTEFACT_STORY_ID: TName = "zat_b14_artefact_id";
+const ARTEFACT_STORY_ID: TName = storyIds.zat_b14_artefact_id;
 
 const BASE_WALK_PATH: TName = "zat_b29_actor_base_walk";
 const BASE_LOOK_PATH: TName = "zat_b29_actor_base_look";
@@ -54,7 +55,7 @@ function resolveRobberyOutcome(): Nillable<TLabel> {
     return "they were attacked";
   }
 
-  const squad: Nillable<Squad> = getServerObjectByStoryId("zat_b14_stalkers");
+  const squad: Nillable<Squad> = getServerObjectByStoryId(storyIds.zat_b14_stalkers);
 
   if (squad && isAnySquadMemberEnemyToActor(squad)) {
     return "they turned hostile";

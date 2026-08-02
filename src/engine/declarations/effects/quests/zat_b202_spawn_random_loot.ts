@@ -3,6 +3,7 @@ import { extern, LuaArray, TCount, TIndex, TRate } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { TInventoryItem } from "@/engine/constants/items";
+import { storyIds } from "@/engine/constants/story_ids";
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { spawnObjectInObject } from "@/engine/core/utils/spawn";
 
@@ -87,7 +88,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
     const item: TIndex = math.random(1, spawnItemsList[n - 1].length);
 
     for (const itemSection of spawnItemsList[n - 1][item - 1].item) {
-      spawnObjectInObject(itemSection, getObjectIdByStoryId("jup_b202_snag_treasure"));
+      spawnObjectInObject(itemSection, getObjectIdByStoryId(storyIds.jup_b202_snag_treasure));
     }
   }
 });
