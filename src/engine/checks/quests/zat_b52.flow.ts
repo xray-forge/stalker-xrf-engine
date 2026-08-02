@@ -13,7 +13,9 @@ import {
 import { infoPortions } from "@/engine/constants/info_portions";
 import { nimbleWeapons } from "@/engine/constants/items/weapons";
 import { levels } from "@/engine/constants/levels";
+import { patrolPaths } from "@/engine/constants/patrol_paths";
 import { storyIds } from "@/engine/constants/story_ids";
+import { taskIds } from "@/engine/constants/task_ids";
 import { zoneNames } from "@/engine/constants/zone_names";
 import {
   getPortableStoreValue,
@@ -28,7 +30,7 @@ import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portio
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { giveMoneyToActor } from "@/engine/core/utils/reward";
 
-const TASK_ID: TName = "zat_b52_reputation";
+const TASK_ID: TName = taskIds.zat_b52_reputation;
 
 const SNAG_STORY_ID: TName = storyIds.zat_b33_stalker_snag;
 const NIMBLE_STORY_ID: TName = storyIds.zat_a2_stalker_nimble_id;
@@ -246,7 +248,7 @@ step("5 - Snag is gone from his spot", {
 
 step("6 - told where Snag went", {
   reached: (): boolean => hasInfoPortion(infoPortions.zat_b52_snag_port_cranes),
-  travel: (): void => void teleportToPatrol("zat_b29_actor_base_walk", "zat_b29_actor_base_look"),
+  travel: (): void => void teleportToPatrol(patrolPaths.zat_b29_actor_base_walk, patrolPaths.zat_b29_actor_base_look),
   verify: (): void => {
     function resolveCranesInformant(): Nillable<TLabel> {
       if (hasInfoPortion(infoPortions.zat_a2_stalker_barmen_b52_about_snag)) {

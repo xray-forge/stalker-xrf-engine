@@ -50,12 +50,12 @@ export const zatB29InfopTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TNa
  * Mapping of zat_b29 advanced task indices to their bring-artefact info portion ids.
  */
 export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TIndex, TStringId>({
-  [16]: "zat_b29_bring_af_16",
-  [17]: "zat_b29_bring_af_17",
-  [18]: "zat_b29_bring_af_18",
-  [19]: "zat_b29_bring_af_19",
-  [20]: "zat_b29_bring_af_20",
-  [21]: "zat_b29_bring_af_21",
-  [22]: "zat_b29_bring_af_22",
-  [23]: "zat_b29_bring_af_23",
+  [16]: infoPortions.zat_b29_bring_af_16,
+  [17]: infoPortions.zat_b29_bring_af_17,
+  [18]: infoPortions.zat_b29_bring_af_18,
+  [19]: infoPortions.zat_b29_bring_af_19,
+  [20]: infoPortions.zat_b29_bring_af_20,
+  [21]: infoPortions.zat_b29_bring_af_21,
+  [22]: infoPortions.zat_b29_bring_af_22,
+  [23]: infoPortions.zat_b29_bring_af_23,
 });

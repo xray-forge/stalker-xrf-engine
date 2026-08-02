@@ -6,13 +6,14 @@ import { checkTaskText, teleportNearZone, teleportToStoryObject } from "@/engine
 import { infoPortions } from "@/engine/constants/info_portions";
 import { questItems } from "@/engine/constants/items/quest_items";
 import { storyIds } from "@/engine/constants/story_ids";
+import { taskIds } from "@/engine/constants/task_ids";
 import { zoneNames } from "@/engine/constants/zone_names";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasItem } from "@/engine/core/utils/item";
 
-const TASK_ID: TName = "zat_b33_zaporojec";
+const TASK_ID: TName = taskIds.zat_b33_zaporojec;
 const TASK_TITLE: TLabel = "zat_b33_zaporojec_name";
 const SNAG_STORY_ID: TName = storyIds.zat_b33_stalker_snag;
 const MECHANIC_STORY_ID: TName = storyIds.zat_a2_stalker_mechanic;

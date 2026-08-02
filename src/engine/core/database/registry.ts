@@ -3,6 +3,7 @@ import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStr
 import { $fromObject } from "xray16/macros";
 
 import { smartTerrainNames, TSmartTerrainName } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import type { CampController } from "@/engine/core/ai/camp";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -251,9 +252,9 @@ export const registry = {
    * - value is name of the smart terrain.
    */
   noCombatZones: $fromObject<TName, TSmartTerrainName>({
-    ["zat_a2_sr_no_assault"]: smartTerrainNames.zat_stalker_base_smart,
-    ["jup_a6_sr_no_assault"]: smartTerrainNames.jup_a6,
-    ["jup_b41_sr_no_assault"]: smartTerrainNames.jup_b41,
+    [zoneNames.zat_a2_sr_no_assault]: smartTerrainNames.zat_stalker_base_smart,
+    [zoneNames.jup_a6_sr_no_assault]: smartTerrainNames.jup_a6,
+    [zoneNames.jup_b41_sr_no_assault]: smartTerrainNames.jup_b41,
   }),
   /**
    * Set of terrains where combat is disabled.

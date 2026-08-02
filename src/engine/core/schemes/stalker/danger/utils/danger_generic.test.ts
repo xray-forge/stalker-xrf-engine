@@ -5,6 +5,8 @@ import { FALSE, TRUE } from "xray16/lib";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
 import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
@@ -294,12 +296,12 @@ describe("canObjectSelectAsEnemy", () => {
 
     const noCombatZone: GameObject = MockGameObject.mock();
     const noCombatSmart: ServerSmartZoneObject = MockAlifeSmartZone.mock({
-      name: "zat_stalker_base_smart",
+      name: smartTerrainNames.zat_stalker_base_smart,
     });
 
     setSchemeState(state, EScheme.COMBAT_IGNORE, combatIgnoreState);
 
-    registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
+    registry.zones.set(zoneNames.zat_a2_sr_no_assault, noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
     registerSimulationTerrain(noCombatSmart as SmartTerrain);
 
@@ -318,7 +320,7 @@ describe("canObjectSelectAsEnemy", () => {
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
     const noCombatSmart: ServerSmartZoneObject = MockAlifeSmartZone.mock({
-      name: "zat_stalker_base_smart",
+      name: smartTerrainNames.zat_stalker_base_smart,
     });
 
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock({ id: enemy.id() });
@@ -396,7 +398,7 @@ describe("canObjectSelectAsEnemy", () => {
       }),
     } as ILogicsOverrides;
 
-    registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
+    registry.zones.set(zoneNames.zat_a2_sr_no_assault, noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
     registerSimulationTerrain(noCombatSmart as SmartTerrain);
 

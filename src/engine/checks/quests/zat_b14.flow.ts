@@ -13,7 +13,9 @@ import {
 import { infoPortions } from "@/engine/constants/info_portions";
 import { artefacts } from "@/engine/constants/items/artefacts";
 import { levels } from "@/engine/constants/levels";
+import { patrolPaths } from "@/engine/constants/patrol_paths";
 import { storyIds } from "@/engine/constants/story_ids";
+import { taskIds } from "@/engine/constants/task_ids";
 import { getServerObjectByStoryId } from "@/engine/core/database";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
@@ -22,13 +24,13 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasItem } from "@/engine/core/utils/item";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 
-const TASK_ID: TName = "zat_b14_learn_about_strange_occurrence";
-const SIBLING_TASK_ID: TName = "zat_b14_learn_about_strange_occurrence_by_stalkers";
+const TASK_ID: TName = taskIds.zat_b14_learn_about_strange_occurrence;
+const SIBLING_TASK_ID: TName = taskIds.zat_b14_learn_about_strange_occurrence_by_stalkers;
 const QUEST_ARTEFACT: TSection = artefacts.af_quest_b14_twisted;
 const ARTEFACT_STORY_ID: TName = storyIds.zat_b14_artefact_id;
 
-const BASE_WALK_PATH: TName = "zat_b29_actor_base_walk";
-const BASE_LOOK_PATH: TName = "zat_b29_actor_base_look";
+const BASE_WALK_PATH: TName = patrolPaths.zat_b29_actor_base_walk;
+const BASE_LOOK_PATH: TName = patrolPaths.zat_b29_actor_base_look;
 
 const TASK_REWARD: TCount = 3_000;
 const MONEY_BEFORE_KEY: TName = "xrf_b14_money";

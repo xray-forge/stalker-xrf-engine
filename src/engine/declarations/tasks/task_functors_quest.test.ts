@@ -2,8 +2,10 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { AnyArgs, AnyObject, TName } from "xray16/lib";
 import { MockGameObject } from "xray16/mocks";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { registerStoryLink } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
+import { zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 import { callBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function callTaskBinding(name: TName, args: AnyArgs = []): unknown {
@@ -25,7 +27,7 @@ describe("zat_b29_adv_title", () => {
     expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
 
     for (const it of $range(16, 23)) {
-      giveInfoPortion(`zat_b29_bring_af_${it}`);
+      giveInfoPortion(zatB29InfopBringTable.get(it));
 
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_title")).toBe(`zat_b29_simple_find_title_${it}`);
@@ -33,7 +35,7 @@ describe("zat_b29_adv_title", () => {
       jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
       expect(callTaskBinding("zat_b29_adv_title")).toBe(`zat_b29_simple_bring_title_${it}`);
 
-      disableInfoPortion(`zat_b29_bring_af_${it}`);
+      disableInfoPortion(zatB29InfopBringTable.get(it));
       expect(callTaskBinding("zat_b29_adv_title")).toBeNull();
     }
   });
@@ -46,7 +48,7 @@ describe("zat_b29_adv_descr", () => {
     expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();
 
     for (const it of $range(16, 23)) {
-      giveInfoPortion(`zat_b29_bring_af_${it}`);
+      giveInfoPortion(zatB29InfopBringTable.get(it));
 
       jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
       expect(callTaskBinding("zat_b29_adv_descr")).toBe("zat_b29_simple_find_text_5");
@@ -131,7 +133,7 @@ describe("zat_b29_adv_descr", () => {
 
       // Clear.
 
-      disableInfoPortion(`zat_b29_bring_af_${it}`);
+      disableInfoPortion(zatB29InfopBringTable.get(it));
       expect(callTaskBinding("zat_b29_adv_descr")).toBeNull();
     }
   });
@@ -146,7 +148,7 @@ describe("zat_b29_adv_target", () => {
     expect(callTaskBinding("zat_b29_adv_target")).toBeNull();
 
     // Requested artefact info portion alone is not enough, it has to be in the inventory.
-    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion(infoPortions.zat_b29_bring_af_16);
     jest.spyOn(actorGameObject, "object").mockImplementation(() => null);
 
     expect(callTaskBinding("zat_b29_adv_target")).toBeNull();
@@ -156,7 +158,7 @@ describe("zat_b29_adv_target", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     registerStoryLink(500, "zat_a2_stalker_barmen");
-    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion(infoPortions.zat_b29_bring_af_16);
     jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
 
     expect(callTaskBinding("zat_b29_adv_target")).toBe(500);
@@ -209,7 +211,7 @@ describe("zat_b29_adv_target", () => {
     expect(callTaskBinding("zat_b29_adv_target")).toBe(502);
 
     // Once the artefact is looted the rival is no longer the target, the barmen is.
-    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion(infoPortions.zat_b29_bring_af_16);
     jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
 
     expect(callTaskBinding("zat_b29_adv_target")).toBe(500);
@@ -224,7 +226,7 @@ describe("zat_b29_adv_target", () => {
     giveInfoPortion("zat_b29_stalkers_rivals_found_af");
     giveInfoPortion("zat_b29_stalker_rival_1_found_af");
     giveInfoPortion("zat_b29_linker_take_af_from_rival");
-    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion(infoPortions.zat_b29_bring_af_16);
     jest.spyOn(actorGameObject, "object").mockImplementation(() => MockGameObject.mock());
 
     expect(callTaskBinding("zat_b29_adv_target")).toBe(500);

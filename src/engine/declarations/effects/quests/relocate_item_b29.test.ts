@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
+import { infoPortions } from "@/engine/constants/info_portions";
 import { artefacts } from "@/engine/constants/items/artefacts";
 import { registerStoryLink } from "@/engine/core/database";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
@@ -22,7 +23,7 @@ describe("relocate_item_b29", () => {
     const from: GameObject = MockGameObject.mock({ inventory: [[artefacts.af_gravi, artefact]] });
     const to: GameObject = MockGameObject.mock();
 
-    giveInfoPortion("zat_b29_bring_af_16");
+    giveInfoPortion(infoPortions.zat_b29_bring_af_16);
     registerStoryLink(from.id(), "from-story");
     registerStoryLink(to.id(), "to-story");
 

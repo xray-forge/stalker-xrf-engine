@@ -7,6 +7,8 @@ import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { communities } from "@/engine/constants/communities";
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/ini";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -40,8 +42,8 @@ describe("Squad server object", () => {
     const terrain: MockSmartTerrain = MockSmartTerrain.mock();
     const zone: GameObject = MockGameObject.mock({ id: terrain.id });
 
-    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
-    jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
+    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => smartTerrainNames.zat_stalker_base_smart));
+    jest.spyOn(zone, "name").mockImplementation(jest.fn(() => zoneNames.zat_a2_sr_no_assault));
 
     terrain.on_before_register();
     terrain.on_register();

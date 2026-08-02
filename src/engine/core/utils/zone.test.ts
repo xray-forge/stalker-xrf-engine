@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerHumanObject } from "xray16/alias";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "xray16/mocks";
 
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { registerSimulator, registerZone } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
@@ -22,8 +24,8 @@ describe("isInNoCombatZone", () => {
     const terrain: MockSmartTerrain = MockSmartTerrain.mock();
     const zone: GameObject = MockGameObject.mock({ id: terrain.id });
 
-    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
-    jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
+    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => smartTerrainNames.zat_stalker_base_smart));
+    jest.spyOn(zone, "name").mockImplementation(jest.fn(() => zoneNames.zat_a2_sr_no_assault));
 
     terrain.on_before_register();
     terrain.on_register();
