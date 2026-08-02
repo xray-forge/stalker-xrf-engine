@@ -14,7 +14,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 
 describe("TaskObject", () => {
   beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks");
+    require("@/engine/declarations/tasks");
     registerActor(MockGameObject.mock());
   });
 

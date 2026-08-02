@@ -3,7 +3,7 @@ import * as path from "node:path";
 
 import { yellowBright } from "chalk";
 
-import { GAME_DATA_SCRIPTS_DIR, TARGET_PARSED_DIR } from "#/globals";
+import { GAME_DATA_DECLARATIONS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
 import { renderExternals } from "#/parse/utils/render_externals";
 import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
@@ -20,7 +20,7 @@ const log: NodeLogger = NodeLogger.forFile(__filename);
  * Parse game engine externals and generate docs.
  */
 export async function parseExternals(): Promise<void> {
-  const targetDir: string = path.resolve(GAME_DATA_SCRIPTS_DIR, "declarations");
+  const targetDir: string = GAME_DATA_DECLARATIONS_DIR;
   const targetFilePath: string = path.resolve(TARGET_PARSED_DIR, "externals.html");
 
   log.info("Parsing game externals:", yellowBright(targetDir));

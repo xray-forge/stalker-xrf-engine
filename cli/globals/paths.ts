@@ -20,6 +20,7 @@ export const RESOURCES_DIR: string = path.resolve(
 export const RESOURCES_PARTICLES_UNPACKED_DIR: string = path.resolve(RESOURCES_DIR, "particles_unpacked");
 
 export const GAME_DATA_LTX_CONFIGS_DIR: string = path.resolve(CLI_DIR, config.build.configs);
+export const GAME_DATA_DECLARATIONS_DIR: string = path.resolve(CLI_DIR, config.build.declarations);
 export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(CLI_DIR, config.build.scripts);
 export const GAME_DATA_EXTENSIONS_DIR: string = path.resolve(CLI_DIR, config.build.extensions);
 export const GAME_DATA_TRANSLATIONS_DIR: string = path.resolve(CLI_DIR, config.build.translations);
