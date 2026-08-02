@@ -3,8 +3,10 @@
   url = https://github.com/xray-forge/stalker-xrf-bin.git
   branch = main
   ignore = dirty
+  update = rebase
 
 [submodule "src/resources"]
   path = src/resources
   url = https://gitlab.com/xray-forge/stalker-xrf-resources-base.git
   branch = main
+  update = rebase
