@@ -5,7 +5,7 @@ import { LuaArray, TName, TPath } from "xray16/lib";
 import { roots } from "@/engine/constants/roots";
 
 const DECLARATIONS_DIRECTORY: TPath = "declarations\\";
-const DECLARATION_MODULE_PREFIX: TName = "scripts.declarations.";
+const DECLARATION_MODULE_PREFIX: TName = "declarations.";
 const SCRIPT_EXTENSION: string = ".script";
 
 export type TDeclarationModuleLoader = (moduleId: TName) => void;
@@ -33,7 +33,7 @@ export function isDeclarationPayload(path: TPath): boolean {
 }
 
 /**
- * Convert a declaration path relative to `gamedata/scripts/declarations` into an OpenXRay module ID.
+ * Convert a declaration path relative to `gamedata/declarations` into an OpenXRay module ID.
  */
 export function declarationPathToModuleId(path: TPath): TName {
   let [normalized] = string.gsub(string.lower(path), "\\", ".");
@@ -51,11 +51,11 @@ export function discoverDeclarationModules(): LuaArray<TName> {
   const fs: FS = getFS();
 
   // Native `file_list_open` returns a null-backed wrapper for a missing directory, so guard it before opening.
-  if (!fs.exist(roots.gameScripts, DECLARATIONS_DIRECTORY)) {
+  if (!fs.exist(roots.gameData, DECLARATIONS_DIRECTORY)) {
     return modules;
   }
 
-  const files: FSFileList = fs.file_list_open(roots.gameScripts, DECLARATIONS_DIRECTORY, FS.FS_ListFiles);
+  const files: FSFileList = fs.file_list_open(roots.gameData, DECLARATIONS_DIRECTORY, FS.FS_ListFiles);
 
   try {
     for (let index: number = 0; index < files.Size(); index += 1) {

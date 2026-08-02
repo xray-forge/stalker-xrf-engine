@@ -9,13 +9,23 @@ jest.mock("@/engine/scripts/register/declaration_modules");
 
 describe("extrnals_registrator entry point", () => {
   it("registerExternals should correctly register globals and mark as called", () => {
-    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["scripts.declarations.callbacks.actor"]));
+    const vanillaPlaceholder: boolean = true;
+
+    extern("xr_conditions", vanillaPlaceholder);
+    extern("xr_effects", vanillaPlaceholder);
+    extern("dialog_manager", vanillaPlaceholder);
+    extern("dialogs", vanillaPlaceholder);
+    extern("dialogs_jupiter", vanillaPlaceholder);
+    extern("dialogs_pripyat", vanillaPlaceholder);
+    extern("dialogs_zaton", vanillaPlaceholder);
+
+    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementation(() => {
-      require("@/engine/scripts/declarations/callbacks");
-      require("@/engine/scripts/declarations/conditions");
-      require("@/engine/scripts/declarations/effects");
-      require("@/engine/scripts/declarations/tasks");
-      require("@/engine/scripts/declarations/dialogs");
+      require("@/engine/declarations/callbacks");
+      require("@/engine/declarations/conditions");
+      require("@/engine/declarations/effects");
+      require("@/engine/declarations/tasks");
+      require("@/engine/declarations/dialogs");
     });
 
     expect(getExtern("areExternalsRegistered")).toBeFalsy();
@@ -35,6 +45,13 @@ describe("extrnals_registrator entry point", () => {
     expect(getExtern("dialogs_pripyat")).toBeDefined();
     expect(getExtern("dialogs_jupiter")).toBeDefined();
     expect(getExtern("dialogs_zaton")).toBeDefined();
+    expect(getExtern("xr_conditions")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("xr_effects")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("dialog_manager")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("dialogs")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("dialogs_jupiter")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("dialogs_pripyat")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("dialogs_zaton")).not.toBe(vanillaPlaceholder);
     expect(getExtern("zat_b29_create_af_in_anomaly", getExtern("dialogs_zaton"))).toBeDefined();
     expect(getExtern("zat_b29_actor_exchange", getExtern("dialogs_zaton"))).toBeDefined();
 
@@ -59,7 +76,7 @@ describe("extrnals_registrator entry point", () => {
     expect(getExtern("areExternalsRegistered")).toBe(false);
     expect(getExtern("areExternalsRegistering")).toBe(false);
 
-    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["scripts.declarations.callbacks.actor"]));
+    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementation(() => {});
 
     expect(() => registerExternals()).not.toThrow();
@@ -70,7 +87,7 @@ describe("extrnals_registrator entry point", () => {
   it("clears the in-progress marker when a payload fails to load", () => {
     extern("areExternalsRegistered", false);
     extern("areExternalsRegistering", false);
-    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["scripts.declarations.callbacks.actor"]));
+    jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementationOnce(() => {
       throw new Error("payload failed");
     });

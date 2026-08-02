@@ -28,7 +28,7 @@ describe("declaration module discovery", () => {
     const fs: MockFileSystem = MockFileSystem.getInstance();
 
     fs.file_list_open.mockReset();
-    fs.setMock(roots.gameScripts, "declarations\\", false);
+    fs.setMock(roots.gameData, "declarations\\", false);
   });
 
   it("filters infrastructure scripts and normalizes module IDs", () => {
@@ -42,7 +42,7 @@ describe("declaration module discovery", () => {
     expect(isDeclarationPayload("effects.world.script.map")).toBe(false);
 
     expect(declarationPathToModuleId("Dialogs/Zaton/ZAT_B29/advanced_artefacts.script")).toBe(
-      "scripts.declarations.dialogs.zaton.zat_b29.advanced_artefacts"
+      "declarations.dialogs.zaton.zat_b29.advanced_artefacts"
     );
   });
 
@@ -50,7 +50,7 @@ describe("declaration module discovery", () => {
     const fs: MockFileSystem = MockFileSystem.getInstance();
     const free: jest.Mock = jest.fn();
 
-    fs.setMock(roots.gameScripts, "declarations\\", true);
+    fs.setMock(roots.gameData, "declarations\\", true);
     fs.file_list_open.mockReturnValue(
       mockNativeFileList(
         [
@@ -66,11 +66,11 @@ describe("declaration module discovery", () => {
     );
 
     expect(discoverDeclarationModules()).toEqualLuaArrays([
-      "scripts.declarations.callbacks.actor",
-      "scripts.declarations.dialogs.zaton.zat_b29.advanced_artefacts",
-      "scripts.declarations.effects.world",
+      "declarations.callbacks.actor",
+      "declarations.dialogs.zaton.zat_b29.advanced_artefacts",
+      "declarations.effects.world",
     ]);
-    expect(fs.file_list_open).toHaveBeenCalledWith(roots.gameScripts, "declarations\\", FS.FS_ListFiles);
+    expect(fs.file_list_open).toHaveBeenCalledWith(roots.gameData, "declarations\\", FS.FS_ListFiles);
     expect(free).toHaveBeenCalledTimes(1);
   });
 
@@ -90,7 +90,7 @@ describe("declaration module discovery", () => {
       throw new Error("enumeration failed");
     };
 
-    fs.setMock(roots.gameScripts, "declarations\\", true);
+    fs.setMock(roots.gameData, "declarations\\", true);
     fs.file_list_open.mockReturnValue(list);
 
     expect(() => discoverDeclarationModules()).toThrow("enumeration failed");

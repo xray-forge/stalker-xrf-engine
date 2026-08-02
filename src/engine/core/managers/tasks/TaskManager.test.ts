@@ -13,7 +13,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("TaskManager", () => {
   beforeAll(() => {
-    require("@/engine/scripts/declarations/tasks");
+    require("@/engine/declarations/tasks");
   });
 
   beforeEach(() => {

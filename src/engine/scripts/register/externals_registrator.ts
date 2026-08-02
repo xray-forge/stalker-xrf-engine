@@ -31,7 +31,7 @@ export function registerExternals(): void {
     const modules = discoverDeclarationModules();
 
     if (modules.length() === 0) {
-      return abort("No declaration payload modules found in $game_scripts$/declarations");
+      return abort("No declaration payload modules found in $game_data$/declarations");
     }
 
     loadDeclarationModules(modules);
