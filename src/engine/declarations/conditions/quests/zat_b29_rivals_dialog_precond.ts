@@ -2,6 +2,8 @@ import { GameObject, ServerCreatureObject } from "xray16/alias";
 import { extern, isObjectInZone, LuaArray, TName } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
+import { squadSections } from "@/engine/constants/squad_sections";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { registry } from "@/engine/core/database";
 
 /**
@@ -13,17 +15,17 @@ import { registry } from "@/engine/core/database";
  */
 extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object: GameObject): boolean => {
   const squadsList: LuaArray<TName> = $fromArray<TName>([
-    "zat_b29_stalker_rival_default_1_squad",
-    "zat_b29_stalker_rival_default_2_squad",
-    "zat_b29_stalker_rival_1_squad",
-    "zat_b29_stalker_rival_2_squad",
+    squadSections.zat_b29_stalker_rival_default_1_squad,
+    squadSections.zat_b29_stalker_rival_default_2_squad,
+    squadSections.zat_b29_stalker_rival_1_squad,
+    squadSections.zat_b29_stalker_rival_2_squad,
   ]);
-  const zonesList: LuaArray<TName> = $fromArray([
-    "zat_b29_sr_1",
-    "zat_b29_sr_2",
-    "zat_b29_sr_3",
-    "zat_b29_sr_4",
-    "zat_b29_sr_5",
+  const zonesList: LuaArray<TName> = $fromArray<TName>([
+    zoneNames.zat_b29_sr_1,
+    zoneNames.zat_b29_sr_2,
+    zoneNames.zat_b29_sr_3,
+    zoneNames.zat_b29_sr_4,
+    zoneNames.zat_b29_sr_5,
   ]);
 
   let isSquad: boolean = false;

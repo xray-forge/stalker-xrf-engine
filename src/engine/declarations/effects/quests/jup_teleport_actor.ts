@@ -2,6 +2,8 @@ import { patrol } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import { createVector, extern } from "xray16/lib";
 
+import { patrolPaths } from "@/engine/constants/patrol_paths";
+
 /**
  * Teleport the actor across the Jupiter b16 teleport anomaly preserving the relative offset.
  *
@@ -9,8 +11,8 @@ import { createVector, extern } from "xray16/lib";
  * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.jup_teleport_actor", (actor: GameObject, object: GameObject): void => {
-  const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
-  const pointOut: Vector = new patrol("jup_b16_teleport_out").point(0);
+  const pointIn: Vector = new patrol(patrolPaths.jup_b16_teleport_in).point(0);
+  const pointOut: Vector = new patrol(patrolPaths.jup_b16_teleport_out).point(0);
   const actorPosition: Vector = actor.position();
   const outPosition: Vector = createVector(
     actorPosition.x - pointIn.x + pointOut.x,

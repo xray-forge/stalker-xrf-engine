@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockPatrol, MockVector } from "xray16/mocks";
 
+import { patrolPaths } from "@/engine/constants/patrol_paths";
 import { callXrEffect } from "@/fixtures/engine";
 
 beforeAll(() => {
@@ -13,10 +14,10 @@ describe("jup_teleport_actor", () => {
     const actor: GameObject = MockGameObject.mockActor({ position: MockVector.mock(12, 5, 8) });
 
     MockPatrol.setup({
-      jup_b16_teleport_in: {
+      [patrolPaths.jup_b16_teleport_in]: {
         points: [{ flag: 0, gvid: 0, lvid: 0, name: "in", position: MockVector.create(10, 1, 3) }],
       },
-      jup_b16_teleport_out: {
+      [patrolPaths.jup_b16_teleport_out]: {
         points: [{ flag: 0, gvid: 0, lvid: 0, name: "out", position: MockVector.create(50, 20, 30) }],
       },
     });
