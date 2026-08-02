@@ -21,9 +21,9 @@ describe("extrnals_registrator entry point", () => {
 
     jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementation(() => {
-      require("@/engine/declarations/callbacks/actor/on_actor_critical_power");
-      require("@/engine/declarations/callbacks/custom/on_start_sleeping");
-      require("@/engine/declarations/conditions/static/always");
+      require("@/engine/declarations/callbacks/on_actor_critical_power");
+      require("@/engine/declarations/callbacks/on_start_sleeping");
+      require("@/engine/declarations/conditions/always");
       require("@/engine/declarations/dialogs/dialog_manager/lifecycle");
       require("@/engine/declarations/dialogs/generic");
       require("@/engine/declarations/dialogs/jupiter/jup_b208/reward");

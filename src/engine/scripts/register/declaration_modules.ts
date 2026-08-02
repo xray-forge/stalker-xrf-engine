@@ -4,6 +4,7 @@ import { LuaArray, TName, TPath } from "xray16/lib";
 
 import { roots } from "@/engine/constants/roots";
 
+const DECLARATIONS_ROOT: TName = "$game_declarations$";
 const DECLARATIONS_DIRECTORY: TPath = "declarations\\";
 const DECLARATION_MODULE_PREFIX: TName = "declarations.";
 const SCRIPT_EXTENSION: string = ".script";
@@ -46,12 +47,19 @@ export function discoverDeclarationModules(): LuaArray<TName> {
   const modules: LuaArray<TName> = new LuaTable();
   const fs: FS = getFS();
 
+  // The virtual FS only indexes loose files under recursive path aliases and `$game_data$` itself is non-recursive,
+  // so register a runtime alias - `append_path` scans the directory into the index immediately.
+  // Archive entries are always indexed, the extra scan of a packed build is a no-op.
+  if (!fs.path_exist(DECLARATIONS_ROOT)) {
+    fs.append_path(DECLARATIONS_ROOT, fs.update_path(roots.gameData, ""), DECLARATIONS_DIRECTORY, true);
+  }
+
   // Native `file_list_open` returns a null-backed wrapper for a missing directory, so guard it before opening.
-  if (!fs.exist(roots.gameData, DECLARATIONS_DIRECTORY)) {
+  if (!fs.exist(DECLARATIONS_ROOT, "")) {
     return modules;
   }
 
-  const files: FSFileList = fs.file_list_open(roots.gameData, DECLARATIONS_DIRECTORY, FS.FS_ListFiles);
+  const files: FSFileList = fs.file_list_open(DECLARATIONS_ROOT, "", FS.FS_ListFiles);
 
   try {
     for (let index: number = 0; index < files.Size(); index += 1) {

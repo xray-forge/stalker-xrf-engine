@@ -19,6 +19,8 @@ export function registerExternals(): void {
 
   try {
     // Direct writes bypass `_G.__index` autoloader and shadow the matching vanilla script namespaces.
+    extern("engine", {});
+
     extern("xr_conditions", {});
     extern("xr_effects", {});
 
@@ -27,6 +29,7 @@ export function registerExternals(): void {
     extern("dialogs_jupiter", {});
     extern("dialogs_pripyat", {});
     extern("dialogs_zaton", {});
+    extern("task_functors", {});
 
     const modules = discoverDeclarationModules();
 

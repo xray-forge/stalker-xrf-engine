@@ -28,7 +28,9 @@ describe("declaration module discovery", () => {
     const fs: MockFileSystem = MockFileSystem.getInstance();
 
     fs.file_list_open.mockReset();
-    fs.setMock(roots.gameData, "declarations\\", false);
+    fs.path_exist.mockClear();
+    fs.append_path.mockClear();
+    fs.setMock("$game_declarations$", "", false);
   });
 
   it("filters non-payload scripts and normalizes module IDs", () => {
@@ -50,7 +52,7 @@ describe("declaration module discovery", () => {
     const fs: MockFileSystem = MockFileSystem.getInstance();
     const free: jest.Mock = jest.fn();
 
-    fs.setMock(roots.gameData, "declarations\\", true);
+    fs.setMock("$game_declarations$", "", true);
     fs.file_list_open.mockReturnValue(
       mockNativeFileList(
         [
@@ -70,7 +72,7 @@ describe("declaration module discovery", () => {
       "declarations.dialogs.zaton.zat_b29.advanced_artefacts",
       "declarations.effects.world.is_rain",
     ]);
-    expect(fs.file_list_open).toHaveBeenCalledWith(roots.gameData, "declarations\\", FS.FS_ListFiles);
+    expect(fs.file_list_open).toHaveBeenCalledWith("$game_declarations$", "", FS.FS_ListFiles);
     expect(free).toHaveBeenCalledTimes(1);
   });
 
@@ -79,6 +81,32 @@ describe("declaration module discovery", () => {
 
     expect(discoverDeclarationModules()).toEqualLuaArrays([]);
     expect(fs.file_list_open).not.toHaveBeenCalled();
+  });
+
+  it("registers runtime declarations alias when it is missing", () => {
+    const fs: MockFileSystem = MockFileSystem.getInstance();
+
+    fs.path_exist.mockReturnValueOnce(false);
+
+    discoverDeclarationModules();
+
+    expect(fs.path_exist).toHaveBeenCalledWith("$game_declarations$");
+    expect(fs.append_path).toHaveBeenCalledWith(
+      "$game_declarations$",
+      fs.update_path(roots.gameData, ""),
+      "declarations\\",
+      true
+    );
+  });
+
+  it("does not re-register declarations alias when it already exists", () => {
+    const fs: MockFileSystem = MockFileSystem.getInstance();
+
+    fs.path_exist.mockReturnValueOnce(true);
+
+    discoverDeclarationModules();
+
+    expect(fs.append_path).not.toHaveBeenCalled();
   });
 
   it("frees the native list if enumeration fails", () => {
@@ -90,7 +118,7 @@ describe("declaration module discovery", () => {
       throw new Error("enumeration failed");
     };
 
-    fs.setMock(roots.gameData, "declarations\\", true);
+    fs.setMock("$game_declarations$", "", true);
     fs.file_list_open.mockReturnValue(list);
 
     expect(() => discoverDeclarationModules()).toThrow("enumeration failed");
