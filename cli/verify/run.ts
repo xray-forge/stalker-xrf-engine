@@ -16,7 +16,7 @@ export function setupVerifyCommands(command: Command): void {
 
   verifyCommand
     .command("gamedata")
-    .description("verify gamedata integrity")
+    .description("verify assembled target gamedata integrity")
     .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
     .action(verifyGamedata);
 
