@@ -17,13 +17,13 @@ export function setupVerifyCommands(command: Command): void {
   verifyCommand
     .command("gamedata")
     .description("verify assembled target gamedata integrity")
+    .addOption(new Option("-s, --strict", "Fully validate expensive asset payloads").default(false))
     .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
     .action(verifyGamedata);
 
   verifyCommand
     .command("ltx")
     .description("verify ltx projects integrity and types")
-    .addOption(new Option("-s, --strict", "Run ltx checker in strict mode").default(false))
     .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
     .action(verifyLtx);
 

@@ -23,7 +23,7 @@ List of arguments:
 - `ltx` - verify project ltx files
 - `particles` - verify project particles files
 
-- `-s, --strict` - perform `strict` check where all sections should have defined schemes
+- `-s, --strict` - fully validate expensive asset payloads
 - `-v, --verbose` - perform check in verbose logging mode
 - `-s, --silent` - perform check in silent logging mode
 
@@ -31,4 +31,5 @@ List of arguments:
 
 - `npm run cli verify project`
 - `npm run cli verify ltx`
-- `npm run cli verify ltx -- -s -v`
+- `npm run cli verify ltx -- -v`
+- `npm run cli verify gamedata -- -s`

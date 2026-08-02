@@ -9,6 +9,7 @@ import { TimeTracker } from "#/utils/timing";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface IVerifyGamedataParameters {
+  strict?: boolean;
   verbose?: boolean;
 }
 
@@ -25,6 +26,10 @@ export async function verifyGamedata(parameters: IVerifyGamedataParameters = {})
   const timeTracker: TimeTracker = new TimeTracker().start();
 
   const args: Array<string> = ["verify-gamedata", TARGET_GAME_DATA_DIR];
+
+  if (parameters.strict) {
+    args.push("-s");
+  }
 
   if (parameters.verbose) {
     args.push("-v");

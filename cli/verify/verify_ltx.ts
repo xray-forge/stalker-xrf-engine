@@ -9,7 +9,6 @@ import { TimeTracker } from "#/utils/timing";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface IVerifyLtxParameters {
-  strict?: boolean;
   verbose?: boolean;
 }
 
@@ -25,8 +24,8 @@ export async function verifyLtx(parameters: IVerifyLtxParameters = {}): Promise<
   const timeTracker: TimeTracker = new TimeTracker().start();
 
   const command: string = `${XRF_UTILS_PATH} verify-ltx -p ${GAME_DATA_LTX_CONFIGS_DIR} ${
-    parameters.strict ? "-s " : ""
-  }${parameters.verbose ? "-v " : ""}`;
+    parameters.verbose ? "-v " : ""
+  }`;
 
   log.info("Execute:", blue(command));
   cp.execSync(command, { stdio: "inherit" });

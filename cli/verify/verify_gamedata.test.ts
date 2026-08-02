@@ -31,6 +31,14 @@ describe("verifyGamedata", () => {
     });
   });
 
+  it("should enable strict validator output", async () => {
+    await verifyGamedata({ strict: true });
+
+    expect(cp.execFileSync).toHaveBeenCalledWith(XRF_UTILS_PATH, ["verify-gamedata", TARGET_GAME_DATA_DIR, "-s"], {
+      stdio: "inherit",
+    });
+  });
+
   it("should propagate validator failures", async () => {
     replaceFunctionMock(cp.execFileSync, () => {
       throw new Error("verification failed");
