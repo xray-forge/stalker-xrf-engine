@@ -54,10 +54,10 @@ function link(name: Optional<string>, data: string, descriptor?: Optional<ILtxFi
   if (descriptor === null) {
     return key + comment;
   } else if (descriptor?.meta?.isBinding) {
-    return (key ? `${key} ${data}` : data) + comment;
+    return (key ? `${key}${data ? ` ${data}` : ""}` : data) + comment;
   }
 
-  return (key ? `${name} = ${data}` : data) + comment;
+  return (key ? `${name} =${data ? ` ${data}` : ""}` : data) + comment;
 }
 
 /**

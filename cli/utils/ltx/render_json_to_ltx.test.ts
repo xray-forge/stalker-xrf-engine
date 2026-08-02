@@ -21,10 +21,17 @@ import {
 import { addInfo, callEffect, checkHasInfo, checkNoCondition, checkNoInfo } from "#/utils/ltx/condlist";
 
 const NOW: string = "Sun May 28 2023 19:25:38 GMT+0300 (Eastern European Summer Time)";
-const HEADER: string = `; test.ltx @ generated ${NOW}\n`;
+const LTX_EOL: string = "\r\n";
+
+function withLtxLineEndings(value: string): string {
+  return value.replaceAll("\n", LTX_EOL);
+}
+
+const HEADER_LF: string = `; test.ltx @ generated ${NOW}\n`;
+const HEADER: string = withLtxLineEndings(HEADER_LF);
 
 const EMPTY: string = HEADER;
-const SIMPLE: string = `${HEADER}
+const SIMPLE: string = withLtxLineEndings(`${HEADER_LF}
 #include "a.ltx"
 #include "b\\c.ltx"
 #include "d.ltx"
@@ -77,7 +84,7 @@ c\\d
 first = {+abc -def} test %=abc(p1:p2) +some_info%
 second = {+ab} false, true
 third = {!cd(p1)} nil
-`;
+`);
 
 describe("render_json_to_ltx utility should transform correctly", () => {
   beforeAll(() => {
@@ -89,13 +96,17 @@ describe("render_json_to_ltx utility should transform correctly", () => {
   });
 
   it("renderLtxImports should render imports to valid ini", () => {
-    expect(renderLtxImports(["a.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(`
+    expect(renderLtxImports(["a.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(
+      withLtxLineEndings(`
 #include "a.ltx"
-`);
-    expect(renderLtxImports(["b.ltx", "c.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(`
+`)
+    );
+    expect(renderLtxImports(["b.ltx", "c.ltx"] as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toBe(
+      withLtxLineEndings(`
 #include "b.ltx"
 #include "c.ltx"
-`);
+`)
+    );
     expect(() => renderLtxImports({} as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();
     expect(() => renderLtxImports("test" as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();
     expect(() => renderLtxImports(null as unknown as Record<string, ILtxFieldDescriptor<unknown>>)).toThrow();

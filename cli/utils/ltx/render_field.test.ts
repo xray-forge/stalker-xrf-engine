@@ -29,8 +29,8 @@ describe("render_field function", () => {
   });
 
   it("should correctly generate string fields", () => {
-    expect(renderField("test", newStringField(""))).toBe("test = ");
-    expect(renderField("test", newStringField("", { comment }))).toBe(`test =  ; ${comment}`);
+    expect(renderField("test", newStringField(""))).toBe("test =");
+    expect(renderField("test", newStringField("", { comment }))).toBe(`test = ; ${comment}`);
     expect(renderField("test", newStringField("abcdef"))).toBe("test = abcdef");
     expect(renderField("test", newStringField("abcdef", { comment }))).toBe(`test = abcdef ; ${comment}`);
     expect(renderField("test", newStringField("abcdef", { comment, isBinding: true }))).toBe(
