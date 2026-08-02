@@ -28,11 +28,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind dialogs pripyat");
 
 /**
- * Declare globals object.
- */
-extern("dialogs_pripyat", {});
-
-/**
  * Transfer the PKM machine gun reward from Zulus to the actor.
  *
  * @param firstSpeaker - One of the dialog speakers, actor or NPC.

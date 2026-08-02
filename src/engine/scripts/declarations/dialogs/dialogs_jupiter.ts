@@ -50,11 +50,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind dialogs jupiter");
 
 /**
- * Declare globals object.
- */
-extern("dialogs_jupiter", {});
-
-/**
  * Reward the actor for the b208 burer hunt with money and treasure coordinates.
  *
  * @param _ - Actor participating in the dialog, unused.

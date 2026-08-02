@@ -1,7 +1,3 @@
-import { extern } from "xray16/lib";
-
-extern("xr_effects", {});
-
 require("@/engine/scripts/declarations/effects/actor");
 require("@/engine/scripts/declarations/effects/game");
 require("@/engine/scripts/declarations/effects/object");

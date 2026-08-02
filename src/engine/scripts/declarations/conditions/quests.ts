@@ -23,7 +23,7 @@ import { type AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 
 /**
  * Check if b29 quest detect that anomalies have artefacts.

@@ -1,7 +1,3 @@
-import { extern } from "xray16/lib";
-
-extern("xr_conditions", {});
-
 require("@/engine/scripts/declarations/conditions/actor");
 require("@/engine/scripts/declarations/conditions/game");
 require("@/engine/scripts/declarations/conditions/object");

@@ -4,7 +4,7 @@ import { extern, Nillable, TLabel, TSection, TStringId } from "xray16/lib";
 import { infoPortions } from "@/engine/constants/info_portions";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 
 /**
  * Get correct title for zat_b29 treasure hunters quest.

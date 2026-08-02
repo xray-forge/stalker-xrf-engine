@@ -1,5 +1,3 @@
 # [XRF](../../../..) / SRC / ENGINE / SCRIPTS / DECLARATIONS
 
-Place to link scripts code and x-ray engine or configs.
-
-### todo;
+Declaration modules expose TypeScript functions to the X-Ray engine and game configs through `extern`.

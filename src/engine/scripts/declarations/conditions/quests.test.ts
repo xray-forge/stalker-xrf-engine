@@ -16,10 +16,11 @@ import {
   registry,
 } from "@/engine/core/database";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 import { callXrCondition, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 beforeAll(() => {
+  require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
   require("@/engine/scripts/declarations/conditions/quests");
 });
 

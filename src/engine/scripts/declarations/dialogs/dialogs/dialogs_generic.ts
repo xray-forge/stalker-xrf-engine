@@ -18,11 +18,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind dialogs generic");
 
 /**
- * Declare globals object.
- */
-extern("dialogs", {});
-
-/**
  * Break dialog for two participating objects.
  */
 extern("dialogs.break_dialog", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {

@@ -53,7 +53,7 @@ import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/co
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
-import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

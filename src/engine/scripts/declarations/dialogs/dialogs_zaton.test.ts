@@ -31,7 +31,7 @@ import {
   zatB29AfTable,
   zatB29InfopBringTable,
   zatB29InfopTable,
-} from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
+} from "@/engine/scripts/quests/zaton/zat_b29/advanced_artefacts_data";
 import { callBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 function callDialogsBinding<T = boolean>(name: TName, args: AnyArgs = []): T {
@@ -150,6 +150,8 @@ jest.mock("@/engine/core/utils/reward");
 beforeAll(() => {
   require("@/engine/scripts/declarations/effects/game");
   require("@/engine/scripts/declarations/dialogs/dialogs_zaton");
+  require("@/engine/scripts/declarations/dialogs/zaton/zat_b29/advanced_artefacts");
+  require("@/engine/scripts/declarations/dialogs/zaton/zat_b29/advanced_artefacts_variants");
 });
 
 beforeEach(() => {
