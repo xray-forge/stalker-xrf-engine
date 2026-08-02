@@ -1,0 +1,13 @@
+require("@/engine/declarations/conditions/relation/is_factions_enemies");
+require("@/engine/declarations/conditions/relation/is_factions_neutrals");
+require("@/engine/declarations/conditions/relation/is_factions_friends");
+require("@/engine/declarations/conditions/relation/is_faction_enemy_to_actor");
+require("@/engine/declarations/conditions/relation/is_faction_friend_to_actor");
+require("@/engine/declarations/conditions/relation/is_faction_neutral_to_actor");
+require("@/engine/declarations/conditions/relation/is_squad_friend_to_actor");
+require("@/engine/declarations/conditions/relation/is_squad_enemy_to_actor");
+require("@/engine/declarations/conditions/relation/fighting_actor");
+require("@/engine/declarations/conditions/relation/actor_enemy");
+require("@/engine/declarations/conditions/relation/actor_friend");
+require("@/engine/declarations/conditions/relation/actor_neutral");
+require("@/engine/declarations/conditions/relation/npc_community");

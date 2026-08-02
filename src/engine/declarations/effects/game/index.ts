@@ -1,0 +1,16 @@
+require("@/engine/declarations/effects/game/inc_counter");
+require("@/engine/declarations/effects/game/dec_counter");
+require("@/engine/declarations/effects/game/set_counter");
+require("@/engine/declarations/effects/game/game_disconnect");
+require("@/engine/declarations/effects/game/game_over");
+require("@/engine/declarations/effects/game/after_credits");
+require("@/engine/declarations/effects/game/before_credits");
+require("@/engine/declarations/effects/game/game_credits");
+require("@/engine/declarations/effects/game/on_tutor_gameover_stop");
+require("@/engine/declarations/effects/game/on_tutor_gameover_quickload");
+require("@/engine/declarations/effects/game/stop_tutorial");
+require("@/engine/declarations/effects/game/scenario_autosave");
+require("@/engine/declarations/effects/game/mech_discount");
+require("@/engine/declarations/effects/game/upgrade_hint");
+require("@/engine/declarations/effects/game/add_cs_text");
+require("@/engine/declarations/effects/game/del_cs_text");

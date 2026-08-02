@@ -31,12 +31,12 @@ describe("declaration module discovery", () => {
     fs.setMock(roots.gameData, "declarations\\", false);
   });
 
-  it("filters infrastructure scripts and normalizes module IDs", () => {
-    expect(isDeclarationPayload("effects.world.script")).toBe(true);
-    expect(isDeclarationPayload("effects.index.script")).toBe(false);
+  it("filters non-payload scripts and normalizes module IDs", () => {
+    expect(isDeclarationPayload("effects.world.is_rain.script")).toBe(true);
+    expect(isDeclarationPayload("effects.world.index.script")).toBe(false);
     expect(isDeclarationPayload("index.script")).toBe(false);
-    expect(isDeclarationPayload("roots.script")).toBe(false);
-    expect(isDeclarationPayload("generated_loader.script")).toBe(false);
+    expect(isDeclarationPayload("effects.actor.shared.script")).toBe(false);
+    expect(isDeclarationPayload("shared.script")).toBe(false);
     expect(isDeclarationPayload("effects.world.test.script")).toBe(false);
     expect(isDeclarationPayload("effects.world.spec.script")).toBe(false);
     expect(isDeclarationPayload("effects.world.script.map")).toBe(false);
@@ -54,10 +54,11 @@ describe("declaration module discovery", () => {
     fs.file_list_open.mockReturnValue(
       mockNativeFileList(
         [
-          "effects\\world.script",
-          "conditions\\index.script",
+          "effects\\world\\is_rain.script",
+          "conditions\\object\\index.script",
           "dialogs/zaton/zat_b29/advanced_artefacts.script",
-          "generated_loader.script",
+          "effects/actor/shared.script",
+          "effects/world.test.script",
           "README.md",
           "callbacks\\actor.script",
         ],
@@ -68,7 +69,7 @@ describe("declaration module discovery", () => {
     expect(discoverDeclarationModules()).toEqualLuaArrays([
       "declarations.callbacks.actor",
       "declarations.dialogs.zaton.zat_b29.advanced_artefacts",
-      "declarations.effects.world",
+      "declarations.effects.world.is_rain",
     ]);
     expect(fs.file_list_open).toHaveBeenCalledWith(roots.gameData, "declarations\\", FS.FS_ListFiles);
     expect(free).toHaveBeenCalledTimes(1);
@@ -84,7 +85,7 @@ describe("declaration module discovery", () => {
   it("frees the native list if enumeration fails", () => {
     const fs: MockFileSystem = MockFileSystem.getInstance();
     const free: jest.Mock = jest.fn();
-    const list: MockFileSystemList = mockNativeFileList(["effects\\world.script"], free);
+    const list: MockFileSystemList = mockNativeFileList(["effects\\world\\is_rain.script"], free);
 
     list.GetAt = (): ReturnType<FSFileList["GetAt"]> => {
       throw new Error("enumeration failed");

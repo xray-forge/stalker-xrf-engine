@@ -23,10 +23,8 @@ export function isDeclarationPayload(path: TPath): boolean {
   return (
     withoutExtension !== "index" &&
     string.sub(withoutExtension, -string.len(".index")) !== ".index" &&
-    withoutExtension !== "roots" &&
-    string.sub(withoutExtension, -string.len(".roots")) !== ".roots" &&
-    withoutExtension !== "generated_loader" &&
-    string.sub(withoutExtension, -string.len(".generated_loader")) !== ".generated_loader" &&
+    withoutExtension !== "shared" &&
+    string.sub(withoutExtension, -string.len(".shared")) !== ".shared" &&
     string.sub(withoutExtension, -string.len(".test")) !== ".test" &&
     string.sub(withoutExtension, -string.len(".spec")) !== ".spec"
   );
