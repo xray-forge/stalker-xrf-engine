@@ -13,6 +13,7 @@ import {
 import { infoPortions } from "@/engine/constants/info_portions";
 import { nimbleWeapons } from "@/engine/constants/items/weapons";
 import { levels } from "@/engine/constants/levels";
+import { storyIds } from "@/engine/constants/story_ids";
 import {
   getPortableStoreValue,
   getServerObjectByStoryId,
@@ -38,7 +39,7 @@ const BANDITS_SQUAD_STORY_ID: TName = "zat_b52_port_bandits";
 const JUPITER_SNAG_STORY_ID: TName = "jup_b202_stalker_snag";
 const YANOV_TECH_STORY_ID: TName = "jup_b217_stalker_tech";
 const JUPITER_BANDIT_STORY_ID: TName = "jup_b202_bandit";
-const ACTOR_STASH_STORY_ID: TName = "jup_b202_actor_treasure";
+const ACTOR_STASH_STORY_ID: TName = storyIds.jup_b202_actor_treasure;
 
 const FIND_SNAG_TITLE: TLabel = "zat_b52_reputation_find_snag_name";
 const PDA_DESCRIPTION: TLabel = "zat_b52_reputation_find_snag_text_5";

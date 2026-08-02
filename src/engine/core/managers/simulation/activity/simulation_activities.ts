@@ -4,7 +4,7 @@ import { $fromObject, $isNotNil } from "xray16/macros";
 
 import { communities, TCommunity } from "@/engine/constants/communities";
 import { infoPortions } from "@/engine/constants/info_portions";
-import { storyNames } from "@/engine/constants/story_names";
+import { smartTerrainNames } from "@/engine/constants/smart_terrain_names";
 import { registry } from "@/engine/core/database";
 import {
   simulationPreconditionAlways,
@@ -63,7 +63,8 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
           isInTimeInterval(21, 8) &&
           !surgeConfig.IS_STARTED &&
           !isAnySquadMemberEnemyToActor(squad) &&
-          (terrainName === storyNames.zat_stalker_base_smart || terrainName === storyNames.jup_a10_smart_terrain)
+          (terrainName === smartTerrainNames.zat_stalker_base_smart ||
+            terrainName === smartTerrainNames.jup_a10_smart_terrain)
         );
       },
       territory: () => isInTimeInterval(8, 21) && !surgeConfig.IS_STARTED,
@@ -93,9 +94,9 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         isInTimeInterval(19, 8) &&
         !surgeConfig.IS_STARTED &&
         !isAnySquadMemberEnemyToActor(squad) &&
-        (target.name() === storyNames.zat_stalker_base_smart ||
-          target.name() === storyNames.jup_a6 ||
-          target.name() === storyNames.pri_a16),
+        (target.name() === smartTerrainNames.zat_stalker_base_smart ||
+          target.name() === smartTerrainNames.jup_a6 ||
+          target.name() === smartTerrainNames.pri_a16),
       territory: () => isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
       resource: null,
@@ -112,9 +113,9 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
         isInTimeInterval(19, 8) &&
         !surgeConfig.IS_STARTED &&
         !isAnySquadMemberEnemyToActor(squad) &&
-        (target.name() === storyNames.zat_stalker_base_smart ||
-          target.name() === storyNames.jup_a6 ||
-          target.name() === storyNames.pri_a16),
+        (target.name() === smartTerrainNames.zat_stalker_base_smart ||
+          target.name() === smartTerrainNames.jup_a6 ||
+          target.name() === smartTerrainNames.pri_a16),
       territory: () => isInTimeInterval(8, 19) && !surgeConfig.IS_STARTED,
       surge: simulationPreconditionSurge,
       resource: null,

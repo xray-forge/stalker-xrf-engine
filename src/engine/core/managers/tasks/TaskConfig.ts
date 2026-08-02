@@ -4,7 +4,7 @@ import { TName, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { levels } from "@/engine/constants/levels";
-import { storyNames } from "@/engine/constants/story_names";
+import { storyIds } from "@/engine/constants/story_ids";
 import { readIniSectionsAsSet } from "@/engine/core/ini";
 import type { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 
@@ -13,16 +13,16 @@ export const TASK_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\task_man
 // todo: move to config
 export const GUIDERS_BY_LEVEL: LuaTable<TName, LuaTable<TName, TStringId>> = $fromObject({
   [levels.zaton]: $fromObject({
-    [levels.jupiter]: storyNames.zat_b215_stalker_guide_zaton,
-    [levels.pripyat]: storyNames.zat_b215_stalker_guide_zaton,
+    [levels.jupiter]: storyIds.zat_b215_stalker_guide_zaton,
+    [levels.pripyat]: storyIds.zat_b215_stalker_guide_zaton,
   }),
   [levels.jupiter]: $fromObject({
-    [levels.zaton]: storyNames.zat_b215_stalker_guide_jupiter,
-    [levels.pripyat]: storyNames.jup_b43_stalker_assistant,
+    [levels.zaton]: storyIds.zat_b215_stalker_guide_jupiter,
+    [levels.pripyat]: storyIds.jup_b43_stalker_assistant,
   }),
   [levels.pripyat]: $fromObject({
-    [levels.zaton]: storyNames.jup_b43_stalker_assistant_pri,
-    [levels.jupiter]: storyNames.jup_b43_stalker_assistant_pri,
+    [levels.zaton]: storyIds.jup_b43_stalker_assistant_pri,
+    [levels.jupiter]: storyIds.jup_b43_stalker_assistant_pri,
   }),
 } as Record<TName, LuaTable<TName, TName>>);
 

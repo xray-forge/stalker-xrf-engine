@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import { levels } from "@/engine/constants/levels";
-import { storyNames } from "@/engine/constants/story_names";
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerStoryLink } from "@/engine/core/database";
 import { addGuiderSpot, removeGuiderSpot } from "@/engine/core/managers/tasks/utils/tasks_generic";
 import { resetRegistry } from "@/fixtures/engine";
@@ -16,7 +16,7 @@ describe("addGuiderSpot", () => {
   });
 
   it("should replace the opposite spot with the configured guider mark", () => {
-    registerStoryLink(100, storyNames.zat_b215_stalker_guide_zaton);
+    registerStoryLink(100, storyIds.zat_b215_stalker_guide_zaton);
 
     addGuiderSpot(levels.zaton, levels.jupiter, true);
 
@@ -33,7 +33,7 @@ describe("removeGuiderSpot", () => {
   });
 
   it("should remove both possible spots from every registered guider on the level", () => {
-    registerStoryLink(100, storyNames.zat_b215_stalker_guide_zaton);
+    registerStoryLink(100, storyIds.zat_b215_stalker_guide_zaton);
 
     removeGuiderSpot(levels.zaton);
 

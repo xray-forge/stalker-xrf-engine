@@ -4,6 +4,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { resetFunctionMock } from "xray16/testing/utils";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerObject, registerStoryLink } from "@/engine/core/database";
 import { updateSleepZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_sleep";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -20,8 +21,8 @@ describe("updateSleepZonesDisplay", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    registerStoryLink(first.id(), "zat_a2_sr_sleep_id");
-    registerStoryLink(second.id(), "jup_a6_sr_sleep_id");
+    registerStoryLink(first.id(), storyIds.zat_a2_sr_sleep_id);
+    registerStoryLink(second.id(), storyIds.jup_a6_sr_sleep_id);
 
     registerObject(first);
     registerObject(second);

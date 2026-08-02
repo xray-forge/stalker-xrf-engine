@@ -3,6 +3,7 @@ import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerStoryLink } from "@/engine/core/database";
 import { callXrEffect, resetRegistry } from "@/fixtures/engine";
 
@@ -21,7 +22,7 @@ describe("jup_b202_inventory_box_relocate", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    registerStoryLink(from.id(), "jup_b202_actor_treasure");
+    registerStoryLink(from.id(), storyIds.jup_b202_actor_treasure);
     registerStoryLink(to.id(), "jup_b202_snag_treasure");
     replaceFunctionMock(from.iterate_inventory_box, (callback) => {
       callback(from, first);

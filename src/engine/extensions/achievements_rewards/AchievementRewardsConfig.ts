@@ -5,7 +5,7 @@ import { $fromArray } from "xray16/macros";
 import { TInventoryItem } from "@/engine/constants/items";
 import { ammo } from "@/engine/constants/items/ammo";
 import { drugs } from "@/engine/constants/items/drugs";
-import { storyNames } from "@/engine/constants/story_names";
+import { storyIds } from "@/engine/constants/story_ids";
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 
 export const achievementRewardsConfig = {
@@ -16,8 +16,8 @@ export const achievementRewardsConfig = {
    * For seeker require at least 22 unique artefacts to be found.
    */
   REWARD_BOXES: {
-    JUPITER: storyNames.jup_b202_actor_treasure,
-    ZATON: storyNames.zat_a2_actor_treasure,
+    JUPITER: storyIds.jup_b202_actor_treasure,
+    ZATON: storyIds.zat_a2_actor_treasure,
   },
   REWARD_ITEMS: {
     [EAchievement.MUTANT_HUNTER]: $fromArray<TInventoryItem>([

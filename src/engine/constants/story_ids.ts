@@ -1,18 +1,14 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * Lust of story names declared in configs for simpler usage.
+ * Story identifiers used to resolve objects through the story-object registry.
  *
  * @virtual
  */
-export const storyNames = {
-  actor_surge_hide_2: "actor_surge_hide_2",
-  jup_a10_smart_terrain: "jup_a10_smart_terrain",
+export const storyIds = {
   jup_a10_spot: "jup_a10_spot",
   jup_a12_spot: "jup_a12_spot",
-  jup_a6: "jup_a6",
   jup_a6_spot: "jup_a6_spot",
-  jup_a6_sr_sleep: "jup_a6_sr_sleep",
   jup_a6_sr_sleep_id: "jup_a6_sr_sleep_id",
   jup_a9_spot: "jup_a9_spot",
   jup_b19_spot: "jup_b19_spot",
@@ -29,17 +25,13 @@ export const storyNames = {
   jup_b212_spot: "jup_b212_spot",
   jup_b25_spot: "jup_b25_spot",
   jup_b32_spot: "jup_b32_spot",
-  jup_b41: "jup_b41",
   jup_b43_stalker_assistant: "jup_b43_stalker_assistant",
   jup_b43_stalker_assistant_pri: "jup_b43_stalker_assistant_pri",
   jup_b46_spot: "jup_b46_spot",
   jup_b6_spot: "jup_b6_spot",
   jup_b9_spot: "jup_b9_spot",
-  pri_a15_door: "pri_a15_door",
-  pri_a16: "pri_a16",
   pri_a16_military_squad: "pri_a16_military_squad",
   pri_a16_spot: "pri_a16_spot",
-  pri_a16_sr_sleep: "pri_a16_sr_sleep",
   pri_a16_sr_sleep_id: "pri_a16_sr_sleep_id",
   pri_a17_spot: "pri_a17_spot",
   pri_a18_spot: "pri_a18_spot",
@@ -54,7 +46,6 @@ export const storyNames = {
   pri_b36_spot: "pri_b36_spot",
   zat_a2_actor_treasure: "zat_a2_actor_treasure",
   zat_a2_spot: "zat_a2_spot",
-  zat_a2_sr_sleep: "zat_a2_sr_sleep",
   zat_a2_sr_sleep_id: "zat_a2_sr_sleep_id",
   zat_b100_spot: "zat_b100_spot",
   zat_b101_spot: "zat_b101_spot",
@@ -79,9 +70,8 @@ export const storyNames = {
   zat_b56_spot: "zat_b56_spot",
   zat_b5_spot: "zat_b5_spot",
   zat_b7_spot: "zat_b7_spot",
-  zat_stalker_base_smart: "zat_stalker_base_smart",
 } as const;
 
-export type TStoryNames = typeof storyNames;
+export type TStoryIds = typeof storyIds;
 
-export type TStoryName = TStoryNames[keyof TStoryNames];
+export type TStoryId = TStoryIds[keyof TStoryIds];

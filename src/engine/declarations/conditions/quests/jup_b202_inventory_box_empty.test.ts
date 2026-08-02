@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import { storyNames } from "@/engine/constants/story_names";
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerObject, registerStoryLink } from "@/engine/core/database";
 import { callXrCondition } from "@/fixtures/engine";
 
@@ -19,7 +19,7 @@ describe("jup_b202_inventory_box_empty", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
-    registerStoryLink(object.id(), storyNames.jup_b202_actor_treasure);
+    registerStoryLink(object.id(), storyIds.jup_b202_actor_treasure);
 
     jest.spyOn(object, "is_inv_box_empty").mockImplementation(() => true);
     expect(callXrCondition("jup_b202_inventory_box_empty", MockGameObject.mockActor(), MockGameObject.mock())).toBe(

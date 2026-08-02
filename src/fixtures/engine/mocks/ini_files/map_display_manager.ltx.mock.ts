@@ -1,5 +1,5 @@
 import { infoPortions } from "@/engine/constants/info_portions";
-import { storyNames } from "@/engine/constants/story_names";
+import { storyIds } from "@/engine/constants/story_ids";
 
 export const mockMapDisplayManager = {
   config: {
@@ -9,14 +9,14 @@ export const mockMapDisplayManager = {
     distance_to_display: 75,
   },
   sleep_spots: {
-    zat_a2_sr_sleep_id: "st_ui_pda_sleep_place",
-    jup_a6_sr_sleep_id: "st_ui_pda_sleep_place",
-    pri_a16_sr_sleep_id: "st_ui_pda_sleep_place",
+    [storyIds.zat_a2_sr_sleep_id]: "st_ui_pda_sleep_place",
+    [storyIds.jup_a6_sr_sleep_id]: "st_ui_pda_sleep_place",
+    [storyIds.pri_a16_sr_sleep_id]: "st_ui_pda_sleep_place",
   },
   map_spots: {
-    zat_b55_spot: "st_zat_b55_name",
-    jup_b1_spot: "st_jup_b1_name",
-    pri_a28_spot: "st_pri_a28_name",
+    [storyIds.zat_b55_spot]: "st_zat_b55_name",
+    [storyIds.jup_b1_spot]: "st_jup_b1_name",
+    [storyIds.pri_a28_spot]: "st_pri_a28_name",
   },
 
   map_marks: ["trader", "mechanic", "guider", "quest_npc", "medic"],
@@ -43,13 +43,13 @@ export const mockMapDisplayManager = {
   },
   scanner_spots: ["scanner_jup_b32", "scanner_jup_b201"],
   scanner_jup_b32: {
-    target: storyNames.jup_b32_spot,
+    target: storyIds.jup_b32_spot,
     hint: "st_jup_b32_name",
     zone: "jup_b32_anomal_zone",
     group: infoPortions.jup_b32_scanner_1_placed,
   },
   scanner_jup_b201: {
-    target: storyNames.jup_b201_spot,
+    target: storyIds.jup_b201_spot,
     hint: "st_jup_b201_name",
     zone: "jup_b201_anomal_zone",
     group: infoPortions.jup_b32_scanner_2_placed,

@@ -1,6 +1,7 @@
 import { GameObject } from "xray16/alias";
 import { abort, extern, LuaArray, Nillable } from "xray16/lib";
 
+import { storyIds } from "@/engine/constants/story_ids";
 import { getObjectByStoryId } from "@/engine/core/database";
 
 /**
@@ -10,7 +11,7 @@ import { getObjectByStoryId } from "@/engine/core/database";
  * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
-  const inventoryBoxOut: Nillable<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
+  const inventoryBoxOut: Nillable<GameObject> = getObjectByStoryId(storyIds.jup_b202_actor_treasure);
   const inventoryBoxIn: Nillable<GameObject> = getObjectByStoryId("jup_b202_snag_treasure");
   const itemsToRelocate: LuaArray<GameObject> = new LuaTable();
 

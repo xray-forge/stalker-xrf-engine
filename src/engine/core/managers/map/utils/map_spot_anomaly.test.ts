@@ -6,6 +6,7 @@ import { MockGameObject } from "xray16/mocks";
 import { replaceFunctionMock, replaceFunctionMockOnce } from "xray16/testing/utils";
 
 import { infoPortions } from "@/engine/constants/info_portions";
+import { storyIds } from "@/engine/constants/story_ids";
 import { registerStoryLink } from "@/engine/core/database";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_anomaly";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
@@ -23,7 +24,7 @@ describe("updateAnomalyZonesDisplay", () => {
   it("should correctly update objects if info portion is available", () => {
     const object: GameObject = MockGameObject.mock();
 
-    registerStoryLink(object.id(), "jup_b32_spot");
+    registerStoryLink(object.id(), storyIds.jup_b32_spot);
     mockRegisteredActor();
 
     jest.spyOn(level, "map_has_object_spot").mockImplementation(() => 1);
@@ -58,7 +59,7 @@ describe("updateAnomalyZonesDisplay", () => {
   it("should correctly update label based on available artefacts in anomaly", () => {
     const object: GameObject = MockGameObject.mock();
 
-    registerStoryLink(object.id(), "jup_b32_spot");
+    registerStoryLink(object.id(), storyIds.jup_b32_spot);
     mockRegisteredActor();
     giveInfoPortion(infoPortions.jup_b32_scanner_1_placed);
     giveInfoPortion(infoPortions.jup_b32_scanner_reward);

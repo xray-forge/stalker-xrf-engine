@@ -2,7 +2,7 @@ import type { AlifeSimulator, GameObject, IniFile, ZoneCampfire } from "xray16/a
 import type { Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
-import { storyNames, TStoryName } from "@/engine/constants/story_names";
+import { smartTerrainNames, TSmartTerrainName } from "@/engine/constants/smart_terrain_names";
 import type { CampController } from "@/engine/core/ai/camp";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -248,29 +248,29 @@ export const registry = {
   /**
    * Map of no assault zones.
    * - key is name of no assault zone
-   * - value is story name of smart terrain.
+   * - value is name of the smart terrain.
    */
-  noCombatZones: $fromObject<TName, TStoryName>({
-    ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,
-    ["jup_a6_sr_no_assault"]: storyNames.jup_a6,
-    ["jup_b41_sr_no_assault"]: storyNames.jup_b41,
+  noCombatZones: $fromObject<TName, TSmartTerrainName>({
+    ["zat_a2_sr_no_assault"]: smartTerrainNames.zat_stalker_base_smart,
+    ["jup_a6_sr_no_assault"]: smartTerrainNames.jup_a6,
+    ["jup_b41_sr_no_assault"]: smartTerrainNames.jup_b41,
   }),
   /**
    * Set of terrains where combat is disabled.
    */
   noCombatSmartTerrains: $fromObject<TName, boolean>({
-    [storyNames.zat_stalker_base_smart]: true,
-    [storyNames.jup_b41]: true,
-    [storyNames.jup_a6]: true,
-    [storyNames.pri_a16]: true,
+    [smartTerrainNames.zat_stalker_base_smart]: true,
+    [smartTerrainNames.jup_b41]: true,
+    [smartTerrainNames.jup_a6]: true,
+    [smartTerrainNames.pri_a16]: true,
   }),
   /**
    * Set of terrains defined as stalker bases.
    */
   baseSmartTerrains: $fromObject<TName, boolean>({
-    [storyNames.zat_stalker_base_smart]: true,
-    [storyNames.jup_a6]: true,
-    [storyNames.pri_a16]: true,
+    [smartTerrainNames.zat_stalker_base_smart]: true,
+    [smartTerrainNames.jup_a6]: true,
+    [smartTerrainNames.pri_a16]: true,
   }),
   /**
    * List of extensions details loaded additionally to the game engine.

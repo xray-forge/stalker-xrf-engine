@@ -2,7 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { GameObject } from "xray16/alias";
 import { MockGameObject } from "xray16/mocks";
 
-import { storyNames } from "@/engine/constants/story_names";
+import { zoneNames } from "@/engine/constants/zone_names";
 import { getManager, registerZone } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { callXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -27,8 +27,8 @@ describe("sleep", () => {
 
     expect(manager.showSleepDialog).not.toHaveBeenCalled();
 
-    const first: GameObject = MockGameObject.mock({ name: storyNames.zat_a2_sr_sleep });
-    const second: GameObject = MockGameObject.mock({ name: storyNames.pri_a16_sr_sleep });
+    const first: GameObject = MockGameObject.mock({ name: zoneNames.zat_a2_sr_sleep });
+    const second: GameObject = MockGameObject.mock({ name: zoneNames.pri_a16_sr_sleep });
 
     jest.spyOn(first, "inside").mockImplementation(() => false);
     jest.spyOn(second, "inside").mockImplementation(() => true);

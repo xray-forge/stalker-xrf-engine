@@ -3,7 +3,7 @@ import { abort, LuaArray, Nillable, TIndex, TName } from "xray16/lib";
 import { $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
 import { infoPortions } from "@/engine/constants/info_portions";
-import { storyNames } from "@/engine/constants/story_names";
+import { objectNames } from "@/engine/constants/object_names";
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { parseStringsList } from "@/engine/core/ini";
@@ -142,7 +142,7 @@ const cutscene: Record<
       actor: {
         a: "pri_a15_igrok_cam4",
         f1: () => {
-          registry.doors.get(storyNames.pri_a15_door).startAnimation(true);
+          registry.doors.get(objectNames.pri_a15_door).startAnimation(true);
         },
         f: () => {
           registry.actor.give_info_portion(infoPortions.pri_a15_lights_off);
