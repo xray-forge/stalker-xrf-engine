@@ -420,7 +420,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.arrivingObjects = new LuaTable();
 
-    for (const it of $range(1, count)) {
+    for (const _ of $range(1, count)) {
       const id: TNumberId = packet.r_u16();
 
       // Will be updated with init.
@@ -430,7 +430,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     count = packet.r_u8();
     this.objectJobDescriptors = new LuaTable();
 
-    for (const it of $range(1, count)) {
+    for (const _ of $range(1, count)) {
       const id: TNumberId = packet.r_u16();
       const jobDescriptor: IObjectJobState = {} as IObjectJobState;
 

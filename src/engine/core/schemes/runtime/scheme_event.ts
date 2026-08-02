@@ -19,7 +19,7 @@ export function emitSchemeEvent(state: IBaseSchemeState, event: ESchemeEvent, ..
     return;
   }
 
-  for (const [actionHandler, isHandlerActive] of state.actions) {
+  for (const [actionHandler, _isHandlerActive] of state.actions) {
     if (actionHandler[event]) {
       (actionHandler[event] as AnyContextualCallable).apply(actionHandler, rest);
     }

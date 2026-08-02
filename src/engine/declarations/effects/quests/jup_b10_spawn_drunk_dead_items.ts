@@ -78,7 +78,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
           abort("There is no such object %s", params[0]);
         }
 
-        for (const i of $range(1, v)) {
+        for (const _i of $range(1, v)) {
           registry.simulator.create(k, createEmptyVector(), 0, 0, targetObjectId);
         }
       } else {
@@ -87,7 +87,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
     }
   } else {
     for (const [k, v] of itemsAll) {
-      for (const i of $range(1, v)) {
+      for (const _ of $range(1, v)) {
         registry.simulator.create(k, object.position(), object.level_vertex_id(), object.game_vertex_id(), object.id());
       }
     }

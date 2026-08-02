@@ -148,7 +148,8 @@ function checkSale(name: TName, section: TSection, reward: TCount, soldInfo?: TI
 jest.mock("@/engine/core/utils/reward");
 
 beforeAll(() => {
-  require("@/engine/declarations/effects/game");
+  require("@/engine/declarations/effects/game/set_counter");
+  require("@/engine/declarations/effects/game/dec_counter");
   require("@/engine/declarations/dialogs/dialogs_zaton");
   require("@/engine/declarations/dialogs/zaton/zat_b29/advanced_artefacts");
   require("@/engine/declarations/dialogs/zaton/zat_b29/advanced_artefacts_variants");

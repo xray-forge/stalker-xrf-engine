@@ -21,11 +21,17 @@ describe("extrnals_registrator entry point", () => {
 
     jest.mocked(discoverDeclarationModules).mockReturnValue($fromArray(["declarations.callbacks.actor"]));
     jest.mocked(loadDeclarationModules).mockImplementation(() => {
-      require("@/engine/declarations/callbacks");
-      require("@/engine/declarations/conditions");
-      require("@/engine/declarations/effects");
-      require("@/engine/declarations/tasks");
-      require("@/engine/declarations/dialogs");
+      require("@/engine/declarations/callbacks/actor");
+      require("@/engine/declarations/callbacks/custom");
+      require("@/engine/declarations/conditions/static/always");
+      require("@/engine/declarations/dialogs/dialog_manager");
+      require("@/engine/declarations/dialogs/dialogs/dialogs_generic");
+      require("@/engine/declarations/dialogs/dialogs_jupiter");
+      require("@/engine/declarations/dialogs/dialogs_pripyat");
+      require("@/engine/declarations/dialogs/dialogs_zaton");
+      require("@/engine/declarations/dialogs/zaton/zat_b29/advanced_artefacts");
+      require("@/engine/declarations/effects/game/inc_counter");
+      require("@/engine/declarations/tasks/task_functors");
     });
 
     expect(getExtern("areExternalsRegistered")).toBeFalsy();
@@ -52,6 +58,15 @@ describe("extrnals_registrator entry point", () => {
     expect(getExtern("dialogs_jupiter")).not.toBe(vanillaPlaceholder);
     expect(getExtern("dialogs_pripyat")).not.toBe(vanillaPlaceholder);
     expect(getExtern("dialogs_zaton")).not.toBe(vanillaPlaceholder);
+    expect(getExtern("on_start_sleeping", getExtern("engine"))).toBeDefined();
+    expect(getExtern("condlist", getExtern("task_functors"))).toBeDefined();
+    expect(getExtern("always", getExtern("xr_conditions"))).toBeDefined();
+    expect(getExtern("inc_counter", getExtern("xr_effects"))).toBeDefined();
+    expect(getExtern("break_dialog", getExtern("dialogs"))).toBeDefined();
+    expect(getExtern("init_new_dialog", getExtern("dialog_manager"))).toBeDefined();
+    expect(getExtern("pri_b301_zulus_reward", getExtern("dialogs_pripyat"))).toBeDefined();
+    expect(getExtern("jup_b208_give_reward", getExtern("dialogs_jupiter"))).toBeDefined();
+    expect(getExtern("zat_b30_owl_stalker_trader_actor_has_item_to_sell", getExtern("dialogs_zaton"))).toBeDefined();
     expect(getExtern("zat_b29_create_af_in_anomaly", getExtern("dialogs_zaton"))).toBeDefined();
     expect(getExtern("zat_b29_actor_exchange", getExtern("dialogs_zaton"))).toBeDefined();
 

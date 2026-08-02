@@ -158,7 +158,8 @@ describe("ReleaseBodyManager", () => {
     const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
     const item: GameObject = MockGameObject.mock({ section: "keep_item_section" });
     const object: GameObject = MockGameObject.mock();
-    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id(), alive: false });
+
+    MockAlifeHumanStalker.mock({ id: object.id(), alive: false });
 
     registerObject(object);
     manager.registerCorpse(object);

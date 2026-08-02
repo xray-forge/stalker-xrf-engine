@@ -13,7 +13,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("TaskManager", () => {
   beforeAll(() => {
-    require("@/engine/declarations/tasks");
+    require("@/engine/declarations/tasks/task_functors");
   });
 
   beforeEach(() => {
@@ -26,6 +26,7 @@ describe("TaskManager", () => {
     const manager: TaskManager = getManager(TaskManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    expect(manager).toBeInstanceOf(TaskManager);
     expect(table.size(taskConfig.ACTIVE_TASKS)).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(2);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);

@@ -22,7 +22,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object:
     table.insert(itemsToRelocate, item);
   }, inventoryBoxOut);
 
-  for (const [k, v] of itemsToRelocate) {
+  for (const [_k, v] of itemsToRelocate) {
     inventoryBoxOut.transfer_item(v, inventoryBoxIn);
   }
 });

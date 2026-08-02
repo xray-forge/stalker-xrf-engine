@@ -634,8 +634,8 @@ const cutscene: Record<
 function check_availability(precondition: LuaArray<string>, existing_npc: string): boolean {
   const check_names = parseStringsList(existing_npc);
 
-  for (const [k, v] of precondition) {
-    for (const [kk, vv] of check_names) {
+  for (const [_k, v] of precondition) {
+    for (const [_kk, vv] of check_names) {
       if (v === vv) {
         return true;
       }

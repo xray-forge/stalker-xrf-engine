@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { get_hud, time_global } from "xray16";
-import { GameObject, IniFile } from "xray16/alias";
+import { GameObject } from "xray16/alias";
 import { AnyObject, TName, TSection } from "xray16/lib";
 import { MockFileSystem, MockGameObject, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";

@@ -145,7 +145,7 @@ export function transferItemsToActor(from: GameObject, itemSection: TSection, co
   }
 
   if (remaining !== 0) {
-    for (const it of $range(1, remaining)) {
+    for (const _ of $range(1, remaining)) {
       registry.simulator.create(
         itemSection,
         actor.position(),

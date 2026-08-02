@@ -1,5 +1,5 @@
 import { hit, patrol } from "xray16";
-import { GameObject, Hit } from "xray16/alias";
+import { GameObject } from "xray16/alias";
 import { extern, Nillable, subVectors } from "xray16/lib";
 
 import { getObjectByStoryId } from "@/engine/core/database";

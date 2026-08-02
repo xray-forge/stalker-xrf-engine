@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
-import { AnyObject, TRUE } from "xray16/lib";
+import { AnyObject } from "xray16/lib";
 import { resetFunctionMock } from "xray16/testing/utils";
 
 import * as database from "@/engine/core/database";

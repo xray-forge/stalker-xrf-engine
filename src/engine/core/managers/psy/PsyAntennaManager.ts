@@ -369,7 +369,7 @@ export class PsyAntennaManager extends AbstractManager {
 
     this.postprocess = new LuaTable();
 
-    for (const it of $range(1, this.postprocessCount)) {
+    for (const _ of $range(1, this.postprocessCount)) {
       const k: string = reader.r_stringZ();
       const ii: number = reader.r_float();
       const ib: number = reader.r_float();

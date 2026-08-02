@@ -21,8 +21,6 @@ export function isDeclarationPayload(path: TPath): boolean {
   const withoutExtension: TPath = string.sub(path, 1, -string.len(SCRIPT_EXTENSION) - 1);
 
   return (
-    withoutExtension !== "index" &&
-    string.sub(withoutExtension, -string.len(".index")) !== ".index" &&
     withoutExtension !== "shared" &&
     string.sub(withoutExtension, -string.len(".shared")) !== ".shared" &&
     string.sub(withoutExtension, -string.len(".test")) !== ".test" &&

@@ -22,6 +22,7 @@ describe("ActorInventoryMenuManager", () => {
     const manager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
 
     expect(actorConfig.ACTOR_MENU_MODE).toBe(EActorMenuMode.UNDEFINED);
+    expect(manager).toBeInstanceOf(ActorInventoryMenuManager);
 
     // Quick slots init.
     expect(console.execute).toHaveBeenCalledTimes(4);

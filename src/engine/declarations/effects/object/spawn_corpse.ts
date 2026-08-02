@@ -5,8 +5,6 @@ import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 
-import { logger } from "./shared";
-
 /**
  * Spawn corpse of provided section.
  * Spawn location is based on provided patrol name and patrol index.

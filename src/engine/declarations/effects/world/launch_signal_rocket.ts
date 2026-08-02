@@ -1,4 +1,3 @@
-import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { abort, extern, Nillable, TName } from "xray16/lib";
 

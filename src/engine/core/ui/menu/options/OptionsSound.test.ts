@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
-import { CScriptXmlInit, CUIScriptWnd } from "xray16";
-import { MockCScriptXmlInit, MockCUIScriptWnd } from "xray16/mocks";
+import { CScriptXmlInit } from "xray16";
+import { MockCScriptXmlInit } from "xray16/mocks";
 
 import { OptionsSound } from "@/engine/core/ui/menu/options/OptionsSound";
 
@@ -12,7 +12,6 @@ describe("OptionsSound", () => {
   });
 
   it("should correctly initialize", () => {
-    const owner: CUIScriptWnd = MockCUIScriptWnd.mock();
     const sound: OptionsSound = new OptionsSound();
     const xml: CScriptXmlInit = MockCScriptXmlInit.mock();
 

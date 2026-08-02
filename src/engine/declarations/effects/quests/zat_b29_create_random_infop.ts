@@ -38,7 +38,7 @@ extern(
       amountNeeded = totalInfop;
     }
 
-    for (const it of $range(1, amountNeeded)) {
+    for (const _ of $range(1, amountNeeded)) {
       currentInfop = math.random(1, totalInfop);
       for (const [k, v] of parameters) {
         if (k > 1) {

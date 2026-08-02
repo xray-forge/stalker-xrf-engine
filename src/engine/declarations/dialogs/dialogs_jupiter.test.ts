@@ -114,7 +114,8 @@ jest.mock("@/engine/core/utils/relation");
 jest.mock("@/engine/core/utils/position");
 
 beforeAll(() => {
-  require("@/engine/declarations/effects/game");
+  require("@/engine/declarations/effects/game/inc_counter");
+  require("@/engine/declarations/effects/game/dec_counter");
   require("@/engine/declarations/dialogs/dialogs_jupiter");
 });
 

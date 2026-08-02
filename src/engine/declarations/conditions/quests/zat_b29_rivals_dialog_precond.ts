@@ -43,7 +43,7 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object
     return false;
   }
 
-  for (const [k, v] of zonesList) {
+  for (const [_k, v] of zonesList) {
     if (isObjectInZone(object, registry.zones.get(v))) {
       return true;
     }

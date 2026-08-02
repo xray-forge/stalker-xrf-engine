@@ -27,7 +27,7 @@ describe("UpgradesManager", () => {
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
 
-    const manager: UpgradesManager = getManager(UpgradesManager);
+    getManager(UpgradesManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);

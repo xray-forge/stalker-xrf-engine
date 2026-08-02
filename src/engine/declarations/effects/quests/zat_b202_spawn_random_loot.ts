@@ -73,7 +73,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
       prap = true;
       n = math.random(1, weightList.length());
 
-      for (const [k, v] of spawnedItems) {
+      for (const [_k, v] of spawnedItems) {
         if (v === n) {
           prap = false;
           break;

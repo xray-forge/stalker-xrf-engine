@@ -226,7 +226,7 @@ describe("updateSquadIdRelationToActor", () => {
     expect(() => updateSquadIdRelationToActor(55, ERelation.ENEMY)).toThrow();
     expect(() => updateSquadIdRelationToActor("test", ERelation.ENEMY)).toThrow();
 
-    const { neutralSquad, mixedSquad, enemy } = mockRelationsSquads();
+    const { neutralSquad, mixedSquad } = mockRelationsSquads();
 
     updateSquadIdRelationToActor(neutralSquad.id, ERelation.FRIEND);
 
@@ -258,7 +258,7 @@ describe("setSquadRelationToActor", () => {
     expect(() => updateSquadIdRelationToActor(55, ERelation.ENEMY)).toThrow();
     expect(() => updateSquadIdRelationToActor("test", ERelation.ENEMY)).toThrow();
 
-    const { neutralSquad, mixedSquad, enemy } = mockRelationsSquads();
+    const { neutralSquad, mixedSquad } = mockRelationsSquads();
 
     setSquadRelationToActor(neutralSquad, ERelation.FRIEND);
 

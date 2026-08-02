@@ -52,7 +52,7 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObj
     const objectId: TStringId = index === 1 || index === 3 ? "jup_b202_stalker_snag" : "jup_b202_snag_treasure";
 
     if (!hasInfoPortion(infoPortion)) {
-      for (const [it, itemSection] of rewardItems.get(index)) {
+      for (const [_, itemSection] of rewardItems.get(index)) {
         spawnObjectInObject(tostring(itemSection), getObjectIdByStoryId(tostring(objectId)));
       }
     }

@@ -998,7 +998,7 @@ const jupA12AfTable: LuaArray<TArtefact> = $fromArray<TArtefact>([
  * @returns Whether the actor has a ransom artefact.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefacts", (_: GameObject, __: GameObject): boolean => {
-  for (const [k, v] of jupA12AfTable) {
+  for (const [_k, v] of jupA12AfTable) {
     if ($isNotNil(registry.actor.object(v))) {
       return true;
     }
@@ -1061,7 +1061,7 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefact_4", (_: GameObject, __: GameO
 extern("dialogs_jupiter.jup_a12_actor_do_not_has_artefacts", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
 
-  for (const [k, v] of jupA12AfTable) {
+  for (const [_k, v] of jupA12AfTable) {
     if ($isNotNil(actor.object(v))) {
       return false;
     }
@@ -2190,7 +2190,7 @@ extern("dialogs_jupiter.jup_b47_jupiter_docs_enabled", (_: GameObject, __: GameO
 
   let a: boolean = false;
 
-  for (const [k, v] of itemsTable) {
+  for (const [_k, v] of itemsTable) {
     if ($isNotNil(actor.object(v))) {
       a = true;
       break;

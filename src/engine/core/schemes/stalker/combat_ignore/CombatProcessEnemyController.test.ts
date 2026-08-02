@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { GameObject, ServerCreatureObject } from "xray16/alias";
+import { GameObject } from "xray16/alias";
 import { ACTOR_ID, AnyObject, MAX_ALIFE_ID, ZERO_VECTOR } from "xray16/lib";
 import { MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";

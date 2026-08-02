@@ -21,7 +21,7 @@ import { getObjectTerrain } from "@/engine/core/utils/position";
 const STATE_INITIAL: number = 0;
 const STATE_ANIMATION: number = 1;
 const STATE_SOUND: number = 2;
-const STATE_FINISH: number = 3;
+const _STATE_FINISH: number = 3;
 
 /**
  * Action playing the remark scheme activity for a stalker: an animation followed by an optional sound,

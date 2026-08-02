@@ -5,7 +5,7 @@ import { MockGameObject, MockIniFile } from "xray16/mocks";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { registerObject } from "@/engine/core/database";
 import { getConfigSwitchConditions } from "@/engine/core/ini";
 import { loadSchemeImplementation } from "@/engine/core/schemes/runtime";
 import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions";
@@ -111,7 +111,9 @@ describe("SchemeAnimpoint", () => {
 
   it("should handle add actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const objectState: IRegistryObjectState = registerObject(object);
+
+    registerObject(object);
+
     const state: ISchemeAnimpointState = mockSchemeState(EScheme.ANIMPOINT);
 
     SchemeAnimpoint.add(object, MockIniFile.mock("test.ltx", {}), EScheme.ANIMPOINT, "patrol@test", state);

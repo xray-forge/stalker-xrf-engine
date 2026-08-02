@@ -159,7 +159,7 @@ export class StoryPlaybackController {
     } else if (nextPhraseDescriptor.who === ESoundStoryParticipant.REACTION_ALL) {
       let objectId: Nillable<TNumberId> = null;
 
-      for (const [index, descriptor] of this.objects) {
+      for (const [_index, descriptor] of this.objects) {
         if (descriptor.objectId !== this.storyteller) {
           getManager(SoundManager).play(descriptor.objectId, nextPhraseDescriptor.theme);
           objectId = descriptor.objectId;

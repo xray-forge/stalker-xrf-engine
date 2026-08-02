@@ -1,4 +1,4 @@
-import { game, level } from "xray16";
+import { level } from "xray16";
 import { GameObject } from "xray16/alias";
 import {
   ACTOR_ID,
@@ -11,10 +11,8 @@ import {
   Nillable,
   TCount,
   TIndex,
-  TName,
   TNumberId,
   TSection,
-  TStringId,
 } from "xray16/lib";
 import { $filename, $fromArray, $fromObject, $isNil, $isNotNil } from "xray16/macros";
 
@@ -99,7 +97,7 @@ extern(
 
     const actor: GameObject = registry.actor;
 
-    for (const [k, v] of itemsTable) {
+    for (const [_k, v] of itemsTable) {
       if ($isNotNil(actor.object(v))) {
         if (v === detectors.detector_scientific && !hasInfoPortion(infoPortions.zat_b30_second_detector)) {
           // --
@@ -691,7 +689,7 @@ extern("dialogs_zaton.zat_b103_transfer_merc_supplies", (firstSpeaker: GameObjec
   const newsManager: NotificationManager = getManager(NotificationManager);
   const itemSections: LuaArray<TFoodItem> = $fromArray<TFoodItem>([food.conserva, food.kolbasa, food.bread]);
 
-  for (const [k, section] of itemSections) {
+  for (const [_k, section] of itemSections) {
     const j: TCount = it;
 
     actor.iterate_inventory((temp, item) => {
@@ -1436,7 +1434,7 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeake
     if (hasInfoPortion(categoryInfoPortions.processing)) {
       for (const j of $range(1, zatB51BuyItemTable.get(it).length())) {
         if (hasInfoPortion(categoryInfoPortions.ordered.get(j))) {
-          for (const [k, v] of zatB51BuyItemTable.get(it).get(j).item) {
+          for (const [_k, v] of zatB51BuyItemTable.get(it).get(j).item) {
             transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
           }
 
@@ -2498,8 +2496,8 @@ extern(
 
     let count: TCount = 0;
 
-    for (const [k, itemSection] of itemSections) {
-      registry.actor.iterate_inventory((temp, item) => {
+    for (const [_, itemSection] of itemSections) {
+      registry.actor.iterate_inventory((_temp, item) => {
         if (item.section() === itemSection) {
           count = count + 1;
         }

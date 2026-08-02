@@ -428,7 +428,7 @@ extern("dialogs_pripyat.pri_b305_sell_strelok_notes", (firstSpeaker: GameObject,
 
   let amount: number = 0;
 
-  for (const [k, v] of itemsTable) {
+  for (const [_k, v] of itemsTable) {
     if ($isNotNil(actor.object(v))) {
       transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), v);
       amount = amount + 1;

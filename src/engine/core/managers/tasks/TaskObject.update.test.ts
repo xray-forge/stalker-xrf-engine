@@ -26,8 +26,9 @@ describe("TaskObject update and lifecycle", () => {
     registerActor(MockGameObject.mock());
 
     // Condlists of the sample tasks resolve through registered externs, which the registry reset drops.
-    require("@/engine/declarations/tasks");
-    require("@/engine/declarations/conditions");
+    require("@/engine/declarations/tasks/task_functors");
+    require("@/engine/declarations/conditions/world/surge_complete");
+    require("@/engine/declarations/conditions/actor/actor_alive");
 
     resetFunctionMock(addGuiderSpot);
     resetFunctionMock(removeGuiderSpot);

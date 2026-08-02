@@ -24,7 +24,7 @@ export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
   object.iterate_inventory((owner: GameObject, item: GameObject): void => {
     const section: TSection = item.section();
 
-    for (const [k, v] of wpnTable) {
+    for (const [_k, v] of wpnTable) {
       if (section === v) {
         table.insert(actorWpnTable, v);
         break;

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level, time_global } from "xray16";
+import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MockGameObject, MockNetProcessor, MockVector } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, get_hud, level, time_global } from "xray16";
-import { GameObject, XmlInit } from "xray16/alias";
+import { GameObject } from "xray16/alias";
 import { ACTOR, AnyObject, NIL, TTimestamp } from "xray16/lib";
 import { MockAlifeSimulator, MockGameObject, MockVector } from "xray16/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "xray16/testing/utils";

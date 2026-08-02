@@ -1,7 +1,7 @@
 import { LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject } from "xray16/alias";
 import { Nillable, TDuration } from "xray16/lib";
-import { $filename, $isNotNil } from "xray16/macros";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

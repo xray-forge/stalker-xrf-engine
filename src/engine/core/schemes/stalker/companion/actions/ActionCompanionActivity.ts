@@ -8,25 +8,25 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion";
 
 const BEH_WALK_SIMPLE = 0;
-const BEH_WALK_NEAR = 1;
-const BEH_WALK_IGNORE = 2;
+const _BEH_WALK_NEAR = 1;
+const _BEH_WALK_IGNORE = 2;
 const BEH_WAIT_SIMPLE = 3;
-const BEH_WAIT_NEAR = 4;
-const BEH_WAIT_IGNORE = 5;
+const _BEH_WAIT_NEAR = 4;
+const _BEH_WAIT_IGNORE = 5;
 
-const MT_STAND = 0;
-const MT_WALK = 1;
-const MT_RUN = 2;
-const MT_SPRINT = 3;
+const _MT_STAND = 0;
+const _MT_WALK = 1;
+const _MT_RUN = 2;
+const _MT_SPRINT = 3;
 
 const DESIRED_DISTANCE = 1;
-const MIN_DISTANCE = 1;
+const _MIN_DISTANCE = 1;
 const KEEP_STATE_MIN_TIME = 1000;
 
 const DIST_WALK = 4;
 const DIST_RUN = 20;
 
-const SOUND_WAIT = "weather,state";
+const _SOUND_WAIT = "weather,state";
 
 /**
  * Action implementing companion activity, making the object follow and assist the actor.

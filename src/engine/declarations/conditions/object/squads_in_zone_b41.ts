@@ -28,7 +28,7 @@ extern("xr_conditions.squads_in_zone_b41", (): boolean => {
     return false;
   }
 
-  for (const [k, v] of getSimulationTerrainDescriptorById(terrain.id)!.assignedSquads) {
+  for (const [_k, v] of getSimulationTerrainDescriptorById(terrain.id)!.assignedSquads) {
     if ($isNotNil(v)) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {

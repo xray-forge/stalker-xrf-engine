@@ -33,8 +33,8 @@ describe("declaration module discovery", () => {
 
   it("filters non-payload scripts and normalizes module IDs", () => {
     expect(isDeclarationPayload("effects.world.is_rain.script")).toBe(true);
-    expect(isDeclarationPayload("effects.world.index.script")).toBe(false);
-    expect(isDeclarationPayload("index.script")).toBe(false);
+    expect(isDeclarationPayload("effects.world.index.script")).toBe(true);
+    expect(isDeclarationPayload("index.script")).toBe(true);
     expect(isDeclarationPayload("effects.actor.shared.script")).toBe(false);
     expect(isDeclarationPayload("shared.script")).toBe(false);
     expect(isDeclarationPayload("effects.world.test.script")).toBe(false);
@@ -55,7 +55,6 @@ describe("declaration module discovery", () => {
       mockNativeFileList(
         [
           "effects\\world\\is_rain.script",
-          "conditions\\object\\index.script",
           "dialogs/zaton/zat_b29/advanced_artefacts.script",
           "effects/actor/shared.script",
           "effects/world.test.script",

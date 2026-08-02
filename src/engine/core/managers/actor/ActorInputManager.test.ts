@@ -23,7 +23,8 @@ describe("ActorInputManager", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const manager: ActorInputManager = getManager(ActorInputManager);
+    getManager(ActorInputManager);
+
     const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(5);

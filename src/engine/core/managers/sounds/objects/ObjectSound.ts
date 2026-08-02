@@ -6,14 +6,12 @@ import {
   LuaArray,
   NIL,
   Nillable,
-  StringNillable,
   TCount,
   TDuration,
   TIndex,
   TNumberId,
   TPath,
   TSection,
-  TStringId,
   TTimestamp,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";

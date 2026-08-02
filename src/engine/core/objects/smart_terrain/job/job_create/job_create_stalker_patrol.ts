@@ -39,7 +39,7 @@ export function createStalkerPatrolJobs(
       jobCount = waypointData.count as TCount;
     }
 
-    for (const i of $range(1, jobCount)) {
+    for (const _i of $range(1, jobCount)) {
       table.insert(jobs, {
         type: EJobType.PATROL,
         isMonsterJob: false,

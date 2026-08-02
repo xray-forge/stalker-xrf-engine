@@ -1,7 +1,6 @@
 import { GameObject } from "xray16/alias";
 import { assert, extern, Nillable, TDuration, TRate, TStringId, Y_VECTOR } from "xray16/lib";
 
-import { weapons } from "@/engine/constants/items/weapons";
 import { getObjectByStoryId } from "@/engine/core/database";
 
 /**

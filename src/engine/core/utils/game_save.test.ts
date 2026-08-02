@@ -165,7 +165,6 @@ describe("saveDynamicGameSave", () => {
   });
 
   it("should correctly create dynamic file saves", () => {
-    const console: Console = MockConsole.getInstanceMock();
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));

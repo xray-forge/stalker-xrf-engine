@@ -8,7 +8,6 @@ import {
   TLabel,
   TName,
   TNotCastedBoolean,
-  TNumberId,
   TRate,
   TSection,
 } from "xray16/lib";

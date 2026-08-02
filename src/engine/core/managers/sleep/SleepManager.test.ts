@@ -35,7 +35,8 @@ describe("SleepManager", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const manager: SleepManager = getManager(SleepManager);
+    getManager(SleepManager);
+
     const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(1);
