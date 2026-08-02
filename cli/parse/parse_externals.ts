@@ -5,10 +5,10 @@ import { yellowBright } from "chalk";
 
 import { GAME_DATA_DECLARATIONS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
+import { getExternModuleName } from "#/parse/utils/get_extern_module_name";
 import { renderExternals } from "#/parse/utils/render_externals";
 import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
 import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
-import { getPathParentFolder } from "#/utils/fs/get_path_parent_folder";
 import { readDirContent } from "#/utils/fs/read_dir_content";
 import { NodeLogger } from "#/utils/logging";
 import { TFolderFiles } from "#/utils/types";
@@ -34,9 +34,13 @@ export async function parseExternals(): Promise<void> {
   const content: string = renderJsxToXmlText(
     renderExternals(
       docs.reduce((acc: Record<string, Array<IExternFunction>>, it: IExternFileDescriptor) => {
-        const moduleName: string = getPathParentFolder(it.file);
+        const fallbackModuleName: string = path.relative(targetDir, it.file).split(path.sep)[0];
 
-        acc[moduleName] = [...(acc[moduleName] ?? []), ...it.extern] as Array<IExternFunction>;
+        it.extern.forEach((external: IExternFunction) => {
+          const moduleName: string = getExternModuleName(external.name, fallbackModuleName);
+
+          acc[moduleName] = [...(acc[moduleName] ?? []), external];
+        });
 
         return acc;
       }, {})
