@@ -9,11 +9,11 @@ export function create(): JSXNode {
       <main_wnd x={"0"} y={"0"} width={"1024"} height={"768"} update_delay={"2900"} />
 
       <background x={"35"} y={"89"} width={"955"} height={"620"} vertical={"1"}>
-        <texture>ui_pda2_fr</texture>
+        <texture>ui_inGame2_pda_buttons_background</texture>
       </background>
 
       <center_background x={"35"} y={"340"} width={"955"} height={"103"}>
-        <texture>ui_pda2_fr_delimiter_fraction</texture>
+        <texture>ui_inGame2_pda_buttons_background</texture>
       </center_background>
 
       <target_static x={"320"} y={"93"} width={"390"} height={"16"}>

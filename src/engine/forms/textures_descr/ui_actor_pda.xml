@@ -14,6 +14,7 @@
     <texture id="ui_inGame2_pda_buttons_background_rt" x="76" y="29" width="20" height="19"/>
     <texture id="ui_inGame2_pda_buttons_background_r" x="241" y="38" width="20" height="11"/>
     <texture id="ui_inGame2_pda_buttons_background_rb" x="76" y="52" width="20" height="11"/>
+    <texture id="ui_inGame2_pda_buttons_background_e" x="20" y="52" width="56" height="11"/>
 
     <texture id="ui_inGame2_pda_buttons_leftside_b" x="197" y="1" width="3" height="27"/>
     <texture id="ui_inGame2_pda_buttons_leftside_back" x="200" y="1" width="10" height="27"/>
