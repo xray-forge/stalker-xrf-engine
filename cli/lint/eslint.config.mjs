@@ -5,6 +5,7 @@ import jestPlugin from "eslint-plugin-jest";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import reactPlugin from "eslint-plugin-react";
 import sortKeysFixPlugin from "eslint-plugin-sort-keys-fix";
+import unusedImportsPlugin from "eslint-plugin-unused-imports";
 import globals from "globals";
 import tsPlugin from "typescript-eslint";
 
@@ -37,6 +38,7 @@ export default [
     },
     plugins: {
       "sort-keys-fix": sortKeysFixPlugin,
+      "unused-imports": unusedImportsPlugin,
     },
     rules: {
       "@typescript-eslint/no-require-imports": "off",
@@ -51,6 +53,16 @@ export default [
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "error",
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "none",
+          reportUsedIgnorePattern: true,
+        },
+      ],
       "jsdoc/check-tag-names": ["warn", { definedTags: ["inline", "virtual"] }],
       "jsdoc/tag-lines": [
         "error",
@@ -152,6 +164,12 @@ export default [
       "react/jsx-key": "off",
       "react/no-unknown-property": "off",
       "react/react-in-jsx-scope": "off",
+    },
+  },
+  {
+    files: ["**/*.tsx"],
+    rules: {
+      "unused-imports/no-unused-imports": ["error", { vars: "all", varsIgnorePattern: "^JSXXML$" }],
     },
   },
   {

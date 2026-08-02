@@ -59,8 +59,8 @@ export class EventsManager extends AbstractTimersManager {
    * @param event - Type of event to unregister callback.
    * @param callback - Callback to unregister for event.
    */
-  public unregisterCallback<T>(event: EGameEvent, callback: AnyContextualCallable): void;
-  public unregisterCallback<T>(event: EGameEvent, callback: AnyCallable): void {
+  public unregisterCallback(event: EGameEvent, callback: AnyContextualCallable): void;
+  public unregisterCallback(event: EGameEvent, callback: AnyCallable): void {
     this.assertEventIsDeclared(event);
     this.callbacks[event].delete(callback as AnyCallable);
   }
