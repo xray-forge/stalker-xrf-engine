@@ -18,6 +18,7 @@
   "build": {
     "target": "../target",
     "configs": "../src/engine/configs",
+    "declarations": "../src/engine/declarations",
     "scripts": "../src/engine/scripts",
     "translations": "../src/engine/translations",
     "extensions": "../src/engine/extensions",
@@ -32,7 +33,7 @@
   "package": {
     "engine": "gold",
     "rootAssets": [".\\bin\\package\\stalker.exe", ".\\bin\\package\\fsgame.ltx", ".\\bin\\package\\user.ltx"],
-    "gamedata": ["lualib_bundle.script", "xray_bundle.script", "scripts", "core", "extensions"]
+    "gamedata": ["lualib_bundle.script", "xray_bundle.script", "scripts", "core", "declarations", "extensions"]
   },
   "targets": {
     "stalker_game_steam_id": 41700,

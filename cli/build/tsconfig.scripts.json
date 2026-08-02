@@ -11,7 +11,12 @@
       "xray16/lib": ["../../node_modules/xray16/lib/index"]
     }
   },
-  "include": ["../../src/engine/lib", "../../src/engine/scripts", "../../src/engine/extensions"],
+  "include": [
+    "../../src/engine/lib",
+    "../../src/engine/declarations",
+    "../../src/engine/scripts",
+    "../../src/engine/extensions"
+  ],
   "exclude": ["../../**/*.test.ts"],
   "tstl": {
     "buildMode": "default",

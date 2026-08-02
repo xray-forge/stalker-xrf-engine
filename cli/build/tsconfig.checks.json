@@ -6,6 +6,7 @@
   },
   "include": [
     "../../src/engine/lib",
+    "../../src/engine/declarations",
     "../../src/engine/scripts",
     "../../src/engine/extensions",
     "../../src/engine/checks"
