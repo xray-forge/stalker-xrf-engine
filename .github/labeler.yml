@@ -44,6 +44,10 @@ ui:
           - src/engine/forms/**
           - src/engine/core/ui/**
 
+declarations:
+  - changed-files:
+      - any-glob-to-any-file: src/engine/declarations/**
+
 scripts:
   - changed-files:
       - any-glob-to-any-file: src/engine/scripts/**
@@ -55,10 +59,6 @@ translations:
 resources:
   - changed-files:
       - any-glob-to-any-file: src/resources/**
-
-typedefs:
-  - changed-files:
-      - any-glob-to-any-file: src/typedefs/**
 
 dependencies:
   - changed-files:
