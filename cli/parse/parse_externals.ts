@@ -62,7 +62,12 @@ async function getSourcesList(source: string): Promise<Array<string>> {
   function collectList(acc: Array<string>, it: TFolderFiles): Array<string> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectList(acc, nested));
-    } else if (path.extname(it) === ".ts" && !it.endsWith(".test.ts") && !it.endsWith("index.ts")) {
+    } else if (
+      path.extname(it) === ".ts" &&
+      !it.endsWith(".test.ts") &&
+      !it.endsWith(".spec.ts") &&
+      !it.endsWith("shared.ts")
+    ) {
       acc.push(it);
     }
 
