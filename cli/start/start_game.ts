@@ -22,6 +22,7 @@ export interface IStartGameCommandParameters {
   load?: string;
   difficulty?: EGameDifficulty;
   intro?: boolean;
+  flushlog?: boolean;
 }
 
 const START_GAME_ARGUMENTS: ReadonlyArray<string> = ["-dump_bindings"];
@@ -41,6 +42,11 @@ export async function startGame(parameters: IStartGameCommandParameters = {}): P
   const engineApp: string = path.join(bin, "xrEngine.exe");
   const startApp: string = (await exists(engineApp)) ? engineApp : app;
   const startArguments: Array<string> = [...START_GAME_ARGUMENTS];
+
+  // Hard crashes lose the buffered engine log tail, flushing every line keeps it complete at some performance cost.
+  if (parameters.flushlog) {
+    startArguments.push("-force_flushlog");
+  }
 
   if (parameters.new && parameters.load) {
     throw new Error("Cannot start new game and load game save at the same time.");

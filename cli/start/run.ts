@@ -17,5 +17,6 @@ export function setupStartCommands(command: Command): void {
       )
     )
     .addOption(new Option("--ni, --no-intro", "skip intro videos on instant start"))
+    .addOption(new Option("--fl, --flushlog", "flush engine log after every line, useful when diagnosing crashes"))
     .action(startGame);
 }

@@ -44,6 +44,12 @@ describe("startGame", () => {
     expect(cp.spawn).toHaveBeenCalledWith("app-path", ["-dump_bindings"], expect.anything());
   });
 
+  it("should start game executable with log flushing when requested", async () => {
+    await startGame({ flushlog: true });
+
+    expect(cp.spawn).toHaveBeenCalledWith(expect.any(String), ["-dump_bindings", "-force_flushlog"], expect.anything());
+  });
+
   it("should start new game world", async () => {
     await startGame({ new: true });
 
