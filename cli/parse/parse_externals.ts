@@ -6,12 +6,11 @@ import { yellowBright } from "chalk";
 import { GAME_DATA_DECLARATIONS_DIR, TARGET_PARSED_DIR } from "#/globals";
 import { getExternDocs } from "#/parse/utils/get_extern_docs";
 import { getExternModuleName } from "#/parse/utils/get_extern_module_name";
+import { getExternSourceFiles } from "#/parse/utils/get_extern_sources";
 import { renderExternals } from "#/parse/utils/render_externals";
 import { IExternFileDescriptor, IExternFunction } from "#/parse/utils/types";
 import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
-import { readDirContent } from "#/utils/fs/read_dir_content";
 import { NodeLogger } from "#/utils/logging";
-import { TFolderFiles } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = NodeLogger.forFile(__filename);
@@ -25,7 +24,7 @@ export async function parseExternals(): Promise<void> {
 
   log.info("Parsing game externals:", yellowBright(targetDir));
 
-  const filesToParse: Array<string> = await getSourcesList(targetDir);
+  const filesToParse: Array<string> = await getExternSourceFiles(targetDir);
   const docs: Array<IExternFileDescriptor> = getExternDocs(filesToParse);
 
   log.info("Parsed externals for files:", filesToParse.length);
@@ -50,29 +49,4 @@ export async function parseExternals(): Promise<void> {
   createDirIfNoExisting(TARGET_PARSED_DIR);
 
   await fsp.writeFile(targetFilePath, content);
-}
-
-/**
- * @returns Descriptors of files to parse and generate docs.
- */
-async function getSourcesList(source: string): Promise<Array<string>> {
-  /**
-   * Recursively find all files with possible definitions for docs generation.
-   */
-  function collectList(acc: Array<string>, it: TFolderFiles): Array<string> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectList(acc, nested));
-    } else if (
-      path.extname(it) === ".ts" &&
-      !it.endsWith(".test.ts") &&
-      !it.endsWith(".spec.ts") &&
-      !it.endsWith("shared.ts")
-    ) {
-      acc.push(it);
-    }
-
-    return acc;
-  }
-
-  return (await readDirContent(source)).reduce<Array<string>>(collectList, [] as Array<string>);
 }

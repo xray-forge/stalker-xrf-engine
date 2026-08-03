@@ -1,186 +1,319 @@
 import * as fs from "node:fs";
+import * as path from "node:path";
 
 import {
-  ArrayBindingPattern,
-  ArrowFunction,
   CallExpression,
   createSourceFile,
+  createProgram,
+  Expression,
   ExpressionStatement,
-  Identifier,
   isArrowFunction,
+  isCallExpression,
   isExpressionStatement,
+  isIdentifier,
+  isObjectLiteralExpression,
+  isPropertyAssignment,
   isStringLiteral,
   JSDoc,
   JSDocTag,
-  LiteralLikeNode,
-  LiteralTypeNode,
-  NamedDeclaration,
-  NullLiteral,
+  Node,
   ParameterDeclaration,
+  Program,
+  PropertyAssignment,
   ScriptTarget,
+  Signature,
   SourceFile,
-  Statement,
-  SyntaxKind,
-  TupleTypeNode,
-  TypeNode,
-  TypeReferenceNode,
-  UnionTypeNode,
+  TypeChecker,
+  TypeFormatFlags,
 } from "typescript";
 
-import { IExternCallbackParameterDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
+import {
+  IExternCallbackParameterDescriptor,
+  IExternDocumentation,
+  IExternFileDescriptor,
+  IExternFunction,
+} from "#/parse/utils/types";
 import { AnyObject, Optional } from "#/utils/types";
 
-/**
- * Method name used for externals declaration.
- */
 const EXTERN_METHOD_NAME: string = "extern";
 
+interface IExternParserOptions {
+  strict?: boolean;
+}
+
+interface IParsedExternDocumentation {
+  legacy: string;
+  parameters: Record<string, string>;
+  value?: IExternDocumentation;
+}
+
 /**
- * Get list of 'extern' called method metadata.
- * Collects docs/types/description of externalized methods for provided typescript files list.
+ * Get list of extern declarations for the provided TypeScript files.
+ *
+ * @param files - Source files to inspect.
+ * @param options - Parser behavior options.
+ * @returns Parsed callable and value declarations.
  */
-export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor> {
-  return files.map((it: string) => {
-    const sourceFile: SourceFile = createSourceFile(it, fs.readFileSync(it).toString(), ScriptTarget.ESNext);
-    const extern = sourceFile.statements
-      .filter((it: Statement) => {
-        if (!isExpressionStatement(it)) {
-          return false;
-        } else if ((it.expression as AnyObject)?.["expression"]?.escapedText !== EXTERN_METHOD_NAME) {
-          return false;
-        }
+export function getExternDeclarations(
+  files: Array<string>,
+  options: IExternParserOptions = {}
+): Array<IExternFileDescriptor> {
+  const program: Program = createProgram(files, {
+    baseUrl: process.cwd(),
+    moduleResolution: 2,
+    paths: {
+      "#/*": ["cli/*"],
+      "@/*": ["src/*"],
+    },
+    target: ScriptTarget.ESNext,
+  });
+  const checker: TypeChecker = program.getTypeChecker();
 
-        const callExpression: CallExpression = (it as ExpressionStatement).expression as CallExpression;
+  return files.map((file: string) => {
+    const sourceFile: SourceFile =
+      program.getSourceFile(file) ?? createSourceFile(file, fs.readFileSync(file).toString(), ScriptTarget.ESNext);
+    const extern: Array<IExternFunction> = [];
 
-        if (callExpression.arguments.length !== 2) {
-          return false;
-        } else if (callExpression.arguments[0] && !isStringLiteral(callExpression.arguments[0])) {
-          return false;
-        } else if (callExpression.arguments[1] && !isArrowFunction(callExpression.arguments[1])) {
-          return false;
-        }
+    sourceFile.statements.forEach((statement) => {
+      if (!isExpressionStatement(statement) || !isExternCall(statement.expression)) {
+        return;
+      }
 
-        return true;
-      })
-      .map((statement: Statement) => {
-        const callExpression: CallExpression = (statement as ExpressionStatement).expression as CallExpression;
-        const doc: Optional<JSDoc> = (statement as AnyObject)["jsDoc"] && (statement as AnyObject)["jsDoc"][0];
-        const externCallback: ArrowFunction = callExpression.arguments[1] as ArrowFunction;
+      extern.push(
+        ...parseExternCall(statement, checker, options.strict ?? false).map((declaration: IExternFunction) => ({
+          ...declaration,
+          file,
+        }))
+      );
+    });
 
-        const externName: string = (callExpression.arguments[0] as AnyObject)["text"];
-        let docComment: string = doc ? (doc.comment as string) : "";
-        let callbackDescription: Array<IExternCallbackParameterDescriptor> = [];
-
-        if (doc?.tags?.length) {
-          docComment +=
-            "\n\n" +
-            doc.tags
-              .map((it: JSDocTag): string => {
-                const tagName: string = it.tagName.escapedText as string;
-                const itemName: Optional<string> = (it as AnyObject)["name"]
-                  ? (it as AnyObject)["name"].escapedText
-                  : null;
-
-                return `[${tagName}] ${itemName ? itemName + " " : ""}${(it.comment as string) || ""}`;
-              })
-              .join("\n");
-        }
-
-        if (externCallback.parameters?.length) {
-          callbackDescription = externCallback.parameters
-            .map((declaration: ParameterDeclaration) => getCallbackParameterDescriptor(declaration))
-            .filter(Boolean);
-        }
-
-        return { file: it, name: externName, parameters: callbackDescription, doc: docComment };
-      });
-
-    return {
-      file: it,
-      extern: extern,
-    };
+    return { file, extern };
   });
 }
 
 /**
- * Get matching type label for provided AST node.
+ * Get list of externalized methods for the existing documentation renderer.
+ *
+ * @param files - Source files to inspect.
+ * @returns Parsed declaration descriptors.
  */
-function getNodeTypeLabel(node: TypeNode | NullLiteral): string {
-  switch (node.kind) {
-    case SyntaxKind.NumberKeyword:
-      return "number";
-
-    case SyntaxKind.StringKeyword:
-      return "string";
-
-    case SyntaxKind.BooleanKeyword:
-      return "boolean";
-
-    case SyntaxKind.TrueKeyword:
-      return "true";
-
-    case SyntaxKind.FalseKeyword:
-      return "false";
-
-    case SyntaxKind.NullKeyword:
-      return "null";
-
-    case SyntaxKind.NumericLiteral:
-      return (node as unknown as LiteralLikeNode).text;
-
-    case SyntaxKind.StringLiteral:
-      return `"${(node as unknown as LiteralLikeNode).text}"`;
-
-    case SyntaxKind.UnionType:
-      return (node as UnionTypeNode).types.map((it) => getNodeTypeLabel(it)).join(" | ");
-
-    case SyntaxKind.LiteralType:
-      return getNodeTypeLabel((node as LiteralTypeNode).literal as NullLiteral);
-
-    case SyntaxKind.TypeReference:
-      return ((node as TypeReferenceNode).typeName as Identifier)?.escapedText as string;
-
-    case SyntaxKind.TupleType:
-      return `[${(node as TupleTypeNode).elements.map((it) => getNodeTypeLabel(it)).join(", ")}]`;
-
-    case SyntaxKind.UnknownKeyword:
-    default:
-      return "unknown";
-  }
+export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor> {
+  return getExternDeclarations(files).map((descriptor: IExternFileDescriptor) => ({
+    ...descriptor,
+    extern: descriptor.extern
+      .filter((it: IExternFunction) => it.parameters !== undefined)
+      .map(({ documentation: _, returnTypeName: __, parameters, ...it }: IExternFunction): IExternFunction => ({
+        ...it,
+        parameters: parameters?.map(({ doc: ___, ...parameter }: IExternCallbackParameterDescriptor) => parameter),
+      })),
+  }));
 }
 
-/**
- * Get parameter label for provided AST node.
- */
-function getNodeName(node: NamedDeclaration): string {
-  if ((node.name?.kind as SyntaxKind) === SyntaxKind.ArrayBindingPattern) {
-    return `[${(node.name as unknown as ArrayBindingPattern).elements
-      .map((it) => getNodeName(it as unknown as ParameterDeclaration))
-      .join(", ")}]`;
-  } else {
-    return (node.name as AnyObject)?.["escapedText"] as string;
-  }
+function isExternCall(expression: Expression): expression is CallExpression {
+  return (
+    isCallExpression(expression) &&
+    isIdentifier(expression.expression) &&
+    expression.expression.text === EXTERN_METHOD_NAME
+  );
 }
 
-/**
- * Get descriptor of callback parameter AST node.
- */
-function getCallbackParameterDescriptor(parameter: ParameterDeclaration): IExternCallbackParameterDescriptor {
-  switch (parameter.type?.kind) {
-    case SyntaxKind.NumberKeyword:
-    case SyntaxKind.StringKeyword:
-    case SyntaxKind.BooleanKeyword:
-    case SyntaxKind.NullKeyword:
-    case SyntaxKind.TupleType:
-      return {
-        parameterName: getNodeName(parameter),
-        parameterTypeName: getNodeTypeLabel(parameter.type as TypeNode),
-      };
+function parseExternCall(
+  statement: ExpressionStatement,
+  checker: TypeChecker,
+  strict: boolean
+): Array<IExternFunction> {
+  const call: CallExpression = statement.expression as CallExpression;
 
-    default:
-      return {
-        parameterName: getNodeName(parameter),
-        parameterTypeName: ((parameter.type as TypeReferenceNode).typeName as Identifier)?.escapedText as string,
-      };
+  if (call.arguments.length !== 2 || !isStringLiteral(call.arguments[0])) {
+    return failOrSkip(statement, strict, "expected a literal name and one exported value");
   }
+
+  const externName: string = call.arguments[0].text;
+  const value: Expression = call.arguments[1];
+  const documentation: Optional<IParsedExternDocumentation> = getDocumentation(statement);
+
+  if (isArrowFunction(value)) {
+    return [createFunctionDescriptor(externName, value, statement.getSourceFile(), checker, documentation)];
+  }
+
+  if (isObjectLiteralExpression(value)) {
+    return value.properties.flatMap((property) => {
+      if (!isPropertyAssignment(property)) {
+        return failOrSkip(property, strict, "expected an object property assignment");
+      }
+
+      const name: Optional<string> = getPropertyName(property);
+
+      if (!name) {
+        return failOrSkip(property, strict, "expected a literal object property name");
+      }
+
+      const propertyDocumentation: Optional<IParsedExternDocumentation> = getDocumentation(property) ?? documentation;
+
+      return createValueDescriptor(
+        `${externName}.${name}`,
+        property.initializer,
+        statement.getSourceFile(),
+        checker,
+        propertyDocumentation
+      );
+    });
+  }
+
+  return [createValueDescriptor(externName, value, statement.getSourceFile(), checker, documentation)];
+}
+
+function createValueDescriptor(
+  name: string,
+  value: Expression,
+  sourceFile: SourceFile,
+  checker: TypeChecker,
+  documentation: Optional<IParsedExternDocumentation>
+): IExternFunction {
+  const signatures: ReadonlyArray<Signature> = checker.getTypeAtLocation(value).getCallSignatures();
+
+  if (signatures.length > 0) {
+    return createFunctionDescriptor(name, value, sourceFile, checker, documentation, signatures[0]);
+  }
+
+  return {
+    doc: documentation?.legacy ?? "",
+    ...(documentation?.value ? { documentation: documentation.value } : {}),
+    file: sourceFile.fileName,
+    name,
+    typeName: checker.typeToString(checker.getTypeAtLocation(value), value, TypeFormatFlags.NoTruncation),
+  };
+}
+
+function createFunctionDescriptor(
+  name: string,
+  value: Expression,
+  sourceFile: SourceFile,
+  checker: TypeChecker,
+  documentation: Optional<IParsedExternDocumentation>,
+  providedSignature?: Signature
+): IExternFunction {
+  const signature: Optional<Signature> =
+    providedSignature ?? checker.getSignatureFromDeclaration(value as never) ?? null;
+
+  if (!signature) {
+    throw new Error(`Cannot resolve callable extern '${name}' in ${sourceFile.fileName}.`);
+  }
+
+  const declaration: Optional<Node> = signature.getDeclaration();
+  const parameters: Array<IExternCallbackParameterDescriptor> = (declaration as AnyObject)?.parameters
+    ? (declaration as AnyObject).parameters.map((it: ParameterDeclaration) =>
+        getParameterDescriptor(it, sourceFile, checker, documentation?.parameters)
+      )
+    : signature.getParameters().map((symbol) => {
+        const parameterDeclaration: Optional<ParameterDeclaration> =
+          symbol.valueDeclaration as Optional<ParameterDeclaration>;
+
+        if (!parameterDeclaration) {
+          throw new Error(`Cannot resolve parameter for callable extern '${name}' in ${sourceFile.fileName}.`);
+        }
+
+        return getParameterDescriptor(
+          parameterDeclaration,
+          parameterDeclaration.getSourceFile(),
+          checker,
+          documentation?.parameters
+        );
+      });
+  const returnTypeName: string =
+    isArrowFunction(value) && value.type
+      ? value.type.getText(sourceFile)
+      : checker.typeToString(checker.getReturnTypeOfSignature(signature), value, TypeFormatFlags.NoTruncation);
+
+  return {
+    doc: documentation?.legacy ?? "",
+    ...(documentation?.value ? { documentation: documentation.value } : {}),
+    file: sourceFile.fileName,
+    name,
+    parameters,
+    returnTypeName,
+  };
+}
+
+function getPropertyName(property: PropertyAssignment): Optional<string> {
+  return isIdentifier(property.name) || isStringLiteral(property.name) ? property.name.text : null;
+}
+
+function getParameterDescriptor(
+  parameter: ParameterDeclaration,
+  sourceFile: SourceFile,
+  checker: TypeChecker,
+  parameterDocumentation?: Record<string, string>
+): IExternCallbackParameterDescriptor {
+  const name: string = parameter.name.getText(sourceFile);
+  const type: string = parameter.type
+    ? parameter.type.getText(sourceFile)
+    : checker.typeToString(checker.getTypeAtLocation(parameter), parameter, TypeFormatFlags.NoTruncation);
+  const documentation: Optional<string> = parameterDocumentation?.[name] ?? null;
+
+  return {
+    ...(documentation ? { doc: documentation } : {}),
+    ...(parameter.questionToken || parameter.initializer ? { optional: true } : {}),
+    parameterName: name,
+    parameterTypeName: type,
+  };
+}
+
+function getDocumentation(node: Node): Optional<IParsedExternDocumentation> {
+  const jsDoc: Optional<JSDoc> = (node as AnyObject).jsDoc?.[0];
+
+  if (!jsDoc) {
+    return null;
+  }
+
+  const description: Optional<string> = getComment(jsDoc.comment);
+  const parameters: Record<string, string> = {};
+  const tags: Array<JSDocTag> = [...(jsDoc.tags ?? [])];
+  const returns: Optional<string> =
+    tags
+      .filter((tag: JSDocTag) => tag.tagName.text === "returns")
+      .map((tag: JSDocTag) => normalizeDocComment(getComment(tag.comment)))
+      .find(Boolean) ?? null;
+
+  tags.forEach((tag: JSDocTag) => {
+    const name: Optional<string> = (tag as AnyObject).name?.text ?? null;
+    const comment: Optional<string> = normalizeDocComment(getComment(tag.comment));
+
+    if (tag.tagName.text === "param" && name && comment) {
+      parameters[name] = comment;
+    }
+  });
+
+  const legacyTags: Array<string> = tags.map((tag: JSDocTag): string => {
+    const name: Optional<string> = (tag as AnyObject).name?.text ?? null;
+    const comment: Optional<string> = getComment(tag.comment);
+
+    return `[${tag.tagName.text}] ${name ? `${name} ` : ""}${comment ?? ""}`;
+  });
+  const legacy: string = [description, legacyTags.length ? legacyTags.join("\n") : null].filter(Boolean).join("\n\n");
+  const value: Optional<IExternDocumentation> =
+    description || returns ? { ...(description ? { description } : {}), ...(returns ? { returns } : {}) } : null;
+
+  return { legacy, parameters, ...(value ? { value } : {}) };
+}
+
+function getComment(comment: unknown): Optional<string> {
+  return typeof comment === "string" && comment.trim() ? comment.trim() : null;
+}
+
+function normalizeDocComment(comment: Optional<string>): Optional<string> {
+  return comment ? comment.replace(/^-\s*/, "") : null;
+}
+
+function failOrSkip(node: Node, strict: boolean, reason: string): Array<IExternFunction> {
+  if (strict) {
+    const sourceFile: SourceFile = node.getSourceFile();
+    const position = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile));
+
+    throw new Error(
+      `Unsupported extern declaration at ${path.basename(sourceFile.fileName)}:${position.line + 1}:${position.character + 1}, ${reason}.`
+    );
+  }
+
+  return [];
 }

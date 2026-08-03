@@ -50,7 +50,7 @@ describe("parse_externals utility", () => {
       file: SAMPLE_TS_FILE,
       name: "module_two.callback_name_two",
       parameters: [
-        { parameterName: "c", parameterTypeName: "Array" },
+        { parameterName: "c", parameterTypeName: "Array<string>" },
         { parameterName: "d", parameterTypeName: "[number, string]" },
       ],
     });

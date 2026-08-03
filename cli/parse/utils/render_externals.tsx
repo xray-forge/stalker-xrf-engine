@@ -86,7 +86,7 @@ function renderContent(data: Record<string, Array<IExternFunction>>): JSXNode {
               {it.name.indexOf(".") === -1 ? it.name : it.name.split(".")[1]}
             </a>
           );
-          const parametersList: JSXNode = it.parameters.map((param, index, base) => (
+          const parametersList: JSXNode = (it.parameters ?? []).map((param, index, base) => (
             <Fragment>
               <span>
                 <span class="extern-param-name">{param.parameterName}</span>
