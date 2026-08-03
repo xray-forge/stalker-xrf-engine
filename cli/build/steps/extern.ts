@@ -3,7 +3,7 @@ import * as path from "node:path";
 
 import { blueBright, yellowBright } from "chalk";
 
-import { GAME_DATA_DECLARATIONS_DIR, ROOT_DIR } from "#/globals/paths";
+import { GAME_DATA_DECLARATIONS_DIR, ROOT_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
 import { getExternDeclarations } from "#/parse/utils/get_extern_docs";
 import { getExternSourceFiles } from "#/parse/utils/get_extern_sources";
 import { IExternFunction } from "#/parse/utils/types";
@@ -12,6 +12,7 @@ import { NodeLogger } from "#/utils/logging";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 const EXTERN_MANIFEST_PATH: string = path.resolve(GAME_DATA_DECLARATIONS_DIR, "extern.json");
+const TARGET_EXTERN_MANIFEST_PATH: string = path.resolve(TARGET_GAME_DATA_DIR, "xrf", "extern.json");
 
 interface IExternManifest {
   exports: Record<
@@ -34,7 +35,9 @@ interface IExternManifest {
 /**
  * Generate `src/engine/declarations/extern.json` from XRF declaration sources.
  *
- * @returns A promise that resolves after the manifest has been written.
+ * @returns A promise that resolves after both manifest files have been written.
+ *
+ * @throws When an extern declaration cannot be represented statically or when two declarations use the same name.
  */
 export async function buildExternManifest(): Promise<void> {
   log.info(blueBright("Build extern manifest"));
@@ -44,12 +47,22 @@ export async function buildExternManifest(): Promise<void> {
     (it) => it.extern
   );
 
-  await fsp.writeFile(
-    EXTERN_MANIFEST_PATH,
-    `${JSON.stringify(renderExternManifest(declarations), null, 2).replace(/\n/g, "\r\n")}\r\n`
-  );
+  const content: string = `${JSON.stringify(renderExternManifest(declarations), null, 2).replace(/\n/g, "\r\n")}\r\n`;
 
-  log.info("Built extern manifest:", yellowBright(EXTERN_MANIFEST_PATH), "entries:", declarations.length);
+  await Promise.all([
+    fsp.writeFile(EXTERN_MANIFEST_PATH, content),
+    fsp
+      .mkdir(path.dirname(TARGET_EXTERN_MANIFEST_PATH), { recursive: true })
+      .then(async () => fsp.writeFile(TARGET_EXTERN_MANIFEST_PATH, content)),
+  ]);
+
+  log.info(
+    "Built extern manifests:",
+    yellowBright(EXTERN_MANIFEST_PATH),
+    yellowBright(TARGET_EXTERN_MANIFEST_PATH),
+    "entries:",
+    declarations.length
+  );
 }
 
 /**
