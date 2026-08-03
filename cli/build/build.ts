@@ -6,6 +6,7 @@ import {
   buildDynamicConfigs,
   buildDynamicScripts,
   buildDynamicUi,
+  buildExternManifest,
   buildMeta,
   buildResourcesStatics,
   buildStaticConfigs,
@@ -27,6 +28,7 @@ const log: NodeLogger = NodeLogger.forFile(__filename);
  */
 export enum EBuildTarget {
   CONFIGS = "configs",
+  EXTERNS = "externs",
   RESOURCES = "resources",
   SCRIPTS = "scripts",
   TRANSLATIONS = "translations",
@@ -100,6 +102,17 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     } else {
       log.info("Scripts build steps skipped");
       timeTracker.addMark("SKIP_SCRIPTS");
+    }
+
+    /**
+     * Generate the tracked source declaration manifest.
+     */
+    if (buildTargets.includes(EBuildTarget.EXTERNS)) {
+      await buildExternManifest();
+      timeTracker.addMark("BUILT_EXTERN_MANIFEST");
+    } else {
+      log.info("Extern manifest build step skipped");
+      timeTracker.addMark("SKIP_EXTERN_MANIFEST");
     }
 
     /**

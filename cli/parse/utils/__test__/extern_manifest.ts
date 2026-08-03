@@ -18,3 +18,5 @@ extern("pda", {
   get_name: (index?: number): string => `name-${index ?? 0}`,
   maximum: 3,
 });
+
+export {};

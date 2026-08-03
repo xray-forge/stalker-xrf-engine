@@ -61,3 +61,5 @@ extern(1, 1);
 // Invalid.
 // @ts-expect-error -- `extern` requires a callback function.
 extern("test", 1);
+
+export {};

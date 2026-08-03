@@ -7,6 +7,7 @@ Multistep preparation of stalker gamedata built from typescript and other generi
 Build includes such steps:
 
 - clean target directory
+- generate the tracked extern manifest
 - build scripts from typescript
 - copy static lua scripts
 - build dynamic UI configs from JSX
@@ -23,6 +24,7 @@ Build includes such steps:
 List of arguments:
 
 - `--all` - build all assets
+- `--include externs` - generate only the extern manifest
 - `--verbose` - use more verbose logging
 - `--language <language>` - use language override for building of gamedata
 - `--filter <...patterns>` - use filtering for assets building
@@ -35,4 +37,5 @@ List of arguments:
 - `npm run cli build -- --clean`
 - `npm run cli build -- -c --no-lua-logs`
 - `npm run cli build -- -i resources ui -c`
+- `npm run cli build -- -i externs`
 - `npm run cli build -- -e resources`
