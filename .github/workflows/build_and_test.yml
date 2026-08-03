@@ -78,7 +78,7 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: target/eslint
-          key: eslint-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          key: eslint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'cli/lint/eslint.config.mjs') }}
 
       - name: Restore prettier cache
         id: cache-prettier-restore
