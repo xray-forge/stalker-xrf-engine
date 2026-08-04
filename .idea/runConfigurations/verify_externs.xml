@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="parse:externals" type="js.build_tools.npm" folderName="dev">
+  <configuration default="false" name="verify:externs" type="js.build_tools.npm" folderName="check">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
       <script value="cli" />
     </scripts>
-    <arguments value="parse externals" />
+    <arguments value="verify externs" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
