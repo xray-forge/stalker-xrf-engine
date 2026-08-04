@@ -12,7 +12,7 @@ import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/za
  * @param object - Game object owning the logics scheme.
  * @param p - Tuple of source and destination story IDs for the relocated item.
  */
-extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]) => {
+extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]): void => {
   let item: Nillable<string> = null;
 
   for (const it of $range(16, 23)) {

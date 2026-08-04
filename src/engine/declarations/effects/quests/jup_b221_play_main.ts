@@ -13,7 +13,7 @@ import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/co
  * @param object - Game object that the played sound is bound to.
  * @param p - Tuple containing the faction branch, either duty or freedom.
  */
-extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, p: [string]) => {
+extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, p: [string]): void => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
   let mainTheme: string;
   let replyTheme: string;

@@ -14,7 +14,7 @@ extern(
     _: GameObject,
     __: GameObject,
     [storyId, patrolName, patrolIndex = 0]: [Nillable<TStringId>, Nillable<TName>, TIndex]
-  ) => {
+  ): void => {
     if (!storyId || !patrolName) {
       abort("Wrong parameters in 'teleport_npc_by_story_id' function.");
     }

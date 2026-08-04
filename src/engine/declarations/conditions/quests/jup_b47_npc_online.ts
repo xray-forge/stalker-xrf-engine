@@ -7,7 +7,7 @@ import { getObjectByStoryId, registry } from "@/engine/core/database";
 /**
  * Check if object with story ID exists.
  */
-extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
+extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [storyId]: [TStringId]): boolean => {
   const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {

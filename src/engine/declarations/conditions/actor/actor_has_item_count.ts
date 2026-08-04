@@ -12,7 +12,7 @@ import { actorHasItemCount } from "@/engine/core/utils/item";
  */
 extern(
   "xr_conditions.actor_has_item_count",
-  (actor: GameObject, __: GameObject, [section, count]: [TSection, string]) => {
+  (actor: GameObject, __: GameObject, [section, count]: [TSection, string]): boolean => {
     return actorHasItemCount(section, tonumber(count) as TCount, actor);
   }
 );

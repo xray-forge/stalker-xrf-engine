@@ -8,6 +8,6 @@ import { LoadoutManager } from "@/engine/core/managers/loadout";
 /** AI stalker callbacks. */
 extern("ai_stalker", {
   update_best_weapon: selectBestStalkerWeapon,
-  CSE_ALifeObject_spawn_supplies: (object: ServerObject, id: TNumberId, iniData: string) =>
+  CSE_ALifeObject_spawn_supplies: (object: ServerObject, id: TNumberId, iniData: string): boolean =>
     getManager(LoadoutManager).onGenerateServerObjectLoadout(object, id, iniData),
 });

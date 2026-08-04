@@ -9,7 +9,7 @@ import { getObjectByStoryId } from "@/engine/core/database";
  * Where:
  * - storyId - story ID of anomaly object to enable.
  */
-extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Nillable<TStringId>]) => {
+extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Nillable<TStringId>]): void => {
   assert(storyId, "Story id for 'enable_anomaly' effect is not provided.");
 
   const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);

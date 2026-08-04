@@ -1,6 +1,7 @@
 import { extern, TLabel, TName, TNotCastedBoolean, TRate, TSection } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
+import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import {
   getRepairItemAskReplicLabel,
@@ -16,13 +17,13 @@ extern("inventory_upgrades", {
     canRepairItem(section, condition, mechanicName),
   can_upgrade_item: (section: TSection, mechanicName: TName): boolean =>
     getManager(UpgradesManager).canUpgradeItem(section, mechanicName),
-  effect_repair_item: (section: TSection, condition: TRate) =>
+  effect_repair_item: (section: TSection, condition: TRate): void =>
     getManager(UpgradesManager).getRepairItemPayment(section, condition),
-  effect_functor_a: (name: TName, section: TSection, loading: TNotCastedBoolean) =>
+  effect_functor_a: (name: TName, section: TSection, loading: TNotCastedBoolean): void =>
     getManager(UpgradesManager).getUpgradeItemPayment(name, section, loading),
   prereq_functor_a: (name: TName, section: TSection): TLabel =>
     getManager(UpgradesManager).getPreRequirementsFunctorA(name, section),
-  precondition_functor_a: (name: TName, section: TSection) =>
+  precondition_functor_a: (name: TName, section: TSection): TItemUpgradeBranch =>
     getManager(UpgradesManager).getPreconditionFunctorA(name, section),
   property_functor_a: (data: string, name: TName): TLabel =>
     getManager(UpgradesManager).getPropertyFunctorA(data, name),

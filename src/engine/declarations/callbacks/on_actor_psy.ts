@@ -6,4 +6,4 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 export const logger: LuaLogger = new LuaLogger($filename);
 
 /** Handle actor psy levels change. */
-extern("on_actor_psy", () => logger.info("Actor psy"));
+extern("on_actor_psy", (): void => logger.info("Actor psy"));

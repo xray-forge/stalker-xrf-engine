@@ -17,9 +17,9 @@ extern("actor_menu_inventory", {
 
     return true;
   },
-  CUIActorMenu_OnItemFocusReceive: (item: GameObject) =>
+  CUIActorMenu_OnItemFocusReceive: (item: GameObject): void =>
     getManager(ActorInventoryMenuManager).onItemFocusReceived(item),
-  CUIActorMenu_OnItemFocusLost: (item: GameObject) => getManager(ActorInventoryMenuManager).onItemFocusLost(item),
+  CUIActorMenu_OnItemFocusLost: (item: GameObject): void => getManager(ActorInventoryMenuManager).onItemFocusLost(item),
   CInventory_ItemAvailableToTrade: (owner: GameObject, item: GameObject): boolean =>
     getManager(TradeManager).isItemAvailableForTrade(owner, item),
 });

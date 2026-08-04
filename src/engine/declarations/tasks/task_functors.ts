@@ -30,7 +30,7 @@ extern("task_functors.surge_task_descr", (): TLabel => {
 /**
  * Get target object id based on condlist returning story id.
  */
-extern("task_functors.target_condlist", (id: TStringId, field: string, condlist: string) => {
+extern("task_functors.target_condlist", (id: TStringId, field: string, condlist: string): Nillable<TNumberId> => {
   const value: Nillable<TSection> = pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
 
   return value ? getObjectIdByStoryId(value) : null;

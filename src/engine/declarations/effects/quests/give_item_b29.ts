@@ -12,7 +12,7 @@ import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/quests/za
  * @param object - Game object owning the logics scheme.
  * @param p - Tuple containing the target story ID forwarded to the pick artefact effect.
  */
-extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]) => {
+extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]): void => {
   // --	const story_object = p && getStoryObject(p[1])
   const anomalyZonesList: Array<TName> = [
     "zat_b55_anomal_zone",

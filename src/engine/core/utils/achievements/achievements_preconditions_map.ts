@@ -26,7 +26,7 @@ import { EAchievement } from "@/engine/core/utils/achievements/achievements_type
 /**
  * Map of preconditions based on type of achievement.
  */
-export const achievementsPreconditionsMap = {
+export const achievementsPreconditionsMap: Record<EAchievement, () => boolean> = {
   [EAchievement.PIONEER]: hasAchievedPioneer,
   [EAchievement.MUTANT_HUNTER]: hasAchievedMutantHunter,
   [EAchievement.DETECTIVE]: hasAchievedDetective,

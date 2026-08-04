@@ -12,7 +12,7 @@ import { questsState } from "@/engine/declarations/effects/quests/shared";
  * @param object - Game object whose particle patrol path is used.
  * @param p - Tuple containing the index of the particle and sound pair to play.
  */
-extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
+extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]): void => {
   if (!questsState.particlesList) {
     questsState.particlesList = $fromArray([
       {

@@ -20,7 +20,7 @@ import { spawnObjectInObject } from "@/engine/core/utils/spawn";
  * @param object - Game object owning the logics scheme.
  * @param p - Unused parameters tuple.
  */
-extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObject, p: []) => {
+extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObject, p: []): void => {
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.zat_b33_first_item_gived,
     infoPortions.zat_b33_second_item_gived,

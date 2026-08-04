@@ -6,4 +6,4 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 export const logger: LuaLogger = new LuaLogger($filename);
 
 /** Handle actor radiation levels change. */
-extern("on_actor_radiation", () => logger.info("Actor radiation"));
+extern("on_actor_radiation", (): void => logger.info("Actor radiation"));

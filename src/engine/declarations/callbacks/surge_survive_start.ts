@@ -4,4 +4,4 @@ import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 
 /** On surviving surge start sleeping. */
-extern("engine.surge_survive_start", () => getManager(ActorInputManager).onSurgeSurviveStart());
+extern("engine.surge_survive_start", (): void => getManager(ActorInputManager).onSurgeSurviveStart());

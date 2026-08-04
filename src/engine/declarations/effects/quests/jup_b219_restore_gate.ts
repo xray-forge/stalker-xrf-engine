@@ -7,7 +7,7 @@ import { questsState } from "@/engine/declarations/effects/quests/shared";
 /**
  * Recreate the Jupiter b219 gate object at the previously saved position.
  */
-extern("xr_effects.jup_b219_restore_gate", () => {
+extern("xr_effects.jup_b219_restore_gate", (): void => {
   const yaw: TRate = 0;
   const spawnSection: TSection = "jup_b219_gate";
 

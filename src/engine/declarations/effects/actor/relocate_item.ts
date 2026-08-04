@@ -12,7 +12,7 @@ export const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.relocate_item",
-  (_: GameObject, __: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
+  (_: GameObject, __: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]): void => {
     logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
     const fromObject: Nillable<GameObject> = getObjectByStoryId(fromStoryId);

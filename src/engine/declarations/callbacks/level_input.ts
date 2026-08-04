@@ -5,5 +5,5 @@ import { ActorInputManager } from "@/engine/core/managers/actor";
 
 /** Player input callbacks. */
 extern("level_input", {
-  on_key_press: (key: TNumberId, bind: TNumberId) => getManager(ActorInputManager).onKeyPress(key, bind),
+  on_key_press: (key: TNumberId, bind: TNumberId): boolean => getManager(ActorInputManager).onKeyPress(key, bind),
 });

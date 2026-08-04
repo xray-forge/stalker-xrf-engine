@@ -9,7 +9,7 @@ import { getObjectByStoryId } from "@/engine/core/database";
  * Where:
  * - storyId - story ID of object to explode.
  */
-extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
+extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {

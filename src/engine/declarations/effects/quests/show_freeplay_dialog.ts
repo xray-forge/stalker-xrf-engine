@@ -12,7 +12,7 @@ import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (_: GameObject, __: GameObject, [text, canLeave]: [Nillable<TLabel>, Nillable<TStringifiedBoolean>]) => {
+  (_: GameObject, __: GameObject, [text, canLeave]: [Nillable<TLabel>, Nillable<TStringifiedBoolean>]): void => {
     assert(text, "Expected text message to be provided for 'show_freeplay_dialog' effect.");
     showFreeplayDialog(canLeave === TRUE ? "message_box_yes_no" : "message_box_ok", text);
   }

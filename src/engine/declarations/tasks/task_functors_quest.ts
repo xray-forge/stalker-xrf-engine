@@ -1,5 +1,5 @@
 import { GameObject } from "xray16/alias";
-import { extern, Nillable, TLabel, TSection, TStringId } from "xray16/lib";
+import { extern, Nillable, TLabel, TNumberId, TSection, TStringId } from "xray16/lib";
 
 import { infoPortions } from "@/engine/constants/info_portions";
 import { storyIds } from "@/engine/constants/story_ids";
@@ -74,7 +74,7 @@ extern("task_functors.zat_b29_adv_descr", (): Nillable<TLabel> => {
  *
  * @returns Object id of the current quest target, or null when no target applies.
  */
-extern("task_functors.zat_b29_adv_target", () => {
+extern("task_functors.zat_b29_adv_target", (): Nillable<TNumberId> => {
   const actor: GameObject = registry.actor;
 
   let targetObjectId: TStringId = storyIds.zat_a2_stalker_barmen;

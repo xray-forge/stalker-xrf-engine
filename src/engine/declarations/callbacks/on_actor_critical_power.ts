@@ -6,4 +6,4 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 export const logger: LuaLogger = new LuaLogger($filename);
 
 /** Handle actor critical power levels. */
-extern("on_actor_critical_power", () => logger.info("Actor critical power"));
+extern("on_actor_critical_power", (): void => logger.info("Actor critical power"));

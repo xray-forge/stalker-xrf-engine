@@ -11,7 +11,7 @@ import { processPhraseAction, shouldHidePhraseCategory, shouldShowPhrase } from 
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
-  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     return getManager(DialogManager).isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.JOB);
   }
 );
@@ -21,7 +21,7 @@ extern(
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
-  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
     return shouldHidePhraseCategory(object, EGenericPhraseCategory.JOB);
   }
 );

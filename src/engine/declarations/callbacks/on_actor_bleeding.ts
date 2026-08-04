@@ -6,4 +6,4 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 export const logger: LuaLogger = new LuaLogger($filename);
 
 /** Handle actor bleeding. */
-extern("on_actor_bleeding", () => logger.info("Actor bleeding"));
+extern("on_actor_bleeding", (): void => logger.info("Actor bleeding"));
