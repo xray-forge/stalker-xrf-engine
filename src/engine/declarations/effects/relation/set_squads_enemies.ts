@@ -9,9 +9,9 @@ import { Squad } from "@/engine/core/objects/squad";
  */
 extern(
   "xr_effects.set_squads_enemies",
-  (_: GameObject, __: GameObject, [firstStoryId, secondStoryId]: [TStringId, TStringId]) => {
+  (_: GameObject, __: GameObject, [firstStoryId, secondStoryId]: [TStringId, TStringId]): void => {
     if (!firstStoryId || !secondStoryId) {
-      return abort("Wrong parameters in effect set_squad_enemies.");
+      abort("Wrong parameters in effect set_squad_enemies.");
     }
 
     const firstSquad: Nillable<Squad> = getServerObjectByStoryId(firstStoryId);
