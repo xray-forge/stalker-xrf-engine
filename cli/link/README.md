@@ -1,25 +1,26 @@
 # [XRF](../../) / CLI / LINK
 
-### Description
+`link` creates development junctions for the configured game installation, the built `target/gamedata`, and engine
+logs. `unlink` removes only junctions; `relink` removes and recreates them.
 
-Contains commands related to linking and unlinking of game folders.
+```sh
+npm run cli -- link [options]
+npm run cli -- unlink
+npm run cli -- relink [options]
+```
 
-- Allows linking of game folder and easier navigation
-- Allows linking of gamedata folder and easier rebuilding of the engine mod
-- Allows linking of game logs for easier observation from IDE
+The game location is resolved from [`cli/config.json`](../config.json). `--force` can recursively remove an existing
+game `gamedata`, game-link, or log-link destination before creating a junction. Review those locations carefully before
+using it.
 
-Unlinking removes folders if they are pointing to the project.
-If links pointing to other folders, manual involvement will be needed.
+## Options
 
-### Arguments
+- `-f, --force` replaces existing destinations while linking or relinking.
 
-List of arguments:
+## Examples
 
-- `--force` - remove links and re-initialize if already existing entries detected
-
-### Example
-
-- `npm run cli link`
-- `npm run cli link --force`
-- `npm run cli unlink`
-- `npm run cli relink`
+```sh
+npm run cli -- link
+npm run cli -- relink --force
+npm run cli -- unlink
+```

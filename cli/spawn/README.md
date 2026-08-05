@@ -1,22 +1,20 @@
 # [XRF](../../) / CLI / SPAWN
 
-### Description
+`spawn unpack` converts an ALife spawn file into LTX configurations.
 
-Commands to work with \*.spawn files. <br/>
+```sh
+npm run cli -- spawn unpack [options]
+```
 
-### Arguments
+## Options
 
-List of arguments:
+- `-p, --path <path>` selects the source spawn file.
+- `-d, --dest <dest>` selects the output directory.
+- `-f, --force` removes an existing unpacked destination when needed.
+- `-v, --verbose` prints detailed logs.
 
-- `unpack` - unpack single spawn file as few ltx configuration files
+## Example
 
-List of parameters:
-
-- `-f, --force` - flag to force overwrite of existing output if it exists
-- `-p, --path <path>` - path to input spawn file or unpacked directory for processing
-- `-d, --dest <path>` - path to place output
-
-### Example
-
-- `npm run cli spawn unpack -f`
-- `npm run cli spawn unpack -p ..\..\stalker-xrf-resources-extended\spawns\all.spawn`
+```sh
+npm run cli -- spawn unpack --path ../../stalker-xrf-resources-extended/spawns/all.spawn
+```

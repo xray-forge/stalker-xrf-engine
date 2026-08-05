@@ -1,21 +1,25 @@
 # [XRF](../../) / CLI / CLONE
 
-### Description
+`clone` fetches an optional resource repository declared in [`cli/config.json`](../config.json).
 
-Scripts to clone additional assets in a fast and reliable way. <br/>
-Useful for loading extended pack of game assets or separate locales.
+```sh
+npm run cli -- clone [repository] [options]
+```
 
-### Arguments
+Use `--list` to print the repository names available in the current configuration. A repository name is optional only
+when listing options.
 
-List of arguments:
+## Options
 
-- `-l, --list` - print list of possible items to clone
-- `-f, --force` - force clone even if already cloned, removes existing assets before operation
-- `-v, --verbose` - use verbose logging
-- `-h, --help` - display help for command
+- `-l, --list` lists configured repositories.
+- `-f, --force` replaces an existing clone before cloning. It conflicts with `--safe`.
+- `-s, --safe` treats an already-cloned destination as a successful result. It conflicts with `--force`.
+- `-v, --verbose` prints detailed clone logs.
 
-### Example
+## Examples
 
-- `npm run cli clone -l`
-- `npm run cli clone locale_ukr`
-- `npm run cli clone locale_eng -f`
+```sh
+npm run cli -- clone --list
+npm run cli -- clone extended
+npm run cli -- clone locale-ukr --safe
+```

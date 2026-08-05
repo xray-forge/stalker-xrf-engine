@@ -1,15 +1,11 @@
 # [XRF](../../) / CLI / OPEN
 
-### Description
+These commands open a directory in the operating system's file manager.
 
-Open folder utility commands. <br/>
-Open game folder configured in `cli/config.json`. <br/>
-Or open project folder.
+```sh
+npm run cli -- open_game_folder
+npm run cli -- open_project_folder
+```
 
-Uses explorer of operating system.
-Main goal is simple access to the engine assets.
-
-### Example
-
-- `npm run cli open_game_folder`
-- `npm run cli open_project_folder`
+`open_game_folder` uses the game location resolved from [`cli/config.json`](../config.json). `open_project_folder`
+opens this repository.

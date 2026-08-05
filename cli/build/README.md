@@ -1,41 +1,30 @@
 # [XRF](../../.) / CLI / BUILD
 
-### Description
+`build` assembles the engine sources into `target/gamedata`. With no target options, it builds configs, externs,
+resources, scripts, translations, and UI assets.
 
-Multistep preparation of stalker gamedata built from typescript and other generic tools.
+```sh
+npm run cli -- build [options]
+```
 
-Build includes such steps:
+## Options
 
-- clean target directory
-- generate the tracked extern manifest
-- build scripts from typescript
-- copy static lua scripts
-- build dynamic UI configs from JSX
-- copy static UI XML files
-- build dynamic configs from ts files
-- copy static LTX config files
-- build dynamic translation files
-- copy static translation files
-- copy static resources (textures, shaders, models, sounds)
-- build engine mod metadata.json
+- `-i, --include <targets...>` builds only the named targets: `configs`, `externs`, `resources`, `scripts`,
+  `translations`, or `ui`.
+- `-e, --exclude <targets...>` skips named targets. It cannot be combined with `--include`.
+- `-c, --clean` removes the previous target before building.
+- `-l, --language <language>` selects the locale; it defaults to `cli/config.json`'s `locale` value.
+- `-f, --filter <targets...>` limits built files with the supplied regular-expression filters.
+- `-v, --verbose` prints detailed build logs.
+- `--nl, --no-lua-logs` removes Lua logging from generated scripts.
+- `--na, --no-asset-overrides` skips additional asset overrides.
+- `--itz, --inject-tracy-zones` instruments generated scripts with Tracy profiling zones.
 
-### Arguments
+## Examples
 
-List of arguments:
-
-- `--all` - build all assets
-- `--include externs` - generate only the extern manifest
-- `--verbose` - use more verbose logging
-- `--language <language>` - use language override for building of gamedata
-- `--filter <...patterns>` - use filtering for assets building
-- `--clean` - clean up `target/gamedata` folder before build
-- `--no-lua-logs` - strip LuaLogger calls and creation from built code
-- `-h, --help` - display help for command
-
-### Example
-
-- `npm run cli build -- --clean`
-- `npm run cli build -- -c --no-lua-logs`
-- `npm run cli build -- -i resources ui -c`
-- `npm run cli build -- -i externs`
-- `npm run cli build -- -e resources`
+```sh
+npm run cli -- build --clean
+npm run cli -- build --include scripts ui --clean
+npm run cli -- build --exclude resources
+npm run cli -- build --include externs
+```

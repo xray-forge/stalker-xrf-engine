@@ -1,22 +1,19 @@
 # [XRF](../../) / CLI / PARSE
 
-### Description
+`parse dir_as_json` walks a directory recursively and writes its sorted file tree as JSON under `target/parsed`.
+The command resolves the supplied path from the repository root.
 
-Script to parse game related information. <br/>
-Use `dir_as_json` to parse folder files recursively. <br/>
-Use `externals` to parse externals for scripting/configuration. <br/>
+```sh
+npm run cli -- parse dir_as_json <path> [options]
+```
 
-Useful for parsing of textures/animations for usage in globals files or docs generation.
+## Options
 
-### Arguments
+- `-e, --no-extension` omits file extensions from JSON values.
 
-List of arguments:
+## Examples
 
-- `-n, --no-extension` - do not include extension for JSON values
-- `-h, --help` - display help for command
-
-### Example
-
-- `npm run cli parse externals`
-- `npm run cli parse dir_as_json ../gamedata_original/anims`
-- `npm run cli parse dir_as_json ../gamedata_original/textures -- --no-extension`
+```sh
+npm run cli -- parse dir_as_json src/resources/textures
+npm run cli -- parse dir_as_json src/resources/anims --no-extension
+```

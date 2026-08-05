@@ -1,30 +1,26 @@
 # [XRF](../../) / CLI / ENGINE
 
-### Description
+`engine` manages the bundled engine variants in `cli/bin/engines`. Selecting a variant replaces the configured game's
+`bin` directory with a junction and preserves an unlinked original directory as an XRF backup.
 
-Script to manage currently used version of X-Ray engine.
-Simply backups original version of game engine an links one of variants from project 'cli/bin/engines' folder.
+```sh
+npm run cli -- engine <command>
+```
 
-Possible variants are:
+Use this command only for the game installation configured in [`cli/config.json`](../config.json).
 
-- gold
-- release
-- mixed
+## Commands
 
-More details variant details [here](https://github.com/OpenXRay/xray-16/wiki/%5BEN%5D-How-to-install-and-play).
+- `list` prints available engine variants.
+- `use <engine>` switches the game to an available variant.
+- `info` prints information about the active engine.
+- `rollback` restores the default game engine from the saved backup.
 
-### Arguments
+## Examples
 
-List of arguments:
-
-- `list` - print list of available x-ray engines
-- `use` - use one of available x-ray versions
-- `rollback` - rollback to backup version of the engine
-- `info` - print details about currenty used engine
-
-### Example
-
-- `npm run cli engine list`
-- `npm run cli engine use gold`
-- `npm run cli engine info`
-- `npm run cli engine rollback`
+```sh
+npm run cli -- engine list
+npm run cli -- engine use gold
+npm run cli -- engine info
+npm run cli -- engine rollback
+```

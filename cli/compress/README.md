@@ -1,20 +1,21 @@
 # [XRF](../../) / CLI / COMPRESS
 
-### Description
+`compress` converts an existing `target/gamedata` build into game archives. Run `build` first.
 
-Script to create compressed .db files from built game assets.
+```sh
+npm run cli -- compress [options]
+```
 
-### Arguments
+## Options
 
-List of arguments:
+- `-i, --include <targets...>` compresses only named archive targets. Valid names are defined in
+  `cli/compress/configs/compress.json`.
+- `-c, --clean` removes the previous compression destination before writing archives.
+- `-v, --verbose` prints detailed compression logs.
 
-- `-c, --clean` - perform destination clean
-- `"-i, --include <targets...>` - compress only listed targets
-- `-v, --verbose ` - use verbose logging
-- `-h, --help` - display help for command
+## Examples
 
-### Example
-
-- `npm run cli compress -- -h`
-- `npm run cli compress -- -c`
-- `npm run cli compress -- --verbose`
+```sh
+npm run cli -- compress --clean
+npm run cli -- compress --include scripts
+```

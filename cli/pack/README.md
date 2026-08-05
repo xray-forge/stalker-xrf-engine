@@ -1,25 +1,28 @@
 # [XRF](../../) / CLI / PACK
 
-### Description
+`pack` creates either a mod package or a full game package from the current project configuration.
 
-Script to create new game package from built assets. <br/>
-Combines compressed archives, static assets and game engine together.
+```sh
+npm run cli -- pack <mod|game> [options]
+```
 
-### Arguments
+By default, packaging runs the build and compression steps first.
 
-List of arguments:
+## Options
 
-- `-c, --clean` - perform `game_pack` dir clean before building
-- `--nb, --no-build` - prevent run build before creation
-- `--se, --skip-engine` - do not include `bin` dir in resulting package
-- `-e, --engine <type>` - use provided engine
-- `-o, --optimize ` - use build optimizations
-- `-v, --verbose ` - use verbose logging
-- `-h, --help` - display help for command
+- `--nb, --no-build` skips the build step.
+- `--nc, --no-compress` skips compression.
+- `--na, --no-asset-overrides` skips additional asset overrides during the build.
+- `-e, --engine <type>` selects an engine variant for the package.
+- `--se, --skip-engine` excludes the engine files.
+- `-o, --optimize` enables build optimizations.
+- `-c, --clean` removes the previous package destination.
+- `-v, --verbose` prints detailed logs.
 
-### Example
+## Examples
 
-- `npm run cli pack game -- -h`
-- `npm run cli pack game -- -o`
-- `npm run cli pack mod -- -e mixed`
-- `npm run cli pack mod -- --verbose`
+```sh
+npm run cli -- pack mod --optimize
+npm run cli -- pack game --engine gold
+npm run cli -- pack mod --no-build --no-compress
+```

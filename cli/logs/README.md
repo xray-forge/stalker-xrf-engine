@@ -1,16 +1,16 @@
 # [XRF](../../) / CLI / LOGS
 
-### Description
+`logs` prints the last lines of the linked engine log. It requires the log junction created by `link`.
 
-Read X-Ray logs trace if folder is linked.
+```sh
+npm run cli -- logs [lines]
+```
 
-### Example
+`lines` defaults to `15`.
 
-- `npm run cli logs`
-- `npm run cli logs 50`
+## Examples
 
-### Arguments
-
-List of arguments:
-
-- `%n%` - number of lines for printing from log
+```sh
+npm run cli -- logs
+npm run cli -- logs 50
+```

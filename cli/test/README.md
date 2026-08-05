@@ -1,10 +1,16 @@
 # [XRF](../../) / CLI / TEST
 
-### Description
+The project uses Jest for unit tests. Run the full suite with:
 
-Testing scripts and configs.
+```sh
+npm test
+```
 
-### Example
+Pass Jest arguments after `--` to run a focused test or pattern:
 
-- `npm run test`
-- `npm run test utils`
+```sh
+npm test -- utils
+npm test -- src/engine/core
+```
+
+Use `npm run test:coverage` to write a coverage report under `target/coverage_report`.

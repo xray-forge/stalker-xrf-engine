@@ -1,29 +1,25 @@
-# [XRF](../../) / CLI / PARSE
+# [XRF](../../) / CLI / TRANSLATIONS
 
-### Description
+`translations` initializes translation JSON, converts XML translation files to JSON, and validates built translations.
 
-Script to help with translations generation and observation. <br/>
-In most of the cases windows-1250 is used for latin, windows-1251 for cyrillic.
+```sh
+npm run cli -- translations <command> [options]
+```
 
-### Scripts
+## Commands
 
-- `init`
-- `check`
-- `to_json`
+- `init <path>` adds the configured language keys to a JSON file or directory.
+- `to_json <path>` converts an XML translation file or directory to JSON.
+- `check` lists missing or invalid entries in the built translation directory.
 
-### Arguments
+`init` supports `-v, --verbose`. `to_json` supports `-l, --language <locale>`, `-c, --clean`, `-o, --output <path>`,
+`-e, --encoding <encoding>`, and `-v, --verbose`. `check` supports `-l, --language <locale>`, `-s, --strict`, and
+`-v, --verbose`.
 
-List of arguments:
+## Examples
 
-- `-e, --encoding <encoding>` - target file encoding
-- `-l, --language <language>` - target file language
-- `-o, --output <path>` - target file or folder to write results into
-- `-c, --clean` - whether target destination should be cleaned up before writing into it
-- `-h, --help` - display help for command
-
-### Example
-
-- `npm run cli translations to_json ./some/file.xml -- --language eng`
-- `npm run cli translations check`
-- `npm run cli translations check -- --l eng`
-- `npx xrf translations to_json ..\locales\configs\text\pol\ -l pol -o .\src\engine\translations\ -e windows-1250`
+```sh
+npm run cli -- translations init src/engine/translations
+npm run cli -- translations to_json locales/configs/text/pol --language pol --encoding windows-1250
+npm run cli -- translations check --language eng --strict
+```

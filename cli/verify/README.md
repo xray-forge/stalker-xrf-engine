@@ -1,35 +1,28 @@
 # [XRF](../../) / CLI / VERIFY
 
-### Description
+`verify` runs focused validation commands for the project and generated game data.
 
-Script performing project state checks. <br/>
+```sh
+npm run cli -- verify <command> [options]
+```
 
-#### Project
+## Commands
 
-Verifies whether custom engine is active, config is correct and symlinks are activated.
+- `project` checks the configured LTX project state.
+- `gamedata` validates the assembled `target/gamedata`; `--strict` also validates expensive asset payloads.
+- `externs` compares the tracked extern manifest with declaration sources.
+- `ltx` validates LTX project integrity and types.
+- `particles-packed` validates packed particles.
+- `particles-unpacked` validates unpacked particles.
 
-#### LTX
+`gamedata`, `ltx`, `particles-packed`, and `particles-unpacked` support `-v, --verbose`. Only `gamedata` supports
+`-s, --strict`.
 
-Verifies LTX configs files: include statements, inheritance of sections, $scheme validity.
+## Examples
 
-#### Particles
-
-Verifies particles files: packed and unpacked particles.
-
-### Arguments
-
-List of arguments:
-
-- `ltx` - verify project ltx files
-- `particles` - verify project particles files
-
-- `-s, --strict` - fully validate expensive asset payloads
-- `-v, --verbose` - perform check in verbose logging mode
-- `-s, --silent` - perform check in silent logging mode
-
-### Example
-
-- `npm run cli verify project`
-- `npm run cli verify ltx`
-- `npm run cli verify ltx -- -v`
-- `npm run cli verify gamedata -- -s`
+```sh
+npm run cli -- verify project
+npm run cli -- verify externs
+npm run cli -- verify ltx --verbose
+npm run cli -- verify gamedata --strict
+```
