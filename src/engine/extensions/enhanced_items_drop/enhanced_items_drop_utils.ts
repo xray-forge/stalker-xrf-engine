@@ -1,7 +1,8 @@
 import { GameObject } from "xray16/alias";
 import { ACTOR_ID, Nillable, TCount, TNumberId, TRate } from "xray16/lib";
-import { $isNotNil } from "xray16/macros";
+import { $isNil } from "xray16/macros";
 
+import { registry } from "@/engine/core/database";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { getItemOwnerId } from "@/engine/core/utils/item";
@@ -12,25 +13,16 @@ import { enhancedDropConfig } from "@/engine/extensions/enhanced_items_drop/Enha
  *
  * @param object - Game object of item switching online.
  */
-export function onItemGoOnlineFirstTime(object: GameObject): void {
+export function onItemWeaponGoOnlineFirstTime(object: GameObject): void {
   const ownerId: Nillable<TNumberId> = getItemOwnerId(object.id());
 
-  // Do not upgrade actor spawned items.
-  if (ownerId === ACTOR_ID) {
+  // Only upgrade weapons currently owned by non-trader human NPCs.
+  if (ownerId === ACTOR_ID || $isNil(ownerId) || $isNil(registry.stalkers.get(ownerId)) || isObjectTrader(ownerId)) {
     return;
   }
 
-  let chance: TRate = math.random(100);
+  const chance: TRate = math.random(100);
   const dispersion: TCount = enhancedDropConfig.ADD_RANDOM_DISPERSION * math.random();
-
-  // Apply different rate for trader / owned / world.
-  if ($isNotNil(ownerId) && isObjectTrader(ownerId)) {
-    chance /= enhancedDropConfig.ADD_RANDOM_RATE_TRADER;
-  } else if ($isNotNil(ownerId)) {
-    chance /= enhancedDropConfig.ADD_RANDOM_RATE_OWNED;
-  } else {
-    chance /= enhancedDropConfig.ADD_RANDOM_RATE_WORLD;
-  }
 
   if (chance <= enhancedDropConfig.ADD_RANDOM_LEGENDARY_CHANCE) {
     return addRandomUpgrades(object, enhancedDropConfig.ADD_RANDOM_LEGENDARY_COUNT + dispersion);

@@ -17,6 +17,6 @@ describe("enhanced drop", () => {
 
     register();
 
-    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getSubscribersCount()).toBe(1);
   });
 });
