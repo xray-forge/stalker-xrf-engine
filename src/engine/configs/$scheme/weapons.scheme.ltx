@@ -178,6 +178,30 @@ snd_silncer_shot = ?tuple:?string,?f32,?f32
 snd_switch = ?tuple:?string,?f32,?f32
 snd_zoomin = ?tuple:?string,?f32,?f32
 snd_zoomout = ?tuple:?string,?f32,?f32
+; Layered weapon sound, referenced by name from any snd_* field of a weapon.
+; The engine loads snd_1_layer upward until a layer is missing, playing them together.
+; Variants must be contiguous from 1, the engine stops at the first gap.
+
+[$item_weapon_sound_layers]
+$strict = true
+snd_1_layer = ?tuple:?string,?f32,?f32
+snd_1_layer1 = ?tuple:?string,?f32,?f32
+snd_1_layer2 = ?tuple:?string,?f32,?f32
+snd_1_layer3 = ?tuple:?string,?f32,?f32
+snd_1_layer4 = ?tuple:?string,?f32,?f32
+snd_1_layer5 = ?tuple:?string,?f32,?f32
+snd_1_layer6 = ?tuple:?string,?f32,?f32
+snd_1_layer7 = ?tuple:?string,?f32,?f32
+snd_1_layer8 = ?tuple:?string,?f32,?f32
+snd_2_layer = ?tuple:?string,?f32,?f32
+snd_2_layer1 = ?tuple:?string,?f32,?f32
+snd_2_layer2 = ?tuple:?string,?f32,?f32
+snd_2_layer3 = ?tuple:?string,?f32,?f32
+snd_3_layer = ?tuple:?string,?f32,?f32
+snd_3_layer1 = ?tuple:?string,?f32,?f32
+snd_3_layer2 = ?tuple:?string,?f32,?f32
+snd_3_layer3 = ?tuple:?string,?f32,?f32
+snd_4_layer = ?tuple:?string,?f32,?f32
 
 [$item_weapon_attachable]
 grenade_class = ?string
