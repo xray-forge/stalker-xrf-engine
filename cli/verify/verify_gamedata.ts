@@ -8,7 +8,28 @@ import { TimeTracker } from "#/utils/timing";
 
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
+/**
+ * Verification checks supported by the `verify-gamedata` CLI utility.
+ */
+export enum EGamedataCheck {
+  ANIMATIONS = "animations",
+  LEVELS = "levels",
+  LTX = "ltx",
+  MESHES = "meshes",
+  PARTICLES = "particles",
+  PARTICLES_USAGE = "particles-usage",
+  SCRIPTS = "scripts",
+  SHADERS = "shaders",
+  SOUNDS = "sounds",
+  SPAWNS = "spawns",
+  TEXTURES = "textures",
+  WEAPONS = "weapons",
+  WEATHERS = "weathers",
+}
+
 export interface IVerifyGamedataParameters {
+  checks?: Array<EGamedataCheck>;
+  report?: string;
   strict?: boolean;
   verbose?: boolean;
 }
@@ -33,6 +54,14 @@ export async function verifyGamedata(parameters: IVerifyGamedataParameters = {})
 
   if (parameters.verbose) {
     args.push("-v");
+  }
+
+  if (parameters.report) {
+    args.push("--report", parameters.report);
+  }
+
+  if (parameters.checks?.length) {
+    args.push("--checks", ...parameters.checks);
   }
 
   log.info("Execute:", blue([XRF_UTILS_PATH, ...args].join(" ")));

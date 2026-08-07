@@ -1,7 +1,7 @@
 import { Command, Option } from "commander";
 
 import { verifyExternManifest } from "#/verify/verify_externs";
-import { verifyGamedata } from "#/verify/verify_gamedata";
+import { EGamedataCheck, verifyGamedata } from "#/verify/verify_gamedata";
 import { verifyLtx } from "#/verify/verify_ltx";
 import { verifyParticlesPacked } from "#/verify/verify_particles_packed";
 import { verifyParticlesUnpacked } from "#/verify/verify_particles_unpacked";
@@ -18,6 +18,12 @@ export function setupVerifyCommands(command: Command): void {
   verifyCommand
     .command("gamedata")
     .description("verify assembled target gamedata integrity")
+    .addOption(
+      new Option("-c, --checks <checks...>", "run only selected checks instead of all of them").choices(
+        Object.values(EGamedataCheck)
+      )
+    )
+    .addOption(new Option("-r, --report <report>", "write the structured verification report as JSON"))
     .addOption(new Option("-s, --strict", "Fully validate expensive asset payloads").default(false))
     .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
     .action(verifyGamedata);

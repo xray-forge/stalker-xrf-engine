@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { TARGET_GAME_DATA_DIR, XRF_UTILS_PATH } from "#/globals";
-import { verifyGamedata } from "#/verify/verify_gamedata";
+import { EGamedataCheck, verifyGamedata } from "#/verify/verify_gamedata";
 
 jest.mock("node:child_process");
 
@@ -37,6 +37,34 @@ describe("verifyGamedata", () => {
     expect(cp.execFileSync).toHaveBeenCalledWith(XRF_UTILS_PATH, ["verify-gamedata", TARGET_GAME_DATA_DIR, "-s"], {
       stdio: "inherit",
     });
+  });
+
+  it("should forward selected checks to the validator", async () => {
+    await verifyGamedata({ checks: [EGamedataCheck.MESHES, EGamedataCheck.WEAPONS] });
+
+    expect(cp.execFileSync).toHaveBeenCalledWith(
+      XRF_UTILS_PATH,
+      ["verify-gamedata", TARGET_GAME_DATA_DIR, "--checks", "meshes", "weapons"],
+      { stdio: "inherit" }
+    );
+  });
+
+  it("should not forward empty checks list", async () => {
+    await verifyGamedata({ checks: [] });
+
+    expect(cp.execFileSync).toHaveBeenCalledWith(XRF_UTILS_PATH, ["verify-gamedata", TARGET_GAME_DATA_DIR], {
+      stdio: "inherit",
+    });
+  });
+
+  it("should forward report path to the validator", async () => {
+    await verifyGamedata({ report: "target/report.json" });
+
+    expect(cp.execFileSync).toHaveBeenCalledWith(
+      XRF_UTILS_PATH,
+      ["verify-gamedata", TARGET_GAME_DATA_DIR, "--report", "target/report.json"],
+      { stdio: "inherit" }
+    );
   });
 
   it("should propagate validator failures", async () => {
