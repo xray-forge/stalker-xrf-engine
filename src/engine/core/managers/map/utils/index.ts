@@ -5,3 +5,4 @@ export * from "@/engine/core/managers/map/utils/map_spot_sleep";
 export * from "@/engine/core/managers/map/utils/map_spot_squad";
 export * from "@/engine/core/managers/map/utils/map_spot_terrain";
 export * from "@/engine/core/managers/map/utils/map_spot_treasure";
+export * from "@/engine/core/managers/map/utils/map_terrain_discovery";

@@ -11,6 +11,7 @@ import type {
 } from "xray16/lib";
 
 import type { TSimulationObject } from "@/engine/core/managers/simulation/types";
+import type { ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 
@@ -32,6 +33,14 @@ export enum EGameHook {
    * Guard: why a squad may not take a simulation target, after the target's own rules allowed it.
    */
   SIMULATION_TARGET_VALIDITY = "simulation_target_validity",
+  /**
+   * Guard: why the actor does not know a smart terrain yet, hiding its map spot and travel to it.
+   */
+  SMART_TERRAIN_DISCOVERY = "smart_terrain_discovery",
+  /**
+   * Modifier: map spot a treasure shows with once its coordinates are given.
+   */
+  TREASURE_MAP_SPOT = "treasure_map_spot",
 }
 
 /**
@@ -58,6 +67,7 @@ export interface IGameModifierHooks {
     section: TSection,
     isRespawnAttempt: boolean
   ) => TCount;
+  [EGameHook.TREASURE_MAP_SPOT]: (this: void, spot: TName, treasure: ITreasureDescriptor) => TName;
 }
 
 /**
@@ -65,6 +75,7 @@ export interface IGameModifierHooks {
  */
 export interface IGameGuardHooks {
   [EGameHook.SIMULATION_TARGET_VALIDITY]: (this: void, target: TSimulationObject, squad: Squad) => Nillable<TLabel>;
+  [EGameHook.SMART_TERRAIN_DISCOVERY]: (this: void, terrainName: TName) => Nillable<TLabel>;
 }
 
 /**

@@ -2,6 +2,7 @@ import { level } from "xray16";
 import { TLabel, TName, TNumberId } from "xray16/lib";
 
 import { mapMarks } from "@/engine/constants/map_marks";
+import { applyGameModifierHook, EGameHook } from "@/engine/core/hooks";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 
@@ -35,10 +36,14 @@ export function removeTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescri
 
 /**
  * @param descriptor - Descriptor of treasure object to get mark for.
- * @returns Icon name for provided descriptor, based on treasure type.
+ * @returns Icon name for provided descriptor, typed in enhanced mode, as the treasure map spot hook leaves it.
  */
 export function getTreasureMapSpot(descriptor: ITreasureDescriptor): TName {
-  return treasureConfig.ENHANCED_MODE_ENABLED ? getTypedTreasureMapSpot(descriptor) : mapMarks.treasure;
+  return applyGameModifierHook(
+    EGameHook.TREASURE_MAP_SPOT,
+    treasureConfig.ENHANCED_MODE_ENABLED ? getTypedTreasureMapSpot(descriptor) : mapMarks.treasure,
+    descriptor
+  );
 }
 
 /**

@@ -1,16 +1,15 @@
 import { level } from "xray16";
 import { abort, Nillable, TName, TRUE, TStringId } from "xray16/lib";
-import { $isNil } from "xray16/macros";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { pickSectionFromCondList } from "@/engine/core/ini";
-import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
+import { getSmartTerrainDiscoveryRejection } from "@/engine/core/managers/map/utils/map_terrain_discovery";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
 
 /**
@@ -41,7 +40,7 @@ export function isTravelRouteAvailable(terrainName: TName, descriptor: ITravelRo
     return false;
   }
 
-  if (mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT && !hasInfoPortion(string.format("%s_visited", terrainName))) {
+  if ($isNotNil(getSmartTerrainDiscoveryRejection(terrainName))) {
     return false;
   }
 

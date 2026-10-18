@@ -1,11 +1,13 @@
 import { game, level } from "xray16";
 import { Nillable, TLabel, TName, TNumberId, TRUE } from "xray16/lib";
+import { $isNil } from "xray16/macros";
 
 import { mapMarks } from "@/engine/constants/map_marks";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/database/forge_config";
 import { pickSectionFromCondList } from "@/engine/core/ini";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
+import { getSmartTerrainDiscoveryRejection } from "@/engine/core/managers/map/utils/map_terrain_discovery";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import {
   getSimulationTerrainAssignedSquadsCount,
@@ -14,7 +16,6 @@ import {
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils/smart_terrain_generic_utils";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ERelation } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 
@@ -24,10 +25,7 @@ import { isEmpty } from "@/engine/core/utils/table";
  */
 export function updateTerrainsMapSpotDisplay(): void {
   for (const [, descriptor] of mapDisplayConfig.MAP_SPOTS) {
-    if (
-      !descriptor.isVisible &&
-      (!mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT || hasInfoPortion(string.format("%s_visited", descriptor.target)))
-    ) {
+    if (!descriptor.isVisible && $isNil(getSmartTerrainDiscoveryRejection(descriptor.target))) {
       const objectId: Nillable<TNumberId> = getObjectIdByStoryId(descriptor.target);
 
       if (objectId) {
