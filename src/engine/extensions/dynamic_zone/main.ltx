@@ -1,4 +1,5 @@
-; Dynamic zone: respawn points wait longer and respawn fewer squads, and squads at or near bases are not hunted.
+; Dynamic zone: respawn points wait longer and respawn fewer squads, squads at or near bases are not hunted, and enemy
+; squads away from the player fight offline.
 
 [respawn]
 ; Game seconds a respawn point waits between respawn attempts.
@@ -14,5 +15,19 @@ stalker_factor = 0.5
 monster_factor = 0.75
 
 [hunting]
-; Metres from a base smart terrain within which squads are not hunted; squads assigned to a base never are.
+; Metres from a base smart terrain within which squads are not hunted and do not fight offline; squads assigned to a
+; base never are, nor do.
 base_protection_radius = 75
+
+[combat]
+; Metres within which enemy offline squads fight; squads staying on the same target fight wherever they stand.
+distance = 20
+; Real seconds between rounds of offline battles.
+scan_interval = 30
+; Share of its power a squad deals in a round: the base plus up to the spread at random. A stalker's power is its
+; rank, a mutant's its rank times the factor.
+hit_base = 0.4
+hit_spread = 0.2
+monster_rank_factor = 8
+; Bodies offline battles leave before the oldest of them away from the player are released.
+corpse_limit = 50

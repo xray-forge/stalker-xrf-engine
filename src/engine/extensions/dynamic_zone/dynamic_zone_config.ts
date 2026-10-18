@@ -15,8 +15,19 @@ export interface IDynamicZoneConfig {
   // Factors scaling how many squads a respawn section may have alive.
   stalkerRespawnFactor: TRate;
   monsterRespawnFactor: TRate;
-  // Distance from a base terrain within which squads are not hunted.
+  // Distance from a base terrain within which squads are not hunted and do not fight offline.
   baseProtectionRadius: TDistance;
+  // Distance within which enemy offline squads fight.
+  combatDistance: TDistance;
+  // Real seconds between offline battle rounds.
+  combatScanInterval: TDuration;
+  // Share of a squad's power it deals as damage in a round: the base plus up to the spread at random.
+  combatHitBase: TRate;
+  combatHitSpread: TRate;
+  // Power of a mutant per rank point, a stalker's power being its rank.
+  monsterRankFactor: TRate;
+  // Bodies offline battles leave before the oldest offline ones are released.
+  corpseLimit: TCount;
 }
 
 /**
@@ -47,5 +58,11 @@ export function readDynamicZoneConfig(ini: IniFile): IDynamicZoneConfig {
     stalkerRespawnFactor: readIniNumber(ini, "population", "stalker_factor", false, 0.5),
     monsterRespawnFactor: readIniNumber(ini, "population", "monster_factor", false, 0.75),
     baseProtectionRadius: readIniNumber(ini, "hunting", "base_protection_radius", false, 75),
+    combatDistance: readIniNumber(ini, "combat", "distance", false, 20),
+    combatScanInterval: readIniNumber(ini, "combat", "scan_interval", false, 30),
+    combatHitBase: readIniNumber(ini, "combat", "hit_base", false, 0.4),
+    combatHitSpread: readIniNumber(ini, "combat", "hit_spread", false, 0.2),
+    monsterRankFactor: readIniNumber(ini, "combat", "monster_rank_factor", false, 8),
+    corpseLimit: readIniNumber(ini, "combat", "corpse_limit", false, 50),
   };
 }

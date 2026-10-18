@@ -1,15 +1,18 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { LuaArray } from "xray16/lib";
+import { AnyObject, LuaArray } from "xray16/lib";
+import { $fromArray } from "xray16/macros";
 import { MockIniFile } from "xray16/mocks";
 
+import { getManager } from "@/engine/core/database";
 import { getGameHookRegistrations } from "@/engine/core/hooks/hooks";
 import { EGameHook, EGameHookPhase, IGameHookRegistration } from "@/engine/core/hooks/hooks_types";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getDynamicZoneHuntingRejection } from "@/engine/extensions/dynamic_zone/dynamic_zone_hunting";
 import {
   getDynamicZoneRespawnIdle,
   getDynamicZoneRespawnLimit,
 } from "@/engine/extensions/dynamic_zone/dynamic_zone_respawn";
-import { enabled, name, register } from "@/engine/extensions/dynamic_zone/main";
+import { enabled, load, name, register, save } from "@/engine/extensions/dynamic_zone/main";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 
 jest.mock("@/engine/core/extensions/extensions_config", () => ({
@@ -26,7 +29,7 @@ describe("dynamic zone extension", () => {
     expect(enabled).toBe(false);
   });
 
-  it("should register its respawn and hunting handlers, owned by it, with their contexts", () => {
+  it("should register its respawn, hunting and offline battle handlers, owned by it, with their contexts", () => {
     register(false, mockExtension({ name: "dynamic_zone" }));
 
     const idle: LuaArray<IGameHookRegistration> = getGameHookRegistrations(EGameHook.SMART_TERRAIN_RESPAWN_IDLE);
@@ -46,6 +49,23 @@ describe("dynamic zone extension", () => {
 
     expect(guard.length()).toBe(1);
     expect(guard.get(1)).toMatchObject({ handler: getDynamicZoneHuntingRejection, owner: name });
-    expect(guard.get(1).context).toEqual({ baseProtectionRadiusSqr: 5_625, baseTerrains: null });
+    expect(guard.get(1).context).toEqual({ protectionRadiusSqr: 5_625, terrains: null });
+    expect(getManager(EventsManager).getEventSubscribersCount(EGameEvent.ACTOR_UPDATE_1000)).toBe(1);
+  });
+
+  it("should keep the bodies offline battles left across saves", () => {
+    const corpses = $fromArray([{ id: 10, name: "test_body_10" }]);
+    const data: AnyObject = {};
+
+    register(false, mockExtension({ name: "dynamic_zone" }));
+    load({ corpses });
+    save(data);
+
+    expect(data.corpses).toBe(corpses);
+
+    load({});
+    save(data);
+
+    expect(data.corpses).toEqualLuaArrays([]);
   });
 });

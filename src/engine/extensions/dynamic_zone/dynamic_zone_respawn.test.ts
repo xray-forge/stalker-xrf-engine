@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { TDuration, TName } from "xray16/lib";
-import { $fromArray, $fromObject } from "xray16/macros";
+import { $fromArray } from "xray16/macros";
+import { MockIniFile } from "xray16/mocks";
 
 import { parseConditionsList } from "@/engine/core/ini";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { IDynamicZoneConfig } from "@/engine/extensions/dynamic_zone/dynamic_zone_config";
+import { IDynamicZoneConfig, readDynamicZoneConfig } from "@/engine/extensions/dynamic_zone/dynamic_zone_config";
 import {
   getDynamicZoneRespawnIdle,
   getDynamicZoneRespawnLimit,
@@ -12,13 +12,9 @@ import {
 } from "@/engine/extensions/dynamic_zone/dynamic_zone_respawn";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 
-const config: IDynamicZoneConfig = {
-  respawnIdle: 86_400,
-  respawnIdleByTerrain: $fromObject<TName, TDuration>({ test_hub: 7_200 }),
-  stalkerRespawnFactor: 0.5,
-  monsterRespawnFactor: 0.75,
-  baseProtectionRadius: 150,
-};
+const config: IDynamicZoneConfig = readDynamicZoneConfig(
+  MockIniFile.mock("main.ltx", { respawn_idle: { test_hub: 7_200 } })
+);
 
 beforeEach(() => {
   resetRegistry();
