@@ -727,14 +727,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Callback to handle death of squad members.
    *
    * @param object - Object facing death event.
+   * @param killer - Object that killed it.
    */
-  public onMemberDeath(object: ServerObject): void {
+  public onMemberDeath(object: ServerObject, killer: ServerObject): void {
     simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
 
     this.storyPlayback.unregisterObject(object.id);
     this.unregister_member(object.id);
 
-    EventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, this, object);
+    EventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, this, object, killer);
 
     // Release and finalize squad object.
     if (this.npc_count() === 0) {

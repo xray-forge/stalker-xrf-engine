@@ -37,20 +37,29 @@ describe("killSquadMember", () => {
     registerSimulator();
   });
 
-  it("should kill online members on the client and offline members on the server", () => {
+  it("should kill online members on the client and offline members through their server death handler", () => {
     const online: ServerHumanObject = MockAlifeHumanStalker.mock();
     const offline: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const killer: ServerHumanObject = MockAlifeHumanStalker.mock();
     const object: GameObject = MockGameObject.mock({ id: online.id });
 
     registerObject(object);
-    jest.spyOn(online, "kill");
-    jest.spyOn(offline, "kill");
+    jest.spyOn(online, "on_death");
+    jest.spyOn(offline, "on_death");
 
     killSquadMember(online);
     killSquadMember(offline);
 
     expect(object.kill).toHaveBeenCalledWith(object);
-    expect(online.kill).not.toHaveBeenCalled();
-    expect(offline.kill).toHaveBeenCalledTimes(1);
+    expect(online.on_death).not.toHaveBeenCalled();
+    expect(offline.on_death).toHaveBeenCalledWith(offline);
+    expect(offline.alive()).toBe(false);
+
+    const another: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    jest.spyOn(another, "on_death");
+    killSquadMember(another, killer);
+
+    expect(another.on_death).toHaveBeenCalledWith(killer);
   });
 });

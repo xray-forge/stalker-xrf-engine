@@ -31,7 +31,7 @@ function createSquadMember(id: number): AnyObject {
   return {
     object: {
       id,
-      kill: jest.fn(),
+      on_death: jest.fn(),
       name: jest.fn(() => `member_${id}`),
       position: {},
     },
@@ -79,7 +79,8 @@ describe("killAllSurgeUnhidden", () => {
     killAllSurgeUnhidden();
 
     expect(crow.hit).toHaveBeenCalledTimes(1);
-    expect(member.object.kill).toHaveBeenCalledTimes(1);
+    expect(member.object.on_death).toHaveBeenCalledTimes(1);
+    expect(member.object.on_death).toHaveBeenCalledWith(member.object);
   });
 
   it("should preserve squads protected by surge covers, immunity, or story-object status", () => {
@@ -102,9 +103,9 @@ describe("killAllSurgeUnhidden", () => {
 
     killAllSurgeUnhidden();
 
-    expect(protectedMember.object.kill).not.toHaveBeenCalled();
-    expect(immuneMember.object.kill).not.toHaveBeenCalled();
-    expect(storyMember.object.kill).not.toHaveBeenCalled();
+    expect(protectedMember.object.on_death).not.toHaveBeenCalled();
+    expect(immuneMember.object.on_death).not.toHaveBeenCalled();
+    expect(storyMember.object.on_death).not.toHaveBeenCalled();
   });
 
   it("should apply the survival effect and actor input lock when the actor can survive the surge", () => {
@@ -136,7 +137,7 @@ describe("killAllSurgeUnhidden", () => {
     killAllSurgeUnhidden();
 
     expect(database.registry.actor.kill).toHaveBeenCalledWith(database.registry.actor);
-    expect(member.object.kill).toHaveBeenCalledTimes(2);
+    expect(member.object.on_death).toHaveBeenCalledTimes(2);
   });
 });
 
@@ -156,7 +157,7 @@ describe("killAllSurgeUnhiddenAfterActorDeath", () => {
 
     killAllSurgeUnhiddenAfterActorDeath();
 
-    expect(member.object.kill).toHaveBeenCalledTimes(1);
+    expect(member.object.on_death).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -179,7 +180,9 @@ describe("surge kills of squads whose members leave on death", () => {
     const members: Array<AnyObject> = [createSquadMember(10), createSquadMember(11), createSquadMember(12)];
     const listed: Array<AnyObject> = [...members];
 
-    members.forEach((member) => member.object.kill.mockImplementation(() => listed.splice(listed.indexOf(member), 1)));
+    members.forEach((member) =>
+      member.object.on_death.mockImplementation(() => listed.splice(listed.indexOf(member), 1))
+    );
 
     return [{ ...createSquad(members[0]), squad_members: jest.fn(() => listed.values()) }, members];
   }
@@ -190,7 +193,7 @@ describe("surge kills of squads whose members leave on death", () => {
     setSimulationSquads(squad);
     killAllSurgeUnhidden();
 
-    members.forEach((member) => expect(member.object.kill).toHaveBeenCalledTimes(1));
+    members.forEach((member) => expect(member.object.on_death).toHaveBeenCalledTimes(1));
   });
 
   it("should kill every member once after actor death when each death unregisters the member", () => {
@@ -199,6 +202,6 @@ describe("surge kills of squads whose members leave on death", () => {
     setSimulationSquads(squad);
     killAllSurgeUnhiddenAfterActorDeath();
 
-    members.forEach((member) => expect(member.object.kill).toHaveBeenCalledTimes(1));
+    members.forEach((member) => expect(member.object.on_death).toHaveBeenCalledTimes(1));
   });
 });

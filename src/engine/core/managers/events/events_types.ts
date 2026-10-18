@@ -195,7 +195,7 @@ export enum EGameEvent {
    */
   SQUAD_ACTION_SELECTED,
   /**
-   * Squad member died and left the squad.
+   * Squad member died and left the squad, with the object that killed it.
    */
   SQUAD_MEMBER_DIED,
   /**

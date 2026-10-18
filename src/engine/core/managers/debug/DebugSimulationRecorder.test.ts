@@ -50,6 +50,28 @@ afterEach(() => {
 });
 
 describe("DebugSimulationRecorder", () => {
+  it("should name who killed a squad member and whether the squad was offline", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const recorder: DebugSimulationRecorder = new DebugSimulationRecorder();
+    const squad: MockSquad = MockSquad.mock();
+    const member: ServerHumanObject = MockAlifeHumanStalker.mock({ name: "test_member" });
+    const killer: ServerHumanObject = MockAlifeHumanStalker.mock({ name: "test_killer" });
+
+    jest.spyOn(squad, "name").mockImplementation(() => "test_squad");
+    recorder.start();
+
+    eventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, squad, member, killer);
+    squad.mockSetOnline(false);
+    eventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, squad, member, killer);
+
+    expect(getTexts(recorder)).toEqual([
+      "test_squad lost test_member to test_killer offline, 0 left",
+      "test_squad lost test_member to test_killer, 0 left",
+    ]);
+
+    recorder.stop();
+  });
+
   it("should record simulation events only while recording", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const recorder: DebugSimulationRecorder = new DebugSimulationRecorder();
@@ -73,7 +95,7 @@ describe("DebugSimulationRecorder", () => {
     eventsManager.emitEvent(EGameEvent.SQUAD_ACTION_SELECTED, squad);
     // A scripted squad renews the same stay on every update.
     eventsManager.emitEvent(EGameEvent.SQUAD_ACTION_SELECTED, squad);
-    eventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, squad, member);
+    eventsManager.emitEvent(EGameEvent.SQUAD_MEMBER_DIED, squad, member, member);
     eventsManager.emitEvent(EGameEvent.SMART_TERRAIN_SQUAD_RESPAWNED, terrain, squad);
     eventsManager.emitEvent(EGameEvent.SQUAD_TERRAIN_ASSIGNED, squad, null, terrain.id);
     eventsManager.emitEvent(EGameEvent.SQUAD_RELEASED, squad);

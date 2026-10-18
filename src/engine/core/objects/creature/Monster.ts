@@ -79,7 +79,7 @@ export class Monster extends cse_alife_monster_base {
     }
 
     if (this.group_id !== MAX_ALIFE_ID) {
-      (registry.simulator.object(this.group_id) as Squad).onMemberDeath(this);
+      (registry.simulator.object(this.group_id) as Squad).onMemberDeath(this, killer);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_DEATH_ALIFE, this, killer);

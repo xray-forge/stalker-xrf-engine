@@ -185,8 +185,10 @@ export class DebugSimulationRecorder {
     }
   }
 
-  public onSquadMemberDied(squad: Squad, object: ServerObject): void {
-    this.record(squad, `lost ${object.name()}, ${squad.npc_count()} left`);
+  public onSquadMemberDied(squad: Squad, object: ServerObject, killer: Nillable<ServerObject>): void {
+    const by: TLabel = $isNil(killer) || killer.id === object.id ? "" : ` to ${killer.name()}`;
+
+    this.record(squad, `lost ${object.name()}${by}${squad.online ? "" : " offline"}, ${squad.npc_count()} left`);
   }
 
   public onTerrainSquadRespawned(terrain: SmartTerrain, squad: Squad): void {

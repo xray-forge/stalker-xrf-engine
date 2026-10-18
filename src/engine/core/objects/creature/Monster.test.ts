@@ -147,7 +147,7 @@ describe("Monster server object", () => {
 
     expect(onMonsterDeath).toHaveBeenCalledTimes(1);
     expect(onMonsterDeath).toHaveBeenCalledWith(monster, killer);
-    expect(squad.onMemberDeath).toHaveBeenCalledWith(monster);
+    expect(squad.onMemberDeath).toHaveBeenCalledWith(monster, killer);
     expect(terrain.onObjectDeath).toHaveBeenCalledWith(monster);
   });
 

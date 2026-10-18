@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ServerHumanObject } from "xray16/alias";
 import { AnyObject, MAX_ALIFE_ID, NIL } from "xray16/lib";
 import {
   EMockPacketDataType,
@@ -149,12 +150,14 @@ describe("Stalker server object", () => {
     stalker.m_smart_terrain_id = terrain.id;
     stalker.group_id = squad.id;
 
-    stalker.on_death(MockAlifeHumanStalker.mock());
+    const killer: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    stalker.on_death(killer);
 
     expect(terrain.onObjectDeath).toHaveBeenCalledTimes(1);
     expect(terrain.onObjectDeath).toHaveBeenCalledWith(stalker);
     expect(squad.onMemberDeath).toHaveBeenCalledTimes(1);
-    expect(squad.onMemberDeath).toHaveBeenCalledWith(stalker);
+    expect(squad.onMemberDeath).toHaveBeenCalledWith(stalker, killer);
   });
 
   it("should correctly handle death callback if squad or smart does not exist", () => {
