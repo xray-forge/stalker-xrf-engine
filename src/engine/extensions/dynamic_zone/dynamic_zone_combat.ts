@@ -303,7 +303,7 @@ export function killDynamicZoneWounded(
 }
 
 /**
- * Raise the rank of a stalker credited with a kill by the damage its squad dealt, and its commander's by a random gain.
+ * Raise the rank of a stalker credited with a kill by the damage its squad dealt, and its commander's by a random share.
  *
  * @param combat - State of offline battles.
  * @param squad - Squad of the killer.
@@ -322,24 +322,31 @@ export function rewardDynamicZoneKiller(
 
   // Both sides strike at once, so the killer may have fallen in the same round.
   if (killer.alive()) {
-    raiseDynamicZoneRank(killer as ServerHumanObject, math.ceil(damage * combat.config.killRankGain));
+    raiseDynamicZoneRank(killer as ServerHumanObject, damage * combat.config.killRankGain);
   }
 
   const commander: Nillable<ServerCreatureObject> = registry.simulator.object(squad.commander_id());
 
   if ($isNotNil(commander) && isStalker(commander) && commander.alive()) {
-    raiseDynamicZoneRank(commander as ServerHumanObject, math.random(1, combat.config.commanderRankGain));
+    raiseDynamicZoneRank(commander as ServerHumanObject, math.random() * combat.config.commanderRankGain);
   }
 }
 
 /**
+ * Raise a rank by a gain, its fraction a chance of one more point, as ranks are whole.
+ *
  * @param stalker - Stalker to promote.
  * @param gain - Rank points to add.
  */
-function raiseDynamicZoneRank(stalker: ServerHumanObject, gain: TCount): void {
-  logger.info("Offline battle rank gain: %s %s +%s", stalker.name(), stalker.rank(), gain);
+function raiseDynamicZoneRank(stalker: ServerHumanObject, gain: TRate): void {
+  const whole: TCount = math.floor(gain);
+  const points: TCount = whole + (math.random() < gain - whole ? 1 : 0);
 
-  stalker.set_rank(stalker.rank() + gain);
+  if (points > 0) {
+    logger.info("Offline battle rank gain: %s %s +%s", stalker.name(), stalker.rank(), points);
+
+    stalker.set_rank(stalker.rank() + points);
+  }
 }
 
 /**

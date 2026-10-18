@@ -169,7 +169,7 @@ describe("getDynamicZoneMemberPower", () => {
 
 describe("killDynamicZoneWounded", () => {
   it("should kill the members the wounds account for, crediting a member of the other squad", () => {
-    const combat: IDynamicZoneCombat = mockCombat();
+    const combat: IDynamicZoneCombat = mockCombat({ kill_rank_gain: 0.1 });
     const members: LuaArray<ServerCreatureObject> = $fromArray<ServerCreatureObject>([
       MockAlifeHumanStalker.mock({ rank: 10 }),
       MockAlifeHumanStalker.mock({ rank: 20 }),
@@ -188,8 +188,8 @@ describe("killDynamicZoneWounded", () => {
     expect(weak.on_death).toHaveBeenCalledWith(killer);
     expect(middle.on_death).toHaveBeenCalledWith(killer);
     expect(strong.alive()).toBe(true);
-    // Two kills of ceil(35 x 0.004) each, and the killer commands its squad: two commander gains of one.
-    expect(killer.rank()).toBe(54);
+    // Two kills of 35 x 0.1 each, the half point a chance the draw of half misses, and no commander point at it.
+    expect(killer.rank()).toBe(56);
     expect(combat.corpses).toEqualLuaArrays([
       { id: weak.id, name: weak.name() },
       { id: middle.id, name: middle.name() },
@@ -218,7 +218,8 @@ describe("rewardDynamicZoneKiller", () => {
     const squad: MockSquad = mockFighters(communities.stalker, [100, 200]);
     const [commander, killer] = getMembers(squad);
 
-    jest.spyOn(math, "random").mockImplementation((() => 3) as typeof math.random);
+    // The kill's 4.1 points win their fraction, the commander draws 0.6 of 5 points and misses no fraction.
+    jest.spyOn(math, "random").mockReturnValueOnce(0.05).mockReturnValueOnce(0.6).mockReturnValueOnce(0.9);
 
     rewardDynamicZoneKiller(combat, squad, killer, 41);
 
@@ -227,7 +228,7 @@ describe("rewardDynamicZoneKiller", () => {
   });
 
   it("should not raise a killer fallen in the same round, nor mutants", () => {
-    const combat: IDynamicZoneCombat = mockCombat();
+    const combat: IDynamicZoneCombat = mockCombat({ commander_rank_gain: 4 });
     const squad: MockSquad = mockFighters(communities.stalker, [100, 200]);
     const [commander, killer] = getMembers(squad);
     const monsters: MockSquad = MockSquad.mock();
@@ -242,7 +243,7 @@ describe("rewardDynamicZoneKiller", () => {
     rewardDynamicZoneKiller(combat, monsters, monster, 100);
 
     expect(killer.rank()).toBe(200);
-    expect(commander.rank()).toBe(101);
+    expect(commander.rank()).toBe(102);
     expect(monster.rank()).toBe(10);
   });
 });
