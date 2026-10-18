@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { ServerCreatureObject } from "xray16/alias";
-import { LuaArray, TName, TRate } from "xray16/lib";
+import { LuaArray, MAX_ALIFE_ID, TName, TRate } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
-import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockIniFile } from "xray16/mocks";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockAlifeSimulator, MockIniFile } from "xray16/mocks";
 import { replaceFunctionMock } from "xray16/testing/utils";
 
 import { communities, TCommunity } from "@/engine/constants/communities";
@@ -22,6 +22,7 @@ import {
   IDynamicZoneCombat,
   killDynamicZoneWounded,
   releaseDynamicZoneCorpses,
+  rewardDynamicZoneKiller,
   updateDynamicZoneCombat,
 } from "@/engine/extensions/dynamic_zone/dynamic_zone_combat";
 import { IDynamicZoneConfig, readDynamicZoneConfig } from "@/engine/extensions/dynamic_zone/dynamic_zone_config";
@@ -49,9 +50,14 @@ function mockFighters(faction: TCommunity, ranks: Array<number>): MockSquad {
   squad.mockSetOnline(false);
 
   for (const rank of ranks) {
-    squad.mockAddMember(MockAlifeHumanStalker.mock({ rank }));
+    const member: ServerCreatureObject = MockAlifeHumanStalker.mock({ rank });
+
+    MockAlifeSimulator.addToRegistry(member);
+    squad.mockAddMember(member);
   }
 
+  // The engine commands a squad by its member of the lowest id.
+  jest.spyOn(squad, "commander_id").mockImplementation(() => getMembers(squad)[0]?.id ?? MAX_ALIFE_ID);
   registry.simulationObjects.set(squad.id, squad);
 
   return squad;
@@ -170,17 +176,20 @@ describe("killDynamicZoneWounded", () => {
       MockAlifeHumanStalker.mock({ rank: 30 }),
     ]);
     const [weak, middle, strong] = [members.get(1), members.get(2), members.get(3)];
-    const killer: ServerCreatureObject = MockAlifeHumanStalker.mock({ rank: 50 });
+    const enemy: MockSquad = mockFighters(communities.monolith, [50]);
+    const [killer] = getMembers(enemy);
 
     mockRandom();
     jest.spyOn(weak, "on_death");
     jest.spyOn(middle, "on_death");
 
-    killDynamicZoneWounded(combat, members, 25, $fromArray([killer]));
+    killDynamicZoneWounded(combat, members, 25, enemy, $fromArray([killer]), 35);
 
     expect(weak.on_death).toHaveBeenCalledWith(killer);
     expect(middle.on_death).toHaveBeenCalledWith(killer);
     expect(strong.alive()).toBe(true);
+    // Two kills of ceil(35 x 0.004) each, and the killer commands its squad: two commander gains of one.
+    expect(killer.rank()).toBe(54);
     expect(combat.corpses).toEqualLuaArrays([
       { id: weak.id, name: weak.name() },
       { id: middle.id, name: middle.name() },
@@ -194,10 +203,47 @@ describe("killDynamicZoneWounded", () => {
       MockAlifeHumanStalker.mock({ rank: 20 }),
     ]);
 
-    killDynamicZoneWounded(combat, members, -5, $fromArray<ServerCreatureObject>([MockAlifeHumanStalker.mock()]));
+    const enemy: MockSquad = mockFighters(communities.monolith, [50]);
+
+    killDynamicZoneWounded(combat, members, -5, enemy, $fromArray(getMembers(enemy)), 35);
 
     expect(members.get(1).alive()).toBe(false);
     expect(members.get(2).alive()).toBe(false);
+  });
+});
+
+describe("rewardDynamicZoneKiller", () => {
+  it("should raise a living stalker killer by the damage and its squad's commander at random", () => {
+    const combat: IDynamicZoneCombat = mockCombat({ kill_rank_gain: 0.1, commander_rank_gain: 5 });
+    const squad: MockSquad = mockFighters(communities.stalker, [100, 200]);
+    const [commander, killer] = getMembers(squad);
+
+    jest.spyOn(math, "random").mockImplementation((() => 3) as typeof math.random);
+
+    rewardDynamicZoneKiller(combat, squad, killer, 41);
+
+    expect(killer.rank()).toBe(205);
+    expect(commander.rank()).toBe(103);
+  });
+
+  it("should not raise a killer fallen in the same round, nor mutants", () => {
+    const combat: IDynamicZoneCombat = mockCombat();
+    const squad: MockSquad = mockFighters(communities.stalker, [100, 200]);
+    const [commander, killer] = getMembers(squad);
+    const monsters: MockSquad = MockSquad.mock();
+    const monster: ServerCreatureObject = MockAlifeMonsterBase.mock({ rank: 10 });
+
+    MockAlifeSimulator.addToRegistry(monster);
+    monsters.mockAddMember(monster);
+    jest.spyOn(killer, "alive").mockImplementation(() => false);
+    mockRandom();
+
+    rewardDynamicZoneKiller(combat, squad, killer, 100);
+    rewardDynamicZoneKiller(combat, monsters, monster, 100);
+
+    expect(killer.rank()).toBe(200);
+    expect(commander.rank()).toBe(101);
+    expect(monster.rank()).toBe(10);
   });
 });
 

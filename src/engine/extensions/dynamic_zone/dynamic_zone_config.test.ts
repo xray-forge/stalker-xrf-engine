@@ -16,6 +16,8 @@ describe("readDynamicZoneConfig", () => {
       combatHitBase: 0.4,
       combatHitSpread: 0.2,
       monsterRankFactor: 8,
+      killRankGain: 0.004,
+      commanderRankGain: 2,
       corpseLimit: 50,
     });
 
@@ -32,6 +34,8 @@ describe("readDynamicZoneConfig", () => {
             hit_base: 0.5,
             hit_spread: 0.1,
             monster_rank_factor: 5,
+            kill_rank_gain: 0.01,
+            commander_rank_gain: 5,
             corpse_limit: 20,
           },
         })
@@ -47,6 +51,8 @@ describe("readDynamicZoneConfig", () => {
       combatHitBase: 0.5,
       combatHitSpread: 0.1,
       monsterRankFactor: 5,
+      killRankGain: 0.01,
+      commanderRankGain: 5,
       corpseLimit: 20,
     });
   });

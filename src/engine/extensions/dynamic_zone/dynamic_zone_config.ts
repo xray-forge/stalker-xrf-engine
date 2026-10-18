@@ -26,6 +26,9 @@ export interface IDynamicZoneConfig {
   combatHitSpread: TRate;
   // Power of a mutant per rank point, a stalker's power being its rank.
   monsterRankFactor: TRate;
+  // Rank a stalker gains for a kill per point of power its squad struck with, and the most its commander gains.
+  killRankGain: TRate;
+  commanderRankGain: TCount;
   // Bodies offline battles leave before the oldest offline ones are released.
   corpseLimit: TCount;
 }
@@ -63,6 +66,8 @@ export function readDynamicZoneConfig(ini: IniFile): IDynamicZoneConfig {
     combatHitBase: readIniNumber(ini, "combat", "hit_base", false, 0.4),
     combatHitSpread: readIniNumber(ini, "combat", "hit_spread", false, 0.2),
     monsterRankFactor: readIniNumber(ini, "combat", "monster_rank_factor", false, 8),
+    killRankGain: readIniNumber(ini, "combat", "kill_rank_gain", false, 0.004),
+    commanderRankGain: readIniNumber(ini, "combat", "commander_rank_gain", false, 2),
     corpseLimit: readIniNumber(ini, "combat", "corpse_limit", false, 50),
   };
 }

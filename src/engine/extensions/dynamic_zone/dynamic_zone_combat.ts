@@ -1,5 +1,5 @@
 import { time_global } from "xray16";
-import { ServerCreatureObject, ServerObject } from "xray16/alias";
+import { ServerCreatureObject, ServerHumanObject, ServerObject } from "xray16/alias";
 import {
   AnyObject,
   LuaArray,
@@ -205,8 +205,10 @@ function fightDynamicZoneBattle(
   const enemyMembers: LuaArray<ServerCreatureObject> = getSquadMembers(enemy);
   const squadPower: TRate = combat.power.get(squad.id) ?? getDynamicZoneSquadPower(combat, squadMembers);
   const enemyPower: TRate = combat.power.get(enemy.id) ?? getDynamicZoneSquadPower(combat, enemyMembers);
-  const squadLeft: TRate = squadPower - enemyPower * getDynamicZoneHitShare(combat);
-  const enemyLeft: TRate = enemyPower - squadPower * getDynamicZoneHitShare(combat);
+  const squadHit: TRate = squadPower * getDynamicZoneHitShare(combat);
+  const enemyHit: TRate = enemyPower * getDynamicZoneHitShare(combat);
+  const squadLeft: TRate = squadPower - enemyHit;
+  const enemyLeft: TRate = enemyPower - squadHit;
 
   logger.info(
     "Offline battle: %s %s -> %s, %s %s -> %s",
@@ -221,8 +223,8 @@ function fightDynamicZoneBattle(
   power.set(squad.id, squadLeft);
   power.set(enemy.id, enemyLeft);
 
-  killDynamicZoneWounded(combat, squadMembers, squadLeft, enemyMembers);
-  killDynamicZoneWounded(combat, enemyMembers, enemyLeft, squadMembers);
+  killDynamicZoneWounded(combat, squadMembers, squadLeft, enemy, enemyMembers, enemyHit);
+  killDynamicZoneWounded(combat, enemyMembers, enemyLeft, squad, squadMembers, squadHit);
 }
 
 /**
@@ -264,13 +266,17 @@ export function getDynamicZoneSquadPower(combat: IDynamicZoneCombat, members: Lu
  * @param combat - State of offline battles.
  * @param members - Members of the squad.
  * @param left - Power the squad has left.
+ * @param enemy - Squad it fights.
  * @param killers - Members of the squad it fights, one credited with each kill.
+ * @param damage - Power the squad it fights struck with this round.
  */
 export function killDynamicZoneWounded(
   combat: IDynamicZoneCombat,
   members: LuaArray<ServerCreatureObject>,
   left: TRate,
-  killers: LuaArray<ServerCreatureObject>
+  enemy: Squad,
+  killers: LuaArray<ServerCreatureObject>,
+  damage: TRate
 ): void {
   let wounds: TRate = getDynamicZoneSquadPower(combat, members) - math.max(left, 0);
   const count: TCount = members.length();
@@ -285,12 +291,55 @@ export function killDynamicZoneWounded(
     members.set(index, member);
 
     if (power <= wounds) {
+      const killer: ServerCreatureObject = killers.get(math.random(1, killers.length()));
+
       wounds -= power;
 
       table.insert(combat.corpses, { id: member.id, name: member.name() });
-      killSquadMember(member, killers.get(math.random(1, killers.length())));
+      killSquadMember(member, killer);
+      rewardDynamicZoneKiller(combat, enemy, killer, damage);
     }
   }
+}
+
+/**
+ * Raise the rank of a stalker credited with a kill by the damage its squad dealt, and its commander's by a random gain.
+ *
+ * @param combat - State of offline battles.
+ * @param squad - Squad of the killer.
+ * @param killer - Member credited with the kill.
+ * @param damage - Power its squad struck with this round.
+ */
+export function rewardDynamicZoneKiller(
+  combat: IDynamicZoneCombat,
+  squad: Squad,
+  killer: ServerCreatureObject,
+  damage: TRate
+): void {
+  if (!isStalker(killer)) {
+    return;
+  }
+
+  // Both sides strike at once, so the killer may have fallen in the same round.
+  if (killer.alive()) {
+    raiseDynamicZoneRank(killer as ServerHumanObject, math.ceil(damage * combat.config.killRankGain));
+  }
+
+  const commander: Nillable<ServerCreatureObject> = registry.simulator.object(squad.commander_id());
+
+  if ($isNotNil(commander) && isStalker(commander) && commander.alive()) {
+    raiseDynamicZoneRank(commander as ServerHumanObject, math.random(1, combat.config.commanderRankGain));
+  }
+}
+
+/**
+ * @param stalker - Stalker to promote.
+ * @param gain - Rank points to add.
+ */
+function raiseDynamicZoneRank(stalker: ServerHumanObject, gain: TCount): void {
+  logger.info("Offline battle rank gain: %s %s +%s", stalker.name(), stalker.rank(), gain);
+
+  stalker.set_rank(stalker.rank() + gain);
 }
 
 /**
