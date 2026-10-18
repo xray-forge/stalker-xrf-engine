@@ -18,6 +18,7 @@ import {
   createSimulationSquad,
   createSimulationSquadMembers,
   registerSimulationSquad,
+  releasePendingSimulationSquads,
   releaseSimulationSquad,
   setupSimulationObjectSquadAndGroup,
   unRegisterSimulationSquad,
@@ -334,7 +335,54 @@ describe("releaseSimulationSquad", () => {
     expect(squad.npc_count()).toBe(0);
     expect(registry.simulator.release).toHaveBeenCalledWith(first, true);
     expect(registry.simulator.release).toHaveBeenCalledWith(second, true);
+    expect(registry.simulator.release).not.toHaveBeenCalledWith(squad, true);
+    expect(simulationConfig.PENDING_SQUAD_RELEASES.get(squad.id)).toBe(squad.name());
     expect(squad.onReleased).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("releasePendingSimulationSquads", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+    mockRegisteredActor();
+  });
+
+  it("should release queued squads that are still empty, once", () => {
+    const squad: MockSquad = MockSquad.mock();
+
+    MockAlifeSimulator.addToRegistry(squad);
+    releaseSimulationSquad(squad);
+
+    releasePendingSimulationSquads();
+    releasePendingSimulationSquads();
+
+    expect(registry.simulator.release).toHaveBeenCalledTimes(1);
+    expect(registry.simulator.release).toHaveBeenCalledWith(squad, true);
+    expect(simulationConfig.PENDING_SQUAD_RELEASES).toEqualLuaTables({});
+  });
+
+  it("should skip queued squads already gone, refilled or replaced by another object", () => {
+    const gone: MockSquad = MockSquad.mock();
+    const refilled: MockSquad = MockSquad.mock();
+    const replaced: MockSquad = MockSquad.mock();
+    const member: ServerCreatureObject = MockAlifeHumanStalker.mock();
+
+    MockAlifeSimulator.removeFromRegistry(gone.id);
+    MockAlifeSimulator.addToRegistry(refilled);
+    MockAlifeSimulator.addToRegistry(replaced);
+    MockAlifeSimulator.addToRegistry(member);
+    refilled.mockAddMember(member);
+
+    simulationConfig.PENDING_SQUAD_RELEASES.set(gone.id, gone.name());
+    simulationConfig.PENDING_SQUAD_RELEASES.set(refilled.id, refilled.name());
+    simulationConfig.PENDING_SQUAD_RELEASES.set(replaced.id, "another_object");
+
+    releasePendingSimulationSquads();
+
+    expect(registry.simulator.release).not.toHaveBeenCalled();
+    expect(simulationConfig.PENDING_SQUAD_RELEASES).toEqualLuaTables({});
   });
 });
 

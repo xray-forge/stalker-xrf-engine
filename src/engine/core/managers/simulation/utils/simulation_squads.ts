@@ -184,7 +184,7 @@ export function createSimulationSquadMembers(squad: Squad, spawnTerrain: SmartTe
 
 /**
  * Release squad and squad members.
- * Un-assigns squad from smart terrain and then releases all squad members, the engine then releases the empty squad.
+ * Un-assigns squad from smart terrain, releases all squad members and queues the emptied squad for release.
  *
  * @param squad - Target squad object to remove with members including.
  */
@@ -202,7 +202,30 @@ export function releaseSimulationSquad(squad: Squad): void {
     }
   }
 
+  simulationConfig.PENDING_SQUAD_RELEASES.set(squad.id, squad.name());
+
   squad.onReleased();
+}
+
+/**
+ * Release the emptied squads queued by {@link releaseSimulationSquad}.
+ */
+export function releasePendingSimulationSquads(): void {
+  // Deferred, as a release destroys the squad at once while death handlers and kill loops still hold it. The engine
+  // itself releases an empty squad only on its level's switch pass and drops it from saves without unregistering it,
+  // so its respawn point would keep counting it.
+  for (const [id, name] of simulationConfig.PENDING_SQUAD_RELEASES) {
+    const squad: Nillable<Squad> = registry.simulator.object<Squad>(id);
+
+    simulationConfig.PENDING_SQUAD_RELEASES.delete(id);
+
+    // The engine may have released the empty squad already, and its id may belong to another object since.
+    if ($isNotNil(squad) && squad.name() === name && squad.npc_count() === 0) {
+      simulationLogger.info("Release emptied squad object: '%s'.", name);
+
+      registry.simulator.release(squad, true);
+    }
+  }
 }
 
 /**

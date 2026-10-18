@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { actor_stats } from "xray16";
 import { ACTOR_ID, AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { EMockPacketDataType, MockNetProcessor } from "xray16/mocks";
+import { EMockPacketDataType, MockAlifeSimulator, MockNetProcessor } from "xray16/mocks";
 
 import { disposeManager, getManager, initializeManager, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -81,6 +81,20 @@ describe("SimulationManager", () => {
     EventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_100);
 
     expect(registry.simulationObjects.has(actor.id)).toBe(false);
+  });
+
+  it("should release emptied squads on actor update", () => {
+    getManager(SimulationManager);
+
+    const squad: MockSquad = MockSquad.mock();
+
+    MockAlifeSimulator.addToRegistry(squad);
+    simulationConfig.PENDING_SQUAD_RELEASES.set(squad.id, squad.name());
+
+    EventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, 16);
+
+    expect(registry.simulator.release).toHaveBeenCalledWith(squad, true);
+    expect(simulationConfig.PENDING_SQUAD_RELEASES).toEqualLuaTables({});
   });
 
   it("should correctly destroy values", () => {

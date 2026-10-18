@@ -33,6 +33,8 @@ export const simulationConfig = {
   TERRAINS: new LuaTable<TName, SmartTerrain>(),
   TERRAIN_DESCRIPTORS: new LuaTable<TNumberId, ISmartTerrainDescriptor>(),
   SQUADS: new LuaTable<TNumberId, Squad>(),
+  // Names of released squads by id, their emptied server objects released on the next actor update.
+  PENDING_SQUAD_RELEASES: new LuaTable<TNumberId, TName>(),
   // Squads assigned to smart terrains before initialization of terrains.
   TEMPORARY_ASSIGNED_SQUADS: new LuaTable<TNumberId, LuaArray<Squad>>(),
   /**

@@ -62,5 +62,6 @@ export function destroySimulationData(): void {
   simulationConfig.TERRAINS = new LuaTable();
   simulationConfig.TERRAIN_DESCRIPTORS = new LuaTable();
   simulationConfig.SQUADS = new LuaTable();
+  simulationConfig.PENDING_SQUAD_RELEASES = new LuaTable();
   simulationConfig.TEMPORARY_ASSIGNED_SQUADS = new LuaTable();
 }

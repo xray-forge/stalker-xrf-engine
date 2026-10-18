@@ -9,7 +9,11 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrainJobScheduler } from "@/engine/core/managers/simulation/SmartTerrainJobScheduler";
-import { destroySimulationData, initializeDefaultSimulationSquads } from "@/engine/core/managers/simulation/utils";
+import {
+  destroySimulationData,
+  initializeDefaultSimulationSquads,
+  releasePendingSimulationSquads,
+} from "@/engine/core/managers/simulation/utils";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { LuaLogger } from "@/engine/core/utils/logging";
 
@@ -90,11 +94,14 @@ export class SimulationManager extends AbstractManager {
   }
 
   /**
-   * Delegate the actor update cadence to the smart-terrain dirty-job scheduler.
+   * Release squads emptied since the previous actor update and delegate the actor update cadence to the smart-terrain
+   * dirty-job scheduler.
    *
    * @param delta - Time passed since the previous actor update, in milliseconds.
    */
   public onActorUpdate(delta: TDuration): void {
+    releasePendingSimulationSquads();
+
     this.dirtyTerrainJobScheduler.update(delta);
   }
 
